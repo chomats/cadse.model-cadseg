@@ -132,6 +132,7 @@ public class GenerateCadseDefinitionModel {
 		Item[] itemTypes = ItemTypeManager.getAllItemType(theDataModel);
 		Arrays.sort(itemTypes, new ItemShortNameComparator());
 		for (Item itemType : itemTypes) {
+			if (itemType.getType() == CadseGCST.EXT_ITEM_TYPE) continue;
 			Item manager = ItemTypeManager.getManager(itemType);
 			if (manager == null) {
 				System.err.println("Generate cadse model : No manager found !! for " + itemType);
