@@ -119,7 +119,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 	public PagesImpl createPages() {
 		this.pages = new PageImpl("TWPref-page", "Cadse Repository Definition", "Cadse Repository Definition",
 				"Cadse Repository Definition", true, 3, newAction(), fieldsShash);
-		return new PagesImpl(this.newAction(), pages);
+		return new PagesImpl(false, this.newAction(), pages);
 	}
 
 	private IActionPage newAction() {

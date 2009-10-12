@@ -1125,7 +1125,7 @@ public class CommitDialogPage extends PageImpl {
 			public void run() {
 				try {
 					final CommitDialogPage p = new CommitDialogPage(commitState);
-					final Pages f = new PagesImpl(p.getFinishAction(), p);
+					final Pages f = new PagesImpl(false, p.getFinishAction(), p);
 					WizardController wc = new WizardController(f) {
 
 						@Override

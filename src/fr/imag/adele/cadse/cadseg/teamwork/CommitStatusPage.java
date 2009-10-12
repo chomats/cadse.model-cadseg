@@ -852,7 +852,7 @@ public class CommitStatusPage extends PageImpl {
 			public void run() {
 				try {
 					final CommitStatusPage p = new CommitStatusPage(commitState);
-					final Pages f = new PagesImpl(p.getFinishAction(), p);
+					final Pages f = new PagesImpl(false, p.getFinishAction(), p);
 					WizardController wc = new WizardController(f) {
 
 						@Override
