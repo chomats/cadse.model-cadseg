@@ -141,7 +141,7 @@ public class GenerateCadseDefinitionModel {
 			CItemType cit = factory.createCItemType();
 
 			cadse.getItemType().add(cit);
-			setItemType(cxt, itemType, manager, cit);
+			setItemType(cxt, (ItemType) itemType, manager, cit);
 			generateCommonInformation(cxt, factory, itemType, cit);
 		}
 
@@ -550,7 +550,7 @@ public class GenerateCadseDefinitionModel {
 	 * @param cit
 	 *            the cit
 	 */
-	private static void setItemType(ContextVariable cxt, Item itemType, Item manager, CItemType cit) {
+	private static void setItemType(ContextVariable cxt, ItemType itemType, Item manager, CItemType cit) {
 		cit.setId(ItemTypeManager.getIdRuntime(itemType).toString());
 		cit.setIntID(ItemTypeManager.getIntID(itemType));
 		cit.setName(itemType.getName());
@@ -591,7 +591,7 @@ public class GenerateCadseDefinitionModel {
 			pattern_valid_id = null;
 		}
 		cit.setPatternValidId(pattern_valid_id);
-		cit.setManagerClass(((JavaFileContentManager) manager.getContentItem()).getQualifiedClassName(cxt));
+		cit.setManagerClass(itemType.getItemManagerClass());
 		cit.setCstName(GenerateJavaIdentifier.cstItemType(cxt, itemType));
 
 	}

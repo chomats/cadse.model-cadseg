@@ -10,12 +10,14 @@ import javax.xml.bind.Marshaller;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.core.plugin.IPluginExtension;
@@ -26,6 +28,7 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.dependencies.eclipse.java.IJavaItemManager.DependencyNature;
 import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
+import fede.workspace.eclipse.java.JavaProjectManager;
 import fede.workspace.eclipse.java.osgi.OsgiManifest;
 import fede.workspace.tool.eclipse.MappingManager;
 import fede.workspace.tool.loadmodel.model.jaxb.CCadse;
@@ -42,6 +45,7 @@ import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.impl.var.StringVariable;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.si.view.View;
@@ -65,7 +69,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 					return "??";
 				return context.getAttribute(item, CadseGCST.ITEM_at_QUALIFIED_NAME_);
 			}
-		}, true);
+		}, new StringVariable("src"));
 	}
 
 	/*
@@ -88,7 +92,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	 */
 	@Override
 	protected String getDefaultPackage() {
-		return CadseDefinitionManager.getDefaultPackage(ContextVariable.DEFAULT, getItem());
+		return CadseDefinitionManager.getDefaultPackage(ContextVariable.DEFAULT, getOwnerItem());
 	}
 
 	/*
@@ -122,7 +126,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	@Override
 	public void computeManifest(OsgiManifest omf) {
 		omf.putArray(OsgiManifest.REQUIRE_BUNDLE, true, false, "org.eclipse.ui", "org.eclipse.ui.ide");
-		List<Item> dep = CadseDefinitionManager.getAllDependenciesCadse(getItem());
+		List<Item> dep = CadseDefinitionManager.getAllDependenciesCadse(getOwnerItem());
 		for (Item item : dep) {
 			omf.putArray(OsgiManifest.REQUIRE_BUNDLE, true, false, item.getQualifiedName());
 		}
@@ -194,20 +198,29 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	@Override
 	public void create() throws CadseException {
 		super.create();
+	
 		try {
 			IProgressMonitor monitor = View.getDefaultMonitor();
-
-			IFile launchAppli = getProject().getFile("run-cadse-" + getItem().getName() + ".launch");
+			JavaProjectManager.createJavaSourceFolder(getOwnerItem(), getProject().getFolder("src-gen"), null, monitor);
+			
+			IFile launchAppli = getProject().getFile("run-cadse-" + getOwnerItem().getName() + ".launch");
 			if (!launchAppli.exists()) {
 				LaunchApplicationTemplate lat = new LaunchApplicationTemplate();
 				MappingManager
-						.generate(getProject(), null, launchAppli.getName(), lat.generate(getItem()), monitor);
+						.generate(getProject(), null, launchAppli.getName(), lat.generate(getOwnerItem()), monitor);
 			}
 		} catch (CoreException e) {
 			throw new CadseException("Cannot create workspace project from cadse {0} : {1}", e,
-					getItem().getName(), e.getMessage());
+					getOwnerItem().getName(), e.getMessage());
 		}
 	}
+	
+	@Override
+	protected void computeModel(PDEGenerateModel model) {
+		super.computeModel(model);
+		model.sourceName = "src-gen";
+	}
+	
 
 	// private void setFile(IFile fdefinition, String plugin_id, String
 	// path,

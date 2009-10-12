@@ -21,6 +21,7 @@ package fr.imag.adele.cadse.cadseg;
 
 import java.util.Set;
 
+import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.exp.AttributeToken;
 import fr.imag.adele.cadse.cadseg.exp.ExpressionParseConstants;
 import fr.imag.adele.cadse.cadseg.exp.ItemExpressionParse;
@@ -144,16 +145,13 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 					break;
 				case ExpressionParseConstants.ATTR_LINK: {
 
-					Item linkItemType = fCurrentLink.getPartParent();
-					Item linkManager = ItemTypeManager.getManager(linkItemType);
-
-					String className = GenerateJavaIdentifier.getManagerClassName(cxt, (ItemType) linkItemType, linkManager);
-					String packageName = GenerateJavaIdentifier.getManagerPackage(cxt, (ItemType) linkItemType, linkManager);
-
-					String orinalPackageName = GenerateJavaIdentifier.getManagerPackage(cxt, (ItemType) _orignalItem, ItemTypeManager
-							.getManager(_orignalItem));
-
-					if (!packageName.equals(orinalPackageName)) {
+					ItemType linkItemType = (ItemType) fCurrentLink.getPartParent();
+					
+					String qClassName = linkItemType.getItemManagerClass();
+					String className =  JavaIdentifier.getlastclassName(qClassName);
+					String packageName = JavaIdentifier.getPackageName(qClassName);
+					
+					if (!packageName.equals(_orinalPackageName)) {
 						imports.add(packageName + "." + className);
 					}
 					useif++;
@@ -169,11 +167,11 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 					if (contextVariable) {
 
 					} else {
-						Item attrItemType = _currentAttr.getPartParent();
-						Item manager = ItemTypeManager.getManager(attrItemType);
-
-						String className = GenerateJavaIdentifier.getManagerClassName(cxt, (ItemType) attrItemType, manager);
-						String packageName = GenerateJavaIdentifier.getManagerPackage(cxt, (ItemType) attrItemType, manager);
+						ItemType attrItemType = (ItemType) _currentAttr.getPartParent();
+						
+						String qClassName = attrItemType.getItemManagerClass();
+						String className =  JavaIdentifier.getlastclassName(qClassName);
+						String packageName = JavaIdentifier.getPackageName(qClassName);
 
 						if (!packageName.equals(_orinalPackageName)) {
 							imports.add(packageName + "." + className);

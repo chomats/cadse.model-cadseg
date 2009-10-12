@@ -55,7 +55,7 @@ public class GenerateJavaIdentifier {
 	 * 
 	 * @return the manager class name
 	 */
-	public static String getManagerClassName(ContextVariable cxt, ItemType itemType, Item manager) {
+	public static String getManagerClassName(ContextVariable cxt, ItemType itemType, Item manager, boolean custom) {
 		//Item itemType = ManagerManager.getItemType(manager);
 		if (itemType != null && itemType.isRuntime()) {
 			String m = itemType.getAttribute(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_);
@@ -63,8 +63,9 @@ public class GenerateJavaIdentifier {
 		}
 		if (itemType == null)
 			itemType =(ItemType) ManagerManager.getItemType(manager);
-		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, "Manager");
+		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, custom ? "CustomManager": "Manager");
 	}
+	
 	
 	/**
 	 * Gets the manager class name.
@@ -128,6 +129,26 @@ public class GenerateJavaIdentifier {
 		if (itemType == null)
 			itemType =(ItemType) ManagerManager.getItemType(manager);
 		return getItemTypePackage(cxt, itemType, null, ".managers");
+	}
+	
+	/**
+	 * Gets the manager package.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param manager
+	 *            the manager
+	 * 
+	 * @return the manager package
+	 */
+	public static String getQualifiedManager(ContextVariable cxt, ItemType itemType, Item manager, boolean custom) {
+		if (itemType != null && itemType.isRuntime()) {
+			String m = itemType.getAttribute(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_);
+			return JavaIdentifier.getPackageName(m);
+		}
+		if (itemType == null)
+			itemType =(ItemType) ManagerManager.getItemType(manager);
+		return getItemTypePackage(cxt, itemType, null, ".managers")+"."+getManagerClassName(cxt, itemType, manager, custom);
 	}
 	
 	/**

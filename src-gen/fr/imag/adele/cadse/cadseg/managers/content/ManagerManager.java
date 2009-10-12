@@ -132,7 +132,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 			}, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
-					return GenerateJavaIdentifier.getManagerClassName(context, null, item);
+					return GenerateJavaIdentifier.getManagerClassName(context, null, item,false);
 				}
 			});
 		}
@@ -149,6 +149,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 			ManagerManager.GenerateModel cm = new ManagerManager.GenerateModel();
 
+			cxt.setGenerated(true);
 			ICompilationUnit cu = getCompilationUnit(cxt);
 			cm.itemtype = getItemType(manager);
 			cm.manager = manager;
@@ -158,6 +159,19 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 			IType type = cu.getType(cm.className);
 
 			ItemType superItem = (ItemType) ItemTypeManager.getSuperType(cm.itemtype);
+			if (superItem != null) {
+				cm.superClassName = superItem.getItemManagerClass();
+				cm.overwriteClass = true;
+			} else if (ItemTypeManager.isIsMetaItemTypeAttribute(cm.itemtype)) {
+				cm.superClassName = "fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager";
+				cm.overwriteClass = false;
+			} else {
+				cm.superClassName = "fr.imag.adele.cadse.core.DefaultItemManager";
+				cm.overwriteClass = true;
+			}
+			
+			/*// OLD CODE REMPLACED BY  superItem.getItemManagerClass()
+			 * 
 			if (superItem == CadseGCST.ITEM) {
 				cm.superClassName = "fr.imag.adele.cadse.core.DefaultItemManager";
 				cm.overwriteClass = true;
@@ -175,13 +189,10 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 							.getClassName(cxt);;
 				}
 				cm.overwriteClass = false;
-			} else if (ItemTypeManager.isIsMetaItemTypeAttribute(cm.itemtype)) {
-				cm.superClassName = "fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager";
-				cm.overwriteClass = false;
-			} else {
-				cm.superClassName = "fr.imag.adele.cadse.core.DefaultItemManager";
-				cm.overwriteClass = true;
-			}
+			} 
+			 * 
+			 * 
+			 */
 			cm.cm = this;
 
 			GenerateManager ge = new GenerateManager(cxt, cm, type);

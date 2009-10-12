@@ -3,6 +3,9 @@
  */
 package fr.imag.adele.cadse.cadseg.managers;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +17,8 @@ import java.util.logging.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
@@ -21,6 +26,7 @@ import org.eclipse.jdt.core.refactoring.IJavaRefactorings;
 import org.eclipse.jdt.core.refactoring.descriptors.RenameJavaElementDescriptor;
 import org.eclipse.jdt.ui.refactoring.RenameSupport;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.pde.core.plugin.IFragment;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -28,9 +34,13 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
+import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fede.workspace.eclipse.java.manager.JavaProjectContentManager;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
+import fr.imag.adele.cadse.cadseg.generate.GenerateJavaFileCST;
+import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
@@ -66,6 +76,7 @@ import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.fede.workspace.si.view.View;
 
 class RenameJavaClassMappingOperartion extends RenameMappingOperation {
 
@@ -485,6 +496,54 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	public void notifyChangeAttribute(LogicalWorkspaceTransaction wc, ItemDelta item, SetAttributeOperation attOperation)
 			throws CadseException {
 
+		if (attOperation.getAttributeDefinition() == CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER_) {
+			item.setAttribute(CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_, 
+						GenerateJavaIdentifier.getQualifiedManager(wc.getNewContext(), item.getAdapter(ItemType.class), ItemTypeManager.getManager(item),attOperation.getCurrentValue() == Boolean.TRUE));
+			if (attOperation.getCurrentValue() == Boolean.TRUE) {
+				item.addMappingOperaion(new MappingOperation(item) {
+					
+					@Override
+					protected String getLabel() {
+						return "custom manager";
+					}
+					
+					@Override
+					public void commit(LogicalWorkspace wl, Item theItemType) {
+						ItemType it = (ItemType) theItemType;
+						Item cm = ItemTypeManager.getCadseDefinition(theItemType);
+						CadseDefinitionContent	contentcm = (CadseDefinitionContent) cm.getContentItem();
+						String qClass = it.getItemManagerClass();
+						IFile f = contentcm.getSourceFolder(wl.getContext()).getFile(new Path(qClass.replace('.', '/')+".java"));
+						if (!f.exists()) {
+							String superQClass = GenerateJavaIdentifier.getQualifiedManager(wl.getContext(),it, ItemTypeManager.getManager(it),false);
+							String superCN = JavaIdentifier.getlastclassName(superQClass);
+							String superPN = JavaIdentifier.getPackageName(superQClass);
+							
+							String cn = JavaIdentifier.getlastclassName(qClass);
+							String pn = JavaIdentifier.getPackageName(qClass);
+							try {
+								StringBuilder sb = new StringBuilder();
+								sb.append("pacakge ").append(pn).append(";\n");
+								sb.append("\n");
+								if (!superPN.equals(pn)) 
+									sb.append("import ").append(superQClass).append(";\n\n");
+								sb.append("public class ").append(cn).append(" extends ").append(superCN).append(" {\n");
+								sb.append("\n\n}\n");
+								
+								String str = sb.toString();
+								f.create(new ByteArrayInputStream(str.getBytes(f.getProject().getDefaultCharset())), true, View.getDefaultMonitor());
+							} catch (CoreException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (UnsupportedEncodingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+				});
+			}
+		}
 		if (!item.isAdded() && item.getType() == CadseGCST.CADSE_DEFINITION
 				&& attOperation.getAttributeDefinition() == CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_) {
 			ContextVariable oldContext = wc.getOldContext();
@@ -1490,6 +1549,29 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 
 		for (ItemDelta oper : loadedItems) {
+			if (oper.getType() == CadseGCST.CADSE_DEFINITION) {
+				String qname = oper.getQualifiedName();
+				if (qname == null || !qname.contains("."))
+					try {
+						oper.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX+oper.getName());
+					} catch (CadseException ignored) {						
+					}
+			}
+			if (oper.getType() == CadseGCST.DATA_MODEL) {
+				Collection<LinkDelta> extLinks = oper.getOutgoingLinkOperations();
+				for (LinkDelta linkDelta : extLinks) {
+					if (linkDelta.getLinkTypeName().equals("ext-types")) {
+						try {
+							oper.createLink(CadseGCST.DATA_MODEL_lt_TYPES, linkDelta.getDestination());
+						} catch (CadseException ignored) {
+						}
+						try {
+							linkDelta.delete();
+						} catch (CadseException ignored) {
+						}
+					}
+				}
+			}
 			if (oper.getType() != CadseGCST.CREATION_DIALOG) {
 				continue;
 			}
