@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- 
 ExtItem.super-type = null
+Item.action-contributor (teamwork)
  -->
 <ns2:c-cadse display-name="CADSEg (Editor and generator of CADSEs)" description="CADSEg specializes the IDE to provide functionalities to edit and create CADSEs" cst-class="fr.imag.adele.cadse.core.CadseGCST" version="0" id_cadse_definition="0dc9a0d0-73ff-4e82-a181-1b6792d49e75" id="2b50360d-d835-4e98-80a8-bc55fe5421e7" name="Model.Workspace.CadseG" xmlns:ns2="http://fr.imag.adele/fede/workspace/model">
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/composer.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.build.composer.AJProjectComposerManager" display-name="AJProjectComposer" is-abstract="true" is-root-element="false" intID="0" has-content="true" package-name="build.composer" super-type-name="1b4f69bd-25a3-445e-b7d4-d106a72e3596" name="AJProjectComposer" qualified-name="CadseG.build.composer.AJProjectComposer" cst-name="AJPROJECT_COMPOSER" id="d2942fa2-260e-4697-aa6b-c74d5384cf47">
@@ -684,6 +685,7 @@ ExtItem.super-type = null
         <modification-pages>
             <page titre="Item" uuid="885d93a1-806d-4e0d-9475-205397f4e3f5" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.dataModel.ItemModificationPageItem_ModificationPage" id="modification-page-Item"/>
         </modification-pages>
+        <action-contributor class="fr.imag.adele.cadse.root.menu.TeamWorkMenuActionContributor"/>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/itemtype-icon.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager" display-name="Item type" is-abstract="false" is-root-element="false" intID="0" has-content="false" package-name="dataModel" super-type-name="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" name="ItemType" qualified-name="CadseG.dataModel.ItemType" cst-name="ITEM_TYPE" id="43808065-4f70-4290-adba-cca999431ba1">
         <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="86dafd46-a860-4575-abd9-8290ef8b5dff" cst-name="ITEM_TYPE_lt_CADSE_RUNTIME" intID="0" destination="b81c6546-c321-4590-b0eb-7b13929cb1dd" isPart="false" isRequire="false" isComposition="false" isAnnotation="false" isAggregation="false" max="1" min="0" name="cadse-runtime"/>
