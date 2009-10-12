@@ -112,11 +112,11 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		}
 
 		@Override
-		public SpaceKey computeKey(String name, Item parentItem, Object... key_attributes) {
-			ISpaceKey parentKey = null;
-			if (parentSpaceKeyType != null) {
-				parentKey = parentItem != null ? parentItem.getKey() : AbstractSpaceKey.INVALID;
-			}
+		public ISpaceKey computeKey(String name, Item parentItem, Object... key_attributes) {
+			ISpaceKey parentKey = getParentKeyFromParentItem(parentItem);
+			if (parentKey == AbstractSpaceKey.INVALID)
+				return AbstractSpaceKey.INVALID;
+			
 			return new PageSpaceKey(null, this, name, parentKey,
 					parentItem.getType() == CadseGCST.MODIFICATION_DIALOG);
 		}
