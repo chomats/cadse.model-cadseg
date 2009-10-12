@@ -1244,6 +1244,6 @@
         </modification-pages>
     </item-type>
     <ext-item-type item-type-source="b0a278a3-481c-47af-bbbb-6ec983e4a0c8">
-        <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="d6b173d1-c467-4f5a-bd9a-3578e9b01832" cst-name="EXT_ITEM_TYPE_lt_ACTIONS_MODEL" intID="0" destination="9d0d53b2-b190-4f46-a362-fb1bdb2eb534" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="1" min="0" name="actions-model"/>
+        <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="d6b173d1-c467-4f5a-bd9a-3578e9b01832" cst-name="ACTION_EXT_ITEM_TYPE_lt_ACTIONS_MODEL" intID="0" destination="9d0d53b2-b190-4f46-a362-fb1bdb2eb534" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="1" min="0" name="actions-model"/>
     </ext-item-type>
 </ns2:c-cadse>
