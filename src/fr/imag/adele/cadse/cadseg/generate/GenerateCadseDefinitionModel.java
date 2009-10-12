@@ -103,7 +103,7 @@ public class GenerateCadseDefinitionModel {
 		ObjectFactory factory = new ObjectFactory();
 		ContextVariable cxt = new ContextVariable();
 		CCadse cadse = factory.createCCadse();
-		cadse.setName(CadseRuntime.CADSE_NAME_SUFFIX + cadseDefinition.getName());
+		cadse.setName(cadseDefinition.getQualifiedName());
 		// ItemTypeManager
 		int version = CadseDefinitionManager.getVersion(cadseDefinition);
 		cadse.setVersion(version);
@@ -120,7 +120,7 @@ public class GenerateCadseDefinitionModel {
 		Collection<Item> extendsItems = CadseDefinitionManager.getExtends(cadseDefinition);
 		for (Item item : extendsItems) {
 			CCadseRef cadseref = factory.createCCadseRef();
-			cadseref.setName(CadseDefinitionManager.getQualifiedName(item));
+			cadseref.setName(item.getQualifiedName());
 			cadseref.setId(CadseDefinitionManager.getIdRuntime(item).toString());
 			cadseref.setIdCadseDefinition(CadseDefinitionManager.getIdDef(item).toString());
 			cadse.getCadseRef().add(cadseref);
