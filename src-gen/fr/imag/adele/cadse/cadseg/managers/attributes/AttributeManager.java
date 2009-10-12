@@ -53,6 +53,7 @@ import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.internal.ItemImpl;
 import fr.imag.adele.cadse.core.key.ISpaceKey;
+import fr.imag.adele.cadse.core.key.SpaceKey;
 import fr.imag.adele.cadse.core.key.SpaceKeyType;
 import fr.imag.adele.cadse.core.util.Assert;
 import fr.imag.adele.cadse.core.util.Convert;
@@ -94,8 +95,9 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			if (it == null) {
 				it = ((Item) item).getPartParent(true);
 			}
-			Assert.isNotNull(it, "Cannot found parent form " + item.getType().getName() + "::" + item.getName());
-
+			if (it == null)
+				return SpaceKey.INVALID;
+			
 			if (it.getType() == CadseGCST.EXT_ITEM_TYPE) {
 				Item it2 = ExtItemTypeManager.getRefType(it);
 				Assert
