@@ -1823,7 +1823,11 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		HashSet<Item> ret = getAllPackages(datamodel);
 		HashSet<Item> retitemtype = new HashSet<Item>();
 		for (Item dd : ret) {
-			retitemtype.addAll(dd.getOutgoingItems(CadseGCST.DATA_MODEL_lt_EXT_TYPES, true));
+			for (Item dest : dd.getOutgoingItems(CadseGCST.DATA_MODEL_lt_TYPES, true)) {
+				if (dest.isInstanceOf(CadseGCST.EXT_ITEM_TYPE)) {
+					retitemtype.add(dest);
+				}
+			}
 		}
 
 		return retitemtype.toArray(new Item[retitemtype.size()]);
