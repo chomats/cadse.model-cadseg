@@ -128,6 +128,8 @@ public class GenerateJavaIdentifier {
 		}
 		if (itemType == null)
 			itemType =(ItemType) ManagerManager.getItemType(manager);
+		if (itemType == null)
+			return "cannot-find-item-type-from-"+manager.getName();
 		return getItemTypePackage(cxt, itemType, null, ".managers");
 	}
 	
