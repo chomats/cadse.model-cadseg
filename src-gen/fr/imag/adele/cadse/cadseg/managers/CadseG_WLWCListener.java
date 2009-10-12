@@ -821,7 +821,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				false);
 		ItemDelta itemFirstModificationPage = itemModificationDialog.getOutgoingItem(
 				CadseGCST.MODIFICATION_DIALOG_lt_PAGES, false);
-		if (itemFirstModificationPage.isAdded()) {
+		if (itemFirstModificationPage != null && itemFirstModificationPage.isAdded()) {
 			itemFirstModificationPage.setName(MODIFICATION_PAGE_PREFIX + attOperation.getCurrentValue());
 			itemFirstModificationPage.setAttribute(CadseGCST.PAGE_at_TITLE_, attOperation.getCurrentValue());
 			itemFirstModificationPage.setAttribute(CadseGCST.PAGE_at_LABEL_, attOperation.getCurrentValue());
@@ -925,7 +925,9 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 
 		if (item.isInstanceOf(CadseGCST.ATTRIBUTE)) {
-			syncFieldFromAttribute(wc, item.getPartParent(false, true), item, true);
+			ItemDelta partParent = item.getPartParent(false, true);
+			if (partParent != null)
+				syncFieldFromAttribute(wc, partParent, item, true);
 		}
 	}
 
