@@ -50,7 +50,7 @@ public class ExtItemTypeExt {
 	 * @generated
 	 */
 	static public Link getActionsModelLink(Item extItemType) {
-		return extItemType.getOutgoingLink(CadseGCST.EXT_ITEM_TYPE_lt_ACTIONS_MODEL);
+		return extItemType.getOutgoingLink(CadseGCST.ACTION_EXT_ITEM_TYPE_lt_ACTIONS_MODEL);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class ExtItemTypeExt {
 	 * @generated
 	 */
 	static public Item getActionsModelAll(Item extItemType) {
-		return extItemType.getOutgoingItem(CadseGCST.EXT_ITEM_TYPE_lt_ACTIONS_MODEL, false);
+		return extItemType.getOutgoingItem(CadseGCST.ACTION_EXT_ITEM_TYPE_lt_ACTIONS_MODEL, false);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class ExtItemTypeExt {
 	 * @generated
 	 */
 	static public Item getActionsModel(Item extItemType) {
-		return extItemType.getOutgoingItem(CadseGCST.EXT_ITEM_TYPE_lt_ACTIONS_MODEL, true);
+		return extItemType.getOutgoingItem(CadseGCST.ACTION_EXT_ITEM_TYPE_lt_ACTIONS_MODEL, true);
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class ExtItemTypeExt {
 	 * @generated
 	 */
 	static public void setActionsModel(Item extItemType, Item value) throws CadseException {
-		extItemType.setOutgoingItem(CadseGCST.EXT_ITEM_TYPE_lt_ACTIONS_MODEL, value);
+		extItemType.setOutgoingItem(CadseGCST.ACTION_EXT_ITEM_TYPE_lt_ACTIONS_MODEL, value);
 	}
 
 }
