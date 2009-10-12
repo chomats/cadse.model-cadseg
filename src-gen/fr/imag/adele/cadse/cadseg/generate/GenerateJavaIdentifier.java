@@ -540,7 +540,7 @@ public class GenerateJavaIdentifier {
 	 * @return the string
 	 */
 	public static String javaPackagePageFactoryFromPage(ContextVariable cxt, Item page) {
-		return javaPackagePageFactoryFromDialog(cxt, page.getPartParent());
+		return javaPackagePage(cxt, (ItemType) page.getPartParent(CadseGCST.ITEM_TYPE));
 	}
 
 	/**
@@ -553,8 +553,8 @@ public class GenerateJavaIdentifier {
 	 * 
 	 * @return the string
 	 */
-	public static String javaPackagePageFactoryFromDialog(ContextVariable cxt, Item dialog) {
-		return getItemTypePackage(cxt, dialog.getPartParent(), null, ".pages");
+	public static String javaPackagePage(ContextVariable cxt, ItemType type) {
+		return getItemTypePackage(cxt, type, null, ".pages");
 	}
 
 	/**
@@ -582,8 +582,7 @@ public class GenerateJavaIdentifier {
 	 * @return the string
 	 */
 	public static String javaClassNamePageFactoryFromPage(ContextVariable cxt, Item page) {
-		Item dialog = page.getPartParent();
-		Item itemtype = dialog.getPartParent();
+		Item itemtype = page.getPartParent(CadseGCST.ITEM_TYPE);
 		if (PageManager.isModificationPage(page)) {
 			return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemtype) + "-" + cxt.getName(page), true,
 					false, "_ModificationPage");
