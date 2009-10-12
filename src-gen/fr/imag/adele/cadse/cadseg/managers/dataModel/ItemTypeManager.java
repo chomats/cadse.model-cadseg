@@ -33,6 +33,7 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
@@ -2084,5 +2085,13 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+
+
+	public static String getManagerClass(ItemType itemType, ContextVariable cxt, Item manager) {
+		if (itemType.isRuntime())
+			return itemType.getItemManagerClass();
+		return GenerateJavaIdentifier.getQualifiedManager(cxt, itemType, manager, isCustomManagerAttribute(itemType));
 	}
 }
