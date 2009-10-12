@@ -298,27 +298,28 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				item.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, CadseGCST.ITEM);
 			
 			
-			// manager
-			try {
-				/// TODO Test remove this line
-				///ItemTypeManager.setIsAbstractAttribute(item, false);
-				
-				Item mappingModel = CadseDefinitionManager.getMappingModel(cr);
-
-				Item managerItem = wc.createItem(CadseGCST.MANAGER, mappingModel, CadseGCST.MAPPING_MODEL_lt_MANAGERS);
-
-				// ManagerManager.setManagerType(managerItem, "default");
-				ManagerManager.setHumanNameAttribute(managerItem, item.getName());
-				ManagerManager.setUniqueNameTemplate(managerItem, "${#parent.qualified-name}{.}${#name}");
-				ManagerManager.setDisplayNameTemplateAttribute(managerItem, "${#name}");
-				//
-				// create a link form manager to theitemtype
-				ManagerManager.setItemType(managerItem, item);
-
-				
-			} catch (CadseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (cr.isInstanceOf(CadseGCST.CADSE_DEFINITION)) { // manager
+				try {
+					/// TODO Test remove this line
+					///ItemTypeManager.setIsAbstractAttribute(item, false);
+					
+					Item mappingModel = CadseDefinitionManager.getMappingModel(cr);
+	
+					Item managerItem = wc.createItem(CadseGCST.MANAGER, mappingModel, CadseGCST.MAPPING_MODEL_lt_MANAGERS);
+	
+					// ManagerManager.setManagerType(managerItem, "default");
+					ManagerManager.setHumanNameAttribute(managerItem, item.getName());
+					ManagerManager.setUniqueNameTemplate(managerItem, "${#parent.qualified-name}{.}${#name}");
+					ManagerManager.setDisplayNameTemplateAttribute(managerItem, "${#name}");
+					//
+					// create a link form manager to theitemtype
+					ManagerManager.setItemType(managerItem, item);
+	
+					
+				} catch (CadseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 
