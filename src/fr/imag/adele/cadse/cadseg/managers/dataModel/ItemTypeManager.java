@@ -1342,6 +1342,28 @@ public class ItemTypeManager extends AbstractItemTypeManager {
     }
 
 	/**
+		@generated
+	*/
+	public static final boolean isCustomManagerAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER_, false);
+	}
+
+
+
+	/**
+		@generated
+	*/
+	public static final void setCustomManagerAttribute(Item itemType, boolean value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+
+
+	/**
 	 * Retourne tous les sous types y compris lui - m�me de toutes la
 	 * hierarchie.
 	 * 
