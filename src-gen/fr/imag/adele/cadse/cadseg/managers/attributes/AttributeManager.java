@@ -92,7 +92,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			Item it = null;
 			it = item.getPartParent(false);
 			if (it == null) {
-				it = ((ItemImpl) item).getParentInStorage();
+				it = ((Item) item).getPartParent(true);
 			}
 			Assert.isNotNull(it, "Cannot found parent form " + item.getType().getName() + "::" + item.getName());
 
