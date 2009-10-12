@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
@@ -34,6 +35,7 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fr.imag.adele.cadse.cadseg.Activator;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateCreationDialogController;
@@ -49,6 +51,7 @@ import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.WorkspaceListener;
@@ -56,6 +59,8 @@ import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.si.view.View;
 
@@ -717,9 +722,35 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 					boolean hasGlobalAction = hasGlobalActionPage(item);
 					if (cm.globalActionContent == null && hasGlobalAction) {
 						cm.createGlobalActionContent();
+						
+						// delete field name
+						ItemType it = (ItemType) item.getPartParent();
+						if (it != null) {
+							IPage createPage = it.getFirstCreatedPage();
+							if (createPage != null) {
+								UIField nameField = createPage.getField(CadseGCST.ITEM_at_NAME);
+								if (nameField != null) {
+									try {
+										createPage.removeOutgoingItem(CadseGCST.PAGE_lt_FIELDS, nameField);
+									} catch (CadseException e) {
+										String message = "Cannot delete name field";
+										Activator.logMessage(message, e);
+									}
+								}
+							}
+						}
 					} else if (cm.globalActionContent != null && !hasGlobalAction) {
 						cm.globalActionContent = null;
 						cm = null;
+						
+						// delete field name
+						ItemType it = (ItemType) item.getPartParent();
+						if (it != null) {
+							IPage createPage = it.getFirstCreatedPage();
+							if (createPage != null) {
+								
+							}
+						}
 						regenerateCadseDefinitionModel(item);
 						return;
 					}
@@ -730,6 +761,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 				}
 			}
 		}
+
+		
 
 		/**
 		 * regnerate cadse model

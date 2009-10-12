@@ -2090,7 +2090,6 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	}
 
 
-
 	public static String getManagerClass(ItemType itemType, ContextVariable cxt, Item manager) {
 		if (itemType.isRuntime())
 			return itemType.getItemManagerClass();

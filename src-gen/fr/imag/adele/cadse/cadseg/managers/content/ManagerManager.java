@@ -24,12 +24,13 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.pde.core.plugin.IPluginBase;
@@ -39,6 +40,7 @@ import fede.workspace.eclipse.MelusineProjectManager;
 import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fr.imag.adele.cadse.cadseg.Activator;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.ParseTemplate;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
@@ -69,7 +71,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		fr.imag.adele.cadse.cadseg.IModelWorkspaceManager {
 
 	/** The Constant DEFAULT_HSPAN_FIRST_PAGE. */
-	public static final int	DEFAULT_HSPAN_FIRST_PAGE	= 3;
+	public static final int DEFAULT_HSPAN_FIRST_PAGE = 3;
 
 	/**
 	 * The Class GenerateModel.
@@ -77,27 +79,27 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	static public class GenerateModel extends IGenerateContent.GenerateModel {
 
 		/** The package name. */
-		public String							packageName;
+		public String packageName;
 
 		/** The class name. */
-		public String							className;
+		public String className;
 
 		/** The super class name. */
-		public String							superClassName;
+		public String superClassName;
 
 		/** The item name. */
-		public String							itemName;
+		public String itemName;
 
 		/** The itemtype. */
-		public Item								itemtype;
+		public Item itemtype;
 
 		/** The manager. */
-		public Item								manager;
+		public Item manager;
 
 		/** The cm. */
-		public ManagerJavaFileContentManager	cm;
+		public ManagerJavaFileContentManager cm;
 
-		public boolean							overwriteClass;
+		public boolean overwriteClass;
 
 		public Item getCadseDefinition() {
 			return ItemTypeManager.getCadseDefinition(itemtype);
@@ -108,8 +110,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	/**
 	 * The Class ManagerJavaFileContentManager.
 	 */
-	public final static class ManagerJavaFileContentManager extends JavaFileContentManager implements IGenerateContent,
-			IPDEContributor {
+	public final static class ManagerJavaFileContentManager extends
+			JavaFileContentManager implements IGenerateContent, IPDEContributor {
 
 		/**
 		 * Instantiates a new manager java file content manager.
@@ -122,17 +124,20 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		private ManagerJavaFileContentManager(CompactUUID id) throws CadseException {
+		private ManagerJavaFileContentManager(CompactUUID id)
+				throws CadseException {
 			super(id, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
-					return GenerateJavaIdentifier.getManagerPackage(context, null, item);
+					return GenerateJavaIdentifier.getManagerPackage(context,
+							null, item);
 				}
 
 			}, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
-					return GenerateJavaIdentifier.getManagerClassName(context, null, item,false);
+					return GenerateJavaIdentifier.getManagerClassName(context,
+							null, item, false);
 				}
 			});
 		}
@@ -140,7 +145,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.cadse.core.var.ContextVariable)
+		 * @see
+		 * fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.
+		 * cadse.core.var.ContextVariable)
 		 */
 		public void generate(ContextVariable cxt) {
 			Item manager = getOwnerItem();
@@ -150,6 +157,14 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 			ManagerManager.GenerateModel cm = new ManagerManager.GenerateModel();
 
 			ICompilationUnit cu = getCompilationUnit(cxt);
+			if (cu == null) {
+				Activator.getDefault().log(
+						new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+								"Cannot find cu of " + getFile(cxt) + " for "
+										+ getOwnerItem().getQualifiedName()));
+				return;
+
+			}
 			cm.itemtype = getItemType(manager);
 			cm.manager = manager;
 			cm.itemName = cm.itemtype.getName();
@@ -157,9 +172,11 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 			cm.packageName = getPackageName(cxt);
 			IType type = cu.getType(cm.className);
 
-			ItemType superItem = (ItemType) ItemTypeManager.getSuperType(cm.itemtype);
+			ItemType superItem = (ItemType) ItemTypeManager
+					.getSuperType(cm.itemtype);
 			if (superItem != null) {
-				cm.superClassName = ItemTypeManager.getManagerClass(superItem, cxt, null);
+				cm.superClassName = ItemTypeManager.getManagerClass(superItem,
+						cxt, null);
 				cm.overwriteClass = true;
 			} else if (ItemTypeManager.isIsMetaItemTypeAttribute(cm.itemtype)) {
 				cm.superClassName = "fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager";
@@ -168,29 +185,22 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 				cm.superClassName = "fr.imag.adele.cadse.core.DefaultItemManager";
 				cm.overwriteClass = true;
 			}
-			
-			/*// OLD CODE REMPLACED BY  superItem.getItemManagerClass()
+
+			/*
+			 * // OLD CODE REMPLACED BY superItem.getItemManagerClass()
 			 * 
-			if (superItem == CadseGCST.ITEM) {
-				cm.superClassName = "fr.imag.adele.cadse.core.DefaultItemManager";
-				cm.overwriteClass = true;
-			} else if (superItem != null) {
-				if (superItem.isRuntime()) {
-					cm.superClassName = superItem.getAttribute(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_);
-				} else {
-					Item superItemManager = ItemTypeManager
-							.getManager(superItem);
-					JavaFileContentManager javaFileSuperContentManager = ((JavaFileContentManager) superItemManager
-							.getContentItem());
-					cm.superClassName = javaFileSuperContentManager
-							.getPackageName(cxt)
-							+ "." + javaFileSuperContentManager
-							.getClassName(cxt);;
-				}
-				cm.overwriteClass = false;
-			} 
-			 * 
-			 * 
+			 * if (superItem == CadseGCST.ITEM) { cm.superClassName =
+			 * "fr.imag.adele.cadse.core.DefaultItemManager"; cm.overwriteClass
+			 * = true; } else if (superItem != null) { if
+			 * (superItem.isRuntime()) { cm.superClassName =
+			 * superItem.getAttribute(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_); }
+			 * else { Item superItemManager = ItemTypeManager
+			 * .getManager(superItem); JavaFileContentManager
+			 * javaFileSuperContentManager = ((JavaFileContentManager)
+			 * superItemManager .getContentItem()); cm.superClassName =
+			 * javaFileSuperContentManager .getPackageName(cxt) + "." +
+			 * javaFileSuperContentManager .getClassName(cxt);; }
+			 * cm.overwriteClass = false; }
 			 */
 			cm.cm = this;
 
@@ -200,13 +210,14 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 			String path = getPath(cxt);
 			try {
-				EclipsePluginContentManger.generateJava(MelusineProjectManager.getProject(cadseDefinition).getFile(
-						new Path(path)), ge.getContent(), View.getDefaultMonitor());
+				EclipsePluginContentManger.generateJava(MelusineProjectManager
+						.getProject(cadseDefinition).getFile(new Path(path)),
+						ge.getContent(), View.getDefaultMonitor());
 
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		/*
@@ -221,12 +232,14 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#generateParts(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.lang.String, java.lang.String, java.util.Set,
-		 *      fr.imag.adele.cadse.core.GenContext)
+		 * @see
+		 * fr.imag.adele.cadse.core.ContentManager#generateParts(fr.imag.adele
+		 * .cadse.core.GenStringBuilder, java.lang.String, java.lang.String,
+		 * java.util.Set, fr.imag.adele.cadse.core.GenContext)
 		 */
 		@Override
-		public void generateParts(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
+		public void generateParts(GenStringBuilder sb, String type,
+				String kind, Set<String> imports, GenContext context) {
 			super.generateParts(sb, type, kind, imports, context);
 			Item itemtype = getItemType(getOwnerItem());
 			generateParts(itemtype, sb, type, kind, imports, context);
@@ -235,7 +248,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage(java.util.Set)
+		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
+		 * computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
 			exports.add(getPackageName(ContextVariable.DEFAULT));
@@ -244,7 +258,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage(java.util.Set)
+		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
+		 * computeImportsPackage(java.util.Set)
 		 */
 		public void computeImportsPackage(Set<String> imports) {
 			imports.add("fede.workspace.model.manager");
@@ -262,16 +277,19 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion(org.eclipse.pde.core.plugin.IPluginBase,
-		 *      org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
+		 * @see
+		 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion
+		 * (org.eclipse.pde.core.plugin.IPluginBase,
+		 * org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
 		 */
-		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
+		public void computeExtenstion(IPluginBase pluginBase,
+				WorkspacePluginModel workspacePluginModel) {
 		}
 
 	}
 
 	/** The Constant SUB_PACKAGE_ATTRIBUTE. */
-	public static final String	SUB_PACKAGE_ATTRIBUTE	= "sub-package";
+	public static final String SUB_PACKAGE_ATTRIBUTE = "sub-package";
 
 	/**
 	 * The Constructor.
@@ -283,10 +301,11 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	}
 
 	/**
-		@generated
-	*/
+	 * @generated
+	 */
 	@Override
-	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent,
+			LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -355,10 +374,12 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#createContentManager(
+	 * fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID  id) throws CadseException {
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
 		return new ManagerJavaFileContentManager(id);
 	}
 
@@ -366,7 +387,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see model.workspace.workspace.DefaultWorkspaceManager#getWorkspaceModel(fr.imag.adele.cadse.core.Item)
+	 * @see
+	 * model.workspace.workspace.DefaultWorkspaceManager#getWorkspaceModel(fr
+	 * .imag.adele.cadse.core.Item)
 	 */
 	@Override
 	public Item getWorkspaceModel(Item manager) {
@@ -389,7 +412,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#canDeleteItem(fr.imag.adele.cadse.core.Item)
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#canDeleteItem(fr.imag
+	 * .adele.cadse.core.Item)
 	 */
 	@Override
 	public String canDeleteItem(Item item) {
@@ -397,19 +422,22 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	}
 
 	@Override
-	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
+	public String canCreateMeItem(Item itemParent, LinkType lt,
+			ItemType destType) {
 		return "Cannot create manager...";
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateChildItem(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#canCreateChildItem(fr
+	 * .imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.LinkType,
+	 * fr.imag.adele.cadse.core.ItemType)
 	 */
 	@Override
-	public String canCreateChildItem(Item itemParent, LinkType lt, ItemType destType) {
+	public String canCreateChildItem(Item itemParent, LinkType lt,
+			ItemType destType) {
 		Item itemtype = getItemType(itemParent);
 		if (itemtype == null) {
 			return "Not found item type";
@@ -445,7 +473,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getDisplayNameTemplateAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_, null);
+		return manager.getAttributeWithDefaultValue(
+				CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_, null);
 	}
 
 	/**
@@ -458,9 +487,11 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * 
 	 * @generated
 	 */
-	public static final void setDisplayNameTemplateAttribute(Item manager, String value) {
+	public static final void setDisplayNameTemplateAttribute(Item manager,
+			String value) {
 		try {
-			manager.setAttribute(CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_, value);
+			manager.setAttribute(CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_,
+					value);
 		} catch (Throwable t) {
 
 		}
@@ -477,7 +508,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getIconAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_ICON_, null);
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_ICON_,
+				null);
 	}
 
 	/**
@@ -522,7 +554,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getValidPatternIdAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_VALID_PATTERN_ID_, null);
+		return manager.getAttributeWithDefaultValue(
+				CadseGCST.MANAGER_at_VALID_PATTERN_ID_, null);
 	}
 
 	/**
@@ -535,7 +568,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * 
 	 * @generated
 	 */
-	public static final void setValidPatternIdAttribute(Item manager, String value) {
+	public static final void setValidPatternIdAttribute(Item manager,
+			String value) {
 		try {
 			manager.setAttribute(CadseGCST.MANAGER_at_VALID_PATTERN_ID_, value);
 		} catch (Throwable t) {
@@ -554,7 +588,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getLongNameTemplateAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, null);
+		return manager.getAttributeWithDefaultValue(
+				CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, null);
 	}
 
 	/**
@@ -567,9 +602,11 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * 
 	 * @generated
 	 */
-	public static final void setLongNameTemplateAttribute(Item manager, String value) {
+	public static final void setLongNameTemplateAttribute(Item manager,
+			String value) {
 		try {
-			manager.setAttribute(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, value);
+			manager.setAttribute(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_,
+					value);
 		} catch (Throwable t) {
 
 		}
@@ -586,7 +623,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getMessageErrorIdAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_, null);
+		return manager.getAttributeWithDefaultValue(
+				CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_, null);
 	}
 
 	/**
@@ -599,7 +637,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * 
 	 * @generated
 	 */
-	public static final void setMessageErrorIdAttribute(Item manager, String value) {
+	public static final void setMessageErrorIdAttribute(Item manager,
+			String value) {
 		try {
 			manager.setAttribute(CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_, value);
 		} catch (Throwable t) {
@@ -618,7 +657,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getHumanNameAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_HUMAN_NAME_, null);
+		return manager.getAttributeWithDefaultValue(
+				CadseGCST.MANAGER_at_HUMAN_NAME_, null);
 	}
 
 	/**
@@ -655,7 +695,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#canRenameItem(fr.imag.adele.cadse.core.Item)
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#canRenameItem(fr.imag
+	 * .adele.cadse.core.Item)
 	 */
 	@Override
 	public String canRenameItem(Item item) {
@@ -714,9 +756,11 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 *            the manager
 	 */
 	public static void _regenerate(Item manager) {
-		((IGenerateContent) manager.getContentItem()).generate(ContextVariable.DEFAULT);
+		((IGenerateContent) manager.getContentItem())
+				.generate(ContextVariable.DEFAULT);
 		Item model = _getCadseDefinition(manager);
-		((IGenerateContent) model.getContentItem()).generate(ContextVariable.DEFAULT);
+		((IGenerateContent) model.getContentItem())
+				.generate(ContextVariable.DEFAULT);
 	}
 
 	/**
@@ -730,8 +774,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public List<Link> getExportersLink(Item manager) {
-        return manager.getOutgoingLinks(CadseGCST.MANAGER_lt_EXPORTERS);
-    }
+		return manager.getOutgoingLinks(CadseGCST.MANAGER_lt_EXPORTERS);
+	}
 
 	/**
 	 * Gets the exporters all.
@@ -744,8 +788,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Collection<Item> getExportersAll(Item manager) {
-        return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS, false);
-    }
+		return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS, false);
+	}
 
 	/**
 	 * Gets the exporters.
@@ -758,8 +802,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Collection<Item> getExporters(Item manager) {
-        return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS,true);
-    }
+		return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS, true);
+	}
 
 	/**
 	 * Adds the exporters.
@@ -774,9 +818,10 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * 
 	 * @generated
 	 */
-	static public void addExporters(Item manager, Item value) throws CadseException {
-        manager.addOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS,value);
-    }
+	static public void addExporters(Item manager, Item value)
+			throws CadseException {
+		manager.addOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS, value);
+	}
 
 	/**
 	 * Removes the exporters.
@@ -791,9 +836,10 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * 
 	 * @generated
 	 */
-	static public void removeExporters(Item manager, Item value) throws CadseException {
-        manager.removeOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS,value);
-    }
+	static public void removeExporters(Item manager, Item value)
+			throws CadseException {
+		manager.removeOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS, value);
+	}
 
 	/**
 	 * Gets the unique name template.
@@ -849,7 +895,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#getImage(fr.imag.adele.cadse.core.Item)
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#getImage(fr.imag.adele
+	 * .cadse.core.Item)
 	 */
 	@Override
 	public URL getImage(Item item) {
@@ -857,7 +905,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		if (iconPath == null || iconPath.length() == 0) {
 			return null;
 		}
-		IFile f = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(iconPath));
+		IFile f = ResourcesPlugin.getWorkspace().getRoot().getFile(
+				new Path(iconPath));
 		if (f != null && f.exists()) {
 			// URI uri = f.getLocationURI();
 			try {
@@ -870,8 +919,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 		return super.getImage(item);
 	}
-
-	
 
 	/**
 	 * Gets the item type.
@@ -900,8 +947,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * 
 	 * @generated
 	 */
-	static public void setItemType(Item manager, Item value) throws CadseException {
-		manager.setOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE,value);
+	static public void setItemType(Item manager, Item value)
+			throws CadseException {
+		manager.setOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE, value);
 	}
 
 	/**
@@ -930,7 +978,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Item getContentModelAll(Item manager) {
-		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL, false);
+		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL,
+				false);
 	}
 
 	/**
@@ -945,7 +994,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Item getContentModel(Item manager) {
-		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL, true);
+		return manager
+				.getOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL, true);
 	}
 
 	/**
@@ -961,8 +1011,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * 
 	 * @generated
 	 */
-	static public void setContentModel(Item manager, Item value) throws CadseException {
-		manager.setOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL,value);
+	static public void setContentModel(Item manager, Item value)
+			throws CadseException {
+		manager.setOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL, value);
 	}
 
 	/**
@@ -1006,8 +1057,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele
+	 * .cadse.core.Item, fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
 	 */
 	@Override
 	public List<Item> validate(Item item, ProblemReporter reporter) {
@@ -1019,22 +1071,28 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 			}
 			String uniqueNameTemplate = getUniqueNameTemplate(item);
 			if (uniqueNameTemplate != null && uniqueNameTemplate.length() != 0) {
-				ParseTemplate pt = new ParseTemplate(itemtype, uniqueNameTemplate);
+				ParseTemplate pt = new ParseTemplate(itemtype,
+						uniqueNameTemplate);
 				try {
 					pt.main();
 					pt.validate(reporter, item);
 				} catch (ParseException e) {
-					reporter.error(item, 0, "Error when parse unique name value : {0} ", e.getMessage());
+					reporter.error(item, 0,
+							"Error when parse unique name value : {0} ", e
+									.getMessage());
 				}
 			}
 			String displayTemplate = getDisplayTemplate(item);
 			if (displayTemplate != null && displayTemplate.length() != 0) {
-				ParseTemplate pt = new ParseTemplate(itemtype, displayTemplate, null);
+				ParseTemplate pt = new ParseTemplate(itemtype, displayTemplate,
+						null);
 				try {
 					pt.main();
 					pt.validate(reporter, item);
 				} catch (ParseException e) {
-					reporter.error(item, 0, "Error when parse display name value : {0} ", e.getMessage());
+					reporter.error(item, 0,
+							"Error when parse display name value : {0} ", e
+									.getMessage());
 				}
 			}
 		}

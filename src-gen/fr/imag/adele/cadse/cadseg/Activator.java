@@ -20,7 +20,7 @@
 package fr.imag.adele.cadse.cadseg;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -100,4 +100,13 @@ public class Activator extends AbstractUIPlugin {
 	public void log(IStatus status) {
 		this.getLog().log(status);
 	}
+	
+	
+	public static void logMessage(String message) {
+		Activator.getDefault().log(new Status(Status.ERROR, Activator.PLUGIN_ID, message));
+	}
+	
+	public static void logMessage(String message, Throwable e) {
+		Activator.getDefault().log(new Status(Status.ERROR, Activator.PLUGIN_ID, message, 
+				e ));	}
 }
