@@ -95,7 +95,7 @@ public class ProjectContentModelCreationPage1_CreationPage extends
 				}, new MC_AttributesItem() {
 					@Override
 					public Object defaultValue() {
-						return "${#unique-name}";
+						return "${#qualified-name}";
 					}
 				});
 	}
