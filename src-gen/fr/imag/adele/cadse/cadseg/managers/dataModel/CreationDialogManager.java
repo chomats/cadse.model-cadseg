@@ -36,29 +36,26 @@ import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.generate.GenerateCreationDialogController;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.DefaultItemManager;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseUtil;
+import fr.imag.adele.cadse.core.ChangeID;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
+import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.si.view.View;
 
@@ -98,24 +95,25 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 		@Override
 		public void create() throws CadseException {
 			super.create();
-			if (hasGlobalActionPage(getItem())) {
-				createGlobalActionContent();
-			}
+			createGlobalActionContent();
 		}
 
 		/**
 		 * Creates the global action content.
 		 */
 		public void createGlobalActionContent() {
-			Item cadsedef = getItem().getPartParent(CadseGCST.CADSE_DEFINITION);
-			if (cadsedef == null) {
-				return;
+			if (hasGlobalActionPage(getOwnerItem())) {
+				Item cadsedef = getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION);
+				if (cadsedef == null) {
+					return;
+				}
+				ContentItem cm = cadsedef.getContentItem();
+				globalActionContent = new GlobalActionContent(CompactUUID.randomUUID());
+				globalActionContent.setOwnerItem(getOwnerItem());
+				globalActionContent.setParentContent(cm);
 			}
-			ContentItem cm = cadsedef.getContentItem();
-			globalActionContent = new GlobalActionContent(CompactUUID.randomUUID());
-			globalActionContent.setOwnerItem(getItem());
-			globalActionContent.setParentContent(cm);
 		}
+		
 
 		/*
 		 * (non-Javadoc)
@@ -346,6 +344,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	@Override
 	public void init() {
 		CadseGCST.CREATION_DIALOG.setHasQualifiedNameAttribute(false);
+		CadseCore.getCadseDomain().getLogicalWorkspace().addListener(new CreationPageListener(), ChangeID.toFilter(ChangeID.SET_ATTRIBUTE));
 	}
 
 	/**
@@ -707,47 +706,46 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 
 	}
 
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see
-//	 * fede.workspace.model.manager.DefaultItemManager#notifie(fr.imag.adele
-//	 * .cadse.core.Item, fr.imag.adele.cadse.core.WorkspaceDelta)
-//	 */
-//	@Override
-//	public void notifie(Item item, ImmutableWorkspaceDelta wd) throws CadseException {
-//		ImmutableItemDelta itemDela = wd.getItem(item);
-//		if (itemDela != null && !itemDela.isDeleted()) {
-//			PrivateContentManager cm = (PrivateContentManager) item.getContentItem();
-//			boolean hasGlobalAction = hasGlobalActionPage(item);
-//			if (cm.globalActionContent == null && hasGlobalAction) {
-//				cm.createGlobalActionContent();
-//			} else if (cm.globalActionContent != null && !hasGlobalAction) {
-//				cm.globalActionContent = null;
-//				cm = null;
-//				regenerateCadseDefinitionModel(item);
-//				return;
-//			}
-//			if (cm.globalActionContent != null) {
-//				cm.globalActionContent.generateGlobalAction(ContextVariable.DEFAULT);
-//				regenerateCadseDefinitionModel(item);
-//			}
-//		}
-//	}
+	static final class CreationPageListener extends WorkspaceListener {
+		@Override
+		public void workspaceChanged(ImmutableWorkspaceDelta delta) {
+			Collection<ImmutableItemDelta> items = delta.getItems(CadseGCST.CREATION_DIALOG);
+			for (ImmutableItemDelta itemDela : items) {
+				if (itemDela != null && !itemDela.isDeleted()) {
+					Item item = itemDela.getItem();
+					PrivateContentManager cm = (PrivateContentManager) item.getContentItem();
+					boolean hasGlobalAction = hasGlobalActionPage(item);
+					if (cm.globalActionContent == null && hasGlobalAction) {
+						cm.createGlobalActionContent();
+					} else if (cm.globalActionContent != null && !hasGlobalAction) {
+						cm.globalActionContent = null;
+						cm = null;
+						regenerateCadseDefinitionModel(item);
+						return;
+					}
+					if (cm.globalActionContent != null) {
+						cm.globalActionContent.generateGlobalAction(ContextVariable.DEFAULT);
+						regenerateCadseDefinitionModel(item);
+					}
+				}
+			}
+		}
 
-	/**
-	 * regnerate cadse model
-	 * 
-	 * @param item
-	 */
-	private void regenerateCadseDefinitionModel(Item item) {
-		// regnerate cadse model
-		Item it = item.getPartParent();
-		Item wm = ItemTypeManager.getCadseDefinition(it);
-		IGenerateContent wmcm = ((IGenerateContent) wm.getContentItem());
-		if (wmcm != null) {
-			wmcm.generate(ContextVariable.DEFAULT);
+		/**
+		 * regnerate cadse model
+		 * 
+		 * @param item
+		 */
+		private void regenerateCadseDefinitionModel(Item item) {
+			// regnerate cadse model
+			Item it = item.getPartParent();
+			Item wm = ItemTypeManager.getCadseDefinition(it);
+			IGenerateContent wmcm = ((IGenerateContent) wm.getContentItem());
+			if (wmcm != null) {
+				wmcm.generate(ContextVariable.DEFAULT);
+			}
 		}
 	}
+	
 
 }
