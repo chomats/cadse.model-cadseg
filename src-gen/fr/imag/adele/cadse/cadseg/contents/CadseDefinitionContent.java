@@ -152,10 +152,10 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		generateStrandardXML();
 
 		try {
-			GenerateJavaFileCST gCST = new GenerateJavaFileCST(cxt, getItem());
+			GenerateJavaFileCST gCST = new GenerateJavaFileCST(cxt, getOwnerItem());
 			String content = gCST.getContent();
 
-			IFile cstFile = CadseDefinitionManager.getCSTCU(cxt, getItem());
+			IFile cstFile = CadseDefinitionManager.getCSTCU(cxt, getOwnerItem());
 			MappingManager.generate(cstFile.getProject(), cstFile.getParent().getProjectRelativePath(), cstFile
 					.getName(), content, null);
 		} catch (Throwable e) {
