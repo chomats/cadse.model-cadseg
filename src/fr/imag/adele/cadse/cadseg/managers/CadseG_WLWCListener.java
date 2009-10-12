@@ -48,6 +48,7 @@ import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
@@ -500,9 +501,27 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			}
 			addRenamePackageOperation(item, oldContext, newContext);
 		}
-
+		
 		if (item.getType() == CadseGCST.CADSE_DEFINITION
 				&& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
+			if (item.isAdded()) {
+				if (((String)attOperation.getCurrentValue()).contains(".")) {
+					item.setQualifiedName((String) attOperation.getCurrentValue());
+				} else {
+					item.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX+attOperation.getCurrentValue());
+				}
+			} else {
+				String name = item.getAttribute(CadseGCST.ITEM_at_QUALIFIED_NAME_);
+				
+				if (name.startsWith(CadseRuntime.CADSE_NAME_SUFFIX)) {
+					item.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX+attOperation.getCurrentValue());
+				}
+			}
+		}
+		
+
+		if (item.getType() == CadseGCST.CADSE_DEFINITION
+				&& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_QUALIFIED_NAME_) {
 			ContextVariable oldContext = wc.getOldContext();
 			ContextVariable newContext = wc.getNewContext();
 			addRenameCadseDefinitionMappingOperartion(item, oldContext, newContext);

@@ -464,7 +464,7 @@ public class CadseDefinitionManager extends CadseRuntimeManager implements IMode
 	 */
 	@Override
 	public String computeQualifiedName(Item item, String shortid, Item parent, LinkType type) {
-		return CadseRuntime.CADSE_NAME_SUFFIX + shortid;
+		return null;
 	}
 
 	/**
@@ -1394,19 +1394,7 @@ public class CadseDefinitionManager extends CadseRuntimeManager implements IMode
 		cadseDefinition.setOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,value);
 	}
 
-	/**
-	 * Gets the unique name.
-	 * 
-	 * @param cadsedef
-	 *            the cadsedef
-	 * 
-	 * @return the unique name
-	 */
-	public static String getQualifiedName(Item cadsedef) {
-		if (cadsedef.getType() == CadseGCST.CADSE_RUNTIME)
-			return cadsedef.getQualifiedName();
-		return CadseRuntime.CADSE_NAME_SUFFIX + cadsedef.getName();
-	}
+	
 
 	/*
 	 * (non-Javadoc)

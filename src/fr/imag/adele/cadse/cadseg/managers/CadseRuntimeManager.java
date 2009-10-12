@@ -51,6 +51,11 @@ public class CadseRuntimeManager extends ItemManager {
 			return "error";
 		}
 	}
+	
+	@Override
+	public void init() {
+		getItemType().setHasQualifiedNameAttribute(false);
+	}
 
 	/**
 		@generated
