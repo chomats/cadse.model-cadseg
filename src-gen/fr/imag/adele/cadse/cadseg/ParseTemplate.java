@@ -147,7 +147,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 
 					ItemType linkItemType = (ItemType) fCurrentLink.getPartParent();
 					
-					String qClassName = linkItemType.getItemManagerClass();
+					String qClassName = ItemTypeManager.getManagerClass(linkItemType, null, null);
 					String className =  JavaIdentifier.getlastclassName(qClassName);
 					String packageName = JavaIdentifier.getPackageName(qClassName);
 					
@@ -169,7 +169,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 					} else {
 						ItemType attrItemType = (ItemType) _currentAttr.getPartParent();
 						
-						String qClassName = attrItemType.getItemManagerClass();
+						String qClassName = ItemTypeManager.getManagerClass(attrItemType, null, null);
 						String className =  JavaIdentifier.getlastclassName(qClassName);
 						String packageName = JavaIdentifier.getPackageName(qClassName);
 
