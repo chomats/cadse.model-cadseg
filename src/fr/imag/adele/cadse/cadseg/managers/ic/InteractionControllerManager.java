@@ -298,7 +298,7 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 	 */
 	@Override
 	public void init() {
-		getItemType().setHasUniqueNameAttribute(false);
+		getItemType().setHasQualifiedNameAttribute(false);
 	}
 
 	/*

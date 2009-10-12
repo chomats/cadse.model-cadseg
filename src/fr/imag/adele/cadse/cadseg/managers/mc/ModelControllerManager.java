@@ -261,7 +261,7 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	 */
 	@Override
 	public void init() {
-		getItemType().setHasUniqueNameAttribute(false);
+		getItemType().setHasQualifiedNameAttribute(false);
 	}
 
 	/**

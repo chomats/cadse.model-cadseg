@@ -108,8 +108,8 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	@Override
 	public void init() {
 		CadseGCST.EXT_ITEM_TYPE.setSpaceKeyType(new SpaceKeyType(CadseGCST.EXT_ITEM_TYPE, null));
-		CadseGCST.EXT_ITEM_TYPE.setHasShortNameAttribute(true);
-		CadseGCST.EXT_ITEM_TYPE.setHasUniqueNameAttribute(false);
+		CadseGCST.EXT_ITEM_TYPE.setHasNameAttribute(true);
+		CadseGCST.EXT_ITEM_TYPE.setHasQualifiedNameAttribute(false);
 	}
 
 	/**

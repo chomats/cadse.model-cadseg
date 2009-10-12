@@ -398,7 +398,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	@Override
 	public void init() {
-		getItemType().setHasUniqueNameAttribute(false);
+		getItemType().setHasQualifiedNameAttribute(false);
 	}
 
 	/**

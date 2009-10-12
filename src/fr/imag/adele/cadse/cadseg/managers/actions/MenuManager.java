@@ -53,7 +53,7 @@ public class MenuManager extends MenuAbstractManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.MENU.setHasUniqueNameAttribute(false);
+		CadseGCST.MENU.setHasQualifiedNameAttribute(false);
 	}
 
 	/**

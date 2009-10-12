@@ -81,8 +81,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	public void init() {
 		CadseGCST.DATA_MODEL
 				.setSpaceKeyType(new SpaceKeyType(CadseGCST.DATA_MODEL, CadseGCST.CADSE_DEFINITION));
-		CadseGCST.DATA_MODEL.setHasShortNameAttribute(true);
-		CadseGCST.DATA_MODEL.setHasUniqueNameAttribute(false);
+		CadseGCST.DATA_MODEL.setHasNameAttribute(true);
+		CadseGCST.DATA_MODEL.setHasQualifiedNameAttribute(false);
 	}
 
 	/**

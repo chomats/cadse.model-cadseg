@@ -400,7 +400,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.PAGE.setHasUniqueNameAttribute(false);
+		CadseGCST.PAGE.setHasQualifiedNameAttribute(false);
 		CadseGCST.PAGE.setSpaceKeyType(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.ABSTRACT_ITEM_TYPE));
 	}
 

@@ -110,7 +110,7 @@ public class FieldManager extends DefaultItemManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.FIELD.setHasUniqueNameAttribute(false);
+		CadseGCST.FIELD.setHasQualifiedNameAttribute(false);
 		CadseGCST.FIELD.setSpaceKeyType(new LinksSpaceKeyType(CadseGCST.FIELD, CadseGCST.PAGE,
 				CadseGCST.FIELD_lt_ATTRIBUTE));
 

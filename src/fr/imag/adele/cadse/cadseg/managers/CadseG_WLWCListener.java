@@ -62,6 +62,7 @@ import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
 import fr.imag.adele.cadse.core.transaction.AbstractLogicalWorkspaceTransactionListener;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -283,6 +284,30 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			
 			if (item.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE) == null)
 				item.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, CadseGCST.ITEM);
+			
+			
+			// manager
+			try {
+				/// TODO Test remove this line
+				///ItemTypeManager.setIsAbstractAttribute(item, false);
+				
+				Item mappingModel = CadseDefinitionManager.getMappingModel(cr);
+
+				Item managerItem = wc.createItem(CadseGCST.MANAGER, mappingModel, CadseGCST.MAPPING_MODEL_lt_MANAGERS);
+
+				// ManagerManager.setManagerType(managerItem, "default");
+				ManagerManager.setHumanNameAttribute(managerItem, item.getName());
+				ManagerManager.setUniqueNameTemplate(managerItem, "${#parent.qualified-name}{.}${#name}");
+				ManagerManager.setDisplayNameTemplateAttribute(managerItem, "${#name}");
+				//
+				// create a link form manager to theitemtype
+				ManagerManager.setItemType(managerItem, item);
+
+				
+			} catch (CadseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		/*
@@ -491,9 +516,13 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 		if (item.isInstanceOf(CadseGCST.ITEM_TYPE)
 				&& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
+			
 			ItemDelta manager = (ItemDelta) ManagerManager.getManagerFromItemType(item);
 			if (manager != null) {
 				manager.setName(attOperation.getCurrentValue() + "-manager");
+				String oldHn = manager.getAttribute(CadseGCST.MANAGER_at_HUMAN_NAME_);
+				if (oldHn == null || oldHn.equals(attOperation.getPrecCurrentValue()))
+					ManagerManager.setHumanNameAttribute(manager, item.getName());
 			}
 			ContextVariable oldContext = wc.getOldContext();
 			ContextVariable newContext = wc.getNewContext();

@@ -69,31 +69,9 @@ public class ItemType_CreationPagesAction extends CreationAction {
 	@Override
 	public void init(IPageObject pageObject) throws CadseException {
 		super.init(pageObject);
-		try {
-			theitemtype = getItem();
-
-			ItemTypeManager.setIsAbstractAttribute(theitemtype, false);
-			ItemType managerType = CadseGCST.MANAGER;
-
-			Item mappingModel = CadseDefinitionManager.getMappingModel(ItemTypeManager.getCadseDefinition(theitemtype));
-
-			LogicalWorkspaceTransaction copy = getCopy();
-			managerItem = copy.createItem(managerType, mappingModel, CadseGCST.MAPPING_MODEL_lt_MANAGERS);
-
-			// ManagerManager.setManagerType(managerItem, "default");
-			ManagerManager.setHumanNameAttribute(managerItem, theitemtype.getName());
-			ManagerManager.setUniqueNameTemplate(managerItem, "${#parent.qualified-name}{.}${#name}");
-			ManagerManager.setDisplayNameTemplateAttribute(managerItem, "${#name}");
-			//
-			// create a link form manager to theitemtype
-			ManagerManager.setItemType(managerItem, theitemtype);
-
-			((Pages) pageObject).getPage("manager").setItem(managerItem);
-		} catch (CadseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		theitemtype = getItem();
+		managerItem = theitemtype.getIncomingItem(CadseGCST.MANAGER_lt_ITEM_TYPE);
+		//((Pages) pageObject).getPage("manager").setItem(managerItem);
 	}
 
 	/*
@@ -122,11 +100,6 @@ public class ItemType_CreationPagesAction extends CreationAction {
 	 *             the melusine exception
 	 */
 	private void initManager(Pages pages) throws CadseException {
-		ManagerManager.setHumanNameAttribute(managerItem, theitemtype.getName());
-		Item mappingModel = CadseDefinitionManager.getMappingModel(ItemTypeManager.getCadseDefinition(theitemtype));
-
-		CadseCore.setName(managerItem, theitemtype.getName() + "-manager", mappingModel,
-				CadseGCST.MAPPING_MODEL_lt_MANAGERS);
 		if (pages != null) {
 			pages.updateField("page2", CadseGCST.MANAGER_at_HUMAN_NAME);
 		}

@@ -23,6 +23,7 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager.ValidFieldUC;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -31,6 +32,7 @@ import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
@@ -90,6 +92,14 @@ public class ItemTypeManager_CreationPage extends PageImpl {
 						"Error message while invalid name"));
 
 		registerListener();
+	}
+	
+	@Override
+	public void init(IPageController pageController) throws CadseException {
+		Item manager = getItem().getIncomingItem(CadseGCST.MANAGER_lt_ITEM_TYPE);
+		setItem(manager);
+		super.init(pageController);
+		
 	}
 
 	protected void registerListener() {

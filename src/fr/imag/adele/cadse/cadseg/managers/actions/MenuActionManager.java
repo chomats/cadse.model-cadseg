@@ -62,7 +62,7 @@ public class MenuActionManager extends MenuAbstractManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.MENU_ACTION.setHasUniqueNameAttribute(false);
+		CadseGCST.MENU_ACTION.setHasQualifiedNameAttribute(false);
 	}
 
 	@Override

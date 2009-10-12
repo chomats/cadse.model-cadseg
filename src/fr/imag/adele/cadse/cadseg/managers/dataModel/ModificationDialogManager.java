@@ -327,7 +327,7 @@ public class ModificationDialogManager extends DefaultItemManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.MODIFICATION_DIALOG.setHasUniqueNameAttribute(false);
+		CadseGCST.MODIFICATION_DIALOG.setHasQualifiedNameAttribute(false);
 	}
 
 	/*

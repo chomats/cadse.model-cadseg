@@ -345,7 +345,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 */
 	@Override
 	public void init() {
-		CadseGCST.CREATION_DIALOG.setHasUniqueNameAttribute(false);
+		CadseGCST.CREATION_DIALOG.setHasQualifiedNameAttribute(false);
 	}
 
 	/**

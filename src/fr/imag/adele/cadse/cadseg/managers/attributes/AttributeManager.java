@@ -177,8 +177,8 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	@Override
 	public void init() {
-		getItemType().setHasShortNameAttribute(true);
-		getItemType().setHasUniqueNameAttribute(false);
+		getItemType().setHasNameAttribute(true);
+		getItemType().setHasQualifiedNameAttribute(false);
 		if (getItemType() == CadseGCST.ATTRIBUTE) {
 			CadseGCST.ATTRIBUTE.setSpaceKeyType(new AttributeSpaceKeyType(CadseGCST.ATTRIBUTE,
 					CadseGCST.ITEM_TYPE));

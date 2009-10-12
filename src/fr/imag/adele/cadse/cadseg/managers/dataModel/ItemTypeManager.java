@@ -108,8 +108,8 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 				return convertName(super.getName(item));
 			}
 		});
-		CadseGCST.ITEM_TYPE.setHasShortNameAttribute(true);
-		CadseGCST.ITEM_TYPE.setHasUniqueNameAttribute(true);
+		CadseGCST.ITEM_TYPE.setHasNameAttribute(true);
+		CadseGCST.ITEM_TYPE.setHasQualifiedNameAttribute(true);
 		CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES.setIsNatif(true);
 		CadseGCST.ITEM_TYPE_lt_CREATION_PAGES.setIsNatif(true);
 	}
