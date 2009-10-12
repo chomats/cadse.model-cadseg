@@ -197,10 +197,6 @@ public class GeneratePageClass2 extends GenerateClass {
 			}
 		}
 		// declaration des champ : un par field graphique.
-//		if ((addInternalShortName || addInternalAttribute) && !heritage) {
-//			imports.add("fede.workspace.model.manager.properties.FieldsCore");
-//			imports.add("fede.workspace.model.manager.properties.impl.ui.DTextUI");
-//		}
 		for (FieldGenerateInfo info : fields) {
 			if (info.superField != null) {
 				continue;
