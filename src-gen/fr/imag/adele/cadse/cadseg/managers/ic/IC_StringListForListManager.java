@@ -21,7 +21,6 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -38,6 +37,7 @@ import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.Pages;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class IC_StringListForListManager.

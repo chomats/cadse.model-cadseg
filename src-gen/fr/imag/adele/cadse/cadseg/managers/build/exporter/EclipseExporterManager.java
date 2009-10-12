@@ -33,7 +33,7 @@ import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fede.workspace.model.manager.properties.FieldsCore;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class EclipseExporterManager.

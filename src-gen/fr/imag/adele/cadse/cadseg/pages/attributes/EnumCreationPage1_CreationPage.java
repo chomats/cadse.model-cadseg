@@ -25,7 +25,6 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_PartLinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
 import fede.workspace.model.manager.properties.Proposal;
@@ -57,6 +56,7 @@ import fr.imag.adele.cadse.core.ui.EventAdapter;
 import fr.imag.adele.cadse.core.ui.IEventListener;
 import fr.imag.adele.cadse.core.ui.IInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * @generated

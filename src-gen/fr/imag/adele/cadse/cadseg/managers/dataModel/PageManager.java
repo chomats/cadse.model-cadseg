@@ -207,6 +207,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 */
 		public void computeImportsPackage(Set<String> imports) {
 			imports.add("fede.workspace.model.manager.properties");
+			imports.add("fr.imag.adele.cadse.ui.field.core");
 			imports.add("fr.imag.adele.cadse.core.ui");
 			imports.add("fr.imag.adele.cadse.core.impl.ui");
 			imports.add("fede.workspace.model.manager.properties.impl.ui");

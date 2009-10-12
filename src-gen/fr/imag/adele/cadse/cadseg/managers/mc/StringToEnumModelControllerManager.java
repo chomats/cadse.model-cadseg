@@ -23,7 +23,6 @@ import java.util.Set;
 
 import org.eclipse.jdt.core.IType;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
@@ -43,6 +42,7 @@ import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class StringToEnumModelControllerManager.

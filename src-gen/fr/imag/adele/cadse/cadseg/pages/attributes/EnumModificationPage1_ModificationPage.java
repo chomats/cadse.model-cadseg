@@ -35,7 +35,7 @@ import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fede.workspace.model.manager.properties.FieldsCore;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_PartLinkForBrowser_Combo_List;

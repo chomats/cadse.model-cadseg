@@ -30,7 +30,6 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
@@ -61,6 +60,7 @@ import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.Variable;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class ExporterManager.

@@ -1,6 +1,5 @@
 package fr.imag.adele.cadse.cadseg.pages.build.composer;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -21,6 +20,7 @@ import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * @generated

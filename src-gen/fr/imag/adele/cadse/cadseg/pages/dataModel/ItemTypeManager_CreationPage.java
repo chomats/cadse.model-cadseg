@@ -19,7 +19,6 @@
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
 import fr.imag.adele.cadse.core.IItemNode;
-import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager.ValidFieldUC;
@@ -34,6 +33,7 @@ import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * @generated

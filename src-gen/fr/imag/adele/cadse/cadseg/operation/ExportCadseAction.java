@@ -29,7 +29,7 @@ import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fede.workspace.model.manager.properties.FieldsCore;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.WizardController;
 
 /**

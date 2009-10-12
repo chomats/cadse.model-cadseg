@@ -207,7 +207,7 @@ public class ImportCadseUtil {
 				continue;
 			for (LinkDelta l : itemDelta.getOutgoingLinkOperations()) {
 				if (l.getLinkTypeName().startsWith("#parent:")
-						|| l.getLinkTypeName().startsWith("#invert_part") || l.getDestination().getName().contains("#invert_part_")) {
+						|| l.getLinkTypeName().startsWith("#invert_part")) {
 					if (itemDelta.getPartParent() == null) {
 						itemDelta.setParent(l.getDestination(), null);
 					}
@@ -228,6 +228,7 @@ public class ImportCadseUtil {
 			}
 			for (LinkDelta l : itemDelta
 					.getOutgoingLinkOperations(CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES)) {
+				if (!l.isLoaded()) continue;
 				if (l.getDestination().getType() == null) {
 					IAttributeType<?> att = l.getSource().getType()
 							.getAttributeType(l.getDestinationName(), false);
@@ -240,9 +241,7 @@ public class ImportCadseUtil {
 							l.delete();
 						} else
 							l.changeDestination(att);
-					}
-
-					else
+					} else
 						l.delete();
 				}
 			}

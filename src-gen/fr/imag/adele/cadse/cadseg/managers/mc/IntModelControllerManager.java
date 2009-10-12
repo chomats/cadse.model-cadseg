@@ -21,7 +21,6 @@ package fr.imag.adele.cadse.cadseg.managers.mc;
 
 import java.util.Set;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
@@ -40,6 +39,7 @@ import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class IntModelControllerManager.

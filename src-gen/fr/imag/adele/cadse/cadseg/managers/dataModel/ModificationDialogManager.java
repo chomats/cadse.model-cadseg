@@ -28,8 +28,8 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseUtil;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
@@ -38,7 +38,6 @@ import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -140,12 +139,6 @@ public class ModificationDialogManager extends DefaultItemManager {
 		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage(java.util.Set)
 		 */
 		public void computeImportsPackage(Set<String> imports) {
-			// imports.add("fede.workspace.model.manager.properties");
-			// String action = getAction(getItem());
-			// String mc = getMC(getItem());
-			// imports.add(Util.packageName(action));
-			// imports.add(Util.packageName(mc));
-			// imports.add("fr.imag.adele.cadse.core");
 		}
 
 		/*
@@ -160,63 +153,6 @@ public class ModificationDialogManager extends DefaultItemManager {
 			if ("inner-class".equals(kind)) {
 				generateParts(sb, type, kind, imports, context);
 			}
-			// if ("manager".equals(type)) {
-			// if (kind.equals("methods")) {
-			// generateParts(sb, type, kind, imports, context);
-			//
-			// sb.newline();
-			// sb.newline().append("/**");
-			// sb.newline().append(" @generated");
-			// sb.newline().append("*/");
-			//
-			// sb.newline().append("@Override").newline()
-			// .append("public IFieldDescription getProperties(Item item) {");
-			// sb.begin();
-			// sb.newline().append("return
-			// ").append("FieldsCore.createWizard(");
-			// Item wizard = getItem();
-			// String key = getKey(wizard );
-			// String title = getTitle(wizard);
-			// String description = getDesciption(wizard);
-			// Item actionItem = null;//getItemAction(wizard);
-			// String action = null;
-			// if (actionItem!=null) {
-			// action = ((IExtendClassManager)
-			// WSPlugin.getManager(actionItem)).getClassName(actionItem);
-			//
-			// }
-			// String mc = getMC(wizard);
-			//
-			// sb.appendStringValue_vir(key);
-			// sb.appendStringValue_vir(title);
-			// sb.appendStringValue_vir(description);
-			// sb.appendNewValue(action,true);
-			// sb.appendNewValue(mc, true);
-			// sb.append(" NAME_TYPE,");
-			// if (actionItem == null) {
-			// sb.append("null,");
-			// } else {
-			// generate(actionItem,sb,type,"wizard-action", imports, context);
-			// }
-			//
-			// sb.begin();
-			// Collection<Item> pages = getPages(wizard);
-			// for (Item page : pages) {
-			// generate(page, sb, type, "wizard-page", imports, context);
-			// }
-			// sb.decrementLength();
-			// sb.end();
-			// sb.newline().append(")").append(';');
-			// sb.end();
-			// sb.newline().append('}');
-			// //imports
-			// imports.add("fede.workspace.model.manager.properties.FieldsCore");
-			// imports.add("fr.imag.adele.cadse.core.Item");
-			// if (action != null)
-			// imports.add(action);
-			// imports.add(mc);
-			// }
-			// }
 		}
 
 		/*

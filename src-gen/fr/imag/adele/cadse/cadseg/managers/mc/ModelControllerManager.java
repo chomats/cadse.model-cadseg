@@ -27,7 +27,6 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
-import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.UIItemFactory;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
@@ -51,6 +50,7 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.Pages;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class ModelControllerManager.

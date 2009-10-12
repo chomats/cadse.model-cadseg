@@ -21,7 +21,6 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 
 import java.util.Set;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.ParseTemplate;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
@@ -41,6 +40,7 @@ import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class PackageContentModelManager.

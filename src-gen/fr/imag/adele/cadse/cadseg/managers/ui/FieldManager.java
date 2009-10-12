@@ -557,7 +557,7 @@ public class FieldManager extends DefaultItemManager {
 		sb.end();
 		sb.newline().append("}");
 		imports.add("fr.imag.adele.cadse.core.ui.UIField");
-		imports.add("fede.workspace.model.manager.properties.FieldsCore");
+		imports.add("fr.imag.adele.cadse.ui.field.core.FieldsCore");
 	}
 
 }

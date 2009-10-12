@@ -21,7 +21,6 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 
 import org.eclipse.swt.SWT;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_EnumForBrowser_Combo;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
@@ -42,6 +41,7 @@ import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class FieldModificationMainPage.

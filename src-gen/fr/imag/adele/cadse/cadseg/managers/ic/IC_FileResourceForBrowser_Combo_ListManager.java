@@ -39,7 +39,7 @@ import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fede.workspace.model.manager.properties.FieldsCore;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 
 /**

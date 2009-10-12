@@ -45,7 +45,6 @@ import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
 import fede.workspace.model.manager.properties.impl.ic.IC_AbstractTreeDialogForList_Browser_Combo;
 import fede.workspace.model.manager.properties.impl.ic.ItemTreeContentProvider;
@@ -57,6 +56,7 @@ import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class PageCreationPage1_CreationPageFactory.

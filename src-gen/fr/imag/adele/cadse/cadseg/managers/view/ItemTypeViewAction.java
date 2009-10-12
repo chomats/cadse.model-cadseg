@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.eclipse.jface.wizard.WizardDialog;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
 import fede.workspace.model.manager.properties.impl.ic.IC_TreeCheckedUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
@@ -42,6 +41,7 @@ import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IInteractionController;
 import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class ItemTypeViewAction.

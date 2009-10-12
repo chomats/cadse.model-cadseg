@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
@@ -52,6 +51,7 @@ import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class ViewItemTypeManager.

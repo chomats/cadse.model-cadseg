@@ -21,7 +21,6 @@ package fr.imag.adele.cadse.cadseg.managers.mc;
 
 import java.util.Set;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.MaxModelController;
 import fede.workspace.model.manager.properties.impl.mc.MinModelController;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
@@ -42,6 +41,7 @@ import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.Pages;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class ListOfStringModelControllerManager.

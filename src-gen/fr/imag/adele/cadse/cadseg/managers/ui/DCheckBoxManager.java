@@ -19,7 +19,6 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
@@ -34,6 +33,7 @@ import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.Pages;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * The Class DCheckBoxManager.
