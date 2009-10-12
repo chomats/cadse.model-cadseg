@@ -61,11 +61,6 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	protected DCheckBoxUI fieldIsRootElement;
 
 	/**
-	 * @generated
-	 */
-	protected DCheckBoxUI fieldIsMetaItemType;
-
-	/**
 	    @generated
 	 */
 	protected DTextUI fieldIcon;
@@ -78,12 +73,12 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	/**
 	    @generated
 	 */
-	protected DCheckBoxUI fieldCustomManager;
+	protected DTextUI fieldItemManager;
 
 	/**
 	    @generated
 	 */
-	protected DTextUI fieldItemManager;
+	protected DCheckBoxUI fieldCustomManager;
 
 	/**
 	 * @generated
@@ -129,13 +124,13 @@ public class ItemTypeModificationPage1_ModificationPage extends
 		this.iconField = FieldsCore.createBrowserIconField(
 				CadseGCST.MANAGER_at_ICON, "icon", EPosLabel.left);
 		this.iconField.setItem(manager);
-		this.fieldIsMetaItemType = createFieldIsMetaItemType();
-
+		this.fieldCustomManager = createFieldCustomManager();
+		
 		setActionPage(null);
 		addLast(this.__short_name__, this.displayNameField,
 				this.fieldSuperType, this.fieldHasContent,
 				this.fieldIsAbstract, this.fieldIsRootElement, this.iconField,
-				this.fieldIsMetaItemType);
+				this.fieldCustomManager);
 
 		registerListener();
 	}
@@ -168,16 +163,6 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	}
 
 	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsMetaItemType() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_IS_META_ITEM_TYPE,
-				"is-meta-item-type (advanced users only)", EPosLabel.none, mc,
-				null);
-	}
-
-	/**
 	    @generated
 	 */
 	public DTextUI createFieldIcon() {
@@ -197,19 +182,19 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	/**
 	    @generated
 	 */
-	public DCheckBoxUI createFieldCustomManager() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER,
-				"custom-manager", EPosLabel.none, mc, null);
+	public DTextUI createFieldItemManager() {
+		return new DTextUI(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER, "item-manager",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 	/**
 	    @generated
 	 */
-	public DTextUI createFieldItemManager() {
-		return new DTextUI(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER, "item-manager",
-				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
-				false, false);
+	public DCheckBoxUI createFieldCustomManager() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER,
+				"custom-manager", EPosLabel.none, mc, null);
 	}
 
 	/**
