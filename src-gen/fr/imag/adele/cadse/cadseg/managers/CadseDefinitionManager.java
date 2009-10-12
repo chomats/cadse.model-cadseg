@@ -464,7 +464,9 @@ public class CadseDefinitionManager extends CadseRuntimeManager implements IMode
 	 */
 	@Override
 	public String computeQualifiedName(Item item, String shortid, Item parent, LinkType type) {
-		return null;
+		if (shortid.contains("."))
+			return shortid;				
+		return CadseRuntime.CADSE_NAME_SUFFIX + shortid;
 	}
 
 	/**
