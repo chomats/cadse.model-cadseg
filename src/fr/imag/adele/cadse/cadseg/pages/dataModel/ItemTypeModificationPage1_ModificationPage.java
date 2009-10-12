@@ -73,42 +73,17 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	/**
 	    @generated
 	 */
-	protected DBrowserUI fieldCadseRuntime;
-
-	/**
-	    @generated
-	 */
 	protected DTextUI fieldItemFactory;
 
 	/**
 	    @generated
 	 */
+	protected DCheckBoxUI fieldCustomManager;
+
+	/**
+	    @generated
+	 */
 	protected DTextUI fieldItemManager;
-
-	/**
-	    @generated
-	 */
-	protected DListUI fieldLinkType;
-
-	/**
-	    @generated
-	 */
-	protected DListUI fieldSubTypes;
-
-	/**
-	    @generated
-	 */
-	protected DTextUI fieldPackageName;
-
-	/**
-	    @generated
-	 */
-	protected DListUI fieldModificationPages;
-
-	/**
-	    @generated
-	 */
-	protected DListUI fieldCreationPages;
 
 	/**
 	 * @generated
@@ -213,19 +188,6 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	/**
 	    @generated
 	 */
-	public DBrowserUI createFieldCadseRuntime() {
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.",
-				CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME);
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME);
-		return new DBrowserUI(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME.getName(),
-				"cadse-runtime", EPosLabel.left, mc, ic);
-	}
-
-	/**
-	    @generated
-	 */
 	public DTextUI createFieldItemFactory() {
 		return new DTextUI(CadseGCST.ITEM_TYPE_at_ITEM_FACTORY, "item-factory",
 				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
@@ -235,73 +197,19 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	/**
 	    @generated
 	 */
+	public DCheckBoxUI createFieldCustomManager() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER,
+				"custom-manager", EPosLabel.none, mc, null);
+	}
+
+	/**
+	    @generated
+	 */
 	public DTextUI createFieldItemManager() {
 		return new DTextUI(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER, "item-manager",
 				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
 				false, false);
-	}
-
-	/**
-	    @generated
-	 */
-	public DListUI createFieldLinkType() {
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.",
-				CadseGCST.ITEM_TYPE_lt_LINK_TYPE);
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_TYPE_lt_LINK_TYPE);
-		return new DListUI(CadseGCST.ITEM_TYPE_lt_LINK_TYPE.getName(),
-				"link-type", EPosLabel.top, mc, ic, true, false, false, false);
-	}
-
-	/**
-	    @generated
-	 */
-	public DListUI createFieldSubTypes() {
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.",
-				CadseGCST.ITEM_TYPE_lt_SUB_TYPES);
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_TYPE_lt_SUB_TYPES);
-		return new DListUI(CadseGCST.ITEM_TYPE_lt_SUB_TYPES.getName(),
-				"sub-types", EPosLabel.top, mc, ic, true, false, false, false);
-	}
-
-	/**
-	    @generated
-	 */
-	public DTextUI createFieldPackageName() {
-		return new DTextUI(CadseGCST.ITEM_TYPE_at_PACKAGE_NAME, "package-name",
-				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
-				false, false);
-	}
-
-	/**
-	    @generated
-	 */
-	public DListUI createFieldModificationPages() {
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.",
-				CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES);
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES);
-		return new DListUI(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES.getName(),
-				"modification-pages", EPosLabel.top, mc, ic, true, false,
-				false, false);
-	}
-
-	/**
-	    @generated
-	 */
-	public DListUI createFieldCreationPages() {
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.",
-				CadseGCST.ITEM_TYPE_lt_CREATION_PAGES);
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_TYPE_lt_CREATION_PAGES);
-		return new DListUI(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES.getName(),
-				"creation-pages", EPosLabel.top, mc, ic, true, false, false,
-				false);
 	}
 
 	/**
