@@ -71,6 +71,7 @@ import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.delta.WLWCOperation;
 import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWDestEvol;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
@@ -119,6 +120,18 @@ public class GenerateCadseDefinitionModel {
 
 		Collection<Item> extendsItems = CadseDefinitionManager.getExtends(cadseDefinition);
 		for (Item item : extendsItems) {
+			if (!item.isResolved()) {
+				CadseRuntime[] cr = item.getLogicalWorkspace().getCadseRuntime();
+				for (CadseRuntime cadseRuntime : cr) {
+					if (cadseRuntime.getQualifiedName().equals(item.getQualifiedName())) 
+						{
+						item = cadseRuntime;
+						break;
+						}
+				}
+				if (item == null) continue;
+			}
+			
 			CCadseRef cadseref = factory.createCCadseRef();
 			cadseref.setName(item.getQualifiedName());
 			cadseref.setId(CadseDefinitionManager.getIdRuntime(item).toString());
@@ -158,9 +171,14 @@ public class GenerateCadseDefinitionModel {
 			// ceit.setSuperTypeName(value);
 
 			Item refItemType = ExtItemTypeManager.getRefType(extIt);
-			if (refItemType != null && refItemType.isResolved()) {
-				CompactUUID uuid = ItemTypeManager.getIdRuntime(refItemType);
-				ceit.setItemTypeSource(uuid.toString());
+			if (refItemType != null) {
+				if (!refItemType.isResolved()) {
+					
+				}
+				if (refItemType.isResolved()) {
+					CompactUUID uuid = ItemTypeManager.getIdRuntime((ItemType) refItemType);
+					ceit.setItemTypeSource(uuid.toString());
+				}
 			}
 
 			generateCommonInformation(cxt, factory, extIt, ceit);
@@ -567,7 +585,7 @@ public class GenerateCadseDefinitionModel {
 
 		Item superItemType = ItemTypeManager.getSuperType(itemType);
 		if (superItemType != null) {
-			cit.setSuperTypeName(ItemTypeManager.getIdRuntime(superItemType).toString());
+			cit.setSuperTypeName(ItemTypeManager.getIdRuntime((ItemType) superItemType).toString());
 		} else {
 			if (ItemTypeManager.isIsMetaItemTypeAttribute(itemType)) {
 				cit.setSuperTypeName(CadseGCST.ITEM_TYPE.getId().toString());
@@ -630,7 +648,7 @@ public class GenerateCadseDefinitionModel {
 		clt.setName(linkType.getName());
 		clt.setMin(LinkManager.getMin(linkType));
 		clt.setMax(LinkManager.getMax(linkType));
-		clt.setDestination(ItemTypeManager.getIdRuntime(itemTypeDest).toString());
+		clt.setDestination(ItemTypeManager.getIdRuntime((ItemType) itemTypeDest).toString());
 		clt.setIsComposition(LinkManager.isComposition(linkType));
 		clt.setIsAggregation(LinkManager.isAggregation(linkType));
 		clt.setIsPart(LinkManager.isPart(linkType));
