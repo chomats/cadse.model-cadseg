@@ -252,6 +252,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 	public CadseG_WLWCListener() {
 		CadseGCST.ABSTRACT_ITEM_TYPE.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.DATA_MODEL.addLogicalWorkspaceTransactionListener(this);
 		CadseGCST.PAGE.addLogicalWorkspaceTransactionListener(this);
 		CadseGCST.MANAGER.addLogicalWorkspaceTransactionListener(this);
 		CadseGCST.CADSE_DEFINITION.addLogicalWorkspaceTransactionListener(this);
@@ -315,6 +316,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 					// create a link form manager to theitemtype
 					ManagerManager.setItemType(managerItem, item);
 	
+					
 					
 				} catch (CadseException e) {
 					// TODO Auto-generated catch block
