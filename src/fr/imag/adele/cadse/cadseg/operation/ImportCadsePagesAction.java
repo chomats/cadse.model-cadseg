@@ -94,8 +94,7 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
 			if (element instanceof IFile) {
 				IFile file = (IFile) element;
-				return (file.getName().startsWith(CadseRuntime.CADSE_NAME_SUFFIX) && file.getName().endsWith(
-						".zip"));
+				return (file.getName().endsWith(".zip"));
 			}
 			if (element instanceof IContainer) {
 				IContainer folder = (IContainer) element;
@@ -242,7 +241,7 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 		 */
 		@Override
 		protected String[] getFileFilter() {
-			return new String[] { CadseRuntime.CADSE_NAME_SUFFIX + "*.zip" };
+			return new String[] { "*.zip" };
 		}
 
 		/*

@@ -85,7 +85,7 @@ public class ImportPagesAction extends AbstractActionPage {
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
 			if (element instanceof IFile) {
 				IFile file = (IFile) element;
-				return (file.getName().startsWith(CadseRuntime.CADSE_NAME_SUFFIX) && file.getName().endsWith(
+				return (file.getName().endsWith(
 						".jar"));
 			}
 			if (element instanceof IContainer) {
@@ -217,7 +217,7 @@ public class ImportPagesAction extends AbstractActionPage {
 		 */
 		@Override
 		protected String[] getFileFilter() {
-			return new String[] { CadseRuntime.CADSE_NAME_SUFFIX + "*.jar" };
+			return new String[] {  "*.jar" };
 		}
 
 		/*
@@ -317,7 +317,7 @@ public class ImportPagesAction extends AbstractActionPage {
 		CadseCore.getCadseDomain().beginOperation("Import binary cadse");
 		try {
 			pmo.beginTask("import cadse " + cadse.getName(), cadse.getItemType().size() * 2 + 1);
-			String shortname = cadse.getName().substring(CadseRuntime.CADSE_NAME_SUFFIX.length());
+			String shortname = cadse.getName();
 			// assert file != null
 			// assert cadse != null
 			Item cadsedef = CadseCore.createItemIfNeed(cadse.getName(), shortname, CadseGCST.CADSE_DEFINITION, null,

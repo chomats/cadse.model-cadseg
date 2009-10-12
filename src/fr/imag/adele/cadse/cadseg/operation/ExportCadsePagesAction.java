@@ -331,7 +331,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		try {
 			EclipsePluginContentManger project = (EclipsePluginContentManger) cadsedef.getContentItem();
 
-			String qname = CadseDefinitionManager.getQualifiedName(cadsedef);
+			String qname = cadsedef.getQualifiedName();
 			File pf = new File(file, qname + "-src.zip");
 			if (tstamp) {
 				Date d = new Date(System.currentTimeMillis());
