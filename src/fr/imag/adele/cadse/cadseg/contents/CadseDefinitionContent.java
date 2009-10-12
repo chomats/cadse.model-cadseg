@@ -63,8 +63,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 			public String compute(ContextVariable context, Item item) {
 				if (item == null)
 					return "??";
-				return CadseRuntime.CADSE_NAME_SUFFIX
-						+ context.getAttribute(item, CadseGCST.ITEM_at_NAME_);
+				return context.getAttribute(item, CadseGCST.ITEM_at_QUALIFIED_NAME_);
 			}
 		}, true);
 	}
@@ -125,7 +124,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		omf.putArray(OsgiManifest.REQUIRE_BUNDLE, true, false, "org.eclipse.ui", "org.eclipse.ui.ide");
 		List<Item> dep = CadseDefinitionManager.getAllDependenciesCadse(getItem());
 		for (Item item : dep) {
-			omf.putArray(OsgiManifest.REQUIRE_BUNDLE, true, false, CadseDefinitionManager.getQualifiedName(item));
+			omf.putArray(OsgiManifest.REQUIRE_BUNDLE, true, false, item.getQualifiedName());
 		}
 		super.computeManifest(omf);
 	}
