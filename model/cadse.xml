@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- 
-ProjectContentModel.project-name.defaultvalue = ${#qualified-name}
+ExtItem.super-type = null
  -->
 <ns2:c-cadse display-name="CADSEg (Editor and generator of CADSEs)" description="CADSEg specializes the IDE to provide functionalities to edit and create CADSEs" cst-class="fr.imag.adele.cadse.core.CadseGCST" version="0" id_cadse_definition="0dc9a0d0-73ff-4e82-a181-1b6792d49e75" id="2b50360d-d835-4e98-80a8-bc55fe5421e7" name="Model.Workspace.CadseG" xmlns:ns2="http://fr.imag.adele/fede/workspace/model">
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/composer.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.build.composer.AJProjectComposerManager" display-name="AJProjectComposer" is-abstract="true" is-root-element="false" intID="0" has-content="true" package-name="build.composer" super-type-name="1b4f69bd-25a3-445e-b7d4-d106a72e3596" name="AJProjectComposer" qualified-name="CadseG.build.composer.AJProjectComposer" cst-name="AJPROJECT_COMPOSER" id="d2942fa2-260e-4697-aa6b-c74d5384cf47">
@@ -1230,6 +1230,6 @@ ProjectContentModel.project-name.defaultvalue = ${#qualified-name}
         </modification-pages>
     </item-type>
     <ext-item-type item-type-source="b0a278a3-481c-47af-bbbb-6ec983e4a0c8">
-        <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="d6b173d1-c467-4f5a-bd9a-3578e9b01832" cst-name="ACTION_EXT_ITEM_TYPE_lt_ACTIONS_MODEL" intID="0" destination="9d0d53b2-b190-4f46-a362-fb1bdb2eb534" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="1" min="0" name="actions-model"/>
+        <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="d6b173d1-c467-4f5a-bd9a-3578e9b01832" cst-name="EXT_ITEM_TYPE_lt_ACTIONS_MODEL" intID="0" destination="9d0d53b2-b190-4f46-a362-fb1bdb2eb534" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="1" min="0" name="actions-model"/>
     </ext-item-type>
 </ns2:c-cadse>
