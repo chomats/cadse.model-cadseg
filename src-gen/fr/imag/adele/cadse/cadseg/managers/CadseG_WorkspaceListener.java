@@ -28,7 +28,8 @@ public class CadseG_WorkspaceListener extends WorkspaceListener {
 			Item item = itemDelta.getItem();
 			computeToGenerate(toRegenerate, item);
 			if (item.isInstanceOf(CadseGCST.ITEM_TYPE)) {
-				if (itemDelta.hasModifiedAttribute(CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_)) {
+				if (itemDelta.hasModifiedAttribute(CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_) ||
+						itemDelta.hasModifiedAttribute(CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_)) {
 					for (Item subType : item.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_SUB_TYPES, true)) {
 						computeToGenerate(toRegenerate, subType);	
 					}
