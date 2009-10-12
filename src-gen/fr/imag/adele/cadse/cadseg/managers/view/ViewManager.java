@@ -280,15 +280,11 @@ public class ViewManager extends DefaultItemManager {
 		 * @see ManagerManager#getContentModel(Item )
 		 */
 		public void generate(ContextVariable cxt) {
-			Item view = getItem();
+			Item view = getOwnerItem();
 			ViewerSkeltonTemplate skeltonTemplate = new ViewerSkeltonTemplate();
-			Item model = getCadsegModel(view);
-			String packageName = getPackageName(cxt);
-			String className = getClassName(cxt);
-			ViewModel vm = new ViewModel(ContextVariable.DEFAULT, getItem());
+			ViewModel vm = new ViewModel(ContextVariable.DEFAULT, getOwnerItem());
 			try {
-				IFile javaFile = MelusineProjectManager.getProject(model).getFile(
-						new Path("sources").append(packageName.replace('.', '/')).append(className + ".java"));
+				IFile javaFile = getFile();
 				EclipsePluginContentManger.generateJava(javaFile, skeltonTemplate.generate(vm), View
 						.getDefaultMonitor());
 
