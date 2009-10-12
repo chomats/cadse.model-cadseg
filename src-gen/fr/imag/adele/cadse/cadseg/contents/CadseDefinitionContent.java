@@ -69,7 +69,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 					return "??";
 				return context.getAttribute(item, CadseGCST.ITEM_at_QUALIFIED_NAME_);
 			}
-		}, new StringVariable("src"));
+		}, new StringVariable("src-gen"));
 	}
 
 	/*
@@ -201,7 +201,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	
 		try {
 			IProgressMonitor monitor = View.getDefaultMonitor();
-			JavaProjectManager.createJavaSourceFolder(getOwnerItem(), getProject().getFolder("src-gen"), null, monitor);
+			JavaProjectManager.createJavaSourceFolder(getOwnerItem(), getProject().getFolder("src"), null, monitor);
 			
 			IFile launchAppli = getProject().getFile("run-cadse-" + getOwnerItem().getName() + ".launch");
 			if (!launchAppli.exists()) {
@@ -219,6 +219,39 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	protected void computeModel(PDEGenerateModel model) {
 		super.computeModel(model);
 		model.sourceName = "src-gen";
+	}
+	
+	/**
+	 * Gets the java source element.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * 
+	 * @return the java source element
+	 */
+	public IPackageFragmentRoot getCustomJavaSourceElement(ContextVariable cxt) {
+		IFolder source = getProject(cxt).getFolder("src");
+		IJavaProject jp = getJavaProject(cxt);
+		if (jp != null) {
+			return jp.getPackageFragmentRoot(source);
+		}
+		return null;
+	}
+	
+	/**
+	 * Gets the java source element.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * 
+	 * @return the java source element
+	 */
+	public IContainer getCustomJavaSourceElementContainer(ContextVariable cxt) {
+		IPackageFragmentRoot jp = getCustomJavaSourceElement(cxt);
+		if (jp != null) {
+			return (IContainer) jp.getResource();
+		}
+		return null;
 	}
 	
 
