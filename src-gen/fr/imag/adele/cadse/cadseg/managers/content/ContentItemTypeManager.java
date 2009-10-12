@@ -237,7 +237,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 				if (supercontentItem != null && supercontentItem.getType() == getOwnerItem().getType()) {
 					if (isExtendsClass(supercontentItem)) {
 						return ((JavaFileContentManager) superItemManager.getContentItem()).getClassName(cxt)
-								+ "."+GenerateJavaIdentifier.getContentClassName(cxt, itemtype);
+								+ "."+GenerateJavaIdentifier.getContentClassName(cxt, superitemtype);
 					}
 				}
 				itemtype = superitemtype;
