@@ -28,7 +28,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.PageFactory;
-import fede.workspace.model.manager.properties.FieldsCore;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 
 /**
  * A factory for creating AttributePage objects.
