@@ -26,6 +26,8 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -40,6 +42,8 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
  */
 public class LinkModelControllerManager extends ModelControllerManager {
 
+	
+
 	/**
 	 * @generated
 	 */
@@ -48,18 +52,19 @@ public class LinkModelControllerManager extends ModelControllerManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -74,7 +79,6 @@ public class LinkModelControllerManager extends ModelControllerManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -82,10 +86,12 @@ public class LinkModelControllerManager extends ModelControllerManager {
 		}
 	}
 
+
+
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends ModelControllerManager.MyContentItem {
+	public class LinkModelControllerContent extends ModelControllerManager.ModelControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -95,8 +101,8 @@ public class LinkModelControllerManager extends ModelControllerManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		public LinkModelControllerContent(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -233,8 +239,26 @@ public class LinkModelControllerManager extends ModelControllerManager {
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new LinkModelControllerContent(id);
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getErrorMessageAttribute(Item linkModelController) {
+		return linkModelController.getAttributeWithDefaultValue(CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setErrorMessageAttribute(Item linkModelController, String value) {
+		try {
+			linkModelController.setAttribute(CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_, value);
+		} catch (Throwable t) {
+
+		}
 	}
 
 }

@@ -13,13 +13,15 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class SubContentModelModificationPage1_ModificationPage extends ContentModelModificationPage1_ModificationPage {
+public class SubContentModelModificationPage1_ModificationPage extends
+		ContentItemModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected SubContentModelModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected SubContentModelModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -27,7 +29,8 @@ public class SubContentModelModificationPage1_ModificationPage extends ContentMo
 	 * @generated
 	 */
 	public SubContentModelModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "SubContentModel", "SubContentModel", "", false, 3);
+		super("modification-page1", "SubContentModel", "SubContentModel", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

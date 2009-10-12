@@ -20,6 +20,7 @@
 package fr.imag.adele.cadse.cadseg.managers.view;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
@@ -50,13 +51,18 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModel;
 import fr.imag.adele.cadse.cadseg.template.ViewerSkeltonTemplate;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.Separator;
 import fr.imag.adele.cadse.core.WorkspaceListener;
@@ -200,7 +206,7 @@ public class ViewManager extends DefaultItemManager {
 	 * 
 	 * @return the cadseg model
 	 */
-	private static Item getCadsegModel(Item view) {
+	public static Item getCadsegModel(Item view) {
 		if (view == null) {
 			return null;
 		}
@@ -242,8 +248,8 @@ public class ViewManager extends DefaultItemManager {
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		private ViewJavaFileContentManager(Item workspaceModel, Item view) throws CadseException {
-			super(workspaceModel.getContentItem(), view, new VariableImpl() {
+		private ViewJavaFileContentManager(CompactUUID id) throws CadseException {
+			super(id, new VariableImpl() {
 				public String compute(ContextVariable context, Item itemCurrent) {
 					return ViewManager.getPackage(context, itemCurrent);
 				}
@@ -346,8 +352,6 @@ public class ViewManager extends DefaultItemManager {
 
 	}
 
-	/** The Constant ICON_ATTRIBUTE. */
-	public static final String	ICON_ATTRIBUTE	= "icon";
 
 	/**
 	 * The Constructor.
@@ -355,42 +359,28 @@ public class ViewManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public ViewManager() {
+		super();
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
-		{
+		try {
 			Object value;
-			Item currentItem = item;
-			currentItem = parent;
-			if (currentItem == null) {
-				sb.append("<parent is null!!!>");
-				return sb.toString();
-			} else {
-				sb.append(currentItem.getQualifiedName());
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
 			}
-			currentItem = item;
-			sb.append(".");
-			sb.append(shortName);
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
 		}
-		return sb.toString();
 	}
 
 	/**
@@ -405,13 +395,13 @@ public class ViewManager extends DefaultItemManager {
 	 */
 	@Override
 	public String getDisplayName(Item item) {
-		StringBuilder sb = new StringBuilder();
-		{
+		try {
 			Object value;
-			Item currentItem = item;
-			sb.append(currentItem.getName());
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
 		}
-		return sb.toString();
 	}
 
 	// /**
@@ -454,35 +444,19 @@ public class ViewManager extends DefaultItemManager {
 	// }
 
 	/**
-	 * Creates the modification page modification page1.
-	 * 
-	 * @param item
-	 *            the item
-	 * 
-	 * @return the i page
-	 * 
-	 * @generated
-	 */
-	protected IPage createModificationPageModificationPage1(Item item) {
-		return FieldsCore.createPage("modification-page1", "View", "", 3, FieldsCore.createShortNameField(),
-				createFieldIcon(), createFieldDataModel(item));
-	}
+		get  links 'view-item-types' from 'View' to 'ViewItemType'.
+        @generated
+    */
+    static public List<Link> getViewItemTypesLink(Item view) {
+        return view.getOutgoingLinks(CadseGCST.VIEW_lt_VIEW_ITEM_TYPES);
+    }
 
 	/**
-	 * Creates the modification page.
-	 * 
-	 * @param item
-	 *            the item
-	 * 
-	 * @return the pages
-	 * 
-	 * @generated
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-		return FieldsCore.createWizard(action, createModificationPageModificationPage1(item));
-	}
+        @generated
+    */
+    static public Collection<Item> getViewItemTypesAll(Item view) {
+        return view.getOutgoingItems(CadseGCST.VIEW_lt_VIEW_ITEM_TYPES, false);
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -490,13 +464,8 @@ public class ViewManager extends DefaultItemManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item view) throws CadseException {
-		Item cadseg = getCadsegModel(view);
-		if (cadseg == null) {
-			return ContentItem.INVALID_CONTENT;
-		}
-
-		return new ViewJavaFileContentManager(cadseg, view);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new ViewJavaFileContentManager(id);
 	}
 
 	/*
@@ -506,7 +475,7 @@ public class ViewManager extends DefaultItemManager {
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.VIEW.setSpaceKeyType(new SpaceKeyType(WorkspaceCST.VIEW, WorkspaceCST.CADSE_DEFINITION));
+		CadseGCST.VIEW.setSpaceKeyType(new SpaceKeyType(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
 
 		WorkspaceListener listener = new WorkspaceListener() {
 
@@ -518,7 +487,7 @@ public class ViewManager extends DefaultItemManager {
 						continue;
 					}
 					Item item = itemDelta.getItem();
-					Item view = item.getPartParent(WorkspaceCST.VIEW);
+					Item view = item.getPartParent(CadseGCST.VIEW);
 					if (view != null) {
 						views.add(view);
 					}
@@ -531,17 +500,6 @@ public class ViewManager extends DefaultItemManager {
 
 		};
 		CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
-	}
-
-	/**
-	 * Creates the field icon.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @generated
-	 */
-	protected UIField createFieldIcon() {
-		return FieldsCore.createBrowserIconField(ICON_ATTRIBUTE, "icon", EPosLabel.left);
 	}
 
 	/**
@@ -562,29 +520,6 @@ public class ViewManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Gets the icon attribute.
-	 * 
-	 * @param view
-	 *            the view
-	 * 
-	 * @return the icon attribute
-	 * 
-	 * @generated
-	 */
-	public static final String getIconAttribute(Item view) {
-		Object value = view.getAttribute(ICON_ATTRIBUTE);
-		if (value == null) {
-			return "";
-		}
-
-		try {
-			return (String) value;
-		} catch (Throwable t) {
-			return "";
-		}
-	}
-
-	/**
 	 * Gets the icon path.
 	 * 
 	 * @param item
@@ -593,32 +528,13 @@ public class ViewManager extends DefaultItemManager {
 	 * @return the icon path
 	 */
 	public static String getIconPath(Item item) {
-		String pStr = (String) item.getAttribute(ICON_ATTRIBUTE);
+		String pStr = (String) item.getAttribute(CadseGCST.VIEW_at_ICON_);
 		if (pStr == null || pStr.length() == 0) {
 			return null;
 		}
 
 		IPath p = new Path(pStr);
 		return p.removeFirstSegments(1).makeRelative().toPortableString();
-	}
-
-	/**
-	 * Sets the icon attribute.
-	 * 
-	 * @param view
-	 *            the view
-	 * @param value
-	 *            the value
-	 * 
-	 * @generated
-	 */
-	public static final void setIconAttribute(Item view, String value) {
-		try {
-			Object setvalue = value;
-			view.setAttribute(ICON_ATTRIBUTE, setvalue);
-		} catch (Throwable t) {
-
-		}
 	}
 
 	// class ItemTypeViewAction implements IItemTypeDynamic {
@@ -690,8 +606,8 @@ public class ViewManager extends DefaultItemManager {
 	 */
 	public static Item getViewItemType(Item view, Item itemtype) {
 		try {
-			Item viewitemtype = CadseCore.getItem(null, itemtype.getName(), WorkspaceCST.VIEW_ITEM_TYPE, view,
-					WorkspaceCST.VIEW_lt_VIEW_ITEM_TYPES);
+			Item viewitemtype = CadseCore.getItem(null, itemtype.getName(), CadseGCST.VIEW_ITEM_TYPE, view,
+					CadseGCST.VIEW_lt_VIEW_ITEM_TYPES);
 			return viewitemtype;
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
@@ -713,11 +629,11 @@ public class ViewManager extends DefaultItemManager {
 	public static Item createViewItemType(Item view, Item itemtype) {
 		try {
 			Item viewitemtype = CadseCore
-					.createItemIfNeed(null, itemtype.getName(), WorkspaceCST.VIEW_ITEM_TYPE, view,
-							WorkspaceCST.VIEW_lt_VIEW_ITEM_TYPES,
+					.createItemIfNeed(null, itemtype.getName(), CadseGCST.VIEW_ITEM_TYPE, view,
+							CadseGCST.VIEW_lt_VIEW_ITEM_TYPES,
 
-							WorkspaceCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE, itemtype,
-							WorkspaceCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_, ItemTypeManager
+							CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE, itemtype,
+							CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_, ItemTypeManager
 									.isIsRootElementAttribute(itemtype));
 			return viewitemtype;
 		} catch (CadseException e) {
@@ -758,13 +674,13 @@ public class ViewManager extends DefaultItemManager {
 	 */
 	static Item createViewLinkType2(Item viewitemtype, Item link) {
 		try {
-			Item viewlinktype = CadseCore.createItemIfNeed(null, link.getName(), WorkspaceCST.VIEW_LINK_TYPE,
-					viewitemtype, WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES,
-					WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE, link,
+			Item viewlinktype = CadseCore.createItemIfNeed(null, link.getName(), CadseGCST.VIEW_LINK_TYPE,
+					viewitemtype, CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES,
+					CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE, link,
 
-					WorkspaceCST.VIEW_LINK_TYPE_at_AGGREGATION_, LinkManager.isAggregation(link),
-					WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, LinkManager.isAggregation(link),
-					WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK_, true);
+					CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION_, LinkManager.isAggregation(link),
+					CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, LinkManager.isAggregation(link),
+					CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK_, true);
 			return viewlinktype;
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
@@ -785,8 +701,8 @@ public class ViewManager extends DefaultItemManager {
 	 */
 	public static Item getViewLinkType(Item viewitemtype, Item link) {
 		try {
-			Item viewlinktype = CadseCore.getItem(null, link.getName(), WorkspaceCST.VIEW_LINK_TYPE, viewitemtype,
-					WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES);
+			Item viewlinktype = CadseCore.getItem(null, link.getName(), CadseGCST.VIEW_LINK_TYPE, viewitemtype,
+					CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES);
 			return viewlinktype;
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
@@ -806,7 +722,39 @@ public class ViewManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getViewItemTypes(Item view) {
-		return view.getOutgoingItems(WorkspaceCST.VIEW_lt_VIEW_ITEM_TYPES, true);
+        return view.getOutgoingItems(CadseGCST.VIEW_lt_VIEW_ITEM_TYPES,true);
+    }
+
+	/**
+        @generated
+    */
+    static public void addViewItemTypes(Item view, Item value) throws CadseException {
+        view.addOutgoingItem(CadseGCST.VIEW_lt_VIEW_ITEM_TYPES,value);
+    }
+
+	/**
+        @generated
+    */
+    static public void removeViewItemTypes(Item view, Item value) throws CadseException {
+        view.removeOutgoingItem(CadseGCST.VIEW_lt_VIEW_ITEM_TYPES,value);
+    }
+
+	/**
+		@generated
+	*/
+	public static final String getIconAttribute(Item view) {
+		return view.getAttributeWithDefaultValue(CadseGCST.VIEW_at_ICON_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setIconAttribute(Item view, String value) {
+		try {
+			view.setAttribute(CadseGCST.VIEW_at_ICON_, value);
+		} catch (Throwable t) {
+
+		}
 	}
 
 	@Override

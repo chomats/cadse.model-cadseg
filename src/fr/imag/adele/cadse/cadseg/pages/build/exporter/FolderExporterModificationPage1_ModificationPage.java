@@ -6,7 +6,7 @@ import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -24,18 +24,20 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class FolderExporterModificationPage1_ModificationPage extends EclipseExporterModificationPage1_ModificationPage {
+public class FolderExporterModificationPage1_ModificationPage extends
+		EclipseExporterModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldPath;
+	protected DTextUI fieldPath;
 
 	/**
 	 * @generated
 	 */
-	protected FolderExporterModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected FolderExporterModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -43,7 +45,8 @@ public class FolderExporterModificationPage1_ModificationPage extends EclipseExp
 	 * @generated
 	 */
 	public FolderExporterModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "FolderExporter", "FolderExporter", "", false, 3);
+		super("modification-page1", "FolderExporter", "FolderExporter", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldPath = createFieldPath();
@@ -63,17 +66,9 @@ public class FolderExporterModificationPage1_ModificationPage extends EclipseExp
 	 * @generated
 	 */
 	public DTextUI createFieldPath() {
-		return new DTextUI(WorkspaceCST.FOLDER_EXPORTER_at_PATH, "path", EPosLabel.left, new MC_AttributesItem(), null,
-				1, "", false, false, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DListUI createFieldTypes() {
-		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.", "Select a value.", false);
-		return new DListUI(WorkspaceCST.EXPORTER_at_TYPES, "types", EPosLabel.top, mc, ic, true, false, false, false);
+		return new DTextUI(CadseGCST.FOLDER_EXPORTER_at_PATH, "path",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 }

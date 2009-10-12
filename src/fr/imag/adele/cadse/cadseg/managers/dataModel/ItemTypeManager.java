@@ -32,13 +32,13 @@ import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
 import fede.workspace.eclipse.composition.java.IPDEContributor;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -49,7 +49,9 @@ import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
+import fr.imag.adele.cadse.core.key.AttributesSpaceKeyType;
 import fr.imag.adele.cadse.core.key.SpaceKeyType;
 import fr.imag.adele.cadse.core.util.ArraysUtil;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -83,308 +85,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		return packageName;
 	}
 
-	/**
-	 * The Class ItemTypeJavaFileContentManager.
-	 */
-	private final static class ItemTypeJavaFileContentManager extends ContentItemImpl implements IGenerateContent,
-			IPDEContributor {
-		// JavaFileContentManager itemJavaFile;
-		// JavaFileContentManager itemImplJavaFile;
-		// JavaFileContentManager itemtypeJavaFile;
-		// JavaFileContentManager itemtypeImplJavaFile;
 
-		/**
-		 * Instantiates a new item type java file content manager.
-		 * 
-		 * @param itemType
-		 *            the item type
-		 * @param workspaceModel
-		 *            the workspace model
-		 * 
-		 * @throws CadseException
-		 *             the melusine exception
-		 */
-		private ItemTypeJavaFileContentManager(Item itemType, Item workspaceModel) throws CadseException {
-			super(workspaceModel.getContentItem(), itemType);
-			// itemJavaFile = new
-			// JavaFileContentManager(workspaceModel.getAndCreateContentManager(),itemType,getPackage(itemType,".instance"),
-			// JavaIdentifier
-			// .javaIdentifierFromString(itemType.getName(),
-			// true, false, "Instance"));
-			// itemImplJavaFile = new
-			// JavaFileContentManager(workspaceModel.getAndCreateContentManager(),itemType,getPackage(itemType,".instance.impl"),
-			// JavaIdentifier
-			// .javaIdentifierFromString(itemType.getName(),
-			// true, false, "InstanceImpl"));
-			// itemtypeJavaFile = new
-			// JavaFileContentManager(workspaceModel.getAndCreateContentManager(),itemType,getPackage(itemType,".types"),
-			// JavaIdentifier
-			// .javaIdentifierFromString(itemType.getName(),
-			// true, false, "Type"));
-			// itemtypeImplJavaFile = new
-			// JavaFileContentManager(workspaceModel.getAndCreateContentManager(),itemType,getPackage(itemType,".types.impl"),
-			// JavaIdentifier
-			// .javaIdentifierFromString(itemType.getName(),
-			// true, false, "TypeImpl"));
-		}
-
-		/**
-		 * Generate.
-		 * 
-		 * @param cxt
-		 *            the cxt
-		 * 
-		 * @see ManagerManager#getContentModel(Item )
-		 */
-		public void generate(ContextVariable cxt) {
-			// generateItemImpl();
-			//
-			// Item itemtype = getItem();
-			// ManagerSkeltonTemplate itypetmp = new ManagerSkeltonTemplate();
-			// Item model = getWorkspaceModel(itemtype);
-			// String packageName = getPackageName();
-			// String className = getClassName();
-			// try {
-			// EclipsePluginContentManger.generateJava(MelusineProjectManager
-			// .getProject(model), new Path("sources/"
-			// + packageName.replace('.', '/')), className + ".java",
-			// itypetmp.generate(itemtype), Eclipse
-			// .getDefaultMonitor());
-			//
-			// } catch (CoreException e) {
-			// e.printStackTrace();
-			// }
-			// ((IGenerateContent)
-			// getWorkspaceModel(itemtype).getAndCreateContentManager())
-			// .generate();
-		}
-
-		// private void generateItemImpl() {
-		// IFile f = itemImplJavaFile.getFile();
-		// try {
-		// EclipsePluginContentManger.generateJava(f,
-		// itypetmp.generate(itemtype), Eclipse
-		// .getDefaultMonitor());
-		//
-		// } catch (CoreException e) {
-		// e.printStackTrace();
-		// }
-		// }
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#getGenerateModel()
-		 */
-		public ManagerManager.GenerateModel getGenerateModel() {
-			return null;
-			// Item itemtype = getItem();
-			// ManagerManager.GenerateModel cm = new
-			// ManagerManager.GenerateModel();
-			// cm.importsArray = new HashSet<String>();
-			//
-			//
-			// cm.itemName = itemtype.getName();
-			// cm.className = getClassName();
-			// cm.packageName = getPackageName();
-			//
-			// // Item manager = getManager(theitemtype);
-			// //ManagerManager.Type kindClassName =
-			// ManagerManager.getType(manager);
-			// cm.callSuper = !ItemTypeManager.isWorkspaceRoot(itemtype);
-			// if (cm.callSuper) {
-			// Item superItem = ItemTypeManager.getSuperType(itemtype);
-			// if (superItem != null) {
-			// Item superItemManager = ItemTypeManager
-			// .getManager(superItem);
-			// cm.superClassName = ((JavaFileContentManager) superItemManager
-			// .getAndCreateContentManager()).getClassName();
-			// String importClass = ((JavaFileContentManager) superItemManager
-			// .getAndCreateContentManager()).getPackageName()
-			// + "." + cm.superClassName;
-			// cm.importsArray.add(importClass);
-			// } else {
-			// cm.superClassName = kindClassName.getTypeJava();
-			// cm.importsArray.addAll(Arrays
-			// .asList(kindClassName.java_imports));
-			//
-			// }
-			// } else {
-			//
-			// cm.superClassName = "StandardWStemManager";
-			// cm.importsArray
-			// .add("fede.workspace.model.manager.StandardWStemManager");
-			// //
-			// cm.importsArray.add("org.eclipse.jface.resource.ImageDescriptor");
-			// }
-			//
-			// cm.body = new GenStringBuilder();
-			// cm.body.begin();
-			// generate(cm.body, "manager", "all", cm.importsArray, null);
-			// cm.body.end();
-			// // Item content = getContentModel(manager);
-			//
-			// // Item wizardItem = getWizard(manager);
-			// // if (wizardItem != null) {
-			// // cm.methodsSB.newline();
-			// // cm.methodsSB.newline().append("/**");
-			// // cm.methodsSB.newline().append(" @generated");
-			// // cm.methodsSB.newline().append("*/");
-			// //
-			// // cm.methodsSB.append("@Override").newline()
-			// // .append("public IFieldDescription
-			// getCreateItemFieldDescription()
-			// // {").newline();
-			// // cm.methodsSB.begin();
-			// // cm.methodsSB.append("return ");
-			// // IModelWorkspaceManager im = (IModelWorkspaceManager)
-			// // WSPlugin.getManager(wizardItem);
-			// // im.generate(wizardItem, cm.methodsSB, cm.importsArray);
-			// // cm.methodsSB.append(';').newline();
-			// // cm.methodsSB.append('}').newline();
-			// // }
-			// // cm.methodsSB.end();
-			//
-			// cm.attributes_str = cm.body.toString();
-			// cm.methods_str = "";
-			//
-			// cm.importsArray
-			// .add("fede.workspace.tool.eclipse.IFieldDescription");
-			// return cm;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fr.imag.adele.cadse.core.ContentManager#generate(fr.imag.adele.cadse
-		 * .core.GenStringBuilder, java.lang.String, java.lang.String,
-		 * java.util.Set, fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
-			if (kind.equals("all")) {
-				generateParts(sb, type, "inner-class", imports, context);
-				generateParts(sb, type, "cstes", imports, context);
-				generateParts(sb, type, "attributes", imports, context);
-				generateParts(sb, type, "constructors", imports, context);
-				generateParts(sb, type, "methods", imports, context);
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
-		 * computeExportsPackage(java.util.Set)
-		 */
-		public void computeExportsPackage(Set<String> exports) {
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
-		 * computeImportsPackage(java.util.Set)
-		 */
-		public void computeImportsPackage(Set<String> imports) {
-
-			imports.add("fede.workspace.model.manager");
-			imports.add("org.eclipse.jface.resource");
-			imports.add("org.eclipse.core.resources");
-			imports.add("org.eclipse.core.runtime.jobs");
-
-			imports.add("fede.workspace.tool.eclipse");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion
-		 * (org.eclipse.pde.core.plugin.IPluginBase,
-		 * org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
-		 */
-		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#create()
-		 */
-		@Override
-		public void create() throws CadseException {
-			// this.itemImplJavaFile.create();
-			// this.itemJavaFile.create();
-			// this.itemtypeImplJavaFile.create();
-			// this.itemtypeJavaFile.create();
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#delete()
-		 */
-		@Override
-		public void delete() throws CadseException {
-			// this.itemImplJavaFile.delete();
-			// this.itemJavaFile.delete();
-			// this.itemtypeImplJavaFile.delete();
-			// this.itemtypeJavaFile.delete();
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#getKindsResource()
-		 */
-		@Override
-		public String[] getKindsResource() {
-			// TODO Auto-generated method stub
-			return new String[0]; // this.itemtypeJavaFile.getKindsResource();
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#getMainResource()
-		 */
-		@Override
-		public Object getMainResource() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fr.imag.adele.cadse.core.ContentManager#getResources(java.lang.String
-		 * )
-		 */
-		@Override
-		public Object[] getResources(String kind) {
-			// TODO Auto-generated method stub
-			return new Object[0]; // this.itemtypeJavaFile.getResources(kind);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fr.imag.adele.cadse.core.ContentManager#setResources(java.lang.String
-		 * , java.lang.Object[])
-		 */
-		@Override
-		public void setResources(String kind, Object[] resource) throws CadseException {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -395,7 +96,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.ITEM_TYPE.setSpaceKeyType(new SpaceKeyType(WorkspaceCST.ITEM_TYPE, WorkspaceCST.DATA_MODEL) {
+		CadseGCST.ITEM_TYPE.setSpaceKeyType(new SpaceKeyType(CadseGCST.ITEM_TYPE, CadseGCST.CADSE_RUNTIME) {
 			@Override
 			protected String convertName(String name) {
 				if (name == null) return null;
@@ -407,8 +108,10 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 				return convertName(super.getName(item));
 			}
 		});
-		WorkspaceCST.ITEM_TYPE.setHasShortNameAttribute(true);
-		WorkspaceCST.ITEM_TYPE.setHasUniqueNameAttribute(true);
+		CadseGCST.ITEM_TYPE.setHasShortNameAttribute(true);
+		CadseGCST.ITEM_TYPE.setHasUniqueNameAttribute(true);
+		CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES.setIsNatif(true);
+		CadseGCST.ITEM_TYPE_lt_CREATION_PAGES.setIsNatif(true);
 	}
 
 	/**
@@ -417,6 +120,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	public ItemTypeManager() {
 		_default = this;
 	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -427,7 +131,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.LinkType)
 	 */
 	@Override
-	public String computeUniqueName(Item theItemType, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item theItemType, String shortName, Item parent, LinkType lt) {
 		Item cadse = getCadseDefinition(theItemType);
 		String subpackage = getSubPackageFromCategory(theItemType);
 		StringBuilder sb = new StringBuilder();
@@ -461,7 +165,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @return the attributes
 	 */
 	static public Collection<Item> getAttributes(Item itemtype) {
-		return itemtype.getOutgoingItems(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, true);
+		return itemtype.getOutgoingItems(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, true);
 	}
 
 	/**
@@ -484,7 +188,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 
 		for (Link l : itemtype.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
+			if (l.getLinkType() == CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
 				Item destination = l.getResolvedDestination();
 				if (destination == null) {
 					continue;
@@ -504,7 +208,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			for (Item ext : extensions) {
 				for (Link l : ext.getOutgoingLinks()) {
 					// Select link has kind Part and destination.
-					if (l.getLinkType() == WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
+					if (l.getLinkType() == CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
 						Item destination = l.getResolvedDestination();
 						if (destination == null) {
 							continue;
@@ -545,7 +249,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 
 		for (Link l : itemtype.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
+			if (l.getLinkType() == CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
 				Item destination = l.getResolvedDestination();
 				// if dest not null, take this destination to return list.
 				if (itemfilter == null || itemfilter.accept(destination)) {
@@ -558,7 +262,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			for (Item ext : extensions) {
 				for (Link l : ext.getOutgoingLinks()) {
 					// Select link has kind Part and destination.
-					if (l.getLinkType() == WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
+					if (l.getLinkType() == CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
 						Item destination = l.getResolvedDestination();
 						// if dest not null, take this destination to return
 						// list.
@@ -583,7 +287,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @return La liste des extension (not null)
 	 */
 	public static Set<Item> getAllExtensions(Item itemtype, HashSet<Item> fromCadse) {
-		Collection<Item> exts = itemtype.getIncomingItems(WorkspaceCST.EXT_ITEM_TYPE_lt_REF_TYPE);
+		Collection<Item> exts = itemtype.getIncomingItems(CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE);
 		HashSet<Item> ret = new HashSet<Item>();
 		if (fromCadse == null) {
 			ret.addAll(exts);
@@ -612,7 +316,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 *             the melusine exception
 	 */
 	static public void setAttributes(Item ItemType, List<Item> value) throws CadseException {
-		ItemType.setOutgoingItems(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
+		ItemType.setOutgoingItems(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
 	}
 
 	/**
@@ -627,7 +331,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 *             the melusine exception
 	 */
 	static public void addAttributes(Item ItemType, Item value) throws CadseException {
-		ItemType.addOutgoingItem(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
+		ItemType.addOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
 	}
 
 	/**
@@ -642,7 +346,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 *             the melusine exception
 	 */
 	static public void removeAttributes(Item ItemType, Item value) throws CadseException {
-		ItemType.removeOutgoingItem(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
+		ItemType.removeOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
 	}
 
 	/**
@@ -656,7 +360,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	static public Item getSuperType(Item itemType) {
-		return itemType.getOutgoingItem(WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE, true);
+		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, true);
 	}
 
 	/**
@@ -670,7 +374,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	public static final boolean isHasContentAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(WorkspaceCST.ITEM_TYPE_at_HAS_CONTENT_, true);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_HAS_CONTENT_, true);
 	}
 
 	/**
@@ -685,7 +389,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static final void setHasContentAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(WorkspaceCST.ITEM_TYPE_at_HAS_CONTENT_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_HAS_CONTENT_, value);
 		} catch (Throwable t) {
 
 		}
@@ -702,7 +406,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	public static final boolean isIsRootElementAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(WorkspaceCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_, true);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_, true);
 	}
 
 	/**
@@ -717,7 +421,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static final void setIsRootElementAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(WorkspaceCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_, value);
 		} catch (Throwable t) {
 
 		}
@@ -734,7 +438,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	public static final boolean isIsAbstractAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(WorkspaceCST.ITEM_TYPE_at_IS_ABSTRACT_, false);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_ABSTRACT_, false);
 	}
 
 	/**
@@ -749,7 +453,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static final void setIsAbstractAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(WorkspaceCST.ITEM_TYPE_at_IS_ABSTRACT_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_ABSTRACT_, value);
 		} catch (Throwable t) {
 
 		}
@@ -766,7 +470,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	public static final boolean isHasShortNameAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(WorkspaceCST.ITEM_TYPE_at_HAS_SHORT_NAME_, false);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_HAS_SHORT_NAME_, false);
 	}
 
 	/**
@@ -781,7 +485,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static final void setHasShortNameAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(WorkspaceCST.ITEM_TYPE_at_HAS_SHORT_NAME_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_HAS_SHORT_NAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -798,7 +502,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	public static final boolean isHasUniqueNameAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(WorkspaceCST.ITEM_TYPE_at_HAS_UNIQUE_NAME_, false);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_HAS_UNIQUE_NAME_, false);
 	}
 
 	/**
@@ -813,7 +517,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static final void setHasUniqueNameAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(WorkspaceCST.ITEM_TYPE_at_HAS_UNIQUE_NAME_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_HAS_UNIQUE_NAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -823,7 +527,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	public static final boolean isIsMetaItemTypeAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(WorkspaceCST.ITEM_TYPE_at_IS_META_ITEM_TYPE_, false);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_META_ITEM_TYPE_, false);
 	}
 
 	/**
@@ -844,7 +548,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static final void setIsMetaItemTypeAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(WorkspaceCST.ITEM_TYPE_at_IS_META_ITEM_TYPE_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_META_ITEM_TYPE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -856,42 +560,42 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	static public List<Link> getWcListenersLink(Item itemType) {
-		return itemType.getOutgoingLinks(WorkspaceCST.ITEM_TYPE_lt_WC_LISTENERS);
-	}
+        return itemType.getOutgoingLinks(CadseGCST.ITEM_TYPE_lt_WC_LISTENERS);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getWcListenersAll(Item itemType) {
-		return itemType.getOutgoingItems(WorkspaceCST.ITEM_TYPE_lt_WC_LISTENERS, false);
-	}
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_WC_LISTENERS, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getWcListeners(Item itemType) {
-		return itemType.getOutgoingItems(WorkspaceCST.ITEM_TYPE_lt_WC_LISTENERS, true);
-	}
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_WC_LISTENERS,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addWcListeners(Item itemType, Item value) throws CadseException {
-		itemType.addOutgoingItem(WorkspaceCST.ITEM_TYPE_lt_WC_LISTENERS, value);
-	}
+        itemType.addOutgoingItem(CadseGCST.ITEM_TYPE_lt_WC_LISTENERS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeWcListeners(Item itemType, Item value) throws CadseException {
-		itemType.removeOutgoingItem(WorkspaceCST.ITEM_TYPE_lt_WC_LISTENERS, value);
-	}
+        itemType.removeOutgoingItem(CadseGCST.ITEM_TYPE_lt_WC_LISTENERS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	public static final boolean isIsHiddenAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(WorkspaceCST.ITEM_TYPE_at_IS_HIDDEN_, false);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_HIDDEN_, false);
 	}
 
 	/**
@@ -899,7 +603,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static final void setIsHiddenAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(WorkspaceCST.ITEM_TYPE_at_IS_HIDDEN_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_HIDDEN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -909,7 +613,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	public static final boolean isOverwriteDefaultPagesAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(WorkspaceCST.ITEM_TYPE_at_OVERWRITE_DEFAULT_PAGES_, true);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_OVERWRITE_DEFAULT_PAGES_, true);
 	}
 
 	/**
@@ -917,79 +621,163 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static final void setOverwriteDefaultPagesAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(WorkspaceCST.ITEM_TYPE_at_OVERWRITE_DEFAULT_PAGES_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_OVERWRITE_DEFAULT_PAGES_, value);
 		} catch (Throwable t) {
 
 		}
 	}
 
 	/**
-	 * get links '#invert_part_types_to_DataModel' from 'ItemType' to
-	 * 'DataModel'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_types_to_DataModelLink(Item itemType) {
-		return itemType.getOutgoingLink(WorkspaceCST.ITEM_TYPE_lt__$_INVERT_PART_TYPES_TO_DATA_MODEL);
+		@generated
+	*/
+	public static final String getIconAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_ICON_, null);
 	}
 
 	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_types_to_DataModelAll(Item itemType) {
-		return itemType.getOutgoingItem(WorkspaceCST.ITEM_TYPE_lt__$_INVERT_PART_TYPES_TO_DATA_MODEL, false);
+		@generated
+	*/
+	public static final void setIconAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_ICON_, value);
+		} catch (Throwable t) {
+
+		}
 	}
 
 	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_types_to_DataModel(Item itemType) {
-		return itemType.getOutgoingItem(WorkspaceCST.ITEM_TYPE_lt__$_INVERT_PART_TYPES_TO_DATA_MODEL, true);
+		get  links 'cadse-runtime' from 'ItemType' to 'CadseRuntime'.
+        @generated
+    */
+    static public Link getCadseRuntimeLink(Item itemType) {
+		return itemType.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME);
 	}
 
 	/**
-	 * set a link '#invert_part_types_to_DataModel' from 'ItemType' to
-	 * 'DataModel'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_types_to_DataModel(Item itemType, Item value) throws CadseException {
-		itemType.setOutgoingItem(WorkspaceCST.ITEM_TYPE_lt__$_INVERT_PART_TYPES_TO_DATA_MODEL, value);
+        @generated
+    */
+    static public Item getCadseRuntimeAll(Item itemType) {
+		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME, false);
 	}
 
 	/**
-	 * get links '#invert_part_types_to_ProductModel' from 'ItemType' to
-	 * 'ProductModel'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_types_to_ProductModelLink(Item itemType) {
-		return itemType.getOutgoingLink(WorkspaceCST.ITEM_TYPE_lt__$_INVERT_PART_TYPES_TO_PRODUCT_MODEL);
+        @generated
+    */
+    static public Item getCadseRuntime(Item itemType) {
+		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME, true);
 	}
 
 	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_types_to_ProductModelAll(Item itemType) {
-		return itemType.getOutgoingItem(WorkspaceCST.ITEM_TYPE_lt__$_INVERT_PART_TYPES_TO_PRODUCT_MODEL, false);
+		set a link 'cadse-runtime' from 'ItemType' to 'CadseRuntime'.
+		@generated
+	*/
+	static public void setCadseRuntime(Item itemType, Item value) throws CadseException {
+		itemType.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME,value);
 	}
 
 	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_types_to_ProductModel(Item itemType) {
-		return itemType.getOutgoingItem(WorkspaceCST.ITEM_TYPE_lt__$_INVERT_PART_TYPES_TO_PRODUCT_MODEL, true);
+		@generated
+	*/
+	public static final String getItemFactoryAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_, null);
 	}
 
 	/**
-	 * set a link '#invert_part_types_to_ProductModel' from 'ItemType' to
-	 * 'ProductModel'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_types_to_ProductModel(Item itemType, Item value) throws CadseException {
-		itemType.setOutgoingItem(WorkspaceCST.ITEM_TYPE_lt__$_INVERT_PART_TYPES_TO_PRODUCT_MODEL, value);
+		@generated
+	*/
+	public static final void setItemFactoryAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_, value);
+		} catch (Throwable t) {
+
+		}
 	}
+
+	/**
+		@generated
+	*/
+	public static final String getItemManagerAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setItemManagerAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		get  links 'link-type' from 'ItemType' to 'ItemType'.
+        @generated
+    */
+    static public List<Link> getLinkTypeLink(Item itemType) {
+        return itemType.getOutgoingLinks(CadseGCST.ITEM_TYPE_lt_LINK_TYPE);
+    }
+
+
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getLinkTypeAll(Item itemType) {
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_LINK_TYPE, false);
+    }
+
+
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getLinkType(Item itemType) {
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_LINK_TYPE,true);
+    }
+
+
+
+	/**
+        @generated
+    */
+    static public void addLinkType(Item itemType, Item value) throws CadseException {
+        itemType.addOutgoingItem(CadseGCST.ITEM_TYPE_lt_LINK_TYPE,value);
+    }
+
+
+
+	/**
+        @generated
+    */
+    static public void removeLinkType(Item itemType, Item value) throws CadseException {
+        itemType.removeOutgoingItem(CadseGCST.ITEM_TYPE_lt_LINK_TYPE,value);
+    }
+
+
+
+	/**
+		get  links 'sub-types' from 'ItemType' to 'ItemType'.
+        @generated
+    */
+    static public List<Link> getSubTypesLink(Item itemType) {
+        return itemType.getOutgoingLinks(CadseGCST.ITEM_TYPE_lt_SUB_TYPES);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getSubTypesAll(Item itemType) {
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_SUB_TYPES, false);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getSubTypes(Item itemType) {
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_SUB_TYPES,true);
+    }
 
 	/**
 	 * Sets the super type.
@@ -1003,23 +791,13 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 *             the melusine exception
 	 */
 	static public void setSuperType(Item ItemType, Item value) throws CadseException {
-		ItemType.setOutgoingItem(WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE, value);
+		ItemType.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, value);
 	}
 
 	/** The _default. */
 	private static ItemTypeManager	_default;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#createContentManager(
-	 * fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new ItemTypeJavaFileContentManager(item, getCadseDefinition(item));
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -1108,7 +886,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	static public Item getCadseDefinition(Item theItemType) {
 		while (theItemType != null) {
-			if (theItemType.getType() == WorkspaceCST.CADSE_DEFINITION) {
+			if (theItemType.getType() == CadseGCST.CADSE_DEFINITION || theItemType.getType() == CadseGCST.CADSE_RUNTIME) {
 				return theItemType;
 			}
 			theItemType = theItemType.getPartParent();
@@ -1139,7 +917,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	static public Link getSuperTypeLink(Item itemType) {
-		return itemType.getOutgoingLink(WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE);
+		return itemType.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE);
 	}
 
 	/**
@@ -1153,7 +931,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @generated
 	 */
 	static public Item getSuperTypeAll(Item itemType) {
-		return itemType.getOutgoingItem(WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE, false);
+		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, false);
 	}
 
 	/**
@@ -1222,7 +1000,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static void getAllAttributes(HashSet<Item> fromCadse, Item theItemType, Map<String, Item> attributes,
 			ItemFilter itemfilter) {
-		if (theItemType.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
+		if (theItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
 			// find my attribute definition.
 			getAttributes(fromCadse, theItemType, attributes, itemfilter);
 			theItemType = ExtItemTypeManager.getRefType(theItemType);
@@ -1246,15 +1024,15 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	public static Item findAttribute(Item theItemType, String shortName) {
 		// Ajout le cas pour les extentions.
-		if (theItemType.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
-			Item findItem = getOutgoingItems(theItemType, WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, shortName);
+		if (theItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
+			Item findItem = getOutgoingItems(theItemType, CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, shortName);
 			if (findItem != null) {
 				return findItem;
 			}
 			theItemType = ExtItemTypeManager.getRefType(theItemType);
 		}
 		while (theItemType != null) {
-			Item findItem = getOutgoingItems(theItemType, WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, shortName);
+			Item findItem = getOutgoingItems(theItemType, CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, shortName);
 			if (findItem != null) {
 				return findItem;
 			}
@@ -1299,7 +1077,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			if (!l.isLinkResolved()) {
 				continue;
 			}
-			if (l.getDestinationType() != WorkspaceCST.LINK) {
+			if (l.getDestinationType() != CadseGCST.LINK) {
 				continue;
 			}
 			boolean composition = LinkManager.isComposition(l.getResolvedDestination());
@@ -1324,7 +1102,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		while (itemtypedest != null) {
 			for (Link l : itemtypedest.getIncomingLinks()) {
 				Item item = l.getSource();
-				if (item.getType() != WorkspaceCST.LINK) {
+				if (item.getType() != CadseGCST.LINK) {
 					continue;
 				}
 
@@ -1373,7 +1151,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		while (itemtype != null) {
 			for (Link l : itemtype.getIncomingLinks()) {
 				Item item = l.getSource();
-				if (item.getType() != WorkspaceCST.LINK) {
+				if (item.getType() != CadseGCST.LINK) {
 					continue;
 				}
 
@@ -1403,7 +1181,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 					continue;
 				}
 				Item item = l.getResolvedDestination();
-				if (item.getType() != WorkspaceCST.LINK) {
+				if (item.getType() != CadseGCST.LINK) {
 					continue;
 				}
 
@@ -1447,10 +1225,10 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * 
 	 * @return the sub types
 	 */
-	public static Item[] getSubTypes(Item itemtype) {
+	public static Item[] getSubTypes2(Item itemtype) {
 		List<Item> ret = new ArrayList<Item>();
 		for (Link l : itemtype.getIncomingLinks()) {
-			if (l.getLinkType() != WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE) {
+			if (l.getLinkType() != CadseGCST.ITEM_TYPE_lt_SUPER_TYPE) {
 				continue;
 			}
 
@@ -1458,6 +1236,110 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		}
 		return ret.toArray(new Item[ret.size()]);
 	}
+
+	/**
+        @generated
+    */
+    static public void addSubTypes(Item itemType, Item value) throws CadseException {
+        itemType.addOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUB_TYPES,value);
+    }
+
+	/**
+        @generated
+    */
+    static public void removeSubTypes(Item itemType, Item value) throws CadseException {
+        itemType.removeOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUB_TYPES,value);
+    }
+
+	/**
+		@generated
+	*/
+	public static final String getPackageNameAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_PACKAGE_NAME_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setPackageNameAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_PACKAGE_NAME_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		get  links 'modification-pages' from 'ItemType' to 'Page'.
+        @generated
+    */
+    static public List<Link> getModificationPagesLink(Item itemType) {
+        return itemType.getOutgoingLinks(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getModificationPagesAll(Item itemType) {
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES, false);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getModificationPages(Item itemType) {
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES,true);
+    }
+
+	/**
+        @generated
+    */
+    static public void addModificationPages(Item itemType, Item value) throws CadseException {
+        itemType.addOutgoingItem(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES,value);
+    }
+
+	/**
+        @generated
+    */
+    static public void removeModificationPages(Item itemType, Item value) throws CadseException {
+        itemType.removeOutgoingItem(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES,value);
+    }
+
+	/**
+		get  links 'creation-pages' from 'ItemType' to 'ItemType'.
+        @generated
+    */
+    static public List<Link> getCreationPagesLink(Item itemType) {
+        return itemType.getOutgoingLinks(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getCreationPagesAll(Item itemType) {
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES, false);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getCreationPages(Item itemType) {
+        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES,true);
+    }
+
+	/**
+        @generated
+    */
+    static public void addCreationPages(Item itemType, Item value) throws CadseException {
+        itemType.addOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES,value);
+    }
+
+	/**
+        @generated
+    */
+    static public void removeCreationPages(Item itemType, Item value) throws CadseException {
+        itemType.removeOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES,value);
+    }
 
 	/**
 	 * Retourne tous les sous types y compris lui - m�me de toutes la
@@ -1492,7 +1374,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			visited.add(aItemType);
 			types.add(aItemType);
 			for (Link l : aItemType.getIncomingLinks()) {
-				if (l.getLinkType() != WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE) {
+				if (l.getLinkType() != CadseGCST.ITEM_TYPE_lt_SUPER_TYPE) {
 					continue;
 				}
 				if (!visited.contains(l.getSource())) {
@@ -1607,7 +1489,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		while (itemtype != null) {
 			for (Link l : itemtype.getIncomingLinks()) {
 				Item item = l.getSource();
-				if (item.getType() != WorkspaceCST.LINK) {
+				if (item.getType() != CadseGCST.LINK) {
 					continue;
 				}
 				if (ret.containsKey(item.getName())) {
@@ -1646,7 +1528,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		for (Item it : types) {
 			for (Link l : it.getIncomingLinks()) {
 				Item linkDefinition = l.getSource();
-				if (linkDefinition.getType() != WorkspaceCST.LINK) {
+				if (linkDefinition.getType() != CadseGCST.LINK) {
 					continue;
 				}
 
@@ -1669,7 +1551,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		while (itemtype != null) {
 			for (Link l : itemtype.getIncomingLinks()) {
 				Item item = l.getSource();
-				if (item.getType() != WorkspaceCST.LINK) {
+				if (item.getType() != CadseGCST.LINK) {
 					continue;
 				}
 
@@ -1698,7 +1580,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 					continue;
 				}
 				Item item = l.getResolvedDestination();
-				if (item.getType() != WorkspaceCST.LINK) {
+				if (item.getType() != CadseGCST.LINK) {
 					continue;
 				}
 
@@ -1727,7 +1609,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 				continue;
 			}
 			Item item = l.getResolvedDestination();
-			if (item.getType() != WorkspaceCST.LINK) {
+			if (item.getType() != CadseGCST.LINK) {
 				continue;
 			}
 
@@ -1751,7 +1633,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 				continue;
 			}
 			Item linktype = l.getResolvedDestination();
-			if (linktype.getType() != WorkspaceCST.LINK) {
+			if (linktype.getType() != CadseGCST.LINK) {
 				continue;
 			}
 
@@ -1779,7 +1661,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	public static Item getPartParent(Item itemtype) {
 		for (Link l : itemtype.getIncomingLinks()) {
 			Item item = l.getSource();
-			if (l.getLinkType() != WorkspaceCST.LINK_lt_DESTINATION || (!AttributeManager.isLinkAttribute(item))) {
+			if (l.getLinkType() != CadseGCST.LINK_lt_DESTINATION || (!AttributeManager.isLinkAttribute(item))) {
 				continue;
 			}
 			if (LinkManager.isPart(item)) {
@@ -1805,7 +1687,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		List<Item> ret = new ArrayList<Item>();
 		for (Link l : itemType.getIncomingLinks()) {
 			Item item = l.getSource();
-			if (l.getLinkType() != WorkspaceCST.LINK_lt_DESTINATION || (!AttributeManager.isLinkAttribute(item))) {
+			if (l.getLinkType() != CadseGCST.LINK_lt_DESTINATION || (!AttributeManager.isLinkAttribute(item))) {
 				continue;
 			}
 
@@ -1854,7 +1736,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		}
 		StringBuilder sb = new StringBuilder();
 		while (data_model_or_categories.getPartParent() != null) {
-			if (data_model_or_categories.getPartParent().getType() == WorkspaceCST.CADSE_DEFINITION) {
+			if (data_model_or_categories.getPartParent().getType() == CadseGCST.CADSE_DEFINITION) {
 				break;
 			}
 			if (sb.length() != 0) {
@@ -1885,7 +1767,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		HashSet<Item> ret = getAllPackages(datamodel);
 		HashSet<Item> retitemtype = new HashSet<Item>();
 		for (Item dd : ret) {
-			retitemtype.addAll(dd.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_TYPES, true));
+			retitemtype.addAll(dd.getOutgoingItems(CadseGCST.DATA_MODEL_lt_TYPES, true));
 		}
 
 		return retitemtype.toArray(new Item[retitemtype.size()]);
@@ -1909,7 +1791,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			Set<Item> nextpass = new HashSet<Item>();
 			for (Item source : pass) {
 				for (Link l : source.getOutgoingLinks()) {
-					if (l.getLinkType() == WorkspaceCST.DATA_MODEL_lt_CATEGORIES && l.isLinkResolved()) {
+					if (l.getLinkType() == CadseGCST.DATA_MODEL_lt_CATEGORIES && l.isLinkResolved()) {
 						Item dest = l.getResolvedDestination();
 						if (!ret.contains(dest)) {
 							ret.add(dest);
@@ -1941,7 +1823,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		HashSet<Item> ret = getAllPackages(datamodel);
 		HashSet<Item> retitemtype = new HashSet<Item>();
 		for (Item dd : ret) {
-			retitemtype.addAll(dd.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_EXT_TYPES, true));
+			retitemtype.addAll(dd.getOutgoingItems(CadseGCST.DATA_MODEL_lt_EXT_TYPES, true));
 		}
 
 		return retitemtype.toArray(new Item[retitemtype.size()]);
@@ -1973,7 +1855,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		HashSet<Item> retitemtype = new HashSet<Item>();
 		for (Item dd : ret) {
 			if (filter == null || filter.accept(dd)) {
-				retitemtype.addAll(dd.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_TYPES, true));
+				retitemtype.addAll(dd.getOutgoingItems(CadseGCST.DATA_MODEL_lt_TYPES, true));
 			}
 			if (filter != null && filter.stop()) {
 				break;
@@ -2001,7 +1883,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			Set<Item> nextpass = new HashSet<Item>();
 			for (Item aDataModel : pass) {
 				Item partParent = aDataModel.getPartParent();
-				if (partParent.getType() == WorkspaceCST.CADSE_DEFINITION) {
+				if (partParent.getType() == CadseGCST.CADSE_DEFINITION) {
 					Collection<Item> extendsCadse = CadseDefinitionManager.getExtends(partParent);
 					for (Item cadseDef : extendsCadse) {
 						Item extDataModel = CadseDefinitionManager.getMainDataModel(cadseDef);
@@ -2015,7 +1897,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 				}
 				for (Link l : aDataModel.getOutgoingLinks()) {
 
-					if (l.getLinkType() == WorkspaceCST.DATA_MODEL_lt_CATEGORIES && l.isLinkResolved()) {
+					if (l.getLinkType() == CadseGCST.DATA_MODEL_lt_CATEGORIES && l.isLinkResolved()) {
 						Item dest = l.getResolvedDestination();
 						if (!ret.contains(dest)) {
 							ret.add(dest);
@@ -2042,7 +1924,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	public static Item getAttribute(Item itemtype, String attr) {
 		for (Link l : itemtype.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == (WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES) && l.isLinkResolved()
+			if (l.getLinkType() == (CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES) && l.isLinkResolved()
 					&& l.getResolvedDestination().getName().equals(attr)) {
 				Item destination = l.getResolvedDestination();
 				return destination;
@@ -2122,7 +2004,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @return the creation dialog
 	 */
 	public static Item getCreationDialog(Item itemType) {
-		return itemType.getOutgoingItem(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG, true);
+		return itemType.getOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG, true);
 	}
 
 	/**
@@ -2134,7 +2016,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @return the modification dialog
 	 */
 	public static Item getModificationDialog(Item itemType) {
-		return itemType.getOutgoingItem(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG, true);
+		return itemType.getOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG, true);
 	}
 
 	public static String getMetaType(Item itemType) {
@@ -2144,12 +2026,12 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	}
 
 	public static String getItemFactoryClass(Item itemType) {
-		return itemType.getAttribute(CadseRootCST.META_ITEM_TYPE_at_ITEM_FACTORY_);
+		return itemType.getAttribute(CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_);
 	}
 
 	public static void setItemFactoryClass(Item itemType, String value) {
 		try {
-			itemType.setAttribute(CadseRootCST.META_ITEM_TYPE_at_ITEM_FACTORY_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_, value);
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

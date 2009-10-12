@@ -3,7 +3,7 @@ package fr.imag.adele.cadse.cadseg.pages.dataModel;
 import fr.imag.adele.cadse.core.IItemNode;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager.ValidFieldUC;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -27,12 +27,13 @@ public class ItemTypeModificationManager_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item	item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected ItemTypeModificationManager_ModificationPage(String id, String label, String title, String description,
+	protected ItemTypeModificationManager_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -41,21 +42,28 @@ public class ItemTypeModificationManager_ModificationPage extends PageImpl {
 	 * @not generated
 	 */
 	public ItemTypeModificationManager_ModificationPage(Item item) {
-		super("modification-manager", "Instance name control", "Instance name control", "Instance name control", false,
-				3);
+		super("modification-manager", "Instance name control",
+				"Instance name control", "Instance name control", false, 3);
 
 		this.item = ItemTypeManager.getManager(item);
 
 		setActionPage(null);
 		// Field display name removed from addLast :
-		// FieldsCore.createTextField(WorkspaceCST.MANAGER_at_HUMAN_NAME,
+		// FieldsCore.createTextField(CadseGCST.MANAGER_at_HUMAN_NAME,
 		// "Display name"),
-		addLast(FieldsCore.createTextField(WorkspaceCST.MANAGER_at_LONG_NAME_TEMPLATE, "Qualified name template", 1,
-				"", new IC_ItemTypeTemplateForText(), new MC_AttributesItem()), FieldsCore.createTextField(
-				WorkspaceCST.MANAGER_at_DISPLAY_NAME_TEMPLATE, "Display name template", 1, "",
-				new IC_ItemTypeTemplateForText(), new MC_AttributesItem()), FieldsCore.createTextField(
-				WorkspaceCST.MANAGER_at_VALID_PATTERN_ID, "Valid name pattern", new ValidFieldUC()), FieldsCore
-				.createTextField(WorkspaceCST.MANAGER_at_MESSAGE_ERROR_ID, "Error message while invalid name"));
+		addLast(FieldsCore.createTextField(
+				CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE,
+				"Qualified name template", 1, "",
+				new IC_ItemTypeTemplateForText(), new MC_AttributesItem()),
+				FieldsCore.createTextField(
+						CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE,
+						"Display name template", 1, "",
+						new IC_ItemTypeTemplateForText(),
+						new MC_AttributesItem()), FieldsCore.createTextField(
+						CadseGCST.MANAGER_at_VALID_PATTERN_ID,
+						"Valid name pattern", new ValidFieldUC()), FieldsCore
+						.createTextField(CadseGCST.MANAGER_at_MESSAGE_ERROR_ID,
+								"Error message while invalid name"));
 
 		registerListener();
 	}

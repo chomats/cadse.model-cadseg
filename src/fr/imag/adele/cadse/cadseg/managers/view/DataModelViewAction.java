@@ -23,7 +23,7 @@ import java.net.URL;
 
 import org.eclipse.jface.wizard.WizardDialog;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -76,7 +76,7 @@ public class DataModelViewAction extends IMenuAction {
 				System.out.println(so.toString());
 				Item dest = (Item) so;
 				ItemType type = dest.getType();
-				if (type == WorkspaceCST.ITEM_TYPE) {
+				if (type == CadseGCST.ITEM_TYPE) {
 					Item viewitemtype = ViewManager.createViewItemType(view, dest);
 					int v = ic_mc.isSet(dest, IC_DataModelView_Creation.ROOT_ITEM);
 					if (v != -1) {
@@ -87,7 +87,7 @@ public class DataModelViewAction extends IMenuAction {
 			for (Object so : selected) {
 				Item dest = (Item) so;
 				ItemType type = dest.getType();
-				if (type == WorkspaceCST.LINK) {
+				if (type == CadseGCST.LINK) {
 					Item viewlinktype = ViewManager.createViewLinkType(view, dest);
 					int v = ic_mc.isSet(dest, IC_DataModelView_Creation.AGGREGATION);
 					if (v != -1) {
@@ -171,7 +171,7 @@ public class DataModelViewAction extends IMenuAction {
 	 */
 	public String getLabel() {
 		String shortName = datamodel.getName();
-		if (datamodel.getPartParent().getType() == WorkspaceCST.CADSE_DEFINITION) {
+		if (datamodel.getPartParent().getType() == CadseGCST.CADSE_DEFINITION) {
 			shortName = datamodel.getPartParent().getName();
 		}
 		return "Add data model " + shortName;

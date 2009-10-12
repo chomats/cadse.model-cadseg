@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.meta;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
@@ -40,10 +40,10 @@ public class AttributeItemTypeManager extends ItemTypeManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -78,8 +78,7 @@ public class AttributeItemTypeManager extends ItemTypeManager {
 	 * @generated
 	 */
 	public static final String getRuntimeQualifiedClassAttribute(Item attributeItemType) {
-		return attributeItemType.getAttributeWithDefaultValue(
-				WorkspaceCST.ATTRIBUTE_ITEM_TYPE_at_RUNTIME_QUALIFIED_CLASS_, null);
+		return attributeItemType.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_ITEM_TYPE_at_RUNTIME_QUALIFIED_CLASS_, null);
 	}
 
 	/**
@@ -87,7 +86,7 @@ public class AttributeItemTypeManager extends ItemTypeManager {
 	 */
 	public static final void setRuntimeQualifiedClassAttribute(Item attributeItemType, String value) {
 		try {
-			attributeItemType.setAttribute(WorkspaceCST.ATTRIBUTE_ITEM_TYPE_at_RUNTIME_QUALIFIED_CLASS_, value);
+			attributeItemType.setAttribute(CadseGCST.ATTRIBUTE_ITEM_TYPE_at_RUNTIME_QUALIFIED_CLASS_, value);
 		} catch (Throwable t) {
 
 		}

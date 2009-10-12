@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
@@ -36,7 +37,8 @@ public class MC_DestLinkModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected MC_DestLinkModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected MC_DestLinkModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -45,8 +47,7 @@ public class MC_DestLinkModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public MC_DestLinkModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "Model Controler for Destination of Link",
-				"Model Controler for Destination of Link", "", false, 3);
+		super("modification-page1", "MC_DestLink", "MC_DestLink", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

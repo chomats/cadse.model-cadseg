@@ -18,31 +18,40 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.actions;
 
+import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 
 /**
  * @generated
  */
-public class MenuCreationPage1_CreationPage extends MenuAbstractCreationPage1_CreationPage {
+public class MenuCreationPage1_CreationPage extends
+		MenuAbstractCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldPath;
+	protected DTextUI fieldPath;
 
 	/**
 	 * @generated
 	 */
-	protected MenuCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected MenuCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -76,7 +85,8 @@ public class MenuCreationPage1_CreationPage extends MenuAbstractCreationPage1_Cr
 	public void initAfterUI() {
 		super.initAfterUI();
 		Item menu = fieldPath.getItem();
-		if (WorkspaceCST.ABSTRACT_ITEM_TYPE.isSuperTypeOf(menu.getPartParent().getType())) {
+		if (CadseGCST.ABSTRACT_ITEM_TYPE.isSuperTypeOf(menu.getPartParent()
+				.getType())) {
 			fieldPath.internalSetVisible(false);
 			__short_name__.internalSetVisible(false);
 			try {
@@ -93,8 +103,9 @@ public class MenuCreationPage1_CreationPage extends MenuAbstractCreationPage1_Cr
 	 * @generated
 	 */
 	public DTextUI createFieldPath() {
-		return new DTextUI(WorkspaceCST.MENU_ABSTRACT_at_PATH, "path", EPosLabel.left, new MC_AttributesItem(), null,
-				1, "", false, false, false);
+		return new DTextUI(CadseGCST.MENU_ABSTRACT_at_PATH, "path",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 }

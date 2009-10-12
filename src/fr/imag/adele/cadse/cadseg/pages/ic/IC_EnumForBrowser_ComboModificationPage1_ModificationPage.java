@@ -19,8 +19,9 @@ public class IC_EnumForBrowser_ComboModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected IC_EnumForBrowser_ComboModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected IC_EnumForBrowser_ComboModificationPage1_ModificationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -28,7 +29,8 @@ public class IC_EnumForBrowser_ComboModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public IC_EnumForBrowser_ComboModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "IC_EnumForBrowser_Combo", "IC_EnumForBrowser_Combo", "", false, 3);
+		super("modification-page1", "IC_EnumForBrowser_Combo",
+				"IC_EnumForBrowser_Combo", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

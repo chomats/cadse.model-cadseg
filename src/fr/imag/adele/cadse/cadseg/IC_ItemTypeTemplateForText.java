@@ -33,6 +33,7 @@ import fede.workspace.model.manager.properties.impl.ic.IC_Abstract;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.ItemType;
@@ -252,7 +253,7 @@ public class IC_ItemTypeTemplateForText extends IC_Abstract implements IInteract
 		if (visited.add(theCurrentItemType)) {
 			Item[] attributes = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter() {
 				public boolean accept(Item item) {
-					return item.getType() != WorkspaceCST.LINK;
+					return item.getType() != CadseGCST.LINK;
 				}
 
 				public boolean stop() {
@@ -268,7 +269,7 @@ public class IC_ItemTypeTemplateForText extends IC_Abstract implements IInteract
 
 			Item[] links = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter() {
 				public boolean accept(Item item) {
-					return item.getType() == WorkspaceCST.LINK && LinkManager.getMax(item) == 1;
+					return item.getType() == CadseGCST.LINK && LinkManager.getMax(item) == 1;
 				}
 
 				public boolean stop() {

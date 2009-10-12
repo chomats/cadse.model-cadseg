@@ -30,7 +30,7 @@ import org.osgi.framework.BundleContext;
 public class WorkspacePlugin extends AbstractUIPlugin {
 
 	/** The Constant PLUGIN_ID. */
-	public static final String	PLUGIN_ID	= "Model.Workspace.Workspace";
+	public static final String	PLUGIN_ID	= "Model.Workspace.CadseG";
 
 	/**
 	 * Instantiates a new workspace plugin.

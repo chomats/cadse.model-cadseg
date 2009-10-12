@@ -18,7 +18,9 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
+import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
+import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.mc.MaxModelController;
 import fede.workspace.model.manager.properties.impl.mc.MinModelController;
@@ -26,64 +28,86 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.cadseg.managers.IC_LINK_Selection;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager.SelectionMC;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 
 /**
  * @generated
  */
-public class LinkModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class LinkModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldComposition;
+	protected DCheckBoxUI fieldComposition;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldMin;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldMax;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldKind;
+
+	/**
+	    @generated
+	 */
+	protected DBrowserUI fieldSource;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldDestination;
+	protected DBrowserUI fieldDestination;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldPart;
+	protected DCheckBoxUI fieldPart;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldAnnotation;
+	protected DCheckBoxUI fieldAnnotation;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldInverseLink;
+	protected DBrowserUI fieldInverseLink;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldMin;
+	protected DCheckBoxUI fieldAggregation;
+
+	private DCheckBoxUI fieldNatif;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldMax;
-
-	/**
-	 * @generated
-	 */
-	protected DCheckBoxUI	fieldAggregation;
-
-	private DCheckBoxUI		fieldNatif;
-
-	/**
-	 * @generated
-	 */
-	protected LinkModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected LinkModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -104,9 +128,10 @@ public class LinkModificationPage1_ModificationPage extends AttributeModificatio
 		this.fieldMin = createFieldMin();
 		this.fieldMax = createFieldMax();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldDestination, this.fieldInverseLink, this.fieldAggregation,
-				this.fieldPart, this.fieldRequire, this.fieldAnnotation, this.fieldComposition, this.fieldMin,
-				this.fieldMax);
+		addLast(this.__short_name__, this.fieldDestination,
+				this.fieldInverseLink, this.fieldAggregation, this.fieldPart,
+				this.fieldRequire, this.fieldAnnotation, this.fieldComposition,
+				this.fieldMin, this.fieldMax);
 
 		registerListener();
 	}
@@ -120,15 +145,8 @@ public class LinkModificationPage1_ModificationPage extends AttributeModificatio
 	 */
 	public DCheckBoxUI createFieldComposition() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.LINK_at_COMPOSITION, "composition", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldRequire() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.LINK_at_REQUIRE, "require", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.LINK_at_COMPOSITION, "composition",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -136,7 +154,8 @@ public class LinkModificationPage1_ModificationPage extends AttributeModificatio
 	 */
 	public DCheckBoxUI createFieldPart() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.LINK_at_PART, "part", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.LINK_at_PART, "part", EPosLabel.none,
+				mc, null);
 	}
 
 	/**
@@ -144,21 +163,25 @@ public class LinkModificationPage1_ModificationPage extends AttributeModificatio
 	 */
 	public DCheckBoxUI createFieldAnnotation() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.LINK_at_ANNOTATION, "annotation", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.LINK_at_ANNOTATION, "annotation",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
 	 * @not generated
 	 */
 	public DBrowserUI createFieldInverseLink() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.LINK_lt_INVERSE_LINK);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.LINK_lt_INVERSE_LINK);
 		// IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 		// "Select a value.", "Select a value.",
-		// WorkspaceCST.LINK_lt_INVERSE_LINK);
+		// CadseGCST.LINK_lt_INVERSE_LINK);
 
-		IC_LinkForBrowser_Combo_List ic = new IC_InverseLink("Select an inverse link", "Select an inverse link",
-				WorkspaceCST.LINK_lt_INVERSE_LINK);
-		return new DBrowserUI(WorkspaceCST.LINK_lt_INVERSE_LINK.getName(), "inverse-link", EPosLabel.left, mc, ic);
+		IC_LinkForBrowser_Combo_List ic = new IC_InverseLink(
+				"Select an inverse link", "Select an inverse link",
+				CadseGCST.LINK_lt_INVERSE_LINK);
+		return new DBrowserUI(CadseGCST.LINK_lt_INVERSE_LINK.getName(),
+				"inverse-link", EPosLabel.left, mc, ic);
 	}
 
 	/**
@@ -166,15 +189,17 @@ public class LinkModificationPage1_ModificationPage extends AttributeModificatio
 	 */
 	public DCheckBoxUI createFieldAggregation() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.LINK_at_AGGREGATION, "aggregation", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.LINK_at_AGGREGATION, "aggregation",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
 	 * @not generated
 	 */
 	public DTextUI createFieldSelection() {
-		return new DTextUI(WorkspaceCST.LINK_at_SELECTION, "selection", EPosLabel.left, new SelectionMC(),
-				new IC_LINK_Selection(), 0, 1, "");
+		return new DTextUI(CadseGCST.LINK_at_SELECTION, "selection",
+				EPosLabel.left, new SelectionMC(), new IC_LINK_Selection(), 0,
+				1, "");
 	}
 
 	/**
@@ -183,7 +208,8 @@ public class LinkModificationPage1_ModificationPage extends AttributeModificatio
 	public DTextUI createFieldMin() {
 		MinModelController minVC = new MinModelController();
 
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_MIN, "min", EPosLabel.left, minVC, minVC, 0, 1, "");
+		return new DTextUI(CadseGCST.LINK_at_MIN, "min", EPosLabel.left, minVC,
+				minVC, 0, 1, "");
 	}
 
 	/**
@@ -192,19 +218,43 @@ public class LinkModificationPage1_ModificationPage extends AttributeModificatio
 	public DTextUI createFieldMax() {
 		MaxModelController maxVC = new MaxModelController();
 
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_MAX, "max", EPosLabel.left, maxVC, maxVC, 0, 1, "");
+		return new DTextUI(CadseGCST.LINK_at_MAX, "max", EPosLabel.left, maxVC,
+				maxVC, 0, 1, "");
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldKind() {
+		IntModelController mc = new IntModelController(0, 0, null, null, null);
+		return new DTextUI(CadseGCST.LINK_at_KIND, "kind", EPosLabel.left, mc,
+				null, 1, "", false, false, false);
+	}
+
+	/**
+	    @generated
+	 */
+	public DBrowserUI createFieldSource() {
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.LINK_lt_SOURCE);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.", CadseGCST.LINK_lt_SOURCE);
+		return new DBrowserUI(CadseGCST.LINK_lt_SOURCE.getName(), "source",
+				EPosLabel.left, mc, ic);
 	}
 
 	public DCheckBoxUI createFieldNatif() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_NATIF, "natif", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_NATIF, "natif",
+				EPosLabel.none, mc, null);
 	}
 
 	public DBrowserUI createFieldDestination() {
-		LinkModelController mc = new LinkModelController(true, "You must set the destination",
-				WorkspaceCST.LINK_lt_DESTINATION);
+		LinkModelController mc = new LinkModelController(true,
+				"You must set the destination", CadseGCST.LINK_lt_DESTINATION);
 		IC_LinkForBrowser_Combo_List ic = new LinkCreationPage1_CreationPage.IC_DestinationLinkForBrowser_Combo(
 				"Select a destination", "Select a destination");
-		return new DBrowserUI(WorkspaceCST.LINK_lt_DESTINATION.getName(), "destination", EPosLabel.left, mc, ic);
+		return new DBrowserUI(CadseGCST.LINK_lt_DESTINATION.getName(),
+				"destination", EPosLabel.left, mc, ic);
 	}
 }

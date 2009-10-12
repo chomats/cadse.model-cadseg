@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
@@ -97,7 +97,7 @@ public class GenerateJavaFileCST extends GenerateClass {
 	 *            the abs item type
 	 */
 	private void generateAttributesForItemTypeCST(GenStringBuilder sb, Item absItemType, Set<String> imports) {
-		Collection<Item> outgoingItem = absItemType.getOutgoingItems(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES,
+		Collection<Item> outgoingItem = absItemType.getOutgoingItems(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES,
 				true);
 		Item[] attributeItems = outgoingItem.toArray(new Item[outgoingItem.size()]);
 		Arrays.sort(attributeItems, new ItemShortNameComparator());
@@ -107,9 +107,9 @@ public class GenerateJavaFileCST extends GenerateClass {
 			}
 
 			// class attribut (meta-attribut) has no constant
-			if (AttributeManager.isClassAttributeAttribute(attribute)) {
-				continue;
-			}
+			//if (AttributeManager.isClassAttributeAttribute(attribute)) {
+			//	continue;
+			//}
 
 			sb.appendGeneratedTag();
 			if (AttributeManager.isLinkAttribute(attribute)) {

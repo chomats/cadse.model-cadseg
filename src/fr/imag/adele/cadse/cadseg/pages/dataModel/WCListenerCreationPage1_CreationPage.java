@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
@@ -37,36 +38,38 @@ public class WCListenerCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType		it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType		lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected WCListenerCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected WCListenerCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public WCListenerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create WCListener", "Create WCListener", "", false, 3);
+	public WCListenerCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create WCListener", "Create WCListener", "",
+				false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

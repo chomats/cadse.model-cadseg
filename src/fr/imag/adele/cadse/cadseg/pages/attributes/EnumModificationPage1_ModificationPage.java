@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.pages.attributes.EnumCreationPage1_CreationPage.DefaultEnumMC;
 import fr.imag.adele.cadse.cadseg.pages.attributes.EnumCreationPage1_CreationPage.DefaultValueIC;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -31,32 +31,38 @@ import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.model.manager.properties.FieldsCore;
+import fede.workspace.model.manager.properties.IInteractionControllerForList;
+import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_PartLinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
+import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
+import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 
 /**
  * @generated
  */
-public class EnumModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class EnumModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldEnumType;
+	protected DBrowserUI fieldEnumType;
 
 	/**
 	 * @generated
 	 */
-	protected EnumModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected EnumModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -71,7 +77,8 @@ public class EnumModificationPage1_ModificationPage extends AttributeModificatio
 		this.fieldDefaultValue = createFieldDefaultValue();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldEnumType, this.fieldDefaultValue, this.fieldIsList);
+		addLast(this.__short_name__, this.fieldEnumType,
+				this.fieldDefaultValue, this.fieldIsList);
 
 		registerListener();
 	}
@@ -84,30 +91,26 @@ public class EnumModificationPage1_ModificationPage extends AttributeModificatio
 	 * 
 	 */
 	public DTextUI createFieldDefaultValue() {
-		// return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE,
+		// return new DTextUI(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE,
 		// "default value",
 		// EPosLabel.left,new MC_AttributesItem(), null,0,1,"");
 		DefaultValueIC ic = new DefaultValueIC();
-		return FieldsCore.createTextField(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value", 1, null, ic,
-				new DefaultEnumMC());
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
+		return FieldsCore.createTextField(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE,
+				"default value", 1, null, ic, new DefaultEnumMC());
 	}
 
 	/**
 	 * @generated
 	 */
 	public DBrowserUI createFieldEnumType() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.ENUM_lt_ENUM_TYPE);
-		IC_PartLinkForBrowser_Combo_List ic = new IC_PartLinkForBrowser_Combo_List("Select a value.",
-				"Select a value.", WorkspaceCST.ENUM_lt_ENUM_TYPE, WorkspaceCST.DATA_MODEL_lt_ENUMS, "??");
-		return new DBrowserUI(WorkspaceCST.ENUM_lt_ENUM_TYPE.getName(), "enum-type", EPosLabel.left, mc, ic);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.ENUM_lt_ENUM_TYPE);
+		IC_PartLinkForBrowser_Combo_List ic = new IC_PartLinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.ENUM_lt_ENUM_TYPE, CadseGCST.DATA_MODEL_lt_ENUMS,
+				"??");
+		return new DBrowserUI(CadseGCST.ENUM_lt_ENUM_TYPE.getName(),
+				"enum-type", EPosLabel.left, mc, ic);
 	}
 
 }

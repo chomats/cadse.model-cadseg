@@ -26,12 +26,15 @@ import java.util.Set;
 
 import org.eclipse.jdt.core.IType;
 
+import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
+import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
+import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.attributes.EnumCIF;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -39,10 +42,15 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.ListAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
+import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 
 /**
  * The Class EnumManager.
@@ -61,31 +69,19 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -107,7 +103,6 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -126,7 +121,7 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	 * @generated
 	 */
 	static public Link getEnumTypeLink(Item _enum) {
-		return _enum.getOutgoingLink(WorkspaceCST.ENUM_lt_ENUM_TYPE);
+		return _enum.getOutgoingLink(CadseGCST.ENUM_lt_ENUM_TYPE);
 	}
 
 	/**
@@ -140,7 +135,7 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	 * @generated
 	 */
 	static public Item getEnumTypeAll(Item _enum) {
-		return _enum.getOutgoingItem(WorkspaceCST.ENUM_lt_ENUM_TYPE, false);
+		return _enum.getOutgoingItem(CadseGCST.ENUM_lt_ENUM_TYPE, false);
 	}
 
 	@Override
@@ -159,7 +154,7 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	 * @generated
 	 */
 	static public Item getEnumType(Item _enum) {
-		return _enum.getOutgoingItem(WorkspaceCST.ENUM_lt_ENUM_TYPE, true);
+		return _enum.getOutgoingItem(CadseGCST.ENUM_lt_ENUM_TYPE, true);
 	}
 
 	/**
@@ -176,7 +171,93 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	 * @generated
 	 */
 	static public void setEnumType(Item _enum, Item value) throws CadseException {
-		_enum.setOutgoingItem(WorkspaceCST.ENUM_lt_ENUM_TYPE, value);
+		_enum.setOutgoingItem(CadseGCST.ENUM_lt_ENUM_TYPE,value);
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getEnumClazzAttribute(Item _enum) {
+		return _enum.getAttributeWithDefaultValue(CadseGCST.ENUM_at_ENUM_CLAZZ_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setEnumClazzAttribute(Item _enum, String value) {
+		try {
+			_enum.setAttribute(CadseGCST.ENUM_at_ENUM_CLAZZ_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@SuppressWarnings("unchecked")
+	public static final List<String> getValuesAttribute(Item _enum) {
+		try {
+			List<String> list = _enum.getAttribute(CadseGCST.ENUM_at_VALUES_);
+
+			if (list == null)
+				return null;
+
+			return new ArrayList<String>(list);
+		} catch (Throwable t) {
+			return new ArrayList<String>();
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@SuppressWarnings("unchecked")
+	public static final void setValuesAttribute(Item _enum, List<String> valueList) {
+		try {
+			List<String> list = new ArrayList<String>(valueList);
+			_enum.setAttribute(CadseGCST.ENUM_at_VALUES_, list);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@SuppressWarnings("unchecked")
+	public static final void addValuesAttribute(Item _enum, String value) {
+		try {
+			List<String> list = _enum.getAttribute(CadseGCST.ENUM_at_VALUES_);
+			if (list == null) {
+				list = new ArrayList<String>();
+			}
+			list.add(value);
+			_enum.setAttribute(CadseGCST.ENUM_at_VALUES_, list);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@SuppressWarnings("unchecked")
+	public static final void removeValuesAttribute(Item _enum, String value) {
+		try {
+
+			List<String> list = _enum.getAttribute(CadseGCST.ENUM_at_VALUES_);
+			if (list == null) {
+				return;
+			}
+			list.remove(value);
+			if (list.size() == 0)
+				_enum.setAttribute(CadseGCST.ENUM_at_VALUES_, null);
+			else
+				_enum.setAttribute(CadseGCST.ENUM_at_VALUES_, list);
+		} catch (Throwable t) {
+
+		}
 	}
 
 	/*
@@ -217,12 +298,12 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 
 	@Override
 	public ItemType getCadseRootType() {
-		return CadseRootCST.ENUM_ATTRIBUTE_TYPE;
+		return CadseGCST.ENUM;
 	}
 
 	@Override
 	public Object getCadseRootAttributeValue(ContextVariable cxt, IAttributeType<?> attType, Item attribute) {
-		if (attType == CadseRootCST.ENUM_ATTRIBUTE_TYPE_at_ENUM_CLAZZ_) {
+		if (attType == CadseGCST.ENUM_at_ENUM_CLAZZ_) {
 			Item enumType = EnumManager.getEnumType(attribute);
 			IType enumQualifiedClass = null;
 			if (enumType != null) {
@@ -263,6 +344,39 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	@Override
 	public Class<?> getAttributeDefinitionTypeJava() {
 		return fr.imag.adele.cadse.core.attribute.EnumAttributeType.class;
+	}
+	
+	@Override
+	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
+			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+		String enumTypeName = type.getTypeName();
+		if (type.getElement().size() == 1) {
+			CValuesType clazzElement = type.getElement().get(0);
+			enumTypeName = clazzElement.getValue();
+		}
+
+		// Probleme de compilation avec javac
+		Class<? extends Enum> clazz = (Class<? extends Enum>) (Class<?>) initModel.loadClass(cadseName, enumTypeName);
+		if (clazz == null) {
+			throw new CadseException("cannot create type from {0}", type.getKey());
+		}
+		return new fr.imag.adele.cadse.core.impl.attribute.EnumAttributeType(initModel.getUUID(type.getId()), initModel.getFlag(type), type.getKey(), clazz,
+				type.getValue());
+	}
+
+	@Override
+	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
+			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
+		cvt.setType(ValueTypeType.ENUMERATION);
+		String enumQualifiedClass = (String) cadsegManager.getCadseRootAttributeValue(cxt,
+				CadseGCST.ENUM_at_ENUM_CLAZZ_, attribute);
+		if (enumQualifiedClass != null) {
+			CValuesType ncvt = factory.createCValuesType();
+			cvt.getElement().add(ncvt);
+			ncvt.setValue(enumQualifiedClass);
+			ncvt.setKey(CadseGCST.ENUM_at_ENUM_CLAZZ);
+		}
+		super.writeAttributeDefinition(factory, cxt, cadsegManager, cvt, attribute);
 	}
 
 }

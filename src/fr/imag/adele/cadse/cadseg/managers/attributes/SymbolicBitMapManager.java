@@ -21,9 +21,9 @@ package fr.imag.adele.cadse.cadseg.managers.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
@@ -44,10 +44,10 @@ public class SymbolicBitMapManager extends AttributeManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -84,7 +84,7 @@ public class SymbolicBitMapManager extends AttributeManager {
 	@SuppressWarnings("unchecked")
 	public static final List<String> getValuesAttribute(Item symbolicBitMap) {
 		try {
-			List<String> list = symbolicBitMap.getAttribute(WorkspaceCST.SYMBOLIC_BIT_MAP_at_VALUES_);
+			List<String> list = symbolicBitMap.getAttribute(CadseGCST.SYMBOLIC_BIT_MAP_at_VALUES_);
 
 			if (list == null)
 				return null;
@@ -102,7 +102,7 @@ public class SymbolicBitMapManager extends AttributeManager {
 	public static final void setValuesAttribute(Item symbolicBitMap, List<String> valueList) {
 		try {
 			List<String> list = new ArrayList<String>(valueList);
-			symbolicBitMap.setAttribute(WorkspaceCST.SYMBOLIC_BIT_MAP_at_VALUES_, list);
+			symbolicBitMap.setAttribute(CadseGCST.SYMBOLIC_BIT_MAP_at_VALUES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -114,12 +114,12 @@ public class SymbolicBitMapManager extends AttributeManager {
 	@SuppressWarnings("unchecked")
 	public static final void addValuesAttribute(Item symbolicBitMap, String value) {
 		try {
-			List<String> list = symbolicBitMap.getAttribute(WorkspaceCST.SYMBOLIC_BIT_MAP_at_VALUES_);
+			List<String> list = symbolicBitMap.getAttribute(CadseGCST.SYMBOLIC_BIT_MAP_at_VALUES_);
 			if (list == null) {
 				list = new ArrayList<String>();
 			}
 			list.add(value);
-			symbolicBitMap.setAttribute(WorkspaceCST.SYMBOLIC_BIT_MAP_at_VALUES_, list);
+			symbolicBitMap.setAttribute(CadseGCST.SYMBOLIC_BIT_MAP_at_VALUES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -132,15 +132,15 @@ public class SymbolicBitMapManager extends AttributeManager {
 	public static final void removeValuesAttribute(Item symbolicBitMap, String value) {
 		try {
 
-			List<String> list = symbolicBitMap.getAttribute(WorkspaceCST.SYMBOLIC_BIT_MAP_at_VALUES_);
+			List<String> list = symbolicBitMap.getAttribute(CadseGCST.SYMBOLIC_BIT_MAP_at_VALUES_);
 			if (list == null) {
 				return;
 			}
 			list.remove(value);
 			if (list.size() == 0)
-				symbolicBitMap.setAttribute(WorkspaceCST.SYMBOLIC_BIT_MAP_at_VALUES_, null);
+				symbolicBitMap.setAttribute(CadseGCST.SYMBOLIC_BIT_MAP_at_VALUES_, null);
 			else
-				symbolicBitMap.setAttribute(WorkspaceCST.SYMBOLIC_BIT_MAP_at_VALUES_, list);
+				symbolicBitMap.setAttribute(CadseGCST.SYMBOLIC_BIT_MAP_at_VALUES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -148,7 +148,7 @@ public class SymbolicBitMapManager extends AttributeManager {
 
 	@Override
 	public ItemType getCadseRootType() {
-		return CadseRootCST.SYMBOLIC_BIT_MAP_ATTRIBUTE_TYPE;
+		return CadseGCST.SYMBOLIC_BIT_MAP;
 	}
 
 	@Override

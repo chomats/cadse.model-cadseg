@@ -13,21 +13,25 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class PDEProjectContentModelCreationPage1_CreationPage extends JavaProjectContentModelCreationPage1_CreationPage {
+public class PDEProjectContentModelCreationPage1_CreationPage extends
+		JavaProjectContentModelCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected PDEProjectContentModelCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected PDEProjectContentModelCreationPage1_CreationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public PDEProjectContentModelCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create PDEProjectContentModel", "Create PDEProjectContentModel", "", false, 3);
+	public PDEProjectContentModelCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create PDEProjectContentModel",
+				"Create PDEProjectContentModel", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

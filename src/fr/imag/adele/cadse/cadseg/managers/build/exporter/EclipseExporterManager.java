@@ -20,8 +20,9 @@
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
 import fede.workspace.eclipse.content.SubFileContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -42,15 +43,15 @@ import fede.workspace.model.manager.properties.FieldsCore;
 public class EclipseExporterManager extends ExporterManager {
 
 	/**
-	 * @generated
-	 */
-	public class MyContentItem extends ExporterManager.MyContentItem {
+		@generated
+	*/
+	public class EclipseExporterContent extends ExporterManager.ExporterContent {
 
 		/**
-		 * @generated
-		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+			@generated
+		*/
+		public EclipseExporterContent(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 	}
@@ -65,23 +66,10 @@ public class EclipseExporterManager extends ExporterManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -120,13 +108,17 @@ public class EclipseExporterManager extends ExporterManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public ContentItem createContentManager(Item eclipseExporter) throws CadseException {
-		MyContentItem cm = new MyContentItem(null, eclipseExporter);
-		cm.setComposers();
-		cm.setExporters();
+	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+		EclipseExporterContent cm = new EclipseExporterContent(
+			id
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
 		return cm;
 	}
 

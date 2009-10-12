@@ -6,7 +6,8 @@ import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_L
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -28,22 +29,23 @@ public class BuildModelModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldCompositeTypes;
+	protected DListUI fieldCompositeTypes;
 
 	/**
 	 * @generated
 	 */
-	protected BuildModelModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected BuildModelModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -77,11 +79,14 @@ public class BuildModelModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldCompositeTypes() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES);
-		return new DListUI(WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES.getName(), "composite-types", EPosLabel.top, mc,
-				ic, true, false, false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES);
+		return new DListUI(CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES.getName(),
+				"composite-types", EPosLabel.top, mc, ic, true, false, false,
+				false);
 	}
 
 }

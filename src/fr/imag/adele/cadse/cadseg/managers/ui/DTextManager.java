@@ -21,9 +21,10 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -44,7 +45,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	/**
 	 * The Class MyContentItem.
 	 */
-	public final class MyContentItem extends DisplayManager.MyContentItem {
+	public final class MyContentItem extends DisplayManager.DisplayContent {
 
 		/** The Constant STYLE_ATTRIBUTE. */
 		private static final String	STYLE_ATTRIBUTE	= "style_attribute";
@@ -58,8 +59,8 @@ public class DTextManager extends DisplayManager implements IItemManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -84,11 +85,11 @@ public class DTextManager extends DisplayManager implements IItemManager {
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
 			super.generateCallArguments(sb, imports);
 			Item display = getItem();
-			sb.append_exp_vir(display, WorkspaceCST.DTEXT_at_VERTICAL_SPAN, "1");
-			sb.append_string_vir(display, WorkspaceCST.DTEXT_at_TOOL_TIP);
-			sb.append(Convert.toBoolean(display.getAttribute(WorkspaceCST.DTEXT_at_MULTI_LINE_), false)).append(",");
-			sb.append(Convert.toBoolean(display.getAttribute(WorkspaceCST.DTEXT_at_NO_BORDER_), false)).append(",");
-			sb.append(Convert.toBoolean(display.getAttribute(WorkspaceCST.DTEXT_at_WRAP_LINE_), false)).append(",");
+			sb.append_exp_vir(display, CadseGCST.DTEXT_at_VERTICAL_SPAN, "1");
+			sb.append_string_vir(display, CadseGCST.DTEXT_at_TOOL_TIP);
+			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_MULTI_LINE_), false)).append(",");
+			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_NO_BORDER_), false)).append(",");
+			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_WRAP_LINE_), false)).append(",");
 
 		}
 
@@ -126,18 +127,19 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -152,7 +154,6 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -161,83 +162,10 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	}
 
 	/**
-	 * get a link 'ic' from 'DText' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getIcLink(Item dText) {
-		return dText.getOutgoingLink(WorkspaceCST.DTEXT_lt_IC);
-	}
-
-	/**
-	 * get all link destination 'ic' from 'DText' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIcAll(Item dText) {
-		return dText.getOutgoingItem(WorkspaceCST.DTEXT_lt_IC, false);
-	}
-
-	/**
-	 * get resolved link destination 'ic' from 'DText' to
-	 * 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIc(Item dText) {
-		return dText.getOutgoingItem(WorkspaceCST.DTEXT_lt_IC, true);
-	}
-
-	/**
-	 * set a link 'ic' from 'DText' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public void setIc(Item dText, Item value) throws CadseException {
-		dText.setOutgoingItem(WorkspaceCST.DTEXT_lt_IC, value);
-	}
-
-	/**
-	 * get a link 'mc' from 'DText' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getMcLink(Item dText) {
-		return dText.getOutgoingLink(WorkspaceCST.DTEXT_lt_MC);
-	}
-
-	/**
-	 * get all link destination 'mc' from 'DText' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMcAll(Item dText) {
-		return dText.getOutgoingItem(WorkspaceCST.DTEXT_lt_MC, false);
-	}
-
-	/**
-	 * get resolved link destination 'mc' from 'DText' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMc(Item dText) {
-		return dText.getOutgoingItem(WorkspaceCST.DTEXT_lt_MC, true);
-	}
-
-	/**
-	 * set a link 'mc' from 'DText' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public void setMc(Item dText, Item value) throws CadseException {
-		dText.setOutgoingItem(WorkspaceCST.DTEXT_lt_MC, value);
-	}
-
-	/**
 	 * @generated
 	 */
 	public static final String getToolTipAttribute(Item dText) {
-		return dText.getAttributeWithDefaultValue(WorkspaceCST.DTEXT_at_TOOL_TIP_, null);
+		return dText.getAttributeWithDefaultValue(CadseGCST.DTEXT_at_TOOL_TIP_, null);
 	}
 
 	/**
@@ -245,7 +173,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 */
 	public static final void setToolTipAttribute(Item dText, String value) {
 		try {
-			dText.setAttribute(WorkspaceCST.DTEXT_at_TOOL_TIP_, value);
+			dText.setAttribute(CadseGCST.DTEXT_at_TOOL_TIP_, value);
 		} catch (Throwable t) {
 
 		}
@@ -255,7 +183,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 * @generated
 	 */
 	public static final int getVerticalSpanAttribute(Item dText) {
-		return dText.getAttributeWithDefaultValue(WorkspaceCST.DTEXT_at_VERTICAL_SPAN_, 1);
+		return dText.getAttributeWithDefaultValue(CadseGCST.DTEXT_at_VERTICAL_SPAN_, 1);
 	}
 
 	/**
@@ -263,7 +191,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 */
 	public static final void setVerticalSpanAttribute(Item dText, int value) {
 		try {
-			dText.setAttribute(WorkspaceCST.DTEXT_at_VERTICAL_SPAN_, value);
+			dText.setAttribute(CadseGCST.DTEXT_at_VERTICAL_SPAN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -273,7 +201,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 * @generated
 	 */
 	public static final boolean isMultiLineAttribute(Item dText) {
-		return dText.getAttributeWithDefaultValue(WorkspaceCST.DTEXT_at_MULTI_LINE_, false);
+		return dText.getAttributeWithDefaultValue(CadseGCST.DTEXT_at_MULTI_LINE_, false);
 	}
 
 	/**
@@ -281,7 +209,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 */
 	public static final void setMultiLineAttribute(Item dText, boolean value) {
 		try {
-			dText.setAttribute(WorkspaceCST.DTEXT_at_MULTI_LINE_, value);
+			dText.setAttribute(CadseGCST.DTEXT_at_MULTI_LINE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -291,7 +219,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 * @generated
 	 */
 	public static final boolean isWrapLineAttribute(Item dText) {
-		return dText.getAttributeWithDefaultValue(WorkspaceCST.DTEXT_at_WRAP_LINE_, false);
+		return dText.getAttributeWithDefaultValue(CadseGCST.DTEXT_at_WRAP_LINE_, false);
 	}
 
 	/**
@@ -299,7 +227,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 */
 	public static final void setWrapLineAttribute(Item dText, boolean value) {
 		try {
-			dText.setAttribute(WorkspaceCST.DTEXT_at_WRAP_LINE_, value);
+			dText.setAttribute(CadseGCST.DTEXT_at_WRAP_LINE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -309,7 +237,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 * @generated
 	 */
 	public static final boolean isNoBorderAttribute(Item dText) {
-		return dText.getAttributeWithDefaultValue(WorkspaceCST.DTEXT_at_NO_BORDER_, null);
+		return dText.getAttributeWithDefaultValue(CadseGCST.DTEXT_at_NO_BORDER_, null);
 	}
 
 	/**
@@ -317,7 +245,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 */
 	public static final void setNoBorderAttribute(Item dText, boolean value) {
 		try {
-			dText.setAttribute(WorkspaceCST.DTEXT_at_NO_BORDER_, value);
+			dText.setAttribute(CadseGCST.DTEXT_at_NO_BORDER_, value);
 		} catch (Throwable t) {
 
 		}
@@ -338,9 +266,9 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	//
 	// return FieldsCore.createWizard(action,
 	// FieldsCore.createPage("page1", "Create a text", "Create a text", 3,
-	// FieldsCore.createTextField(WorkspaceCST.DTEXT_at_TOOL_TIP, "tool tip",
+	// FieldsCore.createTextField(CadseGCST.DTEXT_at_TOOL_TIP, "tool tip",
 	// 5),
-	// FieldsCore.createTextField(WorkspaceCST.DTEXT_at_VERTICAL_SPAN, "vertical
+	// FieldsCore.createTextField(CadseGCST.DTEXT_at_VERTICAL_SPAN, "vertical
 	// span",
 	// new IntModelController(1,-1,"The value must be bigger than 1",null,"1")),
 	// FieldsCore.createTextField("pattern", "pattern (not implemented)"),
@@ -362,9 +290,9 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	//
 	// return FieldsCore.createWizard(action,
 	// FieldsCore.createPage("page1", "a text", "a text", 3,
-	// FieldsCore.createTextField(WorkspaceCST.DTEXT_at_TOOL_TIP, "tool tip",
+	// FieldsCore.createTextField(CadseGCST.DTEXT_at_TOOL_TIP, "tool tip",
 	// 5),
-	// FieldsCore.createTextField(WorkspaceCST.DTEXT_at_VERTICAL_SPAN, "vertical
+	// FieldsCore.createTextField(CadseGCST.DTEXT_at_VERTICAL_SPAN, "vertical
 	// span",
 	// new IntModelController(1,-1,"The value must be bigger than 1",null,"1")),
 	// FieldsCore.createTextField("pattern", "pattern (not implemented)"),
@@ -382,8 +310,8 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -424,8 +352,8 @@ public class DTextManager extends DisplayManager implements IItemManager {
 		}
 		ItemType it = attribute.getType();
 
-		if (WorkspaceCST.BOOLEAN != it && WorkspaceCST.DOUBLE != it && WorkspaceCST.INTEGER != it
-				&& WorkspaceCST.STRING != it & WorkspaceCST.DATE != it) {
+		if (CadseGCST.BOOLEAN != it && CadseGCST.DOUBLE != it && CadseGCST.INTEGER != it
+				&& CadseGCST.STRING != it & CadseGCST.DATE != it) {
 			return "Text is for Boolean, Double, Integer, String or Date";
 		}
 

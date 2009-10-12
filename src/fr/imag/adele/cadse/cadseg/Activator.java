@@ -31,7 +31,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends Plugin {
 
 	/** The PLUGI n_ id. */
-	public static String		PLUGIN_ID	= "Model.Workspace.Workspace";
+	public static String		PLUGIN_ID	= "Model.Workspace.CadseG";
 
 	/** The _default. */
 	private static Activator	_default;

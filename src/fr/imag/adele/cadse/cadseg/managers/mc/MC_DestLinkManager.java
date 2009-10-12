@@ -18,14 +18,11 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.var.Variable;
-import fede.workspace.eclipse.content.SubFileContentManager;
 
 /**
  * @generated
@@ -33,15 +30,15 @@ import fede.workspace.eclipse.content.SubFileContentManager;
 public class MC_DestLinkManager extends LinkModelControllerManager {
 
 	/**
-	 * @generated
-	 */
-	public class MyContentItem extends LinkModelControllerManager.MyContentItem {
+		@generated
+	*/
+	public class MC_DestLinkContent extends LinkModelControllerManager.LinkModelControllerContent {
 
 		/**
-		 * @generated
-		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+			@generated
+		*/
+		public MC_DestLinkContent(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 	}
@@ -54,18 +51,19 @@ public class MC_DestLinkManager extends LinkModelControllerManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -80,7 +78,6 @@ public class MC_DestLinkManager extends LinkModelControllerManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -89,13 +86,17 @@ public class MC_DestLinkManager extends LinkModelControllerManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public ContentItem createContentManager(Item mC_DestLink) throws CadseException {
-		MyContentItem cm = new MyContentItem(null, mC_DestLink);
-		cm.setComposers();
-		cm.setExporters();
+	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+		MC_DestLinkContent cm = new MC_DestLinkContent(
+			id
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
 		return cm;
 	}
 

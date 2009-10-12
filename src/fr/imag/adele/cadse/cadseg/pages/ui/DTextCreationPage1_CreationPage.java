@@ -31,13 +31,14 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class DTextCreationPage1_CreationPage extends DisplayCreationPage1_CreationPage {
+public class DTextCreationPage1_CreationPage extends
+		DisplayCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTextCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected DTextCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 

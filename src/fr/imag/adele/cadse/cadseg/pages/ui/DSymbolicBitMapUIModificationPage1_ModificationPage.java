@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.ui;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -30,7 +30,9 @@ import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
@@ -39,42 +41,45 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * @generated
  */
-public class DSymbolicBitMapUIModificationPage1_ModificationPage extends DisplayModificationPage1_ModificationPage {
+public class DSymbolicBitMapUIModificationPage1_ModificationPage extends
+		DisplayModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsUI;
+	protected DCheckBoxUI fieldExtendsUI;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsIC;
+	protected DCheckBoxUI fieldExtendsIC;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsMC;
+	protected DCheckBoxUI fieldExtendsMC;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldNumberColumn;
+	protected DTextUI fieldNumberColumn;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI		fieldLabels;
+	protected DListUI fieldLabels;
 
 	/**
 	 * @generated
 	 */
-	protected DSymbolicBitMapUIModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected DSymbolicBitMapUIModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -82,7 +87,8 @@ public class DSymbolicBitMapUIModificationPage1_ModificationPage extends Display
 	 * @generated
 	 */
 	public DSymbolicBitMapUIModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "DSymbolicBitMapUI", "DSymbolicBitMapUI", "", false, 3);
+		super("modification-page1", "DSymbolicBitMapUI", "DSymbolicBitMapUI",
+				"", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldExtendsUI = createFieldExtendsUI();
@@ -93,8 +99,9 @@ public class DSymbolicBitMapUIModificationPage1_ModificationPage extends Display
 		this.fieldNumberColumn = createFieldNumberColumn();
 		this.fieldLabels = createFieldLabels();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldExtendsUI, this.fieldEnable, this.fieldExtendsIC, this.fieldEditable,
-				this.fieldExtendsMC, this.fieldNumberColumn, this.fieldLabels);
+		addLast(this.__short_name__, this.fieldExtendsUI, this.fieldEnable,
+				this.fieldExtendsIC, this.fieldEditable, this.fieldExtendsMC,
+				this.fieldNumberColumn, this.fieldLabels);
 
 		registerListener();
 	}
@@ -109,15 +116,8 @@ public class DSymbolicBitMapUIModificationPage1_ModificationPage extends Display
 	 */
 	public DCheckBoxUI createFieldExtendsUI() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_UI, "extendsUI", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldEnable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_ENABLE, "enable", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extendsUI",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -125,15 +125,8 @@ public class DSymbolicBitMapUIModificationPage1_ModificationPage extends Display
 	 */
 	public DCheckBoxUI createFieldExtendsIC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_IC, "extendsIC", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldEditable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extendsIC",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -141,15 +134,17 @@ public class DSymbolicBitMapUIModificationPage1_ModificationPage extends Display
 	 */
 	public DCheckBoxUI createFieldExtendsMC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_MC, "extendsMC", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extendsMC",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldNumberColumn() {
-		return new DTextUI(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_NUMBER_COLUMN, "number-column", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "");
+		return new DTextUI(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_NUMBER_COLUMN,
+				"number-column", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 	/**
@@ -157,8 +152,10 @@ public class DSymbolicBitMapUIModificationPage1_ModificationPage extends Display
 	 */
 	public DListUI createFieldLabels() {
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.", "Select a value.", false);
-		return new DListUI(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS, "labels", EPosLabel.top, mc, ic, true, false);
+		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
+				"Select a value.", false);
+		return new DListUI(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS, "labels",
+				EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

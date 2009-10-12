@@ -2,7 +2,8 @@ package fr.imag.adele.cadse.cadseg.pages.mc;
 
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -25,33 +26,34 @@ public class IntModelControllerModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldErrorMsgMax;
+	protected DTextUI fieldErrorMsgMax;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldErrorMsgMin;
+	protected DTextUI fieldErrorMsgMin;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldMax;
+	protected DTextUI fieldMax;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldMin;
+	protected DTextUI fieldMin;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldDefaultValue;
+	protected DTextUI fieldDefaultValue;
 
 	/**
 	 * @generated
 	 */
-	protected IntModelControllerModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected IntModelControllerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -59,7 +61,8 @@ public class IntModelControllerModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public IntModelControllerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "IntModelController", "IntModelController", "", false, 3);
+		super("modification-page1", "IntModelController", "IntModelController",
+				"", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldErrorMsgMax = createFieldErrorMsgMax();
@@ -68,7 +71,8 @@ public class IntModelControllerModificationPage1_ModificationPage extends
 		this.fieldMin = createFieldMin();
 		this.fieldDefaultValue = createFieldDefaultValue();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldErrorMsgMax, this.fieldErrorMsgMin, this.fieldMax, this.fieldMin,
+		addLast(this.__short_name__, this.fieldErrorMsgMax,
+				this.fieldErrorMsgMin, this.fieldMax, this.fieldMin,
 				this.fieldDefaultValue);
 
 		registerListener();
@@ -83,40 +87,45 @@ public class IntModelControllerModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DTextUI createFieldErrorMsgMax() {
-		return new DTextUI(WorkspaceCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX, "error-msg-max", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX,
+				"error-msg-max", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldErrorMsgMin() {
-		return new DTextUI(WorkspaceCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN, "error-msg-min", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN,
+				"error-msg-min", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldMax() {
-		return new DTextUI(WorkspaceCST.INT_MODEL_CONTROLLER_at_MAX, "max", EPosLabel.left, new MC_AttributesItem(),
-				null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.INT_MODEL_CONTROLLER_at_MAX, "max",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldMin() {
-		return new DTextUI(WorkspaceCST.INT_MODEL_CONTROLLER_at_MIN, "min", EPosLabel.left, new MC_AttributesItem(),
-				null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.INT_MODEL_CONTROLLER_at_MIN, "min",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE, "default-value", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE,
+				"default-value", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 }

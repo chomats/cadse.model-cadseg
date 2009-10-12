@@ -24,21 +24,33 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.model.manager.properties.FieldsCore;
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
+import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 
 /**
  * @generated
  */
-public class UUIDModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class UUIDModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldCannotBeUndefined;
 
 	/**
 	 * @generated
 	 */
-	protected UUIDModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected UUIDModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -49,14 +61,33 @@ public class UUIDModificationPage1_ModificationPage extends AttributeModificatio
 		super("modification-page1", "UUID", "UUID", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
+		this.fieldCannotBeUndefined = createFieldCannotBeUndefined();
+		this.fieldFinalValue = createFieldFinalValue();
+		this.fieldIsList = createFieldIsList();
+		this.fieldMustBeInitialized = createFieldMustBeInitialized();
+		this.fieldNatif = createFieldNatif();
+		this.fieldRequire = createFieldRequire();
+		this.fieldTransient = createFieldTransient();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast(this.__short_name__, this.fieldCannotBeUndefined,
+				this.fieldFinalValue, this.fieldIsList,
+				this.fieldMustBeInitialized, this.fieldNatif,
+				this.fieldRequire, this.fieldTransient);
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
+	}
+
+	/**
+	    @generated
+	 */
+	public DCheckBoxUI createFieldCannotBeUndefined() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED,
+				"cannot-be-undefined", EPosLabel.none, mc, null);
 	}
 
 }

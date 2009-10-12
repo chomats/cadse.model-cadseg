@@ -30,6 +30,7 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.IItemManager.ProblemReporter;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -120,7 +121,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 			this.contextVariable = usecontext;
 
 			if (packageName == null) {
-				this._orinalPackageName = GenerateJavaIdentifier.getManagerPackage(cxt, ItemTypeManager
+				this._orinalPackageName = GenerateJavaIdentifier.getManagerPackage(cxt, (ItemType) _orignalItem, ItemTypeManager
 						.getManager(_orignalItem));
 			} else {
 				this._orinalPackageName = packageName;
@@ -146,10 +147,10 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 					Item linkItemType = fCurrentLink.getPartParent();
 					Item linkManager = ItemTypeManager.getManager(linkItemType);
 
-					String className = GenerateJavaIdentifier.getManagerClassName(cxt, linkManager);
-					String packageName = GenerateJavaIdentifier.getManagerPackage(cxt, linkManager);
+					String className = GenerateJavaIdentifier.getManagerClassName(cxt, (ItemType) linkItemType, linkManager);
+					String packageName = GenerateJavaIdentifier.getManagerPackage(cxt, (ItemType) linkItemType, linkManager);
 
-					String orinalPackageName = GenerateJavaIdentifier.getManagerPackage(cxt, ItemTypeManager
+					String orinalPackageName = GenerateJavaIdentifier.getManagerPackage(cxt, (ItemType) _orignalItem, ItemTypeManager
 							.getManager(_orignalItem));
 
 					if (!packageName.equals(orinalPackageName)) {
@@ -171,8 +172,8 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 						Item attrItemType = _currentAttr.getPartParent();
 						Item manager = ItemTypeManager.getManager(attrItemType);
 
-						String className = GenerateJavaIdentifier.getManagerClassName(cxt, manager);
-						String packageName = GenerateJavaIdentifier.getManagerPackage(cxt, manager);
+						String className = GenerateJavaIdentifier.getManagerClassName(cxt, (ItemType) attrItemType, manager);
+						String packageName = GenerateJavaIdentifier.getManagerPackage(cxt, (ItemType) attrItemType, manager);
 
 						if (!packageName.equals(_orinalPackageName)) {
 							imports.add(packageName + "." + className);

@@ -18,7 +18,8 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.actions.dataModel;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.*;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
@@ -72,12 +73,12 @@ public class ItemType_CreationPagesAction extends CreationAction {
 			theitemtype = getItem();
 
 			ItemTypeManager.setIsAbstractAttribute(theitemtype, false);
-			ItemType managerType = WorkspaceCST.MANAGER;
+			ItemType managerType = CadseGCST.MANAGER;
 
 			Item mappingModel = CadseDefinitionManager.getMappingModel(ItemTypeManager.getCadseDefinition(theitemtype));
 
 			LogicalWorkspaceTransaction copy = getCopy();
-			managerItem = copy.createItem(managerType, mappingModel, WorkspaceCST.MAPPING_MODEL_lt_MANAGERS);
+			managerItem = copy.createItem(managerType, mappingModel, CadseGCST.MAPPING_MODEL_lt_MANAGERS);
 
 			// ManagerManager.setManagerType(managerItem, "default");
 			ManagerManager.setHumanNameAttribute(managerItem, theitemtype.getName());
@@ -125,20 +126,24 @@ public class ItemType_CreationPagesAction extends CreationAction {
 		Item mappingModel = CadseDefinitionManager.getMappingModel(ItemTypeManager.getCadseDefinition(theitemtype));
 
 		CadseCore.setName(managerItem, theitemtype.getName() + "-manager", mappingModel,
-				WorkspaceCST.MAPPING_MODEL_lt_MANAGERS);
+				CadseGCST.MAPPING_MODEL_lt_MANAGERS);
 		if (pages != null) {
-			pages.updateField("page2", WorkspaceCST.MANAGER_at_HUMAN_NAME);
+			pages.updateField("page2", CadseGCST.MANAGER_at_HUMAN_NAME);
 		}
 
 		Item superItem = ItemTypeManager.getSuperType(theitemtype);
 		if (superItem != null) {
 			Item supermanager = ManagerManager.getManagerFromItemType(superItem);
-			ManagerManager.setUniqueNameTemplate(managerItem, ManagerManager.getUniqueNameTemplate(supermanager));
-			ManagerManager.setDisplayNameTemplateAttribute(managerItem, ManagerManager
-					.getDisplayNameTemplateAttribute(supermanager));
-
-			if (pages != null) {
-				pages.updateField("page2", WorkspaceCST.MANAGER_at_LONG_NAME_TEMPLATE);
+			if (supermanager != null) {
+				ManagerManager.setUniqueNameTemplate(managerItem,
+						ManagerManager.getUniqueNameTemplate(supermanager));
+				ManagerManager.setDisplayNameTemplateAttribute(managerItem,
+						ManagerManager
+								.getDisplayNameTemplateAttribute(supermanager));
+				if (pages != null) {
+					pages.updateField("page2",
+							CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE);
+				}
 			}
 		}
 		initManager_ = true;

@@ -4,7 +4,8 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -20,22 +21,14 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class DCheckedListModificationPage1_ModificationPage extends DisplayModificationPage1_ModificationPage {
+public class DCheckedListModificationPage1_ModificationPage extends
+		DisplayModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldIc;
-
-	/**
-	 * @generated
-	 */
-	protected DBrowserUI	fieldMc;
-
-	/**
-	 * @generated
-	 */
-	protected DCheckedListModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected DCheckedListModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -44,13 +37,12 @@ public class DCheckedListModificationPage1_ModificationPage extends DisplayModif
 	 * @generated
 	 */
 	public DCheckedListModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "DCheckedList", "DCheckedList", "", false, 3);
+		super("modification-page1", "DCheckedList", "DCheckedList", "", false,
+				3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
-		this.fieldIc = createFieldIc();
-		this.fieldMc = createFieldMc();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldIc, this.fieldMc);
+		addLast(this.__short_name__);
 
 		registerListener();
 	}
@@ -58,26 +50,6 @@ public class DCheckedListModificationPage1_ModificationPage extends DisplayModif
 	protected void registerListener() {
 		super.registerListener();
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DBrowserUI createFieldIc() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.DCHECKED_LIST_lt_IC);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.DCHECKED_LIST_lt_IC);
-		return new DBrowserUI(WorkspaceCST.DCHECKED_LIST_lt_IC.getName(), "ic", EPosLabel.left, mc, ic);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DBrowserUI createFieldMc() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.DCHECKED_LIST_lt_MC);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.DCHECKED_LIST_lt_MC);
-		return new DBrowserUI(WorkspaceCST.DCHECKED_LIST_lt_MC.getName(), "mc", EPosLabel.left, mc, ic);
 	}
 
 }

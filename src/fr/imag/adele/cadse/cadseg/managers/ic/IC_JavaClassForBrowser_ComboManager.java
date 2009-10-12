@@ -21,11 +21,12 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.cadseg.util.Util;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -72,7 +73,7 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends InteractionControllerManager.MyContentItem {
+	class MyContentItem extends InteractionControllerManager.InteractionControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -83,8 +84,8 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -155,6 +156,41 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	public IC_JavaClassForBrowser_ComboManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -166,7 +202,7 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
+				DisplayManager.IC_DEFAULT_NAME);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
 				"Create a interaction controler for browser or combo with a java class attribut",
@@ -235,8 +271,8 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -253,27 +289,17 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		if (attribute == null) {
 			return "select an attribute before";
 		}
-		if (attribute.getType() != WorkspaceCST.STRING) {
+		if (attribute.getType() != CadseGCST.STRING) {
 			return "It's not an string attribute";
 		}
-		if (itemParent.getType() == WorkspaceCST.DBROWSER) {
+		if (itemParent.getType() == CadseGCST.DBROWSER) {
 			return null;
 		}
-		if (itemParent.getType() == WorkspaceCST.DCOMBO) {
+		if (itemParent.getType() == CadseGCST.DCOMBO) {
 			return null;
 		}
 		return "It's not a browser field or a combo field";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public void createdItem(Item item) throws CadseException {
-		super.createdItem(item);
-		Util.setDefaultValueIfNeed(item, SELECT_MESSAGE_ATTRIBUTE, "Select a value.");
-		Util.setDefaultValueIfNeed(item, SELECT_TITLE_ATTRIBUTE, "Select a value.");
-	}
+	
 }

@@ -4,7 +4,7 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -25,22 +25,23 @@ public class PageListenerModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item				item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldListenShortName;
+	protected DCheckBoxUI fieldListenShortName;
 
 	/**
 	 * @generated
 	 */
-	protected PageListenerModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected PageListenerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -49,7 +50,8 @@ public class PageListenerModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public PageListenerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "PageListener", "PageListener", "", false, 3);
+		super("modification-page1", "PageListener", "PageListener", "", false,
+				3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldListenShortName = createFieldListenShortName();
@@ -75,8 +77,8 @@ public class PageListenerModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldListenShortName() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.PAGE_LISTENER_at_LISTEN_SHORT_NAME, "listen-short-name", EPosLabel.none,
-				mc, null);
+		return new DCheckBoxUI(CadseGCST.PAGE_LISTENER_at_LISTEN_SHORT_NAME,
+				"listen-short-name", EPosLabel.none, mc, null);
 	}
 
 }

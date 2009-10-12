@@ -19,21 +19,26 @@
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
 import fede.workspace.model.manager.properties.FieldsCore;
+import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fede.workspace.model.manager.properties.impl.ui.DTextUI;
+import fede.workspace.model.manager.properties.impl.ui.DListUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.cadseg.managers.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
@@ -41,41 +46,54 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class ItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreationPage1_CreationPage {
+public class ItemTypeCreationPage1_CreationPage extends
+		AbstractItemTypeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldSuperType;
+	protected DBrowserUI fieldSuperType;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldHasContent;
+	protected DCheckBoxUI fieldHasContent;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldIsAbstract;
+	protected DCheckBoxUI fieldIsAbstract;
+
+	/**
+	    @generated
+	 */
+	protected DBrowserUI fieldCadseRuntime;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldItemFactory;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldIsRootElement;
+	protected DCheckBoxUI fieldIsRootElement;
 
 	/**
 	 * @generated
 	 */
-	protected ItemTypeCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected ItemTypeCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public ItemTypeCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create an item type", "Create an item type", "Create an item type", false, 3);
+	public ItemTypeCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create an item type", "Create an item type",
+				"Create an item type", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -84,9 +102,13 @@ public class ItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreation
 		this.fieldIsRootElement = createFieldIsRootElement();
 		this.fieldHasContent = createFieldHasContent();
 		this.fieldIsAbstract = createFieldIsAbstract();
+		this.fieldCadseRuntime = createFieldCadseRuntime();
+		this.fieldItemFactory = createFieldItemFactory();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldSuperType, this.fieldIsRootElement, this.fieldHasContent,
-				this.fieldIsAbstract);
+		addLast(this.__short_name__, this.fieldSuperType,
+				this.fieldIsRootElement, this.fieldHasContent,
+				this.fieldIsAbstract, this.fieldCadseRuntime,
+				this.fieldItemFactory);
 
 		registerListener();
 	}
@@ -100,18 +122,19 @@ public class ItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreation
 	 */
 	public DBrowserUI createFieldSuperType() {
 
-		IC_SuperTypeForBrowser_Combo superTypeLinkAction = new IC_SuperTypeForBrowser_Combo("Select a super type",
-				"Select a super type");
-		return FieldsCore.createLinkDependencyField(WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE, "super type", EPosLabel.top,
+		IC_SuperTypeForBrowser_Combo superTypeLinkAction = new IC_SuperTypeForBrowser_Combo(
+				"Select a super type", "Select a super type");
+		return FieldsCore.createLinkDependencyField(
+				CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, "super type", EPosLabel.top,
 				superTypeLinkAction, false, null);
 
 		// LinkModelController mc = new LinkModelController(false,
-		// null,WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE);
+		// null,CadseGCST.ITEM_TYPE_lt_SUPER_TYPE);
 		// IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 		// "Select a value.", "Select a
-		// value.",WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE);
+		// value.",CadseGCST.ITEM_TYPE_lt_SUPER_TYPE);
 		// return new
-		// DBrowserUI(WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE.getShortName(),
+		// DBrowserUI(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE.getShortName(),
 		// "super-type",
 		// EPosLabel.left,mc, ic);
 	}
@@ -121,7 +144,8 @@ public class ItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreation
 	 */
 	public DCheckBoxUI createFieldHasContent() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ITEM_TYPE_at_HAS_CONTENT, "has-content", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_HAS_CONTENT,
+				"has-content", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -129,7 +153,30 @@ public class ItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreation
 	 */
 	public DCheckBoxUI createFieldIsAbstract() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ITEM_TYPE_at_IS_ABSTRACT, "is-abstract", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_IS_ABSTRACT,
+				"is-abstract", EPosLabel.none, mc, null);
+	}
+
+	/**
+	    @generated
+	 */
+	public DBrowserUI createFieldCadseRuntime() {
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME);
+		return new DBrowserUI(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME.getName(),
+				"cadse-runtime", EPosLabel.left, mc, ic);
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldItemFactory() {
+		return new DTextUI(CadseGCST.ITEM_TYPE_at_ITEM_FACTORY, "item-factory",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 	/**
@@ -137,7 +184,8 @@ public class ItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreation
 	 */
 	public DCheckBoxUI createFieldIsRootElement() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ITEM_TYPE_at_IS_ROOT_ELEMENT, "root element", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT,
+				"root element", EPosLabel.none, mc, null);
 	}
 
 }

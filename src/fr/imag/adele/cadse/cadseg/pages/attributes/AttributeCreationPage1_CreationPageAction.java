@@ -21,11 +21,11 @@ package fr.imag.adele.cadse.cadseg.pages.attributes;
 import java.text.MessageFormat;
 
 import fr.imag.adele.cadse.cadseg.Messages;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -49,7 +49,6 @@ public class AttributeCreationPage1_CreationPageAction extends AbstractActionPag
 	UIField	shortNameField;
 	UIField	defaultValueField;
 	UIField	isListField;
-	UIField	metaAttributeField;
 	UIField	requireAttributeField;
 
 	public Item getSuperAttribute() {
@@ -72,15 +71,11 @@ public class AttributeCreationPage1_CreationPageAction extends AbstractActionPag
 	@Override
 	public void init(IPageObject pageObject) throws CadseException {
 		super.init(pageObject);
-		this.shortNameField = pageObject.getField(CadseRootCST.ITEM_TYPE_at_NAME);
+		this.shortNameField = pageObject.getField(CadseGCST.ITEM_at_NAME);
 		shortNameField.addValidateContributor(this);
-		this.defaultValueField = pageObject.getField(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE);
-		this.isListField = pageObject.getField(WorkspaceCST.ATTRIBUTE_at_IS_LIST);
-		requireAttributeField = pageObject.getField(WorkspaceCST.ATTRIBUTE_at_REQUIRE);
-		metaAttributeField = pageObject.getField(WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE);
-		if (metaAttributeField != null) {
-			metaAttributeField.addValidateContributor(this);
-		}
+		this.defaultValueField = pageObject.getField(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE);
+		this.isListField = pageObject.getField(CadseGCST.ATTRIBUTE_at_IS_LIST);
+		requireAttributeField = pageObject.getField(CadseGCST.ATTRIBUTE_at_REQUIRE);
 		if (defaultValueField != null) {
 			defaultValueField.addValidateContributor(this);
 		}
@@ -135,16 +130,16 @@ public class AttributeCreationPage1_CreationPageAction extends AbstractActionPag
 				enableField();
 			}
 		}
-		if (field == defaultValueField) {
-			if (AttributeManager.isClassAttributeAttribute(getItem())) {
-				String df = (String) value;
-				if (df == null || df.length() == 0) {
-					pageObject.getPageController().setMessage("The default value must be set", IPageController.ERROR);
-					return true;
-				}
-			}
-
-		}
+//		if (field == defaultValueField) {
+//			if (AttributeManager.isClassAttributeAttribute(getItem())) {
+//				String df = (String) value;
+//				if (df == null || df.length() == 0) {
+//					pageObject.getPageController().setMessage("The default value must be set", IPageController.ERROR);
+//					return true;
+//				}
+//			}
+//
+//		}
 		return false;
 	}
 
@@ -161,8 +156,6 @@ public class AttributeCreationPage1_CreationPageAction extends AbstractActionPag
 
 	protected void setDefaultValues() {
 		AttributeManager.setIsListAttribute(getItem(), AttributeManager.isIsListAttribute(superAttribute));
-		AttributeManager.setClassAttributeAttribute(getItem(), AttributeManager
-				.isClassAttributeAttribute(superAttribute));
 		AttributeManager.setRequireAttribute(getItem(), AttributeManager.isRequireAttribute(superAttribute));
 
 	}
@@ -170,9 +163,6 @@ public class AttributeCreationPage1_CreationPageAction extends AbstractActionPag
 	protected void enableField() {
 		if (isListField != null) {
 			isListField.setEnabled(true);
-		}
-		if (metaAttributeField != null) {
-			metaAttributeField.setEnabled(true);
 		}
 		if (requireAttributeField != null) {
 			requireAttributeField.setEnabled(true);
@@ -186,9 +176,7 @@ public class AttributeCreationPage1_CreationPageAction extends AbstractActionPag
 		if (requireAttributeField != null) {
 			requireAttributeField.setEnabled(false);
 		}
-		if (metaAttributeField != null) {
-			metaAttributeField.setEnabled(false);
-		}
+		
 	}
 
 	/*

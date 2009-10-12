@@ -4,7 +4,7 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -21,12 +21,14 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class JavaFileContentModelCreationPage1_CreationPage extends FileContentModelCreationPage1_CreationPage {
+public class JavaFileContentModelCreationPage1_CreationPage extends
+		FileContentModelCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected JavaFileContentModelCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected JavaFileContentModelCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -34,8 +36,10 @@ public class JavaFileContentModelCreationPage1_CreationPage extends FileContentM
 	/**
 	 * @generated
 	 */
-	public JavaFileContentModelCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create Java File Content", "Create Java File Content", "", false, 3);
+	public JavaFileContentModelCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create Java File Content",
+				"Create Java File Content", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -51,30 +55,6 @@ public class JavaFileContentModelCreationPage1_CreationPage extends FileContentM
 	protected void registerListener() {
 		super.registerListener();
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldExtendsClass() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends class:", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldFileName() {
-		return new DTextUI(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_NAME, "file name:", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldFilePath() {
-		return new DTextUI(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_PATH, "file path:", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
 	}
 
 }

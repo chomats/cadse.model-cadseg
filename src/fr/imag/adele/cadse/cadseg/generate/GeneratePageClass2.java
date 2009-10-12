@@ -69,10 +69,10 @@ public class GeneratePageClass2 extends GenerateClass {
 	Item									page;
 
 	/** The add internal short name. */
-	private boolean							addInternalShortName;
+//	private boolean							addInternalShortName;
 
 	/** The add internal attribute. */
-	private boolean							addInternalAttribute;
+	//private boolean							addInternalAttribute;
 
 	/** The fields. */
 	private Collection<FieldGenerateInfo>	fields;
@@ -123,8 +123,8 @@ public class GeneratePageClass2 extends GenerateClass {
 		ret = new GeneratePageClass2(cxt, pn, cn, super_pn + "." + super_cn, javatype, superPage, supercm);
 		ret.id = page.getName();
 		ret.page = page;
-		ret.addInternalShortName = PageManager.addInternalShortName(page);
-		ret.addInternalAttribute = PageManager.addInternalAttribute(page);
+		///ret.addInternalShortName = PageManager.addInternalShortName(page);
+	///	ret.addInternalAttribute = PageManager.addInternalAttribute(page);
 
 		ret.fields = PageManager.getFieldGenerateInfos(cxt, page, ret.imports, superPage);
 		ret.heritage = superPage != null;
@@ -197,12 +197,10 @@ public class GeneratePageClass2 extends GenerateClass {
 			}
 		}
 		// declaration des champ : un par field graphique.
-		if ((addInternalShortName || addInternalAttribute) && !heritage) {
-			sb.newline().appendGeneratedTag();
-			sb.newline().append("protected DTextUI __short_name__;");
-			imports.add("fede.workspace.model.manager.properties.FieldsCore");
-			imports.add("fede.workspace.model.manager.properties.impl.ui.DTextUI");
-		}
+//		if ((addInternalShortName || addInternalAttribute) && !heritage) {
+//			imports.add("fede.workspace.model.manager.properties.FieldsCore");
+//			imports.add("fede.workspace.model.manager.properties.impl.ui.DTextUI");
+//		}
 		for (FieldGenerateInfo info : fields) {
 			if (info.superField != null) {
 				continue;
@@ -261,21 +259,7 @@ public class GeneratePageClass2 extends GenerateClass {
 
 		// methods des champs
 
-		if ((addInternalShortName || addInternalAttribute) && !heritage) {
-			sb.newline();
-			sb.newline().appendGeneratedTag();
-			sb.newline().append("public DTextUI createInternalNameField() {");
-			sb.begin();
-			sb.append("return ");
-			if (addInternalShortName) {
-				sb.newline().append(" FieldsCore.createShortNameField();");
-			} else {
-				sb.newline().append(" FieldsCore.createUniqueNameField();");
-			}
-			sb.end();
-			sb.newline().append("}");
-		}
-
+		
 		for (FieldGenerateInfo info : fields) {
 			if (info.superField != null) {
 				continue;
@@ -331,9 +315,6 @@ public class GeneratePageClass2 extends GenerateClass {
 		}
 
 		/* initialise les fields */
-		if (addInternalShortName || addInternalAttribute) {
-			sb.newline().append("this.__short_name__ = createInternalNameField();");
-		}
 		for (FieldGenerateInfo info : fields) {
 			sb.newline().append("this.").append(info.fieldName).append("=").append(" ").append(info.methodName).append(
 					"();");
@@ -348,9 +329,6 @@ public class GeneratePageClass2 extends GenerateClass {
 		// ajoute les fields;
 		sb.newline().append("addLast(");
 		sb.begin();
-		if (addInternalShortName || addInternalAttribute) {
-			sb.newline().append(" this.__short_name__,");
-		}
 		// init field
 		for (FieldGenerateInfo info : fields) {
 			sb.newline().append(" this.").append(info.fieldName).append(",");

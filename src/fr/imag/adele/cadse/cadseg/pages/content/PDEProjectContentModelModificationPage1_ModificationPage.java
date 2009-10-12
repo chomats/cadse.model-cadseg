@@ -5,7 +5,7 @@ import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -28,13 +28,14 @@ public class PDEProjectContentModelModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldContentModel;
+	protected DListUI fieldContentModel;
 
 	/**
 	 * @generated
 	 */
-	protected PDEProjectContentModelModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected PDEProjectContentModelModificationPage1_ModificationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -42,7 +43,8 @@ public class PDEProjectContentModelModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public PDEProjectContentModelModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "PDEProjectContentModel", "PDEProjectContentModel", "", false, 3);
+		super("modification-page1", "PDEProjectContentModel",
+				"PDEProjectContentModel", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldContentModel = createFieldContentModel();
@@ -62,11 +64,13 @@ public class PDEProjectContentModelModificationPage1_ModificationPage extends
 	 */
 	public DListUI createFieldContentModel() {
 		LinkModelController mc = new LinkModelController(false, null,
-				WorkspaceCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
-		return new DListUI(WorkspaceCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL.getName(), "content-model",
-				EPosLabel.top, mc, ic, false, false, false, false);
+				CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
+		return new DListUI(CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL
+				.getName(), "content-model", EPosLabel.top, mc, ic, true,
+				false, false, false);
 	}
 
 }

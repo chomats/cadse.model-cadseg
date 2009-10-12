@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.build.composer;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.pages.build.ComposerModificationPage1_ModificationPage;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -42,18 +42,20 @@ import fede.workspace.model.manager.properties.impl.ui.DListUI;
 /**
  * @generated
  */
-public class EclipseComposerModificationPage1_ModificationPage extends ComposerModificationPage1_ModificationPage {
+public class EclipseComposerModificationPage1_ModificationPage extends
+		ComposerModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldComposerLinks;
+	protected DListUI fieldComposerLinks;
 
 	/**
 	 * @generated
 	 */
-	protected EclipseComposerModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected EclipseComposerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -61,7 +63,8 @@ public class EclipseComposerModificationPage1_ModificationPage extends ComposerM
 	 * @generated
 	 */
 	public EclipseComposerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "EclipseComposer", "EclipseComposer", "", false, 3);
+		super("modification-page1", "EclipseComposer", "EclipseComposer", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldComposerLinks = createFieldComposerLinks();
@@ -80,11 +83,14 @@ public class EclipseComposerModificationPage1_ModificationPage extends ComposerM
 	 * @generated
 	 */
 	public DListUI createFieldComposerLinks() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS);
-		return new DListUI(WorkspaceCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS.getName(), "composer-links", EPosLabel.top,
-				mc, ic, false, false, false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS);
+		return new DListUI(CadseGCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS
+				.getName(), "composer-links", EPosLabel.top, mc, ic, true,
+				false, false, false);
 	}
 
 }

@@ -41,12 +41,13 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.ParseTemplate;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.generate.GenerateManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -121,17 +122,17 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		private ManagerJavaFileContentManager(Item cadseDefinition, final Item manager) throws CadseException {
-			super(cadseDefinition.getContentItem(), manager, new VariableImpl() {
+		private ManagerJavaFileContentManager(CompactUUID id) throws CadseException {
+			super(id, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
-					return GenerateJavaIdentifier.getManagerPackage(context, manager);
+					return GenerateJavaIdentifier.getManagerPackage(context, null, item);
 				}
 
 			}, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
-					return GenerateJavaIdentifier.getManagerClassName(context, manager);
+					return GenerateJavaIdentifier.getManagerClassName(context, null, item);
 				}
 			});
 		}
@@ -142,7 +143,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		 * @see fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.cadse.core.var.ContextVariable)
 		 */
 		public void generate(ContextVariable cxt) {
-			Item manager = getItem();
+			Item manager = getOwnerItem();
 
 			Item cadseDefinition = _getCadseDefinition(manager);
 
@@ -156,16 +157,26 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 			cm.packageName = getPackageName(cxt);
 			IType type = cu.getType(cm.className);
 
-			Item superItem = ItemTypeManager.getSuperType(cm.itemtype);
-			if (superItem != null) {
-				Item superItemManager = ItemTypeManager.getManager(superItem);
-				JavaFileContentManager javaFileSuperContentManager = ((JavaFileContentManager) superItemManager
-						.getContentItem());
-				cm.superClassName = javaFileSuperContentManager.getClassName(cxt);
-				cm.superClassName = javaFileSuperContentManager.getPackageName(cxt) + "." + cm.superClassName;
+			ItemType superItem = (ItemType) ItemTypeManager.getSuperType(cm.itemtype);
+			if (superItem == CadseGCST.ITEM) {
+				cm.superClassName = "fr.imag.adele.cadse.core.DefaultItemManager";
+				cm.overwriteClass = true;
+			} else if (superItem != null) {
+				if (superItem.isRuntime()) {
+					cm.superClassName = superItem.getAttribute(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_);
+				} else {
+					Item superItemManager = ItemTypeManager
+							.getManager(superItem);
+					JavaFileContentManager javaFileSuperContentManager = ((JavaFileContentManager) superItemManager
+							.getContentItem());
+					cm.superClassName = javaFileSuperContentManager
+							.getPackageName(cxt)
+							+ "." + javaFileSuperContentManager
+							.getClassName(cxt);;
+				}
 				cm.overwriteClass = false;
 			} else if (ItemTypeManager.isIsMetaItemTypeAttribute(cm.itemtype)) {
-				cm.superClassName = "fr.imag.adele.cadse.root.managers.MetaItemTypeManager";
+				cm.superClassName = "fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager";
 				cm.overwriteClass = false;
 			} else {
 				cm.superClassName = "fr.imag.adele.cadse.core.DefaultItemManager";
@@ -207,7 +218,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		@Override
 		public void generateParts(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
 			super.generateParts(sb, type, kind, imports, context);
-			Item itemtype = getItemType(getItem());
+			Item itemtype = getItemType(getOwnerItem());
 			generateParts(itemtype, sb, type, kind, imports, context);
 		}
 
@@ -231,10 +242,10 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 			imports.add("fede.workspace.tool.eclipse");
 			imports.add("fede.workspace.tool.eclipse");
 			imports.add("org.eclipse.core.runtime.jobs");
-			Item itemtype = getItemType(getItem());
+			imports.add("fr.imag.adele.cadse.cadseg.managers.dataModel");
+			Item itemtype = getItemType(getOwnerItem());
 			if (ItemTypeManager.isMetaItemTypeH(itemtype)) {
-				imports.add("fr.imag.adele.cadse.root.pages");
-				imports.add("fr.imag.adele.cadse.root.managers");
+				imports.add("fr.imag.adele.cadse.cadseg.pages.dataModel");
 			}
 		}
 
@@ -262,31 +273,19 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -308,7 +307,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -327,7 +325,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Link getItemTypeLink(Item manager) {
-		return manager.getOutgoingLink(WorkspaceCST.MANAGER_lt_ITEM_TYPE);
+		return manager.getOutgoingLink(CadseGCST.MANAGER_lt_ITEM_TYPE);
 	}
 
 	/**
@@ -341,7 +339,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Item getItemTypeAll(Item manager) {
-		return manager.getOutgoingItem(WorkspaceCST.MANAGER_lt_ITEM_TYPE, false);
+		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE, false);
 	}
 
 	/*
@@ -350,17 +348,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item manager) throws CadseException {
-		Item model = _getCadseDefinition(manager);
-		if (model == null) {
-			return ContentItem.INVALID_CONTENT;
-		}
-		Item itemType = getItemType(manager);
-		if (itemType == null) {
-			return ContentItem.INVALID_CONTENT;
-		}
-
-		return new ManagerJavaFileContentManager(model, manager);
+	public ContentItem createContentItem(CompactUUID  id) throws CadseException {
+		return new ManagerJavaFileContentManager(id);
 	}
 
 	// TODO :rename to getCadseDefinition
@@ -384,7 +373,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @return the item
 	 */
 	public static Item _getCadseDefinition(Item manager) {
-		return manager.getPartParent(WorkspaceCST.CADSE_DEFINITION);
+		return manager.getPartParent(CadseGCST.CADSE_DEFINITION);
 	}
 
 	/*
@@ -417,7 +406,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		}
 
 		boolean hascontent = ItemTypeManager.isHasContentAttribute(itemtype);
-		if (!hascontent && lt == WorkspaceCST.MANAGER_lt_CONTENT_MODEL) {
+		if (!hascontent && lt == CadseGCST.MANAGER_lt_CONTENT_MODEL) {
 			return "Cannot create a content for manager which associted item type has no content";
 		}
 		return null;
@@ -446,19 +435,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getDisplayNameTemplateAttribute(Item manager) {
-		Object value = manager.getAttribute(WorkspaceCST.MANAGER_at_DISPLAY_NAME_TEMPLATE);
-		if (value == null) {
-			return "";
-		}
-
-		try {
-			String retvalue = (String) value;
-
-			return retvalue;
-		} catch (Throwable t) {
-			return "";
-		}
-
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_, null);
 	}
 
 	/**
@@ -473,8 +450,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static final void setDisplayNameTemplateAttribute(Item manager, String value) {
 		try {
-			Object setvalue = value;
-			manager.setAttribute(WorkspaceCST.MANAGER_at_DISPLAY_NAME_TEMPLATE, setvalue);
+			manager.setAttribute(CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -491,19 +467,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getIconAttribute(Item manager) {
-		Object value = manager.getAttribute(WorkspaceCST.MANAGER_at_ICON_);
-		if (value == null) {
-			return "";
-		}
-
-		try {
-			String retvalue = (String) value;
-
-			return retvalue;
-		} catch (Throwable t) {
-			return "";
-		}
-
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_ICON_, null);
 	}
 
 	/**
@@ -518,8 +482,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static final void setIconAttribute(Item manager, String value) {
 		try {
-			Object setvalue = value;
-			manager.setAttribute(WorkspaceCST.MANAGER_at_ICON_, setvalue);
+			manager.setAttribute(CadseGCST.MANAGER_at_ICON_, value);
 		} catch (Throwable t) {
 
 		}
@@ -549,19 +512,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getValidPatternIdAttribute(Item manager) {
-		Object value = manager.getAttribute(WorkspaceCST.MANAGER_at_VALID_PATTERN_ID);
-		if (value == null) {
-			return "";
-		}
-
-		try {
-			String retvalue = (String) value;
-
-			return retvalue;
-		} catch (Throwable t) {
-			return "";
-		}
-
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_VALID_PATTERN_ID_, null);
 	}
 
 	/**
@@ -576,8 +527,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static final void setValidPatternIdAttribute(Item manager, String value) {
 		try {
-			Object setvalue = value;
-			manager.setAttribute(WorkspaceCST.MANAGER_at_VALID_PATTERN_ID, setvalue);
+			manager.setAttribute(CadseGCST.MANAGER_at_VALID_PATTERN_ID_, value);
 		} catch (Throwable t) {
 
 		}
@@ -594,19 +544,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getLongNameTemplateAttribute(Item manager) {
-		Object value = manager.getAttribute(WorkspaceCST.MANAGER_at_LONG_NAME_TEMPLATE);
-		if (value == null) {
-			return "";
-		}
-
-		try {
-			String retvalue = (String) value;
-
-			return retvalue;
-		} catch (Throwable t) {
-			return "";
-		}
-
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, null);
 	}
 
 	/**
@@ -621,8 +559,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static final void setLongNameTemplateAttribute(Item manager, String value) {
 		try {
-			Object setvalue = value;
-			manager.setAttribute(WorkspaceCST.MANAGER_at_LONG_NAME_TEMPLATE, setvalue);
+			manager.setAttribute(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -639,19 +576,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getMessageErrorIdAttribute(Item manager) {
-		Object value = manager.getAttribute(WorkspaceCST.MANAGER_at_MESSAGE_ERROR_ID);
-		if (value == null) {
-			return "";
-		}
-
-		try {
-			String retvalue = (String) value;
-
-			return retvalue;
-		} catch (Throwable t) {
-			return "";
-		}
-
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_, null);
 	}
 
 	/**
@@ -666,8 +591,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static final void setMessageErrorIdAttribute(Item manager, String value) {
 		try {
-			Object setvalue = value;
-			manager.setAttribute(WorkspaceCST.MANAGER_at_MESSAGE_ERROR_ID, setvalue);
+			manager.setAttribute(CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_, value);
 		} catch (Throwable t) {
 
 		}
@@ -684,19 +608,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getHumanNameAttribute(Item manager) {
-		Object value = manager.getAttribute(WorkspaceCST.MANAGER_at_HUMAN_NAME);
-		if (value == null) {
-			return "";
-		}
-
-		try {
-			String retvalue = (String) value;
-
-			return retvalue;
-		} catch (Throwable t) {
-			return "";
-		}
-
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_HUMAN_NAME_, null);
 	}
 
 	/**
@@ -711,8 +623,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static final void setHumanNameAttribute(Item manager, String value) {
 		try {
-			Object setvalue = value;
-			manager.setAttribute(WorkspaceCST.MANAGER_at_HUMAN_NAME, setvalue);
+			manager.setAttribute(CadseGCST.MANAGER_at_HUMAN_NAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -809,8 +720,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public List<Link> getExportersLink(Item manager) {
-		return manager.getOutgoingLinks(WorkspaceCST.MANAGER_lt_EXPORTERS);
-	}
+        return manager.getOutgoingLinks(CadseGCST.MANAGER_lt_EXPORTERS);
+    }
 
 	/**
 	 * Gets the exporters all.
@@ -823,8 +734,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Collection<Item> getExportersAll(Item manager) {
-		return manager.getOutgoingItems(WorkspaceCST.MANAGER_lt_EXPORTERS, false);
-	}
+        return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS, false);
+    }
 
 	/**
 	 * Gets the exporters.
@@ -837,8 +748,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Collection<Item> getExporters(Item manager) {
-		return manager.getOutgoingItems(WorkspaceCST.MANAGER_lt_EXPORTERS, true);
-	}
+        return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS,true);
+    }
 
 	/**
 	 * Adds the exporters.
@@ -854,8 +765,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public void addExporters(Item manager, Item value) throws CadseException {
-		manager.addOutgoingItem(WorkspaceCST.MANAGER_lt_EXPORTERS, value);
-	}
+        manager.addOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS,value);
+    }
 
 	/**
 	 * Removes the exporters.
@@ -871,8 +782,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public void removeExporters(Item manager, Item value) throws CadseException {
-		manager.removeOutgoingItem(WorkspaceCST.MANAGER_lt_EXPORTERS, value);
-	}
+        manager.removeOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS,value);
+    }
 
 	/**
 	 * Gets the unique name template.
@@ -950,15 +861,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		return super.getImage(item);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public void createdItem(Item managerItem) throws CadseException {
-		((IGenerateContent) managerItem.getContentItem()).generate(ContextVariable.DEFAULT);
-	}
+	
 
 	/**
 	 * Gets the item type.
@@ -971,7 +874,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Item getItemType(Item manager) {
-		return manager.getOutgoingItem(WorkspaceCST.MANAGER_lt_ITEM_TYPE, true);
+		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE, true);
 	}
 
 	/**
@@ -988,83 +891,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public void setItemType(Item manager, Item value) throws CadseException {
-		manager.setOutgoingItem(WorkspaceCST.MANAGER_lt_ITEM_TYPE, value);
-	}
-
-	/**
-	 * get links 'events' from 'Manager' to 'Event'.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * 
-	 * @return the events link
-	 * 
-	 * @generated
-	 */
-	static public List<Link> getEventsLink(Item manager) {
-		return manager.getOutgoingLinks(WorkspaceCST.MANAGER_lt_EVENTS);
-	}
-
-	/**
-	 * Gets the events all.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * 
-	 * @return the events all
-	 * 
-	 * @generated
-	 */
-	static public Collection<Item> getEventsAll(Item manager) {
-		return manager.getOutgoingItems(WorkspaceCST.MANAGER_lt_EVENTS, false);
-	}
-
-	/**
-	 * Gets the events.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * 
-	 * @return the events
-	 * 
-	 * @generated
-	 */
-	static public Collection<Item> getEvents(Item manager) {
-		return manager.getOutgoingItems(WorkspaceCST.MANAGER_lt_EVENTS, true);
-	}
-
-	/**
-	 * Adds the events.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * @param value
-	 *            the value
-	 * 
-	 * @throws CadseException
-	 *             the melusine exception
-	 * 
-	 * @generated
-	 */
-	static public void addEvents(Item manager, Item value) throws CadseException {
-		manager.addOutgoingItem(WorkspaceCST.MANAGER_lt_EVENTS, value);
-	}
-
-	/**
-	 * Removes the events.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * @param value
-	 *            the value
-	 * 
-	 * @throws CadseException
-	 *             the melusine exception
-	 * 
-	 * @generated
-	 */
-	static public void removeEvents(Item manager, Item value) throws CadseException {
-		manager.removeOutgoingItem(WorkspaceCST.MANAGER_lt_EVENTS, value);
+		manager.setOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE,value);
 	}
 
 	/**
@@ -1078,7 +905,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Link getContentModelLink(Item manager) {
-		return manager.getOutgoingLink(WorkspaceCST.MANAGER_lt_CONTENT_MODEL);
+		return manager.getOutgoingLink(CadseGCST.MANAGER_lt_CONTENT_MODEL);
 	}
 
 	/**
@@ -1093,7 +920,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Item getContentModelAll(Item manager) {
-		return manager.getOutgoingItem(WorkspaceCST.MANAGER_lt_CONTENT_MODEL, false);
+		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL, false);
 	}
 
 	/**
@@ -1108,7 +935,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Item getContentModel(Item manager) {
-		return manager.getOutgoingItem(WorkspaceCST.MANAGER_lt_CONTENT_MODEL, true);
+		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL, true);
 	}
 
 	/**
@@ -1125,7 +952,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public void setContentModel(Item manager, Item value) throws CadseException {
-		manager.setOutgoingItem(WorkspaceCST.MANAGER_lt_CONTENT_MODEL, value);
+		manager.setOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL,value);
 	}
 
 	/**
@@ -1138,7 +965,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static Item getManagerFromItemType(Item itemType) {
 		for (Link l : itemType.getIncomingLinks()) {
-			if (l.getSource().getType() == WorkspaceCST.MANAGER) {
+			if (l.getSource().getType() == CadseGCST.MANAGER) {
 				return l.getSource();
 			}
 		}

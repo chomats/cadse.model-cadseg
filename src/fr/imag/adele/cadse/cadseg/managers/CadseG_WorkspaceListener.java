@@ -2,7 +2,7 @@ package fr.imag.adele.cadse.cadseg.managers;
 
 import java.util.HashSet;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.build.CompositeItemTypeManager;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.IGenerateContent;
@@ -48,31 +48,45 @@ public class CadseG_WorkspaceListener extends WorkspaceListener {
 		}
 	}
 
+	/**
+	 * true find item to generate and stop cycle
+	 * @param toRegenerate set of item to regenerate
+	 * @param item the current item
+	 * @return true if stop analyse
+	 */
 	boolean computeToGenerate(HashSet<Item> toRegenerate, Item item) {
-		if (item.getType() == WorkspaceCST.MANAGER) {
-			addToGenerate(toRegenerate, item);
-			addToGenerate(toRegenerate, item.getPartParent(WorkspaceCST.CADSE_DEFINITION));
-			return true;
+		if (item == null) {
+			return false;
 		}
-
-		if (item.getType() == WorkspaceCST.CADSE_DEFINITION) {
+		if (item.getType() == CadseGCST.CADSE_DEFINITION) {
 			addToGenerate(toRegenerate, item);
 			return true;
 		}
-
-		if (item.getType() == WorkspaceCST.DYNAMIC_ACTIONS) {
+		
+		if (item.getPartParent(CadseGCST.CADSE_DEFINITION) == null) 
+			return false;
+		
+		if (item.getType() == CadseGCST.MANAGER) {
 			addToGenerate(toRegenerate, item);
-			addToGenerate(toRegenerate, item.getPartParent(WorkspaceCST.CADSE_DEFINITION));
+			addToGenerate(toRegenerate, item.getPartParent(CadseGCST.CADSE_DEFINITION));
 			return true;
 		}
 
-		if (item.getType() == WorkspaceCST.MENU_ACTION) {
+		
+
+		if (item.getType() == CadseGCST.DYNAMIC_ACTIONS) {
 			addToGenerate(toRegenerate, item);
-			addToGenerate(toRegenerate, item.getPartParent(WorkspaceCST.CADSE_DEFINITION));
+			addToGenerate(toRegenerate, item.getPartParent(CadseGCST.CADSE_DEFINITION));
 			return true;
 		}
 
-		if (item.getType() == WorkspaceCST.COMPOSITE_ITEM_TYPE) {
+		if (item.getType() == CadseGCST.MENU_ACTION) {
+			addToGenerate(toRegenerate, item);
+			addToGenerate(toRegenerate, item.getPartParent(CadseGCST.CADSE_DEFINITION));
+			return true;
+		}
+
+		if (item.getType() == CadseGCST.COMPOSITE_ITEM_TYPE) {
 			Item itemtype = CompositeItemTypeManager.getItemType(item);
 			if (itemtype != null) {
 				return computeToGenerate(toRegenerate, itemtype);
@@ -80,38 +94,38 @@ public class CadseG_WorkspaceListener extends WorkspaceListener {
 			return true;
 		}
 
-		if (item.getType() == WorkspaceCST.PAGE) {
+		if (item.getType() == CadseGCST.PAGE) {
 			addToGenerate(toRegenerate, item);
-			addToGenerate(toRegenerate, item.getPartParent(WorkspaceCST.CADSE_DEFINITION));
+			addToGenerate(toRegenerate, item.getPartParent(CadseGCST.CADSE_DEFINITION));
 			return true;
 		}
 
-		if (item.getType() == WorkspaceCST.ENUM_TYPE) {
+		if (item.getType() == CadseGCST.ENUM_TYPE) {
 			addToGenerate(toRegenerate, item);
 			return true;
 		}
 
-		if (item.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
+		if (item.getType() == CadseGCST.EXT_ITEM_TYPE) {
 			addToGenerate(toRegenerate, item);
-			addToGenerate(toRegenerate, item.getPartParent(WorkspaceCST.CADSE_DEFINITION));
+			addToGenerate(toRegenerate, item.getPartParent(CadseGCST.CADSE_DEFINITION));
 			return true;
 		}
 
-		if (item.isInstanceOf(WorkspaceCST.ATTRIBUTE)) {
+		if (item.isInstanceOf(CadseGCST.ATTRIBUTE)) {
 			computeToGenerate(toRegenerate, item.getPartParent());
-			addToGenerate(toRegenerate, item.getPartParent(WorkspaceCST.CADSE_DEFINITION));
-			for (Item field : item.getIncomingItems(WorkspaceCST.FIELD_lt_ATTRIBUTE)) {
+			addToGenerate(toRegenerate, item.getPartParent(CadseGCST.CADSE_DEFINITION));
+			for (Item field : item.getIncomingItems(CadseGCST.FIELD_lt_ATTRIBUTE)) {
 				computeToGenerate(toRegenerate, field);
 			}
 			return true;
 		}
 
-		if (item.getType() == WorkspaceCST.ITEM_TYPE) {
+		if (item.getType() == CadseGCST.ITEM_TYPE) {
 			Item managerItem = fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager.getManager(item);
 			return computeToGenerate(toRegenerate, managerItem);
 		}
 
-		if (item.getType() == WorkspaceCST.VIEW) {
+		if (item.getType() == CadseGCST.VIEW) {
 			addToGenerate(toRegenerate, item);
 			return true;
 		}

@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -47,23 +47,10 @@ public class BuilderManager extends DefaultWorkspaceManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -112,8 +99,8 @@ public class BuilderManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public List<Link> getRequiresLink(Item builder) {
-		return builder.getOutgoingLinks(WorkspaceCST.BUILDER_lt_REQUIRES);
-	}
+        return builder.getOutgoingLinks(CadseGCST.BUILDER_lt_REQUIRES);
+    }
 
 	/**
 	 * Gets the requires all.
@@ -126,8 +113,8 @@ public class BuilderManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getRequiresAll(Item builder) {
-		return builder.getOutgoingItems(WorkspaceCST.BUILDER_lt_REQUIRES, false);
-	}
+        return builder.getOutgoingItems(CadseGCST.BUILDER_lt_REQUIRES, false);
+    }
 
 	/**
 	 * Gets the requires.
@@ -140,8 +127,8 @@ public class BuilderManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getRequires(Item builder) {
-		return builder.getOutgoingItems(WorkspaceCST.BUILDER_lt_REQUIRES, true);
-	}
+        return builder.getOutgoingItems(CadseGCST.BUILDER_lt_REQUIRES,true);
+    }
 
 	/**
 	 * Adds the requires.
@@ -157,8 +144,8 @@ public class BuilderManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void addRequires(Item builder, Item value) throws CadseException {
-		builder.addOutgoingItem(WorkspaceCST.BUILDER_lt_REQUIRES, value);
-	}
+        builder.addOutgoingItem(CadseGCST.BUILDER_lt_REQUIRES,value);
+    }
 
 	/**
 	 * Removes the requires.
@@ -174,46 +161,12 @@ public class BuilderManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void removeRequires(Item builder, Item value) throws CadseException {
-		builder.removeOutgoingItem(WorkspaceCST.BUILDER_lt_REQUIRES, value);
-	}
+        builder.removeOutgoingItem(CadseGCST.BUILDER_lt_REQUIRES,value);
+    }
 
 	@Override
 	public boolean isAbstract(Item parent, LinkType type) {
 		return true;
-	}
-
-	/**
-	 * get links '#invert_part_builders_to_CompositeItemType' from 'Builder' to
-	 * 'CompositeItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_builders_to_CompositeItemTypeLink(Item builder) {
-		return builder.getOutgoingLink(WorkspaceCST.BUILDER_lt__$_INVERT_PART_BUILDERS_TO_COMPOSITE_ITEM_TYPE);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_builders_to_CompositeItemTypeAll(Item builder) {
-		return builder.getOutgoingItem(WorkspaceCST.BUILDER_lt__$_INVERT_PART_BUILDERS_TO_COMPOSITE_ITEM_TYPE, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_builders_to_CompositeItemType(Item builder) {
-		return builder.getOutgoingItem(WorkspaceCST.BUILDER_lt__$_INVERT_PART_BUILDERS_TO_COMPOSITE_ITEM_TYPE, true);
-	}
-
-	/**
-	 * set a link '#invert_part_builders_to_CompositeItemType' from 'Builder' to
-	 * 'CompositeItemType'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_builders_to_CompositeItemType(Item builder, Item value) throws CadseException {
-		builder.setOutgoingItem(WorkspaceCST.BUILDER_lt__$_INVERT_PART_BUILDERS_TO_COMPOSITE_ITEM_TYPE, value);
 	}
 
 }

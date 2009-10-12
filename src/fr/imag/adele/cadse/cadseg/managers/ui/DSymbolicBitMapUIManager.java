@@ -18,12 +18,13 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,18 +41,19 @@ public class DSymbolicBitMapUIManager extends DisplayManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -66,7 +68,6 @@ public class DSymbolicBitMapUIManager extends DisplayManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -78,16 +79,7 @@ public class DSymbolicBitMapUIManager extends DisplayManager {
 	 * @generated
 	 */
 	public static final int getNumberColumnAttribute(Item dSymbolicBitMapUI) {
-		Object value = dSymbolicBitMapUI.getAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_NUMBER_COLUMN);
-		if (value == null)
-			return -1;
-
-		try {
-			return Convert.toInt(value, null, -1);
-		} catch (Throwable t) {
-			return -1;
-		}
-
+		return dSymbolicBitMapUI.getAttributeWithDefaultValue(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_NUMBER_COLUMN_, -1);
 	}
 
 	/**
@@ -95,8 +87,7 @@ public class DSymbolicBitMapUIManager extends DisplayManager {
 	 */
 	public static final void setNumberColumnAttribute(Item dSymbolicBitMapUI, int value) {
 		try {
-			Object setvalue = value;
-			dSymbolicBitMapUI.setAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_NUMBER_COLUMN, setvalue);
+			dSymbolicBitMapUI.setAttribute(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_NUMBER_COLUMN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -108,18 +99,12 @@ public class DSymbolicBitMapUIManager extends DisplayManager {
 	@SuppressWarnings("unchecked")
 	public static final List<String> getLabelsAttribute(Item dSymbolicBitMapUI) {
 		try {
-			List<String> listValue = (List<String>) dSymbolicBitMapUI
-					.getAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS);
+			List<String> list = dSymbolicBitMapUI.getAttribute(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS_);
 
-			if (listValue == null)
+			if (list == null)
 				return null;
 
-			List<String> list = new ArrayList<String>();
-
-			for (String value : listValue) {
-				list.add((String) value);
-			}
-			return list;
+			return new ArrayList<String>(list);
 		} catch (Throwable t) {
 			return new ArrayList<String>();
 		}
@@ -131,11 +116,8 @@ public class DSymbolicBitMapUIManager extends DisplayManager {
 	@SuppressWarnings("unchecked")
 	public static final void setLabelsAttribute(Item dSymbolicBitMapUI, List<String> valueList) {
 		try {
-			List<String> list = new ArrayList<String>();
-			for (String value : valueList) {
-				list.add(value);
-			}
-			dSymbolicBitMapUI.setAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS, list);
+			List<String> list = new ArrayList<String>(valueList);
+			dSymbolicBitMapUI.setAttribute(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS_, list);
 		} catch (Throwable t) {
 
 		}
@@ -147,14 +129,12 @@ public class DSymbolicBitMapUIManager extends DisplayManager {
 	@SuppressWarnings("unchecked")
 	public static final void addLabelsAttribute(Item dSymbolicBitMapUI, String value) {
 		try {
-			List<String> list = (List<String>) dSymbolicBitMapUI
-					.getAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS);
+			List<String> list = dSymbolicBitMapUI.getAttribute(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS_);
 			if (list == null) {
 				list = new ArrayList<String>();
 			}
-			String setvalue = value;
-			list.add(setvalue);
-			dSymbolicBitMapUI.setAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS, list);
+			list.add(value);
+			dSymbolicBitMapUI.setAttribute(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS_, list);
 		} catch (Throwable t) {
 
 		}
@@ -167,17 +147,15 @@ public class DSymbolicBitMapUIManager extends DisplayManager {
 	public static final void removeLabelsAttribute(Item dSymbolicBitMapUI, String value) {
 		try {
 
-			List<String> list = (List<String>) dSymbolicBitMapUI
-					.getAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS);
+			List<String> list = dSymbolicBitMapUI.getAttribute(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS_);
 			if (list == null) {
 				return;
 			}
-			String setvalue = value;
-			list.remove(setvalue);
+			list.remove(value);
 			if (list.size() == 0)
-				dSymbolicBitMapUI.setAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS, null);
+				dSymbolicBitMapUI.setAttribute(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS_, null);
 			else
-				dSymbolicBitMapUI.setAttribute(WorkspaceCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS, list);
+				dSymbolicBitMapUI.setAttribute(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS_, list);
 		} catch (Throwable t) {
 
 		}

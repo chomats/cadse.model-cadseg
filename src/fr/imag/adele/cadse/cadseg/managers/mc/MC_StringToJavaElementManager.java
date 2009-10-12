@@ -19,7 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
@@ -38,6 +38,48 @@ import fede.workspace.model.manager.properties.FieldsCore;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class MC_StringToJavaElementManager extends ModelControllerManager {
+
+	/**
+	    @generated
+	*/
+	public MC_StringToJavaElementManager() {
+		super();
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
@@ -84,7 +126,7 @@ public class MC_StringToJavaElementManager extends ModelControllerManager {
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.MC_DEFAULT_SHORT_NAME);
+				DisplayManager.MC_DEFAULT_NAME);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a java element model controller",
 				"Create a java element model controller", 3
@@ -120,7 +162,7 @@ public class MC_StringToJavaElementManager extends ModelControllerManager {
 			return "Must set the attribut link for the item " + itemParent.getId();
 		if (AttributeManager.isIsListAttribute(attribut))
 			return "Must be a singleton value";
-		if (attribut.getType() == WorkspaceCST.STRING)
+		if (attribut.getType() == CadseGCST.STRING)
 			return null;
 		return "The type of the attribut linked at the field must be a string attribute";
 	}

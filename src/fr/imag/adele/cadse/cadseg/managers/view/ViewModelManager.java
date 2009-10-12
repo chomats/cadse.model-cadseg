@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.view;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -52,23 +52,10 @@ public class ViewModelManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -107,48 +94,34 @@ public class ViewModelManager extends DefaultItemManager {
 	}
 
 	/**
-	 * get a link 'link-type' from 'ViewLinkType' to 'Link'.
-	 * 
-	 * @generated
-	 */
-	static public Link getLinkTypeLink(Item viewLinkType) {
-		return viewLinkType.getOutgoingLink(WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
-	}
+		get  links 'views' from 'ViewModel' to 'View'.
+        @generated
+    */
+    static public List<Link> getViewsLink(Item viewModel) {
+        return viewModel.getOutgoingLinks(CadseGCST.VIEW_MODEL_lt_VIEWS);
+    }
 
 	/**
-	 * get all link destination 'link-type' from 'ViewLinkType' to 'Link'.
-	 * 
-	 * @generated
-	 */
-	static public Item getLinkTypeAll(Item viewLinkType) {
-		return viewLinkType.getOutgoingItem(WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE, false);
-	}
+        @generated
+    */
+    static public Collection<Item> getViewsAll(Item viewModel) {
+        return viewModel.getOutgoingItems(CadseGCST.VIEW_MODEL_lt_VIEWS, false);
+    }
 
-	/**
-	 * Creates the creation page creation page1.
-	 * 
-	 * @return the i page
-	 * 
-	 * @generated
-	 */
-	protected IPage createCreationPageCreationPage1() {
-		return FieldsCore.createPage("creation-page1", "Create ViewModel", "", 3);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				CadseDefinitionManager.VIEW_MODEL);
-
-		return FieldsCore.createWizard(action, createCreationPageCreationPage1());
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				CadseDefinitionManager.VIEW_MODEL);
+//
+//		return FieldsCore.createWizard(action, createCreationPageCreationPage1());
+//	}
 
 	// /**
 	// * Creates the modification page modification page1.
@@ -184,13 +157,13 @@ public class ViewModelManager extends DefaultItemManager {
 	// */
 	// protected DListUI createFieldViews() {
 	// LinkModelController mc = new LinkModelController(false, null,
-	// WorkspaceCST.VIEW_MODEL_lt_VIEWS);
+	// CadseGCST.VIEW_MODEL_lt_VIEWS);
 	// return new DListUI("views",
 	// "views",
 	// EPosLabel.top,
 	// mc,
 	// new IC_LinkForBrowser_Combo_List("Select a value.","Select a
-	// value.",WorkspaceCST.VIEW_MODEL_lt_VIEWS),
+	// value.",CadseGCST.VIEW_MODEL_lt_VIEWS),
 	// true,true
 	// );
 	// }
@@ -205,8 +178,8 @@ public class ViewModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getViews(Item viewModel) {
-		return viewModel.getOutgoingItems(WorkspaceCST.VIEW_MODEL_lt_VIEWS, true);
-	}
+        return viewModel.getOutgoingItems(CadseGCST.VIEW_MODEL_lt_VIEWS,true);
+    }
 
 	/**
 	 * Adds the views.
@@ -222,8 +195,8 @@ public class ViewModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void addViews(Item viewModel, Item value) throws CadseException {
-		viewModel.addOutgoingItem(WorkspaceCST.VIEW_MODEL_lt_VIEWS, value);
-	}
+        viewModel.addOutgoingItem(CadseGCST.VIEW_MODEL_lt_VIEWS,value);
+    }
 
 	/**
 	 * Removes the views.
@@ -239,51 +212,8 @@ public class ViewModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void removeViews(Item viewModel, Item value) throws CadseException {
-		viewModel.removeOutgoingItem(WorkspaceCST.VIEW_MODEL_lt_VIEWS, value);
-	}
-
-	/**
-	 * get a link '#invert_part_view-model_to_CadseDefinition' from 'ViewModel'
-	 * to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_viewModel_to_CadseDefinitionLink(Item viewModel) {
-		return viewModel.getOutgoingLink(WorkspaceCST.VIEW_MODEL_lt__$_INVERT_PART_VIEW_MODEL_TO_CADSE_DEFINITION);
-	}
-
-	/**
-	 * get all link destination '#invert_part_view-model_to_CadseDefinition'
-	 * from 'ViewModel' to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_viewModel_to_CadseDefinitionAll(Item viewModel) {
-		return viewModel.getOutgoingItem(WorkspaceCST.VIEW_MODEL_lt__$_INVERT_PART_VIEW_MODEL_TO_CADSE_DEFINITION,
-				false);
-	}
-
-	/**
-	 * get resolved link destination
-	 * '#invert_part_view-model_to_CadseDefinition' from 'ViewModel' to
-	 * 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_viewModel_to_CadseDefinition(Item viewModel) {
-		return viewModel
-				.getOutgoingItem(WorkspaceCST.VIEW_MODEL_lt__$_INVERT_PART_VIEW_MODEL_TO_CADSE_DEFINITION, true);
-	}
-
-	/**
-	 * set a link '#invert_part_view-model_to_CadseDefinition' from 'ViewModel'
-	 * to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_viewModel_to_CadseDefinition(Item viewModel, Item value) throws CadseException {
-		viewModel.setOutgoingItem(WorkspaceCST.VIEW_MODEL_lt__$_INVERT_PART_VIEW_MODEL_TO_CADSE_DEFINITION, value);
-	}
+        viewModel.removeOutgoingItem(CadseGCST.VIEW_MODEL_lt_VIEWS,value);
+    }
 
 	/*
 	 * (non-Javadoc)

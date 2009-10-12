@@ -6,7 +6,7 @@ import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_L
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -28,22 +28,23 @@ public class BuilderModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldRequires;
+	protected DListUI fieldRequires;
 
 	/**
 	 * @generated
 	 */
-	protected BuilderModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected BuilderModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -77,11 +78,13 @@ public class BuilderModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldRequires() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.BUILDER_lt_REQUIRES);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.BUILDER_lt_REQUIRES);
-		return new DListUI(WorkspaceCST.BUILDER_lt_REQUIRES.getName(), "requires", EPosLabel.top, mc, ic, true, false,
-				false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.BUILDER_lt_REQUIRES);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.BUILDER_lt_REQUIRES);
+		return new DListUI(CadseGCST.BUILDER_lt_REQUIRES.getName(), "requires",
+				EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

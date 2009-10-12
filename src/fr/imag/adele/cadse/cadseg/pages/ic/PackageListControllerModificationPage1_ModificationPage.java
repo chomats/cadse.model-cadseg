@@ -19,8 +19,9 @@ public class PackageListControllerModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected PackageListControllerModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected PackageListControllerModificationPage1_ModificationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -28,7 +29,8 @@ public class PackageListControllerModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public PackageListControllerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "PackageListController", "PackageListController", "", false, 3);
+		super("modification-page1", "PackageListController",
+				"PackageListController", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

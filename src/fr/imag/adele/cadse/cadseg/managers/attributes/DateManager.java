@@ -18,14 +18,23 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
+import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
+import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
+import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.Date;
 
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
+import fr.imag.adele.cadse.core.impl.attribute.DateAttributeType;
+import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
+import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 
 /**
  * @generated
@@ -40,10 +49,10 @@ public class DateManager extends AttributeManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -76,7 +85,7 @@ public class DateManager extends AttributeManager {
 
 	@Override
 	public ItemType getCadseRootType() {
-		return CadseRootCST.DATE_ATTRIBUTE_TYPE;
+		return CadseGCST.DATE;
 	}
 
 	@Override
@@ -87,5 +96,20 @@ public class DateManager extends AttributeManager {
 	@Override
 	public Class<? extends IAttributeType<?>> getAttributeDefinitionTypeJava() {
 		return fr.imag.adele.cadse.core.attribute.DateAttributeType.class;
+	}
+	
+	@Override
+	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
+			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+		DateAttributeType ret = new DateAttributeType(initModel.getUUID(type.getId()), initModel.getFlag(type), type
+				.getKey(), type.getValue());
+		return ret;
+	}
+
+	@Override
+	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
+			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
+		cvt.setType(ValueTypeType.DATE);
+		super.writeAttributeDefinition(factory, cxt, cadsegManager, cvt, attribute);
 	}
 }

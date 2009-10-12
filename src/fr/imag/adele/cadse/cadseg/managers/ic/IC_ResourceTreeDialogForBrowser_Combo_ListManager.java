@@ -21,10 +21,11 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -63,8 +64,8 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -124,6 +125,41 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 	public IC_ResourceTreeDialogForBrowser_Combo_ListManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -150,65 +186,13 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+	
 
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
-
-		IntModelController hspan_vc = new IntModelController(0, 0, "The number of column must be > 0", null, 1);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", getCreateTitle(), getCreateTitle(), 2,
-				FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createTextField(SELECT_ROOT_ATTRIBUTE,
-						"where find resource", hspan_vc)));
-	}
-
-	/**
-	 * Gets the creates the title.
-	 * 
-	 * @return the creates the title
-	 */
-	protected String getCreateTitle() {
-		return "create a default resource user controller";
-	}
-
-	/**
-	 * Gets the property title.
-	 * 
-	 * @return the property title
-	 */
-	protected String getPropertyTitle() {
-		return "a default resource user controller";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		IntModelController hspan_vc = new IntModelController(0, 0, "The number of column must be > 0", null, 1);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", getPropertyTitle(), getPropertyTitle(),
-				2, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createTextField(SELECT_ROOT_ATTRIBUTE,
-						"where find resource", hspan_vc)));
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -228,7 +212,7 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 		if (attribute == null) {
 			return "select an attribute before";
 		}
-		if (attribute.getType() != WorkspaceCST.STRING) {
+		if (attribute.getType() != CadseGCST.STRING) {
 			return "It's not a string attribute";
 		}
 

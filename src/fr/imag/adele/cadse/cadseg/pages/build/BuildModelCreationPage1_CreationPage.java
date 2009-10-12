@@ -20,36 +20,38 @@ public class BuildModelCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType		it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType		lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected BuildModelCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected BuildModelCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public BuildModelCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create BuildModel", "Create BuildModel", "", false, 3);
+	public BuildModelCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create BuildModel", "Create BuildModel", "",
+				false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

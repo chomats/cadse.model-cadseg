@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
@@ -36,37 +36,24 @@ public class IC_AbstractForCheckedManager extends InteractionControllerManager {
 	/**
 	 * @generated
 	 */
-	public class MyContentItem extends InteractionControllerManager.MyContentItem {
-
-		/**
-		 * @generated
-		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
-		}
-
-	}
-
-	/**
-	 * @generated
-	 */
 	public IC_AbstractForCheckedManager() {
 		super();
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -81,23 +68,11 @@ public class IC_AbstractForCheckedManager extends InteractionControllerManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	@Override
-	public ContentItem createContentManager(Item iC_AbstractForChecked) throws CadseException {
-		MyContentItem cm = new MyContentItem(null, iC_AbstractForChecked);
-		cm.setComposers();
-		cm.setExporters();
-		return cm;
 	}
 
 	@Override

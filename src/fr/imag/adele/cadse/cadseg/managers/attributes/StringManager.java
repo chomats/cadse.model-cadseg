@@ -19,16 +19,24 @@
 
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
+import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
+import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
+import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
+import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 
 /**
  * The Class StringManager.
@@ -44,31 +52,19 @@ public class StringManager extends AttributeManager implements IItemManager, IMo
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -90,7 +86,6 @@ public class StringManager extends AttributeManager implements IItemManager, IMo
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -109,17 +104,7 @@ public class StringManager extends AttributeManager implements IItemManager, IMo
 	 * @generated
 	 */
 	public static final boolean isNotEmptyAttribute(Item string) {
-		Object value = string.getAttribute(WorkspaceCST.STRING_at_NOT_EMPTY_);
-		if (value == null) {
-			return false;
-		}
-
-		try {
-			return Convert.toBoolean(value);
-		} catch (Throwable t) {
-			return false;
-		}
-
+		return string.getAttributeWithDefaultValue(CadseGCST.STRING_at_NOT_EMPTY_, false);
 	}
 
 	/**
@@ -134,8 +119,7 @@ public class StringManager extends AttributeManager implements IItemManager, IMo
 	 */
 	public static final void setNotEmptyAttribute(Item string, boolean value) {
 		try {
-			Object setvalue = value;
-			string.setAttribute(WorkspaceCST.STRING_at_NOT_EMPTY_, setvalue);
+			string.setAttribute(CadseGCST.STRING_at_NOT_EMPTY_, value);
 		} catch (Throwable t) {
 
 		}
@@ -143,7 +127,7 @@ public class StringManager extends AttributeManager implements IItemManager, IMo
 
 	@Override
 	public ItemType getCadseRootType() {
-		return CadseRootCST.STRING_ATTRIBUTE_TYPE;
+		return CadseGCST.STRING;
 	}
 
 	@Override
@@ -163,7 +147,7 @@ public class StringManager extends AttributeManager implements IItemManager, IMo
 
 	@Override
 	public String getJavaTypeDefaultValue(Item attribute) {
-		String defaultValue = attribute.getAttribute(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE_);
+		String defaultValue = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 		if (defaultValue == null || defaultValue.length() == 0) {
 			defaultValue = generatedDefaultValue();
 		}
@@ -184,5 +168,22 @@ public class StringManager extends AttributeManager implements IItemManager, IMo
 		}
 		defaultValue = defaultValue.replace("\"", "\\\"");
 		return "\"" + defaultValue + "\"";
+	}
+	
+
+
+	@Override
+	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
+			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+		StringAttributeType ret = new fr.imag.adele.cadse.core.impl.attribute.StringAttributeType(initModel.getUUID(type.getId()), initModel.getFlag(type),
+				type.getKey(), type.getValue());
+		return ret;
+	}
+
+	@Override
+	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
+			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
+		cvt.setType(ValueTypeType.STRING);
+		super.writeAttributeDefinition(factory, cxt, cadsegManager, cvt, attribute);
 	}
 }

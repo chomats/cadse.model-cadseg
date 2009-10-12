@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.mc;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -44,18 +44,19 @@ public class ModelControllerModificationPage1_ModificationPage extends PageImpl 
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected ModelControllerModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected ModelControllerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -63,7 +64,8 @@ public class ModelControllerModificationPage1_ModificationPage extends PageImpl 
 	 * @generated
 	 */
 	public ModelControllerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "ModelController", "ModelController", "", false, 3);
+		super("modification-page1", "ModelController", "ModelController", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

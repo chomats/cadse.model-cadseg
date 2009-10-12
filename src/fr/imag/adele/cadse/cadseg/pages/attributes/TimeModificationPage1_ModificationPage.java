@@ -18,30 +18,41 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
+import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 
 /**
  * @generated
  */
-public class TimeModificationPage1_ModificationPage extends LongModificationPage1_ModificationPage {
+public class TimeModificationPage1_ModificationPage extends
+		LongModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldInitWithTheCurrentTime;
-	private DCheckBoxUI		fieldCannotBeUndefined;
+	protected DCheckBoxUI fieldInitWithTheCurrentTime;
+	private DCheckBoxUI fieldCannotBeUndefined;
 
 	/**
 	 * @generated
 	 */
-	protected TimeModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected TimeModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -52,8 +63,6 @@ public class TimeModificationPage1_ModificationPage extends LongModificationPage
 		super("modification-page1", "Time", "Time", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
-		this.fieldCached = createFieldCached();
-		this.fieldClassAttribute = createFieldClassAttribute();
 		this.fieldNatif = createFieldNatif();
 		this.fieldTransient = createFieldTransient();
 		this.fieldCannotBeUndefined = createFieldCannotBeUndefined();
@@ -64,9 +73,11 @@ public class TimeModificationPage1_ModificationPage extends LongModificationPage
 		this.fieldIsList = createFieldIsList();
 		this.fieldInitWithTheCurrentTime = createFieldInitWithTheCurrentTime();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldCached, this.fieldClassAttribute, this.fieldNatif, this.fieldTransient,
-				this.fieldCannotBeUndefined, this.fieldDefaultValue, this.fieldFinalValue, this.fieldRequire,
-				this.fieldMustBeInitialized, this.fieldIsList, this.fieldInitWithTheCurrentTime);
+		addLast(this.__short_name__, this.fieldNatif, this.fieldTransient,
+				this.fieldCannotBeUndefined, this.fieldDefaultValue,
+				this.fieldFinalValue, this.fieldRequire,
+				this.fieldMustBeInitialized, this.fieldIsList,
+				this.fieldInitWithTheCurrentTime);
 
 		registerListener();
 	}
@@ -79,83 +90,10 @@ public class TimeModificationPage1_ModificationPage extends LongModificationPage
 	/**
 	 * @generated
 	 */
-	public DCheckBoxUI createFieldCached() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CACHED, "cached", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldClassAttribute() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE, "class-attribute", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldNatif() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_NATIF, "natif", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldTransient() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_TRANSIENT, "transient", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
 	public DCheckBoxUI createFieldCannotBeUndefined() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED, "cannot-be-undefined", EPosLabel.none,
-				mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default-value", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldFinalValue() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_FINAL_VALUE, "final-value", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldRequire() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_REQUIRE, "require", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldMustBeInitialized() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED, "must-be-initialized", EPosLabel.none,
-				mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED,
+				"cannot-be-undefined", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -163,8 +101,8 @@ public class TimeModificationPage1_ModificationPage extends LongModificationPage
 	 */
 	public DCheckBoxUI createFieldInitWithTheCurrentTime() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.TIME_at_INIT_WITH_THE_CURRENT_TIME, "init-with-the-current-time",
-				EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.TIME_at_INIT_WITH_THE_CURRENT_TIME,
+				"init-with-the-current-time", EPosLabel.none, mc, null);
 	}
 
 }

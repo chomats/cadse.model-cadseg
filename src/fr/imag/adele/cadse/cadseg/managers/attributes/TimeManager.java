@@ -18,14 +18,14 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.attribute.TimeAttributeType;
 import fr.imag.adele.cadse.core.util.Convert;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * @generated
@@ -40,10 +40,10 @@ public class TimeManager extends LongManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -78,7 +78,7 @@ public class TimeManager extends LongManager {
 	 * @generated
 	 */
 	public static final boolean isInitWithTheCurrentTimeAttribute(Item time) {
-		return time.getAttributeWithDefaultValue(WorkspaceCST.TIME_at_INIT_WITH_THE_CURRENT_TIME_, true);
+		return time.getAttributeWithDefaultValue(CadseGCST.TIME_at_INIT_WITH_THE_CURRENT_TIME_, true);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class TimeManager extends LongManager {
 	 */
 	public static final void setInitWithTheCurrentTimeAttribute(Item time, boolean value) {
 		try {
-			time.setAttribute(WorkspaceCST.TIME_at_INIT_WITH_THE_CURRENT_TIME_, value);
+			time.setAttribute(CadseGCST.TIME_at_INIT_WITH_THE_CURRENT_TIME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -94,7 +94,7 @@ public class TimeManager extends LongManager {
 
 	@Override
 	public ItemType getCadseRootType() {
-		return CadseRootCST.TIME_ATTRIBUTE_TYPE;
+		return CadseGCST.TIME;
 	}
 
 	@Override

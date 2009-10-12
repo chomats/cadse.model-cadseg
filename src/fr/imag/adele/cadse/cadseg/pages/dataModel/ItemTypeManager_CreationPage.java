@@ -18,15 +18,20 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
+import fr.imag.adele.cadse.core.IItemNode;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager.ValidFieldUC;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
  * @generated
@@ -36,23 +41,23 @@ public class ItemTypeManager_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item		parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType	it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType	lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected ItemTypeManager_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected ItemTypeManager_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -60,21 +65,29 @@ public class ItemTypeManager_CreationPage extends PageImpl {
 	 * @not generated
 	 */
 	public ItemTypeManager_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("manager", "Instance name control", "Instance name control", "Instance name control", false, 3);
+		super("manager", "Instance name control", "Instance name control",
+				"Instance name control", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
 		setActionPage(null);
 		// Field display name removed from addLast :
-		// FieldsCore.createTextField(WorkspaceCST.MANAGER_at_HUMAN_NAME,
+		// FieldsCore.createTextField(CadseGCST.MANAGER_at_HUMAN_NAME,
 		// "Display name"),
-		addLast(FieldsCore.createTextField(WorkspaceCST.MANAGER_at_LONG_NAME_TEMPLATE, "Qualified name template", 1,
-				"", new IC_ItemTypeTemplateForText(), new MC_AttributesItem()), FieldsCore.createTextField(
-				WorkspaceCST.MANAGER_at_DISPLAY_NAME_TEMPLATE, "Display name template", 1, "",
-				new IC_ItemTypeTemplateForText(), new MC_AttributesItem()), FieldsCore.createTextField(
-				WorkspaceCST.MANAGER_at_VALID_PATTERN_ID, "Valid name pattern", 1, null, new ValidFieldUC(),
-				new ValidPattern()), FieldsCore.createTextField(WorkspaceCST.MANAGER_at_MESSAGE_ERROR_ID,
-				"Error message while invalid name"));
+		addLast(FieldsCore.createTextField(
+				CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE,
+				"Qualified name template", 1, "",
+				new IC_ItemTypeTemplateForText(), new MC_AttributesItem()),
+				FieldsCore.createTextField(
+						CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE,
+						"Display name template", 1, "",
+						new IC_ItemTypeTemplateForText(),
+						new MC_AttributesItem()), FieldsCore.createTextField(
+						CadseGCST.MANAGER_at_VALID_PATTERN_ID,
+						"Valid name pattern", 1, null, new ValidFieldUC(),
+						new ValidPattern()), FieldsCore.createTextField(
+						CadseGCST.MANAGER_at_MESSAGE_ERROR_ID,
+						"Error message while invalid name"));
 
 		registerListener();
 	}

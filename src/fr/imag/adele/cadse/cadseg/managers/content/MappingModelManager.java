@@ -22,10 +22,11 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 
@@ -46,31 +47,19 @@ public class MappingModelManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -130,8 +119,8 @@ public class MappingModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getManagersLink(Item mappingModel) {
-		return mappingModel.getOutgoingLinks(WorkspaceCST.MAPPING_MODEL_lt_MANAGERS);
-	}
+        return mappingModel.getOutgoingLinks(CadseGCST.MAPPING_MODEL_lt_MANAGERS);
+    }
 
 	/**
 	 * Gets the managers all.
@@ -144,8 +133,8 @@ public class MappingModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getManagersAll(Item mappingModel) {
-		return mappingModel.getOutgoingItems(WorkspaceCST.MAPPING_MODEL_lt_MANAGERS, false);
-	}
+        return mappingModel.getOutgoingItems(CadseGCST.MAPPING_MODEL_lt_MANAGERS, false);
+    }
 
 	/**
 	 * Gets the managers.
@@ -158,8 +147,8 @@ public class MappingModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getManagers(Item mappingModel) {
-		return mappingModel.getOutgoingItems(WorkspaceCST.MAPPING_MODEL_lt_MANAGERS, true);
-	}
+        return mappingModel.getOutgoingItems(CadseGCST.MAPPING_MODEL_lt_MANAGERS,true);
+    }
 
 	/**
 	 * Adds the managers.
@@ -175,8 +164,8 @@ public class MappingModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void addManagers(Item mappingModel, Item value) throws CadseException {
-		mappingModel.addOutgoingItem(WorkspaceCST.MAPPING_MODEL_lt_MANAGERS, value);
-	}
+        mappingModel.addOutgoingItem(CadseGCST.MAPPING_MODEL_lt_MANAGERS,value);
+    }
 
 	/**
 	 * Removes the managers.
@@ -192,6 +181,7 @@ public class MappingModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void removeManagers(Item mappingModel, Item value) throws CadseException {
-		mappingModel.removeOutgoingItem(WorkspaceCST.MAPPING_MODEL_lt_MANAGERS, value);
-	}
+        mappingModel.removeOutgoingItem(CadseGCST.MAPPING_MODEL_lt_MANAGERS,value);
+    }
+
 }

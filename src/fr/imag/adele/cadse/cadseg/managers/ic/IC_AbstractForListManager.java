@@ -21,11 +21,12 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.cadseg.util.Util;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -48,7 +49,7 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends InteractionControllerManager.MyContentItem {
+	public class IC_AbstractForListContent extends InteractionControllerManager.InteractionControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -59,8 +60,8 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected IC_AbstractForListContent(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -125,6 +126,41 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 	public IC_AbstractForListManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -145,64 +181,9 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public void createdItem(Item item) throws CadseException {
-		super.createdItem(item);
-		Util.setDefaultValueIfNeed(item, SELECT_MESSAGE_ATTRIBUTE, "Select a value.");
-		Util.setDefaultValueIfNeed(item, SELECT_TITLE_ATTRIBUTE, "Select a value.");
-	}
+	
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Abstract Interaction Controller for list", "Abstract Interaction Controller for list", 3, FieldsCore
-						.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "select message")));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Abstract Interaction Controller for list", "Abstract Interaction Controller for list", 3, FieldsCore
-						.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "select message")
-
-		));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -217,7 +198,7 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 		if (attribut == null) {
 			return "Must set the attribut link for the item " + display.getId();
 		}
-		if (display.getType() != WorkspaceCST.DLIST) {
+		if (display.getType() != CadseGCST.DLIST) {
 			return "use this controller for list";
 		}
 		return null;

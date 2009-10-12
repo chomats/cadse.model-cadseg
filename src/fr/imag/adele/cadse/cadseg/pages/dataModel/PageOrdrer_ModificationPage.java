@@ -23,7 +23,7 @@ import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -45,18 +45,18 @@ public class PageOrdrer_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldFields;
+	protected DListUI fieldFields;
 
 	/**
 	 * @generated
 	 */
-	protected PageOrdrer_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected PageOrdrer_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -81,11 +81,12 @@ public class PageOrdrer_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldFields() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.PAGE_lt_FIELDS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.PAGE_lt_FIELDS);
-		return new DListUI(WorkspaceCST.PAGE_lt_FIELDS.getName(), "fields", EPosLabel.top, mc, ic, false, false, true,
-				false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.PAGE_lt_FIELDS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.", CadseGCST.PAGE_lt_FIELDS);
+		return new DListUI(CadseGCST.PAGE_lt_FIELDS.getName(), "fields",
+				EPosLabel.top, mc, ic, false, false, true, false);
 	}
 
 }

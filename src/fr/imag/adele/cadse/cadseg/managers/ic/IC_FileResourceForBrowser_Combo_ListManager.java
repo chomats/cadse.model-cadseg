@@ -19,16 +19,20 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
+import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
@@ -60,8 +64,8 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -74,8 +78,8 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
 
-			DisplayManager.addAttributeInCall(getItem(), PATTERN_SELECT_FILE_ATTRIBUTE, true, ".*", sb);
-			DisplayManager.addAttributeInCall(getItem(), SELECT_FOLDER_ATTRIBUTE, false, "false", sb);
+			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_PATTERN_SELECT_FILE, true, ".*", sb);
+			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_SELECT_FOLDER, false, "false", sb);
 
 		}
 
@@ -107,16 +111,87 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 	@SuppressWarnings("hiding")
 	public static final String	DEFAUL_CLASS_NAME				= "fede.workspace.model.manager.properties.impl.ic.IC_FileResourceForBrowser_Combo_List";
 
-	/** The Constant PATTERN_SELECT_FILE_ATTRIBUTE. */
-	public static final String	PATTERN_SELECT_FILE_ATTRIBUTE	= "pattern-select-file";
+	///** The Constant PATTERN_SELECT_FILE_ATTRIBUTE. */
+	//public static final String	PATTERN_SELECT_FILE_ATTRIBUTE	= "pattern-select-file";
 
-	/** The Constant SELECT_FOLDER_ATTRIBUTE. */
-	public static final String	SELECT_FOLDER_ATTRIBUTE			= "select-folder";
+	///** The Constant SELECT_FOLDER_ATTRIBUTE. */
+	//public static final String	SELECT_FOLDER_ATTRIBUTE			= "select-folder";
 
 	/**
 	 * Instantiates a new i c_ file resource for browser_ combo_ list manager.
 	 */
 	public IC_FileResourceForBrowser_Combo_ListManager() {
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getSelectFolderAttribute(Item iC_FileResourceForBrowser_Combo_List) {
+		return iC_FileResourceForBrowser_Combo_List.getAttributeWithDefaultValue(CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_SELECT_FOLDER_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setSelectFolderAttribute(Item iC_FileResourceForBrowser_Combo_List, String value) {
+		try {
+			iC_FileResourceForBrowser_Combo_List.setAttribute(CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_SELECT_FOLDER_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getPatternSelectFileAttribute(Item iC_FileResourceForBrowser_Combo_List) {
+		return iC_FileResourceForBrowser_Combo_List.getAttributeWithDefaultValue(CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_PATTERN_SELECT_FILE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setPatternSelectFileAttribute(Item iC_FileResourceForBrowser_Combo_List, String value) {
+		try {
+			iC_FileResourceForBrowser_Combo_List.setAttribute(CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_PATTERN_SELECT_FILE_, value);
+		} catch (Throwable t) {
+
+		}
 	}
 
 	/*
@@ -139,50 +214,8 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
-
-		IntModelController hspan_vc = new IntModelController(0, 0, "The number of column must be > 0", null, 1);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Add a File resource user controller for a list field",
-				"Add a File resource user for the current field list", 2, FieldsCore.createTextField(
-						SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE,
-						"dialog message"), FieldsCore.createTextField(SELECT_ROOT_ATTRIBUTE, "where find resource",
-						hspan_vc), FieldsCore.createTextField(PATTERN_SELECT_FILE_ATTRIBUTE, "file pattern"),
-				FieldsCore.createCheckBox(SELECT_FOLDER_ATTRIBUTE, "select folder")));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		IModelController mc = new MC_AttributesItem();
-
-		IntModelController hspan_vc = new IntModelController(0, 0, "The number of column must be > 0", null, 1);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a File resource user controller",
-				"a File resource user controller", 2, FieldsCore
-						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createTextField(SELECT_ROOT_ATTRIBUTE,
-						"where find resource", hspan_vc), FieldsCore.createTextField(PATTERN_SELECT_FILE_ATTRIBUTE,
-						"file pattern"), FieldsCore.createCheckBox(SELECT_FOLDER_ATTRIBUTE, "select folder")));
-	}
+	
+	
 
 	/*
 	 * (non-Javadoc)
@@ -190,8 +223,8 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 }

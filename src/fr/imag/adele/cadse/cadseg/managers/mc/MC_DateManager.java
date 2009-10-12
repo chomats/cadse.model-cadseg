@@ -20,7 +20,7 @@ package fr.imag.adele.cadse.cadseg.managers.mc;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
@@ -38,18 +38,19 @@ public class MC_DateManager extends ModelControllerManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -64,7 +65,6 @@ public class MC_DateManager extends ModelControllerManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -76,7 +76,7 @@ public class MC_DateManager extends ModelControllerManager {
 	 * @generated
 	 */
 	public static final String getPatternAttribute(Item mC_Date) {
-		return mC_Date.getAttributeWithDefaultValue(WorkspaceCST.MC_DATE_at_PATTERN_, "");
+		return mC_Date.getAttributeWithDefaultValue(CadseGCST.MC_DATE_at_PATTERN_, null);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class MC_DateManager extends ModelControllerManager {
 	 */
 	public static final void setPatternAttribute(Item mC_Date, String value) {
 		try {
-			mC_Date.setAttribute(WorkspaceCST.MC_DATE_at_PATTERN_, value);
+			mC_Date.setAttribute(CadseGCST.MC_DATE_at_PATTERN_, value);
 		} catch (Throwable t) {
 
 		}

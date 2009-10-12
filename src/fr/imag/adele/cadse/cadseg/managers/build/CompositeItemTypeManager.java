@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.build;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -44,23 +44,10 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -109,8 +96,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getComposersLink(Item compositeItemType) {
-		return compositeItemType.getOutgoingLinks(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
-	}
+        return compositeItemType.getOutgoingLinks(CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
+    }
 
 	/**
 	 * Gets the composers all.
@@ -123,8 +110,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getComposersAll(Item compositeItemType) {
-		return compositeItemType.getOutgoingItems(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS, false);
-	}
+        return compositeItemType.getOutgoingItems(CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS, false);
+    }
 
 	/**
 	 * Gets the composers.
@@ -137,8 +124,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getComposers(Item compositeItemType) {
-		return compositeItemType.getOutgoingItems(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS, true);
-	}
+        return compositeItemType.getOutgoingItems(CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS,true);
+    }
 
 	/**
 	 * Adds the composers.
@@ -154,8 +141,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void addComposers(Item compositeItemType, Item value) throws CadseException {
-		compositeItemType.addOutgoingItem(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS, value);
-	}
+        compositeItemType.addOutgoingItem(CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS,value);
+    }
 
 	/**
 	 * Removes the composers.
@@ -171,8 +158,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void removeComposers(Item compositeItemType, Item value) throws CadseException {
-		compositeItemType.removeOutgoingItem(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS, value);
-	}
+        compositeItemType.removeOutgoingItem(CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS,value);
+    }
 
 	/**
 	 * get links 'builders' from 'CompositeItemType' to 'Builder'.
@@ -185,8 +172,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getBuildersLink(Item compositeItemType) {
-		return compositeItemType.getOutgoingLinks(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
-	}
+        return compositeItemType.getOutgoingLinks(CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
+    }
 
 	/**
 	 * Gets the builders all.
@@ -199,8 +186,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getBuildersAll(Item compositeItemType) {
-		return compositeItemType.getOutgoingItems(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS, false);
-	}
+        return compositeItemType.getOutgoingItems(CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS, false);
+    }
 
 	/**
 	 * Gets the builders.
@@ -213,8 +200,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getBuilders(Item compositeItemType) {
-		return compositeItemType.getOutgoingItems(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS, true);
-	}
+        return compositeItemType.getOutgoingItems(CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS,true);
+    }
 
 	/**
 	 * Adds the builders.
@@ -230,8 +217,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void addBuilders(Item compositeItemType, Item value) throws CadseException {
-		compositeItemType.addOutgoingItem(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS, value);
-	}
+        compositeItemType.addOutgoingItem(CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS,value);
+    }
 
 	/**
 	 * Removes the builders.
@@ -247,8 +234,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void removeBuilders(Item compositeItemType, Item value) throws CadseException {
-		compositeItemType.removeOutgoingItem(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS, value);
-	}
+        compositeItemType.removeOutgoingItem(CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS,value);
+    }
 
 	/**
 	 * get a link 'item-type' from 'CompositeItemType' to 'ItemType'.
@@ -261,7 +248,7 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Link getItemTypeLink(Item compositeItemType) {
-		return compositeItemType.getOutgoingLink(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
+		return compositeItemType.getOutgoingLink(CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
 	}
 
 	/**
@@ -276,7 +263,7 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getItemTypeAll(Item compositeItemType) {
-		return compositeItemType.getOutgoingItem(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE, false);
+		return compositeItemType.getOutgoingItem(CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE, false);
 	}
 
 	/**
@@ -290,7 +277,7 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getItemType(Item compositeItemType) {
-		return compositeItemType.getOutgoingItem(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE, true);
+		return compositeItemType.getOutgoingItem(CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE, true);
 	}
 
 	/**
@@ -299,46 +286,7 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void setItemType(Item compositeItemType, Item value) throws CadseException {
-		compositeItemType.setOutgoingItem(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE, value);
-	}
-
-	/**
-	 * get links '#invert_part_composite-types_to_BuildModel' from
-	 * 'CompositeItemType' to 'BuildModel'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_compositeTypes_to_BuildModelLink(Item compositeItemType) {
-		return compositeItemType
-				.getOutgoingLink(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt__$_INVERT_PART_COMPOSITE_TYPES_TO_BUILD_MODEL);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_compositeTypes_to_BuildModelAll(Item compositeItemType) {
-		return compositeItemType.getOutgoingItem(
-				WorkspaceCST.COMPOSITE_ITEM_TYPE_lt__$_INVERT_PART_COMPOSITE_TYPES_TO_BUILD_MODEL, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_compositeTypes_to_BuildModel(Item compositeItemType) {
-		return compositeItemType.getOutgoingItem(
-				WorkspaceCST.COMPOSITE_ITEM_TYPE_lt__$_INVERT_PART_COMPOSITE_TYPES_TO_BUILD_MODEL, true);
-	}
-
-	/**
-	 * set a link '#invert_part_composite-types_to_BuildModel' from
-	 * 'CompositeItemType' to 'BuildModel'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_compositeTypes_to_BuildModel(Item compositeItemType, Item value)
-			throws CadseException {
-		compositeItemType.setOutgoingItem(
-				WorkspaceCST.COMPOSITE_ITEM_TYPE_lt__$_INVERT_PART_COMPOSITE_TYPES_TO_BUILD_MODEL, value);
+		compositeItemType.setOutgoingItem(CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE,value);
 	}
 
 	/**
@@ -351,7 +299,7 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 	 */
 	public static Item getCompositeItemFromItemType(Item itemType) {
 		for (Link l : itemType.getIncomingLinks()) {
-			if (l.getSource().getType() == WorkspaceCST.COMPOSITE_ITEM_TYPE) {
+			if (l.getSource().getType() == CadseGCST.COMPOSITE_ITEM_TYPE) {
 				return l.getSource();
 			}
 		}

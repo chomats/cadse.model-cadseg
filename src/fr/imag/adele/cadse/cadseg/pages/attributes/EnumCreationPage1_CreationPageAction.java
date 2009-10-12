@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.ui.IPageObject;
 import fr.imag.adele.cadse.core.ui.UIField;
 
@@ -45,7 +46,7 @@ public class EnumCreationPage1_CreationPageAction extends AttributeCreationPage1
 	@Override
 	public void init(IPageObject pageObject) throws CadseException {
 		super.init(pageObject);
-		enumTypeField = pageObject.getField(WorkspaceCST.ENUM_lt_ENUM_TYPE.getName());
+		enumTypeField = pageObject.getField(CadseGCST.ENUM_lt_ENUM_TYPE.getName());
 	}
 
 	@Override

@@ -33,7 +33,7 @@ import fede.workspace.model.manager.properties.impl.mc.TextLinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -79,54 +79,11 @@ public class ViewItemTypeManager extends DefaultItemManager {
 		super();
 	}
 
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#computeRenameAnnotationChange(org.eclipse.ltk.core.refactoring.CompositeChange,
-	// * fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
-	// * fr.imag.adele.cadse.core.var.ContextVariable,
-	// * fr.imag.adele.cadse.core.var.ContextVariable)
-	// */
-	// @Override
-	// public RefactoringStatus computeRenameAnnotationChange(CompositeChange
-	// change, Item itemAnnotation,
-	// Item itemAnnoted, ContextVariable newCxt, ContextVariable oldCxt) {
-	// if (itemAnnoted.isInstanceOf(WorkspaceCST.ITEM_TYPE)) {
-	// itemAnnotation.computeRenameChange(change, itemAnnoted.getName(),
-	// newCxt, oldCxt);
-	// }
-	// return null;
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#canRenameItem(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public String canRenameItem(Item item) {
-		return CANNOT_RENAME;
-	}
-
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -141,6 +98,36 @@ public class ViewItemTypeManager extends DefaultItemManager {
 			e.printStackTrace();
 			return "error";
 		}
+	}
+
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see
+	// fede.workspace.model.manager.DefaultItemManager#computeRenameAnnotationChange(org.eclipse.ltk.core.refactoring.CompositeChange,
+	// * fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
+	// * fr.imag.adele.cadse.core.var.ContextVariable,
+	// * fr.imag.adele.cadse.core.var.ContextVariable)
+	// */
+	// @Override
+	// public RefactoringStatus computeRenameAnnotationChange(CompositeChange
+	// change, Item itemAnnotation,
+	// Item itemAnnoted, ContextVariable newCxt, ContextVariable oldCxt) {
+	// if (itemAnnoted.isInstanceOf(CadseGCST.ITEM_TYPE)) {
+	// itemAnnotation.computeRenameChange(change, itemAnnoted.getName(),
+	// newCxt, oldCxt);
+	// }
+	// return null;
+	// }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fede.workspace.model.manager.DefaultItemManager#canRenameItem(fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public String canRenameItem(Item item) {
+		return CANNOT_RENAME;
 	}
 
 	/**
@@ -170,7 +157,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Link getItemTypeLink(Item viewItemType) {
-		return viewItemType.getOutgoingLink(WorkspaceCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE);
+		return viewItemType.getOutgoingLink(CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE);
 	}
 
 	/**
@@ -179,7 +166,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getItemTypeAll(Item viewItemType) {
-		return viewItemType.getOutgoingItem(WorkspaceCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE, false);
+		return viewItemType.getOutgoingItem(CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE, false);
 	}
 
 	/**
@@ -247,7 +234,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @return the uI field
 	 */
 	protected UIField createFieldItemType() {
-		TextLinkModelController mc = new TextLinkModelController(false, null, WorkspaceCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE);
+		TextLinkModelController mc = new TextLinkModelController(false, null, CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE);
 		return new DTextUI("item-type", "item-type", EPosLabel.left, mc, null, SWT.BORDER | SWT.SINGLE | SWT.READ_ONLY,
 				1, null);
 	}
@@ -260,9 +247,9 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @not generated
 	 */
 	protected UIField createFieldViewLinkTypes() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES);
+		LinkModelController mc = new LinkModelController(false, null, CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES);
 		return new DListUI("view-link-types", "view-link-types", EPosLabel.top, mc, new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.", WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES), true, true);
+				"Select a value.", "Select a value.", CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES), true, true);
 	}
 
 	/**
@@ -286,7 +273,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 */
 	protected UIField createFieldIsFirstElement() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT, "is first element", EPosLabel.none, mc,
+		return new DCheckBoxUI(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT, "is first element", EPosLabel.none, mc,
 				null);
 	}
 
@@ -301,7 +288,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getItemType(Item viewItemType) {
-		return viewItemType.getOutgoingItem(WorkspaceCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE, true);
+		return viewItemType.getOutgoingItem(CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE, true);
 	}
 
 	/**
@@ -318,7 +305,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void setItemType(Item viewItemType, Item value) throws CadseException {
-		viewItemType.setOutgoingItem(WorkspaceCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE, value);
+		viewItemType.setOutgoingItem(CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE,value);
 	}
 
 	/**
@@ -327,15 +314,15 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getViewLinkTypesLink(Item viewItemType) {
-		return viewItemType.getOutgoingLinks(WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES);
-	}
+        return viewItemType.getOutgoingLinks(CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getViewLinkTypesAll(Item viewItemType) {
-		return viewItemType.getOutgoingItems(WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES, false);
-	}
+        return viewItemType.getOutgoingItems(CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES, false);
+    }
 
 	/**
 	 * Gets the view link types.
@@ -348,8 +335,8 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getViewLinkTypes(Item viewItemType) {
-		return viewItemType.getOutgoingItems(WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES, true);
-	}
+        return viewItemType.getOutgoingItems(CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES,true);
+    }
 
 	/**
 	 * Adds the view link types.
@@ -365,8 +352,8 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void addViewLinkTypes(Item viewItemType, Item value) throws CadseException {
-		viewItemType.addOutgoingItem(WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES, value);
-	}
+        viewItemType.addOutgoingItem(CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES,value);
+    }
 
 	/**
 	 * Removes the view link types.
@@ -382,50 +369,8 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void removeViewLinkTypes(Item viewItemType, Item value) throws CadseException {
-		viewItemType.removeOutgoingItem(WorkspaceCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES, value);
-	}
-
-	/**
-	 * get a link '#invert_part_view-item-types_to_View' from 'ViewItemType' to
-	 * 'View'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_viewItemTypes_to_ViewLink(Item viewItemType) {
-		return viewItemType.getOutgoingLink(WorkspaceCST.VIEW_ITEM_TYPE_lt__$_INVERT_PART_VIEW_ITEM_TYPES_TO_VIEW);
-	}
-
-	/**
-	 * get all link destination '#invert_part_view-item-types_to_View' from
-	 * 'ViewItemType' to 'View'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_viewItemTypes_to_ViewAll(Item viewItemType) {
-		return viewItemType.getOutgoingItem(WorkspaceCST.VIEW_ITEM_TYPE_lt__$_INVERT_PART_VIEW_ITEM_TYPES_TO_VIEW,
-				false);
-	}
-
-	/**
-	 * get resolved link destination '#invert_part_view-item-types_to_View' from
-	 * 'ViewItemType' to 'View'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_viewItemTypes_to_View(Item viewItemType) {
-		return viewItemType
-				.getOutgoingItem(WorkspaceCST.VIEW_ITEM_TYPE_lt__$_INVERT_PART_VIEW_ITEM_TYPES_TO_VIEW, true);
-	}
-
-	/**
-	 * set a link '#invert_part_view-item-types_to_View' from 'ViewItemType' to
-	 * 'View'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_viewItemTypes_to_View(Item viewItemType, Item value) throws CadseException {
-		viewItemType.setOutgoingItem(WorkspaceCST.VIEW_ITEM_TYPE_lt__$_INVERT_PART_VIEW_ITEM_TYPES_TO_VIEW, value);
-	}
+        viewItemType.removeOutgoingItem(CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES,value);
+    }
 
 	/**
 	 * Checks if is ref attribute.
@@ -438,7 +383,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final boolean isRefAttribute(Item viewItemType) {
-		return viewItemType.getAttributeWithDefaultValue(WorkspaceCST.VIEW_ITEM_TYPE_at_REF_, false);
+		return viewItemType.getAttributeWithDefaultValue(CadseGCST.VIEW_ITEM_TYPE_at_REF_, false);
 	}
 
 	/**
@@ -453,7 +398,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 */
 	public static final void setRefAttribute(Item viewItemType, boolean value) {
 		try {
-			viewItemType.setAttribute(WorkspaceCST.VIEW_ITEM_TYPE_at_REF_, value);
+			viewItemType.setAttribute(CadseGCST.VIEW_ITEM_TYPE_at_REF_, value);
 		} catch (Throwable t) {
 
 		}
@@ -463,7 +408,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final boolean isIsRootElementAttribute(Item viewItemType) {
-		return viewItemType.getAttributeWithDefaultValue(WorkspaceCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_, null);
+		return viewItemType.getAttributeWithDefaultValue(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_, null);
 	}
 
 	/**
@@ -471,7 +416,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 */
 	public static final void setIsRootElementAttribute(Item viewItemType, boolean value) {
 		try {
-			viewItemType.setAttribute(WorkspaceCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_, value);
+			viewItemType.setAttribute(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_, value);
 		} catch (Throwable t) {
 
 		}
@@ -487,7 +432,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 */
 	public static final boolean isIsFirstElementAttribute(Item viewItemType) {
 
-		Object value = viewItemType.getAttribute(WorkspaceCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_);
+		Object value = viewItemType.getAttribute(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_);
 		if (value == null) {
 			value = viewItemType.getAttribute("root");
 			try {

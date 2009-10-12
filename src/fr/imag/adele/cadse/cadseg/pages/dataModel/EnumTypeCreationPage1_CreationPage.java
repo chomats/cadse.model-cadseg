@@ -37,13 +37,14 @@ import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
@@ -61,59 +62,67 @@ public class EnumTypeCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType		it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType		lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldValues;
+	protected DListUI fieldValues;
 
 	/**
 	 * @generated
 	 */
-	protected EnumTypeCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected DTextUI fieldJavaClass;
+
+	/**
+	 * @generated
+	 */
+	protected EnumTypeCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public EnumTypeCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create EnumType", "Create EnumType", "", false, 3);
+	public EnumTypeCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create EnumType", "Create EnumType", "",
+				false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
 		this.__short_name__ = createInternalNameField();
 		this.fieldValues = createFieldValues();
+		this.fieldJavaClass = createFieldJavaClass();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldValues);
+		addLast(this.__short_name__, this.fieldValues, this.fieldJavaClass);
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-		// this.fieldJavaClass.addListener(this);
+		this.fieldJavaClass.addListener(this);
 		// this.fieldMustBeGenerated.addListener(this);
 		this.fieldValues.addListener(this);
 
-		// this.fieldJavaClass.addValidateContributor(this);
+		this.fieldJavaClass.addValidateContributor(this);
 		// this.fieldMustBeGenerated.addValidateContributor(this);
 		this.fieldValues.addValidateContributor(this);
 		// CreationAction action = new CreationAction(parent, type, lt) {
@@ -159,58 +168,62 @@ public class EnumTypeCreationPage1_CreationPage extends PageImpl {
 	public void initAfterUI() {
 		super.initAfterUI();
 		this.fieldValues.setEnabled(true);
-		// this.fieldJavaClass.setEnabled(false);
 		EnumTypeManager.setMustBeGeneratedAttribute(getItem(), true);
+		// this.fieldJavaClass.setEnabled(false);
+
 	}
 
 	@Override
 	public void notifieValueChanged(UIField field, Object value) {
-		// if (field == this.fieldMustBeGenerated) {
-		// boolean booleanValue = Convert.toBoolean(value, false);
-		// this.fieldValues.setEnabled(booleanValue);
-		// this.fieldJavaClass.setEnabled(!booleanValue);
-		// if (!booleanValue) { // not generated
-		// IType javaClass = EnumTypeManager
-		// .getSelectedEnumQualifiedClass(getItem(), true);
-		// if (javaClass != null) {
-		// this.fieldValues
-		// .setVisualValue(getEnumTypeValues(javaClass));
-		// }
-		// }
-		// }
-		// if (field == this.fieldJavaClass) {
-		// IType javaClass = value instanceof IType ? (IType) value : null;
-		// if (javaClass != null) {
-		// this.fieldValues.setVisualValue(getEnumTypeValues(javaClass));
-		// EnumTypeManager.setMustBeGeneratedAttribute(getItem(), false);
-		// }
-		// }
+		//		if (field == this.fieldMustBeGenerated) {
+		//			boolean booleanValue = Convert.toBoolean(value, false);
+		//			this.fieldValues.setEnabled(booleanValue);
+		//			this.fieldJavaClass.setEnabled(!booleanValue);
+		//			if (!booleanValue) { // not generated
+		//				IType javaClass = EnumTypeManager
+		//						.getSelectedEnumQualifiedClass(getItem(), true);
+		//				if (javaClass != null) {
+		//					this.fieldValues
+		//							.setVisualValue(getEnumTypeValues(javaClass));
+		//				}
+		//			}
+		//		}
+		if (field == this.fieldJavaClass) {
+			IType javaClass = value instanceof IType ? (IType) value : null;
+			if (javaClass != null) {
+				this.fieldValues.setVisualValue(getEnumTypeValues(javaClass));
+				EnumTypeManager.setMustBeGeneratedAttribute(getItem(), false);
+				this.fieldValues.setEnabled(false);
+			} else {
+				this.fieldValues.setEnabled(true);
+			}
+		}
 	}
 
 	@Override
 	public boolean validValue(UIField field, Object value) {
-		// if (field == this.fieldMustBeGenerated) {
-		// boolean booleanValue = Convert.toBoolean(value, false);
-		// if (!booleanValue) { // not generated
-		// IType javaClass = EnumTypeManager
-		// .getSelectedEnumQualifiedClass(getItem(), true);
-		// if (javaClass == null) {
-		// setMessageError("You must select a java enum type");
-		// return true;
-		// }
-		// }
-		// }
-		// if (field == this.fieldJavaClass) {
-		// boolean booleanValue = EnumTypeManager
-		// .isMustBeGeneratedAttribute(getItem());
-		// if (!booleanValue) { // not generated
-		// IType javaClass = value instanceof IType ? (IType) value : null;
-		// if (javaClass == null) {
-		// setMessageError("You must select a java enum type");
-		// return true;
-		// }
-		// }
-		// }
+		//		if (field == this.fieldMustBeGenerated) {
+		//			boolean booleanValue = Convert.toBoolean(value, false);
+		//			if (!booleanValue) { // not generated
+		//				IType javaClass = EnumTypeManager
+		//						.getSelectedEnumQualifiedClass(getItem(), true);
+		//				if (javaClass == null) {
+		//					setMessageError("You must select a java enum type");
+		//					return true;
+		//				}
+		//			}
+		//		}
+		if (field == this.fieldJavaClass) {
+			boolean booleanValue = EnumTypeManager
+					.isMustBeGeneratedAttribute(getItem());
+			if (!booleanValue) { // not generated
+				IType javaClass = value instanceof IType ? (IType) value : null;
+				if (javaClass == null) {
+					setMessageError("You must select a java enum type");
+					return true;
+				}
+			}
+		}
 		return super.validValue(field, value);
 	}
 
@@ -254,8 +267,19 @@ public class EnumTypeCreationPage1_CreationPage extends PageImpl {
 	 */
 	public DListUI createFieldValues() {
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.", "Select a value.", false);
-		return new DListUI(WorkspaceCST.ENUM_TYPE_at_VALUES, "values", EPosLabel.top, mc, ic, true, false, false, false);
+		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
+				"Select a value.", false);
+		return new DListUI(CadseGCST.ENUM_TYPE_at_VALUES, "values",
+				EPosLabel.top, mc, ic, true, false, false, false);
+	}
+
+	/**
+	 * @generated
+	 */
+	public DTextUI createFieldJavaClass() {
+		return new DTextUI(CadseGCST.ENUM_TYPE_at_JAVA_CLASS, "java-class",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 }

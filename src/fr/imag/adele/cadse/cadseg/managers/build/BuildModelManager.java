@@ -23,8 +23,9 @@ import java.util.Collection;
 import java.util.List;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -49,23 +50,10 @@ public class BuildModelManager extends DefaultItemManager implements IItemManage
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -114,8 +102,8 @@ public class BuildModelManager extends DefaultItemManager implements IItemManage
 	 * @generated
 	 */
 	static public List<Link> getCompositeTypesLink(Item buildModel) {
-		return buildModel.getOutgoingLinks(WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES);
-	}
+        return buildModel.getOutgoingLinks(CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES);
+    }
 
 	/**
 	 * Gets the composite types all.
@@ -128,8 +116,8 @@ public class BuildModelManager extends DefaultItemManager implements IItemManage
 	 * @generated
 	 */
 	static public Collection<Item> getCompositeTypesAll(Item buildModel) {
-		return buildModel.getOutgoingItems(WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES, false);
-	}
+        return buildModel.getOutgoingItems(CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES, false);
+    }
 
 	/**
 	 * Gets the composite types.
@@ -142,8 +130,8 @@ public class BuildModelManager extends DefaultItemManager implements IItemManage
 	 * @generated
 	 */
 	static public Collection<Item> getCompositeTypes(Item buildModel) {
-		return buildModel.getOutgoingItems(WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES, true);
-	}
+        return buildModel.getOutgoingItems(CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES,true);
+    }
 
 	/**
 	 * Adds the composite types.
@@ -159,8 +147,8 @@ public class BuildModelManager extends DefaultItemManager implements IItemManage
 	 * @generated
 	 */
 	static public void addCompositeTypes(Item buildModel, Item value) throws CadseException {
-		buildModel.addOutgoingItem(WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES, value);
-	}
+        buildModel.addOutgoingItem(CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES,value);
+    }
 
 	/**
 	 * Removes the composite types.
@@ -176,42 +164,8 @@ public class BuildModelManager extends DefaultItemManager implements IItemManage
 	 * @generated
 	 */
 	static public void removeCompositeTypes(Item buildModel, Item value) throws CadseException {
-		buildModel.removeOutgoingItem(WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES, value);
-	}
-
-	/**
-	 * get links '#invert_part_build_to_CadseDefinition' from 'BuildModel' to
-	 * 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_build_to_CadseDefinitionLink(Item buildModel) {
-		return buildModel.getOutgoingLink(WorkspaceCST.BUILD_MODEL_lt__$_INVERT_PART_BUILD_TO_CADSE_DEFINITION);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_build_to_CadseDefinitionAll(Item buildModel) {
-		return buildModel.getOutgoingItem(WorkspaceCST.BUILD_MODEL_lt__$_INVERT_PART_BUILD_TO_CADSE_DEFINITION, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_build_to_CadseDefinition(Item buildModel) {
-		return buildModel.getOutgoingItem(WorkspaceCST.BUILD_MODEL_lt__$_INVERT_PART_BUILD_TO_CADSE_DEFINITION, true);
-	}
-
-	/**
-	 * set a link '#invert_part_build_to_CadseDefinition' from 'BuildModel' to
-	 * 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_build_to_CadseDefinition(Item buildModel, Item value) throws CadseException {
-		buildModel.setOutgoingItem(WorkspaceCST.BUILD_MODEL_lt__$_INVERT_PART_BUILD_TO_CADSE_DEFINITION, value);
-	}
+        buildModel.removeOutgoingItem(CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES,value);
+    }
 
 	/*
 	 * (non-Javadoc)

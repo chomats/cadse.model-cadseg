@@ -31,20 +31,22 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class StructCreationPage1_CreationPage extends AttributeCreationPage1_CreationPage {
+public class StructCreationPage1_CreationPage extends
+		AttributeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected StructCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected StructCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public StructCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
+	public StructCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
 		super("creation-page1", "Create Struct", "Create Struct", "", false, 3);
 		this.parent = parent;
 		this.it = it;

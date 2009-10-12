@@ -23,7 +23,7 @@ import fr.imag.adele.cadse.core.IItemNode;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -39,13 +39,14 @@ import fr.imag.adele.cadse.core.ui.EPosLabel;
 /**
  * @generated
  */
-public class LongModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class LongModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected LongModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected LongModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -67,22 +68,6 @@ public class LongModificationPage1_ModificationPage extends AttributeModificatio
 	protected void registerListener() {
 		super.registerListener();
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default-value", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
 	}
 
 }

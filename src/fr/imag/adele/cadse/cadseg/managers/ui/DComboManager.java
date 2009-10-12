@@ -19,11 +19,12 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -47,7 +48,7 @@ public class DComboManager extends DisplayManager implements IItemManager {
 	/**
 	 * The Class MyContentItem.
 	 */
-	public final class MyContentItem extends DisplayManager.MyContentItem {
+	public final class MyContentItem extends DisplayManager.DisplayContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -58,8 +59,8 @@ public class DComboManager extends DisplayManager implements IItemManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -97,15 +98,7 @@ public class DComboManager extends DisplayManager implements IItemManager {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#hasContent(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public boolean hasContent(Item item) {
-		return true;
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -113,8 +106,8 @@ public class DComboManager extends DisplayManager implements IItemManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
@@ -128,18 +121,19 @@ public class DComboManager extends DisplayManager implements IItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -154,85 +148,11 @@ public class DComboManager extends DisplayManager implements IItemManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/**
-	 * get a link 'ic' from 'DCombo' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getIcLink(Item dCombo) {
-		return dCombo.getOutgoingLink(WorkspaceCST.DCOMBO_lt_IC);
-	}
-
-	/**
-	 * get all link destination 'ic' from 'DCombo' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIcAll(Item dCombo) {
-		return dCombo.getOutgoingItem(WorkspaceCST.DCOMBO_lt_IC, false);
-	}
-
-	/**
-	 * get resolved link destination 'ic' from 'DCombo' to
-	 * 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIc(Item dCombo) {
-		return dCombo.getOutgoingItem(WorkspaceCST.DCOMBO_lt_IC, true);
-	}
-
-	/**
-	 * set a link 'ic' from 'DCombo' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public void setIc(Item dCombo, Item value) throws CadseException {
-		dCombo.setOutgoingItem(WorkspaceCST.DCOMBO_lt_IC, value);
-	}
-
-	/**
-	 * get a link 'mc' from 'DCombo' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getMcLink(Item dCombo) {
-		return dCombo.getOutgoingLink(WorkspaceCST.DCOMBO_lt_MC);
-	}
-
-	/**
-	 * get all link destination 'mc' from 'DCombo' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMcAll(Item dCombo) {
-		return dCombo.getOutgoingItem(WorkspaceCST.DCOMBO_lt_MC, false);
-	}
-
-	/**
-	 * get resolved link destination 'mc' from 'DCombo' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMc(Item dCombo) {
-		return dCombo.getOutgoingItem(WorkspaceCST.DCOMBO_lt_MC, true);
-	}
-
-	/**
-	 * set a link 'mc' from 'DCombo' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public void setMc(Item dCombo, Item value) throws CadseException {
-		dCombo.setOutgoingItem(WorkspaceCST.DCOMBO_lt_MC, value);
 	}
 
 	/*

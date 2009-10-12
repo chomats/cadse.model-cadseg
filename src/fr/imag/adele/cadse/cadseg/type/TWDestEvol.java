@@ -1,8 +1,8 @@
 package fr.imag.adele.cadse.cadseg.type;
 
 /**
- * @generated
- */
-public enum TWDestEvol {
-
+	@generated
+*/
+public enum TWDestEvol  {
+	
 }

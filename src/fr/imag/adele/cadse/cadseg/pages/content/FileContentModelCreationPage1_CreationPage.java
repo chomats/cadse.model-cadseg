@@ -5,7 +5,7 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.Item;
@@ -23,22 +23,24 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class FileContentModelCreationPage1_CreationPage extends ResourceContentModelCreationPage1_CreationPage {
+public class FileContentModelCreationPage1_CreationPage extends
+		ResourceContentModelCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldFileName;
+	protected DTextUI fieldFileName;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldFilePath;
+	protected DTextUI fieldFilePath;
 
 	/**
 	 * @generated
 	 */
-	protected FileContentModelCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected FileContentModelCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -46,8 +48,10 @@ public class FileContentModelCreationPage1_CreationPage extends ResourceContentM
 	/**
 	 * @generated
 	 */
-	public FileContentModelCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create FileContentModel", "Create FileContentModel", "", false, 3);
+	public FileContentModelCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create FileContentModel",
+				"Create FileContentModel", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -67,20 +71,11 @@ public class FileContentModelCreationPage1_CreationPage extends ResourceContentM
 	}
 
 	/**
-	 * @generated
-	 */
-	@Override
-	public DCheckBoxUI createFieldExtendsClass() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends-class", EPosLabel.none, mc, null);
-	}
-
-	/**
 	 * @not generated
 	 */
 	public DTextUI createFieldFileName() {
-		return new DTextUI(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_NAME, "file-name", EPosLabel.left,
-				new MC_AttributesItem() {
+		return new DTextUI(CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME,
+				"file-name", EPosLabel.left, new MC_AttributesItem() {
 					@Override
 					public Object defaultValue() {
 						return "${#short-name}";
@@ -98,8 +93,8 @@ public class FileContentModelCreationPage1_CreationPage extends ResourceContentM
 	 * @not generated
 	 */
 	public DTextUI createFieldFilePath() {
-		return new DTextUI(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_PATH, "file-path", EPosLabel.left,
-				new MC_AttributesItem() {
+		return new DTextUI(CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH,
+				"file-path", EPosLabel.left, new MC_AttributesItem() {
 					@Override
 					public Object defaultValue() {
 						return "/";
@@ -133,7 +128,7 @@ public class FileContentModelCreationPage1_CreationPage extends ResourceContentM
 	//
 	// return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
 	// "Create " + title, "Create " + title, 3,
-	// FieldsCore.createCheckBox(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS,
+	// FieldsCore.createCheckBox(CadseGCST.CONTENT_MODEL_at_EXTENDS_CLASS,
 	// "extends class"),
 	// createFileNameField(), createFilePathField()));
 	// }
@@ -154,7 +149,7 @@ public class FileContentModelCreationPage1_CreationPage extends ResourceContentM
 	//
 	// return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
 	// "Create " + title, "Create " + title, 3,
-	// FieldsCore.createCheckBox(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS,
+	// FieldsCore.createCheckBox(CadseGCST.CONTENT_MODEL_at_EXTENDS_CLASS,
 	// "extends class"),
 	// createFileNameField(), createFilePathField()));
 	// }

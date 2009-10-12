@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
@@ -56,32 +56,11 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	public DataModelManager() {
 	}
 
-	@Override
-	public void init() {
-		WorkspaceCST.DATA_MODEL
-				.setSpaceKeyType(new SpaceKeyType(WorkspaceCST.DATA_MODEL, WorkspaceCST.CADSE_DEFINITION));
-		WorkspaceCST.DATA_MODEL.setHasShortNameAttribute(true);
-		WorkspaceCST.DATA_MODEL.setHasUniqueNameAttribute(false);
-	}
-
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -96,6 +75,14 @@ public class DataModelManager extends DefaultWorkspaceManager {
 			e.printStackTrace();
 			return "error";
 		}
+	}
+
+	@Override
+	public void init() {
+		CadseGCST.DATA_MODEL
+				.setSpaceKeyType(new SpaceKeyType(CadseGCST.DATA_MODEL, CadseGCST.CADSE_DEFINITION));
+		CadseGCST.DATA_MODEL.setHasShortNameAttribute(true);
+		CadseGCST.DATA_MODEL.setHasUniqueNameAttribute(false);
 	}
 
 	/**
@@ -130,8 +117,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public List<Link> getCategoriesLink(Item dataModel) {
-		return dataModel.getOutgoingLinks(WorkspaceCST.DATA_MODEL_lt_CATEGORIES);
-	}
+        return dataModel.getOutgoingLinks(CadseGCST.DATA_MODEL_lt_CATEGORIES);
+    }
 
 	/**
 	 * Gets the categories all.
@@ -144,8 +131,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getCategoriesAll(Item dataModel) {
-		return dataModel.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_CATEGORIES, false);
-	}
+        return dataModel.getOutgoingItems(CadseGCST.DATA_MODEL_lt_CATEGORIES, false);
+    }
 
 	/**
 	 * Gets the categories.
@@ -158,8 +145,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getCategories(Item dataModel) {
-		return dataModel.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_CATEGORIES, true);
-	}
+        return dataModel.getOutgoingItems(CadseGCST.DATA_MODEL_lt_CATEGORIES,true);
+    }
 
 	/**
 	 * Adds the categories.
@@ -175,8 +162,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void addCategories(Item dataModel, Item value) throws CadseException {
-		dataModel.addOutgoingItem(WorkspaceCST.DATA_MODEL_lt_CATEGORIES, value);
-	}
+        dataModel.addOutgoingItem(CadseGCST.DATA_MODEL_lt_CATEGORIES,value);
+    }
 
 	/**
 	 * Removes the categories.
@@ -192,8 +179,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void removeCategories(Item dataModel, Item value) throws CadseException {
-		dataModel.removeOutgoingItem(WorkspaceCST.DATA_MODEL_lt_CATEGORIES, value);
-	}
+        dataModel.removeOutgoingItem(CadseGCST.DATA_MODEL_lt_CATEGORIES,value);
+    }
 
 	/**
 	 * get links 'types' from 'DataModel' to 'ItemType'.
@@ -206,8 +193,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public List<Link> getTypesLink(Item dataModel) {
-		return dataModel.getOutgoingLinks(WorkspaceCST.DATA_MODEL_lt_TYPES);
-	}
+        return dataModel.getOutgoingLinks(CadseGCST.DATA_MODEL_lt_TYPES);
+    }
 
 	/**
 	 * Gets the types all.
@@ -220,8 +207,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getTypesAll(Item dataModel) {
-		return dataModel.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_TYPES, false);
-	}
+        return dataModel.getOutgoingItems(CadseGCST.DATA_MODEL_lt_TYPES, false);
+    }
 
 	/**
 	 * Gets the types.
@@ -234,8 +221,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getTypes(Item dataModel) {
-		return dataModel.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_TYPES, true);
-	}
+        return dataModel.getOutgoingItems(CadseGCST.DATA_MODEL_lt_TYPES,true);
+    }
 
 	/**
 	 * Adds the types.
@@ -251,8 +238,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void addTypes(Item dataModel, Item value) throws CadseException {
-		dataModel.addOutgoingItem(WorkspaceCST.DATA_MODEL_lt_TYPES, value);
-	}
+        dataModel.addOutgoingItem(CadseGCST.DATA_MODEL_lt_TYPES,value);
+    }
 
 	/**
 	 * Removes the types.
@@ -268,8 +255,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void removeTypes(Item dataModel, Item value) throws CadseException {
-		dataModel.removeOutgoingItem(WorkspaceCST.DATA_MODEL_lt_TYPES, value);
-	}
+        dataModel.removeOutgoingItem(CadseGCST.DATA_MODEL_lt_TYPES,value);
+    }
 
 	/**
 	 * get links 'enums' from 'DataModel' to 'EnumType'.
@@ -282,8 +269,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public List<Link> getEnumsLink(Item dataModel) {
-		return dataModel.getOutgoingLinks(WorkspaceCST.DATA_MODEL_lt_ENUMS);
-	}
+        return dataModel.getOutgoingLinks(CadseGCST.DATA_MODEL_lt_ENUMS);
+    }
 
 	/**
 	 * Gets the enums all.
@@ -296,8 +283,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getEnumsAll(Item dataModel) {
-		return dataModel.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_ENUMS, false);
-	}
+        return dataModel.getOutgoingItems(CadseGCST.DATA_MODEL_lt_ENUMS, false);
+    }
 
 	/**
 	 * Gets the enums.
@@ -310,8 +297,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getEnums(Item dataModel) {
-		return dataModel.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_ENUMS, true);
-	}
+        return dataModel.getOutgoingItems(CadseGCST.DATA_MODEL_lt_ENUMS,true);
+    }
 
 	/**
 	 * Adds the enums.
@@ -327,8 +314,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void addEnums(Item dataModel, Item value) throws CadseException {
-		dataModel.addOutgoingItem(WorkspaceCST.DATA_MODEL_lt_ENUMS, value);
-	}
+        dataModel.addOutgoingItem(CadseGCST.DATA_MODEL_lt_ENUMS,value);
+    }
 
 	/**
 	 * Removes the enums.
@@ -344,8 +331,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void removeEnums(Item dataModel, Item value) throws CadseException {
-		dataModel.removeOutgoingItem(WorkspaceCST.DATA_MODEL_lt_ENUMS, value);
-	}
+        dataModel.removeOutgoingItem(CadseGCST.DATA_MODEL_lt_ENUMS,value);
+    }
 
 	/**
 	 * get links 'ext-types' from 'DataModel' to 'ExtItemType'.
@@ -358,8 +345,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public List<Link> getExtTypesLink(Item dataModel) {
-		return dataModel.getOutgoingLinks(WorkspaceCST.DATA_MODEL_lt_EXT_TYPES);
-	}
+        return dataModel.getOutgoingLinks(CadseGCST.DATA_MODEL_lt_EXT_TYPES);
+    }
 
 	/**
 	 * Gets the ext types all.
@@ -372,8 +359,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getExtTypesAll(Item dataModel) {
-		return dataModel.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_EXT_TYPES, false);
-	}
+        return dataModel.getOutgoingItems(CadseGCST.DATA_MODEL_lt_EXT_TYPES, false);
+    }
 
 	/**
 	 * Gets the ext types.
@@ -386,8 +373,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public Collection<Item> getExtTypes(Item dataModel) {
-		return dataModel.getOutgoingItems(WorkspaceCST.DATA_MODEL_lt_EXT_TYPES, true);
-	}
+        return dataModel.getOutgoingItems(CadseGCST.DATA_MODEL_lt_EXT_TYPES,true);
+    }
 
 	/**
 	 * Adds the ext types.
@@ -403,8 +390,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void addExtTypes(Item dataModel, Item value) throws CadseException {
-		dataModel.addOutgoingItem(WorkspaceCST.DATA_MODEL_lt_EXT_TYPES, value);
-	}
+        dataModel.addOutgoingItem(CadseGCST.DATA_MODEL_lt_EXT_TYPES,value);
+    }
 
 	/**
 	 * Removes the ext types.
@@ -420,78 +407,9 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 * @generated
 	 */
 	static public void removeExtTypes(Item dataModel, Item value) throws CadseException {
-		dataModel.removeOutgoingItem(WorkspaceCST.DATA_MODEL_lt_EXT_TYPES, value);
-	}
+        dataModel.removeOutgoingItem(CadseGCST.DATA_MODEL_lt_EXT_TYPES,value);
+    }
 
-	/**
-	 * get links '#invert_part_categories_to_DataModel' from 'DataModel' to
-	 * 'DataModel'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_categories_to_DataModelLink(Item dataModel) {
-		return dataModel.getOutgoingLink(WorkspaceCST.DATA_MODEL_lt__$_INVERT_PART_CATEGORIES_TO_DATA_MODEL);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_categories_to_DataModelAll(Item dataModel) {
-		return dataModel.getOutgoingItem(WorkspaceCST.DATA_MODEL_lt__$_INVERT_PART_CATEGORIES_TO_DATA_MODEL, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_categories_to_DataModel(Item dataModel) {
-		return dataModel.getOutgoingItem(WorkspaceCST.DATA_MODEL_lt__$_INVERT_PART_CATEGORIES_TO_DATA_MODEL, true);
-	}
-
-	/**
-	 * set a link '#invert_part_categories_to_DataModel' from 'DataModel' to
-	 * 'DataModel'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_categories_to_DataModel(Item dataModel, Item value) throws CadseException {
-		dataModel.setOutgoingItem(WorkspaceCST.DATA_MODEL_lt__$_INVERT_PART_CATEGORIES_TO_DATA_MODEL, value);
-	}
-
-	/**
-	 * get links '#invert_part_data-model_to_CadseDefinition' from 'DataModel'
-	 * to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_dataModel_to_CadseDefinitionLink(Item dataModel) {
-		return dataModel.getOutgoingLink(WorkspaceCST.DATA_MODEL_lt__$_INVERT_PART_DATA_MODEL_TO_CADSE_DEFINITION);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_dataModel_to_CadseDefinitionAll(Item dataModel) {
-		return dataModel.getOutgoingItem(WorkspaceCST.DATA_MODEL_lt__$_INVERT_PART_DATA_MODEL_TO_CADSE_DEFINITION,
-				false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_dataModel_to_CadseDefinition(Item dataModel) {
-		return dataModel
-				.getOutgoingItem(WorkspaceCST.DATA_MODEL_lt__$_INVERT_PART_DATA_MODEL_TO_CADSE_DEFINITION, true);
-	}
-
-	/**
-	 * set a link '#invert_part_data-model_to_CadseDefinition' from 'DataModel'
-	 * to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_dataModel_to_CadseDefinition(Item dataModel, Item value) throws CadseException {
-		dataModel.setOutgoingItem(WorkspaceCST.DATA_MODEL_lt__$_INVERT_PART_DATA_MODEL_TO_CADSE_DEFINITION, value);
-	}
 
 	/**
 	 * Gets the item types.
@@ -505,7 +423,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 		if (dataModel == null) {
 			return new Item[0];
 		}
-		Collection<Item> ret = dataModel.getPartChildren(WorkspaceCST.DATA_MODEL_lt_TYPES);
+		Collection<Item> ret = dataModel.getPartChildren(CadseGCST.DATA_MODEL_lt_TYPES);
 		return ret.toArray(new Item[ret.size()]);
 	}
 
@@ -543,7 +461,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 */
 	public boolean isCategory(Item item) {
 		Item parent = item.getPartParent();
-		return (parent != null && parent.getType() == WorkspaceCST.DATA_MODEL);
+		return (parent != null && parent.getType() == CadseGCST.DATA_MODEL);
 	}
 
 	/*
@@ -585,7 +503,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 */
 	@Override
 	public boolean isAbstract(Item parent, LinkType type) {
-		if (parent != null && parent.getType() == WorkspaceCST.DATA_MODEL) {
+		if (parent != null && parent.getType() == CadseGCST.DATA_MODEL) {
 			return false;
 		}
 		return true;
@@ -603,7 +521,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	 */
 	public static Item getItemType(Item datamodel, String s) {
 		for (Link l : datamodel.getOutgoingLinks()) {
-			if (l.getLinkType() != WorkspaceCST.DATA_MODEL_lt_TYPES) {
+			if (l.getLinkType() != CadseGCST.DATA_MODEL_lt_TYPES) {
 				continue;
 			}
 			if (!l.isLinkResolved()) {
@@ -631,7 +549,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 		String id = datamodel.getQualifiedName() + "." + subpackage;
 		Item ret = null;
 		try {
-			ret = CadseCore.createItemIfNeed(id, subpackage, WorkspaceCST.DATA_MODEL, datamodel, null);
+			ret = CadseCore.createItemIfNeed(id, subpackage, CadseGCST.DATA_MODEL, datamodel, null);
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -659,7 +577,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 			Set<Item> nextpass = new HashSet<Item>();
 			for (Item source : pass) {
 				for (Link l : source.getOutgoingLinks()) {
-					if (l.getLinkType() == WorkspaceCST.DATA_MODEL_lt_CATEGORIES && l.isLinkResolved()) {
+					if (l.getLinkType() == CadseGCST.DATA_MODEL_lt_CATEGORIES && l.isLinkResolved()) {
 						Item dest = l.getResolvedDestination();
 						if (!ret.contains(dest)) {
 							ret.add(dest);
@@ -697,14 +615,14 @@ public class DataModelManager extends DefaultWorkspaceManager {
 		LogicalWorkspace model = datamodel.getLogicalWorkspace();
 		LogicalWorkspaceTransaction copy = model.createTransaction();
 		// create the itemtype
-		Item theitemtype = copy.createItem(WorkspaceCST.ITEM_TYPE, datamodel, WorkspaceCST.DATA_MODEL_lt_TYPES);
+		Item theitemtype = copy.createItem(CadseGCST.ITEM_TYPE, datamodel, CadseGCST.DATA_MODEL_lt_TYPES);
 
 		// set the short name and compute the unique name from parent and parent
 		// link type setting before
 		CadseCore.setName(theitemtype, shortName);
 
 		if (superItem != null) {
-			theitemtype.createLink(WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE, superItem);
+			theitemtype.createLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, superItem);
 		}
 
 		ItemTypeManager.setIsAbstractAttribute(theitemtype, false);
@@ -723,7 +641,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 		Item mappingModel = CadseDefinitionManager.getMappingModel(ItemTypeManager.getCadseDefinition(theitemtype));
 
 		// create the manager
-		Item managerItem = copy.createItem(WorkspaceCST.MANAGER, mappingModel, WorkspaceCST.MAPPING_MODEL_lt_MANAGERS);
+		Item managerItem = copy.createItem(CadseGCST.MANAGER, mappingModel, CadseGCST.MAPPING_MODEL_lt_MANAGERS);
 
 		// set the short name and compute the unique name from parent and parent
 		// link type setting before
@@ -778,8 +696,8 @@ public class DataModelManager extends DefaultWorkspaceManager {
 					datamodel.getQualifiedName());
 		}
 
-		Item thelinktype = copy.createItem(WorkspaceCST.LINK, sourceItemType,
-				WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
+		Item thelinktype = copy.createItem(CadseGCST.LINK, sourceItemType,
+				CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
 		CadseCore.setName(thelinktype, ltname);
 		LinkManager.setMaxAttribute(thelinktype, -1);
 		LinkManager.setMinAttribute(thelinktype, 0);
@@ -844,11 +762,11 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	}
 
 	public static String getQualifiedDM(Item dm) {
-		if (dm.getPartParent().getType() == WorkspaceCST.CADSE_DEFINITION) {
+		if (dm.getPartParent().isInstanceOf(CadseGCST.CADSE_DEFINITION)) {
 			return "default";
 		}
 		StringBuilder sb = new StringBuilder();
-		while (dm.getPartParent().getType() != WorkspaceCST.CADSE_DEFINITION) {
+		while (dm.getPartParent().getType() != CadseGCST.CADSE_DEFINITION) {
 			if (sb.length() != 0) {
 				sb.insert(0, '.');
 			}

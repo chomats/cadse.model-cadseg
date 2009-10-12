@@ -22,7 +22,8 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -48,67 +49,58 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item				item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldClassAttribute;
+	protected DCheckBoxUI fieldCannotBeDefined;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldCannotBeDefined;
+	protected DCheckBoxUI fieldNatif;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldNatif;
+	protected DCheckBoxUI fieldTransient;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldTransient;
+	protected DCheckBoxUI fieldFinalValue;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldFinalValue;
+	protected DCheckBoxUI fieldMustBeInitialized;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldMustBeInitialized;
+	protected DTextUI fieldDefaultValue;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldCached;
+	protected DCheckBoxUI fieldIsList;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldDefaultValue;
+	protected DCheckBoxUI fieldRequire;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldIsList;
-
-	/**
-	 * @generated
-	 */
-	protected DCheckBoxUI	fieldRequire;
-
-	/**
-	 * @generated
-	 */
-	protected AttributeModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected AttributeModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -117,23 +109,23 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public AttributeModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "an attribute", "an attribute", "", false, 3);
+		super("modification-page1", "an attribute", "an attribute", "", false,
+				3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldIsList = createFieldIsList();
 		this.fieldDefaultValue = createFieldDefaultValue();
 		this.fieldRequire = createFieldRequire();
-		this.fieldClassAttribute = createFieldClassAttribute();
 		this.fieldCannotBeDefined = createFieldCannotBeDefined();
 		this.fieldNatif = createFieldNatif();
 		this.fieldTransient = createFieldTransient();
 		this.fieldFinalValue = createFieldFinalValue();
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
-		this.fieldCached = createFieldCached();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldIsList, this.fieldDefaultValue, this.fieldRequire,
-				this.fieldClassAttribute, this.fieldCannotBeDefined, this.fieldNatif, this.fieldTransient,
-				this.fieldFinalValue, this.fieldMustBeInitialized, this.fieldCached);
+		addLast(this.__short_name__, this.fieldIsList, this.fieldDefaultValue,
+				this.fieldRequire, this.fieldCannotBeDefined, this.fieldNatif,
+				this.fieldTransient, this.fieldFinalValue,
+				this.fieldMustBeInitialized);
 
 		registerListener();
 	}
@@ -162,17 +154,10 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public DCheckBoxUI createFieldClassAttribute() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE, "class-attribute", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
 	public DCheckBoxUI createFieldCannotBeDefined() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED, "can-be-null", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED,
+				"can-be-null", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -180,7 +165,8 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldNatif() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_NATIF, "natif", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_NATIF, "natif",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -188,7 +174,8 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldTransient() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_TRANSIENT, "transient", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_TRANSIENT, "transient",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -196,7 +183,8 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldFinalValue() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_FINAL_VALUE, "final-value", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_FINAL_VALUE,
+				"final-value", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -204,16 +192,8 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldMustBeInitialized() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED, "must-be-initialized", EPosLabel.none,
-				mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldCached() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CACHED, "cached", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED,
+				"must-be-initialized", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -225,8 +205,9 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 * 
 	 */
 	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value", EPosLabel.left,
-				createMCDefaultValue(), createICDefaultValue(), 0, 1,
+		return new DTextUI(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE,
+				"default value", EPosLabel.left, createMCDefaultValue(),
+				createICDefaultValue(), 0, 1,
 				"a java expression, sample \"my string\" or null or false for boolean");
 	}
 
@@ -243,7 +224,8 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldIsList() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is list", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_IS_LIST, "is list",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -251,7 +233,8 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldRequire() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_REQUIRE, "mandatory", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_REQUIRE, "mandatory",
+				EPosLabel.none, mc, null);
 	}
 
 }

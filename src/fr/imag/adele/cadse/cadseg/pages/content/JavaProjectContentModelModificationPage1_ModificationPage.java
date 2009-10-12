@@ -4,7 +4,7 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -27,13 +27,14 @@ public class JavaProjectContentModelModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldHasSourceFolder;
+	protected DCheckBoxUI fieldHasSourceFolder;
 
 	/**
 	 * @generated
 	 */
-	protected JavaProjectContentModelModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected JavaProjectContentModelModificationPage1_ModificationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -41,14 +42,16 @@ public class JavaProjectContentModelModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public JavaProjectContentModelModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "Java Project Content", "Java Project Content", "", false, 3);
+		super("modification-page1", "Java Project Content",
+				"Java Project Content", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldHasSourceFolder = createFieldHasSourceFolder();
 		this.fieldProjectName = createFieldProjectName();
 		this.fieldExtendsClass = createFieldExtendsClass();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldHasSourceFolder, this.fieldProjectName, this.fieldExtendsClass);
+		addLast(this.__short_name__, this.fieldHasSourceFolder,
+				this.fieldProjectName, this.fieldExtendsClass);
 
 		registerListener();
 	}
@@ -70,19 +73,11 @@ public class JavaProjectContentModelModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	@Override
-	public DCheckBoxUI createFieldExtendsClass() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends class", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
 	public DCheckBoxUI createFieldHasSourceFolder() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER, "has source folder",
-				EPosLabel.none, mc, null);
+		return new DCheckBoxUI(
+				CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER,
+				"has source folder", EPosLabel.none, mc, null);
 	}
 
 }

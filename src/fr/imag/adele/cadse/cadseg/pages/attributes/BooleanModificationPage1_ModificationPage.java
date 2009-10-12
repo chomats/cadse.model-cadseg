@@ -22,7 +22,7 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -40,12 +40,14 @@ import fr.imag.adele.cadse.core.ui.IInteractionController;
 /**
  * @generated
  */
-public class BooleanModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class BooleanModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected BooleanModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected BooleanModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -67,14 +69,6 @@ public class BooleanModificationPage1_ModificationPage extends AttributeModifica
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
 	}
 
 	/**

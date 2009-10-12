@@ -22,26 +22,20 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 import java.util.List;
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
-import fr.imag.adele.cadse.core.impl.ui.CreationAction;
-import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
-import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.var.ContextVariable;
-import fede.workspace.model.manager.properties.FieldsCore;
 
 /**
  * The Class IC_PartLinkForBrowser_Combo_ListManager.
@@ -66,8 +60,8 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -94,7 +88,8 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 			} else {
 				sb.append("null /*error cannot find incoming part from ").append(a.getName()).append("*/,");
 			}
-			DisplayManager.addAttributeInCall(getItem(), ERROR_MESSAGE_ATTRIBUTE, true, "??", sb);
+			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_MESSAGE,
+					true, "??", sb);
 
 		}
 
@@ -142,73 +137,48 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 	 * @generated
 	 */
 	public IC_PartLinkForBrowser_Combo_ListManager() {
-	}
-
-	/** The Constant ERROR_MESSAGE_ATTRIBUTE. */
-	public static final String	ERROR_MESSAGE_ATTRIBUTE	= "select-messsage";
-
-	/**
-	 * Creates the creation pages.
-	 * 
-	 * @param theItemParent
-	 *            the the item parent
-	 * @param theLinkType
-	 *            the the link type
-	 * @param desType
-	 *            the des type
-	 * 
-	 * @return the pages
-	 * 
-	 * @generated
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Add a link interaction controller for a browser or a combo",
-				"Add a link interaction controller for a browser or  a combo", 2, createFieldDialogTitle(),
-				createFieldDialogMessage(), createFieldErrorMessage()));
+		super();
 	}
 
 	/**
-	 * Creates the field error message.
-	 * 
-	 * @return the uI field
-	 */
-	protected UIField createFieldErrorMessage() {
-		return FieldsCore.createTextField(ERROR_MESSAGE_ATTRIBUTE, "error message");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_LinkForBrowser_Combo_ListManager#createPropertyFolderFolder1()
-	 */
+		@generated
+	*/
 	@Override
-	IPage createPropertyFolderFolder1() {
-		return FieldsCore.createPage("page1", " a link interaction controller for a browser or a combo",
-				" a link user controller for the current browser field", 2, createFieldDialogTitle(),
-				createFieldDialogMessage(), createFieldErrorMessage());
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 
 	/**
-	 * Creates the modification page.
-	 * 
-	 * @param item
-	 *            the item
-	 * 
-	 * @return the pages
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-		return FieldsCore.createWizard(action, createPropertyFolderFolder1());
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
+
+	///** The Constant ERROR_MESSAGE_ATTRIBUTE. */
+//	public static final String	ERROR_MESSAGE_ATTRIBUTE	= "select-messsage";
+
+
 
 	// /**
 	// * @generated
@@ -262,8 +232,8 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 	 * @see model.workspace.workspace.managers.ic.IC_LinkForBrowser_Combo_ListManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -282,7 +252,7 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 
 		Item field = itemParent.getPartParent();
 		Item attribute = FieldManager.getAttribute(field);
-		if (attribute.getType() != WorkspaceCST.LINK) {
+		if (attribute.getType() != CadseGCST.LINK) {
 			return "It's not a link attribute";
 		}
 		Item itemtypedest = LinkManager.getDestination(attribute);

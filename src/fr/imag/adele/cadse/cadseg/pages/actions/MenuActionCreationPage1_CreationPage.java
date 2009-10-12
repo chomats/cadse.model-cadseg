@@ -18,19 +18,27 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.actions;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fede.workspace.model.manager.properties.FieldsCore;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 
 /**
  * @generated
  */
-public class MenuActionCreationPage1_CreationPage extends MenuAbstractCreationPage1_CreationPage {
+public class MenuActionCreationPage1_CreationPage extends
+		MenuAbstractCreationPage1_CreationPage {
 
 	/**
 	 * @generated
@@ -73,30 +81,37 @@ public class MenuActionCreationPage1_CreationPage extends MenuAbstractCreationPa
 	}
 
 	/**
+	    @generated
+	 */
+	protected DTextUI fieldLabel;
+	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldPath;
+	protected DTextUI fieldPath;
 
 	/**
 	 * @generated
 	 */
-	protected MenuActionCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected MenuActionCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public MenuActionCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create MenuAction", "Create MenuAction", "", false, 3);
+	public MenuActionCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create MenuAction", "Create MenuAction", "",
+				false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
 		this.__short_name__ = createInternalNameField();
+		this.fieldLabel = createFieldLabel();
 		this.fieldPath = createFieldPath();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldPath);
+		addLast(this.__short_name__, this.fieldLabel, this.fieldPath);
 
 		registerListener();
 	}
@@ -108,12 +123,22 @@ public class MenuActionCreationPage1_CreationPage extends MenuAbstractCreationPa
 	}
 
 	/**
+	    @generated
+	 */
+	public DTextUI createFieldLabel() {
+		return new DTextUI(CadseGCST.MENU_ABSTRACT_at_LABEL, "label",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
+	}
+
+	/**
 	 * @not generated
 	 */
 	public DTextUI createFieldPath() {
 		PathMC mc = new PathMC();
-		return new DTextUI(WorkspaceCST.MENU_ABSTRACT_at_PATH, "path in menu", EPosLabel.left, mc, new GlobalPathIC(),
-				1, "La valeur peut être CONTEXT1, CONTEXT2 ... CONTEXT6, CONTEXT1/NEW");
+		return new DTextUI(CadseGCST.MENU_ABSTRACT_at_PATH, "path in menu",
+				EPosLabel.left, mc, new GlobalPathIC(), 1,
+				"La valeur peut être CONTEXT1, CONTEXT2 ... CONTEXT6, CONTEXT1/NEW");
 	}
 
 }

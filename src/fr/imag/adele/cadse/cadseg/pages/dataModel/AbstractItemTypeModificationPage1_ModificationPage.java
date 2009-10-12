@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -43,28 +43,33 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class AbstractItemTypeModificationPage1_ModificationPage extends PageImpl {
+public class AbstractItemTypeModificationPage1_ModificationPage extends
+		PageImpl {
+
+	/**
+	    @generated
+	 */
+	public Item item;
+	/**
+	    @generated
+	 */
+	protected DTextUI __short_name__;
+	/**
+	 * @generated
+	 */
+	protected DListUI fieldAttributes;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldIdRuntime;
 
 	/**
 	 * @generated
 	 */
-	public Item			item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI	__short_name__;
-
-	/**
-	 * @generated
-	 */
-	protected DListUI	fieldAttributes;
-
-	/**
-	 * @generated
-	 */
-	protected AbstractItemTypeModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected AbstractItemTypeModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -72,12 +77,14 @@ public class AbstractItemTypeModificationPage1_ModificationPage extends PageImpl
 	 * @generated
 	 */
 	public AbstractItemTypeModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "AbstractItemType", "AbstractItemType", "", false, 3);
+		super("modification-page1", "AbstractItemType", "AbstractItemType", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldAttributes = createFieldAttributes();
+		this.fieldIdRuntime = createFieldIdRuntime();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldAttributes);
+		addLast(this.__short_name__, this.fieldAttributes, this.fieldIdRuntime);
 
 		registerListener();
 	}
@@ -87,7 +94,7 @@ public class AbstractItemTypeModificationPage1_ModificationPage extends PageImpl
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
 	public DTextUI createInternalNameField() {
 		return FieldsCore.createUniqueNameField();
@@ -97,11 +104,23 @@ public class AbstractItemTypeModificationPage1_ModificationPage extends PageImpl
 	 * @generated
 	 */
 	public DListUI createFieldAttributes() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
-		return new DListUI(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES.getName(), "attributes", EPosLabel.top, mc,
-				ic, true, false, false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
+		return new DListUI(
+				CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES.getName(),
+				"attributes", EPosLabel.top, mc, ic, true, false, false, false);
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldIdRuntime() {
+		return new DTextUI(CadseGCST.ABSTRACT_ITEM_TYPE_at_ID_RUNTIME,
+				"id-runtime", EPosLabel.left, new MC_AttributesItem(), null, 1,
+				"", false, false, false);
 	}
 
 }

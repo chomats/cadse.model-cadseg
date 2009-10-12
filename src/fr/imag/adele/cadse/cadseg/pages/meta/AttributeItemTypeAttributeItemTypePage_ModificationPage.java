@@ -2,7 +2,7 @@ package fr.imag.adele.cadse.cadseg.pages.meta;
 
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -19,28 +19,30 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class AttributeItemTypeAttributeItemTypePage_ModificationPage extends PageImpl {
+public class AttributeItemTypeAttributeItemTypePage_ModificationPage extends
+		PageImpl {
 
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldRuntimeQualifiedClass;
+	protected DTextUI fieldRuntimeQualifiedClass;
 
 	/**
 	 * @generated
 	 */
-	protected AttributeItemTypeAttributeItemTypePage_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected AttributeItemTypeAttributeItemTypePage_ModificationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -48,8 +50,12 @@ public class AttributeItemTypeAttributeItemTypePage_ModificationPage extends Pag
 	 * @generated
 	 */
 	public AttributeItemTypeAttributeItemTypePage_ModificationPage(Item item) {
-		super("attribute-item-type-page", "Attribute Item Type", "Attribute Item Type",
-				"This page help to put the description of the type of attribute definition", false, 3);
+		super(
+				"attribute-item-type-page",
+				"Attribute Item Type",
+				"Attribute Item Type",
+				"This page help to put the description of the type of attribute definition",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldRuntimeQualifiedClass = createFieldRuntimeQualifiedClass();
@@ -74,8 +80,10 @@ public class AttributeItemTypeAttributeItemTypePage_ModificationPage extends Pag
 	 * @generated
 	 */
 	public DTextUI createFieldRuntimeQualifiedClass() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_ITEM_TYPE_at_RUNTIME_QUALIFIED_CLASS, "runtime-qualified-class",
-				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false, false, false);
+		return new DTextUI(
+				CadseGCST.ATTRIBUTE_ITEM_TYPE_at_RUNTIME_QUALIFIED_CLASS,
+				"runtime-qualified-class", EPosLabel.left,
+				new MC_AttributesItem(), null, 1, "", false, false, false);
 	}
 
 }

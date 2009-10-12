@@ -27,10 +27,11 @@ import java.util.Set;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -43,6 +44,7 @@ import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 import fr.imag.adele.cadse.core.key.LinksSpaceKeyType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
@@ -62,31 +64,19 @@ public class FieldManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -107,8 +97,8 @@ public class FieldManager extends DefaultItemManager {
 		 * @param item
 		 *            the item
 		 */
-		private FieldContentManager(ContentItem parent, Item item) {
-			super(parent, item);
+		private FieldContentManager(CompactUUID id) {
+			super(id);
 		}
 
 	}
@@ -120,21 +110,21 @@ public class FieldManager extends DefaultItemManager {
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.FIELD.setHasUniqueNameAttribute(false);
-		WorkspaceCST.FIELD.setSpaceKeyType(new LinksSpaceKeyType(WorkspaceCST.FIELD, WorkspaceCST.PAGE,
-				WorkspaceCST.FIELD_lt_ATTRIBUTE));
+		CadseGCST.FIELD.setHasUniqueNameAttribute(false);
+		CadseGCST.FIELD.setSpaceKeyType(new LinksSpaceKeyType(CadseGCST.FIELD, CadseGCST.PAGE,
+				CadseGCST.FIELD_lt_ATTRIBUTE));
 
-		WorkspaceCST.FIELD_lt_ATTRIBUTE.setManager(new AbstractLinkTypeManager() {
+		CadseGCST.FIELD_lt_ATTRIBUTE.setManager(new AbstractLinkTypeManager() {
 			@Override
 			public Collection<Item> getSelectingDestination(Item field) {
 				Item container = field.getPartParent().getPartParent().getPartParent();
 				Item itemType = null;
 				Collection<Item> allAttributes = new ArrayList<Item>();
 
-				if (container.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
+				if (container.getType() == CadseGCST.EXT_ITEM_TYPE) {
 					itemType = ExtItemTypeManager.getRefType(container);
 					allAttributes.addAll(ExtItemTypeManager.getAttributes(container));
-				} else if (container.getType() == WorkspaceCST.ITEM_TYPE) {
+				} else if (container.getType() == CadseGCST.ITEM_TYPE) {
 					itemType = container;
 				}
 				if (itemType != null) {
@@ -169,7 +159,7 @@ public class FieldManager extends DefaultItemManager {
 	// public RefactoringStatus computeRenameAnnotationChange(CompositeChange
 	// change, Item itemAnnotation,
 	// Item itemAnnoted, ContextVariable newCxt, ContextVariable oldCxt) {
-	// if (itemAnnoted.isInstanceOf(WorkspaceCST.ATTRIBUTE)) {
+	// if (itemAnnoted.isInstanceOf(CadseGCST.ATTRIBUTE)) {
 	// return itemAnnotation.computeRenameChange(change,
 	// itemAnnoted.getName(), newCxt, oldCxt);
 	// }
@@ -187,7 +177,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getAttribute(Item field) {
-		return field.getOutgoingItem(WorkspaceCST.FIELD_lt_ATTRIBUTE, true);
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_ATTRIBUTE, true);
 	}
 
 	/**
@@ -199,7 +189,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @return the item type from field
 	 */
 	static public Item getItemTypeFromField(Item field) {
-		return field.getPartParent(WorkspaceCST.ITEM_TYPE);
+		return field.getPartParent(CadseGCST.ITEM_TYPE);
 	}
 
 	/**
@@ -216,7 +206,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void setAttribute(Item field, Item value) throws CadseException {
-		field.setOutgoingItem(WorkspaceCST.FIELD_lt_ATTRIBUTE, value);
+		field.setOutgoingItem(CadseGCST.FIELD_lt_ATTRIBUTE,value);
 	}
 
 	/**
@@ -230,7 +220,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final boolean isReadonlyAttribute(Item field) {
-		return field.getAttributeWithDefaultValue(WorkspaceCST.FIELD_at_READONLY_, false);
+		return field.getAttributeWithDefaultValue(CadseGCST.FIELD_at_READONLY_, false);
 	}
 
 	/**
@@ -245,7 +235,7 @@ public class FieldManager extends DefaultItemManager {
 	 */
 	public static final void setReadonlyAttribute(Item field, boolean value) {
 		try {
-			field.setAttribute(WorkspaceCST.FIELD_at_READONLY_, value);
+			field.setAttribute(CadseGCST.FIELD_at_READONLY_, value);
 		} catch (Throwable t) {
 
 		}
@@ -262,7 +252,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final String getLabelAttribute(Item field) {
-		return field.getAttributeWithDefaultValue(WorkspaceCST.FIELD_at_LABEL_, "");
+		return field.getAttributeWithDefaultValue(CadseGCST.FIELD_at_LABEL_, "");
 	}
 
 	/**
@@ -277,7 +267,7 @@ public class FieldManager extends DefaultItemManager {
 	 */
 	public static final void setLabelAttribute(Item field, String value) {
 		try {
-			field.setAttribute(WorkspaceCST.FIELD_at_LABEL_, value);
+			field.setAttribute(CadseGCST.FIELD_at_LABEL_, value);
 		} catch (Throwable t) {
 
 		}
@@ -294,7 +284,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getDisplay(Item field) {
-		return field.getOutgoingItem(WorkspaceCST.FIELD_lt_DISPLAY, true);
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_DISPLAY, true);
 	}
 
 	/**
@@ -311,7 +301,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void setDisplay(Item field, Item value) throws CadseException {
-		field.setOutgoingItem(WorkspaceCST.FIELD_lt_DISPLAY, value);
+		field.setOutgoingItem(CadseGCST.FIELD_lt_DISPLAY,value);
 	}
 
 	/**
@@ -325,7 +315,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Link getAttributeLink(Item field) {
-		return field.getOutgoingLink(WorkspaceCST.FIELD_lt_ATTRIBUTE);
+		return field.getOutgoingLink(CadseGCST.FIELD_lt_ATTRIBUTE);
 	}
 
 	/**
@@ -339,7 +329,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getAttributeAll(Item field) {
-		return field.getOutgoingItem(WorkspaceCST.FIELD_lt_ATTRIBUTE, false);
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_ATTRIBUTE, false);
 	}
 
 	/**
@@ -353,8 +343,8 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final EPosLabel getPositionAttribute(Item field) {
-		Object value = field.getAttribute(WorkspaceCST.FIELD_at_POSITION);
-		return Convert.toEnum(value, WorkspaceCST.FIELD_at_POSITION_, EPosLabel.defaultpos);
+		Object value = field.getAttribute(CadseGCST.FIELD_at_POSITION);
+		return Convert.toEnum(value,CadseGCST.FIELD_at_POSITION_,EPosLabel.defaultpos);
 	}
 
 	/**
@@ -369,47 +359,59 @@ public class FieldManager extends DefaultItemManager {
 	 */
 	public static final void setPositionAttribute(Item field, EPosLabel value) {
 		try {
-			field.setAttribute(WorkspaceCST.FIELD_at_POSITION, value);
+			field.setAttribute(CadseGCST.FIELD_at_POSITION, value);
 		} catch (Throwable t) {
 		}
 	}
 
 	/**
-	 * get a link '#invert_part_fields_to_Page' from 'Field' to 'Page'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_fields_to_PageLink(Item field) {
-		return field.getOutgoingLink(WorkspaceCST.FIELD_lt__$_INVERT_PART_FIELDS_TO_PAGE);
+		get a link 'overwritefield' from 'Field' to 'Field'.
+		@generated
+	*/
+	static public Link getOverwritefieldLink(Item field) {
+		return field.getOutgoingLink(CadseGCST.FIELD_lt_OVERWRITEFIELD);
 	}
 
 	/**
-	 * get all link destination '#invert_part_fields_to_Page' from 'Field' to
-	 * 'Page'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_fields_to_PageAll(Item field) {
-		return field.getOutgoingItem(WorkspaceCST.FIELD_lt__$_INVERT_PART_FIELDS_TO_PAGE, false);
+		get all link destination 'overwritefield' from 'Field' to 'Field'.
+		@generated
+	*/
+	static public Item getOverwritefieldAll(Item field) {
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_OVERWRITEFIELD, false);
 	}
 
 	/**
-	 * get resolved link destination '#invert_part_fields_to_Page' from 'Field'
-	 * to 'Page'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_fields_to_Page(Item field) {
-		return field.getOutgoingItem(WorkspaceCST.FIELD_lt__$_INVERT_PART_FIELDS_TO_PAGE, true);
+		get resolved link destination 'overwritefield' from 'Field' to 'Field'.
+		@generated
+	*/
+	static public Item getOverwritefield(Item field) {
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_OVERWRITEFIELD, true);
 	}
 
 	/**
-	 * set a link '#invert_part_fields_to_Page' from 'Field' to 'Page'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_fields_to_Page(Item field, Item value) throws CadseException {
-		field.setOutgoingItem(WorkspaceCST.FIELD_lt__$_INVERT_PART_FIELDS_TO_PAGE, value);
+		set a link 'overwritefield' from 'Field' to 'Field'.
+		@generated
+	*/
+	static public void setOverwritefield(Item field, Item value) throws CadseException {
+		field.setOutgoingItem(CadseGCST.FIELD_lt_OVERWRITEFIELD,value);
+	}
+
+	/**
+		@generated
+	*/
+	public static final boolean isEditableAttribute(Item field) {
+		return field.getAttributeWithDefaultValue(CadseGCST.FIELD_at_EDITABLE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setEditableAttribute(Item field, boolean value) {
+		try {
+			field.setAttribute(CadseGCST.FIELD_at_EDITABLE_, value);
+		} catch (Throwable t) {
+
+		}
 	}
 
 	/*
@@ -418,8 +420,8 @@ public class FieldManager extends DefaultItemManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) {
-		return new FieldContentManager(null, item);
+	public ContentItem createContentItem(CompactUUID id) {
+		return new FieldContentManager(id);
 	}
 
 	/*
@@ -443,7 +445,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Link getDisplayLink(Item field) {
-		return field.getOutgoingLink(WorkspaceCST.FIELD_lt_DISPLAY);
+		return field.getOutgoingLink(CadseGCST.FIELD_lt_DISPLAY);
 	}
 
 	/**
@@ -457,7 +459,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getDisplayAll(Item field) {
-		return field.getOutgoingItem(WorkspaceCST.FIELD_lt_DISPLAY, false);
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_DISPLAY, false);
 	}
 
 	/*

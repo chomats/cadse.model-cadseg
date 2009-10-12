@@ -23,12 +23,13 @@ import java.util.Set;
 
 import org.eclipse.jdt.core.IType;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -63,8 +64,8 @@ public class IC_EnumForBrowser_ComboManager extends IC_AbstractForBrowser_ComboM
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -125,6 +126,41 @@ public class IC_EnumForBrowser_ComboManager extends IC_AbstractForBrowser_ComboM
 	public IC_EnumForBrowser_ComboManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -136,7 +172,7 @@ public class IC_EnumForBrowser_ComboManager extends IC_AbstractForBrowser_ComboM
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
+				DisplayManager.IC_DEFAULT_NAME);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
 				"Create a interaction controler for browser or combo with an enum attribut",
@@ -187,8 +223,8 @@ public class IC_EnumForBrowser_ComboManager extends IC_AbstractForBrowser_ComboM
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -205,13 +241,13 @@ public class IC_EnumForBrowser_ComboManager extends IC_AbstractForBrowser_ComboM
 		if (attribute == null) {
 			return "select an attribute before";
 		}
-		if (attribute.getType() != WorkspaceCST.ENUM) {
+		if (attribute.getType() != CadseGCST.ENUM) {
 			return "It's not an enum attribute";
 		}
-		if (itemParent.getType() == WorkspaceCST.DBROWSER) {
+		if (itemParent.getType() == CadseGCST.DBROWSER) {
 			return null;
 		}
-		if (itemParent.getType() == WorkspaceCST.DCOMBO) {
+		if (itemParent.getType() == CadseGCST.DCOMBO) {
 			return null;
 		}
 		return "It's not a browser field or a combo field";

@@ -21,7 +21,7 @@ package fr.imag.adele.cadse.cadseg.views.cadseg;
 
 import org.eclipse.ui.IViewSite;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -44,7 +44,7 @@ class CadsegViewRecomputeUI extends AbstractCadseTreeViewUI {
 
 	@Override
 	public ItemType[] getFirstItemType(LogicalWorkspace model) {
-		return new ItemType[] { WorkspaceCST.CADSE_DEFINITION };
+		return new ItemType[] { CadseGCST.CADSE_DEFINITION };
 
 	}
 
@@ -55,7 +55,7 @@ class CadsegViewRecomputeUI extends AbstractCadseTreeViewUI {
 
 	@Override
 	public boolean isFirstItemType(ItemType it, LogicalWorkspace cadseModel) {
-		return WorkspaceCST.CADSE_DEFINITION == it;
+		return CadseGCST.CADSE_DEFINITION == it;
 	}
 
 	@Override

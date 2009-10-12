@@ -7,7 +7,7 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.StringManager;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -69,7 +69,6 @@ public class ValueAttribute
 	 if (!cl.isPrimitive()) { imports.add(cl.getName()); }
 	 typeJava = cl.getSimpleName();
 
-
 	 String defaultValue = manager.getJavaTypeDefaultValue(attribute);
 
 	
@@ -80,7 +79,7 @@ public class ValueAttribute
     stringBuffer.append(TEXT_4);
     stringBuffer.append(min_short_name );
     stringBuffer.append(TEXT_5);
-      if (it == WorkspaceCST.BOOLEAN) { 
+      if (it == CadseGCST.BOOLEAN) { 
     stringBuffer.append(TEXT_6);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_7);

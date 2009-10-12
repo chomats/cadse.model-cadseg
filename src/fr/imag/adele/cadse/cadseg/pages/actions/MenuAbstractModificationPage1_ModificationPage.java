@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.actions;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -43,27 +43,28 @@ public class MenuAbstractModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldPath;
+	protected DTextUI fieldPath;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldLabel;
+	protected DTextUI fieldLabel;
 
 	/**
 	 * @generated
 	 */
-	protected MenuAbstractModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected MenuAbstractModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -72,7 +73,8 @@ public class MenuAbstractModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public MenuAbstractModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "MenuAbstract", "MenuAbstract", "", false, 3);
+		super("modification-page1", "MenuAbstract", "MenuAbstract", "", false,
+				3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldPath = createFieldPath();
@@ -98,16 +100,18 @@ public class MenuAbstractModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DTextUI createFieldPath() {
-		return new DTextUI(WorkspaceCST.MENU_ABSTRACT_at_PATH, "path", EPosLabel.left, new MC_AttributesItem(), null,
-				1, "", false, false, false);
+		return new DTextUI(CadseGCST.MENU_ABSTRACT_at_PATH, "path",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldLabel() {
-		return new DTextUI(WorkspaceCST.MENU_ABSTRACT_at_LABEL, "label", EPosLabel.left, new MC_AttributesItem(), null,
-				1, "", false, false, false);
+		return new DTextUI(CadseGCST.MENU_ABSTRACT_at_LABEL, "label",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 }

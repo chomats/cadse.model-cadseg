@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.build.composer;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.build.ComposerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
@@ -44,23 +44,10 @@ public class EclipseComposerManager extends ComposerManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -109,8 +96,8 @@ public class EclipseComposerManager extends ComposerManager {
 	 * @generated
 	 */
 	static public List<Link> getComposerLinksLink(Item eclipseComposer) {
-		return eclipseComposer.getOutgoingLinks(WorkspaceCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS);
-	}
+        return eclipseComposer.getOutgoingLinks(CadseGCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS);
+    }
 
 	/**
 	 * Gets the composer links all.
@@ -123,8 +110,8 @@ public class EclipseComposerManager extends ComposerManager {
 	 * @generated
 	 */
 	static public Collection<Item> getComposerLinksAll(Item eclipseComposer) {
-		return eclipseComposer.getOutgoingItems(WorkspaceCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS, false);
-	}
+        return eclipseComposer.getOutgoingItems(CadseGCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS, false);
+    }
 
 	/**
 	 * Gets the composer links.
@@ -137,8 +124,8 @@ public class EclipseComposerManager extends ComposerManager {
 	 * @generated
 	 */
 	static public Collection<Item> getComposerLinks(Item eclipseComposer) {
-		return eclipseComposer.getOutgoingItems(WorkspaceCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS, true);
-	}
+        return eclipseComposer.getOutgoingItems(CadseGCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS,true);
+    }
 
 	/**
 	 * Adds the composer links.
@@ -154,8 +141,8 @@ public class EclipseComposerManager extends ComposerManager {
 	 * @generated
 	 */
 	static public void addComposerLinks(Item eclipseComposer, Item value) throws CadseException {
-		eclipseComposer.addOutgoingItem(WorkspaceCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS, value);
-	}
+        eclipseComposer.addOutgoingItem(CadseGCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS,value);
+    }
 
 	/**
 	 * Removes the composer links.
@@ -171,8 +158,8 @@ public class EclipseComposerManager extends ComposerManager {
 	 * @generated
 	 */
 	static public void removeComposerLinks(Item eclipseComposer, Item value) throws CadseException {
-		eclipseComposer.removeOutgoingItem(WorkspaceCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS, value);
-	}
+        eclipseComposer.removeOutgoingItem(CadseGCST.ECLIPSE_COMPOSER_lt_COMPOSER_LINKS,value);
+    }
 
 	/*
 	 * (non-Javadoc)

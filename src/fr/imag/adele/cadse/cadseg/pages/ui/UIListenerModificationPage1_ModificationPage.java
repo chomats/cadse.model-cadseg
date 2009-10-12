@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.ui;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -47,22 +47,23 @@ public class UIListenerModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldFields;
+	protected DListUI fieldFields;
 
 	/**
 	 * @generated
 	 */
-	protected UIListenerModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected UIListenerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -96,11 +97,13 @@ public class UIListenerModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldFields() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.UILISTENER_lt_FIELDS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.UILISTENER_lt_FIELDS);
-		return new DListUI(WorkspaceCST.UILISTENER_lt_FIELDS.getName(), "fields", EPosLabel.top, mc, ic, false, false,
-				false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.UILISTENER_lt_FIELDS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.UILISTENER_lt_FIELDS);
+		return new DListUI(CadseGCST.UILISTENER_lt_FIELDS.getName(), "fields",
+				EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

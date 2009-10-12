@@ -21,8 +21,9 @@ package fr.imag.adele.cadse.cadseg.managers.dataModel;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -88,16 +89,15 @@ public class PageListenerManager extends DefaultItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
-	public class MyContentItem extends JavaFileContentManager {
+		@generated
+	*/
+	public class PageListenerContent extends JavaFileContentManager {
 
 		/**
-		 * @generated
-		 */
-		public MyContentItem(ContentItem parent, Item item, Variable packageNameVariable, Variable classNameVariable)
-				throws CadseException {
-			super(parent, item, packageNameVariable, classNameVariable);
+			@generated
+		*/
+		public PageListenerContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+			super(id, packageNameVariable, classNameVariable);
 		}
 
 	}
@@ -124,14 +124,17 @@ public class PageListenerManager extends DefaultItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public ContentItem createContentManager(Item pageListener) throws CadseException {
-		MyContentItem cm = new MyContentItem(null, pageListener, PackageNameVariable.INSTANCE,
-				ClassNameVariable.INSTANCE);
-		cm.setComposers();
-		cm.setExporters();
+	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+		PageListenerContent cm = new PageListenerContent(
+			id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
 		return cm;
 	}
 
@@ -141,42 +144,42 @@ public class PageListenerManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getFieldsLink(Item pageListener) {
-		return pageListener.getOutgoingLinks(WorkspaceCST.PAGE_LISTENER_lt_FIELDS);
-	}
+        return pageListener.getOutgoingLinks(CadseGCST.PAGE_LISTENER_lt_FIELDS);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getFieldsAll(Item pageListener) {
-		return pageListener.getOutgoingItems(WorkspaceCST.PAGE_LISTENER_lt_FIELDS, false);
-	}
+        return pageListener.getOutgoingItems(CadseGCST.PAGE_LISTENER_lt_FIELDS, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getFields(Item pageListener) {
-		return pageListener.getOutgoingItems(WorkspaceCST.PAGE_LISTENER_lt_FIELDS, true);
-	}
+        return pageListener.getOutgoingItems(CadseGCST.PAGE_LISTENER_lt_FIELDS,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addFields(Item pageListener, Item value) throws CadseException {
-		pageListener.addOutgoingItem(WorkspaceCST.PAGE_LISTENER_lt_FIELDS, value);
-	}
+        pageListener.addOutgoingItem(CadseGCST.PAGE_LISTENER_lt_FIELDS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeFields(Item pageListener, Item value) throws CadseException {
-		pageListener.removeOutgoingItem(WorkspaceCST.PAGE_LISTENER_lt_FIELDS, value);
-	}
+        pageListener.removeOutgoingItem(CadseGCST.PAGE_LISTENER_lt_FIELDS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	public static final boolean isListenShortNameAttribute(Item pageListener) {
-		return pageListener.getAttributeWithDefaultValue(WorkspaceCST.PAGE_LISTENER_at_LISTEN_SHORT_NAME_, false);
+		return pageListener.getAttributeWithDefaultValue(CadseGCST.PAGE_LISTENER_at_LISTEN_SHORT_NAME_, false);
 	}
 
 	/**
@@ -184,7 +187,7 @@ public class PageListenerManager extends DefaultItemManager {
 	 */
 	public static final void setListenShortNameAttribute(Item pageListener, boolean value) {
 		try {
-			pageListener.setAttribute(WorkspaceCST.PAGE_LISTENER_at_LISTEN_SHORT_NAME_, value);
+			pageListener.setAttribute(CadseGCST.PAGE_LISTENER_at_LISTEN_SHORT_NAME_, value);
 		} catch (Throwable t) {
 
 		}

@@ -21,7 +21,7 @@ package fr.imag.adele.cadse.cadseg.operation;
 
 import java.util.Arrays;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.WorkspacePlugin;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
@@ -60,7 +60,7 @@ public class WorkspaceActionContributor implements IActionContributor {
 		}
 		Item item;
 		if (selection != null && selection.length == 1 && (item = selection[0].getItem()) != null
-				&& item.getType() == WorkspaceCST.CADSE_DEFINITION) {
+				&& item.getType() == CadseGCST.CADSE_DEFINITION) {
 			menu.insert(IMenuAction.CONTEXT_3_MENU, new ExportCadseAction(item), true);
 		}
 	}

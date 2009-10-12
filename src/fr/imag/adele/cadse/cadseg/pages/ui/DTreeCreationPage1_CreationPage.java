@@ -13,13 +13,14 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class DTreeCreationPage1_CreationPage extends DisplayCreationPage1_CreationPage {
+public class DTreeCreationPage1_CreationPage extends
+		DisplayCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTreeCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected DTreeCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 

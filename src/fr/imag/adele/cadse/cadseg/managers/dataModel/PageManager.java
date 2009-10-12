@@ -24,6 +24,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
@@ -31,7 +33,7 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.generate.GeneratePageActionClass;
 import fr.imag.adele.cadse.cadseg.generate.GeneratePageClass2;
@@ -63,8 +65,7 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class PageManager extends DefaultItemManager implements IItemManager {
-	/** The Constant UUID_ATTRIBUTE. */
-	public static final String	UUID_ATTRIBUTE	= "UUID_ATTRIBUTE";
+	
 
 	/**
 	 * Gets the uUID.
@@ -74,13 +75,13 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getUUID(Item page) {
-		String uuid_str = page.getAttribute(UUID_ATTRIBUTE);
+	public static CompactUUID getIdRuntime(Item page) {
+		String uuid_str = page.getAttribute(CadseGCST.PAGE_at_ID_RUNTIME_);
 		if (uuid_str == null || uuid_str.length() == 0) {
 			CompactUUID uuid = CompactUUID.randomUUID();
 			uuid_str = uuid.toString();
 			try {
-				page.setAttribute(UUID_ATTRIBUTE, uuid_str);
+				page.setAttribute(CadseGCST.PAGE_at_ID_RUNTIME_, uuid_str);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -102,6 +103,11 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			if (parentSpaceKeyType != null) {
 				parentKey = getParentSpaceKeyFromItem(item);
 			}
+			if (parentKey == AbstractSpaceKey.INVALID) {
+				Logger.getLogger("fr.imag.adele.cadse.key").log(Level.SEVERE, 
+						"Parent key is invalide for item "+item.getType().getName() + "::"+item.getDisplayName());				
+				return AbstractSpaceKey.INVALID;
+			}
 			return new PageSpaceKey(item, this, item.getName(), parentKey);
 		}
 
@@ -112,7 +118,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 				parentKey = parentItem != null ? parentItem.getKey() : AbstractSpaceKey.INVALID;
 			}
 			return new PageSpaceKey(null, this, name, parentKey,
-					parentItem.getType() == WorkspaceCST.MODIFICATION_DIALOG);
+					parentItem.getType() == CadseGCST.MODIFICATION_DIALOG);
 		}
 
 		@Override
@@ -171,8 +177,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * @param item
 		 *            the item
 		 */
-		private PageContentManager(ContentItem parent, Item item) {
-			super(parent, item, new VariableImpl() {
+		private PageContentManager(CompactUUID id) {
+			super(id, new VariableImpl() {
 				public String compute(ContextVariable context, Item itemCurrent) {
 					return GenerateJavaIdentifier.javaPackagePageFactoryFromPage(context, itemCurrent);
 				}
@@ -204,7 +210,6 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			imports.add("fr.imag.adele.cadse.core.ui");
 			imports.add("fr.imag.adele.cadse.core.impl.ui");
 			imports.add("fede.workspace.model.manager.properties.impl.ui");
-			imports.add("fede.workspace.role.eclipse");
 		}
 
 		/*
@@ -225,9 +230,9 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * Generate.
 		 */
 		public void generate() {
-			GeneratePageClass2.generate(ContextVariable.DEFAULT, this, getItem());
-			if (hasPageAction(getItem())) {
-				GeneratePageActionClass.generate(ContextVariable.DEFAULT, getItem());
+			GeneratePageClass2.generate(ContextVariable.DEFAULT, this, getOwnerItem());
+			if (hasPageAction(getOwnerItem())) {
+				GeneratePageActionClass.generate(ContextVariable.DEFAULT, getOwnerItem());
 			}
 		}
 
@@ -278,7 +283,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		if (absItemType == null) {
 			return false;
 		}
-		if (absItemType.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
+		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
 			return false;
 		}
 		return true;
@@ -313,7 +318,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		if (absItemType == null) {
 			return false;
 		}
-		if (absItemType.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
+		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
 			return false;
 		}
 
@@ -364,11 +369,11 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		if (absItemType == null) {
 			return false;
 		}
-		if (absItemType.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
+		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
 			return false;
 		}
 
-		if (dialog.getType() != WorkspaceCST.MODIFICATION_DIALOG) {
+		if (dialog.getType() != CadseGCST.MODIFICATION_DIALOG) {
 			return false;
 		}
 
@@ -395,8 +400,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.PAGE.setHasUniqueNameAttribute(false);
-		WorkspaceCST.PAGE.setSpaceKeyType(new PageSpaceKeyType(WorkspaceCST.PAGE, WorkspaceCST.ABSTRACT_ITEM_TYPE));
+		CadseGCST.PAGE.setHasUniqueNameAttribute(false);
+		CadseGCST.PAGE.setSpaceKeyType(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.ABSTRACT_ITEM_TYPE));
 	}
 
 	/**
@@ -408,7 +413,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @return true, if successful
 	 */
 	public static boolean hasPageAction(Item item) {
-		return Convert.toBooleanFalseIfNull(item.getAttribute(WorkspaceCST.PAGE_at_CREATE_PAGE_ACTION));
+		return Convert.toBooleanFalseIfNull(item.getAttribute(CadseGCST.PAGE_at_CREATE_PAGE_ACTION_));
 	}
 
 	/*
@@ -419,16 +424,24 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) {
-		Item cadsedef = item.getPartParent(WorkspaceCST.CADSE_DEFINITION);
+	public ContentItem createContentItem(CompactUUID id) {
+		return new PageContentManager(id);
+	}
+	
+	@Override
+	public boolean hasContent(Item item) {
+		if (item.getPartParent(CadseGCST.CADSE_DEFINITION) == null) 
+			return false;
+		return super.hasContent(item);
+	}
+	
+	@Override
+	public ContentItem getParentContentItemWherePutMyContent(ContentItem cm) {
+		Item cadsedef = cm.getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION);
 		if (cadsedef == null) {
 			return null; // Cannot found the cadse definition
 		}
-		ContentItem cm = cadsedef.getContentItem();
-		if (cm == null) {
-			return null; // Cannot create the parent
-		}
-		return new PageContentManager(cm, item);
+		return cadsedef.getContentItem();
 	}
 
 	/*
@@ -473,7 +486,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @return the fields
 	 */
 	public Collection<Item> getFields(Item page) {
-		return page.getOutgoingItems(WorkspaceCST.PAGE_lt_FIELDS, true);
+		return page.getOutgoingItems(CadseGCST.PAGE_lt_FIELDS, true);
 	}
 
 	/**
@@ -510,7 +523,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 
 		for (Link l : page.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == WorkspaceCST.PAGE_lt_FIELDS) {
+			if (l.getLinkType() == CadseGCST.PAGE_lt_FIELDS) {
 				if (l.isLinkResolved()) {
 					Item field = l.getDestination();
 					Item superField = supersField == null ? null : supersField.get(field.getName());
@@ -541,8 +554,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public void addFields(Item page, Item value) throws CadseException {
-		page.addOutgoingItem(WorkspaceCST.PAGE_lt_FIELDS, value);
-	}
+        page.addOutgoingItem(CadseGCST.PAGE_lt_FIELDS,value);
+    }
 
 	/**
 	 * Removes the fields.
@@ -558,8 +571,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public void removeFields(Item page, Item value) throws CadseException {
-		page.removeOutgoingItem(WorkspaceCST.PAGE_lt_FIELDS, value);
-	}
+        page.removeOutgoingItem(CadseGCST.PAGE_lt_FIELDS,value);
+    }
 
 	/**
 	 * Gets the title attribute.
@@ -572,7 +585,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	public static final String getTitleAttribute(Item page) {
-		return page.getAttributeWithDefaultValue(WorkspaceCST.PAGE_at_TITLE_, null);
+		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_TITLE_, null);
 	}
 
 	/**
@@ -587,7 +600,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 */
 	public static final void setTitleAttribute(Item page, String value) {
 		try {
-			page.setAttribute(WorkspaceCST.PAGE_at_TITLE_, value);
+			page.setAttribute(CadseGCST.PAGE_at_TITLE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -604,7 +617,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	public static final String getDescriptionAttribute(Item page) {
-		return page.getAttributeWithDefaultValue(WorkspaceCST.PAGE_at_DESCRIPTION_, null);
+		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_DESCRIPTION_, null);
 	}
 
 	/**
@@ -619,7 +632,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 */
 	public static final void setDescriptionAttribute(Item page, String value) {
 		try {
-			page.setAttribute(WorkspaceCST.PAGE_at_DESCRIPTION_, value);
+			page.setAttribute(CadseGCST.PAGE_at_DESCRIPTION_, value);
 		} catch (Throwable t) {
 
 		}
@@ -636,7 +649,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	public static final int getHspanAttribute(Item page) {
-		return page.getAttributeWithDefaultValue(WorkspaceCST.PAGE_at_HSPAN_, 3);
+		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_HSPAN_, 3);
 	}
 
 	/**
@@ -651,7 +664,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 */
 	public static final void setHspanAttribute(Item page, int value) {
 		try {
-			page.setAttribute(WorkspaceCST.PAGE_at_HSPAN_, value);
+			page.setAttribute(CadseGCST.PAGE_at_HSPAN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -668,7 +681,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	public static final boolean isCreatePageActionAttribute(Item page) {
-		return page.getAttributeWithDefaultValue(WorkspaceCST.PAGE_at_CREATE_PAGE_ACTION_, false);
+		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_CREATE_PAGE_ACTION_, false);
 	}
 
 	/**
@@ -683,7 +696,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 */
 	public static final void setCreatePageActionAttribute(Item page, boolean value) {
 		try {
-			page.setAttribute(WorkspaceCST.PAGE_at_CREATE_PAGE_ACTION_, value);
+			page.setAttribute(CadseGCST.PAGE_at_CREATE_PAGE_ACTION_, value);
 		} catch (Throwable t) {
 
 		}
@@ -695,36 +708,36 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public List<Link> getListenersLink(Item page) {
-		return page.getOutgoingLinks(WorkspaceCST.PAGE_lt_LISTENERS);
-	}
+        return page.getOutgoingLinks(CadseGCST.PAGE_lt_LISTENERS);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getListenersAll(Item page) {
-		return page.getOutgoingItems(WorkspaceCST.PAGE_lt_LISTENERS, false);
-	}
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_LISTENERS, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getListeners(Item page) {
-		return page.getOutgoingItems(WorkspaceCST.PAGE_lt_LISTENERS, true);
-	}
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_LISTENERS,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addListeners(Item page, Item value) throws CadseException {
-		page.addOutgoingItem(WorkspaceCST.PAGE_lt_LISTENERS, value);
-	}
+        page.addOutgoingItem(CadseGCST.PAGE_lt_LISTENERS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeListeners(Item page, Item value) throws CadseException {
-		page.removeOutgoingItem(WorkspaceCST.PAGE_lt_LISTENERS, value);
-	}
+        page.removeOutgoingItem(CadseGCST.PAGE_lt_LISTENERS,value);
+    }
 
 	/**
 	 * get a link 'super' from 'Page' to 'Page'.
@@ -732,7 +745,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public Link getSuperLink(Item page) {
-		return page.getOutgoingLink(WorkspaceCST.PAGE_lt_SUPER);
+		return page.getOutgoingLink(CadseGCST.PAGE_lt_SUPER);
 	}
 
 	/**
@@ -741,7 +754,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public Item getSuperAll(Item page) {
-		return page.getOutgoingItem(WorkspaceCST.PAGE_lt_SUPER, false);
+		return page.getOutgoingItem(CadseGCST.PAGE_lt_SUPER, false);
 	}
 
 	/**
@@ -750,7 +763,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public Item getSuper(Item page) {
-		return page.getOutgoingItem(WorkspaceCST.PAGE_lt_SUPER, true);
+		return page.getOutgoingItem(CadseGCST.PAGE_lt_SUPER, true);
 	}
 
 	/**
@@ -759,7 +772,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public void setSuper(Item page, Item value) throws CadseException {
-		page.setOutgoingItem(WorkspaceCST.PAGE_lt_SUPER, value);
+		page.setOutgoingItem(CadseGCST.PAGE_lt_SUPER,value);
 	}
 
 	/**
@@ -768,116 +781,37 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public List<Link> getDeletedFieldsLink(Item page) {
-		return page.getOutgoingLinks(WorkspaceCST.PAGE_lt_DELETED_FIELDS);
-	}
+        return page.getOutgoingLinks(CadseGCST.PAGE_lt_DELETED_FIELDS);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getDeletedFieldsAll(Item page) {
-		return page.getOutgoingItems(WorkspaceCST.PAGE_lt_DELETED_FIELDS, false);
-	}
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_DELETED_FIELDS, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getDeletedFields(Item page) {
-		return page.getOutgoingItems(WorkspaceCST.PAGE_lt_DELETED_FIELDS, true);
-	}
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_DELETED_FIELDS,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addDeletedFields(Item page, Item value) throws CadseException {
-		page.addOutgoingItem(WorkspaceCST.PAGE_lt_DELETED_FIELDS, value);
-	}
+        page.addOutgoingItem(CadseGCST.PAGE_lt_DELETED_FIELDS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeDeletedFields(Item page, Item value) throws CadseException {
-		page.removeOutgoingItem(WorkspaceCST.PAGE_lt_DELETED_FIELDS, value);
-	}
+        page.removeOutgoingItem(CadseGCST.PAGE_lt_DELETED_FIELDS,value);
+    }
 
-	/**
-	 * get a link '#invert_part_pages_to_ModificationDialog' from 'Page' to
-	 * 'ModificationDialog'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_pages_to_ModificationDialogLink(Item page) {
-		return page.getOutgoingLink(WorkspaceCST.PAGE_lt__$_INVERT_PART_PAGES_TO_MODIFICATION_DIALOG);
-	}
-
-	/**
-	 * get all link destination '#invert_part_pages_to_ModificationDialog' from
-	 * 'Page' to 'ModificationDialog'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_pages_to_ModificationDialogAll(Item page) {
-		return page.getOutgoingItem(WorkspaceCST.PAGE_lt__$_INVERT_PART_PAGES_TO_MODIFICATION_DIALOG, false);
-	}
-
-	/**
-	 * get resolved link destination '#invert_part_pages_to_ModificationDialog'
-	 * from 'Page' to 'ModificationDialog'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_pages_to_ModificationDialog(Item page) {
-		return page.getOutgoingItem(WorkspaceCST.PAGE_lt__$_INVERT_PART_PAGES_TO_MODIFICATION_DIALOG, true);
-	}
-
-	/**
-	 * set a link '#invert_part_pages_to_ModificationDialog' from 'Page' to
-	 * 'ModificationDialog'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_pages_to_ModificationDialog(Item page, Item value) throws CadseException {
-		page.setOutgoingItem(WorkspaceCST.PAGE_lt__$_INVERT_PART_PAGES_TO_MODIFICATION_DIALOG, value);
-	}
-
-	/**
-	 * get a link '#invert_part_pages_to_CreationDialog' from 'Page' to
-	 * 'CreationDialog'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_pages_to_CreationDialogLink(Item page) {
-		return page.getOutgoingLink(WorkspaceCST.PAGE_lt__$_INVERT_PART_PAGES_TO_CREATION_DIALOG);
-	}
-
-	/**
-	 * get all link destination '#invert_part_pages_to_CreationDialog' from
-	 * 'Page' to 'CreationDialog'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_pages_to_CreationDialogAll(Item page) {
-		return page.getOutgoingItem(WorkspaceCST.PAGE_lt__$_INVERT_PART_PAGES_TO_CREATION_DIALOG, false);
-	}
-
-	/**
-	 * get resolved link destination '#invert_part_pages_to_CreationDialog' from
-	 * 'Page' to 'CreationDialog'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_pages_to_CreationDialog(Item page) {
-		return page.getOutgoingItem(WorkspaceCST.PAGE_lt__$_INVERT_PART_PAGES_TO_CREATION_DIALOG, true);
-	}
-
-	/**
-	 * set a link '#invert_part_pages_to_CreationDialog' from 'Page' to
-	 * 'CreationDialog'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_pages_to_CreationDialog(Item page, Item value) throws CadseException {
-		page.setOutgoingItem(WorkspaceCST.PAGE_lt__$_INVERT_PART_PAGES_TO_CREATION_DIALOG, value);
-	}
 
 	/**
 	 * change default value to false
@@ -885,7 +819,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	public static final boolean isIsRemovedAttribute(Item page) {
-		return page.getAttributeWithDefaultValue(WorkspaceCST.PAGE_at_IS_REMOVED_, false);
+		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_IS_REMOVED_, false);
 	}
 
 	/**
@@ -893,7 +827,44 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 */
 	public static final void setIsRemovedAttribute(Item page, boolean value) {
 		try {
-			page.setAttribute(WorkspaceCST.PAGE_at_IS_REMOVED_, value);
+			page.setAttribute(CadseGCST.PAGE_at_IS_REMOVED_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final String getLabelAttribute(Item page) {
+		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_LABEL_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setLabelAttribute(Item page, String value) {
+		try {
+			page.setAttribute(CadseGCST.PAGE_at_LABEL_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getIdRuntimeAttribute(Item page) {
+		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_ID_RUNTIME_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setIdRuntimeAttribute(Item page, String value) {
+		try {
+			page.setAttribute(CadseGCST.PAGE_at_ID_RUNTIME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -908,7 +879,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @return the desciption
 	 */
 	public static String getDesciption(Item page) {
-		String ret = page.getAttribute(WorkspaceCST.PAGE_at_DESCRIPTION_);
+		String ret = page.getAttribute(CadseGCST.PAGE_at_DESCRIPTION_);
 		if (ret == null) {
 			ret = "";
 		}
@@ -924,7 +895,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @return the title
 	 */
 	public static String getTitle(Item page) {
-		String ret = page.getAttribute(WorkspaceCST.PAGE_at_TITLE_);
+		String ret = page.getAttribute(CadseGCST.PAGE_at_TITLE_);
 		if (ret == null) {
 			ret = "";
 		}
@@ -957,7 +928,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 */
 	public static boolean isModificationPage(Item page) {
 		Item dialog = page.getPartParent();
-		return dialog.getType() == WorkspaceCST.MODIFICATION_DIALOG;
+		return dialog.getType() == CadseGCST.MODIFICATION_DIALOG;
 	}
 
 	/*
@@ -983,8 +954,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public List<Link> getFieldsLink(Item page) {
-		return page.getOutgoingLinks(WorkspaceCST.PAGE_lt_FIELDS);
-	}
+        return page.getOutgoingLinks(CadseGCST.PAGE_lt_FIELDS);
+    }
 
 	/**
 	 * Gets the fields all.
@@ -997,8 +968,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getFieldsAll(Item page) {
-		return page.getOutgoingItems(WorkspaceCST.PAGE_lt_FIELDS, false);
-	}
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_FIELDS, false);
+    }
 
 	/*
 	 * (non-Javadoc)

@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
@@ -44,31 +44,19 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -90,7 +78,6 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -110,8 +97,8 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
 	 * @generated
 	 */
 	static public List<Link> getContentModelLink(Item pDEProjectContentModel) {
-		return pDEProjectContentModel.getOutgoingLinks(WorkspaceCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
-	}
+        return pDEProjectContentModel.getOutgoingLinks(CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
+    }
 
 	/**
 	 * Gets the content model all.
@@ -124,8 +111,8 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
 	 * @generated
 	 */
 	static public Collection<Item> getContentModelAll(Item pDEProjectContentModel) {
-		return pDEProjectContentModel.getOutgoingItems(WorkspaceCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, false);
-	}
+        return pDEProjectContentModel.getOutgoingItems(CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, false);
+    }
 
 	/**
 	 * Gets the content model.
@@ -138,8 +125,8 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
 	 * @generated
 	 */
 	static public Collection<Item> getContentModel(Item pDEProjectContentModel) {
-		return pDEProjectContentModel.getOutgoingItems(WorkspaceCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, true);
-	}
+        return pDEProjectContentModel.getOutgoingItems(CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,true);
+    }
 
 	/**
 	 * Adds the content model.
@@ -155,8 +142,8 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
 	 * @generated
 	 */
 	static public void addContentModel(Item pDEProjectContentModel, Item value) throws CadseException {
-		pDEProjectContentModel.addOutgoingItem(WorkspaceCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, value);
-	}
+        pDEProjectContentModel.addOutgoingItem(CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,value);
+    }
 
 	/**
 	 * Removes the content model.
@@ -172,8 +159,8 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
 	 * @generated
 	 */
 	static public void removeContentModel(Item pDEProjectContentModel, Item value) throws CadseException {
-		pDEProjectContentModel.removeOutgoingItem(WorkspaceCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, value);
-	}
+        pDEProjectContentModel.removeOutgoingItem(CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,value);
+    }
 
 	@Override
 	public boolean hasParentContent() {

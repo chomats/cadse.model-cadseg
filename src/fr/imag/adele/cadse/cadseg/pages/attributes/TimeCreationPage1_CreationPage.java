@@ -25,18 +25,20 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
  * @generated
  */
-public class TimeCreationPage1_CreationPage extends LongCreationPage1_CreationPage {
+public class TimeCreationPage1_CreationPage extends
+		LongCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected TimeCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected TimeCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 

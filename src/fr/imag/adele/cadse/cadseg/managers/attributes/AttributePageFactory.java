@@ -19,7 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -71,9 +71,9 @@ public class AttributePageFactory extends PageFactory {
 		}
 		if (cas == PAGE_PROPERTY_ITEM || cas == PAGE_PROPERTY_VIEW_ITEM) {
 			return new PageImpl(getName(), title, title, desc, false, 3, null, FieldsCore.createShortNameField(),
-					FieldsCore.createCheckBox(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is list"), FieldsCore
-							.createTextField(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value"), FieldsCore
-							.createCheckBox(WorkspaceCST.ATTRIBUTE_at_REQUIRE, "mandatory"));
+					FieldsCore.createCheckBox(CadseGCST.ATTRIBUTE_at_IS_LIST, "is list"), FieldsCore
+							.createTextField(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value"), FieldsCore
+							.createCheckBox(CadseGCST.ATTRIBUTE_at_REQUIRE, "mandatory"));
 		}
 		return null;
 	}

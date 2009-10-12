@@ -19,16 +19,19 @@ public class IC_EnumForBrowser_ComboCreationPage1_CreationPage extends
 	/**
 	 * @generated
 	 */
-	protected IC_EnumForBrowser_ComboCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected IC_EnumForBrowser_ComboCreationPage1_CreationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public IC_EnumForBrowser_ComboCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create IC_EnumForBrowser_Combo", "Create IC_EnumForBrowser_Combo", "", false, 3);
+	public IC_EnumForBrowser_ComboCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create IC_EnumForBrowser_Combo",
+				"Create IC_EnumForBrowser_Combo", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

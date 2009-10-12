@@ -29,19 +29,28 @@ import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.generate.GenerateVariable;
 import fr.imag.adele.cadse.cadseg.managers.build.CompositeItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
+import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IGenerateContent;
+import fr.imag.adele.cadse.core.IItemFactory;
+import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -50,7 +59,7 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ContentModelManager extends DefaultWorkspaceManager {
+public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 
 	/** The Constant EXPORTERS_LINK. */
 	@Deprecated
@@ -69,8 +78,8 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -99,26 +108,26 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 		 */
 		@Override
 		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
-			ItemType it = getItem().getType();
+			ItemType it = getOwnerItem().getType();
 			Class<?> defaultQualifiedClassName = getRuntimeClassName();
 			String defaultClassName = defaultQualifiedClassName.getSimpleName();
 
 			if ("inner-class".equals(kind)) {
-				Item manager = getItem().getPartParent();
+				Item manager = getOwnerItem().getPartParent();
 
 				Item itemtype = ManagerManager.getItemType(manager);
 				generateAllClassVariables(sb, imports);
 
 				generateParts(sb, type, kind, imports, null);
-				generateComposersParts(getItem(), sb, type, kind, imports, null);
+				generateComposersParts(getOwnerItem(), sb, type, kind, imports, null);
 
-				boolean extendsClass = mustBeExtended() | isExtendsClass(getItem());
+				boolean extendsClass = mustBeExtended() | isExtendsClass(getOwnerItem());
 				if (extendsClass) {
 
 					String extendsClassName = defaultClassName;
 
 					extendsClassName = findSuperClassName(context, extendsClassName, itemtype);
-					defaultClassName = "MyContentItem";
+					defaultClassName = GenerateJavaIdentifier.getContentClassName(context, itemtype);
 					sb.newline();
 					sb.newline().append("/**");
 					sb.newline().append("	@generated");
@@ -147,20 +156,19 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 				}
 			}
 			if ("methods".equals(kind)) {
-				boolean extendsClass = mustBeExtended() | isExtendsClass(getItem());
-				boolean hasParent = hasParentContent();
-
-				Item manager = getItem().getPartParent();
+				boolean extendsClass = mustBeExtended() | isExtendsClass(getOwnerItem());
+				
+				Item manager = getOwnerItem().getPartParent();
 				Item itemtype = ManagerManager.getItemType(manager);
 
-				String className = (extendsClass ? "MyContentItem" : defaultClassName);
+				String className = (extendsClass ? GenerateJavaIdentifier.getContentClassName(context, itemtype) : defaultClassName);
 				String itemVar = JavaIdentifier.javaIdentifierFromString(itemtype.getName(), false, true, null);
 				sb.newline();
 				sb.newline().append("/**");
 				sb.newline().append("	@generated");
 				sb.newline().append("*/");
 				sb.newline().append("@Override");
-				sb.newline().append("public ContentItem createContentManager(Item ").append(itemVar).append(
+				sb.newline().append("public ContentItem createContentItem(CompactUUID id ").append(
 						") throws CadseException {");
 				/* 1 */sb.begin();
 				GenContext newcontext = new GenContext(context);
@@ -169,10 +177,7 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 				generateCallInit(sb, imports, newcontext);
 				sb.newline().append(className).append(" cm = new ").append(className).append("(");
 				/* 2 */sb.begin();
-				if (hasParent) {
-					sb.newline().append("null,");
-				}
-				sb.newline().append(itemVar).append(',');
+				sb.newline().append("id,");
 				generateParts(sb, type, "createcontent-args", imports, newcontext);
 				/* 3 */sb.begin();
 				generateCallArguments(sb, imports, newcontext);
@@ -183,13 +188,13 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 				/* 2 */sb.end();
 				sb.newline().append("cm.setComposers(");
 				/* 2 */sb.begin();
-				generateComposersParts(getItem(), sb, type, "composers", imports, newcontext);
+				generateComposersParts(getOwnerItem(), sb, type, "composers", imports, newcontext);
 				sb.decrementLength();
 				/* 2 */sb.end();
 				sb.newline().append(");");
 				sb.newline().append("cm.setExporters(");
 				/* 2 */sb.begin();
-				generateExportersParts(getItem(), sb, type, "exporters", imports, newcontext);
+				generateExportersParts(getOwnerItem(), sb, type, "exporters", imports, newcontext);
 				sb.decrementLength();
 				/* 2 */sb.end();
 				sb.newline().append(");");
@@ -197,6 +202,7 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 				/* 1 */sb.end();
 				sb.newline().append("}").newline();
 				imports.add("fr.imag.adele.cadse.core.ContentItem");
+				imports.add("fr.imag.adele.cadse.core.CompactUUID");
 				imports.add("fr.imag.adele.cadse.core.Item");
 				imports.add("fr.imag.adele.cadse.core.var.Variable");
 				imports.add("fr.imag.adele.cadse.core.CadseException");
@@ -225,11 +231,13 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 					break;
 				}
 				Item superItemManager = ItemTypeManager.getManager(superitemtype);
+				if (superItemManager == null)
+					break;
 				Item supercontentItem = ManagerManager.getContentModel(superItemManager);
-				if (supercontentItem != null && supercontentItem.getType() == getItem().getType()) {
+				if (supercontentItem != null && supercontentItem.getType() == getOwnerItem().getType()) {
 					if (isExtendsClass(supercontentItem)) {
 						return ((JavaFileContentManager) superItemManager.getContentItem()).getClassName(cxt)
-								+ ".MyContentItem";
+								+ "."+GenerateJavaIdentifier.getContentClassName(cxt, itemtype);
 					}
 				}
 				itemtype = superitemtype;
@@ -254,13 +262,13 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
 					String strKinds = kinds[i];
-					String value = getItem().getAttribute(strKinds);
+					String value = getOwnerItem().getAttribute(strKinds);
 
 					value = getDefaultValue(strKinds, value);
 					if (value == null) {
 						continue;
 					}
-					GenerateVariable.generateClassVariable(getItem(),
+					GenerateVariable.generateClassVariable(getOwnerItem(),
 							GenerateVariable.getClassVariable(strKinds, true), value, sb, imports);
 				}
 			}
@@ -313,7 +321,7 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 				Set<String> imports, GenContext context) {
 			Item mapping = item.getPartParent();
 			for (Link l : mapping.getOutgoingLinks()) {
-				if (l.isPart() && l.isLinkResolved()) {
+				if (l.getLinkType().isPart() && l.isLinkResolved()) {
 					ContentItem cm = l.getResolvedDestination().getContentItem();
 					if (!l.getLinkType().getName().equals(EXPORTERS_LINK)) {
 						continue;
@@ -348,9 +356,9 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 			Item compositeItem = CompositeItemTypeManager.getCompositeItemFromItemType(itemtype);
 			if (compositeItem != null) {
 				for (Link l : compositeItem.getOutgoingLinks()) {
-					if (l.isPart() && l.isLinkResolved()) {
+					if (l.getLinkType().isPart() && l.isLinkResolved()) {
 						ContentItem cm = l.getResolvedDestination().getContentItem();
-						if (l.getLinkType() != WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS) {
+						if (l.getLinkType() != CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS) {
 							continue;
 						}
 						if (cm != null) {
@@ -397,11 +405,7 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 		 *            the sb
 		 */
 		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			boolean hasParent = hasParentContent();
-			if (hasParent) {
-				sb.append("parent,");
-			}
-			sb.append("item,");
+			sb.append("id,");
 			String[] kinds = getResourceKindsName();
 			if (kinds == null) {
 				return;
@@ -420,12 +424,8 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 		 *            the sb
 		 */
 		protected void generateConstructorParameter(GenStringBuilder sb) {
-			boolean hasParent = hasParentContent();
-
-			if (hasParent) {
-				sb.append("ContentItem parent, ");
-			}
-			sb.append("Item item,");
+			
+			sb.append("CompactUUID id,");
 			String[] kinds = getResourceKindsName();
 
 			if (kinds == null) {
@@ -480,7 +480,28 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 	/**
 	 * Instantiates a new content model manager.
 	 */
-	public ContentModelManager() {
+	public ContentItemTypeManager() {
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 
 	public boolean hasParentContent() {
@@ -498,39 +519,6 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 	 */
 	public Class<? extends ContentItem> getRuntimeClassName() {
 		return null;
-	}
-
-	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
-	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
-		StringBuilder sb = new StringBuilder();
-		try {
-			Object value;
-			sb.append(parent.getQualifiedName());
-			if (sb.length() != 0) {
-				sb.append(".");
-			}
-			sb.append(shortName);
-			return sb.toString();
-		} catch (Throwable e) {
-			e.printStackTrace();
-			return "error";
-		}
 	}
 
 	/**
@@ -555,7 +543,7 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 	 * @return true, if is extends class
 	 */
 	public static final boolean isExtendsClass(Item contentmodel) {
-		Object value = contentmodel.getAttribute(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS_);
+		Object value = contentmodel.getAttribute(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_);
 		if (value == null) {
 			return false;
 		}
@@ -580,55 +568,19 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 	/**
 	 * @generated
 	 */
-	public static final boolean isExtendsClassAttribute(Item contentModel) {
-		return contentModel.getAttributeWithDefaultValue(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS_, false);
+	public static final boolean isExtendsClassAttribute(Item contentItemType) {
+		return contentItemType.getAttributeWithDefaultValue(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_, false);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setExtendsClassAttribute(Item contentModel, boolean value) {
+	public static final void setExtendsClassAttribute(Item contentItemType, boolean value) {
 		try {
-			contentModel.setAttribute(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS_, value);
+			contentItemType.setAttribute(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_, value);
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/**
-	 * get links '#invert_part_content-model_to_Manager' from 'ContentModel' to
-	 * 'Manager'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_contentModel_to_ManagerLink(Item contentModel) {
-		return contentModel.getOutgoingLink(WorkspaceCST.CONTENT_MODEL_lt__$_INVERT_PART_CONTENT_MODEL_TO_MANAGER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_contentModel_to_ManagerAll(Item contentModel) {
-		return contentModel.getOutgoingItem(WorkspaceCST.CONTENT_MODEL_lt__$_INVERT_PART_CONTENT_MODEL_TO_MANAGER,
-				false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_contentModel_to_Manager(Item contentModel) {
-		return contentModel
-				.getOutgoingItem(WorkspaceCST.CONTENT_MODEL_lt__$_INVERT_PART_CONTENT_MODEL_TO_MANAGER, true);
-	}
-
-	/**
-	 * set a link '#invert_part_content-model_to_Manager' from 'ContentModel' to
-	 * 'Manager'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_contentModel_to_Manager(Item contentModel, Item value) throws CadseException {
-		contentModel.setOutgoingItem(WorkspaceCST.CONTENT_MODEL_lt__$_INVERT_PART_CONTENT_MODEL_TO_MANAGER, value);
 	}
 
 	/*
@@ -637,8 +589,8 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new ContentModelManager.MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new ContentItemTypeManager.MyContentItem(id);
 	}
 
 	/**
@@ -649,5 +601,7 @@ public class ContentModelManager extends DefaultWorkspaceManager {
 	public boolean mustBeExtended() {
 		return true;
 	}
+
+	
 
 }

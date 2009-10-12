@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.generate;
 import java.util.Set;
 
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -77,7 +77,7 @@ public class GenerateExtItemType extends GenerateClass {
 		cim.generateParts(sb, "manager", "inner-class", imports, context);
 		cim.generateParts(sb, "manager", "cstes", imports, context);
 		cim.generateParts(sb, "manager", "attributes", imports, context);
-		Item cadsedef = cim.getItem().getPartParent(WorkspaceCST.CADSE_DEFINITION);
+		Item cadsedef = cim.getItem().getPartParent(CadseGCST.CADSE_DEFINITION);
 		GenerateJavaIdentifier.addImportCST(cxt, cadsedef, imports);
 
 	}

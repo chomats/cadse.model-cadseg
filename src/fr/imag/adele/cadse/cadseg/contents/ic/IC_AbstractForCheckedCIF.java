@@ -2,6 +2,7 @@ package fr.imag.adele.cadse.cadseg.contents.ic;
 
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 
@@ -10,14 +11,14 @@ public class IC_AbstractForCheckedCIF extends InteractionControllerCIF {
 	/**
 	 * @generated
 	 */
-	public class MyContentItem extends InteractionControllerCIF.MyContentItem {
+	static public class IC_AbstractForCheckedContent extends InteractionControllerContent {
 
 		/**
 		 * @generated
 		 */
-		public MyContentItem(ContentItem parent, Item item, InteractionControllerManager interactionControllerManager)
+		public IC_AbstractForCheckedContent(CompactUUID id, InteractionControllerManager interactionControllerManager)
 				throws CadseException {
-			super(parent, item, interactionControllerManager);
+			super(id, interactionControllerManager);
 		}
 
 	}
@@ -27,8 +28,8 @@ public class IC_AbstractForCheckedCIF extends InteractionControllerCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(Item item) throws CadseException {
-		return new MyContentItem(null, item, _manager);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new IC_AbstractForCheckedContent(id, _manager);
 	}
 
 }

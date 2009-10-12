@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.delta.ItemDelta;
 import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
@@ -28,7 +28,7 @@ import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 public class AttributeWLWC extends AbstractLogicalWorkspaceTransactionListener {
 
 	public AttributeWLWC() {
-		WorkspaceCST.ATTRIBUTE.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.ATTRIBUTE.addLogicalWorkspaceTransactionListener(this);
 	}
 
 	@Override

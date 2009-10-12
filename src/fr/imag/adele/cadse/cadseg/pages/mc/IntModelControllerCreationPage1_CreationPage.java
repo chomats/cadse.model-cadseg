@@ -13,12 +13,14 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class IntModelControllerCreationPage1_CreationPage extends ModelControllerCreationPage1_CreationPage {
+public class IntModelControllerCreationPage1_CreationPage extends
+		ModelControllerCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected IntModelControllerCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected IntModelControllerCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -26,8 +28,10 @@ public class IntModelControllerCreationPage1_CreationPage extends ModelControlle
 	/**
 	 * @generated
 	 */
-	public IntModelControllerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create IntModelController", "Create IntModelController", "", false, 3);
+	public IntModelControllerCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create IntModelController",
+				"Create IntModelController", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

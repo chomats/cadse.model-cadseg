@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.TreeViewer;
 
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseUtil;
@@ -63,16 +63,16 @@ public class ItemType_lt_SuperType extends DefaultLinkTypeManager {
 
 		ArrayList<Item> ret = new ArrayList<Item>(Arrays.asList(ItemTypeManager.getAllAllItemType(cadsedef, null)));
 
-		ret.removeAll(CadseUtil.incomingClosure(theItemType, WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE));
+		ret.removeAll(CadseUtil.incomingClosure(theItemType, CadseGCST.ITEM_TYPE_lt_SUPER_TYPE));
 
 		return ret;
 	}
 
 	// public ITreeContentProvider getContentProvider() {
 	// return new ItemTreeContentProvider(new ItemShortNameComparator(),
-	// WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL,
-	// WorkspaceCST.DATA_MODEL_lt_TYPES,
-	// WorkspaceCST.DATA_MODEL_lt_CATEGORIES);
+	// CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,
+	// CadseGCST.DATA_MODEL_lt_TYPES,
+	// CadseGCST.DATA_MODEL_lt_CATEGORIES);
 	// }
 	//	
 	// @Override
@@ -91,9 +91,9 @@ public class ItemType_lt_SuperType extends DefaultLinkTypeManager {
 		if (selection != null && selection.length == 1) {
 			Object sel = selection[0];
 			if (sel instanceof Item) {
-				if (((Item) sel).getType() == WorkspaceCST.ITEM_TYPE) {
+				if (((Item) sel).getType() == CadseGCST.ITEM_TYPE) {
 					Collection<Item> incomingClosures = CadseUtil.incomingClosure(theItemType,
-							WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE);
+							CadseGCST.ITEM_TYPE_lt_SUPER_TYPE);
 					if (incomingClosures.contains(sel))
 						return new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "select an item type");
 					return Status.OK_STATUS;
@@ -113,7 +113,7 @@ public class ItemType_lt_SuperType extends DefaultLinkTypeManager {
 	 */
 	public Object getInputValues(Item source, TreeViewer viewer, Item itemParent, LinkType linkType, ItemType itemDest) {
 		Item theItemType = source;
-		Item cadsedef = theItemType.getPartParent(WorkspaceCST.CADSE_DEFINITION);
+		Item cadsedef = theItemType.getPartParent(CadseGCST.CADSE_DEFINITION);
 		List<Item> allcadse = CadseDefinitionManager.getAllDependenciesCadse(cadsedef);
 		allcadse.add(cadsedef);
 		Item[] ret = (Item[]) allcadse.toArray(new Item[allcadse.size()]);
@@ -123,11 +123,11 @@ public class ItemType_lt_SuperType extends DefaultLinkTypeManager {
 		FilteredItemNode node = new FilteredItemNode(viewer);
 		FilteredItemNodeModel model = node.getModel();
 		model.addRule(FilteredItemNodeModel.ROOT_ENTRY, new ItemsRule(ret));
-		model.addItemFromLinkTypeEntry(WorkspaceCST.CADSE_DEFINITION, WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL,
+		model.addItemFromLinkTypeEntry(CadseGCST.CADSE_DEFINITION, CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,
 				null, true, false);
-		model.addRule(WorkspaceCST.DATA_MODEL, new ItemsFromLinkOfLinkTypeRule(WorkspaceCST.DATA_MODEL_lt_TYPES, null,
+		model.addRule(CadseGCST.DATA_MODEL, new ItemsFromLinkOfLinkTypeRule(CadseGCST.DATA_MODEL_lt_TYPES, null,
 				true, false, getSelectingDestination(source)));
-		model.addRule(WorkspaceCST.DATA_MODEL, new ItemsFromLinkOfLinkTypeRule(WorkspaceCST.DATA_MODEL_lt_CATEGORIES,
+		model.addRule(CadseGCST.DATA_MODEL, new ItemsFromLinkOfLinkTypeRule(CadseGCST.DATA_MODEL_lt_CATEGORIES,
 				null, true, false, (FilterItem) null));
 		return node;
 	}

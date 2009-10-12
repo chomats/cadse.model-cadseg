@@ -1,7 +1,7 @@
 package fr.imag.adele.cadse.cadseg.pages.content;
 
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -23,21 +23,23 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class ProjectContentModelCreationPage1_CreationPage extends ContentModelCreationPage1_CreationPage {
+public class ProjectContentModelCreationPage1_CreationPage extends
+		ContentItemTypeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsClass;
+	protected DCheckBoxUI fieldExtendsClass;
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldProjectName;
+	protected DTextUI fieldProjectName;
 
 	/**
 	 * @generated
 	 */
-	protected ProjectContentModelCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected ProjectContentModelCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -45,8 +47,10 @@ public class ProjectContentModelCreationPage1_CreationPage extends ContentModelC
 	/**
 	 * @generated
 	 */
-	public ProjectContentModelCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create Project Content", "Create Project Content", "", false, 3);
+	public ProjectContentModelCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create Project Content",
+				"Create Project Content", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -68,7 +72,8 @@ public class ProjectContentModelCreationPage1_CreationPage extends ContentModelC
 	 */
 	public DCheckBoxUI createFieldExtendsClass() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends-class", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS,
+				"extends-class", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -76,11 +81,12 @@ public class ProjectContentModelCreationPage1_CreationPage extends ContentModelC
 	 */
 	public DTextUI createFieldProjectName() {
 		// return new
-		// DTextUI(WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME,
+		// DTextUI(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME,
 		// "project-name", EPosLabel.left, new MC_AttributesItem(), null,
 		// 1, "", false, false, false);
-		return FieldsCore.createTextField(WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME, "project name:", 1, "",
-				new IC_ItemTypeTemplateForText() {
+		return FieldsCore.createTextField(
+				CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME,
+				"project name:", 1, "", new IC_ItemTypeTemplateForText() {
 					@Override
 					protected Item getItemFromContext() {
 						Item manager = getContext().getPartParent();

@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -41,10 +41,10 @@ public class ComputedStringManager extends AttributeManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -79,7 +79,7 @@ public class ComputedStringManager extends AttributeManager {
 	 * @generated
 	 */
 	public static final String getExpressionAttribute(Item computedString) {
-		return computedString.getAttributeWithDefaultValue(WorkspaceCST.COMPUTED_STRING_at_EXPRESSION_, null);
+		return computedString.getAttributeWithDefaultValue(CadseGCST.COMPUTED_STRING_at_EXPRESSION_, null);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class ComputedStringManager extends AttributeManager {
 	 */
 	public static final void setExpressionAttribute(Item computedString, String value) {
 		try {
-			computedString.setAttribute(WorkspaceCST.COMPUTED_STRING_at_EXPRESSION_, value);
+			computedString.setAttribute(CadseGCST.COMPUTED_STRING_at_EXPRESSION_, value);
 		} catch (Throwable t) {
 
 		}

@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
@@ -49,12 +50,22 @@ import fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile;
 import fede.workspace.model.manager.properties.impl.ui.DChooseFileUI;
 import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
 import fede.workspace.tool.view.WSPlugin;
-import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
+import fr.imag.adele.cadse.core.CadseDomain;
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.ProjectAssociation;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
+import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.delta.LinkDelta;
+import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
@@ -83,7 +94,7 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
 			if (element instanceof IFile) {
 				IFile file = (IFile) element;
-				return (file.getName().startsWith(CadseDefinitionManager.RESOURCE_SUFFIX) && file.getName().endsWith(
+				return (file.getName().startsWith(CadseRuntime.CADSE_NAME_SUFFIX) && file.getName().endsWith(
 						".zip"));
 			}
 			if (element instanceof IContainer) {
@@ -231,7 +242,7 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 		 */
 		@Override
 		protected String[] getFileFilter() {
-			return new String[] { CadseDefinitionManager.RESOURCE_SUFFIX + "*.zip" };
+			return new String[] { CadseRuntime.CADSE_NAME_SUFFIX + "*.zip" };
 		}
 
 		/*
@@ -372,12 +383,137 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 			LogicalWorkspaceTransaction transaction = CadseCore.getLogicalWorkspace().createTransaction();
 
 			transaction.loadItems(itemdescription);
+			migrate(transaction);
 			transaction.commit(false, true, false, projectAssociationSet);
+			checkAction(transaction);
 		} catch (RuntimeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			CadseCore.getCadseDomain().endOperation();
+		}
+	}
+
+	private void checkAction(LogicalWorkspaceTransaction transaction) {
+		Collection<ItemDelta> operations = transaction.getItemOperations();
+		LogicalWorkspace lw = CadseCore.getLogicalWorkspace();
+		for (ItemDelta itemDelta : operations) {
+			Item gI = lw.getItem(itemDelta.getId());
+			if (gI == null) {
+				System.err.println("Cannot found commited item "+itemDelta);
+				continue;
+			}
+			Item parent = gI.getPartParent();
+			if (parent == null && itemDelta.getPartParent() != null) {
+				System.err.println("Parent not setted "+itemDelta+" -> "+itemDelta.getPartParent());
+			} else {
+				if (parent != null && itemDelta.getPartParent() != null) {
+					if (!parent.getId().equals(itemDelta.getPartParent().getId())) {
+						System.err.println("Parent not same "+itemDelta+" -> "+itemDelta.getPartParent()+"<>"+parent);
+					}
+				}
+			}
+				
+		}
+		
+	}
+
+	private void migrate(LogicalWorkspaceTransaction transaction) throws CadseException {
+	Collection<ItemDelta> operations = transaction.getItemOperations();
+		for (ItemDelta itemDelta : operations) {
+			
+			
+			if (itemDelta.getType() == null) {
+				if (itemDelta.getBaseItem() != null) {
+					itemDelta.setType(itemDelta.getBaseItem().getType());
+				}
+				else
+					System.out.println("type has no type "+itemDelta);
+			}
+			
+			if (!itemDelta.isLoaded())
+				continue;
+			
+			SetAttributeOperation uuid_att = itemDelta.getSetAttributeOperation("UUID_ATTRIBUTE");
+			if (uuid_att != null) {
+				if (itemDelta.getType() == null) {
+					System.out.println("Import erroor type is null");
+				} else if (itemDelta.getType() == CadseGCST.CADSE_DEFINITION) {
+					itemDelta.setAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+				} else if (itemDelta.isInstanceOf(CadseGCST.PAGE)) {
+					itemDelta.setAttribute(CadseGCST.PAGE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+				} else if (itemDelta.isInstanceOf(CadseGCST.ATTRIBUTE)) {
+					itemDelta.setAttribute(CadseGCST.ATTRIBUTE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+				} else if (itemDelta.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)) {
+					itemDelta.setAttribute(CadseGCST.ABSTRACT_ITEM_TYPE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+				} else {
+					System.out.println("Cannot set UUID_ATTRIBUTE for type "+itemDelta.getType().getName());
+				}
+				//remove old valeur
+				itemDelta.setAttribute("UUID_ATTRIBUTE", null);
+			}
+			if (itemDelta.getType() == CadseGCST.LINK) {
+				if (itemDelta.getName().startsWith("#invert_part")) {
+					itemDelta.delete(false);
+					for(Link l : itemDelta.getIncomingLinks()) {
+						l.delete();
+					}
+				}
+				LinkDelta l = itemDelta.getOutgoingLink(CadseGCST.LINK_lt_INVERSE_LINK);
+				if (l != null && l.getDestination().getName().startsWith("#invert_part")) {
+					l.delete();
+				}
+			}
+			SetAttributeOperation committed_date_value = itemDelta.getSetAttributeOperation(CadseGCST.ITEM_at_COMMITTED_DATE);
+			if (committed_date_value != null) {
+				if (committed_date_value.getCurrentValue() instanceof Date) {
+					Date d = (Date) committed_date_value.getCurrentValue();
+					itemDelta.setAttribute(CadseGCST.ITEM_at_COMMITTED_DATE_, d.getTime());
+				}
+			}
+		}
+		
+		for (ItemDelta itemDelta : operations) {
+			if (!itemDelta.isLoaded())
+				continue;
+			for (LinkDelta l : itemDelta.getOutgoingLinkOperations()) {
+				if (l.getLinkTypeName().startsWith("#parent:") ||
+						l.getLinkTypeName().startsWith("#invert_part") ) {
+					if (itemDelta.getPartParent() == null) {
+						itemDelta.setParent(l.getDestination(), null);
+					}
+					if (getOutgoingLink(CadseGCST.ITEM_lt_PARENT) == null) {
+						itemDelta.createLink(CadseGCST.ITEM_lt_PARENT, l.getDestination());
+					}
+					l.delete();
+				}
+				if (l.getLinkType() != null && l.getLinkType().isPart() && l.getDestination().getPartParent() == null) {
+					l.getDestination().setParent(l.getSource(), l.getLinkType());
+				}
+			}
+			for (LinkDelta l : itemDelta.getOutgoingLinkOperations(CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES)) {
+				if (l.getDestination().getType() == null) {
+					IAttributeType<?> att = l.getSource().getType().getAttributeType(l.getDestinationName(), false);
+					
+					 if (att != null) {
+						LinkDelta latt = itemDelta.getOutgoingLink(CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,att.getId());
+						if (latt != null) {
+							l.delete();
+						} else
+							l.changeDestination(att);
+					 }
+						
+					else 
+						l.delete();
+				}
+			}
+		}
+		for (ItemDelta itemDelta : operations) {
+			if (!itemDelta.isLoaded())
+				continue;
+			if (itemDelta.getPartParent() == null && itemDelta.getType() != null && itemDelta.getType().isPartType()) {
+				System.out.println("Error cannot found parent for "+itemDelta.getQualifiedName());
+			}
 		}
 	}
 

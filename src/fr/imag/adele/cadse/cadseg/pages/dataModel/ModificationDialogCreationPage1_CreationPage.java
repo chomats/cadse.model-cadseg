@@ -38,27 +38,28 @@ public class ModificationDialogCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType		it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType		lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected ModificationDialogCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected ModificationDialogCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -66,8 +67,10 @@ public class ModificationDialogCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public ModificationDialogCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create ModificationDialog", "Create ModificationDialog", "", false, 3);
+	public ModificationDialogCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create ModificationDialog",
+				"Create ModificationDialog", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

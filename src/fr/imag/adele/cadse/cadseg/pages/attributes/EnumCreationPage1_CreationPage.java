@@ -38,7 +38,7 @@ import fede.workspace.model.manager.properties.impl.mc.MinModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
@@ -61,24 +61,26 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_CreationPage {
+public class EnumCreationPage1_CreationPage extends
+		AttributeCreationPage1_CreationPage {
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldEnumType;
+	protected DBrowserUI fieldEnumType;
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldMustBeInitialized;
+	protected DCheckBoxUI fieldMustBeInitialized;
 
 	/**
 	 * The Class DefaultValueIC.
 	 */
-	public static final class DefaultValueIC extends IC_Abstract implements IInteractionController, IEventListener,
+	public static final class DefaultValueIC extends IC_Abstract implements
+			IInteractionController, IEventListener,
 			IFieldContenProposalProvider, IContentProposalProvider {
 
 		/** The values. */
-		List<String>	values	= null;
+		List<String> values = null;
 
 		/*
 		 * (non-Javadoc)
@@ -105,19 +107,23 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 		 *      java.lang.Object)
 		 */
 		public void notifieValueChanged(UIField field, Object value) {
-			if (field != null && value instanceof Link
-					&& WorkspaceCST.ENUM_lt_ENUM_TYPE.getName().equals(field.getName())) {
+			if (field != null
+					&& value instanceof Link
+					&& CadseGCST.ENUM_lt_ENUM_TYPE.getName().equals(
+							field.getName())) {
 				Item enumType = ((Link) value).getResolvedDestination();
 				if (enumType != null) {
 					// force to recomptue values
 					values = null;
 					getValues();
 					if (values.size() != 0) {
-						String actuelValues = (String) getUIField().getVisualValue();
+						String actuelValues = (String) getUIField()
+								.getVisualValue();
 						if (!values.contains(actuelValues)) {
 							getUIField().setVisualValue(values.get(0));
 							getUIField().setEnabled(true);
-							getModelController().notifieValueChanged(getUIField(), values.get(0));
+							getModelController().notifieValueChanged(
+									getUIField(), values.get(0));
 						}
 					}
 				}
@@ -285,16 +291,17 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 	/**
 	 * The Class IsListMinAndMaxCheckFieldController.
 	 */
-	public static final class IsListMinAndMaxCheckFieldController extends EventAdapter implements IEventListener {
+	public static final class IsListMinAndMaxCheckFieldController extends
+			EventAdapter implements IEventListener {
 
 		/** The min field. */
-		private UIField		minField;
+		private UIField minField;
 
 		/** The max field. */
-		private UIField		maxField;
+		private UIField maxField;
 
 		/** The islist field. */
-		private UIFieldImpl	islistField;
+		private UIFieldImpl islistField;
 
 		/*
 		 * (non-Javadoc)
@@ -304,7 +311,8 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 		@Override
 		public void init(UIField field) {
 			if (field == islistField) {
-				setEnableMinMax("true".equals(islistField.getItem().getAttribute(WorkspaceCST.ATTRIBUTE_at_IS_LIST)));
+				setEnableMinMax("true".equals(islistField.getItem()
+						.getAttribute(CadseGCST.ATTRIBUTE_at_IS_LIST)));
 			}
 		}
 
@@ -344,7 +352,8 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 		 * @param maxField
 		 *            the max field
 		 */
-		public IsListMinAndMaxCheckFieldController(UIFieldImpl islistField, UIField minField, UIField maxField) {
+		public IsListMinAndMaxCheckFieldController(UIFieldImpl islistField,
+				UIField minField, UIField maxField) {
 			super();
 			this.islistField = islistField;
 			this.minField = minField;
@@ -356,8 +365,8 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 	/**
 	 * @generated
 	 */
-	protected EnumCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected EnumCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -375,43 +384,44 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(new EnumCreationPage1_CreationPageAction());
-		addLast(this.__short_name__, this.fieldEnumType, this.fieldDefaultValue, this.fieldMustBeInitialized,
+		addLast(this.__short_name__, this.fieldEnumType,
+				this.fieldDefaultValue, this.fieldMustBeInitialized,
 				this.fieldIsList);
 
 		registerListener();
 	}
 
-	/**
-	 * @not generated
-	 */
-	public EnumCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt, int oldversion) {
-		super("creation-page1", "Create an enum attribute", "Create an enum attribute", "", false, 3);
-		this.parent = parent;
-		this.it = it;
-		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
-		setActionPage(new EnumCreationPage1_CreationPageAction());
-
-		UIFieldImpl islist;
-		UIField min;
-		UIField max;
-		DBrowserUI et;
-
-		MaxModelController maxVC = new MaxModelController();
-		MinModelController minVC = new MinModelController();
-		DefaultValueIC ic = new DefaultValueIC();
-		addLast(this.__short_name__, et = createEnumTypeField2(), createFieldRequire(),
-		// createFieldClassAttribute(),
-				FieldsCore.createTextField(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value", 1, null, ic,
-						new DefaultEnumMC()), islist = createFieldIsList(), min = FieldsCore.createIntField(
-						WorkspaceCST.ATTRIBUTE_at_MIN, "min", minVC, minVC), max = FieldsCore.createIntField(
-						WorkspaceCST.ATTRIBUTE_at_MAX, "max", maxVC, maxVC));
-
-		registerListener();
-
-		new IsListMinAndMaxCheckFieldController(islist, min, max);
-		et.addListener(ic);
-	}
+	//	/**
+	//	 * @not generated
+	//	 */
+	//	public EnumCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt, int oldversion) {
+	//		super("creation-page1", "Create an enum attribute", "Create an enum attribute", "", false, 3);
+	//		this.parent = parent;
+	//		this.it = it;
+	//		this.lt = lt;
+	//		this.__short_name__ = createInternalNameField();
+	//		setActionPage(new EnumCreationPage1_CreationPageAction());
+	//
+	//		UIFieldImpl islist;
+	//		UIField min;
+	//		UIField max;
+	//		DBrowserUI et;
+	//
+	//		MaxModelController maxVC = new MaxModelController();
+	//		MinModelController minVC = new MinModelController();
+	//		DefaultValueIC ic = new DefaultValueIC();
+	//		addLast(this.__short_name__, et = createEnumTypeField2(), createFieldRequire(),
+	//		// createFieldClassAttribute(),
+	//				FieldsCore.createTextField(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value", 1, null, ic,
+	//						new DefaultEnumMC()), islist = createFieldIsList(), min = FieldsCore.createIntField(
+	//						CadseGCST.ATTRIBUTE_at_MIN, "min", minVC, minVC), max = FieldsCore.createIntField(
+	//						CadseGCST.ATTRIBUTE_at_MAX, "max", maxVC, maxVC));
+	//
+	//		registerListener();
+	//
+	//		new IsListMinAndMaxCheckFieldController(islist, min, max);
+	//		et.addListener(ic);
+	//	}
 
 	protected void registerListener() {
 		// add init and register
@@ -421,17 +431,20 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 	 * @not generated
 	 */
 	public DBrowserUI createFieldEnumType() {
-		return new DBrowserUI(WorkspaceCST.ENUM_lt_ENUM_TYPE.getName(), "enum type", EPosLabel.left,
-				new LinkModelController(true, null, WorkspaceCST.ENUM_lt_ENUM_TYPE), new IC_LinkForBrowser_Combo_List(
-						"Select a type enum", "Select a type enum", WorkspaceCST.ENUM_lt_ENUM_TYPE), 0);
+		return new DBrowserUI(CadseGCST.ENUM_lt_ENUM_TYPE.getName(),
+				"enum type", EPosLabel.left, new LinkModelController(true,
+						null, CadseGCST.ENUM_lt_ENUM_TYPE),
+				new IC_LinkForBrowser_Combo_List("Select a type enum",
+						"Select a type enum", CadseGCST.ENUM_lt_ENUM_TYPE), 0);
 	}
 
 	/**
 	 * @not generated
 	 */
 	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default-value", EPosLabel.left,
-				new DefaultEnumMC(), new DefaultValueIC(), 1, "", false, false, false);
+		return new DTextUI(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE,
+				"default-value", EPosLabel.left, new DefaultEnumMC(),
+				new DefaultValueIC(), 1, "", false, false, false);
 	}
 
 	/**
@@ -439,16 +452,8 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 	 */
 	public DCheckBoxUI createFieldMustBeInitialized() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED, "show attribute in creation wizard",
-				EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED,
+				"show attribute in creation wizard", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -457,8 +462,10 @@ public class EnumCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 	 * @return the d browser ui
 	 */
 	public DBrowserUI createEnumTypeField2() {
-		return new DBrowserUI(WorkspaceCST.ENUM_lt_ENUM_TYPE.getName(), "enum type", EPosLabel.left,
-				new LinkModelController(true, null, WorkspaceCST.ENUM_lt_ENUM_TYPE), new IC_LinkForBrowser_Combo_List(
-						"Select a type enum", "Select a type enum", WorkspaceCST.ENUM_lt_ENUM_TYPE), 0);
+		return new DBrowserUI(CadseGCST.ENUM_lt_ENUM_TYPE.getName(),
+				"enum type", EPosLabel.left, new LinkModelController(true,
+						null, CadseGCST.ENUM_lt_ENUM_TYPE),
+				new IC_LinkForBrowser_Combo_List("Select a type enum",
+						"Select a type enum", CadseGCST.ENUM_lt_ENUM_TYPE), 0);
 	}
 }

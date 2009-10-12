@@ -5,7 +5,7 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -29,18 +29,19 @@ public class FileContentModelModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldFilePath;
+	protected DTextUI fieldFilePath;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldFileName;
+	protected DTextUI fieldFileName;
 
 	/**
 	 * @generated
 	 */
-	protected FileContentModelModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected FileContentModelModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -48,14 +49,16 @@ public class FileContentModelModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public FileContentModelModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "FileContentModel", "FileContentModel", "", false, 3);
+		super("modification-page1", "FileContentModel", "FileContentModel", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldExtendsClass = createFieldExtendsClass();
-		this.fieldFileName = createFieldFileName();
 		this.fieldFilePath = createFieldFilePath();
+		this.fieldFileName = createFieldFileName();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldExtendsClass, this.fieldFileName, this.fieldFilePath);
+		addLast(this.__short_name__, this.fieldExtendsClass,
+				this.fieldFilePath, this.fieldFileName);
 
 		registerListener();
 	}
@@ -66,19 +69,11 @@ public class FileContentModelModificationPage1_ModificationPage extends
 	}
 
 	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldExtendsClass() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends-class", EPosLabel.none, mc, null);
-	}
-
-	/**
 	 * @not generated
 	 */
 	public DTextUI createFieldFilePath() {
-		return new DTextUI(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_PATH, "file-path", EPosLabel.left,
-				new MC_AttributesItem() {
+		return new DTextUI(CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH,
+				"file-path", EPosLabel.left, new MC_AttributesItem() {
 					@Override
 					public Object defaultValue() {
 						return "/";
@@ -96,8 +91,8 @@ public class FileContentModelModificationPage1_ModificationPage extends
 	 * @not generated
 	 */
 	public DTextUI createFieldFileName() {
-		return new DTextUI(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_NAME, "file-name", EPosLabel.left,
-				new MC_AttributesItem() {
+		return new DTextUI(CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME,
+				"file-name", EPosLabel.left, new MC_AttributesItem() {
 					@Override
 					public Object defaultValue() {
 						return "${#short-name}";

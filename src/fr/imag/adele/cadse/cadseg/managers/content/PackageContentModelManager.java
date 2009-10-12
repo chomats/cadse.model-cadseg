@@ -24,9 +24,10 @@ import java.util.Set;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.ParseTemplate;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -58,31 +59,19 @@ public class PackageContentModelManager extends FolderContentModelManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -104,7 +93,6 @@ public class PackageContentModelManager extends FolderContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -115,7 +103,7 @@ public class PackageContentModelManager extends FolderContentModelManager {
 	/**
 	 * The Class ContentManager.
 	 */
-	public class ContentManager extends ContentModelManager.MyContentItem {
+	public class ContentManager extends ContentItemTypeManager.MyContentItem {
 
 		/**
 		 * Instantiates a new content manager.
@@ -125,8 +113,8 @@ public class PackageContentModelManager extends FolderContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public ContentManager(ContentManager parent, Item item) {
-			super(parent, item);
+		public ContentManager(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -233,13 +221,13 @@ public class PackageContentModelManager extends FolderContentModelManager {
 	@Override
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
-		ItemType it = WorkspaceCST.PACKAGE_CONTENT_MODEL;
+		ItemType it = CadseGCST.PACKAGE_CONTENT_MODEL;
 
 		String title = "Create " + desType.getDisplayName();
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, it.getName());
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create " + title, "Create " + title, 3,
-				FieldsCore.createCheckBox(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends class"),
+				FieldsCore.createCheckBox(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS, "extends class"),
 				createPackageNameField()));
 	}
 
@@ -253,12 +241,12 @@ public class PackageContentModelManager extends FolderContentModelManager {
 		AbstractActionPage action = new ModificationAction(item);
 
 		IModelController getandsetcontroller = new MC_AttributesItem();
-		ItemType it = WorkspaceCST.PACKAGE_CONTENT_MODEL;
+		ItemType it = CadseGCST.PACKAGE_CONTENT_MODEL;
 
 		String title = it.getDisplayName();
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create " + title, "Create " + title, 3,
-				FieldsCore.createCheckBox(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends class"),
+				FieldsCore.createCheckBox(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS, "extends class"),
 				createPackageNameField()));
 	}
 
@@ -268,8 +256,8 @@ public class PackageContentModelManager extends FolderContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentManager createContentManager(Item item) throws CadseException {
-		return new ContentManager(null, item);
+	public ContentManager createContentItem(CompactUUID id) throws CadseException {
+		return new ContentManager(id);
 	}
 
 	/*

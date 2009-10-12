@@ -13,13 +13,15 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class EclipseExporterModificationPage1_ModificationPage extends ExporterModificationPage1_ModificationPage {
+public class EclipseExporterModificationPage1_ModificationPage extends
+		ExporterModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected EclipseExporterModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected EclipseExporterModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -27,7 +29,8 @@ public class EclipseExporterModificationPage1_ModificationPage extends ExporterM
 	 * @generated
 	 */
 	public EclipseExporterModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "EclipseExporter", "EclipseExporter", "", false, 3);
+		super("modification-page1", "EclipseExporter", "EclipseExporter", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

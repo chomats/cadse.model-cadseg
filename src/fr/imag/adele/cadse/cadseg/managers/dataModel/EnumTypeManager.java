@@ -36,7 +36,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.IBuildManager;
 import fr.imag.adele.cadse.cadseg.template.EnumSkeltonTemplate;
@@ -49,6 +49,7 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -63,7 +64,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	// public static final String VALUES_ATTRIBUTE = "values";
 	/** The Constant JAVA_CLASS. */
 	// public static final String JAVA_CLASS =
-	// WorkspaceCST.ENUM_TYPE_at_JAVA_CLASS_"JavaClass";
+	// CadseGCST.ENUM_TYPE_at_JAVA_CLASS_"JavaClass";
 	/** The _ thi s_. */
 	private static EnumTypeManager	_THIS_;
 
@@ -75,23 +76,10 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -149,7 +137,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	 * @generated
 	 */
 	public static final boolean isMustBeGeneratedAttribute(Item enumType) {
-		return enumType.getAttributeWithDefaultValue(WorkspaceCST.ENUM_TYPE_at_MUST_BE_GENERATED_, true);
+		return enumType.getAttributeWithDefaultValue(CadseGCST.ENUM_TYPE_at_MUST_BE_GENERATED_, true);
 	}
 
 	/**
@@ -157,7 +145,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	 */
 	public static final void setMustBeGeneratedAttribute(Item enumType, boolean value) {
 		try {
-			enumType.setAttribute(WorkspaceCST.ENUM_TYPE_at_MUST_BE_GENERATED_, value);
+			enumType.setAttribute(CadseGCST.ENUM_TYPE_at_MUST_BE_GENERATED_, value);
 		} catch (Throwable t) {
 
 		}
@@ -167,7 +155,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	 * @generated
 	 */
 	public static final String getJavaClassAttribute(Item enumType) {
-		return enumType.getAttributeWithDefaultValue(WorkspaceCST.ENUM_TYPE_at_JAVA_CLASS_, "");
+		return enumType.getAttributeWithDefaultValue(CadseGCST.ENUM_TYPE_at_JAVA_CLASS_, null);
 	}
 
 	/**
@@ -175,7 +163,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	 */
 	public static final void setJavaClassAttribute(Item enumType, String value) {
 		try {
-			enumType.setAttribute(WorkspaceCST.ENUM_TYPE_at_JAVA_CLASS_, value);
+			enumType.setAttribute(CadseGCST.ENUM_TYPE_at_JAVA_CLASS_, value);
 		} catch (Throwable t) {
 
 		}
@@ -187,7 +175,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	@SuppressWarnings("unchecked")
 	public static final List<String> getValuesAttribute(Item enumType) {
 		try {
-			List<String> list = enumType.getAttribute(WorkspaceCST.ENUM_TYPE_at_VALUES_);
+			List<String> list = enumType.getAttribute(CadseGCST.ENUM_TYPE_at_VALUES_);
 
 			if (list == null)
 				return null;
@@ -205,7 +193,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	public static final void setValuesAttribute(Item enumType, List<String> valueList) {
 		try {
 			List<String> list = new ArrayList<String>(valueList);
-			enumType.setAttribute(WorkspaceCST.ENUM_TYPE_at_VALUES_, list);
+			enumType.setAttribute(CadseGCST.ENUM_TYPE_at_VALUES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -217,12 +205,12 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	@SuppressWarnings("unchecked")
 	public static final void addValuesAttribute(Item enumType, String value) {
 		try {
-			List<String> list = enumType.getAttribute(WorkspaceCST.ENUM_TYPE_at_VALUES_);
+			List<String> list = enumType.getAttribute(CadseGCST.ENUM_TYPE_at_VALUES_);
 			if (list == null) {
 				list = new ArrayList<String>();
 			}
 			list.add(value);
-			enumType.setAttribute(WorkspaceCST.ENUM_TYPE_at_VALUES_, list);
+			enumType.setAttribute(CadseGCST.ENUM_TYPE_at_VALUES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -235,79 +223,21 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	public static final void removeValuesAttribute(Item enumType, String value) {
 		try {
 
-			List<String> list = enumType.getAttribute(WorkspaceCST.ENUM_TYPE_at_VALUES_);
+			List<String> list = enumType.getAttribute(CadseGCST.ENUM_TYPE_at_VALUES_);
 			if (list == null) {
 				return;
 			}
 			list.remove(value);
 			if (list.size() == 0)
-				enumType.setAttribute(WorkspaceCST.ENUM_TYPE_at_VALUES_, null);
+				enumType.setAttribute(CadseGCST.ENUM_TYPE_at_VALUES_, null);
 			else
-				enumType.setAttribute(WorkspaceCST.ENUM_TYPE_at_VALUES_, list);
+				enumType.setAttribute(CadseGCST.ENUM_TYPE_at_VALUES_, list);
 		} catch (Throwable t) {
 
 		}
 	}
 
-	/**
-	 * get a link '#invert_part_enums_to_DataModel' from 'EnumType' to
-	 * 'DataModel'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_enums_to_DataModelLink(Item enumType) {
-		return enumType.getOutgoingLink(WorkspaceCST.ENUM_TYPE_lt__$_INVERT_PART_ENUMS_TO_DATA_MODEL);
-	}
-
-	/**
-	 * get all link destination '#invert_part_enums_to_DataModel' from
-	 * 'EnumType' to 'DataModel'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_enums_to_DataModelAll(Item enumType) {
-		return enumType.getOutgoingItem(WorkspaceCST.ENUM_TYPE_lt__$_INVERT_PART_ENUMS_TO_DATA_MODEL, false);
-	}
-
-	/**
-	 * get resolved link destination '#invert_part_enums_to_DataModel' from
-	 * 'EnumType' to 'DataModel'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_enums_to_DataModel(Item enumType) {
-		return enumType.getOutgoingItem(WorkspaceCST.ENUM_TYPE_lt__$_INVERT_PART_ENUMS_TO_DATA_MODEL, true);
-	}
-
-	/**
-	 * set a link '#invert_part_enums_to_DataModel' from 'EnumType' to
-	 * 'DataModel'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_enums_to_DataModel(Item enumType, Item value) throws CadseException {
-		enumType.setOutgoingItem(WorkspaceCST.ENUM_TYPE_lt__$_INVERT_PART_ENUMS_TO_DATA_MODEL, value);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
-	 * .cadse.core.Item)
-	 */
-	@Override
-	public void createdItem(Item enumType) throws CadseException {
-		boolean generate = "true".equals(enumType.getAttributeWithDefaultValue("generate", "false"));
-		if (generate) {
-			try {
-				generateFile(ContextVariable.DEFAULT, enumType);
-			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+	
 
 	/**
 	 * Generate file.
@@ -324,7 +254,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 		String packageName = getPackage(cxt, enumType);
 		String className = getClassname(cxt, enumType);
 		List<?> df;
-		List<String> values = enumType.getAttribute(WorkspaceCST.ENUM_TYPE_at_VALUES_);
+		List<String> values = enumType.getAttribute(CadseGCST.ENUM_TYPE_at_VALUES_);
 		if (values == null) {
 			values = new ArrayList<String>();
 		}
@@ -391,7 +321,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	@Override
 	public Item getWorkspaceModel(Item theItemType) {
 		while (theItemType != null) {
-			if (theItemType.getType() == WorkspaceCST.CADSE_DEFINITION) {
+			if (theItemType.getType() == CadseGCST.CADSE_DEFINITION) {
 				return theItemType;
 			}
 			theItemType = theItemType.getPartParent();
@@ -442,7 +372,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 	}
 
 	public static IType getSelectedEnumQualifiedClass(Item enumType, boolean attemptToResolve) {
-		String typeStr = enumType.getAttribute(WorkspaceCST.ENUM_TYPE_at_JAVA_CLASS_);
+		String typeStr = enumType.getAttribute(CadseGCST.ENUM_TYPE_at_JAVA_CLASS_);
 		IType ret = null;
 		if (typeStr != null && typeStr.length() != 0) {
 			ret = (IType) JavaCore.create(typeStr);
@@ -463,12 +393,12 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 			}
 		}
 		if (ret == null && typeStr != null && typeStr.length() > 0) {
-			Item cadseDef = enumType.getPartParent(WorkspaceCST.CADSE_DEFINITION);
+			Item cadseDef = enumType.getPartParent(CadseGCST.CADSE_DEFINITION);
 			IJavaProject jp = cadseDef.getMainMappingContent(IJavaProject.class);
 			try {
 				final IType findType = jp.findType(typeStr);
 				if (findType != null) {
-					enumType.setAttribute(WorkspaceCST.ENUM_TYPE_at_JAVA_CLASS_, findType.getHandleIdentifier());
+					enumType.setAttribute(CadseGCST.ENUM_TYPE_at_JAVA_CLASS_, findType.getHandleIdentifier());
 				}
 				return findType;
 			} catch (JavaModelException e) {

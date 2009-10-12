@@ -18,31 +18,33 @@ public class MappingModelCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item		parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType	it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType	lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected MappingModelCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected MappingModelCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public MappingModelCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create MappingModel", "Create MappingModel", "", false, 3);
+	public MappingModelCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create MappingModel", "Create MappingModel",
+				"", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

@@ -1,7 +1,7 @@
 package fr.imag.adele.cadse.cadseg.pages.content;
 
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -24,24 +24,25 @@ import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_L
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * @generated
  */
 public class ProjectContentModelModificationPage1_ModificationPage extends
-		ContentModelModificationPage1_ModificationPage {
+		ContentItemTypeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldProjectName;
+	protected DTextUI fieldProjectName;
 
 	/**
 	 * @generated
 	 */
-	protected ProjectContentModelModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected ProjectContentModelModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -49,13 +50,15 @@ public class ProjectContentModelModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public ProjectContentModelModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "Project Content", "Project Content", "", false, 3);
+		super("modification-page1", "Project Content", "Project Content", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldProjectName = createFieldProjectName();
 		this.fieldExtendsClass = createFieldExtendsClass();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldProjectName, this.fieldExtendsClass);
+		addLast(this.__short_name__, this.fieldProjectName,
+				this.fieldExtendsClass);
 
 		registerListener();
 	}
@@ -70,11 +73,12 @@ public class ProjectContentModelModificationPage1_ModificationPage extends
 	 */
 	public DTextUI createFieldProjectName() {
 		// return new
-		// DTextUI(WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME,
+		// DTextUI(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME,
 		// "project-name", EPosLabel.left, new MC_AttributesItem(), null,
 		// 1, "", false, false, false);
-		return FieldsCore.createTextField(WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME, "project name:", 1, "",
-				new IC_ItemTypeTemplateForText() {
+		return FieldsCore.createTextField(
+				CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME,
+				"project name:", 1, "", new IC_ItemTypeTemplateForText() {
 					@Override
 					protected Item getItemFromContext() {
 						Item manager = getContext().getPartParent();
@@ -86,14 +90,6 @@ public class ProjectContentModelModificationPage1_ModificationPage extends
 						return "${#unique-name}";
 					}
 				});
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldExtendsClass() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends-class", EPosLabel.none, mc, null);
 	}
 
 }

@@ -18,14 +18,21 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.mc;
 
+import fede.workspace.model.manager.properties.FieldsCore;
+import fede.workspace.model.manager.properties.impl.ui.DTextUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 
 /**
  * @generated
@@ -34,10 +41,16 @@ public class LinkModelControllerModificationPage1_ModificationPage extends
 		ModelControllerModificationPage1_ModificationPage {
 
 	/**
+	    @generated
+	 */
+	protected DTextUI fieldErrorMessage;
+
+	/**
 	 * @generated
 	 */
-	protected LinkModelControllerModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected LinkModelControllerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -45,12 +58,13 @@ public class LinkModelControllerModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public LinkModelControllerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "Link model controller", "Link model controller", "a link model controller", false,
-				3);
+		super("modification-page1", "Link model controller",
+				"Link model controller", "a link model controller", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
+		this.fieldErrorMessage = createFieldErrorMessage();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast(this.__short_name__, this.fieldErrorMessage);
 
 		registerListener();
 	}
@@ -58,6 +72,15 @@ public class LinkModelControllerModificationPage1_ModificationPage extends
 	protected void registerListener() {
 		super.registerListener();
 		// add init and register
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldErrorMessage() {
+		return new DTextUI(CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE,
+				"error-message", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 }

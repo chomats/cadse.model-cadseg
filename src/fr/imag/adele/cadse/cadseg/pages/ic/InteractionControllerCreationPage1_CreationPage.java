@@ -38,31 +38,34 @@ public class InteractionControllerCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item		parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType	it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType	lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected InteractionControllerCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected InteractionControllerCreationPage1_CreationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public InteractionControllerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create InteractionController", "Create InteractionController", "", false, 3);
+	public InteractionControllerCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create InteractionController",
+				"Create InteractionController", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

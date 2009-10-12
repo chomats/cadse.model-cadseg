@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -40,12 +40,14 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class IntegerModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class IntegerModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected IntegerModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected IntegerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -71,19 +73,12 @@ public class IntegerModificationPage1_ModificationPage extends AttributeModifica
 	}
 
 	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
-	}
-
-	/**
 	 * 
 	 */
 	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value", EPosLabel.left,
-				new MC_IntegerTextField(), null, 0, 1, "");
+		return new DTextUI(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE,
+				"default value", EPosLabel.left, new MC_IntegerTextField(),
+				null, 0, 1, "");
 	}
 
 	@Override

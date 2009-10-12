@@ -19,7 +19,7 @@
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -53,7 +53,6 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
  * @generated
  */
 public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
-	
 
 	/**
 	 * The Class CreationDialogMC.
@@ -61,15 +60,13 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 	public final class CreationDialogMC extends EventAdapter {
 
 		/** The automatic short name f. */
-		private UIFieldImpl	automaticShortNameF;
+		private UIFieldImpl automaticShortNameF;
 
 		/** The extends dialog f. */
-		private UIFieldImpl	extendsDialogF;
+		private UIFieldImpl extendsDialogF;
 
 		/** The generate automatic short name f. */
-		private UIFieldImpl	generateAutomaticShortNameF;
-
-
+		private UIFieldImpl generateAutomaticShortNameF;
 
 		/**
 		 * Instantiates a new creation dialog mc.
@@ -83,12 +80,12 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 		 * @param generateAutomaticShortNameF
 		 *            the generate automatic short name f
 		 */
-		public CreationDialogMC(UIFieldImpl automaticShortNameF, UIFieldImpl extendsDialogF,
+		public CreationDialogMC(UIFieldImpl automaticShortNameF,
+				UIFieldImpl extendsDialogF,
 				UIFieldImpl generateAutomaticShortNameF) {
 			this.automaticShortNameF = automaticShortNameF;
 			this.extendsDialogF = extendsDialogF;
 			this.generateAutomaticShortNameF = generateAutomaticShortNameF;
-			
 
 			this.automaticShortNameF.addListener(this);
 			this.extendsDialogF.addListener(this);
@@ -113,14 +110,19 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 					disableGenerateField();
 				}
 			} else if (field == extendsDialogF) {
-				if (Convert.toBoolean(item.getAttribute(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_), false)
+				if (Convert
+						.toBoolean(
+								item
+										.getAttribute(CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_),
+								false)
 						&& !Convert.toBoolean(value, false)) {
 					disableAUTOMATIC_SHORT_NAME_ATTRIBUTE();
 					disableGenerateField();
 				}
 			} else if (field == generateAutomaticShortNameF) {
 				if (!(value == null || ((String) value).length() == 0)) {
-					if (!((String)value).contains("${")) return;
+					if (!((String) value).contains("${"))
+						return;
 					enableAUTOMATIC_SHORT_NAME_ATTRIBUTE();
 					enableEXTENDS_DIALOG_CONTROLLER_ATTRIBUTE();
 				}
@@ -133,7 +135,9 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 		private void disableAUTOMATIC_SHORT_NAME_ATTRIBUTE() {
 			automaticShortNameF.setVisualValue(false);
 			try {
-				automaticShortNameF.getItem().setAttribute(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_, false);
+				automaticShortNameF.getItem().setAttribute(
+						CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_,
+						false);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -146,7 +150,11 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 		private void enableEXTENDS_DIALOG_CONTROLLER_ATTRIBUTE() {
 			extendsDialogF.setVisualValue(true);
 			try {
-				extendsDialogF.getItem().setAttribute(WorkspaceCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER_, true);
+				extendsDialogF
+						.getItem()
+						.setAttribute(
+								CadseGCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER_,
+								true);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -159,7 +167,9 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 		private void enableAUTOMATIC_SHORT_NAME_ATTRIBUTE() {
 			automaticShortNameF.setVisualValue(true);
 			try {
-				automaticShortNameF.getItem().setAttribute(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_, true);
+				automaticShortNameF.getItem().setAttribute(
+						CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_,
+						true);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -180,8 +190,11 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 			generateAutomaticShortNameF.setEnabled(false);
 			generateAutomaticShortNameF.setVisualValue("");
 			try {
-				generateAutomaticShortNameF.getItem().setAttribute(
-						WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_, null);
+				generateAutomaticShortNameF
+						.getItem()
+						.setAttribute(
+								CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_,
+								null);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -189,41 +202,43 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 
 		}
 	}
-	/**
-	 * @generated
-	 */
-	public Item				item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI		fieldPages;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldAutomaticShortName;
+	protected DListUI fieldPages;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsDialogController;
+	protected DCheckBoxUI fieldAutomaticShortName;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldGenerateAutomaticShortName;
+	protected DCheckBoxUI fieldExtendsDialogController;
 
 	/**
 	 * @generated
 	 */
-	protected CreationDialogModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected DTextUI fieldGenerateAutomaticShortName;
+
+	/**
+	 * @generated
+	 */
+	protected CreationDialogModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -231,7 +246,8 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 	 * @not generated
 	 */
 	public CreationDialogModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "Creation dialog", "Creation dialog", "", false, 3);
+		super("modification-page1", "Creation dialog", "Creation dialog", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldPages = createFieldPages();
@@ -245,14 +261,17 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 		DTextUI g;
 		DCheckBoxUI e;
 
-		//d = FieldsCore.createTextField(WorkspaceCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME, "default short name");
-		this.fieldAutomaticShortName = FieldsCore.createCheckBox(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME,
+		//d = FieldsCore.createTextField(CadseGCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME, "default short name");
+		this.fieldAutomaticShortName = FieldsCore.createCheckBox(
+				CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME,
 				"automatic short name");
 		this.fieldExtendsDialogController = FieldsCore.createCheckBox(
-				WorkspaceCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER, "extends dialog controller");
+				CadseGCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER,
+				"extends dialog controller");
 
 		this.fieldGenerateAutomaticShortName = FieldsCore.createTextField(
-				WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME, "generate automatic short name", 1, "",
+				CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME,
+				"generate automatic short name", 1, "",
 				new IC_ItemTypeTemplateForText() {
 					@Override
 					protected Item getItemFromContext() {
@@ -261,13 +280,14 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 					}
 				}, null);
 
-		addLast(this.fieldGenerateAutomaticShortName, this.fieldAutomaticShortName, this.fieldExtendsDialogController);
+		addLast(this.fieldGenerateAutomaticShortName,
+				this.fieldAutomaticShortName, this.fieldExtendsDialogController);
 
 		//		Pages ret = FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Creation dialog",
 		//				"Creation dialog", 3, , ,
 		//				, ));
-		new CreationDialogMC(this.fieldAutomaticShortName, fieldExtendsDialogController,
-				fieldGenerateAutomaticShortName);
+		new CreationDialogMC(this.fieldAutomaticShortName,
+				fieldExtendsDialogController, fieldGenerateAutomaticShortName);
 		registerListener();
 	}
 
@@ -286,11 +306,13 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldPages() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.CREATION_DIALOG_lt_PAGES);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.CREATION_DIALOG_lt_PAGES);
-		return new DListUI(WorkspaceCST.CREATION_DIALOG_lt_PAGES.getName(), "pages", EPosLabel.top, mc, ic, true,
-				false, false, false);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.CREATION_DIALOG_lt_PAGES);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.CREATION_DIALOG_lt_PAGES);
+		return new DListUI(CadseGCST.CREATION_DIALOG_lt_PAGES.getName(),
+				"pages", EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 	/**
@@ -298,8 +320,9 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldAutomaticShortName() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME, "automatic short name",
-				EPosLabel.none, mc, null);
+		return new DCheckBoxUI(
+				CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME,
+				"automatic short name", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -307,17 +330,19 @@ public class CreationDialogModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldExtendsDialogController() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER, "extends dialog controller",
-				EPosLabel.none, mc, null);
+		return new DCheckBoxUI(
+				CadseGCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER,
+				"extends dialog controller", EPosLabel.none, mc, null);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldGenerateAutomaticShortName() {
-		return new DTextUI(WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME,
-				"generate automatic short name", EPosLabel.left, new MC_AttributesItem(), null, 1, "", false, false,
-				false);
+		return new DTextUI(
+				CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME,
+				"generate automatic short name", EPosLabel.left,
+				new MC_AttributesItem(), null, 1, "", false, false, false);
 	}
 
 }

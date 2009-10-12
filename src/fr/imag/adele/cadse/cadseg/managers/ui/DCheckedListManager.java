@@ -19,8 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -51,18 +52,19 @@ public class DCheckedListManager extends DisplayManager implements IItemManager 
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -77,87 +79,11 @@ public class DCheckedListManager extends DisplayManager implements IItemManager 
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/**
-	 * get a link 'ic' from 'DCheckedList' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getIcLink(Item dCheckedList) {
-		return dCheckedList.getOutgoingLink(WorkspaceCST.DCHECKED_LIST_lt_IC);
-	}
-
-	/**
-	 * get all link destination 'ic' from 'DCheckedList' to
-	 * 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIcAll(Item dCheckedList) {
-		return dCheckedList.getOutgoingItem(WorkspaceCST.DCHECKED_LIST_lt_IC, false);
-	}
-
-	/**
-	 * get resolved link destination 'ic' from 'DCheckedList' to
-	 * 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIc(Item dCheckedList) {
-		return dCheckedList.getOutgoingItem(WorkspaceCST.DCHECKED_LIST_lt_IC, true);
-	}
-
-	/**
-	 * set a link 'ic' from 'DCheckedList' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public void setIc(Item dCheckedList, Item value) throws CadseException {
-		dCheckedList.setOutgoingItem(WorkspaceCST.DCHECKED_LIST_lt_IC, value);
-	}
-
-	/**
-	 * get a link 'mc' from 'DCheckedList' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getMcLink(Item dCheckedList) {
-		return dCheckedList.getOutgoingLink(WorkspaceCST.DCHECKED_LIST_lt_MC);
-	}
-
-	/**
-	 * get all link destination 'mc' from 'DCheckedList' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMcAll(Item dCheckedList) {
-		return dCheckedList.getOutgoingItem(WorkspaceCST.DCHECKED_LIST_lt_MC, false);
-	}
-
-	/**
-	 * get resolved link destination 'mc' from 'DCheckedList' to
-	 * 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMc(Item dCheckedList) {
-		return dCheckedList.getOutgoingItem(WorkspaceCST.DCHECKED_LIST_lt_MC, true);
-	}
-
-	/**
-	 * set a link 'mc' from 'DCheckedList' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public void setMc(Item dCheckedList, Item value) throws CadseException {
-		dCheckedList.setOutgoingItem(WorkspaceCST.DCHECKED_LIST_lt_MC, value);
 	}
 
 	/*

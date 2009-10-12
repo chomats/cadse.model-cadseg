@@ -31,9 +31,10 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
@@ -59,6 +60,7 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
  */
 public class ComposerManager extends DefaultItemManager implements IExtendClassManager {
 
+	
 	/**
 	 * The Constructor.
 	 * 
@@ -69,23 +71,10 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -134,8 +123,8 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		@Override
 		public void run(IItemNode[] selection) throws CadseException {
 			try {
-				CadseCore.createItemIfNeed(null, "link-" + link.getName(), WorkspaceCST.COMPOSER_LINK, composer,
-						WorkspaceCST.COMPOSER_lt_COMPOSER_LINKS, WorkspaceCST.COMPOSER_LINK_lt_LINK, link);
+				CadseCore.createItemIfNeed(null, "link-" + link.getName(), CadseGCST.COMPOSER_LINK, composer,
+						CadseGCST.COMPOSER_lt_COMPOSER_LINKS, CadseGCST.COMPOSER_LINK_lt_LINK, link);
 
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
@@ -150,7 +139,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		 */
 		@Override
 		public URL getImage() {
-			return WorkspaceCST.COMPOSER_LINK.getImage();
+			return CadseGCST.COMPOSER_LINK.getImage();
 		}
 
 		/*
@@ -188,16 +177,17 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	/**
 	 * The Constant EXTENDS_CLASS_ATTRIBUTE. "extends-class"
 	 * 
-	 * @Deprecated (use WorkspaceCST.COMPOSER_at_EXTENDS_CLASS)
+	 * @Deprecated (use CadseGCST.COMPOSER_at_EXTENDS_CLASS)
 	 */
 	@Deprecated
-	public static final String	EXTENDS_CLASS_ATTRIBUTE	= WorkspaceCST.COMPOSER_at_EXTENDS_CLASS;
+	public static final String	EXTENDS_CLASS_ATTRIBUTE	= CadseGCST.COMPOSER_at_EXTENDS_CLASS;
 
 	/**
 	 * The Class ContentManager.
 	 */
-	public class MyContentItem extends SubFileContentManager implements IGenerateContent, IPDEContributor {
+	public class ComposerContent extends SubFileContentManager implements IGenerateContent, IPDEContributor {
 
+	
 		/**
 		 * Instantiates a new content manager.
 		 * 
@@ -206,9 +196,9 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
-		}
+		public ComposerContent(CompactUUID id) throws CadseException {
+			super(id);
+		}	
 
 		/*
 		 * (non-Javadoc)
@@ -431,6 +421,23 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	}
 
 	/**
+		@generated
+	*/
+	@Override
+	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+		ComposerContent cm = new ComposerContent(
+			id
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
+		return cm;
+	}
+
+
+	
+	/**
 	 * get links 'composer-links' from 'Composer' to 'ComposerLink'.
 	 * 
 	 * @param composer
@@ -441,8 +448,8 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @generated
 	 */
 	static public List<Link> getComposerLinksLink(Item composer) {
-		return composer.getOutgoingLinks(WorkspaceCST.COMPOSER_lt_COMPOSER_LINKS);
-	}
+        return composer.getOutgoingLinks(CadseGCST.COMPOSER_lt_COMPOSER_LINKS);
+    }
 
 	/**
 	 * Gets the composer links all.
@@ -455,8 +462,8 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @generated
 	 */
 	static public Collection<Item> getComposerLinksAll(Item composer) {
-		return composer.getOutgoingItems(WorkspaceCST.COMPOSER_lt_COMPOSER_LINKS, false);
-	}
+        return composer.getOutgoingItems(CadseGCST.COMPOSER_lt_COMPOSER_LINKS, false);
+    }
 
 	/**
 	 * Callsuper post compose.
@@ -548,8 +555,8 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @generated
 	 */
 	static public Collection<Item> getComposerLinks(Item composer) {
-		return composer.getOutgoingItems(WorkspaceCST.COMPOSER_lt_COMPOSER_LINKS, true);
-	}
+        return composer.getOutgoingItems(CadseGCST.COMPOSER_lt_COMPOSER_LINKS,true);
+    }
 
 	/**
 	 * Adds the composer links.
@@ -565,8 +572,8 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @generated
 	 */
 	static public void addComposerLinks(Item composer, Item value) throws CadseException {
-		composer.addOutgoingItem(WorkspaceCST.COMPOSER_lt_COMPOSER_LINKS, value);
-	}
+        composer.addOutgoingItem(CadseGCST.COMPOSER_lt_COMPOSER_LINKS,value);
+    }
 
 	/**
 	 * Removes the composer links.
@@ -582,8 +589,8 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @generated
 	 */
 	static public void removeComposerLinks(Item composer, Item value) throws CadseException {
-		composer.removeOutgoingItem(WorkspaceCST.COMPOSER_lt_COMPOSER_LINKS, value);
-	}
+        composer.removeOutgoingItem(CadseGCST.COMPOSER_lt_COMPOSER_LINKS,value);
+    }
 
 	/**
 	 * Gets the types attribute.
@@ -598,7 +605,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	@SuppressWarnings("unchecked")
 	public static final List<String> getTypesAttribute(Item composer) {
 		try {
-			List<String> list = composer.getAttribute(WorkspaceCST.COMPOSER_at_TYPES_);
+			List<String> list = composer.getAttribute(CadseGCST.COMPOSER_at_TYPES_);
 
 			if (list == null)
 				return null;
@@ -623,7 +630,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	public static final void setTypesAttribute(Item composer, List<String> valueList) {
 		try {
 			List<String> list = new ArrayList<String>(valueList);
-			composer.setAttribute(WorkspaceCST.COMPOSER_at_TYPES_, list);
+			composer.setAttribute(CadseGCST.COMPOSER_at_TYPES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -642,12 +649,12 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	@SuppressWarnings("unchecked")
 	public static final void addTypesAttribute(Item composer, String value) {
 		try {
-			List<String> list = composer.getAttribute(WorkspaceCST.COMPOSER_at_TYPES_);
+			List<String> list = composer.getAttribute(CadseGCST.COMPOSER_at_TYPES_);
 			if (list == null) {
 				list = new ArrayList<String>();
 			}
 			list.add(value);
-			composer.setAttribute(WorkspaceCST.COMPOSER_at_TYPES_, list);
+			composer.setAttribute(CadseGCST.COMPOSER_at_TYPES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -667,15 +674,15 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	public static final void removeTypesAttribute(Item composer, String value) {
 		try {
 
-			List<String> list = composer.getAttribute(WorkspaceCST.COMPOSER_at_TYPES_);
+			List<String> list = composer.getAttribute(CadseGCST.COMPOSER_at_TYPES_);
 			if (list == null) {
 				return;
 			}
 			list.remove(value);
 			if (list.size() == 0)
-				composer.setAttribute(WorkspaceCST.COMPOSER_at_TYPES_, null);
+				composer.setAttribute(CadseGCST.COMPOSER_at_TYPES_, null);
 			else
-				composer.setAttribute(WorkspaceCST.COMPOSER_at_TYPES_, list);
+				composer.setAttribute(CadseGCST.COMPOSER_at_TYPES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -685,7 +692,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @generated
 	 */
 	public static final boolean isExtendsClassAttribute(Item composer) {
-		return composer.getAttributeWithDefaultValue(WorkspaceCST.COMPOSER_at_EXTENDS_CLASS_, null);
+		return composer.getAttributeWithDefaultValue(CadseGCST.COMPOSER_at_EXTENDS_CLASS_, false);
 	}
 
 	/**
@@ -693,66 +700,10 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 */
 	public static final void setExtendsClassAttribute(Item composer, boolean value) {
 		try {
-			composer.setAttribute(WorkspaceCST.COMPOSER_at_EXTENDS_CLASS_, value);
+			composer.setAttribute(CadseGCST.COMPOSER_at_EXTENDS_CLASS_, value);
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/**
-	 * get a link '#invert_part_composers_to_CompositeItemType' from 'Composer'
-	 * to 'CompositeItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_composers_to_CompositeItemTypeLink(Item composer) {
-		return composer.getOutgoingLink(WorkspaceCST.COMPOSER_lt__$_INVERT_PART_COMPOSERS_TO_COMPOSITE_ITEM_TYPE);
-	}
-
-	/**
-	 * get all link destination '#invert_part_composers_to_CompositeItemType'
-	 * from 'Composer' to 'CompositeItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composers_to_CompositeItemTypeAll(Item composer) {
-		return composer
-				.getOutgoingItem(WorkspaceCST.COMPOSER_lt__$_INVERT_PART_COMPOSERS_TO_COMPOSITE_ITEM_TYPE, false);
-	}
-
-	/**
-	 * get resolved link destination
-	 * '#invert_part_composers_to_CompositeItemType' from 'Composer' to
-	 * 'CompositeItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composers_to_CompositeItemType(Item composer) {
-		return composer.getOutgoingItem(WorkspaceCST.COMPOSER_lt__$_INVERT_PART_COMPOSERS_TO_COMPOSITE_ITEM_TYPE, true);
-	}
-
-	/**
-	 * set a link '#invert_part_composers_to_CompositeItemType' from 'Composer'
-	 * to 'CompositeItemType'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_composers_to_CompositeItemType(Item composer, Item value)
-			throws CadseException {
-		composer.setOutgoingItem(WorkspaceCST.COMPOSER_lt__$_INVERT_PART_COMPOSERS_TO_COMPOSITE_ITEM_TYPE, value);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentManager(Item subContentModel) throws CadseException {
-		ContentItem cm = new MyContentItem(null, subContentModel);
-		cm.setComposers();
-		cm.setExporters();
-		return cm;
 	}
 
 	/*
@@ -767,7 +718,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		Collection<Item> composerlinks = getComposerLinks(composer);
 		Item itemtype = CompositeItemTypeManager.getItemType(composer.getPartParent());
 		ONE: for (Link l : itemtype.getOutgoingLinks()) {
-			if (l.getDestinationType() != WorkspaceCST.LINK) {
+			if (l.getDestinationType() != CadseGCST.LINK) {
 				continue;
 			}
 			if (!l.isLinkResolved()) {

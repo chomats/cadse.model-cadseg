@@ -21,11 +21,13 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
@@ -54,7 +56,6 @@ public class UIListenerManager extends DefaultItemManager {
 		public String compute(ContextVariable context, Item itemCurrent) {
 			try {
 				Object value;
-				Item currentItem;
 				return context.getName(itemCurrent);
 			} catch (Throwable e) {
 				e.printStackTrace();
@@ -79,7 +80,6 @@ public class UIListenerManager extends DefaultItemManager {
 		public String compute(ContextVariable context, Item itemCurrent) {
 			try {
 				Object value;
-				Item currentItem;
 				return context.getName(itemCurrent);
 			} catch (Throwable e) {
 				e.printStackTrace();
@@ -89,16 +89,15 @@ public class UIListenerManager extends DefaultItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
-	public class MyContentItem extends JavaFileContentManager {
+		@generated
+	*/
+	public class UIListenerContent extends JavaFileContentManager {
 
 		/**
-		 * @generated
-		 */
-		public MyContentItem(ContentItem parent, Item item, Variable packageNameVariable, Variable classNameVariable)
-				throws CadseException {
-			super(parent, item, packageNameVariable, classNameVariable);
+			@generated
+		*/
+		public UIListenerContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+			super(id, packageNameVariable, classNameVariable);
 		}
 
 	}
@@ -111,18 +110,19 @@ public class UIListenerManager extends DefaultItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -137,7 +137,6 @@ public class UIListenerManager extends DefaultItemManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -146,13 +145,17 @@ public class UIListenerManager extends DefaultItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public ContentItem createContentManager(Item uIListener) throws CadseException {
-		MyContentItem cm = new MyContentItem(null, uIListener, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE);
-		cm.setComposers();
-		cm.setExporters();
+	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+		UIListenerContent cm = new UIListenerContent(
+			id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
 		return cm;
 	}
 
@@ -162,35 +165,35 @@ public class UIListenerManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getFieldsLink(Item uIListener) {
-		return uIListener.getOutgoingLinks(WorkspaceCST.UILISTENER_lt_FIELDS);
-	}
+        return uIListener.getOutgoingLinks(CadseGCST.UILISTENER_lt_FIELDS);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getFieldsAll(Item uIListener) {
-		return uIListener.getOutgoingItems(WorkspaceCST.UILISTENER_lt_FIELDS, false);
-	}
+        return uIListener.getOutgoingItems(CadseGCST.UILISTENER_lt_FIELDS, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getFields(Item uIListener) {
-		return uIListener.getOutgoingItems(WorkspaceCST.UILISTENER_lt_FIELDS, true);
-	}
+        return uIListener.getOutgoingItems(CadseGCST.UILISTENER_lt_FIELDS,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addFields(Item uIListener, Item value) throws CadseException {
-		uIListener.addOutgoingItem(WorkspaceCST.UILISTENER_lt_FIELDS, value);
-	}
+        uIListener.addOutgoingItem(CadseGCST.UILISTENER_lt_FIELDS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeFields(Item uIListener, Item value) throws CadseException {
-		uIListener.removeOutgoingItem(WorkspaceCST.UILISTENER_lt_FIELDS, value);
-	}
+        uIListener.removeOutgoingItem(CadseGCST.UILISTENER_lt_FIELDS,value);
+    }
 
 }

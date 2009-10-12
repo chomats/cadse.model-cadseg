@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.build;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -47,41 +47,43 @@ public class ComposerCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType		it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType		lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldTypes;
+	protected DListUI fieldTypes;
 
 	/**
 	 * @generated
 	 */
-	protected ComposerCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected ComposerCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public ComposerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create Composer", "Create Composer", "", false, 3);
+	public ComposerCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create Composer", "Create Composer", "",
+				false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -109,8 +111,10 @@ public class ComposerCreationPage1_CreationPage extends PageImpl {
 	 */
 	public DListUI createFieldTypes() {
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.", "Select a value.", false);
-		return new DListUI(WorkspaceCST.COMPOSER_at_TYPES, "types", EPosLabel.top, mc, ic, false, false, false, false);
+		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
+				"Select a value.", false);
+		return new DListUI(CadseGCST.COMPOSER_at_TYPES, "types", EPosLabel.top,
+				mc, ic, true, false, false, false);
 	}
 
 }

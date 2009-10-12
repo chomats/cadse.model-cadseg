@@ -6,7 +6,7 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -102,18 +102,10 @@ public class FolderContentModelCreationPage1_CreationPage extends ResourceConten
 	/**
 	 * @generated
 	 */
-	public DCheckBoxUI createFieldExtendsClass() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends-class", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
 	public DTextUI createFieldFolderPath() {
 		FolderPathIC ic = new FolderPathIC();
 		FolderPathMC mc = new FolderPathMC();
-		return new DTextUI(WorkspaceCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH, "folder-path", EPosLabel.left, mc, ic, 1,
+		return new DTextUI(CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH, "folder-path", EPosLabel.left, mc, ic, 1,
 				"", false, false, false);
 	}
 

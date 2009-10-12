@@ -3,8 +3,11 @@ package fr.imag.adele.cadse.cadseg.pages.ui;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -20,23 +23,29 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class DComboModificationPage1_ModificationPage extends DisplayModificationPage1_ModificationPage {
+public class DComboModificationPage1_ModificationPage extends
+		DisplayModificationPage1_ModificationPage {
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldExtendsIC;
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldExtendsMC;
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldExtendsUI;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldIc;
-
-	/**
-	 * @generated
-	 */
-	protected DBrowserUI	fieldMc;
-
-	/**
-	 * @generated
-	 */
-	protected DComboModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected DComboModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -47,10 +56,14 @@ public class DComboModificationPage1_ModificationPage extends DisplayModificatio
 		super("modification-page1", "DCombo", "DCombo", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
-		this.fieldIc = createFieldIc();
-		this.fieldMc = createFieldMc();
+		this.fieldEditable = createFieldEditable();
+		this.fieldEnable = createFieldEnable();
+		this.fieldExtendsIC = createFieldExtendsIC();
+		this.fieldExtendsMC = createFieldExtendsMC();
+		this.fieldExtendsUI = createFieldExtendsUI();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldIc, this.fieldMc);
+		addLast(this.__short_name__, this.fieldEditable, this.fieldEnable,
+				this.fieldExtendsIC, this.fieldExtendsMC, this.fieldExtendsUI);
 
 		registerListener();
 	}
@@ -61,23 +74,30 @@ public class DComboModificationPage1_ModificationPage extends DisplayModificatio
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public DBrowserUI createFieldIc() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.DCOMBO_lt_IC);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.DCOMBO_lt_IC);
-		return new DBrowserUI(WorkspaceCST.DCOMBO_lt_IC.getName(), "ic", EPosLabel.left, mc, ic);
+	public DCheckBoxUI createFieldExtendsIC() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extendsIC",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public DBrowserUI createFieldMc() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.DCOMBO_lt_MC);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.DCOMBO_lt_MC);
-		return new DBrowserUI(WorkspaceCST.DCOMBO_lt_MC.getName(), "mc", EPosLabel.left, mc, ic);
+	public DCheckBoxUI createFieldExtendsMC() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extendsMC",
+				EPosLabel.none, mc, null);
+	}
+
+	/**
+	    @generated
+	 */
+	public DCheckBoxUI createFieldExtendsUI() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extendsUI",
+				EPosLabel.none, mc, null);
 	}
 
 }

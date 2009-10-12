@@ -5,8 +5,8 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            name="Workspace"
-            id="Model.Workspace.Workspace.view-model.category">
+            name="CadseG"
+            id="Model.Workspace.CadseG.view-model.category">
       </category>
    </extension>
 

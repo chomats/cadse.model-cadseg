@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.actions;
 
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -26,11 +27,14 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionCIF;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
@@ -40,57 +44,7 @@ import fr.imag.adele.cadse.core.var.Variable;
  * 
  * @generated
  */
-public class MenuActionManager extends DefaultItemManager {
-
-	/**
-	 * @generated
-	 */
-	static final class PackageNameVariable extends VariableImpl {
-
-		/**
-		 * @generated
-		 */
-		public final static Variable	INSTANCE	= new PackageNameVariable();
-
-		/**
-		 * @generated
-		 */
-		public String compute(ContextVariable context, Item itemCurrent) {
-			try {
-				Object value;
-				Item currentItem;
-				return context.getName(itemCurrent);
-			} catch (Throwable e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	static final class ClassNameVariable extends VariableImpl {
-
-		/**
-		 * @generated
-		 */
-		public final static Variable	INSTANCE	= new ClassNameVariable();
-
-		/**
-		 * @generated
-		 */
-		public String compute(ContextVariable context, Item itemCurrent) {
-			try {
-				Object value;
-				Item currentItem;
-				return context.getName(itemCurrent);
-			} catch (Throwable e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}
-	}
+public class MenuActionManager extends MenuAbstractManager {
 
 	/**
 	 * The Constructor.
@@ -108,7 +62,7 @@ public class MenuActionManager extends DefaultItemManager {
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.MENU_ACTION.setHasUniqueNameAttribute(false);
+		CadseGCST.MENU_ACTION.setHasUniqueNameAttribute(false);
 	}
 
 	@Override
@@ -130,13 +84,14 @@ public class MenuActionManager extends DefaultItemManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
 		}
 	}
+
+	
 
 	@Override
 	public void doubleClick(Item item) {

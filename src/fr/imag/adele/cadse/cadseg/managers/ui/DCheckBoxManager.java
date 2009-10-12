@@ -20,7 +20,7 @@
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
 import fede.workspace.model.manager.properties.FieldsCore;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
@@ -52,18 +52,19 @@ public class DCheckBoxManager extends DisplayManager implements IItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -78,86 +79,11 @@ public class DCheckBoxManager extends DisplayManager implements IItemManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/**
-	 * get a link 'ic' from 'DCheckBox' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getIcLink(Item dCheckBox) {
-		return dCheckBox.getOutgoingLink(WorkspaceCST.DCHECK_BOX_lt_IC);
-	}
-
-	/**
-	 * get all link destination 'ic' from 'DCheckBox' to
-	 * 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIcAll(Item dCheckBox) {
-		return dCheckBox.getOutgoingItem(WorkspaceCST.DCHECK_BOX_lt_IC, false);
-	}
-
-	/**
-	 * get resolved link destination 'ic' from 'DCheckBox' to
-	 * 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIc(Item dCheckBox) {
-		return dCheckBox.getOutgoingItem(WorkspaceCST.DCHECK_BOX_lt_IC, true);
-	}
-
-	/**
-	 * set a link 'ic' from 'DCheckBox' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public void setIc(Item dCheckBox, Item value) throws CadseException {
-		dCheckBox.setOutgoingItem(WorkspaceCST.DCHECK_BOX_lt_IC, value);
-	}
-
-	/**
-	 * get a link 'mc' from 'DCheckBox' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getMcLink(Item dCheckBox) {
-		return dCheckBox.getOutgoingLink(WorkspaceCST.DCHECK_BOX_lt_MC);
-	}
-
-	/**
-	 * get all link destination 'mc' from 'DCheckBox' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMcAll(Item dCheckBox) {
-		return dCheckBox.getOutgoingItem(WorkspaceCST.DCHECK_BOX_lt_MC, false);
-	}
-
-	/**
-	 * get resolved link destination 'mc' from 'DCheckBox' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMc(Item dCheckBox) {
-		return dCheckBox.getOutgoingItem(WorkspaceCST.DCHECK_BOX_lt_MC, true);
-	}
-
-	/**
-	 * set a link 'mc' from 'DCheckBox' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public void setMc(Item dCheckBox, Item value) throws CadseException {
-		dCheckBox.setOutgoingItem(WorkspaceCST.DCHECK_BOX_lt_MC, value);
 	}
 
 	/*
@@ -238,11 +164,11 @@ public class DCheckBoxManager extends DisplayManager implements IItemManager {
 		}
 		ItemType it = attribute.getType();
 
-		if (WorkspaceCST.BOOLEAN == it) {
+		if (CadseGCST.BOOLEAN == it) {
 			return null;
 		}
 
-		if (WorkspaceCST.LINK == it && LinkManager.getMin(attribute) == 0) {
+		if (CadseGCST.LINK == it && LinkManager.getMin(attribute) == 0) {
 			return null;
 		}
 

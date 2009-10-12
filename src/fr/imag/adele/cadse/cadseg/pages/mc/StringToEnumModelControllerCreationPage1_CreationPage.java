@@ -13,22 +13,26 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class StringToEnumModelControllerCreationPage1_CreationPage extends ModelControllerCreationPage1_CreationPage {
+public class StringToEnumModelControllerCreationPage1_CreationPage extends
+		ModelControllerCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected StringToEnumModelControllerCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected StringToEnumModelControllerCreationPage1_CreationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public StringToEnumModelControllerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create StringToEnumModelController", "Create StringToEnumModelController", "", false,
-				3);
+	public StringToEnumModelControllerCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create a string to enum model controller",
+				"Create a string to enum model controller",
+				"Create a string to enum model controller", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

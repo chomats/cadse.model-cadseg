@@ -19,13 +19,23 @@
 
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
+import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
+import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
+import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
+import fr.imag.adele.cadse.core.impl.attribute.DoubleAttributeType;
+import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
+import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 
 /**
  * The Class DoubleManager.
@@ -41,31 +51,19 @@ public class DoubleManager extends AttributeManager implements IItemManager, IMo
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -87,7 +85,6 @@ public class DoubleManager extends AttributeManager implements IItemManager, IMo
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -97,7 +94,7 @@ public class DoubleManager extends AttributeManager implements IItemManager, IMo
 
 	@Override
 	public ItemType getCadseRootType() {
-		return CadseRootCST.DOUBLE_ATTRIBUTE_TYPE;
+		return CadseGCST.DOUBLE;
 	}
 
 	@Override
@@ -131,5 +128,19 @@ public class DoubleManager extends AttributeManager implements IItemManager, IMo
 		}
 		return v + ".0";
 	}
+	
+	@Override
+	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
+			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+		DoubleAttributeType ret = new DoubleAttributeType(initModel.getUUID(type.getId()), initModel.getFlag(type),
+				type.getKey(), null, null, type.getValue());
+		return ret;
+	}
 
+	@Override
+	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
+			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
+		cvt.setType(ValueTypeType.DOUBLE);
+		super.writeAttributeDefinition(factory, cxt, cadsegManager, cvt, attribute);
+	}
 }

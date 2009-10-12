@@ -23,9 +23,9 @@ import java.util.Collection;
 import java.util.List;
 
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -47,31 +47,19 @@ public class StructManager extends AttributeManager implements IItemManager, IMo
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -93,7 +81,6 @@ public class StructManager extends AttributeManager implements IItemManager, IMo
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -112,8 +99,8 @@ public class StructManager extends AttributeManager implements IItemManager, IMo
 	 * @generated
 	 */
 	static public List<Link> getAttributesLink(Item struct) {
-		return struct.getOutgoingLinks(WorkspaceCST.STRUCT_lt_ATTRIBUTES);
-	}
+        return struct.getOutgoingLinks(CadseGCST.STRUCT_lt_ATTRIBUTES);
+    }
 
 	/**
 	 * Gets the attributes all.
@@ -126,8 +113,8 @@ public class StructManager extends AttributeManager implements IItemManager, IMo
 	 * @generated
 	 */
 	static public Collection<Item> getAttributesAll(Item struct) {
-		return struct.getOutgoingItems(WorkspaceCST.STRUCT_lt_ATTRIBUTES, false);
-	}
+        return struct.getOutgoingItems(CadseGCST.STRUCT_lt_ATTRIBUTES, false);
+    }
 
 	/**
 	 * Gets the attributes.
@@ -140,8 +127,8 @@ public class StructManager extends AttributeManager implements IItemManager, IMo
 	 * @generated
 	 */
 	static public Collection<Item> getAttributes(Item struct) {
-		return struct.getOutgoingItems(WorkspaceCST.STRUCT_lt_ATTRIBUTES, true);
-	}
+        return struct.getOutgoingItems(CadseGCST.STRUCT_lt_ATTRIBUTES,true);
+    }
 
 	/**
 	 * Adds the attributes.
@@ -157,8 +144,8 @@ public class StructManager extends AttributeManager implements IItemManager, IMo
 	 * @generated
 	 */
 	static public void addAttributes(Item struct, Item value) throws CadseException {
-		struct.addOutgoingItem(WorkspaceCST.STRUCT_lt_ATTRIBUTES, value);
-	}
+        struct.addOutgoingItem(CadseGCST.STRUCT_lt_ATTRIBUTES,value);
+    }
 
 	/**
 	 * Removes the attributes.
@@ -174,12 +161,12 @@ public class StructManager extends AttributeManager implements IItemManager, IMo
 	 * @generated
 	 */
 	static public void removeAttributes(Item struct, Item value) throws CadseException {
-		struct.removeOutgoingItem(WorkspaceCST.STRUCT_lt_ATTRIBUTES, value);
-	}
+        struct.removeOutgoingItem(CadseGCST.STRUCT_lt_ATTRIBUTES,value);
+    }
 
 	@Override
 	public ItemType getCadseRootType() {
-		return CadseRootCST.STRUCT_ATTRIBUTE_TYPE;
+		return CadseGCST.STRUCT;
 	}
 
 	@Override

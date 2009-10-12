@@ -422,7 +422,7 @@ public class ExportBundlePagesAction extends AbstractActionPage {
 			EclipsePluginContentManger project = (EclipsePluginContentManger) cadsedef.getContentItem();
 			pmo.beginTask("export cadse " + cadsedef.getName(), 1);
 
-			String qname = CadseDefinitionManager.getUniqueName(cadsedef);
+			String qname = CadseDefinitionManager.getQualifiedName(cadsedef);
 			String qname_version = "";
 			String version = "";
 			IJavaProject jp = project.getMainMappingContent(IJavaProject.class);

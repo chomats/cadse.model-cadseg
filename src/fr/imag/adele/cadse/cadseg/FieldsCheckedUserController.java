@@ -21,6 +21,7 @@ package fr.imag.adele.cadse.cadseg;
 
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.ItemType;
@@ -53,10 +54,10 @@ final public class FieldsCheckedUserController extends IC_AbstractForChecked imp
 													Item itemAttributeEvent = _id.getItem();
 													Item itemItemTypeEvent = itemAttributeEvent.getPartParent();
 													if (itemItemTypeEvent != null
-															&& itemItemTypeEvent.getType() == WorkspaceCST.ITEM_TYPE
+															&& itemItemTypeEvent.getType() == CadseGCST.ITEM_TYPE
 															&& (itemItemTypeEvent == _itemtype || ItemTypeManager
 																	.isSuperTypeOf(itemItemTypeEvent, _itemtype))
-															&& itemAttributeEvent.isInstanceOf(WorkspaceCST.ATTRIBUTE)) {
+															&& itemAttributeEvent.isInstanceOf(CadseGCST.ATTRIBUTE)) {
 														((DCheckedListUI) getUIField()).setSource(getSources());
 														break;
 													}
@@ -75,7 +76,7 @@ final public class FieldsCheckedUserController extends IC_AbstractForChecked imp
 		Item[] attributes = ItemTypeManager.getAllAttributes(null, _itemtype, new ItemFilter() {
 
 			public boolean accept(Item item) {
-				return !AttributeManager.isClassAttributeAttribute(item);
+				return true ; //!AttributeManager.isClassAttributeAttribute(item);
 			}
 
 			public boolean stop() {

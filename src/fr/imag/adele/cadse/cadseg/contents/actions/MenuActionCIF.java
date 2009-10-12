@@ -11,10 +11,10 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.cadseg.generate.GenerateClass;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -31,15 +31,9 @@ public class MenuActionCIF implements IContentItemFactory {
 	/**
 	 * The Class MyContentItem.
 	 */
-	public class MyContentItem extends JavaFileContentManager implements IGenerateContent, IPDEContributor {
+	static public class MenuActionContent extends JavaFileContentManager implements IGenerateContent, IPDEContributor {
 
-		/**
-		 * @generated
-		 */
-		public MyContentItem(ContentItem parent, Item item, Variable packageNameVariable, Variable classNameVariable)
-				throws CadseException {
-			super(parent, item, packageNameVariable, classNameVariable);
-		}
+		
 
 		/**
 		 * Instantiates a new my content manager.
@@ -52,8 +46,8 @@ public class MenuActionCIF implements IContentItemFactory {
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		public MyContentItem(ContentItem parent, final Item item) throws CadseException {
-			super(parent, item, new VariableImpl() {
+		public MenuActionContent(CompactUUID id) throws CadseException {
+			super(id, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
 					return GenerateJavaIdentifier.javaPackageMenuAction(context, item);
@@ -156,9 +150,8 @@ public class MenuActionCIF implements IContentItemFactory {
 		}
 	}
 
-	public ContentItem createContentItem(Item menuAction) throws CadseException {
-		Item cadseDefinition = menuAction.getPartParent(WorkspaceCST.CADSE_DEFINITION);
-		MyContentItem cm = new MyContentItem(cadseDefinition.getContentItem(), menuAction);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		MenuActionContent cm = new MenuActionContent(id);
 		cm.setComposers();
 		cm.setExporters();
 		return cm;

@@ -30,7 +30,7 @@ import fede.workspace.model.manager.properties.impl.ic.IC_Abstract;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -48,15 +48,17 @@ import fr.imag.adele.cadse.core.ui.IInteractionController;
 /**
  * @generated
  */
-public class BooleanCreationPage1_CreationPage extends AttributeCreationPage1_CreationPage {
+public class BooleanCreationPage1_CreationPage extends
+		AttributeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldMustBeInitialized;
+	protected DCheckBoxUI fieldMustBeInitialized;
 
-	public final static class IC_DefaultValue extends IC_Abstract implements IInteractionController,
-			IFieldContenProposalProvider, IContentProposalProvider {
+	public final static class IC_DefaultValue extends IC_Abstract implements
+			IInteractionController, IFieldContenProposalProvider,
+			IContentProposalProvider {
 
 		public char[] getAutoActivationCharacters() {
 			return new char[0];
@@ -99,16 +101,18 @@ public class BooleanCreationPage1_CreationPage extends AttributeCreationPage1_Cr
 	/**
 	 * @generated
 	 */
-	protected BooleanCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected BooleanCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public BooleanCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create Boolean attribute", "Create Boolean attribute",
+	public BooleanCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create Boolean attribute",
+				"Create Boolean attribute",
 				"Create an attribute of type boolean", false, 3);
 		this.parent = parent;
 		this.it = it;
@@ -118,21 +122,14 @@ public class BooleanCreationPage1_CreationPage extends AttributeCreationPage1_Cr
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(new BooleanCreationPage1_CreationPageAction());
-		addLast(this.__short_name__, this.fieldDefaultValue, this.fieldMustBeInitialized, this.fieldIsList);
+		addLast(this.__short_name__, this.fieldDefaultValue,
+				this.fieldMustBeInitialized, this.fieldIsList);
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -147,8 +144,8 @@ public class BooleanCreationPage1_CreationPage extends AttributeCreationPage1_Cr
 	 */
 	public DCheckBoxUI createFieldMustBeInitialized() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED, "show attribute in creation wizard",
-				EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED,
+				"show attribute in creation wizard", EPosLabel.none, mc, null);
 	}
 
 	@Override

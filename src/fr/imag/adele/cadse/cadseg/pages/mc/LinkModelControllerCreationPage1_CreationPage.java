@@ -18,24 +18,38 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.mc;
 
+import fede.workspace.model.manager.properties.FieldsCore;
+import fede.workspace.model.manager.properties.impl.ui.DTextUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 
 /**
  * @generated
  */
-public class LinkModelControllerCreationPage1_CreationPage extends ModelControllerCreationPage1_CreationPage {
+public class LinkModelControllerCreationPage1_CreationPage extends
+		ModelControllerCreationPage1_CreationPage {
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldErrorMessage;
 
 	/**
 	 * @generated
 	 */
-	protected LinkModelControllerCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected LinkModelControllerCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -43,14 +57,17 @@ public class LinkModelControllerCreationPage1_CreationPage extends ModelControll
 	/**
 	 * @generated
 	 */
-	public LinkModelControllerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Add a link model controller", "Add a link model controller",
+	public LinkModelControllerCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Add a link model controller",
+				"Add a link model controller",
 				"Add a link model controller for the current field", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
+		this.fieldErrorMessage = createFieldErrorMessage();
 		setActionPage(null);
-		addLast();
+		addLast(this.fieldErrorMessage);
 
 		registerListener();
 	}
@@ -58,6 +75,15 @@ public class LinkModelControllerCreationPage1_CreationPage extends ModelControll
 	protected void registerListener() {
 		super.registerListener();
 		// add init and register
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldErrorMessage() {
+		return new DTextUI(CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE,
+				"error-message", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 }

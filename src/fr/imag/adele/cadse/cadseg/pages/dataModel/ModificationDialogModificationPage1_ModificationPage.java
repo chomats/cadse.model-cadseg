@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -42,28 +42,30 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class ModificationDialogModificationPage1_ModificationPage extends PageImpl {
+public class ModificationDialogModificationPage1_ModificationPage extends
+		PageImpl {
 
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldPages;
+	protected DListUI fieldPages;
 
 	/**
 	 * @generated
 	 */
-	protected ModificationDialogModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected ModificationDialogModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -71,7 +73,8 @@ public class ModificationDialogModificationPage1_ModificationPage extends PageIm
 	 * @generated
 	 */
 	public ModificationDialogModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "ModificationDialog", "ModificationDialog", "", false, 3);
+		super("modification-page1", "ModificationDialog", "ModificationDialog",
+				"", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldPages = createFieldPages();
@@ -96,11 +99,13 @@ public class ModificationDialogModificationPage1_ModificationPage extends PageIm
 	 * @generated
 	 */
 	public DListUI createFieldPages() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES);
-		return new DListUI(WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES.getName(), "pages", EPosLabel.top, mc, ic, true,
-				false, true, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.MODIFICATION_DIALOG_lt_PAGES);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.MODIFICATION_DIALOG_lt_PAGES);
+		return new DListUI(CadseGCST.MODIFICATION_DIALOG_lt_PAGES.getName(),
+				"pages", EPosLabel.top, mc, ic, true, false, true, false);
 	}
 
 }

@@ -30,21 +30,29 @@ import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.cadseg.UIItemFactory;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
+import fr.imag.adele.cadse.core.IItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.delta.ItemDelta;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.core.var.Variable;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
@@ -52,14 +60,9 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class DisplayManager extends DefaultWorkspaceManager implements IItemManager, IExtendClassManager {
+public class DisplayManager extends DefaultWorkspaceManager implements IItemManager, IExtendClassManager, IItemFactory {
 
-	// /** The Constant ENABLE_ATTRIBUTE. */
-	// public static final String ENABLE_ATTRIBUTE = "enable";
-
-	// /** The Constant EDITABLE_ATTRIBUTE. */
-	// public static final String EDITABLE_ATTRIBUTE = "editable";
-
+	
 	/** The Constant DEFAULT_SHORT_NAME. */
 	public static final String	DEFAULT_SHORT_NAME	= "display";
 
@@ -113,7 +116,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	/**
 	 * The Class MyContentItem.
 	 */
-	public class MyContentItem extends SubFileContentManager implements IPDEContributor {
+	public class DisplayContent extends SubFileContentManager implements IPDEContributor {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -123,8 +126,8 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 		 * @param item
 		 *            the item
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected DisplayContent(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/**
@@ -340,10 +343,10 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	public static final String	MC_LINK					= "mc";
 
 	/** The Constant IC_DEFAULT_SHORT_NAME. */
-	public static final String	IC_DEFAULT_SHORT_NAME	= "ic";
+	public static final String	IC_DEFAULT_NAME	= "ic";
 
 	/** The Constant MC_DEFAULT_SHORT_NAME. */
-	public static final String	MC_DEFAULT_SHORT_NAME	= "mc";
+	public static final String	MC_DEFAULT_NAME	= "mc";
 
 	/**
 	 * Instantiates a new display manager.
@@ -352,18 +355,19 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -378,13 +382,14 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
 		}
 	}
+
+	
 
 	/*
 	 * (non-Javadoc)
@@ -435,8 +440,8 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new DisplayContent(id);
 	}
 
 	/*
@@ -486,7 +491,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @generated
 	 */
 	public static final boolean isExtendsICAttribute(Item display) {
-		return display.getAttributeWithDefaultValue(WorkspaceCST.DISPLAY_at_EXTENDS_IC_, false);
+		return display.getAttributeWithDefaultValue(CadseGCST.DISPLAY_at_EXTENDS_IC_, false);
 	}
 
 	/**
@@ -501,7 +506,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	public static final void setExtendsICAttribute(Item display, boolean value) {
 		try {
-			display.setAttribute(WorkspaceCST.DISPLAY_at_EXTENDS_IC_, value);
+			display.setAttribute(CadseGCST.DISPLAY_at_EXTENDS_IC_, value);
 		} catch (Throwable t) {
 
 		}
@@ -518,7 +523,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @generated
 	 */
 	public static final boolean isExtendsMCAttribute(Item display) {
-		return display.getAttributeWithDefaultValue(WorkspaceCST.DISPLAY_at_EXTENDS_MC_, false);
+		return display.getAttributeWithDefaultValue(CadseGCST.DISPLAY_at_EXTENDS_MC_, false);
 	}
 
 	/**
@@ -532,7 +537,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @generated
 	 */
 	public static final boolean isEnableAttribute(Item display) {
-		return display.getAttributeWithDefaultValue(WorkspaceCST.DISPLAY_at_ENABLE_, true);
+		return display.getAttributeWithDefaultValue(CadseGCST.DISPLAY_at_ENABLE_, true);
 	}
 
 	/**
@@ -540,42 +545,74 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	public static final void setEnableAttribute(Item display, boolean value) {
 		try {
-			display.setAttribute(WorkspaceCST.DISPLAY_at_ENABLE_, value);
+			display.setAttribute(CadseGCST.DISPLAY_at_ENABLE_, value);
 		} catch (Throwable t) {
 
 		}
 	}
 
 	/**
-	 * get links '#invert_part_display_to_Field' from 'Display' to 'Field'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_display_to_FieldLink(Item display) {
-		return display.getOutgoingLink(WorkspaceCST.DISPLAY_lt__$_INVERT_PART_DISPLAY_TO_FIELD);
+		get a link 'ic' from 'Display' to 'InteractionController'.
+		@generated
+	*/
+	static public Link getIcLink(Item display) {
+		return display.getOutgoingLink(CadseGCST.DISPLAY_lt_IC);
 	}
 
 	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_display_to_FieldAll(Item display) {
-		return display.getOutgoingItem(WorkspaceCST.DISPLAY_lt__$_INVERT_PART_DISPLAY_TO_FIELD, false);
+		get all link destination 'ic' from 'Display' to 'InteractionController'.
+		@generated
+	*/
+	static public Item getIcAll(Item display) {
+		return display.getOutgoingItem(CadseGCST.DISPLAY_lt_IC, false);
 	}
 
 	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_display_to_Field(Item display) {
-		return display.getOutgoingItem(WorkspaceCST.DISPLAY_lt__$_INVERT_PART_DISPLAY_TO_FIELD, true);
+		get resolved link destination 'ic' from 'Display' to 'InteractionController'.
+		@generated
+	*/
+	static public Item getIc(Item display) {
+		return display.getOutgoingItem(CadseGCST.DISPLAY_lt_IC, true);
 	}
 
 	/**
-	 * set a link '#invert_part_display_to_Field' from 'Display' to 'Field'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_display_to_Field(Item display, Item value) throws CadseException {
-		display.setOutgoingItem(WorkspaceCST.DISPLAY_lt__$_INVERT_PART_DISPLAY_TO_FIELD, value);
+		set a link 'ic' from 'Display' to 'InteractionController'.
+		@generated
+	*/
+	static public void setIc(Item display, Item value) throws CadseException {
+		display.setOutgoingItem(CadseGCST.DISPLAY_lt_IC,value);
+	}
+
+	/**
+		get a link 'mc' from 'Display' to 'ModelController'.
+		@generated
+	*/
+	static public Link getMcLink(Item display) {
+		return display.getOutgoingLink(CadseGCST.DISPLAY_lt_MC);
+	}
+
+	/**
+		get all link destination 'mc' from 'Display' to 'ModelController'.
+		@generated
+	*/
+	static public Item getMcAll(Item display) {
+		return display.getOutgoingItem(CadseGCST.DISPLAY_lt_MC, false);
+	}
+
+	/**
+		get resolved link destination 'mc' from 'Display' to 'ModelController'.
+		@generated
+	*/
+	static public Item getMc(Item display) {
+		return display.getOutgoingItem(CadseGCST.DISPLAY_lt_MC, true);
+	}
+
+	/**
+		set a link 'mc' from 'Display' to 'ModelController'.
+		@generated
+	*/
+	static public void setMc(Item display, Item value) throws CadseException {
+		display.setOutgoingItem(CadseGCST.DISPLAY_lt_MC,value);
 	}
 
 	/**
@@ -589,7 +626,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * 
 	 */
 	public static final boolean isEditableAttribute(Item display) {
-		Object value = display.getAttribute(WorkspaceCST.DISPLAY_at_EDITABLE);
+		Object value = display.getAttribute(CadseGCST.DISPLAY_at_EDITABLE);
 		if (value == null) {
 			return true;
 		}
@@ -613,7 +650,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	public static final void setExtendsMCAttribute(Item display, boolean value) {
 		try {
-			display.setAttribute(WorkspaceCST.DISPLAY_at_EXTENDS_MC_, value);
+			display.setAttribute(CadseGCST.DISPLAY_at_EXTENDS_MC_, value);
 		} catch (Throwable t) {
 
 		}
@@ -630,7 +667,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @generated
 	 */
 	public static final boolean isExtendsUIAttribute(Item display) {
-		return display.getAttributeWithDefaultValue(WorkspaceCST.DISPLAY_at_EXTENDS_UI_, false);
+		return display.getAttributeWithDefaultValue(CadseGCST.DISPLAY_at_EXTENDS_UI_, false);
 	}
 
 	/**
@@ -645,7 +682,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	public static final void setExtendsUIAttribute(Item display, boolean value) {
 		try {
-			display.setAttribute(WorkspaceCST.DISPLAY_at_EXTENDS_UI_, value);
+			display.setAttribute(CadseGCST.DISPLAY_at_EXTENDS_UI_, value);
 		} catch (Throwable t) {
 
 		}
@@ -656,7 +693,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	public static final void setEditableAttribute(Item display, boolean value) {
 		try {
-			display.setAttribute(WorkspaceCST.DISPLAY_at_EDITABLE_, value);
+			display.setAttribute(CadseGCST.DISPLAY_at_EDITABLE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -671,7 +708,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	static public DCheckBoxUI createFieldExtendsIC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
 				mc, null);
 	}
 
@@ -684,7 +721,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	static public DCheckBoxUI createFieldExtendsMC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -696,7 +733,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	static public DCheckBoxUI createFieldExtendsUI() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -708,7 +745,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	static public DCheckBoxUI createFieldEditable() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -720,7 +757,12 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 */
 	static public DCheckBoxUI createFieldEnable() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_ENABLE, "enable", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_ENABLE, "enable", EPosLabel.none, mc, null);
+	}
+
+	@Override
+	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {
+		return UIItemFactory.SINGLETON.newForCommitItem(wl, it, item);
 	}
 
 }

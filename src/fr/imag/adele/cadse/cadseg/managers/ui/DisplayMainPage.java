@@ -19,7 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -62,7 +62,7 @@ public class DisplayMainPage extends PageFactory {
 	 */
 	static public DCheckBoxUI createFieldExtendsIC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
 				mc, null);
 	}
 
@@ -75,7 +75,7 @@ public class DisplayMainPage extends PageFactory {
 	 */
 	static public DCheckBoxUI createFieldExtendsMC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class DisplayMainPage extends PageFactory {
 	 */
 	static public DCheckBoxUI createFieldExtendsUI() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class DisplayMainPage extends PageFactory {
 	 */
 	static public DCheckBoxUI createFieldEditable() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class DisplayMainPage extends PageFactory {
 	 */
 	static public DCheckBoxUI createFieldEnable() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_ENABLE, "enable", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_ENABLE, "enable", EPosLabel.none, mc, null);
 	}
 
 	/*

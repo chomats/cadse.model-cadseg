@@ -23,8 +23,9 @@ import java.util.Set;
 
 import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -47,7 +48,7 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 	/**
 	 * The Class ContentManager.
 	 */
-	public class MyContentItem extends ContentModelManager.MyContentItem {
+	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
 
 		/**
 		 * Instantiates a new content manager.
@@ -57,8 +58,8 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -98,31 +99,19 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -144,7 +133,6 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -209,7 +197,7 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, it.getName());
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create " + title, "Create " + title, 3,
-				FieldsCore.createCheckBox(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends class"),
+				FieldsCore.createCheckBox(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS, "extends class"),
 				createPackageNameField(), createClassNameField()));
 	}
 
@@ -228,7 +216,7 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 		String title = it.getDisplayName();
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create " + title, "Create " + title, 3,
-				FieldsCore.createCheckBox(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends class"),
+				FieldsCore.createCheckBox(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS, "extends class"),
 				createPackageNameField(), createClassNameField()));
 	}
 
@@ -238,8 +226,8 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*

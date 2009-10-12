@@ -13,22 +13,26 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class StringToEnumModelControllerModificationPage1_ModificationPage extends
-		ModelControllerModificationPage1_ModificationPage {
+public class StringToEnumModelControllerModificationPage1_ModificationPage
+		extends ModelControllerModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected StringToEnumModelControllerModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected StringToEnumModelControllerModificationPage1_ModificationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public StringToEnumModelControllerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "StringToEnumModelController", "StringToEnumModelController", "", false, 3);
+	public StringToEnumModelControllerModificationPage1_ModificationPage(
+			Item item) {
+		super("modification-page1", "a string to enum model controller",
+				"a string to enum model controller",
+				"a string to enum model controller", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

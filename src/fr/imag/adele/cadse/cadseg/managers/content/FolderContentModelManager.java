@@ -23,8 +23,9 @@ import java.util.Collection;
 import java.util.List;
 
 import fede.workspace.eclipse.content.FolderContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -40,7 +41,7 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	/**
 	 * The Class ContentManager.
 	 */
-	public class MyContentItem extends ContentModelManager.MyContentItem {
+	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
 
 		/**
 		 * Instantiates a new content manager.
@@ -50,8 +51,8 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -61,7 +62,7 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 		 */
 		@Override
 		protected String[] getResourceKindsName() {
-			return new String[] { WorkspaceCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH };
+			return new String[] { CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH };
 		}
 	}
 
@@ -72,31 +73,19 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -118,7 +107,6 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -138,8 +126,8 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	 * @generated
 	 */
 	static public List<Link> getContentModelLink(Item folderContentModel) {
-		return folderContentModel.getOutgoingLinks(WorkspaceCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL);
-	}
+        return folderContentModel.getOutgoingLinks(CadseGCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL);
+    }
 
 	/**
 	 * Gets the content model all.
@@ -152,8 +140,8 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	 * @generated
 	 */
 	static public Collection<Item> getContentModelAll(Item folderContentModel) {
-		return folderContentModel.getOutgoingItems(WorkspaceCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL, false);
-	}
+        return folderContentModel.getOutgoingItems(CadseGCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL, false);
+    }
 
 	/**
 	 * Gets the content model.
@@ -166,8 +154,8 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	 * @generated
 	 */
 	static public Collection<Item> getContentModel(Item folderContentModel) {
-		return folderContentModel.getOutgoingItems(WorkspaceCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL, true);
-	}
+        return folderContentModel.getOutgoingItems(CadseGCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL,true);
+    }
 
 	/**
 	 * Adds the content model.
@@ -183,8 +171,8 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	 * @generated
 	 */
 	static public void addContentModel(Item folderContentModel, Item value) throws CadseException {
-		folderContentModel.addOutgoingItem(WorkspaceCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL, value);
-	}
+        folderContentModel.addOutgoingItem(CadseGCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL,value);
+    }
 
 	/**
 	 * Removes the content model.
@@ -200,14 +188,14 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	 * @generated
 	 */
 	static public void removeContentModel(Item folderContentModel, Item value) throws CadseException {
-		folderContentModel.removeOutgoingItem(WorkspaceCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL, value);
-	}
+        folderContentModel.removeOutgoingItem(CadseGCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	public static final String getFolderPathAttribute(Item folderContentModel) {
-		return folderContentModel.getAttributeWithDefaultValue(WorkspaceCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_, null);
+		return folderContentModel.getAttributeWithDefaultValue(CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_, null);
 	}
 
 	/**
@@ -215,7 +203,7 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	 */
 	public static final void setFolderPathAttribute(Item folderContentModel, String value) {
 		try {
-			folderContentModel.setAttribute(WorkspaceCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_, value);
+			folderContentModel.setAttribute(CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_, value);
 		} catch (Throwable t) {
 
 		}
@@ -227,8 +215,8 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*

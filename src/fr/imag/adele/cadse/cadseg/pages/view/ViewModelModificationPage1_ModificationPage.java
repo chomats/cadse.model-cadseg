@@ -6,7 +6,7 @@ import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_L
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -28,22 +28,23 @@ public class ViewModelModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldViews;
+	protected DListUI fieldViews;
 
 	/**
 	 * @generated
 	 */
-	protected ViewModelModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected ViewModelModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -77,11 +78,13 @@ public class ViewModelModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldViews() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.VIEW_MODEL_lt_VIEWS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.VIEW_MODEL_lt_VIEWS);
-		return new DListUI(WorkspaceCST.VIEW_MODEL_lt_VIEWS.getName(), "views", EPosLabel.top, mc, ic, true, false,
-				false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.VIEW_MODEL_lt_VIEWS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.VIEW_MODEL_lt_VIEWS);
+		return new DListUI(CadseGCST.VIEW_MODEL_lt_VIEWS.getName(), "views",
+				EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

@@ -27,7 +27,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseUtil;
 import fr.imag.adele.cadse.core.Item;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
@@ -49,7 +49,7 @@ public final class IC_SuperTypeForBrowser_Combo extends IC_LinkForBrowser_Combo_
 	 *            the message
 	 */
 	public IC_SuperTypeForBrowser_Combo(String title, String message) {
-		super(title, message, WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE);
+		super(title, message, CadseGCST.ITEM_TYPE_lt_SUPER_TYPE);
 	}
 
 	/*
@@ -59,8 +59,8 @@ public final class IC_SuperTypeForBrowser_Combo extends IC_LinkForBrowser_Combo_
 	 */
 	@Override
 	protected ITreeContentProvider getTreeContentProvider() {
-		return new ItemTreeContentProvider(new ItemShortNameComparator(), WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL,
-				WorkspaceCST.DATA_MODEL_lt_TYPES, WorkspaceCST.DATA_MODEL_lt_CATEGORIES);
+		return new ItemTreeContentProvider(new ItemShortNameComparator(), CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,
+				CadseGCST.DATA_MODEL_lt_TYPES, CadseGCST.DATA_MODEL_lt_CATEGORIES);
 	}
 
 	/*
@@ -74,9 +74,9 @@ public final class IC_SuperTypeForBrowser_Combo extends IC_LinkForBrowser_Combo_
 		if (selection != null && selection.length == 1) {
 			Object sel = selection[0];
 			if (sel instanceof Item) {
-				if (((Item) sel).getType() == WorkspaceCST.ITEM_TYPE) {
+				if (((Item) sel).getType() == CadseGCST.ITEM_TYPE) {
 					Collection<Item> incomingClosures = CadseUtil.incomingClosure(theItemType,
-							WorkspaceCST.ITEM_TYPE_lt_SUPER_TYPE);
+							CadseGCST.ITEM_TYPE_lt_SUPER_TYPE);
 					if (incomingClosures.contains(sel))
 						return new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "select an item type");
 					return Status.OK_STATUS;
@@ -94,7 +94,7 @@ public final class IC_SuperTypeForBrowser_Combo extends IC_LinkForBrowser_Combo_
 	@Override
 	protected Object getInputValues() {
 		Item theItemType = getItem();
-		Item cadsedef = theItemType.getPartParent(WorkspaceCST.CADSE_DEFINITION);
+		Item cadsedef = theItemType.getPartParent(CadseGCST.CADSE_DEFINITION);
 		List<Item> allcadse = CadseDefinitionManager.getAllDependenciesCadse(cadsedef);
 		allcadse.add(cadsedef);
 		Item[] ret = (Item[]) allcadse.toArray(new Item[allcadse.size()]);

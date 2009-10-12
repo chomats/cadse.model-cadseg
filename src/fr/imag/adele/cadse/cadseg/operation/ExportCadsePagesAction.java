@@ -331,7 +331,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		try {
 			EclipsePluginContentManger project = (EclipsePluginContentManger) cadsedef.getContentItem();
 
-			String qname = CadseDefinitionManager.getUniqueName(cadsedef);
+			String qname = CadseDefinitionManager.getQualifiedName(cadsedef);
 			File pf = new File(file, qname + "-src.zip");
 			if (tstamp) {
 				Date d = new Date(System.currentTimeMillis());
@@ -346,7 +346,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 			FileUtil.deleteDir(new File(eclipseProjectFile, MELUSINE_DIR));
 			files.put(eclipseProjectFile, "");
 			File wsFile = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile();
-			File melusineDir = new File(wsFile, ".melusine");
+			File melusineDir = new File(wsFile, ".cadse");
 			pmo.beginTask("export cadse " + cadsedef.getName(), 3);
 			getPersistanceFileAll(melusineDir, cadsedef, files, new HashSet<Item>());
 			pmo.worked(1);

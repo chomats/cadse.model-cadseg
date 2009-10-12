@@ -23,8 +23,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -52,8 +53,8 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(MyContentItem parent, Item item) {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -87,7 +88,7 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
 			super.generateCallArguments(sb, imports, context);
-			if (getItem().getAttributeWithDefaultValue(WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_,
+			if (getItem().getAttributeWithDefaultValue(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_,
 					true)) {
 				// la classe dans lequels on ecrit ce code peut s'appeler
 				// JavaProjectManager.
@@ -124,31 +125,19 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -170,7 +159,6 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -190,8 +178,8 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 * @generated
 	 */
 	static public List<Link> getContentModelLink(Item javaProjectContentModel) {
-		return javaProjectContentModel.getOutgoingLinks(WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
-	}
+        return javaProjectContentModel.getOutgoingLinks(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
+    }
 
 	/**
 	 * Gets the content model all.
@@ -204,9 +192,8 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 * @generated
 	 */
 	static public Collection<Item> getContentModelAll(Item javaProjectContentModel) {
-		return javaProjectContentModel
-				.getOutgoingItems(WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, false);
-	}
+        return javaProjectContentModel.getOutgoingItems(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, false);
+    }
 
 	/**
 	 * Gets the content model.
@@ -219,8 +206,8 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 * @generated
 	 */
 	static public Collection<Item> getContentModel(Item javaProjectContentModel) {
-		return javaProjectContentModel.getOutgoingItems(WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, true);
-	}
+        return javaProjectContentModel.getOutgoingItems(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,true);
+    }
 
 	/**
 	 * Adds the content model.
@@ -236,8 +223,8 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 * @generated
 	 */
 	static public void addContentModel(Item javaProjectContentModel, Item value) throws CadseException {
-		javaProjectContentModel.addOutgoingItem(WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, value);
-	}
+        javaProjectContentModel.addOutgoingItem(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,value);
+    }
 
 	/**
 	 * Removes the content model.
@@ -253,15 +240,14 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 * @generated
 	 */
 	static public void removeContentModel(Item javaProjectContentModel, Item value) throws CadseException {
-		javaProjectContentModel.removeOutgoingItem(WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, value);
-	}
+        javaProjectContentModel.removeOutgoingItem(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	public static final boolean isHasSourceFolderAttribute(Item javaProjectContentModel) {
-		return javaProjectContentModel.getAttributeWithDefaultValue(
-				WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_, true);
+		return javaProjectContentModel.getAttributeWithDefaultValue(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_, true);
 	}
 
 	/**
@@ -269,7 +255,7 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 */
 	public static final void setHasSourceFolderAttribute(Item javaProjectContentModel, boolean value) {
 		try {
-			javaProjectContentModel.setAttribute(WorkspaceCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_, value);
+			javaProjectContentModel.setAttribute(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_, value);
 		} catch (Throwable t) {
 
 		}
@@ -281,8 +267,8 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ProjectContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public MyContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public MyContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*

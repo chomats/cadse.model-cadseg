@@ -1,4 +1,4 @@
-package fr.imag.adele.cadse.cadseg.pages;
+package fr.imag.adele.cadse.cadseg.pages.ui;
 
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
@@ -13,33 +13,36 @@ import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
- * @generated
+ @generated
  */
-public class EventModificationPage1_ModificationPage extends PageImpl {
+public class DCheckedTreeModificationPageDCheckedTree_ModificationPage extends
+		PageImpl {
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	protected EventModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected DCheckedTreeModificationPageDCheckedTree_ModificationPage(
+			String id, String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public EventModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "Event", "Event", "", false, 3);
+	public DCheckedTreeModificationPageDCheckedTree_ModificationPage(Item item) {
+		super("modification-page-DCheckedTree", "DCheckedTree", "DCheckedTree",
+				"", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
@@ -53,7 +56,7 @@ public class EventModificationPage1_ModificationPage extends PageImpl {
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
 	public DTextUI createInternalNameField() {
 		return FieldsCore.createUniqueNameField();

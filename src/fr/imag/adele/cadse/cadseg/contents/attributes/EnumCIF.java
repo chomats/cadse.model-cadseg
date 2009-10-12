@@ -10,6 +10,7 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.cadseg.template.EnumListOfValueAttribute;
 import fr.imag.adele.cadse.cadseg.template.EnumValueAttribute;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -29,8 +30,8 @@ public class EnumCIF extends AttributeCIF {
 		 * @param item
 		 *            the item
 		 */
-		protected EnumAttributeContentItem(ContentItem parent, Item item, AttributeManager manager) {
-			super(parent, item, manager);
+		protected EnumAttributeContentItem(CompactUUID id, AttributeManager manager) {
+			super(id, manager);
 		}
 
 		/*
@@ -43,11 +44,11 @@ public class EnumCIF extends AttributeCIF {
 		@Override
 		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
 			if (kind.equals("methods")) {
-				if (!AttributeManager.isClassAttributeAttribute(getItem())) {
-					Item enumType = EnumManager.getEnumType(getItem());
+				if (true) { // !AttributeManager.isClassAttributeAttribute(getItem())
+					Item enumType = EnumManager.getEnumType(getOwnerItem());
 					IType enumQualifiedClass = EnumTypeManager.getEnumQualifiedClass(context, enumType);
 					imports.add(enumQualifiedClass.getFullyQualifiedName());
-					Item source = getItem();
+					Item source = getOwnerItem();
 					if (AttributeManager.isIsListAttribute(source)) {
 						EnumListOfValueAttribute temp = new EnumListOfValueAttribute();
 						sb.append(temp.generate(source.getPartParent().getName(), source, imports));
@@ -57,6 +58,7 @@ public class EnumCIF extends AttributeCIF {
 					} else {
 						EnumValueAttribute temp = new EnumValueAttribute();
 						sb.append(temp.generate(source.getPartParent().getName(), source, imports));
+						imports.add("fr.imag.adele.cadse.core.util.Convert");
 					}
 					imports.add("fr.imag.adele.cadse.core.Item");
 					imports.add("fr.imag.adele.cadse.core.CadseException");
@@ -65,16 +67,23 @@ public class EnumCIF extends AttributeCIF {
 				super.generate(sb, type, kind, imports, context);
 			}
 		}
-
+		
+		@Override
+		public void computeImportsPackage(Set<String> imports) {
+			super.computeImportsPackage(imports);
+			imports.add("fr.imag.adele.cadse.core.util");
+		}
 	}
+	
+	
 
 	public EnumCIF(AttributeManager manager) {
 		super(manager);
 	}
 
 	@Override
-	public ContentItem createContentItem(Item item) throws CadseException {
-		return new EnumAttributeContentItem(null, item, _attributeManager);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new EnumAttributeContentItem(id, _attributeManager);
 	}
 
 }

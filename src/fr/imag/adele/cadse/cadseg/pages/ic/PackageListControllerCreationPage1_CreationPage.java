@@ -13,21 +13,25 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class PackageListControllerCreationPage1_CreationPage extends InteractionControllerCreationPage1_CreationPage {
+public class PackageListControllerCreationPage1_CreationPage extends
+		InteractionControllerCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected PackageListControllerCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected PackageListControllerCreationPage1_CreationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public PackageListControllerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create PackageListController", "Create PackageListController", "", false, 3);
+	public PackageListControllerCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create PackageListController",
+				"Create PackageListController", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

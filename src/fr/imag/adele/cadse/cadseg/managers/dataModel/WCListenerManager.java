@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.dataModel;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -41,10 +41,10 @@ public class WCListenerManager extends DefaultItemManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -80,36 +80,36 @@ public class WCListenerManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getListenItemTypesLink(Item wCListener) {
-		return wCListener.getOutgoingLinks(WorkspaceCST.WCLISTENER_lt_LISTEN_ITEM_TYPES);
-	}
+        return wCListener.getOutgoingLinks(CadseGCST.WCLISTENER_lt_LISTEN_ITEM_TYPES);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getListenItemTypesAll(Item wCListener) {
-		return wCListener.getOutgoingItems(WorkspaceCST.WCLISTENER_lt_LISTEN_ITEM_TYPES, false);
-	}
+        return wCListener.getOutgoingItems(CadseGCST.WCLISTENER_lt_LISTEN_ITEM_TYPES, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getListenItemTypes(Item wCListener) {
-		return wCListener.getOutgoingItems(WorkspaceCST.WCLISTENER_lt_LISTEN_ITEM_TYPES, true);
-	}
+        return wCListener.getOutgoingItems(CadseGCST.WCLISTENER_lt_LISTEN_ITEM_TYPES,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addListenItemTypes(Item wCListener, Item value) throws CadseException {
-		wCListener.addOutgoingItem(WorkspaceCST.WCLISTENER_lt_LISTEN_ITEM_TYPES, value);
-	}
+        wCListener.addOutgoingItem(CadseGCST.WCLISTENER_lt_LISTEN_ITEM_TYPES,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeListenItemTypes(Item wCListener, Item value) throws CadseException {
-		wCListener.removeOutgoingItem(WorkspaceCST.WCLISTENER_lt_LISTEN_ITEM_TYPES, value);
-	}
+        wCListener.removeOutgoingItem(CadseGCST.WCLISTENER_lt_LISTEN_ITEM_TYPES,value);
+    }
 
 	/**
 	 * get links 'listenAttributeDefinitions' from 'WCListener' to 'Attribute'.
@@ -117,35 +117,35 @@ public class WCListenerManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getListenAttributeDefinitionsLink(Item wCListener) {
-		return wCListener.getOutgoingLinks(WorkspaceCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS);
-	}
+        return wCListener.getOutgoingLinks(CadseGCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getListenAttributeDefinitionsAll(Item wCListener) {
-		return wCListener.getOutgoingItems(WorkspaceCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS, false);
-	}
+        return wCListener.getOutgoingItems(CadseGCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getListenAttributeDefinitions(Item wCListener) {
-		return wCListener.getOutgoingItems(WorkspaceCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS, true);
-	}
+        return wCListener.getOutgoingItems(CadseGCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addListenAttributeDefinitions(Item wCListener, Item value) throws CadseException {
-		wCListener.addOutgoingItem(WorkspaceCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS, value);
-	}
+        wCListener.addOutgoingItem(CadseGCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeListenAttributeDefinitions(Item wCListener, Item value) throws CadseException {
-		wCListener.removeOutgoingItem(WorkspaceCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS, value);
-	}
+        wCListener.removeOutgoingItem(CadseGCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS,value);
+    }
 
 }

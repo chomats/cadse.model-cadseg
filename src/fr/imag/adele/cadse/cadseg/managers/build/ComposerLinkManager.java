@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -53,23 +53,10 @@ public class ComposerLinkManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -118,8 +105,8 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getExportersLink(Item composerLink) {
-		return composerLink.getOutgoingLinks(WorkspaceCST.COMPOSER_LINK_lt_EXPORTERS);
-	}
+        return composerLink.getOutgoingLinks(CadseGCST.COMPOSER_LINK_lt_EXPORTERS);
+    }
 
 	/**
 	 * Gets the exporters all.
@@ -132,8 +119,8 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getExportersAll(Item composerLink) {
-		return composerLink.getOutgoingItems(WorkspaceCST.COMPOSER_LINK_lt_EXPORTERS, false);
-	}
+        return composerLink.getOutgoingItems(CadseGCST.COMPOSER_LINK_lt_EXPORTERS, false);
+    }
 
 	/**
 	 * Creates the wizard page page1.
@@ -187,7 +174,7 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getLink(Item composerLink) {
-		return composerLink.getOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt_LINK, true);
+		return composerLink.getOutgoingItem(CadseGCST.COMPOSER_LINK_lt_LINK, true);
 	}
 
 	/**
@@ -196,162 +183,9 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void setLink(Item composerLink, Item value) throws CadseException {
-		composerLink.setOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt_LINK, value);
+		composerLink.setOutgoingItem(CadseGCST.COMPOSER_LINK_lt_LINK,value);
 	}
-
-	/**
-	 * get links '#invert_part_composer-links_to_AJProjectComposer' from
-	 * 'ComposerLink' to 'AJProjectComposer'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_composerLinks_to_AJProjectComposerLink(Item composerLink) {
-		return composerLink
-				.getOutgoingLink(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_AJPROJECT_COMPOSER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composerLinks_to_AJProjectComposerAll(Item composerLink) {
-		return composerLink.getOutgoingItem(
-				WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_AJPROJECT_COMPOSER, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composerLinks_to_AJProjectComposer(Item composerLink) {
-		return composerLink.getOutgoingItem(
-				WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_AJPROJECT_COMPOSER, true);
-	}
-
-	/**
-	 * set a link '#invert_part_composer-links_to_AJProjectComposer' from
-	 * 'ComposerLink' to 'AJProjectComposer'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_composerLinks_to_AJProjectComposer(Item composerLink, Item value)
-			throws CadseException {
-		composerLink.setOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_AJPROJECT_COMPOSER,
-				value);
-	}
-
-	/**
-	 * get links '#invert_part_composer-links_to_Composer' from 'ComposerLink'
-	 * to 'Composer'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_composerLinks_to_ComposerLink(Item composerLink) {
-		return composerLink.getOutgoingLink(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_COMPOSER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composerLinks_to_ComposerAll(Item composerLink) {
-		return composerLink.getOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_COMPOSER,
-				false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composerLinks_to_Composer(Item composerLink) {
-		return composerLink.getOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_COMPOSER,
-				true);
-	}
-
-	/**
-	 * set a link '#invert_part_composer-links_to_Composer' from 'ComposerLink'
-	 * to 'Composer'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_composerLinks_to_Composer(Item composerLink, Item value) throws CadseException {
-		composerLink.setOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_COMPOSER, value);
-	}
-
-	/**
-	 * get links '#invert_part_composer-links_to_JavaProjectComposer' from
-	 * 'ComposerLink' to 'JavaProjectComposer'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_composerLinks_to_JavaProjectComposerLink(Item composerLink) {
-		return composerLink
-				.getOutgoingLink(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_JAVA_PROJECT_COMPOSER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composerLinks_to_JavaProjectComposerAll(Item composerLink) {
-		return composerLink.getOutgoingItem(
-				WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_JAVA_PROJECT_COMPOSER, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composerLinks_to_JavaProjectComposer(Item composerLink) {
-		return composerLink.getOutgoingItem(
-				WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_JAVA_PROJECT_COMPOSER, true);
-	}
-
-	/**
-	 * set a link '#invert_part_composer-links_to_JavaProjectComposer' from
-	 * 'ComposerLink' to 'JavaProjectComposer'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_composerLinks_to_JavaProjectComposer(Item composerLink, Item value)
-			throws CadseException {
-		composerLink.setOutgoingItem(
-				WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_JAVA_PROJECT_COMPOSER, value);
-	}
-
-	/**
-	 * get links '#invert_part_composer-links_to_EclipseComposer' from
-	 * 'ComposerLink' to 'EclipseComposer'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_composerLinks_to_EclipseComposerLink(Item composerLink) {
-		return composerLink
-				.getOutgoingLink(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_ECLIPSE_COMPOSER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composerLinks_to_EclipseComposerAll(Item composerLink) {
-		return composerLink.getOutgoingItem(
-				WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_ECLIPSE_COMPOSER, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_composerLinks_to_EclipseComposer(Item composerLink) {
-		return composerLink.getOutgoingItem(
-				WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_ECLIPSE_COMPOSER, true);
-	}
-
-	/**
-	 * set a link '#invert_part_composer-links_to_EclipseComposer' from
-	 * 'ComposerLink' to 'EclipseComposer'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_composerLinks_to_EclipseComposer(Item composerLink, Item value)
-			throws CadseException {
-		composerLink.setOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt__$_INVERT_PART_COMPOSER_LINKS_TO_ECLIPSE_COMPOSER,
-				value);
-	}
-
+	
 	/**
 	 * Gets the composer link from link.
 	 * 
@@ -362,7 +196,7 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 */
 	public static Item getComposerLinkFromLink(Item link) {
 		for (Link l : link.getIncomingLinks()) {
-			if (l.getSource().getType() == WorkspaceCST.COMPOSER_LINK) {
+			if (l.getSource().getType() == CadseGCST.COMPOSER_LINK) {
 				return l.getSource();
 			}
 		}
@@ -380,8 +214,8 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getExporters(Item composerLink) {
-		return composerLink.getOutgoingItems(WorkspaceCST.COMPOSER_LINK_lt_EXPORTERS, true);
-	}
+        return composerLink.getOutgoingItems(CadseGCST.COMPOSER_LINK_lt_EXPORTERS,true);
+    }
 
 	/**
 	 * Adds the exporters.
@@ -397,8 +231,8 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void addExporters(Item composerLink, Item value) throws CadseException {
-		composerLink.addOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt_EXPORTERS, value);
-	}
+        composerLink.addOutgoingItem(CadseGCST.COMPOSER_LINK_lt_EXPORTERS,value);
+    }
 
 	/**
 	 * Removes the exporters.
@@ -414,8 +248,8 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void removeExporters(Item composerLink, Item value) throws CadseException {
-		composerLink.removeOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt_EXPORTERS, value);
-	}
+        composerLink.removeOutgoingItem(CadseGCST.COMPOSER_LINK_lt_EXPORTERS,value);
+    }
 
 	/**
 	 * get a link 'link' from 'ComposerLink' to 'Link'.
@@ -428,7 +262,7 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Link getLinkLink(Item composerLink) {
-		return composerLink.getOutgoingLink(WorkspaceCST.COMPOSER_LINK_lt_LINK);
+		return composerLink.getOutgoingLink(CadseGCST.COMPOSER_LINK_lt_LINK);
 	}
 
 	/**
@@ -442,7 +276,7 @@ public class ComposerLinkManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getLinkAll(Item composerLink) {
-		return composerLink.getOutgoingItem(WorkspaceCST.COMPOSER_LINK_lt_LINK, false);
+		return composerLink.getOutgoingItem(CadseGCST.COMPOSER_LINK_lt_LINK, false);
 	}
 
 }

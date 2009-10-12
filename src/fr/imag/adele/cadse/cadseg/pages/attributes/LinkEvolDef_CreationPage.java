@@ -24,7 +24,8 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.mc.StringToEnumModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -47,18 +48,18 @@ public class LinkEvolDef_CreationPage extends AttributeEvolDef_CreationPage {
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldTWDestEvol;
+	protected DBrowserUI fieldTWDestEvol;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldTWCoupled;
+	protected DCheckBoxUI fieldTWCoupled;
 
 	/**
 	 * @generated
 	 */
-	protected LinkEvolDef_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected LinkEvolDef_CreationPage(String id, String label, String title,
+			String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -66,7 +67,8 @@ public class LinkEvolDef_CreationPage extends AttributeEvolDef_CreationPage {
 	 * @generated
 	 */
 	public LinkEvolDef_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("evol-def", "Evolution definition", "Evolution definition", "Set the evolutions definition", false, 3);
+		super("evol-def", "Evolution definition", "Evolution definition",
+				"Set the evolutions definition", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -75,7 +77,8 @@ public class LinkEvolDef_CreationPage extends AttributeEvolDef_CreationPage {
 		this.fieldTWDestEvol = createFieldTWDestEvol();
 		this.fieldTWCoupled = createFieldTWCoupled();
 		setActionPage(null);
-		addLast(this.fieldTWEvol, this.fieldTWRevSpecific, this.fieldTWDestEvol, this.fieldTWCoupled);
+		addLast(this.fieldTWEvol, this.fieldTWRevSpecific,
+				this.fieldTWDestEvol, this.fieldTWCoupled);
 
 		registerListener();
 	}
@@ -88,27 +91,13 @@ public class LinkEvolDef_CreationPage extends AttributeEvolDef_CreationPage {
 	/**
 	 * @generated
 	 */
-	public DBrowserUI createFieldTWEvol() {
-		StringToEnumModelController mc = new StringToEnumModelController(TWEvol.class, TWEvol.twImmutable);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("Select a value.", "Select a value.", TWEvol.class);
-		return new DBrowserUI(WorkspaceCST.ATTRIBUTE_at_TWEVOL, "TWEvol", EPosLabel.left, mc, ic);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldTWRevSpecific() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_TWREV_SPECIFIC, "TWRevSpecific", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
 	public DBrowserUI createFieldTWDestEvol() {
-		StringToEnumModelController mc = new StringToEnumModelController(TWDestEvol.class, TWDestEvol.immutable);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("Select a value.", "Select a value.", TWDestEvol.class);
-		return new DBrowserUI(WorkspaceCST.LINK_at_TWDEST_EVOL, "TWDestEvol", EPosLabel.left, mc, ic);
+		StringToEnumModelController mc = new StringToEnumModelController(
+				TWDestEvol.class, TWDestEvol.immutable);
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
+				"Select a value.", "Select a value.", TWDestEvol.class);
+		return new DBrowserUI(CadseGCST.LINK_at_TWDEST_EVOL, "TWDestEvol",
+				EPosLabel.left, mc, ic);
 	}
 
 	/**
@@ -116,7 +105,8 @@ public class LinkEvolDef_CreationPage extends AttributeEvolDef_CreationPage {
 	 */
 	public DCheckBoxUI createFieldTWCoupled() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.LINK_at_TWCOUPLED, "TWCoupled", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.LINK_at_TWCOUPLED, "TWCoupled",
+				EPosLabel.none, mc, null);
 	}
 
 }

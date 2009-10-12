@@ -13,22 +13,25 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class IC_FolderResource_ForBrowser_Combo_ListCreationPage1_CreationPage extends
-		InteractionControllerCreationPage1_CreationPage {
+public class IC_FolderResource_ForBrowser_Combo_ListCreationPage1_CreationPage
+		extends InteractionControllerCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected IC_FolderResource_ForBrowser_Combo_ListCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected IC_FolderResource_ForBrowser_Combo_ListCreationPage1_CreationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public IC_FolderResource_ForBrowser_Combo_ListCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create IC_FolderResource_ForBrowser_Combo_List",
+	public IC_FolderResource_ForBrowser_Combo_ListCreationPage1_CreationPage(
+			Item parent, ItemType it, LinkType lt) {
+		super("creation-page1",
+				"Create IC_FolderResource_ForBrowser_Combo_List",
 				"Create IC_FolderResource_ForBrowser_Combo_List", "", false, 3);
 		this.parent = parent;
 		this.it = it;

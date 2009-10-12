@@ -21,16 +21,19 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.util.Util;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
@@ -45,16 +48,10 @@ import fede.workspace.model.manager.properties.FieldsCore;
 public class IC_AbstractTreeDialogForList_Browser_ComboManager extends InteractionControllerManager implements
 		IItemManager {
 
-	/** The Constant SELECT_MESSAGE_ATTRIBUTE. */
-	public static final String	SELECT_MESSAGE_ATTRIBUTE	= "select-message";
-
-	/** The Constant SELECT_TITLE_ATTRIBUTE. */
-	public static final String	SELECT_TITLE_ATTRIBUTE		= "select-title";
-
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends InteractionControllerManager.MyContentItem {
+	class MyContentItem extends InteractionControllerManager.InteractionControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -65,8 +62,8 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -77,8 +74,8 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getItem(), SELECT_TITLE_ATTRIBUTE, true, "???", sb);
-			DisplayManager.addAttributeInCall(getItem(), SELECT_MESSAGE_ATTRIBUTE, true, "???", sb);
+			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_TITLE, true, "???", sb);
+			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_MESSAGE, true, "???", sb);
 		}
 
 		/*
@@ -125,6 +122,113 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	public IC_AbstractTreeDialogForList_Browser_ComboManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
+		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
+		try {
+			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
+		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
+		try {
+			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getSelectMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
+		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_MESSAGE_, "Select a value.");
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setSelectMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
+		try {
+			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_MESSAGE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getSelectTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
+		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_TITLE_, "Select a value.");
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setSelectTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
+		try {
+			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_TITLE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -151,45 +255,14 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+	
+	
 
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Add a Abstract TreeDialog For List, Browser, Combo",
-				"Add a Abstract TreeDialog For List, Browser, Combo", 2, FieldsCore.createTextField(
-						SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE,
-						"dialog message")));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"a Abstract TreeDialog For List, Browser, Combo", "a Abstract TreeDialog For List, Browser, Combo", 2,
-				FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -199,29 +272,19 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	 */
 	@Override
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
-		if (itemParent.getType() == WorkspaceCST.DLIST) {
+		if (itemParent.getType() == CadseGCST.DLIST) {
 			return null;
 		}
-		if (itemParent.getType() == WorkspaceCST.DBROWSER) {
+		if (itemParent.getType() == CadseGCST.DBROWSER) {
 			return null;
 		}
-		if (itemParent.getType() == WorkspaceCST.DCOMBO) {
+		if (itemParent.getType() == CadseGCST.DCOMBO) {
 			return null;
 		}
 
 		return "use this controller for list or browser";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public void createdItem(Item item) throws CadseException {
-		super.createdItem(item);
-		Util.setDefaultValueIfNeed(item, SELECT_MESSAGE_ATTRIBUTE, "Select a value.");
-		Util.setDefaultValueIfNeed(item, SELECT_TITLE_ATTRIBUTE, "Select a value.");
-	}
+	
 
 }

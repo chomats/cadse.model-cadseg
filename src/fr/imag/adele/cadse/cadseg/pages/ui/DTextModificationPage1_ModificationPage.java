@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.ui;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -37,57 +37,59 @@ import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * @generated
  */
-public class DTextModificationPage1_ModificationPage extends DisplayModificationPage1_ModificationPage {
+public class DTextModificationPage1_ModificationPage extends
+		DisplayModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldToolTip;
+	protected DTextUI fieldToolTip;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldVerticalSpan;
+	protected DTextUI fieldVerticalSpan;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsIC;
+	protected DCheckBoxUI fieldExtendsIC;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsMC;
+	protected DCheckBoxUI fieldExtendsMC;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsUI;
+	protected DCheckBoxUI fieldExtendsUI;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldMultiLigne;
+	protected DCheckBoxUI fieldMultiLigne;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldWrapLine;
+	protected DCheckBoxUI fieldWrapLine;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldNoBorder;
+	protected DCheckBoxUI fieldNoBorder;
 
 	/**
 	 * @generated
 	 */
-	protected DTextModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected DTextModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -109,8 +111,9 @@ public class DTextModificationPage1_ModificationPage extends DisplayModification
 		this.fieldWrapLine = createFieldWrapLine();
 		this.fieldNoBorder = createFieldNoBorder();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldToolTip, this.fieldVerticalSpan, this.fieldEditable, this.fieldEnable,
-				this.fieldExtendsIC, this.fieldExtendsMC, this.fieldExtendsUI, this.fieldMultiLigne,
+		addLast(this.__short_name__, this.fieldToolTip, this.fieldVerticalSpan,
+				this.fieldEditable, this.fieldEnable, this.fieldExtendsIC,
+				this.fieldExtendsMC, this.fieldExtendsUI, this.fieldMultiLigne,
 				this.fieldWrapLine, this.fieldNoBorder);
 
 		registerListener();
@@ -125,33 +128,19 @@ public class DTextModificationPage1_ModificationPage extends DisplayModification
 	 * @generated
 	 */
 	public DTextUI createFieldToolTip() {
-		return new DTextUI(WorkspaceCST.DTEXT_at_TOOL_TIP, "tool tip", EPosLabel.left, new MC_AttributesItem(), null,
-				5, "", true, false, true);
+		return new DTextUI(CadseGCST.DTEXT_at_TOOL_TIP, "tool tip",
+				EPosLabel.left, new MC_AttributesItem(), null, 5, "", true,
+				false, true);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldVerticalSpan() {
-		IntModelController mc = new IntModelController(1, -1, "The value must be bigger than 1", null, 1);
-		return new DTextUI(WorkspaceCST.DTEXT_at_VERTICAL_SPAN, "vertical span", EPosLabel.left, mc, null, 1, "",
-				false, false, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldEditable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldEnable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_ENABLE, "enable", EPosLabel.none, mc, null);
+		IntModelController mc = new IntModelController(1, -1,
+				"The value must be bigger than 1", null, 1);
+		return new DTextUI(CadseGCST.DTEXT_at_VERTICAL_SPAN, "vertical span",
+				EPosLabel.left, mc, null, 1, "", false, false, false);
 	}
 
 	/**
@@ -159,7 +148,8 @@ public class DTextModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldExtendsIC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_IC, "extendsIC", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extendsIC",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -167,7 +157,8 @@ public class DTextModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldExtendsMC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_MC, "extendsMC", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extendsMC",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -175,7 +166,8 @@ public class DTextModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldExtendsUI() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_UI, "extendsUI", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extendsUI",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -183,7 +175,8 @@ public class DTextModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldMultiLigne() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DTEXT_at_MULTI_LINE, "multi line", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DTEXT_at_MULTI_LINE, "multi line",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -191,7 +184,8 @@ public class DTextModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldWrapLine() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DTEXT_at_WRAP_LINE, "wrap line", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DTEXT_at_WRAP_LINE, "wrap line",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -199,7 +193,8 @@ public class DTextModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldNoBorder() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DTEXT_at_NO_BORDER, "no border", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DTEXT_at_NO_BORDER, "no border",
+				EPosLabel.none, mc, null);
 	}
 
 }

@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.actions;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -53,7 +53,7 @@ public class MenuManager extends MenuAbstractManager {
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.MENU.setHasUniqueNameAttribute(false);
+		CadseGCST.MENU.setHasUniqueNameAttribute(false);
 	}
 
 	/**
@@ -88,8 +88,8 @@ public class MenuManager extends MenuAbstractManager {
 	 * @generated
 	 */
 	static public List<Link> getChildrenLink(Item menu) {
-		return menu.getOutgoingLinks(WorkspaceCST.MENU_lt_CHILDREN);
-	}
+        return menu.getOutgoingLinks(CadseGCST.MENU_lt_CHILDREN);
+    }
 
 	/**
 	 * Gets the children all.
@@ -102,8 +102,8 @@ public class MenuManager extends MenuAbstractManager {
 	 * @generated
 	 */
 	static public Collection<Item> getChildrenAll(Item menu) {
-		return menu.getOutgoingItems(WorkspaceCST.MENU_lt_CHILDREN, false);
-	}
+        return menu.getOutgoingItems(CadseGCST.MENU_lt_CHILDREN, false);
+    }
 
 	/**
 	 * Gets the children.
@@ -116,8 +116,8 @@ public class MenuManager extends MenuAbstractManager {
 	 * @generated
 	 */
 	static public Collection<Item> getChildren(Item menu) {
-		return menu.getOutgoingItems(WorkspaceCST.MENU_lt_CHILDREN, true);
-	}
+        return menu.getOutgoingItems(CadseGCST.MENU_lt_CHILDREN,true);
+    }
 
 	/**
 	 * Adds the children.
@@ -133,8 +133,8 @@ public class MenuManager extends MenuAbstractManager {
 	 * @generated
 	 */
 	static public void addChildren(Item menu, Item value) throws CadseException {
-		menu.addOutgoingItem(WorkspaceCST.MENU_lt_CHILDREN, value);
-	}
+        menu.addOutgoingItem(CadseGCST.MENU_lt_CHILDREN,value);
+    }
 
 	/**
 	 * Removes the children.
@@ -150,7 +150,7 @@ public class MenuManager extends MenuAbstractManager {
 	 * @generated
 	 */
 	static public void removeChildren(Item menu, Item value) throws CadseException {
-		menu.removeOutgoingItem(WorkspaceCST.MENU_lt_CHILDREN, value);
-	}
+        menu.removeOutgoingItem(CadseGCST.MENU_lt_CHILDREN,value);
+    }
 
 }

@@ -28,15 +28,17 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseUtil;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -89,8 +91,8 @@ public class ModificationDialogManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getPagesLink(Item modificationDialog) {
-		return modificationDialog.getOutgoingLinks(WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES);
-	}
+        return modificationDialog.getOutgoingLinks(CadseGCST.MODIFICATION_DIALOG_lt_PAGES);
+    }
 
 	/**
 	 * Gets the pages all.
@@ -103,8 +105,8 @@ public class ModificationDialogManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getPagesAll(Item modificationDialog) {
-		return modificationDialog.getOutgoingItems(WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES, false);
-	}
+        return modificationDialog.getOutgoingItems(CadseGCST.MODIFICATION_DIALOG_lt_PAGES, false);
+    }
 
 	/**
 	 * The Class PrivateContentManager.
@@ -120,8 +122,8 @@ public class ModificationDialogManager extends DefaultItemManager {
 		 * @param item
 		 *            the item
 		 */
-		private PrivateContentManager(ContentItem parent, Item item) {
-			super(parent, item);
+		private PrivateContentManager(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -259,7 +261,7 @@ public class ModificationDialogManager extends DefaultItemManager {
 	 * @return the pages
 	 */
 	static public Collection<Item> getPages(Item page) {
-		return page.getOutgoingItems(WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES, true);
+		return page.getOutgoingItems(CadseGCST.MODIFICATION_DIALOG_lt_PAGES, true);
 	}
 
 	/**
@@ -288,8 +290,8 @@ public class ModificationDialogManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void addPages(Item modificationDialog, Item value) throws CadseException {
-		modificationDialog.addOutgoingItem(WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES, value);
-	}
+        modificationDialog.addOutgoingItem(CadseGCST.MODIFICATION_DIALOG_lt_PAGES,value);
+    }
 
 	/**
 	 * Removes the pages.
@@ -305,47 +307,8 @@ public class ModificationDialogManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void removePages(Item modificationDialog, Item value) throws CadseException {
-		modificationDialog.removeOutgoingItem(WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES, value);
-	}
-
-	/**
-	 * get links '#invert_part_modification-dialog_to_AbstractItemType' from
-	 * 'ModificationDialog' to 'AbstractItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_modificationDialog_to_AbstractItemTypeLink(Item modificationDialog) {
-		return modificationDialog
-				.getOutgoingLink(WorkspaceCST.MODIFICATION_DIALOG_lt__$_INVERT_PART_MODIFICATION_DIALOG_TO_ABSTRACT_ITEM_TYPE);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_modificationDialog_to_AbstractItemTypeAll(Item modificationDialog) {
-		return modificationDialog.getOutgoingItem(
-				WorkspaceCST.MODIFICATION_DIALOG_lt__$_INVERT_PART_MODIFICATION_DIALOG_TO_ABSTRACT_ITEM_TYPE, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_modificationDialog_to_AbstractItemType(Item modificationDialog) {
-		return modificationDialog.getOutgoingItem(
-				WorkspaceCST.MODIFICATION_DIALOG_lt__$_INVERT_PART_MODIFICATION_DIALOG_TO_ABSTRACT_ITEM_TYPE, true);
-	}
-
-	/**
-	 * set a link '#invert_part_modification-dialog_to_AbstractItemType' from
-	 * 'ModificationDialog' to 'AbstractItemType'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_modificationDialog_to_AbstractItemType(Item modificationDialog, Item value)
-			throws CadseException {
-		modificationDialog.setOutgoingItem(
-				WorkspaceCST.MODIFICATION_DIALOG_lt__$_INVERT_PART_MODIFICATION_DIALOG_TO_ABSTRACT_ITEM_TYPE, value);
-	}
+        modificationDialog.removeOutgoingItem(CadseGCST.MODIFICATION_DIALOG_lt_PAGES,value);
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -364,7 +327,7 @@ public class ModificationDialogManager extends DefaultItemManager {
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.MODIFICATION_DIALOG.setHasUniqueNameAttribute(false);
+		CadseGCST.MODIFICATION_DIALOG.setHasUniqueNameAttribute(false);
 	}
 
 	/*
@@ -373,8 +336,8 @@ public class ModificationDialogManager extends DefaultItemManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new PrivateContentManager(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new PrivateContentManager(id);
 	}
 
 	/**

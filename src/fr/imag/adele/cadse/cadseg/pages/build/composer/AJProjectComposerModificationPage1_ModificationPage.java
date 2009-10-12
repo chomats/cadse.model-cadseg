@@ -5,7 +5,7 @@ import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -28,8 +28,9 @@ public class AJProjectComposerModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected AJProjectComposerModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected AJProjectComposerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -37,7 +38,8 @@ public class AJProjectComposerModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public AJProjectComposerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "AJProjectComposer", "AJProjectComposer", "", false, 3);
+		super("modification-page1", "AJProjectComposer", "AJProjectComposer",
+				"", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldComposerLinks = createFieldComposerLinks();
@@ -50,17 +52,6 @@ public class AJProjectComposerModificationPage1_ModificationPage extends
 	protected void registerListener() {
 		super.registerListener();
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DListUI createFieldComposerLinks() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS);
-		return new DListUI(WorkspaceCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS.getName(), "composer-links",
-				EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

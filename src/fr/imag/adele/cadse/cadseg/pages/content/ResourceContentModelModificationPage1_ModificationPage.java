@@ -3,7 +3,7 @@ package fr.imag.adele.cadse.cadseg.pages.content;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -20,13 +20,14 @@ import fr.imag.adele.cadse.core.ui.UIField;
  * @generated
  */
 public class ResourceContentModelModificationPage1_ModificationPage extends
-		ContentModelModificationPage1_ModificationPage {
+		ContentItemTypeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected ResourceContentModelModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected ResourceContentModelModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -34,7 +35,8 @@ public class ResourceContentModelModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public ResourceContentModelModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "ResourceContentModel", "ResourceContentModel", "", false, 3);
+		super("modification-page1", "ResourceContentModel",
+				"ResourceContentModel", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldExtendsClass = createFieldExtendsClass();
@@ -47,14 +49,6 @@ public class ResourceContentModelModificationPage1_ModificationPage extends
 	protected void registerListener() {
 		super.registerListener();
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldExtendsClass() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.CONTENT_MODEL_at_EXTENDS_CLASS, "extends-class", EPosLabel.none, mc, null);
 	}
 
 }

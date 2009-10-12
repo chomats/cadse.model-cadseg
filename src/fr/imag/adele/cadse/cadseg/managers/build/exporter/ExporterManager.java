@@ -34,11 +34,13 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
@@ -67,10 +69,12 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
  */
 public class ExporterManager extends DefaultItemManager implements IExtendClassManager {
 
+	
+
 	/**
 	 * The Class ContentManager.
 	 */
-	public class MyContentItem extends SubFileContentManager implements IGenerateContent, IPDEContributor {
+	public class ExporterContent extends SubFileContentManager implements IGenerateContent, IPDEContributor {
 
 		/**
 		 * Instantiates a new content manager.
@@ -80,8 +84,8 @@ public class ExporterManager extends DefaultItemManager implements IExtendClassM
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		public ExporterContent(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -287,23 +291,10 @@ public class ExporterManager extends DefaultItemManager implements IExtendClassM
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -333,7 +324,7 @@ public class ExporterManager extends DefaultItemManager implements IExtendClassM
 	@SuppressWarnings("unchecked")
 	public static final List<String> getTypesAttribute(Item exporter) {
 		try {
-			List<String> list = exporter.getAttribute(WorkspaceCST.EXPORTER_at_TYPES_);
+			List<String> list = exporter.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
 
 			if (list == null)
 				return null;
@@ -358,7 +349,7 @@ public class ExporterManager extends DefaultItemManager implements IExtendClassM
 	public static final void setTypesAttribute(Item exporter, List<String> valueList) {
 		try {
 			List<String> list = new ArrayList<String>(valueList);
-			exporter.setAttribute(WorkspaceCST.EXPORTER_at_TYPES_, list);
+			exporter.setAttribute(CadseGCST.EXPORTER_at_TYPES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -377,12 +368,12 @@ public class ExporterManager extends DefaultItemManager implements IExtendClassM
 	@SuppressWarnings("unchecked")
 	public static final void addTypesAttribute(Item exporter, String value) {
 		try {
-			List<String> list = exporter.getAttribute(WorkspaceCST.EXPORTER_at_TYPES_);
+			List<String> list = exporter.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
 			if (list == null) {
 				list = new ArrayList<String>();
 			}
 			list.add(value);
-			exporter.setAttribute(WorkspaceCST.EXPORTER_at_TYPES_, list);
+			exporter.setAttribute(CadseGCST.EXPORTER_at_TYPES_, list);
 		} catch (Throwable t) {
 
 		}
@@ -402,73 +393,18 @@ public class ExporterManager extends DefaultItemManager implements IExtendClassM
 	public static final void removeTypesAttribute(Item exporter, String value) {
 		try {
 
-			List<String> list = exporter.getAttribute(WorkspaceCST.EXPORTER_at_TYPES_);
+			List<String> list = exporter.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
 			if (list == null) {
 				return;
 			}
 			list.remove(value);
 			if (list.size() == 0)
-				exporter.setAttribute(WorkspaceCST.EXPORTER_at_TYPES_, null);
+				exporter.setAttribute(CadseGCST.EXPORTER_at_TYPES_, null);
 			else
-				exporter.setAttribute(WorkspaceCST.EXPORTER_at_TYPES_, list);
+				exporter.setAttribute(CadseGCST.EXPORTER_at_TYPES_, list);
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/**
-	 * get a link '#invert_part_exporters_to_Manager' from 'Exporter' to
-	 * 'Manager'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_exporters_to_ManagerLink(Item exporter) {
-		return exporter.getOutgoingLink(WorkspaceCST.EXPORTER_lt__$_INVERT_PART_EXPORTERS_TO_MANAGER);
-	}
-
-	/**
-	 * get all link destination '#invert_part_exporters_to_Manager' from
-	 * 'Exporter' to 'Manager'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_exporters_to_ManagerAll(Item exporter) {
-		return exporter.getOutgoingItem(WorkspaceCST.EXPORTER_lt__$_INVERT_PART_EXPORTERS_TO_MANAGER, false);
-	}
-
-	/**
-	 * get resolved link destination '#invert_part_exporters_to_Manager' from
-	 * 'Exporter' to 'Manager'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_exporters_to_Manager(Item exporter) {
-		return exporter.getOutgoingItem(WorkspaceCST.EXPORTER_lt__$_INVERT_PART_EXPORTERS_TO_MANAGER, true);
-	}
-
-	/**
-	 * set a link '#invert_part_exporters_to_Manager' from 'Exporter' to
-	 * 'Manager'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_exporters_to_Manager(Item exporter, Item value) throws CadseException {
-		exporter.setOutgoingItem(WorkspaceCST.EXPORTER_lt__$_INVERT_PART_EXPORTERS_TO_MANAGER, value);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#createContentManager(
-	 * fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentManager(Item subContentModel) throws CadseException {
-		MyContentItem cm = new MyContentItem(null, subContentModel);
-		cm.setComposers();
-		cm.setExporters();
-		return cm;
 	}
 
 	/*
@@ -515,6 +451,21 @@ public class ExporterManager extends DefaultItemManager implements IExtendClassM
 	@Override
 	public String getDisplayName(Item item) {
 		return item.getName();
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+		ExporterContent cm = new ExporterContent(
+			id
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
+		return cm;
 	}
 
 	/*

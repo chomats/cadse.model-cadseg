@@ -23,13 +23,15 @@ import java.util.Set;
 
 import org.eclipse.jdt.core.IType;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -41,7 +43,6 @@ import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.var.ContextVariable;
-import fede.workspace.model.manager.properties.FieldsCore;
 
 /**
  * The Class StringToEnumModelControllerManager.
@@ -53,7 +54,7 @@ public class StringToEnumModelControllerManager extends ModelControllerManager i
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends ModelControllerManager.MyContentItem {
+	class MyContentItem extends ModelControllerManager.ModelControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -64,8 +65,8 @@ public class StringToEnumModelControllerManager extends ModelControllerManager i
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -76,7 +77,7 @@ public class StringToEnumModelControllerManager extends ModelControllerManager i
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item field = getItem().getPartParent().getPartParent();
+			Item field = getOwnerItem().getPartParent().getPartParent();
 
 			Item enumattribute = FieldManager.getAttribute(field);
 
@@ -108,7 +109,7 @@ public class StringToEnumModelControllerManager extends ModelControllerManager i
 		 */
 		@Override
 		protected void generateConstructorParameter(GenStringBuilder sb) {
-			Item field = getItem().getPartParent().getPartParent();
+			Item field = getOwnerItem().getPartParent().getPartParent();
 
 			Item enumattribute = FieldManager.getAttribute(field);
 
@@ -128,6 +129,41 @@ public class StringToEnumModelControllerManager extends ModelControllerManager i
 	 * Instantiates a new string to enum model controller manager.
 	 */
 	public StringToEnumModelControllerManager() {
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 
 	/*
@@ -166,39 +202,11 @@ public class StringToEnumModelControllerManager extends ModelControllerManager i
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.MC_DEFAULT_SHORT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Create a string to enum model controller", "Create a string to enum model controller", 3));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a string to enum model controller",
-				"a string to enum model controller", 3));
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -215,7 +223,7 @@ public class StringToEnumModelControllerManager extends ModelControllerManager i
 			return "Must set the attribut link for the item " + itemParent.getId();
 		if (AttributeManager.isIsListAttribute(attribut))
 			return "Must be a singleton value";
-		if (attribut.getType() == WorkspaceCST.ENUM)
+		if (attribut.getType() == CadseGCST.ENUM)
 			return null;
 
 		return "The type of the attribut linked at the field must be enum attribute";

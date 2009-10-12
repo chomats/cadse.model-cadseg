@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -41,18 +41,19 @@ import fede.workspace.model.manager.properties.impl.ui.DListUI;
 /**
  * @generated
  */
-public class StructModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class StructModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldAttributes;
+	protected DListUI fieldAttributes;
 
 	/**
 	 * @generated
 	 */
-	protected StructModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected StructModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -79,11 +80,13 @@ public class StructModificationPage1_ModificationPage extends AttributeModificat
 	 * @generated
 	 */
 	public DListUI createFieldAttributes() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.STRUCT_lt_ATTRIBUTES);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.STRUCT_lt_ATTRIBUTES);
-		return new DListUI(WorkspaceCST.STRUCT_lt_ATTRIBUTES.getName(), "attributes", EPosLabel.top, mc, ic, false,
-				false, false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.STRUCT_lt_ATTRIBUTES);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.STRUCT_lt_ATTRIBUTES);
+		return new DListUI(CadseGCST.STRUCT_lt_ATTRIBUTES.getName(),
+				"attributes", EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

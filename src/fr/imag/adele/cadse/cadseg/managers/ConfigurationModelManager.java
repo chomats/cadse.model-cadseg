@@ -25,7 +25,7 @@ package fr.imag.adele.cadse.cadseg.managers;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -45,23 +45,10 @@ public class ConfigurationModelManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -99,8 +86,8 @@ public class ConfigurationModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public List<Link> getBuildLink(Item configurationModel) {
-		return configurationModel.getOutgoingLinks(WorkspaceCST.CONFIGURATION_MODEL_lt_BUILD);
-	}
+        return configurationModel.getOutgoingLinks(CadseGCST.CONFIGURATION_MODEL_lt_BUILD);
+    }
 
 	/**
 	 * Gets the build all.
@@ -113,8 +100,8 @@ public class ConfigurationModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getBuildAll(Item configurationModel) {
-		return configurationModel.getOutgoingItems(WorkspaceCST.CONFIGURATION_MODEL_lt_BUILD, false);
-	}
+        return configurationModel.getOutgoingItems(CadseGCST.CONFIGURATION_MODEL_lt_BUILD, false);
+    }
 
 	/**
 	 * Gets the build.
@@ -127,8 +114,8 @@ public class ConfigurationModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Collection<Item> getBuild(Item configurationModel) {
-		return configurationModel.getOutgoingItems(WorkspaceCST.CONFIGURATION_MODEL_lt_BUILD, true);
-	}
+        return configurationModel.getOutgoingItems(CadseGCST.CONFIGURATION_MODEL_lt_BUILD,true);
+    }
 
 	/**
 	 * Adds the build.
@@ -144,8 +131,8 @@ public class ConfigurationModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void addBuild(Item configurationModel, Item value) throws CadseException {
-		configurationModel.addOutgoingItem(WorkspaceCST.CONFIGURATION_MODEL_lt_BUILD, value);
-	}
+        configurationModel.addOutgoingItem(CadseGCST.CONFIGURATION_MODEL_lt_BUILD,value);
+    }
 
 	/**
 	 * Removes the build.
@@ -161,54 +148,9 @@ public class ConfigurationModelManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void removeBuild(Item configurationModel, Item value) throws CadseException {
-		configurationModel.removeOutgoingItem(WorkspaceCST.CONFIGURATION_MODEL_lt_BUILD, value);
-	}
+        configurationModel.removeOutgoingItem(CadseGCST.CONFIGURATION_MODEL_lt_BUILD,value);
+    }
 
-	/**
-	 * get a link '#invert_part_configuration_to_CadseDefinition' from
-	 * 'ConfigurationModel' to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_configuration_to_CadseDefinitionLink(Item configurationModel) {
-		return configurationModel
-				.getOutgoingLink(WorkspaceCST.CONFIGURATION_MODEL_lt__$_INVERT_PART_CONFIGURATION_TO_CADSE_DEFINITION);
-	}
-
-	/**
-	 * get all link destination '#invert_part_configuration_to_CadseDefinition'
-	 * from 'ConfigurationModel' to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_configuration_to_CadseDefinitionAll(Item configurationModel) {
-		return configurationModel.getOutgoingItem(
-				WorkspaceCST.CONFIGURATION_MODEL_lt__$_INVERT_PART_CONFIGURATION_TO_CADSE_DEFINITION, false);
-	}
-
-	/**
-	 * get resolved link destination
-	 * '#invert_part_configuration_to_CadseDefinition' from 'ConfigurationModel'
-	 * to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_configuration_to_CadseDefinition(Item configurationModel) {
-		return configurationModel.getOutgoingItem(
-				WorkspaceCST.CONFIGURATION_MODEL_lt__$_INVERT_PART_CONFIGURATION_TO_CADSE_DEFINITION, true);
-	}
-
-	/**
-	 * set a link '#invert_part_configuration_to_CadseDefinition' from
-	 * 'ConfigurationModel' to 'CadseDefinition'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_configuration_to_CadseDefinition(Item configurationModel, Item value)
-			throws CadseException {
-		configurationModel.setOutgoingItem(
-				WorkspaceCST.CONFIGURATION_MODEL_lt__$_INVERT_PART_CONFIGURATION_TO_CADSE_DEFINITION, value);
-	}
 
 	/*
 	 * (non-Javadoc)

@@ -29,7 +29,7 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 import fr.imag.adele.cadse.cadseg.ItemLabelProvider;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.AbstractItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
@@ -56,7 +56,7 @@ import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fede.workspace.tool.view.WSPlugin;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * The Class PageCreationPage1_CreationPageFactory.
@@ -68,26 +68,27 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item		parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType	it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType	lt;
+	public LinkType lt;
 
 	/**
 	 * The Class IC_SelectPages.
 	 */
 	@SuppressWarnings("deprecation")
-	private static final class IC_SelectPages extends IC_AbstractTreeDialogForList_Browser_Combo {
+	private static final class IC_SelectPages extends
+			IC_AbstractTreeDialogForList_Browser_Combo {
 
 		/** The dialog. */
-		Item	dialog;
+		Item dialog;
 
 		/**
 		 * Instantiates a new i c_ select pages.
@@ -125,7 +126,8 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 		protected Object getInputValues() {
 			Item theItemType = dialog.getPartParent();
 			Item[] ret = ItemTypeManager
-					.getAllSuperTypes(AbstractItemTypeManager.getSuperAbstractItemType(theItemType));
+					.getAllSuperTypes(AbstractItemTypeManager
+							.getSuperAbstractItemType(theItemType));
 			Arrays.sort(ret, new ItemShortNameComparator());
 			return ret;
 		}
@@ -146,10 +148,14 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 		 */
 		@Override
 		protected ITreeContentProvider getTreeContentProvider() {
-			return (dialog.getType() == WorkspaceCST.CREATION_DIALOG) ? new ItemTreeContentProvider(
-					new ItemShortNameComparator(), WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG,
-					WorkspaceCST.CREATION_DIALOG_lt_PAGES) : new ItemTreeContentProvider(new ItemShortNameComparator(),
-					WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG, WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES);
+			return (dialog.getType() == CadseGCST.CREATION_DIALOG) ? new ItemTreeContentProvider(
+					new ItemShortNameComparator(),
+					CadseGCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG,
+					CadseGCST.CREATION_DIALOG_lt_PAGES)
+					: new ItemTreeContentProvider(
+							new ItemShortNameComparator(),
+							CadseGCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG,
+							CadseGCST.MODIFICATION_DIALOG_lt_PAGES);
 		}
 
 		// {context <-[parent-part]- -[item-types] ->} - {context} -
@@ -162,8 +168,9 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 		 */
 		public Object[] getValues() {
 			Item theItemType = dialog.getPartParent();
-			return (dialog.getType() == WorkspaceCST.CREATION_DIALOG) ? ItemTypeManager
-					.getAllCreationPages(theItemType) : ItemTypeManager.getAllModificationPages(theItemType);
+			return (dialog.getType() == CadseGCST.CREATION_DIALOG) ? ItemTypeManager
+					.getAllCreationPages(theItemType)
+					: ItemTypeManager.getAllModificationPages(theItemType);
 
 		}
 
@@ -195,14 +202,16 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 			if (selection != null && selection.length == 1) {
 				Object sel = selection[0];
 				if (sel instanceof Item) {
-					if (((Item) sel).getType() == WorkspaceCST.PAGE) {
+					if (((Item) sel).getType() == CadseGCST.PAGE) {
 
 						Item superpage = (Item) sel;
 
 						IItemManager im = getItem().getType().getItemManager();
-						String message = im.validateShortName(getItem(), superpage.getName());
+						String message = im.validateShortName(getItem(),
+								superpage.getName());
 						if (message != null) {
-							return new Status(Status.ERROR, WSPlugin.PLUGIN_ID, message);
+							return new Status(Status.ERROR, WSPlugin.PLUGIN_ID,
+									message);
 						}
 						return Status.OK_STATUS;
 					}
@@ -232,35 +241,40 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	 * The __short_name__.
 	 * 
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * The field create page action.
 	 * 
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldCreatePageAction;
+	protected DCheckBoxUI fieldCreatePageAction;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldLabel;
 
 	/**
 	 * The field description.
 	 * 
 	 * @generated
 	 */
-	protected DTextUI		fieldDescription;
+	protected DTextUI fieldDescription;
 
 	/**
 	 * The field hspan.
 	 * 
 	 * @generated
 	 */
-	protected DTextUI		fieldHspan;
+	protected DTextUI fieldHspan;
 
 	/**
 	 * The field title.
 	 * 
 	 * @generated
 	 */
-	protected DTextUI		fieldTitle;
+	protected DTextUI fieldTitle;
 
 	/**
 	 * @generated
@@ -275,9 +289,10 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 		this.fieldDescription = createFieldDescription();
 		this.fieldHspan = createFieldHspan();
 		this.fieldCreatePageAction = createFieldCreatePageAction();
+		this.fieldLabel = createFieldLabel();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldTitle, this.fieldDescription, this.fieldHspan,
-				this.fieldCreatePageAction);
+		addLast(this.__short_name__, this.fieldTitle, this.fieldDescription,
+				this.fieldHspan, this.fieldCreatePageAction, this.fieldLabel);
 
 		registerListener();
 	}
@@ -285,8 +300,8 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	protected PageCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected PageCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -299,7 +314,16 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldCreatePageAction() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.PAGE_at_CREATE_PAGE_ACTION, "create page action", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.PAGE_at_CREATE_PAGE_ACTION,
+				"create page action", EPosLabel.none, mc, null);
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldLabel() {
+		return new DTextUI(CadseGCST.PAGE_at_LABEL, "label", EPosLabel.left,
+				new MC_AttributesItem(), null, 1, "", false, false, false);
 	}
 
 	/**
@@ -310,8 +334,9 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	 * @generated
 	 */
 	public DTextUI createFieldDescription() {
-		return new DTextUI(WorkspaceCST.PAGE_at_DESCRIPTION, "description", EPosLabel.left, new MC_AttributesItem(),
-				null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.PAGE_at_DESCRIPTION, "description",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 	/**
@@ -322,9 +347,10 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	 * @generated
 	 */
 	public DTextUI createFieldHspan() {
-		IntModelController mc = new IntModelController(1, 0, "The number of column must be > 0", null, 3);
-		return new DTextUI(WorkspaceCST.PAGE_at_HSPAN, "number of columns", EPosLabel.left, mc, null, 1, "", false,
-				false, false);
+		IntModelController mc = new IntModelController(1, 0,
+				"The number of column must be > 0", null, 3);
+		return new DTextUI(CadseGCST.PAGE_at_HSPAN, "number of columns",
+				EPosLabel.left, mc, null, 1, "", false, false, false);
 	}
 
 	/**
@@ -335,8 +361,8 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	 * @generated
 	 */
 	public DTextUI createFieldTitle() {
-		return new DTextUI(WorkspaceCST.PAGE_at_TITLE, "title", EPosLabel.left, new MC_AttributesItem(), null, 1, "",
-				false, false, false);
+		return new DTextUI(CadseGCST.PAGE_at_TITLE, "title", EPosLabel.left,
+				new MC_AttributesItem(), null, 1, "", false, false, false);
 	}
 
 	/**
@@ -348,9 +374,10 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	 * @return the d browser ui
 	 */
 	private DBrowserUI createShortName(Item dialog) {
-		IInteractionControllerForBrowserOrCombo ic = new IC_SelectPages(dialog, "select a page", "select a page");
-		return FieldsCore.createBrowserField(CadseRootCST.ITEM_TYPE_at_NAME, "name:", EPosLabel.left, ic,
-				new MC_ShortNameItemProperty());
+		IInteractionControllerForBrowserOrCombo ic = new IC_SelectPages(dialog,
+				"select a page", "select a page");
+		return FieldsCore.createBrowserField(CadseGCST.ITEM_at_NAME, "name:",
+				EPosLabel.left, ic, new MC_ShortNameItemProperty());
 	}
 
 	protected void registerListener() {

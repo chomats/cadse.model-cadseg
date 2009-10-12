@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -29,7 +29,9 @@ import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
@@ -45,27 +47,28 @@ public class WCListenerModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldListenItemTypes;
+	protected DListUI fieldListenItemTypes;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldListenAttributeDefinitions;
+	protected DListUI fieldListenAttributeDefinitions;
 
 	/**
 	 * @generated
 	 */
-	protected WCListenerModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected WCListenerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -80,7 +83,8 @@ public class WCListenerModificationPage1_ModificationPage extends PageImpl {
 		this.fieldListenItemTypes = createFieldListenItemTypes();
 		this.fieldListenAttributeDefinitions = createFieldListenAttributeDefinitions();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldListenItemTypes, this.fieldListenAttributeDefinitions);
+		addLast(this.__short_name__, this.fieldListenItemTypes,
+				this.fieldListenAttributeDefinitions);
 
 		registerListener();
 	}
@@ -100,11 +104,14 @@ public class WCListenerModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldListenItemTypes() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.WCLISTENER_lt_LISTEN_ITEM_TYPES);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.WCLISTENER_lt_LISTEN_ITEM_TYPES);
-		return new DListUI(WorkspaceCST.WCLISTENER_lt_LISTEN_ITEM_TYPES.getName(), "listenItemTypes", EPosLabel.top,
-				mc, ic, true, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.WCLISTENER_lt_LISTEN_ITEM_TYPES);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.WCLISTENER_lt_LISTEN_ITEM_TYPES);
+		return new DListUI(CadseGCST.WCLISTENER_lt_LISTEN_ITEM_TYPES.getName(),
+				"listenItemTypes", EPosLabel.top, mc, ic, true, false, false,
+				false);
 	}
 
 	/**
@@ -112,11 +119,13 @@ public class WCListenerModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DListUI createFieldListenAttributeDefinitions() {
 		LinkModelController mc = new LinkModelController(false, null,
-				WorkspaceCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS);
-		return new DListUI(WorkspaceCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS.getName(),
-				"listenAttributeDefinitions", EPosLabel.top, mc, ic, true, false);
+				CadseGCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS);
+		return new DListUI(CadseGCST.WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS
+				.getName(), "listenAttributeDefinitions", EPosLabel.top, mc,
+				ic, true, false, false, false);
 	}
 
 }

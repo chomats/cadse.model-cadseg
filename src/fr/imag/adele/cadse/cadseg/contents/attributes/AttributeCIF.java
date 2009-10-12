@@ -10,16 +10,22 @@ import fede.workspace.eclipse.content.SubFileContentManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.template.ListOfValueAttribute;
 import fr.imag.adele.cadse.cadseg.template.ValueAttribute;
-import fr.imag.adele.cadse.cadseg.template.ValueClassAttribute;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
 
+/**
+ * @generated
+ */
 public class AttributeCIF implements IContentItemFactory {
-	AttributeManager	_attributeManager;
+	/**
+	 * @generated
+	 */
+	protected AttributeManager	_attributeManager;
 
 	/**
 	 * The Class AttributeContentManager.
@@ -34,9 +40,12 @@ public class AttributeCIF implements IContentItemFactory {
 		 *            the parent
 		 * @param item
 		 *            the item
+		 *            
+		 * @generated
+		 *
 		 */
-		protected AttributeContentItem(ContentItem parent, Item item, AttributeManager attributeManager) {
-			super(parent, item);
+		protected AttributeContentItem(CompactUUID id, AttributeManager attributeManager) {
+			super(id);
 			_attributeManager = attributeManager;
 		}
 
@@ -51,23 +60,18 @@ public class AttributeCIF implements IContentItemFactory {
 		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
 
 			if (kind.equals("methods")) {
-				Item source = getItem();
-				if (!_attributeManager.isClassAttributeAttribute(source)) {
-					if (_attributeManager.isIsListAttribute(source)) {
-						ListOfValueAttribute temp = new ListOfValueAttribute();
-						sb.append(temp.generate(source.getPartParent().getName(), source, imports));
-						imports.add("java.util.List");
-						imports.add("java.util.ArrayList");
+				Item source = getOwnerItem();
+				if (AttributeManager.isIsListAttribute(source)) {
+					ListOfValueAttribute temp = new ListOfValueAttribute();
+					sb.append(temp.generate(source.getPartParent().getName(), source, imports));
+					imports.add("java.util.List");
+					imports.add("java.util.ArrayList");
 
-					} else {
-						ValueAttribute temp = new ValueAttribute();
-						sb.append(temp.generate(source.getPartParent().getName(), source, imports));
-					}
-					_attributeManager.addJavaImport(imports);
 				} else {
-					ValueClassAttribute temp = new ValueClassAttribute();
-					temp.generate(source.getPartParent().getName(), source, imports);
+					ValueAttribute temp = new ValueAttribute();
+					sb.append(temp.generate(source.getPartParent().getName(), source, imports));
 				}
+				_attributeManager.addJavaImport(imports);				
 			}
 		}
 
@@ -97,13 +101,19 @@ public class AttributeCIF implements IContentItemFactory {
 		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
 		}
 	}
-
+	
+	/**
+	 * @generated
+	 */
 	public AttributeCIF(AttributeManager manager) {
 		super();
 		_attributeManager = manager;
 	}
 
-	public ContentItem createContentItem(Item item) throws CadseException {
-		return new AttributeContentItem(null, item, _attributeManager);
+	/**
+	 * @generated
+	 */
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new AttributeContentItem(id, _attributeManager);
 	}
 }

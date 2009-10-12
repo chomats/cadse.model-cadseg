@@ -27,6 +27,7 @@ import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
@@ -62,7 +63,7 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 	 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
 	 */
 	public Object getValue() {
-		Collection<Item> ret = page.getOutgoingItems(WorkspaceCST.PAGE_lt_FIELDS, true);
+		Collection<Item> ret = page.getOutgoingItems(CadseGCST.PAGE_lt_FIELDS, true);
 		List<Item> attributesList = new ArrayList<Item>();
 		for (Item item : ret) {
 			Item att = FieldManager.getAttribute(item);
@@ -141,7 +142,7 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 		String shortName = CadseG_WLWCListener.doShortName(attribute);
 
 		try {
-			ISpaceKey key = WorkspaceCST.FIELD.getSpaceKeyType().computeKey(shortName, page, attribute);
+			ISpaceKey key = CadseGCST.FIELD.getSpaceKeyType().computeKey(shortName, page, attribute);
 			Item field = CadseCore.getLogicalWorkspace().getItem(key);
 			if (field != null) {
 				field.delete(false);

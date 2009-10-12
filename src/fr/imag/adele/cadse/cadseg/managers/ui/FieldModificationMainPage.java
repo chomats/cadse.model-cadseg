@@ -30,7 +30,7 @@ import fede.workspace.model.manager.properties.impl.mc.StringToEnumModelControll
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -66,7 +66,7 @@ public class FieldModificationMainPage extends PageFactory {
 	 */
 	public static UIField createWizardFieldIsreadonly() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.FIELD_at_READONLY, "is readonly", EPosLabel.left, mc, null);
+		return new DCheckBoxUI(CadseGCST.FIELD_at_READONLY, "is readonly", EPosLabel.left, mc, null);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class FieldModificationMainPage extends PageFactory {
 	 * @generated
 	 */
 	public static UIField createWizardFieldLabel() {
-		return new DTextUI(WorkspaceCST.FIELD_at_LABEL, "label", EPosLabel.left, new MC_AttributesItem(), null, 0, 1,
+		return new DTextUI(CadseGCST.FIELD_at_LABEL, "label", EPosLabel.left, new MC_AttributesItem(), null, 0, 1,
 				"The label of the field");
 	}
 
@@ -91,7 +91,7 @@ public class FieldModificationMainPage extends PageFactory {
 	public static UIField createWizardFieldFposition() {
 		StringToEnumModelController<EPosLabel> mc = new StringToEnumModelController<EPosLabel>(EPosLabel.class,
 				EPosLabel.left);
-		return new DBrowserUI(WorkspaceCST.FIELD_at_POSITION, "position", EPosLabel.left, mc,
+		return new DBrowserUI(CadseGCST.FIELD_at_POSITION, "position", EPosLabel.left, mc,
 				new IC_EnumForBrowser_Combo("Select a position", "Select a position", EPosLabel.class), 0);
 	}
 
@@ -103,10 +103,10 @@ public class FieldModificationMainPage extends PageFactory {
 	 * @generated
 	 */
 	public static UIFieldImpl createWizardFieldFattribute() {
-		LinkModelController mc = new LinkModelController(true, "error", WorkspaceCST.FIELD_lt_ATTRIBUTE);
-		return new DBrowserUI(WorkspaceCST.FIELD_lt_ATTRIBUTE.getName(), "attribute", EPosLabel.left, mc,
+		LinkModelController mc = new LinkModelController(true, "error", CadseGCST.FIELD_lt_ATTRIBUTE);
+		return new DBrowserUI(CadseGCST.FIELD_lt_ATTRIBUTE.getName(), "attribute", EPosLabel.left, mc,
 				new IC_LinkForBrowser_Combo_List("Select an attribute", "Select an attribute",
-						WorkspaceCST.FIELD_lt_ATTRIBUTE), SWT.BORDER | SWT.SINGLE | SWT.READ_ONLY);
+						CadseGCST.FIELD_lt_ATTRIBUTE), SWT.BORDER | SWT.SINGLE | SWT.READ_ONLY);
 	}
 
 	/*

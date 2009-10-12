@@ -19,8 +19,9 @@ public class AspectJReExporterModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected AspectJReExporterModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected AspectJReExporterModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -28,7 +29,8 @@ public class AspectJReExporterModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public AspectJReExporterModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "AspectJReExporter", "AspectJReExporter", "", false, 3);
+		super("modification-page1", "AspectJReExporter", "AspectJReExporter",
+				"", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

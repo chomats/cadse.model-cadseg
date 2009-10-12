@@ -64,9 +64,9 @@ import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionCIF;
-import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionCIF.WorkspaceModelContentManager;
+import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
 import fr.imag.adele.cadse.cadseg.fields.RegExContentProposalProvider;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
@@ -78,7 +78,8 @@ import fr.imag.adele.cadse.cadseg.path.ParsePath;
 import fr.imag.adele.cadse.cadseg.type.EventType;
 import fr.imag.adele.cadse.core.CadseDomain;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IGenerateContent;
@@ -105,7 +106,7 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
 /**
  * The Class CadseDefinitionManager.
  */
-public class CadseDefinitionManager extends DefaultWorkspaceManager implements IModelWorkspaceManager, IFixManager {
+public class CadseDefinitionManager extends CadseRuntimeManager implements IModelWorkspaceManager, IFixManager {
 	public static final String	MAPPING				= "mapping";
 
 	public static final String	BUILD_MODEL			= "build-model";
@@ -117,8 +118,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	/** The Constant DEFAULT_SHORT_NAME. */
 	public static final String	VIEW_MODEL			= "view-model";
 
-	/** The Constant UUID_ATTRIBUTE. */
-	private static final String	UUID_ATTRIBUTE		= "UUID_ATTRIBUTE";
+	
 
 	/**
 	 * Gets the uUID.
@@ -128,13 +128,17 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getUUID(Item cadseDefinition) {
-		String uuid_str = cadseDefinition.getAttribute(UUID_ATTRIBUTE);
+	public static CompactUUID getIdRuntime(Item cadseDefinition) {
+		if (cadseDefinition.getType() == CadseGCST.CADSE_RUNTIME) {
+			return cadseDefinition.getId();
+		}
+		
+		String uuid_str = cadseDefinition.getAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_);
 		if (uuid_str == null || uuid_str.length() == 0) {
 			CompactUUID uuid = CompactUUID.randomUUID();
 			uuid_str = uuid.toString();
 			try {
-				cadseDefinition.setAttribute(UUID_ATTRIBUTE, uuid_str);
+				cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, uuid_str);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -143,6 +147,21 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 		}
 		return new CompactUUID(uuid_str);
 	}
+	
+	/**
+	 * Gets the uUID.
+	 * 
+	 * @param itemtype
+	 *            the itemtype
+	 * 
+	 * @return the uUID
+	 */
+	public static CompactUUID getIdDef(Item cadseDefinition) {
+		if (cadseDefinition.getType() == CadseGCST.CADSE_RUNTIME) {
+			return new CompactUUID(cadseDefinition.getAttribute(CadseGCST.CADSE_RUNTIME_at_ID_DEFINITION_));
+		}
+		return cadseDefinition.getId();
+	}
 
 	/**
 	 * The Class CorrectManifestAfterRenameChange.
@@ -150,7 +169,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	final class CorrectManifestAfterRenameChange extends Change {
 
 		/** The manager. */
-		WorkspaceModelContentManager	manager;
+		CadseDefinitionContent	manager;
 
 		/** The old default package. */
 		String							oldDefaultPackage;
@@ -173,7 +192,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 		 * @param oldUniqueName
 		 *            the old unique name
 		 */
-		public CorrectManifestAfterRenameChange(WorkspaceModelContentManager manager, String oldDefaultPackage,
+		public CorrectManifestAfterRenameChange(CadseDefinitionContent manager, String oldDefaultPackage,
 				String newDefaultPackage, String oldUniqueName) {
 			super();
 			this.manager = manager;
@@ -370,366 +389,10 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	/** The Constant SOURCES. */
 	private static final String	SOURCES	= "sources";
 
-	// /**
-	// * The Class ItemTypeActionController.
-	// */
-	// private static final class ItemTypeActionController extends
-	// CreationAction {
-	//
-	// /**
-	// * Instantiates a new item type action controller.
-	// *
-	// * @param parent
-	// * the parent
-	// * @param type
-	// * the type
-	// * @param lt
-	// * the lt
-	// */
-	// public ItemTypeActionController(Item parent, ItemType type, LinkType lt)
-	// {
-	// super(parent, type, lt);
-	// }
-	//
-	// /** The manager item. */
-	// private Item managerItem;
-	//
-	// /** The theitemtype. */
-	// private Item theitemtype;
-	//
-	// /** The init manager_. */
-	// private boolean initManager_ = false; ;
-	//
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fr.imag.adele.cadse.core.impl.ui.CreationAction#init(fr.imag.adele.cadse.core.ui.IPageObject)
-	// */
-	// @Override
-	// public void init(IPageObject pageObject) throws CadseException {
-	// super.init(pageObject);
-	// try {
-	// theitemtype = getItem();
-	//
-	// ItemTypeManager.setIsAbstract(theitemtype, false);
-	// ItemType managerType = WorkspaceCST.MANAGER;
-	//
-	// Item mappingModel =
-	// CadseDefinitionManager.getMappingModel(ItemTypeManager
-	// .getCadseDefinition(theitemtype));
-	//
-	// managerItem = getCopy().createItem(managerType, mappingModel,
-	// WorkspaceCST.MAPPING_MODEL_lt_MANAGERS);
-	//
-	// // ManagerManager.setManagerType(managerItem, "default");
-	// ManagerManager.setHumanNameAttribute(managerItem,
-	// theitemtype.getShortName());
-	// ManagerManager.setUniqueNameTemplate(managerItem,
-	// "${#parent-unique-name}{.}${#short-name}");
-	// ManagerManager.setDisplayNameTemplateAttribute(managerItem,
-	// "${#short-name}");
-	// //
-	// // create a link form manager to theitemtype
-	// ManagerManager.setItemType(managerItem, theitemtype);
-	//
-	// ((Pages) pageObject).getPage(1).setItem(managerItem);
-	// } catch (MelusineError e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (CadseException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	//
-	// }
-	//
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doNextPageAction(java.lang.Object,
-	// * fr.imag.adele.cadse.core.ui.Pages, int)
-	// */
-	// @Override
-	// public void doNextPageAction(Object monitor, Pages pages, int
-	// currentPage) throws Exception {
-	// if (currentPage == 0) {
-	// if (!initManager_) {
-	// initManager(pages);
-	// }
-	// }
-	// super.doNextPageAction(monitor, pages, currentPage);
-	// }
-	//
-	// /**
-	// * Inits the manager.
-	// *
-	// * @param pages
-	// * the pages
-	// *
-	// * @throws CadseException
-	// * the melusine exception
-	// */
-	// private void initManager(Pages pages) throws CadseException {
-	// ManagerManager.setHumanNameAttribute(managerItem,
-	// theitemtype.getShortName());
-	// Item mappingModel =
-	// CadseDefinitionManager.getMappingModel(ItemTypeManager.getCadseDefinition(theitemtype));
-	//
-	// CadseCore.setName(managerItem, theitemtype.getShortName() + "-manager",
-	// mappingModel,
-	// WorkspaceCST.MAPPING_MODEL_lt_MANAGERS);
-	// if (pages != null) {
-	// pages.updateField("page2", WorkspaceCST.MANAGER_at_HUMAN_NAME);
-	// }
-	//
-	// Item superItem = ItemTypeManager.getSuperType(theitemtype);
-	// if (superItem != null) {
-	// Item supermanager = ManagerManager.getManagerFromItemType(superItem);
-	// ManagerManager.setUniqueNameTemplate(managerItem,
-	// ManagerManager.getUniqueNameTemplate(supermanager));
-	// ManagerManager.setDisplayNameTemplateAttribute(managerItem,
-	// ManagerManager
-	// .getDisplayNameTemplateAttribute(supermanager));
-	//
-	// if (pages != null) {
-	// pages.updateField("page2", WorkspaceCST.MANAGER_at_LONG_NAME_TEMPLATE);
-	// }
-	// }
-	// initManager_ = true;
-	// }
-	//
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fr.imag.adele.cadse.core.impl.ui.CreationAction#doFinish(java.lang.Object)
-	// */
-	// @Override
-	// public void doFinish(Object monitor) throws Exception {
-	// if (!initManager_) {
-	// initManager(null);
-	// }
-	// super.doFinish(monitor);
-	// }
-	// }
 
-	/**
-	 * The Class EventUserAndModelController.
-	 */
-	private static final class EventUserAndModelController extends MC_AttributesItem implements IC_ForCheckedViewer {
 
-		/** The events. */
-		Event[]		events;
 
-		/** The checked. */
-		boolean[]	checked;
-
-		/** The et. */
-		EventType[]	et;
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.AbstractModelController#init()
-		 */
-		@Override
-		public void init() throws CadseException {
-			super.init();
-			loadET();
-		}
-
-		/**
-		 * Load et.
-		 */
-		private void loadET() {
-			if (et == null) {
-				et = EventType.getTypes();
-				Arrays.sort(et, new Comparator<EventType>() {
-
-					public int compare(EventType o1, EventType o2) {
-						return o1.getName().compareTo(o2.getName());
-					}
-				});
-				events = new Event[et.length];
-				checked = new boolean[et.length];
-			}
-		}
-
-		/**
-		 * Instantiates a new event user and model controller.
-		 */
-		private EventUserAndModelController() {
-			super();
-		}
-
-		/**
-		 * Abstract to visual value.
-		 * 
-		 * @param value
-		 *            the value
-		 * 
-		 * @return the object
-		 */
-		protected Object abstractToVisualValue(Object value) {
-			List<String> abstractValue = (List<String>) value;
-			if (abstractValue != null) {
-				Iterator iter = abstractValue.iterator();
-				while (true) {
-					if (!iter.hasNext()) {
-						break;
-					}
-					String type = (String) iter.next();
-					if (!iter.hasNext()) {
-						break;
-					}
-					String cond = (String) iter.next();
-					if (!iter.hasNext()) {
-						break;
-					}
-					String body = (String) iter.next();
-
-					int eventTypeIndex = findIndex(type);
-					if (eventTypeIndex == -1) {
-						continue;
-					}
-
-					events[eventTypeIndex] = new Event(et[eventTypeIndex], cond, body);
-					checked[eventTypeIndex] = true;
-				}
-			}
-			List<EventType> ret = new ArrayList<EventType>();
-			for (int i = 0; i < checked.length; i++) {
-				checked[i] = (events[i] != null);
-				if (checked[i]) {
-					ret.add(et[i]);
-				}
-			}
-			return ret.toArray();
-		}
-
-		/**
-		 * Find index.
-		 * 
-		 * @param type
-		 *            the type
-		 * 
-		 * @return the int
-		 */
-		private int findIndex(String type) {
-			for (int i = 0; i < et.length; i++) {
-				if (et[i].getName().equals(type)) {
-					return i;
-				}
-			}
-			return -1;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fr.imag.adele.cadse.core.ui.AbstractModelController#notifieSubValueAdded
-		 * (fr.imag.adele.cadse.core.ui.UIField, java.lang.Object)
-		 */
-		@Override
-		public void notifieSubValueAdded(UIField field, Object added) {
-			EventType eventType = (EventType) added;
-			for (int i = 0; i < et.length; i++) {
-				if (et[i] == eventType) {
-					this.events[i] = new Event(eventType);
-				}
-			}
-			super.notifieSubValueAdded(field, added);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @seefr.imag.adele.cadse.core.ui.AbstractModelController#
-		 * notifieSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
-		 * java.lang.Object)
-		 */
-		@Override
-		public void notifieSubValueRemoved(UIField field, Object removed) {
-			EventType eventType = (EventType) removed;
-			for (int i = 0; i < et.length; i++) {
-				if (et[i] == eventType) {
-					this.events[i] = null;
-				}
-			}
-			super.notifieSubValueRemoved(field, removed);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fede.workspace.model.manager.properties.IC_ForCheckedViewer#getSources
-		 * ()
-		 */
-		public Object[] getSources() {
-			loadET();
-			return et;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @seefede.workspace.model.manager.properties.IC_ForCheckedViewer#
-		 * toImageFromObject(java.lang.Object)
-		 */
-		public Image toImageFromObject(Object obj) {
-			return EventManager._getImage();
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @seefede.workspace.model.manager.properties.IC_ForCheckedViewer#
-		 * toStringFromObject(java.lang.Object)
-		 */
-		public String toStringFromObject(Object element) {
-			return ((EventType) element).getName();
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fede.workspace.model.manager.properties.IC_ForCheckedViewer#edit(
-		 * java.lang.Object)
-		 */
-		public void edit(Object o) {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fede.workspace.model.manager.properties.IC_ForCheckedViewer#select
-		 * (java.lang.Object)
-		 */
-		public void select(Object data) {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fr.imag.adele.cadse.core.ui.IInteractionController#getModelController
-		 * ()
-		 */
-		public IModelController getModelController() {
-			return this;
-		}
-
-	}
-
-	/** The Constant RESOURCE_SUFFIX. */
-	public final static String	RESOURCE_SUFFIX	= "Model.Workspace.";
-
+	
 	/** The Constant DEFAULT_PACKAGE. */
 	public final static String	DEFAULT_PACKAGE	= "model.workspace.";
 
@@ -738,6 +401,8 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 */
 	public CadseDefinitionManager() {
 	}
+
+	
 
 	/**
 	 * Gets the all dependencies cadse.
@@ -783,10 +448,10 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.CADSE_DEFINITION.setSpaceKeyType(new SpaceKeyType(WorkspaceCST.CADSE_DEFINITION, null));
+		CadseGCST.CADSE_DEFINITION.setSpaceKeyType(new SpaceKeyType(CadseGCST.CADSE_DEFINITION, null));
 		new CadseG_WLWCListener();
 		new CadseG_WorkspaceListener();
-		CadseCore.theItemType.addActionContributeur(new WorkspaceActionContributor());
+		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
 	}
 
 	/*
@@ -798,8 +463,8 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.LinkType)
 	 */
 	@Override
-	public String computeUniqueName(Item item, String shortid, Item parent, LinkType type) {
-		return RESOURCE_SUFFIX + shortid;
+	public String computeQualifiedName(Item item, String shortid, Item parent, LinkType type) {
+		return CadseRuntime.CADSE_NAME_SUFFIX + shortid;
 	}
 
 	/**
@@ -832,7 +497,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @return the package name
 	 */
 	public static String getPackageName(Item wsModelItem) {
-		return wsModelItem.getAttribute(WorkspaceCST.CADSE_DEFINITION_at_PACKAGENAME_);
+		return wsModelItem.getAttribute(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
 	}
 
 	/**
@@ -844,7 +509,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @return the imports
 	 */
 	public static List<String> getImports(Item wsModelItem) {
-		return wsModelItem.getAttribute(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS_);
+		return wsModelItem.getAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_);
 	}
 
 	@Override
@@ -880,7 +545,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 		if (p != null && p.length() != 0) {
 			return p;
 		}
-		return DEFAULT_PACKAGE + cxt.getAttribute(item, CadseRootCST.ITEM_TYPE_at_NAME_).toLowerCase();
+		return DEFAULT_PACKAGE + cxt.getAttribute(item, CadseGCST.ITEM_at_NAME_).toLowerCase();
 	}
 
 	/**
@@ -921,14 +586,14 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	// Pages ret = FieldsCore.createWizard(action,
 	// FieldsCore.createPage("page1", "Create a creation dialog",
 	// "Create a creation dialog", 3, d = FieldsCore.createTextField(
-	// WorkspaceCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME,
+	// CadseGCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME,
 	// "default short name"), a = FieldsCore
-	// .createCheckBox(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME,
+	// .createCheckBox(CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME,
 	// "automatic short name"),
 	// e =
-	// FieldsCore.createCheckBox(WorkspaceCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER,
+	// FieldsCore.createCheckBox(CadseGCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER,
 	// "add action creation dialog"), g = FieldsCore.createTextField(
-	// WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME,
+	// CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME,
 	// "generate automatic short name",
 	// 1, "", new IC_ItemTypeTemplateForText() {
 	// @Override
@@ -959,14 +624,14 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	// Pages ret = FieldsCore.createWizard(action,
 	// FieldsCore.createPage("page1", "Creation dialog",
 	// "Creation dialog", 3, d = FieldsCore.createTextField(
-	// WorkspaceCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME,
+	// CadseGCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME,
 	// "default short name"), a = FieldsCore
-	// .createCheckBox(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME,
+	// .createCheckBox(CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME,
 	// "automatic short name"),
 	// e =
-	// FieldsCore.createCheckBox(WorkspaceCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER,
+	// FieldsCore.createCheckBox(CadseGCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER,
 	// "extends dialog controller"), g = FieldsCore.createTextField(
-	// WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME,
+	// CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME,
 	// "generate automatic short name",
 	// 1, "", new IC_ItemTypeTemplateForText() {
 	// @Override
@@ -987,7 +652,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * 
 	 * @return the item types
 	 */
-	public static Item[] getItemTypes(Item cadseDefinition) {
+	public static Item[] getItemTypes2(Item cadseDefinition) {
 		Item dataModel = getMainDataModel(cadseDefinition);
 		return ItemTypeManager.getAllItemType(dataModel);
 	}
@@ -1001,7 +666,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @return A data model
 	 */
 	public static Item getMainDataModel(Item cadseDefinition) {
-		Item dataModel = cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL, true);
+		Item dataModel = cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL, true);
 		return dataModel;
 	}
 
@@ -1014,9 +679,9 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @return the view model
 	 */
 	public static Item getViewModel(Item item) {
-		Item viewModel = item.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_VIEW_MODEL, true);
+		Item viewModel = item.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL, true);
 		if (viewModel == null) {
-			List<Item> viewModels = WorkspaceCST.VIEW_MODEL.getItems();
+			List<Item> viewModels = CadseGCST.VIEW_MODEL.getItems();
 			for (Item aViewModel : viewModels) {
 				Item parentViewModel = aViewModel.getPartParent();
 				if (parentViewModel == item) {
@@ -1029,8 +694,8 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 				}
 			}
 			try {
-				viewModel = CadseCore.createItemIfNeed(null, VIEW_MODEL, WorkspaceCST.VIEW_MODEL, item,
-						WorkspaceCST.CADSE_DEFINITION_lt_VIEW_MODEL);
+				viewModel = CadseCore.createItemIfNeed(null, VIEW_MODEL, CadseGCST.VIEW_MODEL, item,
+						CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1053,7 +718,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public void setViewModel(Item cadseDefinition, Item value) throws CadseException {
-		cadseDefinition.setOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_VIEW_MODEL, value);
+		cadseDefinition.setOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL,value);
 	}
 
 	/**
@@ -1069,7 +734,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	@SuppressWarnings("unchecked")
 	public static final List<String> getImportsAttribute(Item cadseDefinition) {
 		try {
-			List<String> list = cadseDefinition.getAttribute(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS_);
+			List<String> list = cadseDefinition.getAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_);
 
 			if (list == null)
 				return null;
@@ -1094,7 +759,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	public static final void setImportsAttribute(Item cadseDefinition, List<String> valueList) {
 		try {
 			List<String> list = new ArrayList<String>(valueList);
-			cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS_, list);
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_, list);
 		} catch (Throwable t) {
 
 		}
@@ -1113,13 +778,13 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	@SuppressWarnings("unchecked")
 	public static final void addImportsAttribute(Item cadseDefinition, String value) {
 		try {
-			List<String> list = (List<String>) cadseDefinition.getAttribute(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS);
+			List<String> list = (List<String>) cadseDefinition.getAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS);
 			if (list == null) {
 				list = new ArrayList<String>();
 			}
 			String setvalue = value;
 			list.add(setvalue);
-			cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS, list);
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS, list);
 			((IGenerateContent) cadseDefinition.getContentItem()).generate(ContextVariable.DEFAULT);
 		} catch (Throwable t) {
 
@@ -1140,15 +805,15 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	public static final void removeImportsAttribute(Item cadseDefinition, String value) {
 		try {
 
-			List<String> list = cadseDefinition.getAttribute(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS_);
+			List<String> list = cadseDefinition.getAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_);
 			if (list == null) {
 				return;
 			}
 			list.remove(value);
 			if (list.size() == 0)
-				cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS_, null);
+				cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_, null);
 			else
-				cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS_, list);
+				cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_, list);
 		} catch (Throwable t) {
 
 		}
@@ -1165,7 +830,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	public static final String getPackagenameAttribute(Item cadseDefinition) {
-		return cadseDefinition.getAttributeWithDefaultValue(WorkspaceCST.CADSE_DEFINITION_at_PACKAGENAME_, null);
+		return cadseDefinition.getAttributeWithDefaultValue(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_, null);
 	}
 
 	/**
@@ -1180,7 +845,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 */
 	public static final void setPackagenameAttribute(Item cadseDefinition, String value) {
 		try {
-			cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_PACKAGENAME_, value);
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -1197,7 +862,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	public static final String getVendorNameAttribute(Item cadseDefinition) {
-		return cadseDefinition.getAttributeWithDefaultValue(WorkspaceCST.CADSE_DEFINITION_at_VENDOR_NAME_, null);
+		return cadseDefinition.getAttributeWithDefaultValue(CadseGCST.CADSE_DEFINITION_at_VENDOR_NAME_, null);
 	}
 
 	/**
@@ -1212,7 +877,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 */
 	public static final void setVendorNameAttribute(Item cadseDefinition, String value) {
 		try {
-			cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_VENDOR_NAME_, value);
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_VENDOR_NAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -1222,7 +887,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	public static final String getVersionCadseAttribute(Item cadseDefinition) {
-		return cadseDefinition.getAttributeWithDefaultValue(WorkspaceCST.CADSE_DEFINITION_at_VERSION_CADSE_, null);
+		return cadseDefinition.getAttributeWithDefaultValue(CadseGCST.CADSE_DEFINITION_at_VERSION_CADSE_, null);
 	}
 
 	/**
@@ -1230,25 +895,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 */
 	public static final void setVersionCadseAttribute(Item cadseDefinition, String value) {
 		try {
-			cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_VERSION_CADSE_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final String getDescriptionAttribute(Item cadseDefinition) {
-		return cadseDefinition.getAttributeWithDefaultValue(WorkspaceCST.CADSE_DEFINITION_at_DESCRIPTION_, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final void setDescriptionAttribute(Item cadseDefinition, String value) {
-		try {
-			cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_DESCRIPTION_, value);
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_VERSION_CADSE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -1258,7 +905,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	public static final String getCommentaryAttribute(Item cadseDefinition) {
-		return cadseDefinition.getAttributeWithDefaultValue(WorkspaceCST.CADSE_DEFINITION_at_COMMENTARY_, null);
+		return cadseDefinition.getAttributeWithDefaultValue(CadseGCST.CADSE_DEFINITION_at_COMMENTARY_, null);
 	}
 
 	/**
@@ -1266,25 +913,43 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 */
 	public static final void setCommentaryAttribute(Item cadseDefinition, String value) {
 		try {
-			cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_COMMENTARY_, value);
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_COMMENTARY_, value);
 		} catch (Throwable t) {
 
 		}
 	}
 
 	/**
-	 * @generated
-	 */
-	public static final String getDisplayNameAttribute(Item cadseDefinition) {
-		return cadseDefinition.getAttributeWithDefaultValue(WorkspaceCST.CADSE_DEFINITION_at_DISPLAY_NAME_, null);
+		@generated
+	*/
+	public static final String getCadseNameAttribute(Item cadseDefinition) {
+		return cadseDefinition.getAttributeWithDefaultValue(CadseGCST.CADSE_DEFINITION_at_CADSE_NAME_, null);
 	}
 
 	/**
-	 * @generated
-	 */
-	public static final void setDisplayNameAttribute(Item cadseDefinition, String value) {
+		@generated
+	*/
+	public static final void setCadseNameAttribute(Item cadseDefinition, String value) {
 		try {
-			cadseDefinition.setAttribute(WorkspaceCST.CADSE_DEFINITION_at_DISPLAY_NAME_, value);
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_CADSE_NAME_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getIdRuntimeAttribute(Item cadseDefinition) {
+		return cadseDefinition.getAttributeWithDefaultValue(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setIdRuntimeAttribute(Item cadseDefinition, String value) {
+		try {
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -1299,11 +964,11 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @return the mapping model
 	 */
 	public static Item getMappingModel(Item wsModel) {
-		Item mappingModel = wsModel.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_MAPPING, true);
+		Item mappingModel = wsModel.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_MAPPING, true);
 		if (mappingModel == null) {
 			try {
-				mappingModel = CadseCore.createItemIfNeed(null, MAPPING, WorkspaceCST.MAPPING_MODEL, wsModel,
-						WorkspaceCST.CADSE_DEFINITION_lt_MAPPING);
+				mappingModel = CadseCore.createItemIfNeed(null, MAPPING, CadseGCST.MAPPING_MODEL, wsModel,
+						CadseGCST.CADSE_DEFINITION_lt_MAPPING);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1312,77 +977,9 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 		return mappingModel;
 	}
 
-	/**
-	 * Creates the wizard event.
-	 * 
-	 * @param parent
-	 *            the parent
-	 * @param type
-	 *            the type
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the pages
-	 */
-	public static Pages createWizardEvent(Item parent, ItemType type, LinkType lt) {
-		CreationAction action = new CreationAction(parent, type, lt);
+	
 
-		EventType[] values = EventType.getTypes();
-		MC_AttributesItem vc = new MC_AttributesItem() {
-
-			@Override
-			public Object getValue() {
-				return EventType.getTypeFromString((String) super.getValue());
-			}
-
-			@Override
-			public void notifieValueChanged(UIField field, Object value) {
-				super.notifieValueChanged(field, ((EventType) value).getName());
-			}
-		};
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create an event", "Create an event", 3,
-				FieldsCore.createShortNameField(), FieldsCore.createComboBox(EventManager.TYPE_ATTRIBUTE, "type",
-						EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", values), vc, true),
-				FieldsCore.createCheckBox(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is list"), FieldsCore.createTextField(
-						WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value"), FieldsCore.createList_ListOfString(
-						EventManager.IMPORT_JAVA_ATTRIBUTE, "imports java", null, null, false, 0, -1), JavaFieldsCore
-						.createJavaSourceField("body", "code", null, new DefaultJavaSourceUserController())));
-	}
-
-	/**
-	 * Creates the wizard event.
-	 * 
-	 * @param item
-	 *            the item
-	 * 
-	 * @return the pages
-	 */
-	public static Pages createWizardEvent(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		EventType[] values = EventType.getTypes();
-		MC_AttributesItem vc = new MC_AttributesItem() {
-
-			@Override
-			public Object getValue() {
-				return EventType.getTypeFromString((String) super.getValue());
-			}
-
-			@Override
-			public void notifieValueChanged(UIField field, Object value) {
-				super.notifieValueChanged(field, ((EventType) value).getName());
-			}
-		};
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create an event", "Create an event", 3,
-				FieldsCore.createShortNameField(), FieldsCore.createComboBox(EventManager.TYPE_ATTRIBUTE, "type",
-						EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", values), vc, true),
-				FieldsCore.createCheckBox(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is list"), FieldsCore.createTextField(
-						WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value"), FieldsCore.createList_ListOfString(
-						EventManager.IMPORT_JAVA_ATTRIBUTE, "imports java", null, null, false, 0, -1), JavaFieldsCore
-						.createJavaSourceField("body", "code", null, new DefaultJavaSourceUserController())));
-	}
+	
 
 	/**
 	 * Gets the builds the model.
@@ -1393,7 +990,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @return the builds the model
 	 */
 	public static Item getBuildModel(Item wsmodel) {
-		Item buildModel = wsmodel.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_BUILD, true);
+		Item buildModel = wsmodel.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_BUILD, true);
 		return buildModel;
 	}
 
@@ -1425,6 +1022,18 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 		}
 		return null;
 	}
+	
+	/**
+	 * Gets the workspace model_static.
+	 * 
+	 * @param modelName
+	 *            the model name
+	 * 
+	 * @return the workspace model_static
+	 */
+	public Item getWorkspaceModel(Item source) {
+		return source;
+	}
 
 	/**
 	 * Gets the source folder.
@@ -1435,7 +1044,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @return the source folder
 	 */
 	public static IContainer getSourceFolder(Item cadseDefinition) {
-		WorkspaceModelContentManager cm = (WorkspaceModelContentManager) cadseDefinition.getContentItem();
+		CadseDefinitionContent cm = (CadseDefinitionContent) cadseDefinition.getContentItem();
 		if (cm != null) {
 			return cm.getSourceFolder(ContextVariable.DEFAULT);
 		}
@@ -1508,84 +1117,8 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @return the version
 	 */
 	public static int getVersion(Item cadseDefinition) {
-		return Convert.toInt(cadseDefinition.getAttribute(CadseRootCST.ITEM_TYPE_at_TW_VERSION),
-				CadseRootCST.ITEM_TYPE_at_TW_VERSION_, 0);
-	}
-
-	/**
-	 * get links 'extends' from 'CadseDefinition' to 'CadseDefinition'.
-	 * 
-	 * @param cadseDefinition
-	 *            the cadse definition
-	 * 
-	 * @return the extends link
-	 * 
-	 * @generated
-	 */
-	static public List<Link> getExtendsLink(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingLinks(WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS);
-	}
-
-	/**
-	 * Gets the extends all.
-	 * 
-	 * @param cadseDefinition
-	 *            the cadse definition
-	 * 
-	 * @return the extends all
-	 * 
-	 * @generated
-	 */
-	static public Collection<Item> getExtendsAll(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItems(WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS, false);
-	}
-
-	/**
-	 * Gets the extends.
-	 * 
-	 * @param cadseDefinition
-	 *            the cadse definition
-	 * 
-	 * @return the extends
-	 * 
-	 * @generated
-	 */
-	static public Collection<Item> getExtends(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItems(WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS, true);
-	}
-
-	/**
-	 * Adds the extends.
-	 * 
-	 * @param cadseDefinition
-	 *            the cadse definition
-	 * @param value
-	 *            the value
-	 * 
-	 * @throws CadseException
-	 *             the melusine exception
-	 * 
-	 * @generated
-	 */
-	static public void addExtends(Item cadseDefinition, Item value) throws CadseException {
-		cadseDefinition.addOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS, value);
-	}
-
-	/**
-	 * Removes the extends.
-	 * 
-	 * @param cadseDefinition
-	 *            the cadse definition
-	 * @param value
-	 *            the value
-	 * 
-	 * @throws CadseException
-	 *             the melusine exception
-	 * 
-	 * @generated
-	 */
-	static public void removeExtends(Item cadseDefinition, Item value) throws CadseException {
-		cadseDefinition.removeOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS, value);
+		return Convert.toInt(cadseDefinition.getAttribute(CadseGCST.ITEM_at_TW_VERSION),
+				CadseGCST.ITEM_at_TW_VERSION_, 0);
 	}
 
 	/**
@@ -1599,7 +1132,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Link getConfigurationLink(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingLink(WorkspaceCST.CADSE_DEFINITION_lt_CONFIGURATION);
+		return cadseDefinition.getOutgoingLink(CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION);
 	}
 
 	/**
@@ -1614,7 +1147,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getConfigurationAll(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_CONFIGURATION, false);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION, false);
 	}
 
 	/**
@@ -1629,7 +1162,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getConfiguration(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_CONFIGURATION, true);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION, true);
 	}
 
 	/**
@@ -1647,7 +1180,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public void setConfiguration(Item cadseDefinition, Item value) throws CadseException {
-		cadseDefinition.setOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_CONFIGURATION, value);
+		cadseDefinition.setOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION,value);
 	}
 
 	/**
@@ -1661,7 +1194,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Link getBuildLink(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingLink(WorkspaceCST.CADSE_DEFINITION_lt_BUILD);
+		return cadseDefinition.getOutgoingLink(CadseGCST.CADSE_DEFINITION_lt_BUILD);
 	}
 
 	/**
@@ -1675,7 +1208,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getBuildAll(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_BUILD, false);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_BUILD, false);
 	}
 
 	/**
@@ -1690,7 +1223,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getBuild(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_BUILD, true);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_BUILD, true);
 	}
 
 	/**
@@ -1707,7 +1240,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public void setBuild(Item cadseDefinition, Item value) throws CadseException {
-		cadseDefinition.setOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_BUILD, value);
+		cadseDefinition.setOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_BUILD,value);
 	}
 
 	/**
@@ -1721,7 +1254,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Link getMappingLink(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingLink(WorkspaceCST.CADSE_DEFINITION_lt_MAPPING);
+		return cadseDefinition.getOutgoingLink(CadseGCST.CADSE_DEFINITION_lt_MAPPING);
 	}
 
 	/**
@@ -1736,7 +1269,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getMappingAll(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_MAPPING, false);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_MAPPING, false);
 	}
 
 	/**
@@ -1751,7 +1284,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getMapping(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_MAPPING, true);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_MAPPING, true);
 	}
 
 	/**
@@ -1768,7 +1301,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public void setMapping(Item cadseDefinition, Item value) throws CadseException {
-		cadseDefinition.setOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_MAPPING, value);
+		cadseDefinition.setOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_MAPPING,value);
 	}
 
 	/**
@@ -1782,7 +1315,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Link getViewModelLink(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingLink(WorkspaceCST.CADSE_DEFINITION_lt_VIEW_MODEL);
+		return cadseDefinition.getOutgoingLink(CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL);
 	}
 
 	/**
@@ -1797,7 +1330,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getViewModelAll(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_VIEW_MODEL, false);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL, false);
 	}
 
 	/**
@@ -1811,7 +1344,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Link getDataModelLink(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingLink(WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL);
+		return cadseDefinition.getOutgoingLink(CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL);
 	}
 
 	/**
@@ -1826,7 +1359,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getDataModelAll(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL, false);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL, false);
 	}
 
 	/**
@@ -1841,7 +1374,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public Item getDataModel(Item cadseDefinition) {
-		return cadseDefinition.getOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL, true);
+		return cadseDefinition.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL, true);
 	}
 
 	/**
@@ -1858,7 +1391,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * @generated
 	 */
 	static public void setDataModel(Item cadseDefinition, Item value) throws CadseException {
-		cadseDefinition.setOutgoingItem(WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL, value);
+		cadseDefinition.setOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,value);
 	}
 
 	/**
@@ -1869,8 +1402,10 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 	 * 
 	 * @return the unique name
 	 */
-	public static String getUniqueName(Item cadsedef) {
-		return RESOURCE_SUFFIX + cadsedef.getName();
+	public static String getQualifiedName(Item cadsedef) {
+		if (cadsedef.getType() == CadseGCST.CADSE_RUNTIME)
+			return cadsedef.getQualifiedName();
+		return CadseRuntime.CADSE_NAME_SUFFIX + cadsedef.getName();
 	}
 
 	/*
@@ -1928,7 +1463,7 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 			return "Cannot extend this cadse : it's the root cadse";
 		}
 
-		if (lt == WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS) {
+		if (lt == CadseGCST.CADSE_RUNTIME_lt_EXTENDS) {
 			if (dest == source) {
 				return "Cannot extends self";
 			}
@@ -1939,6 +1474,11 @@ public class CadseDefinitionManager extends DefaultWorkspaceManager implements I
 			}
 		}
 		return super.canCreateLink(source, dest, lt);
+	}
+	
+	@Override
+	public boolean hasImageByItem() {
+		return false;
 	}
 
 }

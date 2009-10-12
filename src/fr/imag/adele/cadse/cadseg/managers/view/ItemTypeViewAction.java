@@ -30,7 +30,7 @@ import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
 import fede.workspace.model.manager.properties.impl.ic.IC_TreeCheckedUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
 import fede.workspace.model.manager.properties.impl.ui.WizardController;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
@@ -217,14 +217,14 @@ public class ItemTypeViewAction extends IMenuAction {
 				System.out.println(so.toString());
 				Item dest = (Item) so;
 				ItemType type = dest.getType();
-				if (type == WorkspaceCST.ITEM_TYPE) {
+				if (type == CadseGCST.ITEM_TYPE) {
 					ViewManager.createViewItemType(view, dest);
 				}
 			}
 			for (Object so : selected) {
 				Item dest = (Item) so;
 				ItemType type = dest.getType();
-				if (type == WorkspaceCST.LINK) {
+				if (type == CadseGCST.LINK) {
 					ViewManager.createViewLinkType(view, dest);
 				}
 			}
@@ -338,13 +338,13 @@ public class ItemTypeViewAction extends IMenuAction {
 					continue;
 				}
 
-				if (!l.isPart()) {
+				if (!l.getLinkType().isPart()) {
 					continue;
 				}
 
 				Item dest = l.getResolvedDestination();
 				ItemType type = dest.getType();
-				if (type == WorkspaceCST.ITEM_TYPE || type == WorkspaceCST.DATA_MODEL || type == WorkspaceCST.LINK) {
+				if (type == CadseGCST.ITEM_TYPE || type == CadseGCST.DATA_MODEL || type == CadseGCST.LINK) {
 					ret.add(dest);
 				}
 			}
@@ -417,10 +417,10 @@ public class ItemTypeViewAction extends IMenuAction {
 	 *            the item
 	 */
 	public void removeItem(Item item) {
-		if (item.getType() == WorkspaceCST.ITEM_TYPE) {
+		if (item.getType() == CadseGCST.ITEM_TYPE) {
 			selectAnItemType(item, false);
 		} else {
-			if (item.getType() == WorkspaceCST.DATA_MODEL) {
+			if (item.getType() == CadseGCST.DATA_MODEL) {
 				selectAnDataModel(item, false);
 			}
 		}
@@ -440,18 +440,18 @@ public class ItemTypeViewAction extends IMenuAction {
 				continue;
 			}
 
-			if (!l.isPart()) {
+			if (!l.getLinkType().isPart()) {
 				continue;
 			}
 
 			Item dest = l.getResolvedDestination();
 			ItemType type = dest.getType();
-			if (type == WorkspaceCST.LINK) {
+			if (type == CadseGCST.LINK) {
 				checkedTreeUI.selectObject(dest, sel);
-			} else if (type == WorkspaceCST.ITEM_TYPE) {
+			} else if (type == CadseGCST.ITEM_TYPE) {
 				checkedTreeUI.selectObject(dest, sel);
 				selectAnItemType(dest, sel);
-			} else if (type == WorkspaceCST.DATA_MODEL) {
+			} else if (type == CadseGCST.DATA_MODEL) {
 				checkedTreeUI.selectObject(dest, sel);
 				selectAnDataModel(dest, sel);
 			}
@@ -465,11 +465,11 @@ public class ItemTypeViewAction extends IMenuAction {
 	 *            the item
 	 */
 	public void addItem(Item item) {
-		if (item.getType() == WorkspaceCST.ITEM_TYPE) {
+		if (item.getType() == CadseGCST.ITEM_TYPE) {
 			selectAnItemType(item, true);
-		} else if (item.getType() == WorkspaceCST.DATA_MODEL) {
+		} else if (item.getType() == CadseGCST.DATA_MODEL) {
 			selectAnDataModel(item, true);
-		} else if (item.getType() == WorkspaceCST.LINK) {
+		} else if (item.getType() == CadseGCST.LINK) {
 			checkedTreeUI.selectObject(item.getPartParent(), true);
 		}
 	}
@@ -488,13 +488,13 @@ public class ItemTypeViewAction extends IMenuAction {
 				continue;
 			}
 
-			if (!l.isPart()) {
+			if (!l.getLinkType().isPart()) {
 				continue;
 			}
 
 			Item dest = l.getResolvedDestination();
 			ItemType type = dest.getType();
-			if (type == WorkspaceCST.LINK) {
+			if (type == CadseGCST.LINK) {
 				checkedTreeUI.selectObject(dest, sel);
 			}
 		}

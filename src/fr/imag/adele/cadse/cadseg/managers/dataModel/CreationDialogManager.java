@@ -36,11 +36,12 @@ import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.generate.GenerateCreationDialogController;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.CadseUtil;
 import fr.imag.adele.cadse.core.ContentItem;
@@ -85,8 +86,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 		 * @param item
 		 *            the item
 		 */
-		private PrivateContentManager(ContentItem parent, Item item) {
-			super(parent, item);
+		private PrivateContentManager(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -106,12 +107,14 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 		 * Creates the global action content.
 		 */
 		public void createGlobalActionContent() {
-			Item cadsedef = getItem().getPartParent(WorkspaceCST.CADSE_DEFINITION);
+			Item cadsedef = getItem().getPartParent(CadseGCST.CADSE_DEFINITION);
 			if (cadsedef == null) {
 				return;
 			}
 			ContentItem cm = cadsedef.getContentItem();
-			globalActionContent = new GlobalActionContent(cm, getItem());
+			globalActionContent = new GlobalActionContent(CompactUUID.randomUUID());
+			globalActionContent.setOwnerItem(getItem());
+			globalActionContent.setParentContent(cm);
 		}
 
 		/*
@@ -207,8 +210,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 		 * @param item
 		 *            the item
 		 */
-		private GlobalActionContent(ContentItem parent, Item item) {
-			super(parent, item, new VariableImpl() {
+		private GlobalActionContent(CompactUUID id) {
+			super(id, new VariableImpl() {
 				public String compute(ContextVariable context, Item itemCurrent) {
 					return GenerateJavaIdentifier.javaPackageGlobalCreationActionFromCreationDialog(context,
 							itemCurrent);
@@ -313,10 +316,10 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -342,7 +345,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 */
 	@Override
 	public void init() {
-		WorkspaceCST.CREATION_DIALOG.setHasUniqueNameAttribute(false);
+		CadseGCST.CREATION_DIALOG.setHasUniqueNameAttribute(false);
 	}
 
 	/**
@@ -376,8 +379,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * @generated
 	 */
 	static public List<Link> getPagesLink(Item creationDialog) {
-		return creationDialog.getOutgoingLinks(WorkspaceCST.CREATION_DIALOG_lt_PAGES);
-	}
+        return creationDialog.getOutgoingLinks(CadseGCST.CREATION_DIALOG_lt_PAGES);
+    }
 
 	/**
 	 * Gets the pages all.
@@ -390,8 +393,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * @generated
 	 */
 	static public Collection<Item> getPagesAll(Item creationDialog) {
-		return creationDialog.getOutgoingItems(WorkspaceCST.CREATION_DIALOG_lt_PAGES, false);
-	}
+        return creationDialog.getOutgoingItems(CadseGCST.CREATION_DIALOG_lt_PAGES, false);
+    }
 
 	/**
 	 * Get a page by name.
@@ -455,13 +458,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) {
-		Item cadsedef = item.getPartParent(WorkspaceCST.CADSE_DEFINITION);
-		if (cadsedef == null) {
-			return null;
-		}
-		ContentItem cm = cadsedef.getContentItem();
-		return new PrivateContentManager(cm, item);
+	public ContentItem createContentItem(CompactUUID id) {
+		return new PrivateContentManager(id);
 	}
 
 	/*
@@ -492,8 +490,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * @generated
 	 */
 	static public Collection<Item> getPages(Item creationDialog) {
-		return creationDialog.getOutgoingItems(WorkspaceCST.CREATION_DIALOG_lt_PAGES, true);
-	}
+        return creationDialog.getOutgoingItems(CadseGCST.CREATION_DIALOG_lt_PAGES,true);
+    }
 
 	/**
 	 * Adds the pages.
@@ -509,8 +507,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * @generated
 	 */
 	static public void addPages(Item creationDialog, Item value) throws CadseException {
-		creationDialog.addOutgoingItem(WorkspaceCST.CREATION_DIALOG_lt_PAGES, value);
-	}
+        creationDialog.addOutgoingItem(CadseGCST.CREATION_DIALOG_lt_PAGES,value);
+    }
 
 	/**
 	 * Removes the pages.
@@ -526,8 +524,8 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * @generated
 	 */
 	static public void removePages(Item creationDialog, Item value) throws CadseException {
-		creationDialog.removeOutgoingItem(WorkspaceCST.CREATION_DIALOG_lt_PAGES, value);
-	}
+        creationDialog.removeOutgoingItem(CadseGCST.CREATION_DIALOG_lt_PAGES,value);
+    }
 
 	/**
 	 * Gets the default short name attribute.
@@ -559,7 +557,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 */
 	public static final void setDefaultShortNameAttribute(Item creationDialog, String value) {
 		try {
-			creationDialog.setAttribute(WorkspaceCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME_, value);
+			creationDialog.setAttribute(CadseGCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -576,8 +574,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * @generated
 	 */
 	public static final boolean isAutomaticShortNameAttribute(Item creationDialog) {
-		return creationDialog
-				.getAttributeWithDefaultValue(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_, false);
+		return creationDialog.getAttributeWithDefaultValue(CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_, false);
 	}
 
 	/**
@@ -592,7 +589,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 */
 	public static final void setAutomaticShortNameAttribute(Item creationDialog, boolean value) {
 		try {
-			creationDialog.setAttribute(WorkspaceCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_, value);
+			creationDialog.setAttribute(CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -609,8 +606,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * @generated
 	 */
 	public static final boolean isExtendsDialogControllerAttribute(Item creationDialog) {
-		return creationDialog.getAttributeWithDefaultValue(WorkspaceCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER_,
-				false);
+		return creationDialog.getAttributeWithDefaultValue(CadseGCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER_, false);
 	}
 
 	/**
@@ -625,7 +621,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 */
 	public static final void setExtendsDialogControllerAttribute(Item creationDialog, boolean value) {
 		try {
-			creationDialog.setAttribute(WorkspaceCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER_, value);
+			creationDialog.setAttribute(CadseGCST.CREATION_DIALOG_at_EXTENDS_DIALOG_CONTROLLER_, value);
 		} catch (Throwable t) {
 
 		}
@@ -642,7 +638,7 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 * @not generated
 	 */
 	public static final String getGenerateAutomaticShortNameAttribute(Item creationDialog) {
-		Object value = creationDialog.getAttribute(WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME);
+		Object value = creationDialog.getAttribute(CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME);
 		if (value == null) {
 			return null;
 		}
@@ -673,49 +669,10 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 	 */
 	public static final void setGenerateAutomaticShortNameAttribute(Item creationDialog, String value) {
 		try {
-			creationDialog.setAttribute(WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_, value);
+			creationDialog.setAttribute(CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_, value);
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/**
-	 * get links '#invert_part_creation-dialog_to_AbstractItemType' from
-	 * 'CreationDialog' to 'AbstractItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_creationDialog_to_AbstractItemTypeLink(Item creationDialog) {
-		return creationDialog
-				.getOutgoingLink(WorkspaceCST.CREATION_DIALOG_lt__$_INVERT_PART_CREATION_DIALOG_TO_ABSTRACT_ITEM_TYPE);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_creationDialog_to_AbstractItemTypeAll(Item creationDialog) {
-		return creationDialog.getOutgoingItem(
-				WorkspaceCST.CREATION_DIALOG_lt__$_INVERT_PART_CREATION_DIALOG_TO_ABSTRACT_ITEM_TYPE, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_creationDialog_to_AbstractItemType(Item creationDialog) {
-		return creationDialog.getOutgoingItem(
-				WorkspaceCST.CREATION_DIALOG_lt__$_INVERT_PART_CREATION_DIALOG_TO_ABSTRACT_ITEM_TYPE, true);
-	}
-
-	/**
-	 * set a link '#invert_part_creation-dialog_to_AbstractItemType' from
-	 * 'CreationDialog' to 'AbstractItemType'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_creationDialog_to_AbstractItemType(Item creationDialog, Item value)
-			throws CadseException {
-		creationDialog.setOutgoingItem(
-				WorkspaceCST.CREATION_DIALOG_lt__$_INVERT_PART_CREATION_DIALOG_TO_ABSTRACT_ITEM_TYPE, value);
 	}
 
 	/*
@@ -750,33 +707,33 @@ public class CreationDialogManager extends DefaultWorkspaceManager implements II
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#notifie(fr.imag.adele
-	 * .cadse.core.Item, fr.imag.adele.cadse.core.WorkspaceDelta)
-	 */
-	@Override
-	public void notifie(Item item, ImmutableWorkspaceDelta wd) throws CadseException {
-		ImmutableItemDelta itemDela = wd.getItem(item);
-		if (itemDela != null && !itemDela.isDeleted()) {
-			PrivateContentManager cm = (PrivateContentManager) item.getContentItem();
-			boolean hasGlobalAction = hasGlobalActionPage(item);
-			if (cm.globalActionContent == null && hasGlobalAction) {
-				cm.createGlobalActionContent();
-			} else if (cm.globalActionContent != null && !hasGlobalAction) {
-				cm.globalActionContent = null;
-				cm = null;
-				regenerateCadseDefinitionModel(item);
-				return;
-			}
-			if (cm.globalActionContent != null) {
-				cm.globalActionContent.generateGlobalAction(ContextVariable.DEFAULT);
-				regenerateCadseDefinitionModel(item);
-			}
-		}
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see
+//	 * fede.workspace.model.manager.DefaultItemManager#notifie(fr.imag.adele
+//	 * .cadse.core.Item, fr.imag.adele.cadse.core.WorkspaceDelta)
+//	 */
+//	@Override
+//	public void notifie(Item item, ImmutableWorkspaceDelta wd) throws CadseException {
+//		ImmutableItemDelta itemDela = wd.getItem(item);
+//		if (itemDela != null && !itemDela.isDeleted()) {
+//			PrivateContentManager cm = (PrivateContentManager) item.getContentItem();
+//			boolean hasGlobalAction = hasGlobalActionPage(item);
+//			if (cm.globalActionContent == null && hasGlobalAction) {
+//				cm.createGlobalActionContent();
+//			} else if (cm.globalActionContent != null && !hasGlobalAction) {
+//				cm.globalActionContent = null;
+//				cm = null;
+//				regenerateCadseDefinitionModel(item);
+//				return;
+//			}
+//			if (cm.globalActionContent != null) {
+//				cm.globalActionContent.generateGlobalAction(ContextVariable.DEFAULT);
+//				regenerateCadseDefinitionModel(item);
+//			}
+//		}
+//	}
 
 	/**
 	 * regnerate cadse model

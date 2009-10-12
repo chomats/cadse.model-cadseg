@@ -21,11 +21,14 @@ package fr.imag.adele.cadse.cadseg.managers.mc;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fede.workspace.model.manager.properties.FieldsCore;
+import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -37,8 +40,6 @@ import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.util.Convert;
-import fede.workspace.model.manager.properties.FieldsCore;
-import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 
 /**
  * The Class IntModelControllerManager.
@@ -50,7 +51,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends ModelControllerManager.MyContentItem {
+	class MyContentItem extends ModelControllerManager.ModelControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -61,8 +62,8 @@ public class IntModelControllerManager extends ModelControllerManager implements
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -88,7 +89,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 				sb.append("null, ");
 			else
 				sb.appendStringValue(maxError).append(", ");
-			sb.append(Convert.toInteger(getItem().getAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE)))
+			sb.append(Convert.toInteger(getItem().getAttribute(CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE)))
 					.append(",");
 
 		}
@@ -125,18 +126,19 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -151,7 +153,6 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -163,18 +164,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 * @generated
 	 */
 	public static final String getErrorMsgMaxAttribute(Item intModelController) {
-		Object value = intModelController.getAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX);
-		if (value == null)
-			return "";
-
-		try {
-			String retvalue = (String) value;
-
-			return retvalue;
-		} catch (Throwable t) {
-			return "";
-		}
-
+		return intModelController.getAttributeWithDefaultValue(CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX_, null);
 	}
 
 	/**
@@ -182,8 +172,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 */
 	public static final void setErrorMsgMaxAttribute(Item intModelController, String value) {
 		try {
-			Object setvalue = value;
-			intModelController.setAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX, setvalue);
+			intModelController.setAttribute(CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX_, value);
 		} catch (Throwable t) {
 
 		}
@@ -193,18 +182,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 * @generated
 	 */
 	public static final String getErrorMsgMinAttribute(Item intModelController) {
-		Object value = intModelController.getAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN);
-		if (value == null)
-			return "";
-
-		try {
-			String retvalue = (String) value;
-
-			return retvalue;
-		} catch (Throwable t) {
-			return "";
-		}
-
+		return intModelController.getAttributeWithDefaultValue(CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_, null);
 	}
 
 	/**
@@ -212,8 +190,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 */
 	public static final void setErrorMsgMinAttribute(Item intModelController, String value) {
 		try {
-			Object setvalue = value;
-			intModelController.setAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN, setvalue);
+			intModelController.setAttribute(CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -223,16 +200,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 * @generated
 	 */
 	public static final int getMaxAttribute(Item intModelController) {
-		Object value = intModelController.getAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_MAX);
-		if (value == null)
-			return -1;
-
-		try {
-			return Convert.toInt(value, null, -1);
-		} catch (Throwable t) {
-			return -1;
-		}
-
+		return intModelController.getAttributeWithDefaultValue(CadseGCST.INT_MODEL_CONTROLLER_at_MAX_, -1);
 	}
 
 	/**
@@ -240,8 +208,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 */
 	public static final void setMaxAttribute(Item intModelController, int value) {
 		try {
-			Object setvalue = value;
-			intModelController.setAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_MAX, setvalue);
+			intModelController.setAttribute(CadseGCST.INT_MODEL_CONTROLLER_at_MAX_, value);
 		} catch (Throwable t) {
 
 		}
@@ -251,16 +218,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 * @generated
 	 */
 	public static final int getMinAttribute(Item intModelController) {
-		Object value = intModelController.getAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_MIN);
-		if (value == null)
-			return -1;
-
-		try {
-			return Convert.toInt(value, null, -1);
-		} catch (Throwable t) {
-			return -1;
-		}
-
+		return intModelController.getAttributeWithDefaultValue(CadseGCST.INT_MODEL_CONTROLLER_at_MIN_, -1);
 	}
 
 	/**
@@ -268,8 +226,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 */
 	public static final void setMinAttribute(Item intModelController, int value) {
 		try {
-			Object setvalue = value;
-			intModelController.setAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_MIN, setvalue);
+			intModelController.setAttribute(CadseGCST.INT_MODEL_CONTROLLER_at_MIN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -279,16 +236,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 * @generated
 	 */
 	public static final int getDefaultValueAttribute(Item intModelController) {
-		Object value = intModelController.getAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE);
-		if (value == null)
-			return -1;
-
-		try {
-			return Convert.toInt(value, null, -1);
-		} catch (Throwable t) {
-			return -1;
-		}
-
+		return intModelController.getAttributeWithDefaultValue(CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_, -1);
 	}
 
 	/**
@@ -296,8 +244,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 */
 	public static final void setDefaultValueAttribute(Item intModelController, int value) {
 		try {
-			Object setvalue = value;
-			intModelController.setAttribute(WorkspaceCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE, setvalue);
+			intModelController.setAttribute(CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -339,8 +286,8 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -353,7 +300,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 	@Override
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.MC_DEFAULT_SHORT_NAME);
+				DisplayManager.MC_DEFAULT_NAME);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
 				"a int model controller", 3, FieldsCore.createTextField("min", "min", new IntModelController(1, -1,
@@ -395,7 +342,7 @@ public class IntModelControllerManager extends ModelControllerManager implements
 			return "Must set the attribut link for the item " + itemParent.getId();
 		if (AttributeManager.isIsListAttribute(attribut))
 			return "Must be a singleton value";
-		if (attribut.getType() == WorkspaceCST.INTEGER)
+		if (attribut.getType() == CadseGCST.INTEGER)
 			return null;
 
 		return "The type of the attribut linked at the field must be integer attribute";

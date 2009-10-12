@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.build.exporter;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -38,6 +38,7 @@ import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * @generated
@@ -47,22 +48,23 @@ public class ExporterModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldTypes;
+	protected DListUI fieldTypes;
 
 	/**
 	 * @generated
 	 */
-	protected ExporterModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected ExporterModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -97,8 +99,10 @@ public class ExporterModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DListUI createFieldTypes() {
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.", "Select a value.", false);
-		return new DListUI(WorkspaceCST.EXPORTER_at_TYPES, "types", EPosLabel.top, mc, ic, true, false, false, false);
+		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
+				"Select a value.", false);
+		return new DListUI(CadseGCST.EXPORTER_at_TYPES, "types", EPosLabel.top,
+				mc, ic, true, false, false, false);
 	}
 
 }

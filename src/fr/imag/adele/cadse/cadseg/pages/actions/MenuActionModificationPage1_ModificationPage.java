@@ -20,7 +20,7 @@ package fr.imag.adele.cadse.cadseg.pages.actions;
 
 import org.eclipse.swt.SWT;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -31,7 +31,9 @@ import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_FileResourceForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.ic.IC_IconResourceForBrowser_Combo_List;
@@ -43,17 +45,19 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class MenuActionModificationPage1_ModificationPage extends MenuAbstractModificationPage1_ModificationPage {
+public class MenuActionModificationPage1_ModificationPage extends
+		MenuAbstractModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldIcon;
+	protected DBrowserUI fieldIcon;
 
 	/**
 	 * @generated
 	 */
-	protected MenuActionModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected MenuActionModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -69,7 +73,8 @@ public class MenuActionModificationPage1_ModificationPage extends MenuAbstractMo
 		this.fieldLabel = createFieldLabel();
 		this.fieldIcon = createFieldIcon();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldPath, this.fieldLabel, this.fieldIcon);
+		addLast(this.__short_name__, this.fieldPath, this.fieldLabel,
+				this.fieldIcon);
 
 		registerListener();
 	}
@@ -86,16 +91,9 @@ public class MenuActionModificationPage1_ModificationPage extends MenuAbstractMo
 	 */
 	public DTextUI createFieldPath() {
 		GlobalPathIC ic = new GlobalPathIC();
-		return new DTextUI(WorkspaceCST.MENU_ABSTRACT_at_PATH, "path in menu", EPosLabel.left, new MC_AttributesItem(),
-				ic, 0, 1, "La valeur peut être context1, context2 ... context6, context1/new");
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldLabel() {
-		return new DTextUI(WorkspaceCST.MENU_ABSTRACT_at_LABEL, "label", EPosLabel.left, new MC_AttributesItem(), null,
-				1, "");
+		return new DTextUI(CadseGCST.MENU_ABSTRACT_at_PATH, "path in menu",
+				EPosLabel.left, new MC_AttributesItem(), ic, 0, 1,
+				"La valeur peut être context1, context2 ... context6, context1/new");
 	}
 
 	/**
@@ -104,8 +102,8 @@ public class MenuActionModificationPage1_ModificationPage extends MenuAbstractMo
 	public DBrowserUI createFieldIcon() {
 		StringToResourceSimpleModelController mc = new StringToResourceSimpleModelController();
 		IC_FileResourceForBrowser_Combo_List ic = new IC_IconResourceForBrowser_Combo_List();
-		return new DBrowserUI(WorkspaceCST.MENU_ABSTRACT_at_ICON, "icon", EPosLabel.left, mc, ic, SWT.BORDER
-				| SWT.SINGLE);
+		return new DBrowserUI(CadseGCST.MENU_ABSTRACT_at_ICON, "icon",
+				EPosLabel.left, mc, ic, SWT.BORDER | SWT.SINGLE);
 	}
 
 }

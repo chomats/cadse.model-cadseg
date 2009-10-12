@@ -19,7 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.actions;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -101,7 +101,7 @@ public class MenuAbstractManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final String getPathAttribute(Item menuAbstract) {
-		return menuAbstract.getAttributeWithDefaultValue(WorkspaceCST.MENU_ABSTRACT_at_PATH_, null);
+		return menuAbstract.getAttributeWithDefaultValue(CadseGCST.MENU_ABSTRACT_at_PATH_, null);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class MenuAbstractManager extends DefaultItemManager {
 	 */
 	public static final void setPathAttribute(Item menuAbstract, String value) {
 		try {
-			menuAbstract.setAttribute(WorkspaceCST.MENU_ABSTRACT_at_PATH_, value);
+			menuAbstract.setAttribute(CadseGCST.MENU_ABSTRACT_at_PATH_, value);
 		} catch (Throwable t) {
 
 		}
@@ -133,7 +133,7 @@ public class MenuAbstractManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final String getLabelAttribute(Item menuAbstract) {
-		return menuAbstract.getAttributeWithDefaultValue(WorkspaceCST.MENU_ABSTRACT_at_LABEL_, null);
+		return menuAbstract.getAttributeWithDefaultValue(CadseGCST.MENU_ABSTRACT_at_LABEL_, null);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class MenuAbstractManager extends DefaultItemManager {
 	 */
 	public static final void setLabelAttribute(Item menuAbstract, String value) {
 		try {
-			menuAbstract.setAttribute(WorkspaceCST.MENU_ABSTRACT_at_LABEL_, value);
+			menuAbstract.setAttribute(CadseGCST.MENU_ABSTRACT_at_LABEL_, value);
 		} catch (Throwable t) {
 
 		}
@@ -165,7 +165,7 @@ public class MenuAbstractManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final String getIconAttribute(Item menuAbstract) {
-		return menuAbstract.getAttributeWithDefaultValue(WorkspaceCST.MENU_ABSTRACT_at_ICON_, null);
+		return menuAbstract.getAttributeWithDefaultValue(CadseGCST.MENU_ABSTRACT_at_ICON_, null);
 	}
 
 	/**
@@ -180,42 +180,10 @@ public class MenuAbstractManager extends DefaultItemManager {
 	 */
 	public static final void setIconAttribute(Item menuAbstract, String value) {
 		try {
-			menuAbstract.setAttribute(WorkspaceCST.MENU_ABSTRACT_at_ICON_, value);
+			menuAbstract.setAttribute(CadseGCST.MENU_ABSTRACT_at_ICON_, value);
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/**
-	 * get links '#invert_part_children_to_Menu' from 'MenuAbstract' to 'Menu'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_children_to_MenuLink(Item menuAbstract) {
-		return menuAbstract.getOutgoingLink(WorkspaceCST.MENU_ABSTRACT_lt__$_INVERT_PART_CHILDREN_TO_MENU);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_children_to_MenuAll(Item menuAbstract) {
-		return menuAbstract.getOutgoingItem(WorkspaceCST.MENU_ABSTRACT_lt__$_INVERT_PART_CHILDREN_TO_MENU, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_children_to_Menu(Item menuAbstract) {
-		return menuAbstract.getOutgoingItem(WorkspaceCST.MENU_ABSTRACT_lt__$_INVERT_PART_CHILDREN_TO_MENU, true);
-	}
-
-	/**
-	 * set a link '#invert_part_children_to_Menu' from 'MenuAbstract' to 'Menu'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_children_to_Menu(Item menuAbstract, Item value) throws CadseException {
-		menuAbstract.setOutgoingItem(WorkspaceCST.MENU_ABSTRACT_lt__$_INVERT_PART_CHILDREN_TO_MENU,value);
 	}
 
 	@Override

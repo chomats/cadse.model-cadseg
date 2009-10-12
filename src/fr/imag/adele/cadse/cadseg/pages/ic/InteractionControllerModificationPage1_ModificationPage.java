@@ -33,23 +33,25 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class InteractionControllerModificationPage1_ModificationPage extends PageImpl {
+public class InteractionControllerModificationPage1_ModificationPage extends
+		PageImpl {
 
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected InteractionControllerModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected InteractionControllerModificationPage1_ModificationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -57,7 +59,8 @@ public class InteractionControllerModificationPage1_ModificationPage extends Pag
 	 * @generated
 	 */
 	public InteractionControllerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "InteractionController", "InteractionController", "", false, 3);
+		super("modification-page1", "InteractionController",
+				"InteractionController", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

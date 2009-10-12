@@ -1,4 +1,4 @@
-package fr.imag.adele.cadse.cadseg.pages;
+package fr.imag.adele.cadse.cadseg.pages.mc;
 
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
@@ -13,62 +13,53 @@ import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
- * @generated
+ @generated
  */
-public class EventCreationPage1_CreationPage extends PageImpl {
+public class MC_NameAttributeCreationPageMC_NameAttribute_CreationPage extends
+		PageImpl {
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public Item			parent;
+	public Item parent;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public ItemType		it;
+	public ItemType it;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public LinkType		lt;
+	public LinkType lt;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	protected DTextUI	__short_name__;
-
-	/**
-	 * @generated
-	 */
-	protected EventCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected MC_NameAttributeCreationPageMC_NameAttribute_CreationPage(
+			String id, String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public EventCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create Event", "Create Event", "", false, 3);
+	public MC_NameAttributeCreationPageMC_NameAttribute_CreationPage(
+			Item parent, ItemType it, LinkType lt) {
+		super("creation-page-MC_NameAttribute", "Create MC_NameAttribute",
+				"Create MC_NameAttribute", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
 	}
 
 }

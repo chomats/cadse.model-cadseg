@@ -22,7 +22,8 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -39,25 +40,27 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class DoubleCreationPage1_CreationPage extends AttributeCreationPage1_CreationPage {
+public class DoubleCreationPage1_CreationPage extends
+		AttributeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldMustBeInitialized;
+	protected DCheckBoxUI fieldMustBeInitialized;
 
 	/**
 	 * @generated
 	 */
-	protected DoubleCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected DoubleCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public DoubleCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
+	public DoubleCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
 		super("creation-page1", "Create Double", "Create Double", "", false, 3);
 		this.parent = parent;
 		this.it = it;
@@ -67,7 +70,8 @@ public class DoubleCreationPage1_CreationPage extends AttributeCreationPage1_Cre
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldDefaultValue, this.fieldMustBeInitialized, this.fieldIsList);
+		addLast(this.__short_name__, this.fieldDefaultValue,
+				this.fieldMustBeInitialized, this.fieldIsList);
 
 		registerListener();
 	}
@@ -80,8 +84,9 @@ public class DoubleCreationPage1_CreationPage extends AttributeCreationPage1_Cre
 	 * @not generated
 	 */
 	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default-value", EPosLabel.left,
-				new MC_DoubleTextField(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE,
+				"default-value", EPosLabel.left, new MC_DoubleTextField(),
+				null, 1, "", false, false, false);
 	}
 
 	/**
@@ -89,16 +94,8 @@ public class DoubleCreationPage1_CreationPage extends AttributeCreationPage1_Cre
 	 */
 	public DCheckBoxUI createFieldMustBeInitialized() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED, "show attribute in creation wizard",
-				EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED,
+				"show attribute in creation wizard", EPosLabel.none, mc, null);
 	}
 
 	@Override

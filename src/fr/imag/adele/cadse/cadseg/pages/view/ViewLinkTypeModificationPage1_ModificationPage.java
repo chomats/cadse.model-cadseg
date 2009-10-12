@@ -7,7 +7,7 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -29,42 +29,43 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item				item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldLinkType;
+	protected DBrowserUI fieldLinkType;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldCanCreateItem;
+	protected DCheckBoxUI fieldCanCreateItem;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldCanCreateLink;
+	protected DCheckBoxUI fieldCanCreateLink;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldDisplayCreate;
+	protected DTextUI fieldDisplayCreate;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldAggregation;
+	protected DCheckBoxUI fieldAggregation;
 
 	/**
 	 * @generated
 	 */
-	protected ViewLinkTypeModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected ViewLinkTypeModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -73,7 +74,8 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public ViewLinkTypeModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "ViewLinkType", "ViewLinkType", "", false, 3);
+		super("modification-page1", "ViewLinkType", "ViewLinkType", "", false,
+				3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldLinkType = createFieldLinkType();
@@ -82,7 +84,8 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 		this.fieldDisplayCreate = createFieldDisplayCreate();
 		this.fieldAggregation = createFieldAggregation();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldLinkType, this.fieldCanCreateItem, this.fieldCanCreateLink,
+		addLast(this.__short_name__, this.fieldLinkType,
+				this.fieldCanCreateItem, this.fieldCanCreateLink,
 				this.fieldDisplayCreate, this.fieldAggregation);
 
 		registerListener();
@@ -103,10 +106,13 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DBrowserUI createFieldLinkType() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
-		return new DBrowserUI(WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE.getName(), "link-type", EPosLabel.left, mc, ic);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
+		return new DBrowserUI(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE.getName(),
+				"link-type", EPosLabel.left, mc, ic);
 	}
 
 	/**
@@ -114,8 +120,8 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldCanCreateItem() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM, "can-create-item", EPosLabel.none, mc,
-				null);
+		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM,
+				"can-create-item", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -123,16 +129,17 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldCanCreateLink() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK, "can-create-link", EPosLabel.none, mc,
-				null);
+		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK,
+				"can-create-link", EPosLabel.none, mc, null);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldDisplayCreate() {
-		return new DTextUI(WorkspaceCST.VIEW_LINK_TYPE_at_DISPLAY_CREATE, "display-create", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.VIEW_LINK_TYPE_at_DISPLAY_CREATE,
+				"display-create", EPosLabel.left, new MC_AttributesItem(),
+				null, 1, "", false, false, false);
 	}
 
 	/**
@@ -140,7 +147,8 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldAggregation() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.VIEW_LINK_TYPE_at_AGGREGATION, "aggregation", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION,
+				"aggregation", EPosLabel.none, mc, null);
 	}
 
 }

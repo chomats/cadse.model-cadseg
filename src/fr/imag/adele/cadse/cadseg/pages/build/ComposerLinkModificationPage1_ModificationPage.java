@@ -7,7 +7,7 @@ import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -29,27 +29,28 @@ public class ComposerLinkModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item				item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldLink;
+	protected DBrowserUI fieldLink;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI		fieldExporters;
+	protected DListUI fieldExporters;
 
 	/**
 	 * @generated
 	 */
-	protected ComposerLinkModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected ComposerLinkModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -58,7 +59,8 @@ public class ComposerLinkModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public ComposerLinkModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "ComposerLink", "ComposerLink", "", false, 3);
+		super("modification-page1", "ComposerLink", "ComposerLink", "", false,
+				3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldLink = createFieldLink();
@@ -84,21 +86,26 @@ public class ComposerLinkModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DBrowserUI createFieldLink() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.COMPOSER_LINK_lt_LINK);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.COMPOSER_LINK_lt_LINK);
-		return new DBrowserUI(WorkspaceCST.COMPOSER_LINK_lt_LINK.getName(), "link", EPosLabel.left, mc, ic);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.COMPOSER_LINK_lt_LINK);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSER_LINK_lt_LINK);
+		return new DBrowserUI(CadseGCST.COMPOSER_LINK_lt_LINK.getName(),
+				"link", EPosLabel.left, mc, ic);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DListUI createFieldExporters() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.COMPOSER_LINK_lt_EXPORTERS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.COMPOSER_LINK_lt_EXPORTERS);
-		return new DListUI(WorkspaceCST.COMPOSER_LINK_lt_EXPORTERS.getName(), "exporters", EPosLabel.top, mc, ic, true,
-				false, false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.COMPOSER_LINK_lt_EXPORTERS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSER_LINK_lt_EXPORTERS);
+		return new DListUI(CadseGCST.COMPOSER_LINK_lt_EXPORTERS.getName(),
+				"exporters", EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

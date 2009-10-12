@@ -13,23 +13,25 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class StringToResourceListModelControllerModificationPage1_ModificationPage extends
-		ModelControllerModificationPage1_ModificationPage {
+public class StringToResourceListModelControllerModificationPage1_ModificationPage
+		extends ModelControllerModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected StringToResourceListModelControllerModificationPage1_ModificationPage(String id, String label,
-			String title, String description, boolean isPageComplete, int hspan) {
+	protected StringToResourceListModelControllerModificationPage1_ModificationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public StringToResourceListModelControllerModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "StringToResourceListModelController", "StringToResourceListModelController", "",
-				false, 3);
+	public StringToResourceListModelControllerModificationPage1_ModificationPage(
+			Item item) {
+		super("modification-page1", "StringToResourceListModelController",
+				"StringToResourceListModelController", "", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
@@ -36,8 +37,9 @@ public class MC_LinkToBooleanModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected MC_LinkToBooleanModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected MC_LinkToBooleanModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -45,7 +47,8 @@ public class MC_LinkToBooleanModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public MC_LinkToBooleanModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "MC_LinkToBoolean", "MC_LinkToBoolean", "", false, 3);
+		super("modification-page1", "MC_LinkToBoolean", "MC_LinkToBoolean", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

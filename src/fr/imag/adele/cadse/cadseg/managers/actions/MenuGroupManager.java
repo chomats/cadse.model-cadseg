@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.actions;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 

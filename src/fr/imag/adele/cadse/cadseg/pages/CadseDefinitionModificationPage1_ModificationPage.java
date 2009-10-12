@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -45,63 +45,50 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class CadseDefinitionModificationPage1_ModificationPage extends PageImpl {
+public class CadseDefinitionModificationPage1_ModificationPage extends
+		CadseRuntimeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	public Item			item;
+	protected DTextUI fieldPackagename;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	__short_name__;
+	protected DListUI fieldImports;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldPackagename;
+	protected DTextUI fieldVendorName;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldImports;
+	protected DTextUI fieldVersionCadse;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI	fieldExtends;
+	protected DTextUI fieldCommentary;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldCadseName;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldDescription;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldVendorName;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI	fieldVersionCadse;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI	fieldDescription;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI	fieldCommentary;
-
-	/**
-	 * @generated
-	 */
-	private DTextUI		fieldDisplayName;
-
-	/**
-	 * @generated
-	 */
-	protected CadseDefinitionModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected CadseDefinitionModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -109,7 +96,8 @@ public class CadseDefinitionModificationPage1_ModificationPage extends PageImpl 
 	 * @generated
 	 */
 	public CadseDefinitionModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "Cadse definition", "Cadse definition", "", false, 3);
+		super("modification-page1", "Cadse definition", "Cadse definition", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldPackagename = createFieldPackagename();
@@ -119,10 +107,12 @@ public class CadseDefinitionModificationPage1_ModificationPage extends PageImpl 
 		this.fieldVersionCadse = createFieldVersionCadse();
 		this.fieldDescription = createFieldDescription();
 		this.fieldCommentary = createFieldCommentary();
-		this.fieldDisplayName = createFieldDisplayName();
+		this.fieldCadseName = createFieldCadseName();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldPackagename, this.fieldImports, this.fieldExtends, this.fieldVendorName,
-				this.fieldVersionCadse, this.fieldDescription, this.fieldCommentary, this.fieldDisplayName);
+		addLast(this.__short_name__, this.fieldPackagename, this.fieldImports,
+				this.fieldExtends, this.fieldVendorName,
+				this.fieldVersionCadse, this.fieldDescription,
+				this.fieldCommentary, this.fieldCadseName);
 
 		registerListener();
 	}
@@ -134,16 +124,10 @@ public class CadseDefinitionModificationPage1_ModificationPage extends PageImpl 
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DTextUI createFieldPackagename() {
-		return new DTextUI(WorkspaceCST.CADSE_DEFINITION_at_PACKAGENAME, "main package", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME,
+				"main package", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 	/**
@@ -151,60 +135,55 @@ public class CadseDefinitionModificationPage1_ModificationPage extends PageImpl 
 	 */
 	public DListUI createFieldImports() {
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Enter an import package", "Enter an import package", false);
-		return new DListUI(WorkspaceCST.CADSE_DEFINITION_at_IMPORTS, "imports", EPosLabel.top, mc, ic, true, false,
-				false, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DListUI createFieldExtends() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a cadse to extend.",
-				"Select a cadse to extend.", WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS);
-		return new DListUI(WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS.getName(), "extends", EPosLabel.top, mc, ic, true,
-				false, false, false);
+		IC_DefaultForList ic = new IC_DefaultForList("Enter an import package",
+				"Enter an import package", false);
+		return new DListUI(CadseGCST.CADSE_DEFINITION_at_IMPORTS, "imports",
+				EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldVendorName() {
-		return new DTextUI(WorkspaceCST.CADSE_DEFINITION_at_VENDOR_NAME, "vendor name", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.CADSE_DEFINITION_at_VENDOR_NAME,
+				"vendor name", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldVersionCadse() {
-		return new DTextUI(WorkspaceCST.CADSE_DEFINITION_at_VERSION_CADSE, "version cadse", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldDescription() {
-		return new DTextUI(WorkspaceCST.CADSE_DEFINITION_at_DESCRIPTION, "description", EPosLabel.left,
-				new MC_AttributesItem(), null, 50, "", true, false, true);
+		return new DTextUI(CadseGCST.CADSE_DEFINITION_at_VERSION_CADSE,
+				"version cadse", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldCommentary() {
-		return new DTextUI(WorkspaceCST.CADSE_DEFINITION_at_COMMENTARY, "commentary", EPosLabel.left,
-				new MC_AttributesItem(), null, 25, "", true, false, true);
+		return new DTextUI(CadseGCST.CADSE_DEFINITION_at_COMMENTARY,
+				"commentary", EPosLabel.left, new MC_AttributesItem(), null,
+				25, "", true, false, true);
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public DTextUI createFieldDisplayName() {
-		return new DTextUI(WorkspaceCST.CADSE_DEFINITION_at_DISPLAY_NAME, "display-name", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
+	public DTextUI createFieldCadseName() {
+		return new DTextUI(CadseGCST.CADSE_DEFINITION_at_CADSE_NAME,
+				"cadse-name", EPosLabel.left, new MC_AttributesItem(), null, 1,
+				"", false, false, false);
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldDescription() {
+		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_DESCRIPTION,
+				"description", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 }

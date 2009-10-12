@@ -23,7 +23,7 @@ import java.net.URL;
 
 import org.eclipse.jface.wizard.WizardDialog;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
@@ -58,7 +58,7 @@ public class ImportAction extends IMenuAction {
 	 */
 	@Override
 	public URL getImage() {
-		return WorkspaceCST.CADSE_DEFINITION.getImage();
+		return CadseGCST.CADSE_DEFINITION.getImage();
 	}
 
 	/*

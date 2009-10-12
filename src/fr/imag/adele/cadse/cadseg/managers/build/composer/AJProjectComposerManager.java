@@ -24,8 +24,11 @@ import java.util.List;
 import java.util.Set;
 
 import fede.workspace.model.manager.properties.FieldsCore;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.cadseg.contents.ic.InteractionControllerContent;
+import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -47,7 +50,7 @@ public class AJProjectComposerManager extends EclipseComposerManager {
 	/**
 	 * The Class ContentManager.
 	 */
-	public class ContentManager extends EclipseComposerManager.MyContentItem {
+	public class AJProjectComposerContent extends InteractionControllerContent {
 
 		/**
 		 * Instantiates a new content manager.
@@ -58,8 +61,8 @@ public class AJProjectComposerManager extends EclipseComposerManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		public ContentManager(ContentManager parent, Item item) throws CadseException {
-			super(parent, item);
+		public AJProjectComposerContent(CompactUUID id, InteractionControllerManager manager) throws CadseException {
+			super(id, manager);
 		}
 
 		/*
@@ -100,7 +103,6 @@ public class AJProjectComposerManager extends EclipseComposerManager {
 		 * #generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
 		 * java.util.Set, fr.imag.adele.cadse.core.GenContext)
 		 */
-		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
 			sb.append(getItem().getAttributeWithDefaultValue(SKIP_WEAVING_ATTRIBUTE, "false"));
 		}
@@ -117,10 +119,10 @@ public class AJProjectComposerManager extends EclipseComposerManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -157,86 +159,38 @@ public class AJProjectComposerManager extends EclipseComposerManager {
 	 * @generated
 	 */
 	static public List<Link> getComposerLinksLink(Item aJProjectComposer) {
-		return aJProjectComposer.getOutgoingLinks(WorkspaceCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS);
-	}
+        return aJProjectComposer.getOutgoingLinks(CadseGCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getComposerLinksAll(Item aJProjectComposer) {
-		return aJProjectComposer.getOutgoingItems(WorkspaceCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS, false);
-	}
+        return aJProjectComposer.getOutgoingItems(CadseGCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getComposerLinks(Item aJProjectComposer) {
-		return aJProjectComposer.getOutgoingItems(WorkspaceCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS, true);
-	}
+        return aJProjectComposer.getOutgoingItems(CadseGCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addComposerLinks(Item aJProjectComposer, Item value) throws CadseException {
-		aJProjectComposer.addOutgoingItem(WorkspaceCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS, value);
-	}
+        aJProjectComposer.addOutgoingItem(CadseGCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeComposerLinks(Item aJProjectComposer, Item value) throws CadseException {
-		aJProjectComposer.removeOutgoingItem(WorkspaceCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS, value);
-	}
+        aJProjectComposer.removeOutgoingItem(CadseGCST.AJPROJECT_COMPOSER_lt_COMPOSER_LINKS,value);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * model.workspace.workspace.managers.build.ComposerManager#createCreationPages
-	 * (fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.LinkType,
-	 * fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, "aspectj-composer");
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create an aspectj composer",
-				"Create an aspectj composer", 3, FieldsCore.createCheckBox(EXTENDS_CLASS_ATTRIBUTE, "extends class"),
-				FieldsCore.createCheckBox(SKIP_WEAVING_ATTRIBUTE, "skip weaving")
-
-		));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seemodel.workspace.workspace.managers.build.ComposerManager#
-	 * createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "an aspectj composer",
-				"an aspectj composer", 3, FieldsCore.createShortNameField(), FieldsCore.createCheckBox(
-						EXTENDS_CLASS_ATTRIBUTE, "extends class"), FieldsCore.createCheckBox(SKIP_WEAVING_ATTRIBUTE,
-						"skip weaving")
-
-		));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * model.workspace.workspace.managers.build.ComposerManager#createContentManager
-	 * (fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentManager createContentManager(Item item) throws CadseException {
-		return new ContentManager(null, item);
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

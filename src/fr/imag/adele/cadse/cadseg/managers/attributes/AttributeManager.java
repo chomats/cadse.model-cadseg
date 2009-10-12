@@ -26,14 +26,16 @@ import java.util.Set;
 import org.eclipse.jdt.core.IType;
 
 import fede.workspace.tool.loadmodel.model.jaxb.CAttType;
+import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
+import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.attributes.AttributeCIF;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IContentItemFactory;
@@ -42,11 +44,13 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.ListAttributeType;
 import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
+import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.internal.ItemImpl;
 import fr.imag.adele.cadse.core.key.ISpaceKey;
 import fr.imag.adele.cadse.core.key.SpaceKeyType;
@@ -55,6 +59,8 @@ import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
+import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
+import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
 
 /**
  * The Class AttributeManager.
@@ -62,7 +68,7 @@ import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class AttributeManager extends DefaultWorkspaceManager implements IItemManager, IModelWorkspaceManager,
-		IAttributeCadsegForGenerate {
+		IAttributeCadsegForGenerate, InitModelLoadAndWrite {
 
 	/**
 	 * Checks if is link attribute.
@@ -73,7 +79,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @return true, if is link attribute
 	 */
 	public static boolean isLinkAttribute(Item item) {
-		return item.getType() == WorkspaceCST.LINK;
+		return item.getType() == CadseGCST.LINK;
 	}
 
 	private final class AttributeSpaceKeyType extends SpaceKeyType {
@@ -90,7 +96,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			}
 			Assert.isNotNull(it, "Cannot found parent form " + item.getType().getName() + "::" + item.getName());
 
-			if (it.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
+			if (it.getType() == CadseGCST.EXT_ITEM_TYPE) {
 				Item it2 = ExtItemTypeManager.getRefType(it);
 				Assert
 						.isNotNull(it2, "Cannot found ref itemtype form " + it.getQualifiedName() + "::"
@@ -102,17 +108,28 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			assert key != null;
 			return key;
 		}
+		
+		@Override
+		protected String convertName(String name) {
+			if (name == null) return null;
+			return name.toUpperCase();
+		}
+		
+		@Override
+		protected String getName(Item item) {
+			return convertName(super.getName(item));
+		}
 	}
 
-	// /** The Constant TYPE_ATTRIBUTE. */
-	// / @Deprecated
-	// public static final String TYPE_ATTRIBUTE = "type";
+	
 
 	/**
 	 * Instantiates a new attribute manager.
 	 */
 	public AttributeManager() {
 	}
+
+	
 
 	public void computeImportsManifest(Set<String> imports) {
 		imports.add("fr.imag.adele.cadse.core");
@@ -124,7 +141,6 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 		imports.add("fr.imag.adele.cadse.core.Item");
 		imports.add("fr.imag.adele.cadse.core.CadseException");
 		imports.add("fr.imag.adele.cadse.core.util.Convert");
-
 	}
 
 	/*
@@ -135,7 +151,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 *      fr.imag.adele.cadse.core.LinkType)
 	 */
 	@Override
-	public String computeUniqueName(Item item, String shortid, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String shortid, Item parent, LinkType lt) {
 		return Item.NO_VALUE_STRING;
 	}
 
@@ -163,9 +179,9 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	public void init() {
 		getItemType().setHasShortNameAttribute(true);
 		getItemType().setHasUniqueNameAttribute(false);
-		if (getItemType() == WorkspaceCST.ATTRIBUTE) {
-			WorkspaceCST.ATTRIBUTE.setSpaceKeyType(new AttributeSpaceKeyType(WorkspaceCST.ATTRIBUTE,
-					WorkspaceCST.ITEM_TYPE));
+		if (getItemType() == CadseGCST.ATTRIBUTE) {
+			CadseGCST.ATTRIBUTE.setSpaceKeyType(new AttributeSpaceKeyType(CadseGCST.ATTRIBUTE,
+					CadseGCST.ITEM_TYPE));
 			// new AttributeWLWC();
 		}
 
@@ -191,70 +207,6 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 		return item.getName();
 	}
 
-	/**
-	 * Gets the min attribute.
-	 * 
-	 * @param attribute
-	 *            the attribute
-	 * 
-	 * @return the min attribute
-	 * 
-	 * @generated
-	 */
-	public static final int getMinAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_MIN_, 0);
-	}
-
-	/**
-	 * Sets the min attribute.
-	 * 
-	 * @param attribute
-	 *            the attribute
-	 * @param value
-	 *            the value
-	 * 
-	 * @generated
-	 */
-	public static final void setMinAttribute(Item attribute, int value) {
-		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_MIN_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * Gets the max attribute.
-	 * 
-	 * @param attribute
-	 *            the attribute
-	 * 
-	 * @return the max attribute
-	 * 
-	 * @generated
-	 */
-	public static final int getMaxAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_MAX_, -1);
-	}
-
-	/**
-	 * Sets the max attribute.
-	 * 
-	 * @param attribute
-	 *            the attribute
-	 * @param value
-	 *            the value
-	 * 
-	 * @generated
-	 */
-	public static final void setMaxAttribute(Item attribute, int value) {
-		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_MAX_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
 	/* @not generated */
 	/**
 	 * Checks if is checks if is list attribute.
@@ -265,7 +217,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @return true, if is checks if is list attribute
 	 */
 	public static final boolean isIsListAttribute(Item attribute) {
-		if (attribute.getType() == WorkspaceCST.LINK) { // correction bug
+		if (attribute.getType() == CadseGCST.LINK) { // correction bug
 			// Une definition d'un type de link n'a pas l'attribut 'is-list'
 			// pour dire si c'est une liste ou non
 			// C'est l'attribut max contient cette information sous une autre
@@ -274,7 +226,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			int max = LinkManager.getMax(attribute);
 			return max == -1 || max > 1;
 		}
-		Object value = attribute.getAttribute(WorkspaceCST.ATTRIBUTE_at_IS_LIST_);
+		Object value = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_IS_LIST_);
 
 		try {
 			return Convert.toBooleanFalseIfNull(value);
@@ -296,7 +248,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setIsListAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_IS_LIST_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_IS_LIST_, value);
 		} catch (Throwable t) {
 
 		}
@@ -313,7 +265,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @not generated
 	 */
 	public static final String getDefaultValueAttribute(Item attribute) {
-		Object value = attribute.getAttribute(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE_);
+		Object value = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 		if (value == null) {
 			return "";
 		}
@@ -338,7 +290,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setDefaultValueAttribute(Item attribute, String value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -355,7 +307,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static boolean isRequireAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_REQUIRE_, false);
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_REQUIRE_, false);
 	}
 
 	/**
@@ -370,25 +322,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static void setRequireAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_REQUIRE_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final boolean isClassAttributeAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE_, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final void setClassAttributeAttribute(Item attribute, boolean value) {
-		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_REQUIRE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -398,7 +332,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final boolean isCannotBeUndefinedAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, false);
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, false);
 	}
 
 	/**
@@ -406,7 +340,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setCannotBeUndefinedAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, value);
 		} catch (Throwable t) {
 
 		}
@@ -416,7 +350,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final boolean isNatifAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_NATIF_, false);
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_NATIF_, false);
 	}
 
 	/**
@@ -424,7 +358,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setNatifAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_NATIF_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_NATIF_, value);
 		} catch (Throwable t) {
 
 		}
@@ -434,7 +368,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final boolean isTransientAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_TRANSIENT_, false);
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_TRANSIENT_, false);
 	}
 
 	/**
@@ -442,7 +376,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setTransientAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_TRANSIENT_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_TRANSIENT_, value);
 		} catch (Throwable t) {
 
 		}
@@ -452,7 +386,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final boolean isFinalValueAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_FINAL_VALUE_, false);
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_FINAL_VALUE_, false);
 	}
 
 	/**
@@ -460,7 +394,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setFinalValueAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_FINAL_VALUE_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_FINAL_VALUE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -470,7 +404,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final boolean isMustBeInitializedAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, true);
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, true);
 	}
 
 	/**
@@ -478,7 +412,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setMustBeInitializedAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, value);
 		} catch (Throwable t) {
 
 		}
@@ -488,7 +422,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final boolean isTWRevSpecificAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_TWREV_SPECIFIC_, true);
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_, true);
 	}
 
 	/**
@@ -496,7 +430,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setTWRevSpecificAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_TWREV_SPECIFIC_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_, value);
 		} catch (Throwable t) {
 
 		}
@@ -506,8 +440,8 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final TWEvol getTWEvolAttribute(Item attribute) {
-		Object value = attribute.getAttribute(WorkspaceCST.ATTRIBUTE_at_TWEVOL);
-		return Convert.toEnum(value, WorkspaceCST.ATTRIBUTE_at_TWEVOL_, TWEvol.twImmutable);
+		Object value = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_TWEVOL_);
+		return Convert.toEnum(value,CadseGCST.ATTRIBUTE_at_TWEVOL_,TWEvol.twImmutable);
 	}
 
 	/**
@@ -515,7 +449,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setTWEvolAttribute(Item attribute, TWEvol value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_TWEVOL, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_TWEVOL_, value);
 		} catch (Throwable t) {
 		}
 	}
@@ -524,8 +458,8 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final TWUpdateKind getTWUpdateKindAttribute(Item attribute) {
-		Object value = attribute.getAttribute(WorkspaceCST.ATTRIBUTE_at_TWUPDATE_KIND);
-		return Convert.toEnum(value, WorkspaceCST.ATTRIBUTE_at_TWUPDATE_KIND_, TWUpdateKind.merge);
+		Object value = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
+		return Convert.toEnum(value,CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_,TWUpdateKind.merge);
 	}
 
 	/**
@@ -533,7 +467,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setTWUpdateKindAttribute(Item attribute, TWUpdateKind value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_TWUPDATE_KIND, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_, value);
 		} catch (Throwable t) {
 		}
 	}
@@ -542,8 +476,8 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	public static final TWCommitKind getTWCommitKindAttribute(Item attribute) {
-		Object value = attribute.getAttribute(WorkspaceCST.ATTRIBUTE_at_TWCOMMIT_KIND);
-		return Convert.toEnum(value, WorkspaceCST.ATTRIBUTE_at_TWCOMMIT_KIND_, TWCommitKind.conflict);
+		Object value = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
+		return Convert.toEnum(value,CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,TWCommitKind.conflict);
 	}
 
 	/**
@@ -551,7 +485,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setTWCommitKindAttribute(Item attribute, TWCommitKind value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_TWCOMMIT_KIND, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_, value);
 		} catch (Throwable t) {
 		}
 	}
@@ -562,302 +496,42 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @generated
 	 */
 	static public List<Link> getWcListensLink(Item attribute) {
-		return attribute.getOutgoingLinks(WorkspaceCST.ATTRIBUTE_lt_WC_LISTENS);
-	}
+        return attribute.getOutgoingLinks(CadseGCST.ATTRIBUTE_lt_WC_LISTENS);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getWcListensAll(Item attribute) {
-		return attribute.getOutgoingItems(WorkspaceCST.ATTRIBUTE_lt_WC_LISTENS, false);
-	}
+        return attribute.getOutgoingItems(CadseGCST.ATTRIBUTE_lt_WC_LISTENS, false);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public Collection<Item> getWcListens(Item attribute) {
-		return attribute.getOutgoingItems(WorkspaceCST.ATTRIBUTE_lt_WC_LISTENS, true);
-	}
+        return attribute.getOutgoingItems(CadseGCST.ATTRIBUTE_lt_WC_LISTENS,true);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void addWcListens(Item attribute, Item value) throws CadseException {
-		attribute.addOutgoingItem(WorkspaceCST.ATTRIBUTE_lt_WC_LISTENS, value);
-	}
+        attribute.addOutgoingItem(CadseGCST.ATTRIBUTE_lt_WC_LISTENS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	static public void removeWcListens(Item attribute, Item value) throws CadseException {
-		attribute.removeOutgoingItem(WorkspaceCST.ATTRIBUTE_lt_WC_LISTENS, value);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final boolean isCachedAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_CACHED_, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final void setCachedAttribute(Item attribute, boolean value) {
-		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_CACHED_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * get links '#invert_part_attributes_to_AbstractItemType' from 'Attribute'
-	 * to 'AbstractItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_attributes_to_AbstractItemTypeLink(Item attribute) {
-		return attribute.getOutgoingLink(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_ABSTRACT_ITEM_TYPE);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_AbstractItemTypeAll(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_ABSTRACT_ITEM_TYPE,
-				false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_AbstractItemType(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_ABSTRACT_ITEM_TYPE,
-				true);
-	}
-
-	/**
-	 * set a link '#invert_part_attributes_to_AbstractItemType' from 'Attribute'
-	 * to 'AbstractItemType'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_attributes_to_AbstractItemType(Item attribute, Item value)
-			throws CadseException {
-		attribute.setOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_ABSTRACT_ITEM_TYPE, value);
-	}
-
-	/**
-	 * get links '#invert_part_attributes_to_BeanComposer' from 'Attribute' to
-	 * 'BeanComposer'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_attributes_to_BeanComposerLink(Item attribute) {
-		return attribute.getOutgoingLink(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_COMPOSER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_BeanComposerAll(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_COMPOSER, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_BeanComposer(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_COMPOSER, true);
-	}
-
-	/**
-	 * set a link '#invert_part_attributes_to_BeanComposer' from 'Attribute' to
-	 * 'BeanComposer'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_attributes_to_BeanComposer(Item attribute, Item value) throws CadseException {
-		attribute.setOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_COMPOSER, value);
-	}
-
-	/**
-	 * get links '#invert_part_attributes_to_Bean' from 'Attribute' to 'Bean'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_attributes_to_BeanLink(Item attribute) {
-		return attribute.getOutgoingLink(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_BeanAll(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_Bean(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN, true);
-	}
-
-	/**
-	 * set a link '#invert_part_attributes_to_Bean' from 'Attribute' to 'Bean'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_attributes_to_Bean(Item attribute, Item value) throws CadseException {
-		attribute.setOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN, value);
-	}
-
-	/**
-	 * get links '#invert_part_attributes_to_ContentType' from 'Attribute' to
-	 * 'ContentType'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_attributes_to_ContentTypeLink(Item attribute) {
-		return attribute.getOutgoingLink(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_CONTENT_TYPE);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_ContentTypeAll(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_CONTENT_TYPE, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_ContentType(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_CONTENT_TYPE, true);
-	}
-
-	/**
-	 * set a link '#invert_part_attributes_to_ContentType' from 'Attribute' to
-	 * 'ContentType'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_attributes_to_ContentType(Item attribute, Item value) throws CadseException {
-		attribute.setOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_CONTENT_TYPE, value);
-	}
-
-	/**
-	 * get links '#invert_part_attributes_to_BeanExporter' from 'Attribute' to
-	 * 'BeanExporter'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_attributes_to_BeanExporterLink(Item attribute) {
-		return attribute.getOutgoingLink(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_EXPORTER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_BeanExporterAll(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_EXPORTER, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_BeanExporter(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_EXPORTER, true);
-	}
-
-	/**
-	 * set a link '#invert_part_attributes_to_BeanExporter' from 'Attribute' to
-	 * 'BeanExporter'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_attributes_to_BeanExporter(Item attribute, Item value) throws CadseException {
-		attribute.setOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_EXPORTER, value);
-	}
-
-	/**
-	 * get links '#invert_part_attributes_to_BeanFieldController' from
-	 * 'Attribute' to 'BeanFieldController'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_attributes_to_BeanFieldControllerLink(Item attribute) {
-		return attribute.getOutgoingLink(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_FIELD_CONTROLLER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_BeanFieldControllerAll(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_FIELD_CONTROLLER,
-				false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_BeanFieldController(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_FIELD_CONTROLLER,
-				true);
-	}
-
-	/**
-	 * set a link '#invert_part_attributes_to_BeanFieldController' from
-	 * 'Attribute' to 'BeanFieldController'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_attributes_to_BeanFieldController(Item attribute, Item value)
-			throws CadseException {
-		attribute.setOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_BEAN_FIELD_CONTROLLER, value);
-	}
-
-	/**
-	 * get links '#invert_part_attributes_to_Struct' from 'Attribute' to
-	 * 'Struct'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_attributes_to_StructLink(Item attribute) {
-		return attribute.getOutgoingLink(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_STRUCT);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_StructAll(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_STRUCT, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_attributes_to_Struct(Item attribute) {
-		return attribute.getOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_STRUCT, true);
-	}
-
-	/**
-	 * set a link '#invert_part_attributes_to_Struct' from 'Attribute' to
-	 * 'Struct'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_attributes_to_Struct(Item attribute, Item value) throws CadseException {
-		attribute.setOutgoingItem(WorkspaceCST.ATTRIBUTE_lt__$_INVERT_PART_ATTRIBUTES_TO_STRUCT, value);
-	}
+        attribute.removeOutgoingItem(CadseGCST.ATTRIBUTE_lt_WC_LISTENS,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	public static final boolean isDevGeneratedAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(WorkspaceCST.ATTRIBUTE_at_DEV_GENERATED_, false);
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_DEV_GENERATED_, false);
 	}
 
 	/**
@@ -865,14 +539,29 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 */
 	public static final void setDevGeneratedAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(WorkspaceCST.ATTRIBUTE_at_DEV_GENERATED_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_DEV_GENERATED_, value);
 		} catch (Throwable t) {
 
 		}
 	}
 
-	/** The Constant UUID_ATTRIBUTE. */
-	public static final String	UUID_ATTRIBUTE	= "UUID_ATTRIBUTE";
+	/**
+		@generated
+	*/
+	public static final String getIdRuntimeAttribute(Item attribute) {
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_ID_RUNTIME_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setIdRuntimeAttribute(Item attribute, String value) {
+		try {
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_ID_RUNTIME_, value);
+		} catch (Throwable t) {
+
+		}
+	}
 
 	/**
 	 * Gets the uUID.
@@ -882,17 +571,18 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getUUID(Item itemtype) {
-		String uuid_str = itemtype.getAttribute(UUID_ATTRIBUTE);
+	public static CompactUUID getIdRuntime(Item attribute) {
+		if (attribute.isStatic())
+			return attribute.getId();
+		
+		String uuid_str = getIdRuntimeAttribute(attribute);
 		if (uuid_str == null || uuid_str.length() == 0) {
+			if (attribute.isReadOnly()) {
+				throw new CadseIllegalArgumentException("Cannot set id rutime on {0} of type {1}", attribute.getName(), attribute.getPartParent().getName());
+			}
 			CompactUUID uuid = CompactUUID.randomUUID();
 			uuid_str = uuid.toString();
-			try {
-				itemtype.setAttribute(UUID_ATTRIBUTE, uuid_str);
-			} catch (CadseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			setIdRuntimeAttribute(attribute, uuid_str);
 			return uuid;
 		}
 		return new CompactUUID(uuid_str);
@@ -900,7 +590,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	}
 
 	public ItemType getCadseRootType() {
-		return CadseRootCST.ATTRIBUTE_TYPE;
+		return CadseGCST.ATTRIBUTE;
 	}
 
 	public void addCompleteAttributeDefinition(CAttType attType) {
@@ -1014,9 +704,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	public int getCadseRootFlag(Item attribute) {
 		return (AttributeManager.isRequireAttribute(attribute) ? Item.MUST_BE_INITIALIZED_AT_CREATION_TIME : 0)
 				+ (AttributeManager.isTransientAttribute(attribute) ? Item.TRANSIENT : 0)
-				+ (!AttributeManager.isCannotBeUndefinedAttribute(attribute) ? Item.CAN_BE_UNDEFINED : 0)
-				+ (AttributeManager.isClassAttributeAttribute(attribute) ? Item.IS_META_ATTRIBUTE : 0)
-				+ (AttributeManager.isCachedAttribute(attribute) ? Item.PERSISTENCE_CACHE : 0);
+				+ (!AttributeManager.isCannotBeUndefinedAttribute(attribute) ? Item.CAN_BE_UNDEFINED : 0);
 	}
 
 	public Object getCadseRootAttributeValue(ContextVariable cxt, IAttributeType<?> attType, Item attribute) {
@@ -1029,7 +717,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	}
 
 	public String getJavaTypeDefaultValue(Item attribute) {
-		String defaultValue = attribute.getAttribute(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE_);
+		String defaultValue = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 		if (defaultValue == null || defaultValue.length() == 0) {
 			defaultValue = generatedDefaultValue();
 		}
@@ -1070,5 +758,34 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			return "is dev generated attribute definition";
 		}
 		return null;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.imag.adele.cadse.core.root.managers.attribute.InitModelLoadAndWrite#loadAttributeDefinition(fr.imag.adele.fede.workspace.as.initmodel.IInitModel,
+	 *      fr.imag.adele.cadse.core.IWorkspaceLogique,
+	 *      fr.imag.adele.cadse.core.ItemType,
+	 *      fede.workspace.tool.loadmodel.model.jaxb.CValuesType,
+	 *      java.lang.String)
+	 */
+	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
+			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.imag.adele.cadse.core.root.managers.attribute.InitModelLoadAndWrite#writeAttributeDefinition(fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory,
+	 *      fr.imag.adele.cadse.core.var.ContextVariable,
+	 *      fr.imag.adele.cadse.core.root.managers.attribute.IAttributeCadsegForGenerate,
+	 *      fede.workspace.tool.loadmodel.model.jaxb.CValuesType,
+	 *      fr.imag.adele.cadse.core.Item)
+	 */
+	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
+			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
+		cvt.setMin(cadsegManager.isCadseRootRequireAttribute(attribute) ? 1 : 0);
+		cvt.setFlag(cadsegManager.getCadseRootFlag(attribute));
 	}
 }

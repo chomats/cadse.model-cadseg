@@ -21,7 +21,7 @@ package fr.imag.adele.cadse.cadseg.pages.attributes;
 import java.util.HashSet;
 
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
@@ -62,7 +62,7 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 		 * @see fr.imag.adele.cadse.core.ItemFilter#accept(fr.imag.adele.cadse.core.Item)
 		 */
 		public boolean accept(Item linkAttribute) {
-			if (linkAttribute.getType() == WorkspaceCST.LINK) {
+			if (linkAttribute.getType() == CadseGCST.LINK) {
 				Item findDestination = LinkManager.getDestination(linkAttribute);
 				Item invLink = LinkManager.getInverseLink(linkAttribute);
 				if (invLink != null && invLink != this.linkCreated) {
@@ -112,7 +112,7 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 		// qui contient l'attribut link)
 		// sauf pour les extentions de type.
 		Item source = containerAttribute;
-		if (source.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
+		if (source.getType() == CadseGCST.EXT_ITEM_TYPE) {
 			// le type est un extension. La source de la relation
 			// est le type r�f�renc�.
 			source = ExtItemTypeManager.getRefType(source);

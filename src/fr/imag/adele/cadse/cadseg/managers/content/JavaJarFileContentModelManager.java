@@ -19,13 +19,12 @@
 
 package fr.imag.adele.cadse.cadseg.managers.content;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import java.util.Set;
 
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 
 /**
@@ -33,12 +32,12 @@ import fr.imag.adele.cadse.core.LinkType;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class JavaJarFileContentModelManager extends ContentModelManager {
+public class JavaJarFileContentModelManager extends ContentItemTypeManager {
 
 	/**
 	 * The Class ContentManager.
 	 */
-	public class MyContentItem extends ContentModelManager.MyContentItem {
+	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
 
 		/**
 		 * Instantiates a new content manager.
@@ -48,8 +47,8 @@ public class JavaJarFileContentModelManager extends ContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(MyContentItem parent, Item item) {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -71,31 +70,19 @@ public class JavaJarFileContentModelManager extends ContentModelManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -117,7 +104,6 @@ public class JavaJarFileContentModelManager extends ContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -131,8 +117,8 @@ public class JavaJarFileContentModelManager extends ContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public MyContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public MyContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*

@@ -5,7 +5,7 @@ import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -28,8 +28,9 @@ public class JavaReExporterModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	protected JavaReExporterModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected JavaReExporterModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -37,7 +38,8 @@ public class JavaReExporterModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public JavaReExporterModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "JavaReExporter", "JavaReExporter", "", false, 3);
+		super("modification-page1", "JavaReExporter", "JavaReExporter", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);

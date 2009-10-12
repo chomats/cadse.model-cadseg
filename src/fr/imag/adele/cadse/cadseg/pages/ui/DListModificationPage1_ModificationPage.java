@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.ui;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -37,52 +37,54 @@ import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * @generated
  */
-public class DListModificationPage1_ModificationPage extends DisplayModificationPage1_ModificationPage {
+public class DListModificationPage1_ModificationPage extends
+		DisplayModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldEditableButton;
+	protected DCheckBoxUI fieldEditableButton;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldUpdateButton;
+	protected DCheckBoxUI fieldUpdateButton;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldOrderButton;
+	protected DCheckBoxUI fieldOrderButton;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldShowFilter;
+	protected DCheckBoxUI fieldShowFilter;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsIC;
+	protected DCheckBoxUI fieldExtendsIC;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsMC;
+	protected DCheckBoxUI fieldExtendsMC;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsUI;
+	protected DCheckBoxUI fieldExtendsUI;
 
 	/**
 	 * @generated
 	 */
-	protected DListModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected DListModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -102,8 +104,10 @@ public class DListModificationPage1_ModificationPage extends DisplayModification
 		this.fieldExtendsUI = createFieldExtendsUI();
 		this.fieldEditable = createFieldEditable();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldEditableButton, this.fieldUpdateButton, this.fieldOrderButton,
-				this.fieldShowFilter, this.fieldExtendsIC, this.fieldExtendsMC, this.fieldExtendsUI, this.fieldEditable);
+		addLast(this.__short_name__, this.fieldEditableButton,
+				this.fieldUpdateButton, this.fieldOrderButton,
+				this.fieldShowFilter, this.fieldExtendsIC, this.fieldExtendsMC,
+				this.fieldExtendsUI, this.fieldEditable);
 
 		registerListener();
 	}
@@ -118,7 +122,8 @@ public class DListModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldEditableButton() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DLIST_at_EDITABLE_BUTTON, "editable-button", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DLIST_at_EDITABLE_BUTTON,
+				"editable-button", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -126,7 +131,8 @@ public class DListModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldUpdateButton() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DLIST_at_UPDATE_BUTTON, "update-button", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DLIST_at_UPDATE_BUTTON,
+				"update-button", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -134,7 +140,8 @@ public class DListModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldOrderButton() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DLIST_at_ORDER_BUTTON, "order-button", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DLIST_at_ORDER_BUTTON, "order-button",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -142,7 +149,8 @@ public class DListModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldShowFilter() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DLIST_at_SHOW_FILTER, "show-filter", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DLIST_at_SHOW_FILTER, "show-filter",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -150,7 +158,8 @@ public class DListModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldExtendsIC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_IC, "extendsIC", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extendsIC",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -158,7 +167,8 @@ public class DListModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldExtendsMC() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_MC, "extendsMC", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extendsMC",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -166,15 +176,8 @@ public class DListModificationPage1_ModificationPage extends DisplayModification
 	 */
 	public DCheckBoxUI createFieldExtendsUI() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EXTENDS_UI, "extendsUI", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldEditable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extendsUI",
+				EPosLabel.none, mc, null);
 	}
 
 }

@@ -26,26 +26,27 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
+import fr.imag.adele.cadse.cadseg.UIItemFactory;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
-import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
+import fr.imag.adele.cadse.core.IItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.var.Variable;
-import java.util.Collection;
-import java.util.List;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.delta.ItemDelta;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
@@ -56,13 +57,14 @@ import fr.imag.adele.cadse.core.ui.Pages;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ModelControllerManager extends DefaultWorkspaceManager implements IItemManager, IExtendClassManager {
+public class ModelControllerManager extends DefaultWorkspaceManager implements IItemManager, IExtendClassManager , IItemFactory{
 	// public static final String EXTENDS_CLASS_ATTRIBUTE = "extends-class";
+
 
 	/**
 	 * The Class MyContentItem.
 	 */
-	public class MyContentItem extends SubFileContentManager implements IPDEContributor {
+	public class ModelControllerContent extends SubFileContentManager implements IPDEContributor {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -72,8 +74,8 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		public ModelControllerContent(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -218,18 +220,19 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -244,7 +247,6 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -311,241 +313,8 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
-	}
-
-	/**
-	 * get links '#invert_part_mc_to_DTree' from 'ModelController' to 'DTree'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_mc_to_DTreeLink(Item modelController) {
-		return modelController.getOutgoingLink(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DTREE);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DTreeAll(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DTREE, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DTree(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DTREE, true);
-	}
-
-	/**
-	 * set a link '#invert_part_mc_to_DTree' from 'ModelController' to 'DTree'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_mc_to_DTree(Item modelController, Item value) throws CadseException {
-		modelController.setOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DTREE, value);
-	}
-
-	/**
-	 * get links '#invert_part_mc_to_DList' from 'ModelController' to 'DList'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_mc_to_DListLink(Item modelController) {
-		return modelController.getOutgoingLink(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DLIST);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DListAll(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DLIST, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DList(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DLIST, true);
-	}
-
-	/**
-	 * set a link '#invert_part_mc_to_DList' from 'ModelController' to 'DList'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_mc_to_DList(Item modelController, Item value) throws CadseException {
-		modelController.setOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DLIST, value);
-	}
-
-	/**
-	 * get links '#invert_part_mc_to_DBrowser' from 'ModelController' to
-	 * 'DBrowser'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_mc_to_DBrowserLink(Item modelController) {
-		return modelController.getOutgoingLink(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DBROWSER);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DBrowserAll(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DBROWSER, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DBrowser(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DBROWSER, true);
-	}
-
-	/**
-	 * set a link '#invert_part_mc_to_DBrowser' from 'ModelController' to
-	 * 'DBrowser'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_mc_to_DBrowser(Item modelController, Item value) throws CadseException {
-		modelController.setOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DBROWSER, value);
-	}
-
-	/**
-	 * get links '#invert_part_mc_to_DCheckBox' from 'ModelController' to
-	 * 'DCheckBox'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_mc_to_DCheckBoxLink(Item modelController) {
-		return modelController.getOutgoingLink(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCHECK_BOX);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DCheckBoxAll(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCHECK_BOX, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DCheckBox(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCHECK_BOX, true);
-	}
-
-	/**
-	 * set a link '#invert_part_mc_to_DCheckBox' from 'ModelController' to
-	 * 'DCheckBox'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_mc_to_DCheckBox(Item modelController, Item value) throws CadseException {
-		modelController.setOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCHECK_BOX, value);
-	}
-
-	/**
-	 * get links '#invert_part_mc_to_DCheckedList' from 'ModelController' to
-	 * 'DCheckedList'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_mc_to_DCheckedListLink(Item modelController) {
-		return modelController.getOutgoingLink(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCHECKED_LIST);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DCheckedListAll(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCHECKED_LIST,
-				false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DCheckedList(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCHECKED_LIST,
-				true);
-	}
-
-	/**
-	 * set a link '#invert_part_mc_to_DCheckedList' from 'ModelController' to
-	 * 'DCheckedList'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_mc_to_DCheckedList(Item modelController, Item value) throws CadseException {
-		modelController.setOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCHECKED_LIST, value);
-	}
-
-	/**
-	 * get links '#invert_part_mc_to_DCombo' from 'ModelController' to 'DCombo'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_mc_to_DComboLink(Item modelController) {
-		return modelController.getOutgoingLink(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCOMBO);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DComboAll(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCOMBO, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DCombo(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCOMBO, true);
-	}
-
-	/**
-	 * set a link '#invert_part_mc_to_DCombo' from 'ModelController' to
-	 * 'DCombo'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_mc_to_DCombo(Item modelController, Item value) throws CadseException {
-		modelController.setOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DCOMBO, value);
-	}
-
-	/**
-	 * get links '#invert_part_mc_to_DText' from 'ModelController' to 'DText'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_mc_to_DTextLink(Item modelController) {
-		return modelController.getOutgoingLink(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DTEXT);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DTextAll(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DTEXT, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_mc_to_DText(Item modelController) {
-		return modelController.getOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DTEXT, true);
-	}
-
-	/**
-	 * set a link '#invert_part_mc_to_DText' from 'ModelController' to 'DText'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_mc_to_DText(Item modelController, Item value) throws CadseException {
-		modelController.setOutgoingItem(WorkspaceCST.MODEL_CONTROLLER_lt__$_INVERT_PART_MC_TO_DTEXT, value);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new ModelControllerContent(id);
 	}
 
 	/**
@@ -618,7 +387,7 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.MC_DEFAULT_SHORT_NAME);
+				DisplayManager.MC_DEFAULT_NAME);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a default model controller",
 				"Create a default model controller", 3));
@@ -666,5 +435,9 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	 *            the sb
 	 */
 	protected void generateConstructorParameter(Item item, GenStringBuilder sb) {
+	}
+	
+	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {
+		return UIItemFactory.SINGLETON.newForCommitItem(wl, it, item);
 	}
 }

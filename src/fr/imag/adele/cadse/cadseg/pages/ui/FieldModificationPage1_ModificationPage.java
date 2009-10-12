@@ -9,7 +9,8 @@ import fede.workspace.model.manager.properties.impl.mc.StringToEnumModelControll
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -31,43 +32,53 @@ public class FieldModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item				item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldAttribute;
+	protected DBrowserUI fieldAttribute;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldDisplay;
+	protected DBrowserUI fieldDisplay;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldReadonly;
+	protected DCheckBoxUI fieldReadonly;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		fieldLabel;
+	protected DTextUI fieldLabel;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldPosition;
+	protected DBrowserUI fieldPosition;
+
+	/**
+	    @generated
+	 */
+	protected DBrowserUI fieldOverwritefield;
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldEditable;
 
 	/**
 	 * @generated
 	 */
-	protected FieldModificationPage1_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected FieldModificationPage1_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -83,9 +94,12 @@ public class FieldModificationPage1_ModificationPage extends PageImpl {
 		this.fieldReadonly = createFieldReadonly();
 		this.fieldLabel = createFieldLabel();
 		this.fieldPosition = createFieldPosition();
+		this.fieldOverwritefield = createFieldOverwritefield();
+		this.fieldEditable = createFieldEditable();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldAttribute, this.fieldDisplay, this.fieldReadonly, this.fieldLabel,
-				this.fieldPosition);
+		addLast(this.__short_name__, this.fieldAttribute, this.fieldDisplay,
+				this.fieldReadonly, this.fieldLabel, this.fieldPosition,
+				this.fieldOverwritefield, this.fieldEditable);
 
 		registerListener();
 	}
@@ -105,20 +119,26 @@ public class FieldModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DBrowserUI createFieldAttribute() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.FIELD_lt_ATTRIBUTE);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.FIELD_lt_ATTRIBUTE);
-		return new DBrowserUI(WorkspaceCST.FIELD_lt_ATTRIBUTE.getName(), "attribute", EPosLabel.left, mc, ic);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.FIELD_lt_ATTRIBUTE);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.FIELD_lt_ATTRIBUTE);
+		return new DBrowserUI(CadseGCST.FIELD_lt_ATTRIBUTE.getName(),
+				"attribute", EPosLabel.left, mc, ic);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DBrowserUI createFieldDisplay() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.FIELD_lt_DISPLAY);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.FIELD_lt_DISPLAY);
-		return new DBrowserUI(WorkspaceCST.FIELD_lt_DISPLAY.getName(), "display", EPosLabel.left, mc, ic);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.FIELD_lt_DISPLAY);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.FIELD_lt_DISPLAY);
+		return new DBrowserUI(CadseGCST.FIELD_lt_DISPLAY.getName(), "display",
+				EPosLabel.left, mc, ic);
 	}
 
 	/**
@@ -126,24 +146,50 @@ public class FieldModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldReadonly() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.FIELD_at_READONLY, "readonly", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.FIELD_at_READONLY, "readonly",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DTextUI createFieldLabel() {
-		return new DTextUI(WorkspaceCST.FIELD_at_LABEL, "label", EPosLabel.left, new MC_AttributesItem(), null, 1, "",
-				false, false, false);
+		return new DTextUI(CadseGCST.FIELD_at_LABEL, "label", EPosLabel.left,
+				new MC_AttributesItem(), null, 1, "", false, false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DBrowserUI createFieldPosition() {
-		StringToEnumModelController mc = new StringToEnumModelController(EPosLabel.class, EPosLabel.defaultpos);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("Select a value.", "Select a value.", EPosLabel.class);
-		return new DBrowserUI(WorkspaceCST.FIELD_at_POSITION, "position", EPosLabel.left, mc, ic);
+		StringToEnumModelController mc = new StringToEnumModelController(
+				EPosLabel.class, EPosLabel.defaultpos);
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
+				"Select a value.", "Select a value.", EPosLabel.class);
+		return new DBrowserUI(CadseGCST.FIELD_at_POSITION, "position",
+				EPosLabel.left, mc, ic);
+	}
+
+	/**
+	    @generated
+	 */
+	public DBrowserUI createFieldOverwritefield() {
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.FIELD_lt_OVERWRITEFIELD);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.FIELD_lt_OVERWRITEFIELD);
+		return new DBrowserUI(CadseGCST.FIELD_lt_OVERWRITEFIELD.getName(),
+				"overwritefield", EPosLabel.left, mc, ic);
+	}
+
+	/**
+	    @generated
+	 */
+	public DCheckBoxUI createFieldEditable() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.FIELD_at_EDITABLE, "editable",
+				EPosLabel.none, mc, null);
 	}
 
 }

@@ -140,7 +140,7 @@ public class GenerateManager extends GenerateClass {
 			sb.newline().append("	@generated");
 			sb.newline().append("*/");
 			sb.newline().append("@Override");
-			sb.newline().append("public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {");
+			sb.newline().append("public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {");
 			sb.begin();
 			Item itemtype = cim.itemtype;
 			ParseTemplate pt = new ParseTemplate(itemtype, uniqueNameTemplate, "name");

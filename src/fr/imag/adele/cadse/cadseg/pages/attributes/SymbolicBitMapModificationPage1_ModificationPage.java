@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -30,7 +30,9 @@ import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
@@ -43,28 +45,20 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class SymbolicBitMapModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class SymbolicBitMapModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldMin;
+	protected DListUI fieldValues;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldMax;
-
-	/**
-	 * @generated
-	 */
-	protected DListUI	fieldValues;
-
-	/**
-	 * @generated
-	 */
-	protected SymbolicBitMapModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected SymbolicBitMapModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -72,12 +66,10 @@ public class SymbolicBitMapModificationPage1_ModificationPage extends AttributeM
 	 * @generated
 	 */
 	public SymbolicBitMapModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "SymbolicBitMap", "SymbolicBitMap", "", false, 3);
+		super("modification-page1", "SymbolicBitMap", "SymbolicBitMap", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
-		this.fieldMin = createFieldMin();
-		this.fieldClassAttribute = createFieldClassAttribute();
-		this.fieldMax = createFieldMax();
 		this.fieldNatif = createFieldNatif();
 		this.fieldCannotBeDefined = createFieldCannotBeDefined();
 		this.fieldTransient = createFieldTransient();
@@ -85,10 +77,12 @@ public class SymbolicBitMapModificationPage1_ModificationPage extends AttributeM
 		this.fieldDefaultValue = createFieldDefaultValue();
 		this.fieldIsList = createFieldIsList();
 		this.fieldValues = createFieldValues();
+		this.fieldFinalValue = createFieldFinalValue();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldMin, this.fieldClassAttribute, this.fieldMax, this.fieldNatif,
-				this.fieldCannotBeDefined, this.fieldTransient, this.fieldRequire, this.fieldDefaultValue,
-				this.fieldIsList, this.fieldValues);
+		addLast(this.__short_name__, this.fieldNatif,
+				this.fieldCannotBeDefined, this.fieldTransient,
+				this.fieldRequire, this.fieldDefaultValue, this.fieldIsList,
+				this.fieldValues, this.fieldFinalValue);
 
 		registerListener();
 	}
@@ -101,82 +95,12 @@ public class SymbolicBitMapModificationPage1_ModificationPage extends AttributeM
 	/**
 	 * @generated
 	 */
-	public DTextUI createFieldMin() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_MIN, "min", EPosLabel.left, new MC_AttributesItem(), null, 0, 1,
-				"");
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldClassAttribute() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE, "class-attribute", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldMax() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_MAX, "max", EPosLabel.left, new MC_AttributesItem(), null, 0, 1,
-				"");
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldNatif() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_NATIF, "natif", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldCannotBeDefined() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED, "can-be-null", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldTransient() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_TRANSIENT, "transient", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldRequire() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_REQUIRE, "require", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default-value", EPosLabel.left,
-				new MC_AttributesItem(), null, 0, 1, "");
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
 	public DListUI createFieldValues() {
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.", "Select a value.", false);
-		return new DListUI(WorkspaceCST.SYMBOLIC_BIT_MAP_at_VALUES, "values", EPosLabel.top, mc, ic, true, false);
+		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
+				"Select a value.", false);
+		return new DListUI(CadseGCST.SYMBOLIC_BIT_MAP_at_VALUES, "values",
+				EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

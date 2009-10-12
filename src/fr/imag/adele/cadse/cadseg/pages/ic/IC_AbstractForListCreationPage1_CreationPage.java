@@ -13,12 +13,14 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class IC_AbstractForListCreationPage1_CreationPage extends InteractionControllerCreationPage1_CreationPage {
+public class IC_AbstractForListCreationPage1_CreationPage extends
+		InteractionControllerCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected IC_AbstractForListCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected IC_AbstractForListCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -26,8 +28,10 @@ public class IC_AbstractForListCreationPage1_CreationPage extends InteractionCon
 	/**
 	 * @generated
 	 */
-	public IC_AbstractForListCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create IC_AbstractForList", "Create IC_AbstractForList", "", false, 3);
+	public IC_AbstractForListCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create IC_AbstractForList",
+				"Create IC_AbstractForList", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -30,7 +31,7 @@ import fr.imag.adele.cadse.core.LinkType;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class PackageListControllerManager extends IC_AbstractTreeDialogForList_Browser_ComboManager implements
+public class PackageListControllerManager extends InteractionControllerManager implements
 		IItemManager {
 
 	/** The Constant DEFAUL_CLASS_NAME. */
@@ -44,31 +45,19 @@ public class PackageListControllerManager extends IC_AbstractTreeDialogForList_B
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -90,7 +79,6 @@ public class PackageListControllerManager extends IC_AbstractTreeDialogForList_B
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();

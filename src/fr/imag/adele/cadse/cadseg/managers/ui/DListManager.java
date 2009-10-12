@@ -21,10 +21,11 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -45,7 +46,7 @@ public class DListManager extends DisplayManager {
 	/**
 	 * The Class MyContentItem.
 	 */
-	public final class MyContentItem extends DisplayManager.MyContentItem {
+	public final class MyContentItem extends DisplayManager.DisplayContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -56,8 +57,8 @@ public class DListManager extends DisplayManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -132,8 +133,8 @@ public class DListManager extends DisplayManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
@@ -146,18 +147,19 @@ public class DListManager extends DisplayManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -172,7 +174,6 @@ public class DListManager extends DisplayManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -181,83 +182,10 @@ public class DListManager extends DisplayManager {
 	}
 
 	/**
-	 * get a link 'ic' from 'DList' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getIcLink(Item dList) {
-		return dList.getOutgoingLink(WorkspaceCST.DLIST_lt_IC);
-	}
-
-	/**
-	 * get all link destination 'ic' from 'DList' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIcAll(Item dList) {
-		return dList.getOutgoingItem(WorkspaceCST.DLIST_lt_IC, false);
-	}
-
-	/**
-	 * get resolved link destination 'ic' from 'DList' to
-	 * 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getIc(Item dList) {
-		return dList.getOutgoingItem(WorkspaceCST.DLIST_lt_IC, true);
-	}
-
-	/**
-	 * set a link 'ic' from 'DList' to 'InteractionController'.
-	 * 
-	 * @generated
-	 */
-	static public void setIc(Item dList, Item value) throws CadseException {
-		dList.setOutgoingItem(WorkspaceCST.DLIST_lt_IC, value);
-	}
-
-	/**
-	 * get a link 'mc' from 'DList' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Link getMcLink(Item dList) {
-		return dList.getOutgoingLink(WorkspaceCST.DLIST_lt_MC);
-	}
-
-	/**
-	 * get all link destination 'mc' from 'DList' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMcAll(Item dList) {
-		return dList.getOutgoingItem(WorkspaceCST.DLIST_lt_MC, false);
-	}
-
-	/**
-	 * get resolved link destination 'mc' from 'DList' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public Item getMc(Item dList) {
-		return dList.getOutgoingItem(WorkspaceCST.DLIST_lt_MC, true);
-	}
-
-	/**
-	 * set a link 'mc' from 'DList' to 'ModelController'.
-	 * 
-	 * @generated
-	 */
-	static public void setMc(Item dList, Item value) throws CadseException {
-		dList.setOutgoingItem(WorkspaceCST.DLIST_lt_MC, value);
-	}
-
-	/**
 	 * @generated
 	 */
 	public static final boolean isEditableButtonAttribute(Item dList) {
-		return dList.getAttributeWithDefaultValue(WorkspaceCST.DLIST_at_EDITABLE_BUTTON_, true);
+		return dList.getAttributeWithDefaultValue(CadseGCST.DLIST_at_EDITABLE_BUTTON_, true);
 	}
 
 	/**
@@ -265,7 +193,7 @@ public class DListManager extends DisplayManager {
 	 */
 	public static final void setEditableButtonAttribute(Item dList, boolean value) {
 		try {
-			dList.setAttribute(WorkspaceCST.DLIST_at_EDITABLE_BUTTON_, value);
+			dList.setAttribute(CadseGCST.DLIST_at_EDITABLE_BUTTON_, value);
 		} catch (Throwable t) {
 
 		}
@@ -275,7 +203,7 @@ public class DListManager extends DisplayManager {
 	 * @generated
 	 */
 	public static final boolean isUpdateButtonAttribute(Item dList) {
-		return dList.getAttributeWithDefaultValue(WorkspaceCST.DLIST_at_UPDATE_BUTTON_, false);
+		return dList.getAttributeWithDefaultValue(CadseGCST.DLIST_at_UPDATE_BUTTON_, false);
 	}
 
 	/**
@@ -283,7 +211,7 @@ public class DListManager extends DisplayManager {
 	 */
 	public static final void setUpdateButtonAttribute(Item dList, boolean value) {
 		try {
-			dList.setAttribute(WorkspaceCST.DLIST_at_UPDATE_BUTTON_, value);
+			dList.setAttribute(CadseGCST.DLIST_at_UPDATE_BUTTON_, value);
 		} catch (Throwable t) {
 
 		}
@@ -293,7 +221,7 @@ public class DListManager extends DisplayManager {
 	 * @generated
 	 */
 	public static final boolean isOrderButtonAttribute(Item dList) {
-		return dList.getAttributeWithDefaultValue(WorkspaceCST.DLIST_at_ORDER_BUTTON_, false);
+		return dList.getAttributeWithDefaultValue(CadseGCST.DLIST_at_ORDER_BUTTON_, false);
 	}
 
 	/**
@@ -301,7 +229,7 @@ public class DListManager extends DisplayManager {
 	 */
 	public static final void setOrderButtonAttribute(Item dList, boolean value) {
 		try {
-			dList.setAttribute(WorkspaceCST.DLIST_at_ORDER_BUTTON_, value);
+			dList.setAttribute(CadseGCST.DLIST_at_ORDER_BUTTON_, value);
 		} catch (Throwable t) {
 
 		}
@@ -357,7 +285,7 @@ public class DListManager extends DisplayManager {
 	// */
 	// static public DCheckBoxUI createFieldShowFilter() {
 	// StringToBooleanModelControler mc = new StringToBooleanModelControler();
-	// return new DCheckBoxUI(WorkspaceCST.DLIST_at_SHOW_FILTER,
+	// return new DCheckBoxUI(CadseGCST.DLIST_at_SHOW_FILTER,
 	// "show filter",
 	// EPosLabel.none,
 	// mc, null
@@ -374,7 +302,7 @@ public class DListManager extends DisplayManager {
 	 * @return true, if is show filter attribute
 	 */
 	public static final boolean isShowFilterAttribute(Item display) {
-		Object value = display.getAttribute(WorkspaceCST.DLIST_at_SHOW_FILTER);
+		Object value = display.getAttribute(CadseGCST.DLIST_at_SHOW_FILTER);
 		if (value == null) {
 			return false;
 		}
@@ -391,7 +319,7 @@ public class DListManager extends DisplayManager {
 	 */
 	public static final void setShowFilterAttribute(Item dList, boolean value) {
 		try {
-			dList.setAttribute(WorkspaceCST.DLIST_at_SHOW_FILTER_, value);
+			dList.setAttribute(CadseGCST.DLIST_at_SHOW_FILTER_, value);
 		} catch (Throwable t) {
 
 		}

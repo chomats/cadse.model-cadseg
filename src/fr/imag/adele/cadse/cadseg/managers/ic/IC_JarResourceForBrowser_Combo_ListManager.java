@@ -20,9 +20,11 @@
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.LinkType;
 
 /**
  * The Class IC_JarResourceForBrowser_Combo_ListManager.
@@ -46,8 +48,8 @@ public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeD
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 	}
 
@@ -59,6 +61,41 @@ public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeD
 	 * Instantiates a new i c_ jar resource for browser_ combo_ list manager.
 	 */
 	public IC_JarResourceForBrowser_Combo_ListManager() {
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 
 	/*
@@ -81,25 +118,7 @@ public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeD
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#getCreateTitle()
-	 */
-	@Override
-	protected String getCreateTitle() {
-		return "create a jar user controller";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#getPropertyTitle()
-	 */
-	@Override
-	protected String getPropertyTitle() {
-		return "a jar user controller";
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -107,8 +126,8 @@ public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeD
 	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 }

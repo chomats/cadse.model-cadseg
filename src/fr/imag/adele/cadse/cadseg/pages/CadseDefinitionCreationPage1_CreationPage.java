@@ -20,7 +20,7 @@ package fr.imag.adele.cadse.cadseg.pages;
 
 import java.awt.image.RescaleOp;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -48,42 +48,24 @@ import org.eclipse.jdt.core.JavaConventions;
 /**
  * @generated
  */
-public class CadseDefinitionCreationPage1_CreationPage extends PageImpl {
+public class CadseDefinitionCreationPage1_CreationPage extends
+		CadseRuntimeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	public Item			parent;
+	protected DTextUI fieldPackagename;
+
+	/**
+	    @generated
+	 */
+	protected DListUI fieldExtends;
 
 	/**
 	 * @generated
 	 */
-	public ItemType		it;
-
-	/**
-	 * @generated
-	 */
-	public LinkType		lt;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI	__short_name__;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI	fieldPackagename;
-
-	/**
-	 * @generated
-	 */
-	protected DListUI	fieldExtends;
-
-	/**
-	 * @generated
-	 */
-	protected CadseDefinitionCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected CadseDefinitionCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -91,8 +73,10 @@ public class CadseDefinitionCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public CadseDefinitionCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create a cadse definition", "Create a cadse definition", "Create a cadse definition",
+	public CadseDefinitionCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create a cadse definition",
+				"Create a cadse definition", "Create a cadse definition",
 				false, 3);
 		this.parent = parent;
 		this.it = it;
@@ -129,7 +113,8 @@ public class CadseDefinitionCreationPage1_CreationPage extends PageImpl {
 	}
 
 	private boolean checkPackageName(String pack_name) {
-		IStatus res = JavaConventions.validatePackageName(pack_name, "1.5", "1.5");
+		IStatus res = JavaConventions.validatePackageName(pack_name, "1.5",
+				"1.5");
 
 		if (res.isOK())
 			return false;
@@ -148,27 +133,23 @@ public class CadseDefinitionCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DTextUI createFieldPackagename() {
-		return new DTextUI(WorkspaceCST.CADSE_DEFINITION_at_PACKAGENAME, "main package", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME,
+				"main package", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
 	public DListUI createFieldExtends() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS);
-		return new DListUI(WorkspaceCST.CADSE_DEFINITION_lt_EXTENDS.getName(), "extends", EPosLabel.top, mc, ic, true,
-				false, false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.CADSE_RUNTIME_lt_EXTENDS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.CADSE_RUNTIME_lt_EXTENDS);
+		return new DListUI(CadseGCST.CADSE_RUNTIME_lt_EXTENDS.getName(),
+				"extends", EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

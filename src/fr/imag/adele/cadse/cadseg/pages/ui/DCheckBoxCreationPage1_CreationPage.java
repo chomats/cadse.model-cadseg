@@ -13,21 +13,24 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class DCheckBoxCreationPage1_CreationPage extends DisplayCreationPage1_CreationPage {
+public class DCheckBoxCreationPage1_CreationPage extends
+		DisplayCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected DCheckBoxCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public DCheckBoxCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create DCheckBox", "Create DCheckBox", "", false, 3);
+	public DCheckBoxCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create DCheckBox", "Create DCheckBox", "",
+				false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

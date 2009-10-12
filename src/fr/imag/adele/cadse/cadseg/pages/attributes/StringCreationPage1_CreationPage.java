@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -40,25 +40,27 @@ import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 /**
  * @generated
  */
-public class StringCreationPage1_CreationPage extends AttributeCreationPage1_CreationPage {
+public class StringCreationPage1_CreationPage extends
+		AttributeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldMustBeInitialized;
+	protected DCheckBoxUI fieldMustBeInitialized;
 
 	/**
 	 * @generated
 	 */
-	protected StringCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected StringCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public StringCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
+	public StringCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
 		super("creation-page1", "Create String", "Create String", "", false, 3);
 		this.parent = parent;
 		this.it = it;
@@ -68,7 +70,8 @@ public class StringCreationPage1_CreationPage extends AttributeCreationPage1_Cre
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldDefaultValue, this.fieldMustBeInitialized, this.fieldIsList);
+		addLast(this.__short_name__, this.fieldDefaultValue,
+				this.fieldMustBeInitialized, this.fieldIsList);
 
 		registerListener();
 	}
@@ -80,26 +83,10 @@ public class StringCreationPage1_CreationPage extends AttributeCreationPage1_Cre
 	/**
 	 * @generated
 	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default-value", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "", false, false, false);
-	}
-
-	/**
-	 * @generated
-	 */
 	public DCheckBoxUI createFieldMustBeInitialized() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED, "show attribute in creation wizard",
-				EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED,
+				"show attribute in creation wizard", EPosLabel.none, mc, null);
 	}
 
 }

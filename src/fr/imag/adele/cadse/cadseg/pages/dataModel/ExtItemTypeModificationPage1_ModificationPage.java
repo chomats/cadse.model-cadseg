@@ -14,7 +14,7 @@ import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -31,7 +31,8 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class ExtItemTypeModificationPage1_ModificationPage extends AbstractItemTypeModificationPage1_ModificationPage {
+public class ExtItemTypeModificationPage1_ModificationPage extends
+		AbstractItemTypeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
@@ -53,8 +54,9 @@ public class ExtItemTypeModificationPage1_ModificationPage extends AbstractItemT
 		@Override
 		protected ITreeContentProvider getTreeContentProvider() {
 			return new ItemTreeContentProvider(new ItemShortNameComparator(),
-					WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL, WorkspaceCST.DATA_MODEL_lt_TYPES,
-					WorkspaceCST.DATA_MODEL_lt_CATEGORIES);
+					CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,
+					CadseGCST.DATA_MODEL_lt_TYPES,
+					CadseGCST.DATA_MODEL_lt_CATEGORIES);
 		}
 
 		/*
@@ -67,12 +69,13 @@ public class ExtItemTypeModificationPage1_ModificationPage extends AbstractItemT
 			if (selection != null && selection.length == 1) {
 				Object sel = selection[0];
 				if (sel instanceof Item) {
-					if (((Item) sel).getType() == WorkspaceCST.ITEM_TYPE) {
+					if (((Item) sel).getType() == CadseGCST.ITEM_TYPE) {
 						return Status.OK_STATUS;
 					}
 				}
 			}
-			return new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "select an item type");
+			return new Status(Status.ERROR, WSPlugin.PLUGIN_ID,
+					"select an item type");
 		}
 
 		/*
@@ -84,8 +87,10 @@ public class ExtItemTypeModificationPage1_ModificationPage extends AbstractItemT
 		protected Object getInputValues() {
 			Item theAttribute = getItem();
 			Item theItemType = theAttribute.getPartParent();
-			Item cadsedef = theItemType.getPartParent(WorkspaceCST.CADSE_DEFINITION);
-			List<Item> allcadse = CadseDefinitionManager.getAllDependenciesCadse(cadsedef);
+			Item cadsedef = theItemType
+					.getPartParent(CadseGCST.CADSE_DEFINITION);
+			List<Item> allcadse = CadseDefinitionManager
+					.getAllDependenciesCadse(cadsedef);
 			allcadse.add(cadsedef);
 			Item[] ret = (Item[]) allcadse.toArray(new Item[allcadse.size()]);
 			Arrays.sort(ret, new ItemShortNameComparator());
@@ -97,12 +102,13 @@ public class ExtItemTypeModificationPage1_ModificationPage extends AbstractItemT
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldRefType;
+	protected DBrowserUI fieldRefType;
 
 	/**
 	 * @generated
 	 */
-	protected ExtItemTypeModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected ExtItemTypeModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -130,9 +136,12 @@ public class ExtItemTypeModificationPage1_ModificationPage extends AbstractItemT
 	 * @generated
 	 */
 	public DBrowserUI createFieldRefType() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.EXT_ITEM_TYPE_lt_REF_TYPE);
-		RefTypeIC ic = new RefTypeIC("Select a value.", "Select a value.", WorkspaceCST.EXT_ITEM_TYPE_lt_REF_TYPE);
-		return new DBrowserUI(WorkspaceCST.EXT_ITEM_TYPE_lt_REF_TYPE.getName(), "ref-type", EPosLabel.left, mc, ic);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE);
+		RefTypeIC ic = new RefTypeIC("Select a value.", "Select a value.",
+				CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE);
+		return new DBrowserUI(CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE.getName(),
+				"ref-type", EPosLabel.left, mc, ic);
 	}
 
 }

@@ -378,7 +378,7 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 	 *            the dest
 	 */
 	private void subType(List<IContentProposal> ret, Item dest) {
-		Item[] subTypes = ItemTypeManager.getSubTypes(dest);
+		Item[] subTypes = ItemTypeManager.getSubTypes2(dest);
 		for (int i = 0; i < subTypes.length; i++) {
 			ret.add(new ItemTypePath(subTypes[i], false));
 			ret.add(new ItemTypePath(subTypes[i], true));

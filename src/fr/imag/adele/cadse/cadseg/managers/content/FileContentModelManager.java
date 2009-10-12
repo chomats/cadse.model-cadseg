@@ -19,11 +19,15 @@
 
 package fr.imag.adele.cadse.cadseg.managers.content;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 
 /**
  * The Class FileContentModelManager.
@@ -35,7 +39,7 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	/**
 	 * The Class MyContentItem.
 	 */
-	public class MyContentItem extends ContentModelManager.MyContentItem {
+	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -45,8 +49,8 @@ public class FileContentModelManager extends ResourceContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -56,8 +60,8 @@ public class FileContentModelManager extends ResourceContentModelManager {
 		 */
 		@Override
 		protected String[] getResourceKindsName() {
-			return new String[] { WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_NAME,
-					WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_PATH };
+			return new String[] { CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME,
+					CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH };
 		}
 
 	}
@@ -69,31 +73,19 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -115,7 +107,6 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -127,7 +118,7 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	 * @generated
 	 */
 	public static final String getFilePathAttribute(Item fileContentModel) {
-		return fileContentModel.getAttributeWithDefaultValue(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_PATH_, "");
+		return fileContentModel.getAttributeWithDefaultValue(CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_, null);
 	}
 
 	/**
@@ -135,7 +126,7 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	 */
 	public static final void setFilePathAttribute(Item fileContentModel, String value) {
 		try {
-			fileContentModel.setAttribute(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_PATH_, value);
+			fileContentModel.setAttribute(CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_, value);
 		} catch (Throwable t) {
 
 		}
@@ -145,7 +136,7 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	 * @generated
 	 */
 	public static final String getFileNameAttribute(Item fileContentModel) {
-		return fileContentModel.getAttributeWithDefaultValue(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_NAME_, "");
+		return fileContentModel.getAttributeWithDefaultValue(CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_, null);
 	}
 
 	/**
@@ -153,7 +144,7 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	 */
 	public static final void setFileNameAttribute(Item fileContentModel, String value) {
 		try {
-			fileContentModel.setAttribute(WorkspaceCST.FILE_CONTENT_MODEL_at_FILE_NAME_, value);
+			fileContentModel.setAttribute(CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -165,8 +156,8 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*

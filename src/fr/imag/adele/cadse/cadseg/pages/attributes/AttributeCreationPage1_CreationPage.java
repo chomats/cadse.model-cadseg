@@ -24,8 +24,9 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.Messages;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
@@ -51,65 +52,45 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	static public class ClassAttributeMC extends StringToBooleanModelControler {
-
-		/**
-		 * @generated
-		 */
-		public ClassAttributeMC() {
-			super();
-		}
-
-	}
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public Item				parent;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public ItemType			it;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	public LinkType			lt;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DCheckBoxUI fieldIsList;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldClassAttribute;
+	protected DCheckBoxUI fieldRequire;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldIsList;
-
-	/**
-	 * @generated
-	 */
-	protected DCheckBoxUI	fieldRequire;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI		fieldDefaultValue;
+	protected DTextUI fieldDefaultValue;
 
 	/** The field. */
-	Item					superAttribute;
+	Item superAttribute;
 
 	/** The short name field. */
-	UIField					defaultValueField;
-	UIField					isListField;
-	UIField					metaAttributeField;
-	UIField					requireAttributeField;
+	UIField defaultValueField;
+	UIField isListField;
+	UIField requireAttributeField;
 
 	public Item getSuperAttribute() {
 		return superAttribute;
@@ -118,16 +99,18 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	protected AttributeCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected AttributeCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public AttributeCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create an attribute", "Create an attribute", "", false, 3);
+	public AttributeCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create an attribute", "Create an attribute",
+				"", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -135,10 +118,9 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 		this.fieldIsList = createFieldIsList();
 		this.fieldDefaultValue = createFieldDefaultValue();
 		this.fieldRequire = createFieldRequire();
-		this.fieldClassAttribute = createFieldClassAttribute();
 		setActionPage(new AttributeCreationPage1_CreationPageAction());
-		addLast(this.__short_name__, this.fieldIsList, this.fieldDefaultValue, this.fieldRequire,
-				this.fieldClassAttribute);
+		addLast(this.__short_name__, this.fieldIsList, this.fieldDefaultValue,
+				this.fieldRequire);
 
 		registerListener();
 	}
@@ -155,14 +137,6 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	}
 
 	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldClassAttribute() {
-		ClassAttributeMC mc = new ClassAttributeMC();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE, "class attribute", EPosLabel.none, mc, null);
-	}
-
-	/**
 	 * Creates the field is list.
 	 * 
 	 * @return the UI field
@@ -171,7 +145,8 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldIsList() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is list", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_IS_LIST, "is list",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -182,7 +157,8 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldRequire() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_REQUIRE, "mandatory", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_REQUIRE, "mandatory",
+				EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -193,8 +169,9 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	 * @change add method to create mc and ic
 	 */
 	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default value", EPosLabel.left,
-				createMCDefaultValue(), createICDefaultValue(), 0, 1, "");
+		return new DTextUI(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE,
+				"default value", EPosLabel.left, createMCDefaultValue(),
+				createICDefaultValue(), 0, 1, "");
 	}
 
 	protected MC_AttributesItem createMCDefaultValue() {
@@ -208,13 +185,10 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	@Override
 	public void initAfterUI() {
 		__short_name__.addValidateContributor(this);
-		this.defaultValueField = getField(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE);
-		this.isListField = getField(WorkspaceCST.ATTRIBUTE_at_IS_LIST);
-		requireAttributeField = getField(WorkspaceCST.ATTRIBUTE_at_REQUIRE);
-		metaAttributeField = getField(WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE);
-		if (metaAttributeField != null) {
-			metaAttributeField.addValidateContributor(this);
-		}
+		this.defaultValueField = getField(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE);
+		this.isListField = getField(CadseGCST.ATTRIBUTE_at_IS_LIST);
+		requireAttributeField = getField(CadseGCST.ATTRIBUTE_at_REQUIRE);
+
 		if (defaultValueField != null) {
 			defaultValueField.addValidateContributor(this);
 		}
@@ -250,60 +224,77 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 					 * this.superAttribute.getPartParent().getShortName()),
 					 * IPageController.INFORMATION); } else
 					 */{
-						getPageController().setMessage(
-								MessageFormat.format(Messages.error_overwrite_attribute_cannot_permitted,
-										this.superAttribute.getPartParent().getName()), IPageController.ERROR);
+						getPageController()
+								.setMessage(
+										MessageFormat
+												.format(
+														Messages.error_overwrite_attribute_cannot_permitted,
+														this.superAttribute
+																.getPartParent()
+																.getName()),
+										IPageController.ERROR);
 					}
 
 				} else {
-					getPageController().setMessage(
-							MessageFormat.format(Messages.error_overwrite_attribute_bad_type, this.superAttribute
-									.getPartParent().getName(), this.superAttribute.getType().getName(), getItem()
-									.getType().getName()), IPageController.ERROR);
+					getPageController()
+							.setMessage(
+									MessageFormat
+											.format(
+													Messages.error_overwrite_attribute_bad_type,
+													this.superAttribute
+															.getPartParent()
+															.getName(),
+													this.superAttribute
+															.getType()
+															.getName(),
+													getItem().getType()
+															.getName()),
+									IPageController.ERROR);
 					return true;
 				}
 			} else {
 				enableField();
 			}
 		}
-		if (field == defaultValueField) {
-			if (AttributeManager.isClassAttributeAttribute(getItem())) {
-				String df = (String) value;
-				if (df == null || df.length() == 0) {
-					getPageController().setMessage("The default value must be set", IPageController.ERROR);
-					return true;
-				}
-			}
-
-		}
+		//		if (field == defaultValueField) {
+		//			if (AttributeManager.isClassAttributeAttribute(getItem())) {
+		//				String df = (String) value;
+		//				if (df == null || df.length() == 0) {
+		//					getPageController().setMessage(
+		//							"The default value must be set",
+		//							IPageController.ERROR);
+		//					return true;
+		//				}
+		//			}
+		//
+		//		}
 		return false;
 	}
 
 	protected void computeSuperAttribute(String shortName) {
 		Item absItemType = getItem().getPartParent();
-		Item superItemtype = ItemTypeManager.getSuperAbstractItemType(absItemType);
+		Item superItemtype = ItemTypeManager
+				.getSuperAbstractItemType(absItemType);
 		if (superItemtype == null) {
 			superAttribute = null;
 			return;
 		}
-		this.superAttribute = ItemTypeManager.findAttribute(superItemtype, shortName);
+		this.superAttribute = ItemTypeManager.findAttribute(superItemtype,
+				shortName);
 
 	}
 
 	protected void setDefaultValues() {
-		AttributeManager.setIsListAttribute(getItem(), AttributeManager.isIsListAttribute(superAttribute));
-		AttributeManager.setClassAttributeAttribute(getItem(), AttributeManager
-				.isClassAttributeAttribute(superAttribute));
-		AttributeManager.setRequireAttribute(getItem(), AttributeManager.isRequireAttribute(superAttribute));
+		AttributeManager.setIsListAttribute(getItem(), AttributeManager
+				.isIsListAttribute(superAttribute));
+		AttributeManager.setRequireAttribute(getItem(), AttributeManager
+				.isRequireAttribute(superAttribute));
 
 	}
 
 	protected void enableField() {
 		if (isListField != null) {
 			isListField.setEnabled(true);
-		}
-		if (metaAttributeField != null) {
-			metaAttributeField.setEnabled(true);
 		}
 		if (requireAttributeField != null) {
 			requireAttributeField.setEnabled(true);
@@ -317,9 +308,7 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 		if (requireAttributeField != null) {
 			requireAttributeField.setEnabled(false);
 		}
-		if (metaAttributeField != null) {
-			metaAttributeField.setEnabled(false);
-		}
+
 	}
 
 }

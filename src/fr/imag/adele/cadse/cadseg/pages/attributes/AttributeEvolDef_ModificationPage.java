@@ -24,7 +24,8 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.mc.StringToEnumModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -48,33 +49,33 @@ public class AttributeEvolDef_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item				item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldTWEvol;
+	protected DBrowserUI fieldTWEvol;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldTWRevSpecific;
+	protected DCheckBoxUI fieldTWRevSpecific;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldTWCommitKind;
+	protected DBrowserUI fieldTWCommitKind;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldTWUpdateKind;
+	protected DBrowserUI fieldTWUpdateKind;
 
 	/**
 	 * @generated
 	 */
-	protected AttributeEvolDef_ModificationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected AttributeEvolDef_ModificationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -82,15 +83,16 @@ public class AttributeEvolDef_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public AttributeEvolDef_ModificationPage(Item item) {
-		super("evol-def", "Evolution definition", "Evolution definition", "The definition of the evolution control",
-				false, 3);
+		super("evol-def", "Evolution definition", "Evolution definition",
+				"The definition of the evolution control", false, 3);
 		this.item = item;
 		this.fieldTWEvol = createFieldTWEvol();
 		this.fieldTWRevSpecific = createFieldTWRevSpecific();
 		this.fieldTWCommitKind = createFieldTWCommitKind();
 		this.fieldTWUpdateKind = createFieldTWUpdateKind();
 		setActionPage(null);
-		addLast(this.fieldTWEvol, this.fieldTWRevSpecific, this.fieldTWCommitKind, this.fieldTWUpdateKind);
+		addLast(this.fieldTWEvol, this.fieldTWRevSpecific,
+				this.fieldTWCommitKind, this.fieldTWUpdateKind);
 
 		registerListener();
 	}
@@ -103,9 +105,12 @@ public class AttributeEvolDef_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWEvol() {
-		StringToEnumModelController mc = new StringToEnumModelController(TWEvol.class, TWEvol.twImmutable);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("Select a value.", "Select a value.", TWEvol.class);
-		return new DBrowserUI(WorkspaceCST.ATTRIBUTE_at_TWEVOL, "TWEvol", EPosLabel.left, mc, ic);
+		StringToEnumModelController mc = new StringToEnumModelController(
+				TWEvol.class, TWEvol.twImmutable);
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
+				"Select a value.", "Select a value.", TWEvol.class);
+		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWEVOL, "TWEvol",
+				EPosLabel.left, mc, ic);
 	}
 
 	/**
@@ -113,27 +118,32 @@ public class AttributeEvolDef_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldTWRevSpecific() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_TWREV_SPECIFIC, "TWRevSpecific", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC,
+				"TWRevSpecific", EPosLabel.none, mc, null);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWCommitKind() {
-		StringToEnumModelController mc = new StringToEnumModelController(TWCommitKind.class, TWCommitKind.conflict);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("Select a value.", "Select a value.",
-				TWCommitKind.class);
-		return new DBrowserUI(WorkspaceCST.ATTRIBUTE_at_TWCOMMIT_KIND, "TWCommitKind", EPosLabel.left, mc, ic);
+		StringToEnumModelController mc = new StringToEnumModelController(
+				TWCommitKind.class, TWCommitKind.conflict);
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
+				"Select a value.", "Select a value.", TWCommitKind.class);
+		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND,
+				"TWCommitKind", EPosLabel.left, mc, ic);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWUpdateKind() {
-		StringToEnumModelController mc = new StringToEnumModelController(TWUpdateKind.class, TWUpdateKind.merge);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("Select a value.", "Select a value.",
-				TWUpdateKind.class);
-		return new DBrowserUI(WorkspaceCST.ATTRIBUTE_at_TWUPDATE_KIND, "TWUpdateKind", EPosLabel.left, mc, ic);
+		StringToEnumModelController mc = new StringToEnumModelController(
+				TWUpdateKind.class, TWUpdateKind.merge);
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
+				"Select a value.", "Select a value.", TWUpdateKind.class);
+		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND,
+				"TWUpdateKind", EPosLabel.left, mc, ic);
 	}
 
 }

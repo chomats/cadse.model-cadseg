@@ -14,7 +14,7 @@ import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -32,7 +32,8 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class ExtItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreationPage1_CreationPage {
+public class ExtItemTypeCreationPage1_CreationPage extends
+		AbstractItemTypeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
@@ -57,7 +58,8 @@ public class ExtItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreat
 		public Object[] getValues() {
 			Item theAttribute = getItem();
 			Item theItemType = theAttribute.getPartParent();
-			Item cadsedef = theItemType.getPartParent(WorkspaceCST.CADSE_DEFINITION);
+			Item cadsedef = theItemType
+					.getPartParent(CadseGCST.CADSE_DEFINITION);
 
 			return ItemTypeManager.getAllAllItemType(cadsedef, null);
 		}
@@ -70,8 +72,9 @@ public class ExtItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreat
 		@Override
 		protected ITreeContentProvider getTreeContentProvider() {
 			return new ItemTreeContentProvider(new ItemShortNameComparator(),
-					WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL, WorkspaceCST.DATA_MODEL_lt_TYPES,
-					WorkspaceCST.DATA_MODEL_lt_CATEGORIES);
+					CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,
+					CadseGCST.DATA_MODEL_lt_TYPES,
+					CadseGCST.DATA_MODEL_lt_CATEGORIES);
 		}
 
 		/*
@@ -84,12 +87,13 @@ public class ExtItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreat
 			if (selection != null && selection.length == 1) {
 				Object sel = selection[0];
 				if (sel instanceof Item) {
-					if (((Item) sel).getType() == WorkspaceCST.ITEM_TYPE) {
+					if (((Item) sel).getType() == CadseGCST.ITEM_TYPE) {
 						return Status.OK_STATUS;
 					}
 				}
 			}
-			return new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "select an item type");
+			return new Status(Status.ERROR, WSPlugin.PLUGIN_ID,
+					"select an item type");
 		}
 
 		/*
@@ -101,8 +105,10 @@ public class ExtItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreat
 		protected Object getInputValues() {
 			Item theAttribute = getItem();
 			Item theItemType = theAttribute.getPartParent();
-			Item cadsedef = theItemType.getPartParent(WorkspaceCST.CADSE_DEFINITION);
-			List<Item> allcadse = CadseDefinitionManager.getAllDependenciesCadse(cadsedef);
+			Item cadsedef = theItemType
+					.getPartParent(CadseGCST.CADSE_DEFINITION);
+			List<Item> allcadse = CadseDefinitionManager
+					.getAllDependenciesCadse(cadsedef);
 			allcadse.add(cadsedef);
 			Item[] ret = (Item[]) allcadse.toArray(new Item[allcadse.size()]);
 			Arrays.sort(ret, new ItemShortNameComparator());
@@ -114,21 +120,23 @@ public class ExtItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreat
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldRefType;
+	protected DBrowserUI fieldRefType;
 
 	/**
 	 * @generated
 	 */
-	protected ExtItemTypeCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected ExtItemTypeCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public ExtItemTypeCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create ExtItemType", "Create ExtItemType", "", false, 3);
+	public ExtItemTypeCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create ExtItemType", "Create ExtItemType", "",
+				false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -149,9 +157,12 @@ public class ExtItemTypeCreationPage1_CreationPage extends AbstractItemTypeCreat
 	 * @generated
 	 */
 	public DBrowserUI createFieldRefType() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.EXT_ITEM_TYPE_lt_REF_TYPE);
-		RefTypeIC ic = new RefTypeIC("Select a value.", "Select a value.", WorkspaceCST.EXT_ITEM_TYPE_lt_REF_TYPE);
-		return new DBrowserUI(WorkspaceCST.EXT_ITEM_TYPE_lt_REF_TYPE.getName(), "ref-type", EPosLabel.left, mc, ic);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE);
+		RefTypeIC ic = new RefTypeIC("Select a value.", "Select a value.",
+				CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE);
+		return new DBrowserUI(CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE.getName(),
+				"ref-type", EPosLabel.left, mc, ic);
 	}
 
 }

@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.build;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -51,27 +51,28 @@ public class ComposerModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item				item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI		fieldTypes;
+	protected DListUI fieldTypes;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldExtendsClass;
+	protected DCheckBoxUI fieldExtendsClass;
 
 	/**
 	 * @generated
 	 */
-	protected ComposerModificationPage1_ModificationPage(String id, String label, String title, String description,
+	protected ComposerModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -107,8 +108,10 @@ public class ComposerModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DListUI createFieldTypes() {
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.", "Select a value.", false);
-		return new DListUI(WorkspaceCST.COMPOSER_at_TYPES, "types", EPosLabel.top, mc, ic, false, false, false, false);
+		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
+				"Select a value.", false);
+		return new DListUI(CadseGCST.COMPOSER_at_TYPES, "types", EPosLabel.top,
+				mc, ic, true, false, false, false);
 	}
 
 	/**
@@ -116,7 +119,8 @@ public class ComposerModificationPage1_ModificationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldExtendsClass() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.COMPOSER_at_EXTENDS_CLASS, "extends-class", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.COMPOSER_at_EXTENDS_CLASS,
+				"extends-class", EPosLabel.none, mc, null);
 	}
 
 }

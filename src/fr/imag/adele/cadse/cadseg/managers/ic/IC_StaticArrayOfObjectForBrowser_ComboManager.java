@@ -23,10 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -39,7 +41,6 @@ import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fede.workspace.model.manager.properties.FieldsCore;
 
 /**
  * The Class IC_StaticArrayOfObjectForBrowser_ComboManager.
@@ -63,8 +64,8 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -126,6 +127,41 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 	public IC_StaticArrayOfObjectForBrowser_ComboManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -137,7 +173,7 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
+				DisplayManager.IC_DEFAULT_NAME);
 
 		IModelController mc = new MC_AttributesItem();
 
@@ -192,8 +228,8 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -212,7 +248,7 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		Item field = itemParent.getPartParent();
 		Item attribute = FieldManager.getAttribute(field);
 
-		if (attribute.getType() != WorkspaceCST.STRING) {
+		if (attribute.getType() != CadseGCST.STRING) {
 			return "It's not a string attribute";
 		}
 		return null;

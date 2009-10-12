@@ -19,17 +19,19 @@ public class IC_JavaClassForBrowser_ComboCreationPage1_CreationPage extends
 	/**
 	 * @generated
 	 */
-	protected IC_JavaClassForBrowser_ComboCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected IC_JavaClassForBrowser_ComboCreationPage1_CreationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public IC_JavaClassForBrowser_ComboCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create IC_JavaClassForBrowser_Combo", "Create IC_JavaClassForBrowser_Combo", "",
-				false, 3);
+	public IC_JavaClassForBrowser_ComboCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create IC_JavaClassForBrowser_Combo",
+				"Create IC_JavaClassForBrowser_Combo", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

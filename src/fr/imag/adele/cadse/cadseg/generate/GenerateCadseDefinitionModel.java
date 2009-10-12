@@ -53,7 +53,7 @@ import fede.workspace.tool.loadmodel.model.jaxb.UpdateKindType;
 import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
 import fr.imag.adele.cadse.cadseg.IAttributeGenerator;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.ext.actions.ExtItemTypeExt;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
@@ -66,7 +66,8 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ModificationDialogManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -102,14 +103,14 @@ public class GenerateCadseDefinitionModel {
 		ObjectFactory factory = new ObjectFactory();
 		ContextVariable cxt = new ContextVariable();
 		CCadse cadse = factory.createCCadse();
-		cadse.setName(CadseDefinitionManager.RESOURCE_SUFFIX + cadseDefinition.getName());
+		cadse.setName(CadseRuntime.CADSE_NAME_SUFFIX + cadseDefinition.getName());
 		// ItemTypeManager
 		int version = CadseDefinitionManager.getVersion(cadseDefinition);
 		cadse.setVersion(version);
-		cadse.setId(CadseDefinitionManager.getUUID(cadseDefinition).toString());
+		cadse.setId(CadseDefinitionManager.getIdRuntime(cadseDefinition).toString());
 		cadse.setIdCadseDefinition(cadseDefinition.getId().toString());
 		cadse.setDescription(CadseDefinitionManager.getDescriptionAttribute(cadseDefinition));
-		String displayNameAttribute = CadseDefinitionManager.getDisplayNameAttribute(cadseDefinition);
+		String displayNameAttribute = CadseDefinitionManager.getCadseNameAttribute(cadseDefinition);
 		if (displayNameAttribute != null && displayNameAttribute.length() > 0) {
 			cadse.setDisplayName(displayNameAttribute);
 		}
@@ -119,9 +120,9 @@ public class GenerateCadseDefinitionModel {
 		Collection<Item> extendsItems = CadseDefinitionManager.getExtends(cadseDefinition);
 		for (Item item : extendsItems) {
 			CCadseRef cadseref = factory.createCCadseRef();
-			cadseref.setName(CadseDefinitionManager.getUniqueName(item));
-			cadseref.setId(CadseDefinitionManager.getUUID(item).toString());
-			cadseref.setIdCadseDefinition(item.getId().toString());
+			cadseref.setName(CadseDefinitionManager.getQualifiedName(item));
+			cadseref.setId(CadseDefinitionManager.getIdRuntime(item).toString());
+			cadseref.setIdCadseDefinition(CadseDefinitionManager.getIdDef(item).toString());
 			cadse.getCadseRef().add(cadseref);
 		}
 
@@ -157,7 +158,7 @@ public class GenerateCadseDefinitionModel {
 
 			Item refItemType = ExtItemTypeManager.getRefType(extIt);
 			if (refItemType != null && refItemType.isResolved()) {
-				CompactUUID uuid = ItemTypeManager.getUUID(refItemType);
+				CompactUUID uuid = ItemTypeManager.getIdRuntime(refItemType);
 				ceit.setItemTypeSource(uuid.toString());
 			}
 
@@ -211,32 +212,32 @@ public class GenerateCadseDefinitionModel {
 	private static void generateAttributes(ContextVariable cxt, ObjectFactory factory, Item abstractItemType,
 			CAbsItemType cit) {
 		Collection<Item> outgoingItem = abstractItemType.getOutgoingItems(
-				WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, true);
+				CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, true);
 		Item[] attributeItems = outgoingItem.toArray(new Item[outgoingItem.size()]);
 		Arrays.sort(attributeItems, new ItemShortNameComparator());
 		for (Item attribute : attributeItems) {
 			if (!attribute.isResolved()) {
 				continue;
 			}
-			if (AttributeManager.isClassAttributeAttribute(attribute)) {
-				if (AttributeManager.isLinkAttribute(attribute)) {
-					continue;
-				}
-				CMetaAttribute ma = factory.createCMetaAttribute();
-				CValuesType cvt = attributeToCValueType(cxt, factory, abstractItemType, attribute);
-				ma.setValue(cvt);
-				ma.setKey(cvt.getKey());
-
-				cvt.setKey(null);
-				cvt.setValue(AttributeManager.getDefaultValueAttribute(attribute));
-				// cvt.setMin(1);
-				cvt.setFlag(null);
-				cvt.setId(null);
-				cvt.setCstName(null);
-
-				cit.getMetaAttribute().add(ma);
-				continue;
-			}
+//			if (AttributeManager.isClassAttributeAttribute(attribute)) {
+//				if (AttributeManager.isLinkAttribute(attribute)) {
+//					continue;
+//				}
+//				CMetaAttribute ma = factory.createCMetaAttribute();
+//				CValuesType cvt = attributeToCValueType(cxt, factory, abstractItemType, attribute);
+//				ma.setValue(cvt);
+//				ma.setKey(cvt.getKey());
+//
+//				cvt.setKey(null);
+//				cvt.setValue(AttributeManager.getDefaultValueAttribute(attribute));
+//				// cvt.setMin(1);
+//				cvt.setFlag(null);
+//				cvt.setId(null);
+//				cvt.setCstName(null);
+//
+//				cit.getMetaAttribute().add(ma);
+//				continue;
+//			}
 			if (AttributeManager.isLinkAttribute(attribute)) {
 
 				Item itemTypeDest = LinkManager.getDestination(attribute);
@@ -261,7 +262,7 @@ public class GenerateCadseDefinitionModel {
 					cvt.setKey(attribute.getName());
 
 					// attribute id
-					cvt.setId(AttributeManager.getUUID(attribute).toString());
+					cvt.setId(AttributeManager.getIdRuntime(attribute).toString());
 
 					// add constance if the meta attributes, cst_class_name and
 					// cst_package_name, are defined.
@@ -281,9 +282,9 @@ public class GenerateCadseDefinitionModel {
 					// cas de la list
 					if (AttributeManager.isIsListAttribute(attribute)) {
 						cvt.setType(ValueTypeType.LIST);
-						cvt.setMax(AttributeManager.getMinAttribute(attribute));
-						cvt.setMin(AttributeManager.getMaxAttribute(attribute));
-						ItemType cadseRootList = CadseRootCST.LIST_ATTRIBUTE_TYPE;
+						cvt.setMax(-1);
+						cvt.setMin(0);
+						ItemType cadseRootList = CadseGCST.LIST;
 						cvt.setTypeName(cadseRootList.getId().toString());
 						InitModelLoadAndWrite cadseListRootManager = (InitModelLoadAndWrite) cadseRootList
 								.getItemManager();
@@ -332,7 +333,7 @@ public class GenerateCadseDefinitionModel {
 
 					attType.setFlag(manager.getCadseRootFlag(attribute));
 					attType.setShortName(attribute.getName());
-					attType.setId(AttributeManager.getUUID(attribute).toString());
+					attType.setId(AttributeManager.getIdRuntime(attribute).toString());
 
 					attType.setCstName(GenerateJavaIdentifier.cstAttribute(cxt, attribute, abstractItemType) + "_");
 
@@ -453,7 +454,7 @@ public class GenerateCadseDefinitionModel {
 		final CValuesType ret = cvt;
 
 		cvt.setKey(attribute.getName());
-		cvt.setId(AttributeManager.getUUID(attribute).toString());
+		cvt.setId(AttributeManager.getIdRuntime(attribute).toString());
 
 		// add constance if the meta attributes, cst_class_name and
 		// cst_package_name, are defined.
@@ -461,8 +462,8 @@ public class GenerateCadseDefinitionModel {
 
 		if (AttributeManager.isIsListAttribute(attribute)) {
 			cvt.setType(ValueTypeType.LIST);
-			cvt.setMax(AttributeManager.getMinAttribute(attribute));
-			cvt.setMin(AttributeManager.getMaxAttribute(attribute));
+			cvt.setMax(-1);
+			cvt.setMin(0);
 
 			// creer une deuxième description pour dècrire le type du contenu de
 			// la liste
@@ -470,7 +471,7 @@ public class GenerateCadseDefinitionModel {
 			cvt.getElement().add(ncvt);
 
 			cvt = ncvt;
-		} else if (attribute.getType() == WorkspaceCST.SYMBOLIC_BIT_MAP) {
+		} else if (attribute.getType() == CadseGCST.SYMBOLIC_BIT_MAP) {
 			cvt.setType(ValueTypeType.SYMBOLIC_BIT_MAP);
 			cvt.setMin(AttributeManager.isRequireAttribute(attribute) ? 1 : 0);
 			// cvt.setFlag(getFlag(attribute));
@@ -499,7 +500,7 @@ public class GenerateCadseDefinitionModel {
 			String pathAttribute) {
 		Collection<Item> children = MenuManager.getChildren(menu);
 		for (Item child : children) {
-			if (child.getType() == WorkspaceCST.MENU) {
+			if (child.getType() == CadseGCST.MENU) {
 				CMenuAction cma = factory.createCMenuAction();
 				cit.getMenu().add(cma);
 				cma.setName(child.getName());
@@ -515,7 +516,7 @@ public class GenerateCadseDefinitionModel {
 					newpathAttribute = child.getName();
 				}
 				generateMenu(cxt, factory, child, cit, newpathAttribute);
-			} else if (child.getType() == WorkspaceCST.MENU_ACTION) {
+			} else if (child.getType() == CadseGCST.MENU_ACTION) {
 				CAction ca = factory.createCAction();
 				cit.getAction().add(ca);
 				ca.setName(child.getName());
@@ -528,7 +529,7 @@ public class GenerateCadseDefinitionModel {
 					ca.setPath(MenuAbstractManager.getPathAttribute(child));
 				}
 				ca.setClassAction(GenerateJavaIdentifier.qualifiedMenuAction(cxt, child));
-			} else if (child.getType() == WorkspaceCST.DYNAMIC_ACTIONS) {
+			} else if (child.getType() == CadseGCST.DYNAMIC_ACTIONS) {
 				CActionContributor cac = factory.createCActionContributor();
 				cit.getActionContributor().add(cac);
 				JavaFileContentManager cm = (JavaFileContentManager) child.getContentItem();
@@ -550,7 +551,7 @@ public class GenerateCadseDefinitionModel {
 	 *            the cit
 	 */
 	private static void setItemType(ContextVariable cxt, Item itemType, Item manager, CItemType cit) {
-		cit.setId(ItemTypeManager.getUUID(itemType).toString());
+		cit.setId(ItemTypeManager.getIdRuntime(itemType).toString());
 		cit.setIntID(ItemTypeManager.getIntID(itemType));
 		cit.setName(itemType.getName());
 		cit.setIsRootElement(ItemTypeManager.isIsRootElementAttribute(itemType));
@@ -565,10 +566,10 @@ public class GenerateCadseDefinitionModel {
 
 		Item superItemType = ItemTypeManager.getSuperType(itemType);
 		if (superItemType != null) {
-			cit.setSuperTypeName(ItemTypeManager.getUUID(superItemType).toString());
+			cit.setSuperTypeName(ItemTypeManager.getIdRuntime(superItemType).toString());
 		} else {
 			if (ItemTypeManager.isIsMetaItemTypeAttribute(itemType)) {
-				cit.setSuperTypeName(CadseRootCST.META_ITEM_TYPE.getId().toString());
+				cit.setSuperTypeName(CadseGCST.ITEM_TYPE.getId().toString());
 			}
 		}
 
@@ -618,7 +619,7 @@ public class GenerateCadseDefinitionModel {
 		CLinkType clt = factory.createCLinkType();
 		cit.getOutgoingLink().add(clt);
 
-		clt.setId(LinkManager.getUUID(linkType).toString());
+		clt.setId(LinkManager.getIdRuntime(linkType).toString());
 		clt.setIntID(0); // LinkManager.getIntID(linkType)
 		IType manager = LinkManager.getLinkManagerType(linkType);
 		if (manager != null) {
@@ -628,7 +629,7 @@ public class GenerateCadseDefinitionModel {
 		clt.setName(linkType.getName());
 		clt.setMin(LinkManager.getMin(linkType));
 		clt.setMax(LinkManager.getMax(linkType));
-		clt.setDestination(ItemTypeManager.getUUID(itemTypeDest).toString());
+		clt.setDestination(ItemTypeManager.getIdRuntime(itemTypeDest).toString());
 		clt.setIsComposition(LinkManager.isComposition(linkType));
 		clt.setIsAggregation(LinkManager.isAggregation(linkType));
 		clt.setIsPart(LinkManager.isPart(linkType));
@@ -744,7 +745,7 @@ public class GenerateCadseDefinitionModel {
 
 			aPage.setClassName(GenerateJavaIdentifier.qualifiedPageFactoryFromPage(cxt, aPageItem));
 			aPage.setId(aPageItem.getName());
-			aPage.setUuid(PageManager.getUUID(aPageItem).toString());
+			aPage.setUuid(PageManager.getIdRuntime(aPageItem).toString());
 			aPage.setTitre(PageManager.getTitle(aPageItem));
 		}
 	}

@@ -38,22 +38,23 @@ public class ModelControllerCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item		parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType	it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType	lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected ModelControllerCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected ModelControllerCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -61,8 +62,10 @@ public class ModelControllerCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public ModelControllerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create ModelController", "Create ModelController", "", false, 3);
+	public ModelControllerCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create ModelController",
+				"Create ModelController", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:c-cadse display-name="Cadse Cadseg (Generator of Cadse)"
 	description="Cadse CADSEg : Editor and generator of cadse"
-	cst-class="fr.imag.adele.cadse.cadseg.WorkspaceCST" version="2"
+	cst-class="fr.imag.adele.cadse.cadseg.CadseGCST" version="2"
 	id_cadse_definition="0dc9a0d0-73ff-4e82-a181-1b6792d49e75"
 	id="2b50360d-d835-4e98-80a8-bc55fe5421e7" name="Model.Workspace.Workspace"
 	xmlns:ns2="http://fr.imag.adele/fede/workspace/model">

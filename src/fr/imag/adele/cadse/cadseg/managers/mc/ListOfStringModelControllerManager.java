@@ -24,11 +24,12 @@ import java.util.Set;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.MaxModelController;
 import fede.workspace.model.manager.properties.impl.mc.MinModelController;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -52,7 +53,7 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends ModelControllerManager.MyContentItem {
+	class MyContentItem extends ModelControllerManager.ModelControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -63,8 +64,8 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -117,6 +118,41 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 	public ListOfStringModelControllerManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -158,7 +194,7 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.MC_DEFAULT_SHORT_NAME);
+				DisplayManager.MC_DEFAULT_NAME);
 
 		IModelController mc = new MC_AttributesItem();
 		MinModelController minVC = new MinModelController();
@@ -207,7 +243,7 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 			return "The attribut must be a list of string";
 		}
 
-		if (attribut.getType() == WorkspaceCST.STRING) {
+		if (attribut.getType() == CadseGCST.STRING) {
 			return null;
 		}
 
@@ -220,7 +256,7 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 }

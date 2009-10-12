@@ -21,17 +21,20 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.cadseg.util.Util;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
@@ -49,7 +52,7 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends InteractionControllerManager.MyContentItem {
+	class MyContentItem extends InteractionControllerManager.InteractionControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -60,8 +63,8 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -112,6 +115,77 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	public IC_AbstractForBrowser_ComboManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getMessageAttribute(Item iC_AbstractForBrowser_Combo) {
+		return iC_AbstractForBrowser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setMessageAttribute(Item iC_AbstractForBrowser_Combo, String value) {
+		try {
+			iC_AbstractForBrowser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getTitleAttribute(Item iC_AbstractForBrowser_Combo) {
+		return iC_AbstractForBrowser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_TITLE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setTitleAttribute(Item iC_AbstractForBrowser_Combo, String value) {
+		try {
+			iC_AbstractForBrowser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_TITLE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -138,8 +212,8 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -153,7 +227,7 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
+				DisplayManager.IC_DEFAULT_NAME);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "IC_AbstractForBrowser_ComboManager",
 				"IC_AbstractForBrowser_ComboManager", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE,
@@ -188,23 +262,13 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 		if (attribute == null) {
 			return "select an attribute before";
 		}
-		if (itemParent.getType() != WorkspaceCST.DBROWSER && itemParent.getType() != WorkspaceCST.DCOMBO) {
+		if (itemParent.getType() != CadseGCST.DBROWSER && itemParent.getType() != CadseGCST.DCOMBO) {
 			return "It's not a browser field or a combo field";
 		}
 		return null;
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public void createdItem(Item item) throws CadseException {
-		super.createdItem(item);
-		Util.setDefaultValueIfNeed(item, SELECT_MESSAGE_ATTRIBUTE, "Select a value.");
-		Util.setDefaultValueIfNeed(item, SELECT_TITLE_ATTRIBUTE, "Select a value.");
-	}
+	
 
 }

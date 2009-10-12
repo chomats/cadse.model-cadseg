@@ -15,6 +15,7 @@ import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateClass;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -72,14 +73,14 @@ public class DynamicActionsCIF implements IContentItemFactory {
 	/**
 	 * @generated
 	 */
-	public class MyContentItem extends JavaFileContentManager implements IGenerateContent, IPDEContributor {
+	public class DynamicActionsContent extends JavaFileContentManager implements IGenerateContent, IPDEContributor {
 
 		/**
 		 * @generated
 		 */
-		public MyContentItem(ContentItem parent, Item item, Variable packageNameVariable, Variable classNameVariable)
+		public DynamicActionsContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable)
 				throws CadseException {
-			super(parent, item, packageNameVariable, classNameVariable);
+			super(id, packageNameVariable, classNameVariable);
 		}
 
 		/*
@@ -156,8 +157,8 @@ public class DynamicActionsCIF implements IContentItemFactory {
 		}
 	}
 
-	public ContentItem createContentItem(Item dynamicActions) throws CadseException {
-		MyContentItem cm = new MyContentItem(null, dynamicActions, PackageNameVariable.INSTANCE,
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		DynamicActionsContent cm = new DynamicActionsContent(id , PackageNameVariable.INSTANCE,
 				ClassNameVariable.INSTANCE);
 		cm.setComposers();
 		cm.setExporters();

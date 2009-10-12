@@ -17,21 +17,24 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class JavaReExporterCreationPage1_CreationPage extends EclipseReExporterCreationPage1_CreationPage {
+public class JavaReExporterCreationPage1_CreationPage extends
+		EclipseReExporterCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected JavaReExporterCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected JavaReExporterCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public JavaReExporterCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create JavaReExporter", "Create JavaReExporter", "", false, 3);
+	public JavaReExporterCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create JavaReExporter",
+				"Create JavaReExporter", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -49,6 +52,7 @@ public class JavaReExporterCreationPage1_CreationPage extends EclipseReExporterC
 	@Override
 	public void init(IPageController pageController) throws CadseException {
 		super.init(pageController);
-		JavaReExporterManager.addTypesAttribute(getItem(), JavaProjectExporter.JAVA_TYPE_EXPORTER);
+		JavaReExporterManager.addTypesAttribute(getItem(),
+				JavaProjectExporter.JAVA_TYPE_EXPORTER);
 	}
 }

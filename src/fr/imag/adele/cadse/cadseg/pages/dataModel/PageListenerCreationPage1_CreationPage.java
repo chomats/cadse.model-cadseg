@@ -4,7 +4,7 @@ import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -25,41 +25,43 @@ public class PageListenerCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public Item				parent;
+	public Item parent;
 
 	/**
 	 * @generated
 	 */
-	public ItemType			it;
+	public ItemType it;
 
 	/**
 	 * @generated
 	 */
-	public LinkType			lt;
+	public LinkType lt;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldListenShortName;
+	protected DCheckBoxUI fieldListenShortName;
 
 	/**
 	 * @generated
 	 */
-	protected PageListenerCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected PageListenerCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public PageListenerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create PageListener", "Create PageListener", "", false, 3);
+	public PageListenerCreationPage1_CreationPage(Item parent, ItemType it,
+			LinkType lt) {
+		super("creation-page1", "Create PageListener", "Create PageListener",
+				"", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
@@ -87,8 +89,8 @@ public class PageListenerCreationPage1_CreationPage extends PageImpl {
 	 */
 	public DCheckBoxUI createFieldListenShortName() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.PAGE_LISTENER_at_LISTEN_SHORT_NAME, "listen-short-name", EPosLabel.none,
-				mc, null);
+		return new DCheckBoxUI(CadseGCST.PAGE_LISTENER_at_LISTEN_SHORT_NAME,
+				"listen-short-name", EPosLabel.none, mc, null);
 	}
 
 }

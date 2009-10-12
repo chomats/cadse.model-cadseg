@@ -18,27 +18,39 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
+import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 
 /**
  * @generated
  */
-public class ComputedStringModificationPage1_ModificationPage extends AttributeModificationPage1_ModificationPage {
+public class ComputedStringModificationPage1_ModificationPage extends
+		AttributeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI	fieldExpression;
+	protected DTextUI fieldExpression;
 
 	/**
 	 * @generated
 	 */
-	protected ComputedStringModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected ComputedStringModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -46,7 +58,8 @@ public class ComputedStringModificationPage1_ModificationPage extends AttributeM
 	 * @generated
 	 */
 	public ComputedStringModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "ComputedString", "ComputedString", "", false, 3);
+		super("modification-page1", "ComputedString", "ComputedString", "",
+				false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldExpression = createFieldExpression();
@@ -65,8 +78,9 @@ public class ComputedStringModificationPage1_ModificationPage extends AttributeM
 	 * @generated
 	 */
 	public DTextUI createFieldExpression() {
-		return new DTextUI(WorkspaceCST.COMPUTED_STRING_at_EXPRESSION, "expression", EPosLabel.left,
-				new MC_AttributesItem(), null, 10, "", false, false, false);
+		return new DTextUI(CadseGCST.COMPUTED_STRING_at_EXPRESSION,
+				"expression", EPosLabel.left, new MC_AttributesItem(), null,
+				10, "", false, false, false);
 	}
 
 }

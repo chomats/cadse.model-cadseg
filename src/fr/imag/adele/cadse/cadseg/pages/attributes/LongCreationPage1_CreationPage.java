@@ -18,30 +18,32 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
+import fr.imag.adele.cadse.core.IItemNode;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 
 /**
  * @generated
  */
-public class LongCreationPage1_CreationPage extends AttributeCreationPage1_CreationPage {
+public class LongCreationPage1_CreationPage extends
+		AttributeCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldMustBeInitialized;
-
-	/**
-	 * @generated
-	 */
-	protected LongCreationPage1_CreationPage(String id, String label, String title, String description,
-			boolean isPageComplete, int hspan) {
+	protected LongCreationPage1_CreationPage(String id, String label,
+			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -54,11 +56,8 @@ public class LongCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 		this.it = it;
 		this.lt = lt;
 		this.__short_name__ = createInternalNameField();
-		this.fieldDefaultValue = createFieldDefaultValue();
-		this.fieldMustBeInitialized = createFieldMustBeInitialized();
-		this.fieldIsList = createFieldIsList();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldDefaultValue, this.fieldMustBeInitialized, this.fieldIsList);
+		addLast(this.__short_name__);
 
 		registerListener();
 	}
@@ -72,8 +71,9 @@ public class LongCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 	 * @not generated
 	 */
 	public DTextUI createFieldDefaultValue() {
-		return new DTextUI(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE, "default-value", EPosLabel.left,
-				new MC_LongTextField(), null, 1, "", false, false, false);
+		return new DTextUI(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE,
+				"default-value", EPosLabel.left, new MC_LongTextField(), null,
+				1, "", false, false, false);
 	}
 
 	/**
@@ -81,16 +81,8 @@ public class LongCreationPage1_CreationPage extends AttributeCreationPage1_Creat
 	 */
 	public DCheckBoxUI createFieldMustBeInitialized() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED, "show attribute in creation wizard",
-				EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.ATTRIBUTE_at_IS_LIST, "is-list", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED,
+				"show attribute in creation wizard", EPosLabel.none, mc, null);
 	}
 
 }

@@ -30,7 +30,7 @@ import org.eclipse.ui.ide.IDE;
 
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fede.workspace.eclipse.java.manager.JavaProjectContentManager;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
@@ -38,6 +38,7 @@ import fr.imag.adele.cadse.cadseg.managers.build.ComposerLinkManager;
 import fr.imag.adele.cadse.cadseg.managers.build.CompositeItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.CreationDialogManager;
+import fr.imag.adele.cadse.cadseg.managers.dataModel.DataModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ModificationDialogManager;
@@ -46,7 +47,8 @@ import fr.imag.adele.cadse.cadseg.managers.ui.DListManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -193,7 +195,7 @@ class RenamePackageMappingOperartion extends RenameMappingOperation {
 	}
 
 	private String getPackageName(ContextVariable cxt) {
-		return cxt.getAttribute((Item) _parent, WorkspaceCST.CADSE_DEFINITION_at_PACKAGENAME_);
+		return cxt.getAttribute((Item) _parent, CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
 	}
 
 	@Override
@@ -228,7 +230,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	private static final String	CREATION_PAGE_TITLE_PREFIX	= "Create ";
 	private static final String	MODIFICATION_PAGE_PREFIX	= "modification-page-";
 	private static final String	CREATION_PAGE_PREFIX		= "creation-page-";
-	private static final String	PARENT_NAME					= "#invert_part_";
+	//private static final String	PARENT_NAME					= "#invert_part_";
 
 	private static final String	EMPTY_PAGE_CREATION_ID		= "creation-page1";
 	private static final String	EMPTY_PAGE_MODIFICATION_ID	= "modification-page1";
@@ -236,13 +238,15 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 																	.getLogger("fr.imag.adele.cadse.cadseg.CadseG_WLWCListener");
 
 	public CadseG_WLWCListener() {
-		WorkspaceCST.ABSTRACT_ITEM_TYPE.addLogicalWorkspaceTransactionListener(this);
-		WorkspaceCST.PAGE.addLogicalWorkspaceTransactionListener(this);
-		WorkspaceCST.MANAGER.addLogicalWorkspaceTransactionListener(this);
-		WorkspaceCST.CADSE_DEFINITION.addLogicalWorkspaceTransactionListener(this);
-		WorkspaceCST.ATTRIBUTE.addLogicalWorkspaceTransactionListener(this);
-		WorkspaceCST.FIELD.addLogicalWorkspaceTransactionListener(this);
-		WorkspaceCST.MENU_ACTION.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.ABSTRACT_ITEM_TYPE.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.PAGE.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.MANAGER.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.CADSE_DEFINITION.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.ATTRIBUTE.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.FIELD.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.MENU_ACTION.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.CREATION_DIALOG.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.MODIFICATION_DIALOG.addLogicalWorkspaceTransactionListener(this);
 	}
 
 	@Override
@@ -251,8 +255,34 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		/*
 		 * Create dialog item and first page
 		 */
-		if (item.isInstanceOf(WorkspaceCST.ABSTRACT_ITEM_TYPE)) {
+		if (item.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)) {
 			createDialogAndPages(wc, item);
+		}
+		
+		if (item.isInstanceOf(CadseGCST.EXT_ITEM_TYPE)) {
+			if (item.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE) == null)
+				item.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, CadseGCST.EXT_ITEM);
+		}
+		
+		/* the attribute package name*/
+		if (item.isInstanceOf(CadseGCST.ITEM_TYPE)) {
+			Item parent = item.getPartParent();
+			if (parent != null && parent.isInstanceOf(CadseGCST.DATA_MODEL)) {
+				item.setAttribute(CadseGCST.ITEM_TYPE_at_PACKAGE_NAME_,DataModelManager.getQualifiedDM(parent));
+			}
+			
+			Item cr = null;
+			if (parent != null) {
+				if (parent.isInstanceOf(CadseGCST.CADSE_RUNTIME))
+					cr = parent;
+				else
+					cr = parent.getPartParent(CadseGCST.CADSE_RUNTIME);
+				if (cr != null)
+					item.createLink(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME, cr);
+			}
+			
+			if (item.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE) == null)
+				item.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, CadseGCST.ITEM);
 		}
 
 		/*
@@ -264,16 +294,27 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		 * A CADSE definition is been created. Create items data model,
 		 * configuration model, build model, view model, mapping model.
 		 */
-		if (item.isInstanceOf(WorkspaceCST.CADSE_DEFINITION)) {
+		if (item.isInstanceOf(CadseGCST.CADSE_DEFINITION)) {
 			createdCadseDefintionItem(wc, item);
 		}
 
 		/*
 		 * Create a field from an attribute
 		 */
-		if (item.getType() == WorkspaceCST.ATTRIBUTE) {
+		if (item.getType() == CadseGCST.ATTRIBUTE) {
 			final ItemDelta itemType = item.getPartParent();
 			syncFieldFromAttribute(wc, itemType, item, false);
+		}
+		
+		if (item.getType() == CadseGCST.INTEGER) {
+			item.setAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "0");
+		}
+		
+		if (item.getType() == CadseGCST.LINK) {
+			Item parent = item.getPartParent();
+			if (parent != null) {
+				item.createLink(CadseGCST.LINK_lt_SOURCE, parent);
+			}
 		}
 
 	}
@@ -309,7 +350,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	 */
 	private ItemDelta createModificationDialog(LogicalWorkspaceTransaction wc, Item itemType) throws CadseException {
 		ItemDelta itemModificationDialog = wc.createItemIfNeed(null, ModificationDialogManager.DEFAULT_SHORT_NAME,
-				WorkspaceCST.MODIFICATION_DIALOG, itemType, WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG);
+				CadseGCST.MODIFICATION_DIALOG, itemType, CadseGCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG);
 		return itemModificationDialog;
 	}
 
@@ -325,7 +366,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	 */
 	private ItemDelta createCreationDialog(LogicalWorkspaceTransaction wc, Item itemType) throws CadseException {
 		ItemDelta itemCreationDialog = wc.createItemIfNeed(null, CreationDialogManager.DEFAULT_SHORT_NAME,
-				WorkspaceCST.CREATION_DIALOG, itemType, WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG);
+				CadseGCST.CREATION_DIALOG, itemType, CadseGCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG);
 		return itemCreationDialog;
 	}
 
@@ -341,18 +382,18 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	 */
 	private void createdCadseDefintionItem(LogicalWorkspaceTransaction wc, ItemDelta cadseDefinition)
 			throws CadseException {
-		wc.createItemIfNeed(null, CadseDefinitionManager.DATA_MODEL, WorkspaceCST.DATA_MODEL, cadseDefinition,
-				WorkspaceCST.CADSE_DEFINITION_lt_DATA_MODEL);
+		wc.createItemIfNeed(null, CadseDefinitionManager.DATA_MODEL, CadseGCST.DATA_MODEL, cadseDefinition,
+				CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL);
 		// june 09, 2009 removed configuration model
 		// wc.createItemIfNeed(null, CadseDefinitionManager.CONFIGURATION_MODEL,
-		// WorkspaceCST.CONFIGURATION_MODEL,
-		// cadseDefinition, WorkspaceCST.CADSE_DEFINITION_lt_CONFIGURATION);
-		wc.createItemIfNeed(null, CadseDefinitionManager.BUILD_MODEL, WorkspaceCST.BUILD_MODEL, cadseDefinition,
-				WorkspaceCST.CADSE_DEFINITION_lt_BUILD);
-		wc.createItemIfNeed(null, CadseDefinitionManager.VIEW_MODEL, WorkspaceCST.VIEW_MODEL, cadseDefinition,
-				WorkspaceCST.CADSE_DEFINITION_lt_VIEW_MODEL);
-		wc.createItemIfNeed(null, CadseDefinitionManager.MAPPING, WorkspaceCST.MAPPING_MODEL, cadseDefinition,
-				WorkspaceCST.CADSE_DEFINITION_lt_MAPPING);
+		// CadseGCST.CONFIGURATION_MODEL,
+		// cadseDefinition, CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION);
+		wc.createItemIfNeed(null, CadseDefinitionManager.BUILD_MODEL, CadseGCST.BUILD_MODEL, cadseDefinition,
+				CadseGCST.CADSE_DEFINITION_lt_BUILD);
+		wc.createItemIfNeed(null, CadseDefinitionManager.VIEW_MODEL, CadseGCST.VIEW_MODEL, cadseDefinition,
+				CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL);
+		wc.createItemIfNeed(null, CadseDefinitionManager.MAPPING, CadseGCST.MAPPING_MODEL, cadseDefinition,
+				CadseGCST.CADSE_DEFINITION_lt_MAPPING);
 	}
 
 	/**
@@ -369,11 +410,11 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		Item abstype = itemCreationDialog.getPartParent();
 		String name = CREATION_PAGE_PREFIX + abstype.getName();
 
-		return wc.createItemIfNeed(null, name, WorkspaceCST.PAGE, itemCreationDialog,
-				WorkspaceCST.CREATION_DIALOG_lt_PAGES, WorkspaceCST.PAGE_at_HSPAN,
-				ManagerManager.DEFAULT_HSPAN_FIRST_PAGE, WorkspaceCST.PAGE_at_TITLE, CREATION_PAGE_TITLE_PREFIX
-						+ abstype.getName(), WorkspaceCST.PAGE_at_IS_REMOVED_, false,
-				WorkspaceCST.PAGE_at_DESCRIPTION_, "");
+		return wc.createItemIfNeed(null, name, CadseGCST.PAGE, itemCreationDialog,
+				CadseGCST.CREATION_DIALOG_lt_PAGES, CadseGCST.PAGE_at_HSPAN,
+				ManagerManager.DEFAULT_HSPAN_FIRST_PAGE, CadseGCST.PAGE_at_TITLE, CREATION_PAGE_TITLE_PREFIX
+						+ abstype.getName(), CadseGCST.PAGE_at_IS_REMOVED_, false,
+				CadseGCST.PAGE_at_DESCRIPTION_, "");
 	}
 
 	/**
@@ -391,10 +432,11 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 		String name = MODIFICATION_PAGE_PREFIX + abstype.getName();
 
-		ItemDelta modificationPage1Item = wc.createItemIfNeed(null, name, WorkspaceCST.PAGE, modificationDialog,
-				WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES, WorkspaceCST.PAGE_at_HSPAN_,
-				ManagerManager.DEFAULT_HSPAN_FIRST_PAGE, WorkspaceCST.PAGE_at_TITLE_, abstype.getName(),
-				WorkspaceCST.PAGE_at_IS_REMOVED_, false, WorkspaceCST.PAGE_at_DESCRIPTION_, "");
+		ItemDelta modificationPage1Item = wc.createItemIfNeed(null, name, CadseGCST.PAGE, modificationDialog,
+				CadseGCST.MODIFICATION_DIALOG_lt_PAGES, CadseGCST.PAGE_at_HSPAN_,
+				ManagerManager.DEFAULT_HSPAN_FIRST_PAGE, CadseGCST.PAGE_at_TITLE_, abstype.getName(),
+				CadseGCST.PAGE_at_LABEL_, abstype.getName(),
+				CadseGCST.PAGE_at_IS_REMOVED_, false, CadseGCST.PAGE_at_DESCRIPTION_, "");
 
 		if (doCreatefield) {
 			Item[] attributes = ItemTypeManager.getAllAttributes(null, abstype, null, true);
@@ -408,17 +450,17 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	}
 
 	/**
-	 * The value of attribute definition {@link CadseRootCST#ITEM_TYPE_at_NAME_}
+	 * The value of attribute definition {@link CadseGCST#ITEM_TYPE_at_NAME_}
 	 * is changed. if the type of the item where the value is changed is
-	 * WorkspaceCST.EXT_ITEM_TYPE, you must change the name of first
+	 * CadseGCST.EXT_ITEM_TYPE, you must change the name of first
 	 * modification page and first creation page.
 	 */
 	@Override
 	public void notifyChangeAttribute(LogicalWorkspaceTransaction wc, ItemDelta item, SetAttributeOperation attOperation)
 			throws CadseException {
 
-		if (!item.isAdded() && item.getType() == WorkspaceCST.CADSE_DEFINITION
-				&& attOperation.getAttributeDefinition() == WorkspaceCST.CADSE_DEFINITION_at_PACKAGENAME_) {
+		if (!item.isAdded() && item.getType() == CadseGCST.CADSE_DEFINITION
+				&& attOperation.getAttributeDefinition() == CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_) {
 			ContextVariable oldContext = wc.getOldContext();
 			ContextVariable newContext = wc.getNewContext();
 
@@ -434,34 +476,21 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			addRenamePackageOperation(item, oldContext, newContext);
 		}
 
-		if (item.getType() == WorkspaceCST.CADSE_DEFINITION
-				&& attOperation.getAttributeDefinition() == CadseRootCST.ITEM_TYPE_at_NAME_) {
+		if (item.getType() == CadseGCST.CADSE_DEFINITION
+				&& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
 			ContextVariable oldContext = wc.getOldContext();
 			ContextVariable newContext = wc.getNewContext();
 			addRenameCadseDefinitionMappingOperartion(item, oldContext, newContext);
 		}
 
-		if (item.isInstanceOf(WorkspaceCST.ABSTRACT_ITEM_TYPE)
-				&& attOperation.getAttributeDefinition() == CadseRootCST.ITEM_TYPE_at_NAME_) {
+		if (item.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)
+				&& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
 			syncCompositeType(wc, null, item, null);
-			syncPages(item, attOperation);
-
-			// for (Item lt :
-			// item.getIncomingItems(WorkspaceCST.LINK_lt_DESTINATION)) {
-			// if (LinkManager.isPart(lt)) {
-			// syncLinkPart(wc, (ItemDelta) lt, true);
-			// }
-			// }
-
-			for (Item lt : item.getOutgoingItems(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, true)) {
-				if (lt.getType() == WorkspaceCST.LINK && LinkManager.isPart(lt)) {
-					syncLinkPart(wc, (ItemDelta) lt, true);
-				}
-			}
+			syncPages(wc, item, attOperation);
 		}
 
-		if (item.isInstanceOf(WorkspaceCST.ITEM_TYPE)
-				&& attOperation.getAttributeDefinition() == CadseRootCST.ITEM_TYPE_at_NAME_) {
+		if (item.isInstanceOf(CadseGCST.ITEM_TYPE)
+				&& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
 			ItemDelta manager = (ItemDelta) ManagerManager.getManagerFromItemType(item);
 			if (manager != null) {
 				manager.setName(attOperation.getCurrentValue() + "-manager");
@@ -487,16 +516,16 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			// }
 		}
 
-		if (item.getType() == WorkspaceCST.PAGE
-				& attOperation.getAttributeDefinition() == CadseRootCST.ITEM_TYPE_at_NAME_) {
+		if (item.getType() == CadseGCST.PAGE
+				& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
 			ContextVariable oldContext = wc.getOldContext();
 			ContextVariable newContext = wc.getNewContext();
 			addRenameOperation(item, oldContext, newContext);
 		}
 
-		// if (item.isInstanceOf(WorkspaceCST.MANAGER)
+		// if (item.isInstanceOf(CadseGCST.MANAGER)
 		// && attOperation.getAttributeDefinition() ==
-		// CadseRootCST.ITEM_TYPE_at_NAME_) {
+		// CadseGCST.ITEM_at_NAME_) {
 		// ItemDelta manager = item;
 		// if (manager != null && !manager.isAdded()) {
 		// ContextVariable oldContext = wc.getOldContext();
@@ -537,7 +566,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		// // change, Item itemAnnotation,
 		// // Item itemAnnoted, ContextVariable newCxt, ContextVariable
 		// // oldCxt) {
-		// // if (itemAnnoted.getType() == WorkspaceCST.ITEM_TYPE) {
+		// // if (itemAnnoted.getType() == CadseGCST.ITEM_TYPE) {
 		// // return itemAnnotation.computeRenameChange(change,
 		// // itemAnnoted.getShortName() + "-manager", newCxt, oldCxt);
 		// // }
@@ -546,8 +575,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		// }
 		// }
 
-		if (item.getType() == WorkspaceCST.ITEM_TYPE
-				&& attOperation.getAttributeDefinition() == CadseRootCST.ITEM_TYPE_at_NAME_) {
+		if (item.getType() == CadseGCST.ITEM_TYPE
+				&& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
 			// Display name
 
 			Item manager = ManagerManager.getManagerFromItemType(item);
@@ -559,41 +588,32 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 		}
 
-		if (item.isInstanceOf(WorkspaceCST.ATTRIBUTE)) {
-			if (attOperation.getAttributeDefinition() == WorkspaceCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_) {
+		if (item.isInstanceOf(CadseGCST.ATTRIBUTE)) {
+			if (attOperation.getAttributeDefinition() == CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_) {
 				syncFieldFromAttribute(wc, item.getPartParent(), item, false);
 			}
-			if (attOperation.getAttributeDefinition() == CadseRootCST.ITEM_TYPE_at_NAME_) {
+			if (attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
 				syncFieldFromAttribute(wc, item.getPartParent(), item, false);
 			}
-			if (attOperation.getAttributeDefinition() == WorkspaceCST.ATTRIBUTE_at_IS_LIST_) {
+			if (attOperation.getAttributeDefinition() == CadseGCST.ATTRIBUTE_at_IS_LIST_) {
 				syncDisplayFromAttribute(wc, item);
 			}
 
-			if (attOperation.getAttributeDefinition() == WorkspaceCST.ATTRIBUTE_at_MAX_) {
+			if (attOperation.getAttributeDefinition() == CadseGCST.LINK_at_MAX_) {
 				syncDisplayFromAttribute(wc, item);
 			}
 
-			if (attOperation.getAttributeDefinition() == WorkspaceCST.ATTRIBUTE_at_CLASS_ATTRIBUTE_) {
-				syncDisplayFromAttribute(wc, item);
-			}
+			
 		}
 
-		if (item.isInstanceOf(WorkspaceCST.LINK)) {
-			if (attOperation.getAttributeDefinition() == WorkspaceCST.LINK_at_COMPOSITION_) {
+		if (item.isInstanceOf(CadseGCST.LINK)) {
+			if (attOperation.getAttributeDefinition() == CadseGCST.LINK_at_COMPOSITION_) {
 				syncCompositeType(wc, item, null, attOperation);
 			}
-
-			if (attOperation.getAttributeDefinition() == WorkspaceCST.LINK_at_PART_) {
-				syncLinkPart(wc, item, Convert.toBoolean(attOperation.getCurrentValue()));
-			}
-			if (attOperation.getAttributeDefinition() == CadseRootCST.ITEM_TYPE_at_NAME_) {
-				syncLinkPart(wc, item, LinkManager.isPart(item));
-			}
 		}
 
-		if (item.isInstanceOf(WorkspaceCST.MENU_ACTION)
-				&& attOperation.getAttributeDefinition() == CadseRootCST.ITEM_TYPE_at_NAME_) {
+		if (item.isInstanceOf(CadseGCST.MENU_ACTION)
+				&& attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
 			if (Convert.equals(attOperation.getPrecCurrentValue(), MenuAbstractManager.getLabelAttribute(item))) {
 				MenuAbstractManager.setLabelAttribute(item, (String) attOperation.getCurrentValue());
 			}
@@ -661,25 +681,31 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	 *            an attribute opertion sur un name
 	 * @throws CadseException
 	 */
-	private void syncPages(ItemDelta item, SetAttributeOperation attOperation) throws CadseException {
+	private void syncPages(LogicalWorkspaceTransaction wc, ItemDelta item, SetAttributeOperation attOperation) throws CadseException {
 		// change id of the first creation page if added
-		ItemDelta itemCreationDialog = item.getOutgoingItem(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG, false);
-		ItemDelta itemFirstCreationPage = itemCreationDialog.getOutgoingItem(WorkspaceCST.CREATION_DIALOG_lt_PAGES,
+		ItemDelta itemCreationDialog = item.getOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG, false);
+		ItemDelta itemFirstCreationPage = itemCreationDialog.getOutgoingItem(CadseGCST.CREATION_DIALOG_lt_PAGES,
 				false);
 		if (itemFirstCreationPage.isAdded()) {
 			itemFirstCreationPage.setName(CREATION_PAGE_PREFIX + attOperation.getCurrentValue());
-			itemFirstCreationPage.setAttribute(WorkspaceCST.PAGE_at_TITLE_, CREATION_PAGE_TITLE_PREFIX
+			itemFirstCreationPage.setAttribute(CadseGCST.PAGE_at_TITLE_, CREATION_PAGE_TITLE_PREFIX
 					+ attOperation.getCurrentValue());
+			itemFirstCreationPage.setAttribute(CadseGCST.PAGE_at_LABEL_, CREATION_PAGE_TITLE_PREFIX
+					+ attOperation.getCurrentValue());
+			syncFieldName(wc, itemFirstCreationPage);
 		}
 
 		// change id of the first modification page if added
-		ItemDelta itemModificationDialog = item.getOutgoingItem(WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG,
+		ItemDelta itemModificationDialog = item.getOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG,
 				false);
 		ItemDelta itemFirstModificationPage = itemModificationDialog.getOutgoingItem(
-				WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES, false);
+				CadseGCST.MODIFICATION_DIALOG_lt_PAGES, false);
 		if (itemFirstModificationPage.isAdded()) {
 			itemFirstModificationPage.setName(MODIFICATION_PAGE_PREFIX + attOperation.getCurrentValue());
-			itemFirstModificationPage.setAttribute(WorkspaceCST.PAGE_at_TITLE_, attOperation.getCurrentValue());
+			itemFirstModificationPage.setAttribute(CadseGCST.PAGE_at_TITLE_, attOperation.getCurrentValue());
+			itemFirstModificationPage.setAttribute(CadseGCST.PAGE_at_LABEL_, attOperation.getCurrentValue());
+			
+			syncFieldName(wc, itemFirstCreationPage);
 		}
 
 		// rename pages
@@ -698,7 +724,9 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				// rename the title attribute of page
 				String pageTitle = PageManager.getTitle(pageDelta);
 				if (pageTitle.equals(CREATION_PAGE_TITLE_PREFIX + oldName)) {
-					pageDelta.setAttribute(WorkspaceCST.PAGE_at_TITLE_, CREATION_PAGE_TITLE_PREFIX
+					pageDelta.setAttribute(CadseGCST.PAGE_at_TITLE_, CREATION_PAGE_TITLE_PREFIX
+							+ attOperation.getCurrentValue());
+					pageDelta.setAttribute(CadseGCST.PAGE_at_LABEL_, CREATION_PAGE_TITLE_PREFIX
 							+ attOperation.getCurrentValue());
 				}
 			}
@@ -715,81 +743,17 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				// rename the title attribute of page
 				String pageTitle = PageManager.getTitle(pageDelta);
 				if (pageTitle.equals(oldName)) {
-					pageDelta.setAttribute(WorkspaceCST.PAGE_at_TITLE_, attOperation.getCurrentValue());
+					pageDelta.setAttribute(CadseGCST.PAGE_at_TITLE_, attOperation.getCurrentValue());
+					pageDelta.setAttribute(CadseGCST.PAGE_at_LABEL_, attOperation.getCurrentValue());
 				}
 			}
 		}
 	}
 
-	private void syncLinkPart(LogicalWorkspaceTransaction wc, ItemDelta link, boolean ispart) throws CadseException {
-		ItemDelta sourceLink = (ItemDelta) LinkManager.getSource(link);
-		ItemDelta destLink = (ItemDelta) LinkManager.getDestination(link);
-		ItemDelta linkParentPart = (ItemDelta) LinkManager.getInverseLink(link);
-
-		if (sourceLink == null) {
-			Logger.getLogger("CadseG_Sync").log(Level.SEVERE, "link has no source " + link);
-			return;
-		}
-		if (sourceLink.getType() == WorkspaceCST.EXT_ITEM_TYPE) {
-			return;
-		}
-
-		if (ispart) {
-			if (linkParentPart != null) {
-				ItemDelta sourceLinkParentPart = (ItemDelta) LinkManager.getSource(linkParentPart);
-				ItemDelta destLinkParentPart = (ItemDelta) LinkManager.getDestination(linkParentPart);
-
-				if (sourceLinkParentPart != destLink) {
-					if (linkParentPart.getName().startsWith(PARENT_NAME)) {
-						linkParentPart.delete(true);
-					}
-					linkParentPart = null;
-				} else if (destLinkParentPart != sourceLink) {
-					LinkManager.setDestination(linkParentPart, sourceLink);
-				}
-				if (destLink != null && linkParentPart != null) {
-					linkParentPart.setName(PARENT_NAME + link.getName() + "_to_" + sourceLink.getName());
-				}
-				// force min and max
-				LinkManager.setMinAttribute(linkParentPart, 0);
-				LinkManager.setMaxAttribute(linkParentPart, 1);
-
-				if (linkParentPart != null && linkParentPart.getName() != null
-						&& linkParentPart.getName().startsWith(PARENT_NAME)) {
-					LinkManager.setDevGeneratedAttribute(linkParentPart, true);
-					linkParentPart.setAttribute(CadseRootCST.ITEM_TYPE_at_ITEM_HIDDEN_, true);
-					linkParentPart.setAttribute(CadseRootCST.ITEM_TYPE_at_ITEM_READONLY_, true);
-					LinkManager.setHiddenAttribute(linkParentPart, true);
-				}
-			}
-			if (linkParentPart == null && destLink != null) {
-				linkParentPart = wc.createItem(WorkspaceCST.LINK, destLink,
-						WorkspaceCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
-				linkParentPart.setName(PARENT_NAME + link.getName() + "_to_" + sourceLink.getName());
-				LinkManager.setDestination(linkParentPart, sourceLink);
-				LinkManager.setInverseLink(linkParentPart, link);
-				LinkManager.setInverseLink(link, linkParentPart);
-				LinkManager.setMinAttribute(linkParentPart, 0);
-				LinkManager.setMaxAttribute(linkParentPart, 1);
-				LinkManager.setHiddenAttribute(linkParentPart, true);
-				LinkManager.setAggregationAttribute(linkParentPart, false);
-				LinkManager.setMustBeInitializedAttribute(linkParentPart, false);
-
-				LinkManager.setDevGeneratedAttribute(linkParentPart, true);
-				linkParentPart.setAttribute(CadseRootCST.ITEM_TYPE_at_ITEM_HIDDEN_, true);
-				linkParentPart.setAttribute(CadseRootCST.ITEM_TYPE_at_ITEM_READONLY_, true);
-			}
-		} else {
-			if (linkParentPart != null && linkParentPart.getName() != null
-					&& linkParentPart.getName().startsWith(PARENT_NAME)) {
-				linkParentPart.delete(true);
-			}
-		}
-
-	}
+	
 
 	private void syncDisplayFromAttribute(LogicalWorkspaceTransaction wc, ItemDelta item) throws CadseException {
-		Collection<Item> fields = item.getIncomingItems(WorkspaceCST.FIELD_lt_ATTRIBUTE);
+		Collection<Item> fields = item.getIncomingItems(CadseGCST.FIELD_lt_ATTRIBUTE);
 		for (Item f : fields) {
 			try {
 				syncDisplay(wc, f);
@@ -805,20 +769,20 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	 */
 	@Override
 	public void notifyDeletedItem(LogicalWorkspaceTransaction wc, ItemDelta item) throws CadseException {
-		if (item.isInstanceOf(WorkspaceCST.ABSTRACT_ITEM_TYPE)) {
+		if (item.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)) {
 			ItemDelta manager = (ItemDelta) ManagerManager.getManagerFromItemType(item);
 			if (manager != null && !manager.isDeleted()) {
 				manager.delete(item.getDeleteOperation(), 0);
 			}
 
 			// delete link which point to this
-			Collection<Item> links = item.getIncomingItems(WorkspaceCST.LINK_lt_DESTINATION);
+			Collection<Item> links = item.getIncomingItems(CadseGCST.LINK_lt_DESTINATION);
 			for (Item linkTothis : links) {
 				((ItemDelta) linkTothis).delete(item.getDeleteOperation(), 0);
 			}
 		}
 
-		if (item.getType() == WorkspaceCST.LINK) {
+		if (item.getType() == CadseGCST.LINK) {
 			Item composerlink = ComposerLinkManager.getComposerLinkFromLink(item);
 			if (composerlink != null) {
 				try {
@@ -839,7 +803,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			}
 		}
 
-		if (item.isInstanceOf(WorkspaceCST.ATTRIBUTE)) {
+		if (item.isInstanceOf(CadseGCST.ATTRIBUTE)) {
 			syncFieldFromAttribute(wc, item.getPartParent(false, true), item, true);
 		}
 	}
@@ -849,23 +813,23 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	 */
 	@Override
 	public void notifyDoubleClick(LogicalWorkspaceTransaction wc, ItemDelta item) {
-		if (item.isInstanceOf(WorkspaceCST.ABSTRACT_ITEM_TYPE)) {
+		if (item.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)) {
 			Item manager = ManagerManager.getManagerFromItemType(item);
 			if (manager != null) {
 				IFile jf = manager.getContentItem().getMainMappingContent(IFile.class);
 				openFile(jf);
 			}
 		}
-		if (item.isInstanceOf(WorkspaceCST.PAGE)) {
+		if (item.isInstanceOf(CadseGCST.PAGE)) {
 			IFile jf = item.getContentItem().getMainMappingContent(IFile.class);
 			openFile(jf);
 		}
-		if (item.isInstanceOf(WorkspaceCST.MANAGER)) {
+		if (item.isInstanceOf(CadseGCST.MANAGER)) {
 			IFile jf = item.getContentItem().getMainMappingContent(IFile.class);
 			openFile(jf);
 		}
 
-		if (item.isInstanceOf(WorkspaceCST.ENUM_TYPE)) {
+		if (item.isInstanceOf(CadseGCST.ENUM_TYPE)) {
 			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, item);
 			if (type != null) {
 				IResource jf = type.getResource();
@@ -897,29 +861,33 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	@Override
 	public void notifyCreatedLink(LogicalWorkspaceTransaction wc, LinkDelta link) throws CadseException {
 
-		if (link.getLinkType() == WorkspaceCST.FIELD_lt_ATTRIBUTE) {
+		if (link.getLinkType() == CadseGCST.FIELD_lt_ATTRIBUTE) {
 			ItemDelta field = link.getSource();
 			syncDisplay(wc, field);
 		}
 
-		if (link.getLinkType() == WorkspaceCST.LINK_lt_DESTINATION) {
+		if (link.getLinkType() == CadseGCST.LINK_lt_DESTINATION) {
 			ItemDelta linkType = link.getSource();
-			if (LinkManager.isPart(linkType)) {
-				syncLinkPart(wc, linkType, true);
-			}
 		}
 
-		if (link.getLinkType() == WorkspaceCST.LINK_lt_INVERSE_LINK) {
+		if (link.getLinkType() == CadseGCST.LINK_lt_INVERSE_LINK) {
 			Item link1 = link.getSource();
 			Item inverseLink = link.getResolvedDestination();
 			Link inverseLink_link = LinkManager.getInverseLinkLink(inverseLink);
 			if (inverseLink_link == null) {
-				inverseLink.createLink(WorkspaceCST.LINK_lt_INVERSE_LINK, link1);
+				inverseLink.createLink(CadseGCST.LINK_lt_INVERSE_LINK, link1);
 			} else {
 				// if (inverseLink_link.getResolvedDestination() != null) {
 				// } else {
 				// }
 			}
+		}
+		if (link.getLinkType() == CadseGCST.CREATION_DIALOG_lt_PAGES) {
+			link.getSource().getPartParent().createLink(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES, link.getDestination());
+		}
+		
+		if (link.getLinkType() == CadseGCST.MODIFICATION_DIALOG_lt_PAGES) {
+			link.getSource().getPartParent().createLink(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES, link.getDestination());
 		}
 	}
 
@@ -939,7 +907,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			if (displayType != null) {
 				if (displayType != goodDisplayType) {
 					displayField.delete(true);
-					Link field_to_display = field.getOutgoingLink(WorkspaceCST.FIELD_lt_DISPLAY);
+					Link field_to_display = field.getOutgoingLink(CadseGCST.FIELD_lt_DISPLAY);
 					if (field_to_display != null) {
 						field_to_display.delete();
 					}
@@ -950,77 +918,90 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			}
 			if (displayField == null) {
 				displayField = wc.createItemIfNeed(null, DisplayManager.DEFAULT_SHORT_NAME, goodDisplayType, field,
-						WorkspaceCST.FIELD_lt_DISPLAY);
+						CadseGCST.FIELD_lt_DISPLAY);
 			}
-			if (displayField.getType() == WorkspaceCST.DBROWSER) {
-				sync_IC_and_MC(wc, displayField, getMCType(displayField), WorkspaceCST.DBROWSER_lt_MC,
-						getICTypeForDBrowserUI(displayField), WorkspaceCST.DBROWSER_lt_IC);
+			if (displayField.getType() == CadseGCST.DBROWSER) {
+				sync_IC_and_MC(wc, displayField, getMCType(displayField), CadseGCST.DISPLAY_lt_MC,
+						getICTypeForDBrowserUI(displayField), CadseGCST.DISPLAY_lt_IC);
 
-			} else if (displayField.getType() == WorkspaceCST.DCOMBO) {
-				sync_IC_and_MC(wc, displayField, getMCType(displayField), WorkspaceCST.DCOMBO_lt_MC,
-						getICTypeForDCombo(displayField), WorkspaceCST.DCOMBO_lt_IC);
-			} else if (displayField.getType() == WorkspaceCST.DTEXT) {
-				sync_IC_and_MC(wc, displayField, getMCType(displayField), WorkspaceCST.DTEXT_lt_MC, null,
-						WorkspaceCST.DCOMBO_lt_IC);
-			} else if (displayField.getType() == WorkspaceCST.DLIST) {
+			} else if (displayField.getType() == CadseGCST.DCOMBO) {
+				sync_IC_and_MC(wc, displayField, getMCType(displayField), CadseGCST.DISPLAY_lt_MC,
+						getICTypeForDCombo(displayField), CadseGCST.DISPLAY_lt_IC);
+			} else if (displayField.getType() == CadseGCST.DTEXT) {
+				sync_IC_and_MC(wc, displayField, getMCType(displayField), CadseGCST.DISPLAY_lt_MC, null,
+						CadseGCST.DISPLAY_lt_IC);
+			} else if (displayField.getType() == CadseGCST.DLIST) {
 				if (displayField.isAdded()) {
 					DListManager.setEditableButtonAttribute(displayField, true);
 				}
-				sync_IC_and_MC(wc, displayField, getMCType(displayField), WorkspaceCST.DLIST_lt_MC,
-						getICTypeForDList(displayField), WorkspaceCST.DLIST_lt_IC);
-			} else if (displayField.getType() == WorkspaceCST.DCHECK_BOX) {
-				sync_IC_and_MC(wc, displayField, getMCType(displayField), WorkspaceCST.DCHECK_BOX_lt_MC, null,
-						WorkspaceCST.DCHECK_BOX_lt_IC);
+				sync_IC_and_MC(wc, displayField, getMCType(displayField), CadseGCST.DISPLAY_lt_MC,
+						getICTypeForDList(displayField), CadseGCST.DISPLAY_lt_IC);
+			} else if (displayField.getType() == CadseGCST.DCHECK_BOX) {
+				sync_IC_and_MC(wc, displayField, getMCType(displayField), CadseGCST.DISPLAY_lt_MC, null,
+						CadseGCST.DISPLAY_lt_IC);
 			}
 		}
 	}
 
 	@Override
 	public void notifyDeletedLink(LogicalWorkspaceTransaction wc, LinkDelta link) throws CadseException {
-		if (link.getLinkType() == WorkspaceCST.FIELD_lt_ATTRIBUTE) {
+		if (link.getLinkType() == CadseGCST.FIELD_lt_ATTRIBUTE) {
 			ItemDelta field = link.getSource();
 			Item display = FieldManager.getDisplay(field);
 			if (display instanceof ItemDelta) {
 				display.delete(false);
 			}
 		}
-		if (link.getLinkType() == WorkspaceCST.LINK_lt_DESTINATION && link.getDestination().isDeleted()) {
+		if (link.getLinkType() == CadseGCST.LINK_lt_DESTINATION && link.getDestination().isDeleted()) {
 			// the destination is deleted, the link must be delete
 			link.getSource().delete(link.getDeleteOperation(), 0);
+		}
+		
+		if (link.getLinkType() == CadseGCST.CREATION_DIALOG_lt_PAGES) {
+			LinkDelta l = 
+				link.getSource().getPartParent().getOutgoingLink(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES, link.getDestination().getId());
+			if (l != null)
+				l.delete();
+		}
+		
+		if (link.getLinkType() == CadseGCST.MODIFICATION_DIALOG_lt_PAGES) {
+			LinkDelta l = 
+				link.getSource().getPartParent().getOutgoingLink(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES, link.getDestination().getId());
+			if (l != null)
+				l.delete();
 		}
 	}
 
 	private ItemType getDisplayTypeFromAttribute(Item attribute, ItemType attribute_type) throws CadseException {
 
 		if (AttributeManager.isIsListAttribute(attribute)) {
-			return WorkspaceCST.DLIST;
-
+			return CadseGCST.DLIST;
 		} else {
-			if (attribute_type == WorkspaceCST.BOOLEAN) {
-				return WorkspaceCST.DCHECK_BOX;
-			} else if (attribute_type == WorkspaceCST.DOUBLE) {
-				return WorkspaceCST.DTEXT;
-			} else if (attribute_type == WorkspaceCST.ENUM) {
-				return WorkspaceCST.DBROWSER;
-			} else if (attribute_type == WorkspaceCST.INTEGER) {
-				return WorkspaceCST.DTEXT;
-			} else if (attribute_type == WorkspaceCST.LINK) {
-				final int max = LinkManager.getMaxAttribute(attribute);
+			if (attribute_type == CadseGCST.BOOLEAN) {
+				return CadseGCST.DCHECK_BOX;
+			} else if (attribute_type == CadseGCST.DOUBLE) {
+				return CadseGCST.DTEXT;
+			} else if (attribute_type == CadseGCST.ENUM) {
+				return CadseGCST.DBROWSER;
+			} else if (attribute_type == CadseGCST.INTEGER) {
+				return CadseGCST.DTEXT;
+			} else if (attribute_type == CadseGCST.LINK) {
+				final int max = LinkManager.getMax(attribute);
 				if (max == 0 || max == 1) {
-					return WorkspaceCST.DBROWSER;
+					return CadseGCST.DBROWSER;
 				} else {
-					return WorkspaceCST.DLIST;
+					return CadseGCST.DLIST;
 				}
-			} else if (attribute_type == WorkspaceCST.STRING) {
-				return WorkspaceCST.DTEXT;
-			} else if (attribute_type == WorkspaceCST.DATE) {
-				return WorkspaceCST.DTEXT;
-			} else if (attribute_type == WorkspaceCST.LONG) {
-				return WorkspaceCST.DTEXT;
-			} else if (attribute_type == WorkspaceCST.URL) {
-				return WorkspaceCST.DBROWSER;
-			} else if (attribute_type == WorkspaceCST.UUID) {
-				return WorkspaceCST.DTEXT;
+			} else if (attribute_type == CadseGCST.STRING) {
+				return CadseGCST.DTEXT;
+			} else if (attribute_type == CadseGCST.DATE) {
+				return CadseGCST.DTEXT;
+			} else if (attribute_type == CadseGCST.LONG) {
+				return CadseGCST.DTEXT;
+			} else if (attribute_type == CadseGCST.URL) {
+				return CadseGCST.DBROWSER;
+			} else if (attribute_type == CadseGCST.UUID) {
+				return CadseGCST.DTEXT;
 			}
 		}
 		return null;
@@ -1058,32 +1039,27 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		Item pm1 = getFirstModificationPage(wc, itemType, true);
 		Item field_pc1 = getFieldFromAttribute(attribute, pc1);
 		Item field_pm1 = getFieldFromAttribute(attribute, pm1);
-		if (AttributeManager.isClassAttributeAttribute(attribute)) {
-			if (field_pc1 != null) {
-				field_pc1.delete(false);
-			}
-			if (field_pm1 != null) {
-				field_pm1.delete(false);
-			}
-			return;
-		}
+		
 
 		String shortName = doShortName(attribute);
 		String label = attribute.getName();
 		if (field_pm1 != null) {
 			field_pm1.setName(shortName);
-			field_pm1.setAttribute(WorkspaceCST.FIELD_at_LABEL_, label);
+			field_pm1.setAttribute(CadseGCST.FIELD_at_LABEL_, label);
 		}
 		if (field_pc1 != null) {
 			field_pc1.setName(shortName);
-			field_pc1.setAttribute(WorkspaceCST.FIELD_at_LABEL_, label);
+			field_pc1.setAttribute(CadseGCST.FIELD_at_LABEL_, label);
 		}
+		
 		if (force || AttributeManager.isMustBeInitializedAttribute(attribute)) {
 			if (field_pc1 == null) {
 				// create la page de creation if need
 				if (pc1 == null) {
 					pc1 = getFirstCreationPage(wc, itemType, true);
 				}
+				
+				syncFieldName(wc, pc1);
 
 				// create field in creation page if the field must be
 				// initialized at creation time or force flag is true
@@ -1096,15 +1072,34 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				}
 			}
 		}
-		if (shortName != null && shortName.startsWith(PARENT_NAME)) {
-			if (field_pm1 != null) {
-				field_pm1.delete(true);
-			}
-			return;
-		}
 		if (field_pm1 == null) {
 			// create field in modification page
 			field_pm1 = doCreateField(wc, itemType, attribute, pm1);
+		}
+	}
+
+	private void syncFieldName(LogicalWorkspaceTransaction wc,
+			Item page)
+			throws CadseException {
+		//if (page == null)
+		//	page = attribute.getPartParent(CadseGCST.PAGE);
+		
+		boolean addInternalShortName = PageManager.addInternalShortName(page);
+		boolean addInternalAttribute = PageManager.addInternalAttribute(page);
+		
+		if (addInternalShortName || addInternalAttribute) {
+			//if (pc1 == null) {
+			//	pc1 = getFirstCreationPage(wc, itemType, true);
+			//}
+			
+			 Item nameField = getFieldFromAttribute(CadseGCST.ITEM_at_NAME_, page);
+			 if (nameField == null) {
+			// create name field if not exists
+				 nameField = wc.createItemIfNeed(null, CadseGCST.ITEM_at_NAME, CadseGCST.FIELD, page,
+					CadseGCST.PAGE_lt_FIELDS, CadseGCST.FIELD_lt_ATTRIBUTE,
+					CadseGCST.ITEM_at_NAME_, CadseGCST.FIELD_at_LABEL_, CadseGCST.ITEM_at_NAME,
+					CadseGCST.FIELD_at_POSITION_, EPosLabel.defaultpos);
+			}
 		}
 	}
 
@@ -1117,9 +1112,9 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	private void sync_IC_and_MC(LogicalWorkspaceTransaction wc, Item dbrowser, ItemType mcType, LinkType display_mc,
 			ItemType icType, LinkType display_ic) throws CadseException {
 
-		sync_IC_and_MC(wc, dbrowser, DisplayManager.MC_DEFAULT_SHORT_NAME, DisplayManager.getItemMC(dbrowser), mcType,
+		sync_IC_and_MC(wc, dbrowser, DisplayManager.MC_DEFAULT_NAME, DisplayManager.getItemMC(dbrowser), mcType,
 				display_mc);
-		sync_IC_and_MC(wc, dbrowser, DisplayManager.IC_DEFAULT_SHORT_NAME, DisplayManager.getItemIC(dbrowser), icType,
+		sync_IC_and_MC(wc, dbrowser, DisplayManager.IC_DEFAULT_NAME, DisplayManager.getItemIC(dbrowser), icType,
 				display_ic);
 	}
 
@@ -1161,33 +1156,37 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 		ItemType attribute_type = attribute.getType();
 		if (AttributeManager.isIsListAttribute(attribute)) {
-			if (attribute_type == WorkspaceCST.ENUM) {
-				return WorkspaceCST.MC_STRING_LIST_TO_ENUM_LIST;
-			} else if (attribute_type == WorkspaceCST.LINK) {
-				return WorkspaceCST.LINK_MODEL_CONTROLLER;
-			} else if (attribute_type == WorkspaceCST.STRING) {
-				return WorkspaceCST.LIST_OF_STRING_MODEL_CONTROLLER;
+			if (attribute_type == CadseGCST.ENUM) {
+				return CadseGCST.MC_STRING_LIST_TO_ENUM_LIST;
+			} else if (attribute_type == CadseGCST.LINK) {
+				return CadseGCST.LINK_MODEL_CONTROLLER;
+			} else if (attribute_type == CadseGCST.STRING) {
+				return CadseGCST.LIST_OF_STRING_MODEL_CONTROLLER;
 			}
-			return WorkspaceCST.LIST_OF_STRING_MODEL_CONTROLLER;
+			return CadseGCST.LIST_OF_STRING_MODEL_CONTROLLER;
 		} else {
-			if (attribute_type == WorkspaceCST.BOOLEAN) {
-				return WorkspaceCST.STRING_TO_BOOLEAN_MODEL_CONTROLLER;
-			} else if (attribute_type == WorkspaceCST.DOUBLE) {
+			if (attribute == CadseGCST.ITEM_at_NAME_ || attribute.getBaseItem() == CadseGCST.ITEM_at_NAME_)
+				return CadseGCST.MC_NAME_ATTRIBUTE;
+			
+			if (attribute_type == CadseGCST.BOOLEAN) {
+				return CadseGCST.STRING_TO_BOOLEAN_MODEL_CONTROLLER;
+			} else if (attribute_type == CadseGCST.DOUBLE) {
 				return null;
-			} else if (attribute_type == WorkspaceCST.ENUM) {
-				return WorkspaceCST.STRING_TO_ENUM_MODEL_CONTROLLER;
-			} else if (attribute_type == WorkspaceCST.LINK) {
-				if (displayItem.getType() == WorkspaceCST.DCHECK_BOX) {
-					return WorkspaceCST.MC_LINK_TO_BOOLEAN;
+			} else if (attribute_type == CadseGCST.ENUM) {
+				return CadseGCST.STRING_TO_ENUM_MODEL_CONTROLLER;
+			} else if (attribute_type == CadseGCST.LINK) {
+				if (displayItem.getType() == CadseGCST.DCHECK_BOX) {
+					return CadseGCST.MC_LINK_TO_BOOLEAN;
 				}
-				return WorkspaceCST.LINK_MODEL_CONTROLLER;
-			} else if (attribute_type == WorkspaceCST.STRING) {
+				return CadseGCST.LINK_MODEL_CONTROLLER;
+			} else if (attribute_type == CadseGCST.STRING) {
 				return null;
-			} else if (attribute.getType() == WorkspaceCST.INTEGER) {
-				return WorkspaceCST.INT_MODEL_CONTROLLER;
-			} else if (attribute.getType() == WorkspaceCST.DATE) {
-				return WorkspaceCST.MC_DATE;
+			} else if (attribute.getType() == CadseGCST.INTEGER) {
+				return CadseGCST.INT_MODEL_CONTROLLER;
+			} else if (attribute.getType() == CadseGCST.DATE) {
+				return CadseGCST.MC_DATE;
 			}
+			
 		}
 		return null;
 	}
@@ -1202,14 +1201,14 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 		ItemType attribute_type = attribute.getType();
 		if (AttributeManager.isIsListAttribute(attribute)) {
-			if (attribute_type == WorkspaceCST.ENUM) {
-				return WorkspaceCST.IC_ENUM_FOR_LIST;
-			} else if (attribute_type == WorkspaceCST.LINK) {
-				return WorkspaceCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
-			} else if (attribute_type == WorkspaceCST.STRING) {
-				return WorkspaceCST.IC_STRING_LIST_FOR_LIST;
+			if (attribute_type == CadseGCST.ENUM) {
+				return CadseGCST.IC_ENUM_FOR_LIST;
+			} else if (attribute_type == CadseGCST.LINK) {
+				return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
+			} else if (attribute_type == CadseGCST.STRING) {
+				return CadseGCST.IC_STRING_LIST_FOR_LIST;
 			}
-			return WorkspaceCST.IC_STRING_LIST_FOR_LIST;
+			return CadseGCST.IC_STRING_LIST_FOR_LIST;
 		} else {
 			// it's not possible
 			return null;
@@ -1229,28 +1228,28 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			// it's not possible
 			return null;
 		} else {
-			if (attribute_type == WorkspaceCST.BOOLEAN) {
+			if (attribute_type == CadseGCST.BOOLEAN) {
 				return null;
-			} else if (attribute_type == WorkspaceCST.DOUBLE) {
+			} else if (attribute_type == CadseGCST.DOUBLE) {
 				return null;
-			} else if (attribute_type == WorkspaceCST.ENUM) {
-				return WorkspaceCST.IC_ENUM_FOR_BROWSER_COMBO;
+			} else if (attribute_type == CadseGCST.ENUM) {
+				return CadseGCST.IC_ENUM_FOR_BROWSER_COMBO;
 
-			} else if (attribute_type == WorkspaceCST.INTEGER) {
+			} else if (attribute_type == CadseGCST.INTEGER) {
 				return null;
 
-			} else if (attribute_type == WorkspaceCST.LINK) {
+			} else if (attribute_type == CadseGCST.LINK) {
 				Item itemtypedest = LinkManager.getDestination(attribute);
 
 				Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
 
 				if (incomingLinkType.length == 1 && incomingLinkType[0] != attribute) {
-					return WorkspaceCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST;
+					return CadseGCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST;
 				} else {
-					return WorkspaceCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
+					return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
 				}
 
-			} else if (attribute_type == WorkspaceCST.STRING) {
+			} else if (attribute_type == CadseGCST.STRING) {
 
 			}
 		}
@@ -1276,17 +1275,17 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			// it's not possible
 			return null;
 		} else {
-			if (attribute_type == WorkspaceCST.BOOLEAN) {
+			if (attribute_type == CadseGCST.BOOLEAN) {
 				return null;
-			} else if (attribute_type == WorkspaceCST.DOUBLE) {
+			} else if (attribute_type == CadseGCST.DOUBLE) {
 				return null;
-			} else if (attribute_type == WorkspaceCST.ENUM) {
-				return WorkspaceCST.IC_ENUM_FOR_BROWSER_COMBO;
-			} else if (attribute_type == WorkspaceCST.INTEGER) {
+			} else if (attribute_type == CadseGCST.ENUM) {
+				return CadseGCST.IC_ENUM_FOR_BROWSER_COMBO;
+			} else if (attribute_type == CadseGCST.INTEGER) {
 				return null;
-			} else if (attribute_type == WorkspaceCST.LINK) {
-				return WorkspaceCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
-			} else if (attribute_type == WorkspaceCST.STRING) {
+			} else if (attribute_type == CadseGCST.LINK) {
+				return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
+			} else if (attribute_type == CadseGCST.STRING) {
 				return null;
 			}
 		}
@@ -1323,7 +1322,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	}
 
 	private Collection<Item> getFieldsFromAttribute(Item attribute) {
-		return attribute.getIncomingItems(WorkspaceCST.FIELD_lt_ATTRIBUTE);
+		return attribute.getIncomingItems(CadseGCST.FIELD_lt_ATTRIBUTE);
 	}
 
 	/**
@@ -1342,16 +1341,14 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	public static ItemDelta doCreateField(LogicalWorkspaceTransaction wc, Item itemType, Item attribute, Item page)
 			throws CadseException {
 		// Item itemType = PageManager.getItemTypeFromPage(page);
-		if (AttributeManager.isClassAttributeAttribute(attribute)) {
-			return null;
-		}
+		
 
 		String shortName = doShortName(attribute);
 		String label = attribute.getName();
 		EPosLabel pos = EPosLabel.defaultpos;
-		return wc.createItemIfNeed(null, shortName, WorkspaceCST.FIELD, page, WorkspaceCST.PAGE_lt_FIELDS,
-				WorkspaceCST.FIELD_lt_ATTRIBUTE, attribute, WorkspaceCST.FIELD_at_LABEL_, label,
-				WorkspaceCST.FIELD_at_POSITION_, pos);
+		return wc.createItemIfNeed(null, shortName, CadseGCST.FIELD, page, CadseGCST.PAGE_lt_FIELDS,
+				CadseGCST.FIELD_lt_ATTRIBUTE, attribute, CadseGCST.FIELD_at_LABEL_, label,
+				CadseGCST.FIELD_at_POSITION_, pos);
 	}
 
 	/**
@@ -1378,7 +1375,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 		for (Link l : modificationDialog.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == WorkspaceCST.MODIFICATION_DIALOG_lt_PAGES) {
+			if (l.getLinkType() == CadseGCST.MODIFICATION_DIALOG_lt_PAGES) {
 				// if l is resovled, take this destination to return list.
 				if (l.isLinkResolved()) {
 					return l.getResolvedDestination();
@@ -1416,7 +1413,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 		for (Link l : creationDialog.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == WorkspaceCST.CREATION_DIALOG_lt_PAGES) {
+			if (l.getLinkType() == CadseGCST.CREATION_DIALOG_lt_PAGES) {
 				// if l is resovled, take this destination to return list.
 				if (l.isLinkResolved()) {
 					final Item page = l.getResolvedDestination();
@@ -1438,39 +1435,25 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	@Override
 	public void notifyLoadedItem(LogicalWorkspaceTransaction workspaceLogiqueWorkingCopy, List<ItemDelta> loadedItems) {
 		for (ItemDelta oper : loadedItems) {
-			if (oper.getType() != WorkspaceCST.FIELD) {
+			if (oper.getType() != CadseGCST.FIELD) {
 				continue;
 			}
 			tryToRecreateAttributeLink(oper);
 		}
 
 		for (ItemDelta oper : loadedItems) {
-			if (oper.getType() != WorkspaceCST.LINK) {
+			if (oper.getType() != CadseGCST.CREATION_DIALOG) {
 				continue;
 			}
-			if (LinkManager.isPart(oper)) {
-				try {
-					syncLinkPart(workspaceLogiqueWorkingCopy, oper, true);
-				} catch (CadseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-
-		for (ItemDelta oper : loadedItems) {
-			if (oper.getType() != WorkspaceCST.CREATION_DIALOG) {
-				continue;
-			}
-			String dv = oper.getAttribute(WorkspaceCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME_);
+			String dv = oper.getAttribute(CadseGCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME_);
 			if (dv != null && dv.length() != 0) {
-				String gv = oper.getAttribute(WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_);
+				String gv = oper.getAttribute(CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_);
 				if (gv != null && gv.length() != 0) {
 					_logger.log(Level.SEVERE, "Cannot set generated value to " + dv + " for item "
 							+ oper.getDisplayName(), " : gv exists : " + gv);
 				} else {
 					try {
-						oper.setAttribute(WorkspaceCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_, dv);
+						oper.setAttribute(CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_, dv);
 
 					} catch (CadseException e) {
 						_logger.log(Level.SEVERE, "Cannot set generated value to " + dv + " for item "
@@ -1479,7 +1462,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				}
 			}
 			try {
-				oper.setAttribute(WorkspaceCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME_, null);
+				oper.setAttribute(CadseGCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME_, null);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1490,21 +1473,18 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			for (ItemDelta oper : loadedItems) {
 				Collection<LinkDelta> links = oper.getOutgoingLinkOperations();
 				for (LinkDelta linkDelta : links) {
-					if (linkDelta.getLinkType() == CadseRootCST.ITEM_TYPE_lt_MODIFIED_ATTRIBUTES) {
+					if (linkDelta.getLinkType() == CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES) {
 						final ItemDelta destination = linkDelta.getDestination();
 						if (destination == null
-								|| destination.getType() == CadseRootCST.UNRESOLVED_ATTRIBUTE_TYPE
-								|| (destination.getName().startsWith("#parent:") && destination.getType() == CadseRootCST.LINK_DEFINITION_ATTIBUTE_TYPE)) {
+								|| destination.getType() == CadseGCST.UNRESOLVED_ATTRIBUTE_TYPE
+								|| (destination.getName().startsWith("#parent:") && destination.getType() == CadseGCST.LINK)) {
 							try {
 								linkDelta.delete();
-								System.out.println("cadseg remove " + linkDelta);
+								//System.out.println("cadseg remove " + linkDelta);
 							} catch (CadseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-						} else {
-							System.out.println("cadseg ok " + linkDelta + "\n  dest= " + destination + "\n  dest type="
-									+ destination.getType());
 						}
 					}
 				}
@@ -1529,7 +1509,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				Item itemType = dialog.getPartParent();
 				attribute = ItemTypeManager.getAttribute(itemType, field.getName());
 				if (attribute != null) {
-					field.createLink(WorkspaceCST.FIELD_lt_ATTRIBUTE, attribute);
+					field.createLink(CadseGCST.FIELD_lt_ATTRIBUTE, attribute);
 				}
 			}
 			return attribute;
@@ -1571,8 +1551,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			Item buildmodel = CadseDefinitionManager.getBuildModel(wsmodel);
 			try {
 				compositeitem = workspaceLogiqueWorkingCopy.createItemIfNeed(null, itemType.getName() + "-composite",
-						WorkspaceCST.COMPOSITE_ITEM_TYPE, buildmodel, WorkspaceCST.BUILD_MODEL_lt_COMPOSITE_TYPES);
-				compositeitem.createLink(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE, itemType);
+						CadseGCST.COMPOSITE_ITEM_TYPE, buildmodel, CadseGCST.BUILD_MODEL_lt_COMPOSITE_TYPES);
+				compositeitem.createLink(CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE, itemType);
 			} catch (CadseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1667,16 +1647,16 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	@Override
 	public void notifyMigratePartLink(LogicalWorkspaceTransaction wc, ItemDelta childItem, ItemDelta newPartParent,
 			LinkType lt, LinkDelta newPartLink, LinkDelta oldPartLink) throws CadseException {
-		if (childItem.getType() == WorkspaceCST.ITEM_TYPE) {
+		if (childItem.getType() == CadseGCST.ITEM_TYPE) {
 			ItemDelta itemtype = childItem;
 			// L'itemtype migre dans un nouveau cadse?
 			ItemDelta manager = (ItemDelta) ManagerManager.getManagerFromItemType(itemtype);
-			Item oldCadseDefinition = manager.getPartParent(WorkspaceCST.CADSE_DEFINITION);
-			Item newCadseDefinition = newPartParent.getPartParent(WorkspaceCST.CADSE_DEFINITION);
+			Item oldCadseDefinition = manager.getPartParent(CadseGCST.CADSE_DEFINITION);
+			Item newCadseDefinition = newPartParent.getPartParent(CadseGCST.CADSE_DEFINITION);
 			if (oldCadseDefinition != newCadseDefinition) {
 				// new cadse, you must migrate the manager...
 				manager.migratePartLink(CadseDefinitionManager.getMapping(newCadseDefinition),
-						WorkspaceCST.MAPPING_MODEL_lt_MANAGERS);
+						CadseGCST.MAPPING_MODEL_lt_MANAGERS);
 			}
 			ContextVariable oldContext = wc.getOldContext();
 			ContextVariable newContext = wc.getNewContext();
@@ -1691,11 +1671,11 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				migrateModificationDialogManager(modificationDialog, newContext, oldContext);
 			}
 		}
-		if (childItem.getType() == WorkspaceCST.MANAGER) {
+		if (childItem.getType() == CadseGCST.MANAGER) {
 			ItemDelta manager = childItem;
 			ContentItem cm = manager.getContentItem();
 			// Item cadseDefinition =
-			// manager.getPartParent(WorkspaceCST.CADSE_DEFINITION);
+			// manager.getPartParent(CadseGCST.CADSE_DEFINITION);
 			ContextVariable oldContext = wc.getOldContext();
 			ContextVariable newContext = wc.getNewContext();
 			cm.migrateContentItem(manager, newContext, oldContext);

@@ -13,21 +13,23 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class StringToResourceListModelControllerCreationPage1_CreationPage extends
-		ModelControllerCreationPage1_CreationPage {
+public class StringToResourceListModelControllerCreationPage1_CreationPage
+		extends ModelControllerCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected StringToResourceListModelControllerCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected StringToResourceListModelControllerCreationPage1_CreationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public StringToResourceListModelControllerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
+	public StringToResourceListModelControllerCreationPage1_CreationPage(
+			Item parent, ItemType it, LinkType lt) {
 		super("creation-page1", "Create StringToResourceListModelController",
 				"Create StringToResourceListModelController", "", false, 3);
 		this.parent = parent;

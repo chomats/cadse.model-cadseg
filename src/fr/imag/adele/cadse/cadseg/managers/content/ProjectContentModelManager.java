@@ -26,10 +26,11 @@ import java.util.Set;
 import fede.workspace.model.manager.properties.FieldsCore;
 import fr.imag.adele.cadse.cadseg.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.ParseTemplate;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.cadseg.exp.TokenMgrError;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -44,12 +45,12 @@ import fr.imag.adele.cadse.core.ui.UIField;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ProjectContentModelManager extends ContentModelManager {
+public class ProjectContentModelManager extends ContentItemTypeManager {
 
 	/**
 	 * The Class ContentManager.
 	 */
-	public class MyContentItem extends ContentModelManager.MyContentItem {
+	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
 
 		/**
 		 * Instantiates a new content manager.
@@ -59,8 +60,8 @@ public class ProjectContentModelManager extends ContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(MyContentItem parent, Item item) {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -70,7 +71,7 @@ public class ProjectContentModelManager extends ContentModelManager {
 		 */
 		@Override
 		protected String[] getResourceKindsName() {
-			return new String[] { WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME };
+			return new String[] { CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME };
 		}
 
 		/*
@@ -109,31 +110,19 @@ public class ProjectContentModelManager extends ContentModelManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -155,7 +144,6 @@ public class ProjectContentModelManager extends ContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -175,8 +163,8 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 * @generated
 	 */
 	static public List<Link> getContentModelLink(Item projectContentModel) {
-		return projectContentModel.getOutgoingLinks(WorkspaceCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
-	}
+        return projectContentModel.getOutgoingLinks(CadseGCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
+    }
 
 	/**
 	 * Gets the content model all.
@@ -189,8 +177,8 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 * @generated
 	 */
 	static public Collection<Item> getContentModelAll(Item projectContentModel) {
-		return projectContentModel.getOutgoingItems(WorkspaceCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, false);
-	}
+        return projectContentModel.getOutgoingItems(CadseGCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, false);
+    }
 
 	/**
 	 * Gets the content model.
@@ -203,8 +191,8 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 * @generated
 	 */
 	static public Collection<Item> getContentModel(Item projectContentModel) {
-		return projectContentModel.getOutgoingItems(WorkspaceCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, true);
-	}
+        return projectContentModel.getOutgoingItems(CadseGCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,true);
+    }
 
 	/**
 	 * Adds the content model.
@@ -220,8 +208,8 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 * @generated
 	 */
 	static public void addContentModel(Item projectContentModel, Item value) throws CadseException {
-		projectContentModel.addOutgoingItem(WorkspaceCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, value);
-	}
+        projectContentModel.addOutgoingItem(CadseGCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,value);
+    }
 
 	/**
 	 * Removes the content model.
@@ -237,15 +225,14 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 * @generated
 	 */
 	static public void removeContentModel(Item projectContentModel, Item value) throws CadseException {
-		projectContentModel.removeOutgoingItem(WorkspaceCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL, value);
-	}
+        projectContentModel.removeOutgoingItem(CadseGCST.PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,value);
+    }
 
 	/**
 	 * @generated
 	 */
 	public static final String getProjectNameAttribute(Item projectContentModel) {
-		return projectContentModel
-				.getAttributeWithDefaultValue(WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_, "");
+		return projectContentModel.getAttributeWithDefaultValue(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_, null);
 	}
 
 	/**
@@ -253,7 +240,7 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 */
 	public static final void setProjectNameAttribute(Item projectContentModel, String value) {
 		try {
-			projectContentModel.setAttribute(WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_, value);
+			projectContentModel.setAttribute(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_, value);
 		} catch (Throwable t) {
 
 		}
@@ -265,7 +252,7 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 * @return the uI field
 	 */
 	protected UIField createProjectField() {
-		return FieldsCore.createTextField(WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME, "project name:", 1, "",
+		return FieldsCore.createTextField(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME, "project name:", 1, "",
 				new IC_ItemTypeTemplateForText() {
 					@Override
 					protected Item getItemFromContext() {
@@ -286,8 +273,8 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public MyContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public MyContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -308,7 +295,7 @@ public class ProjectContentModelManager extends ContentModelManager {
 	 */
 	@Override
 	public List<Item> validate(Item item, ProblemReporter reporter) {
-		String value = item.getAttribute(WorkspaceCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_);
+		String value = item.getAttribute(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_);
 		if (value == null || value.length() == 0) {
 			value = "${#unique-name}";
 		}

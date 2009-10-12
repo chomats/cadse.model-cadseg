@@ -22,10 +22,11 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 import java.util.Set;
 
 import fede.workspace.model.manager.properties.FieldsCore;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -48,7 +49,7 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends IC_AbstractForListManager.MyContentItem {
+	class MyContentItem extends IC_AbstractForListManager.IC_AbstractForListContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -59,8 +60,8 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		protected MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -123,6 +124,59 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 	public IC_StringListForListManager() {
 	}
 
+	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@Override
+	public String getDisplayName(Item item) {
+		try {
+			Object value;
+			return item.getName();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final boolean isAllowDuplicateAttribute(Item iC_StringListForList) {
+		return iC_StringListForList.getAttributeWithDefaultValue(CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, true);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setAllowDuplicateAttribute(Item iC_StringListForList, boolean value) {
+		try {
+			iC_StringListForList.setAttribute(CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -154,7 +208,7 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
 
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_SHORT_NAME);
+				DisplayManager.IC_DEFAULT_NAME);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a text field",
 				"Create a text field", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"),
@@ -185,8 +239,8 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	/*
@@ -206,7 +260,7 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 		Item field = itemParent.getPartParent();
 		Item attribute = FieldManager.getAttribute(field);
 
-		if (attribute.getType() != WorkspaceCST.STRING) {
+		if (attribute.getType() != CadseGCST.STRING) {
 			return "It's not a string attribute";
 		}
 		return null;

@@ -19,8 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.content;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
@@ -48,8 +49,8 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(ContentItem parent, Item item) {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) {
+			super(id);
 		}
 
 		/*
@@ -59,7 +60,7 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 		 */
 		@Override
 		protected String[] getResourceKindsName() {
-			return new String[] { WorkspaceCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH, OUTPUT_PATH_ATTRIBUTE };
+			return new String[] { CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH, OUTPUT_PATH_ATTRIBUTE };
 		}
 
 		@Override
@@ -81,18 +82,19 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 	}
 
 	/**
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String shortName, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
+			Item currentItem;
 			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
-			sb.append(shortName);
+			sb.append(name);
 			return sb.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -107,7 +109,6 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -121,8 +122,8 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item item) throws CadseException {
-		return new MyContentItem(null, item);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 	@Override

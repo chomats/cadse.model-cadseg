@@ -9,7 +9,7 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import org.eclipse.jdt.core.IType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -33,7 +33,7 @@ public class EnumValueAttribute
   protected final String TEXT_4 = "(Item ";
   protected final String TEXT_5 = ") {" + NL + "\t\tObject value = ";
   protected final String TEXT_6 = ".getAttribute(";
-  protected final String TEXT_7 = ");" + NL + "\t\treturn Convert.toEnum(value,";
+  protected final String TEXT_7 = "_);" + NL + "\t\treturn Convert.toEnum(value,";
   protected final String TEXT_8 = "_,";
   protected final String TEXT_9 = ".";
   protected final String TEXT_10 = ");" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tpublic static final void ";
@@ -41,7 +41,7 @@ public class EnumValueAttribute
   protected final String TEXT_12 = ", ";
   protected final String TEXT_13 = " value) {" + NL + "\t\ttry {" + NL + "\t\t\t";
   protected final String TEXT_14 = ".setAttribute(";
-  protected final String TEXT_15 = ", value);" + NL + "\t\t} catch (Throwable t) {" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_15 = "_, value);" + NL + "\t\t} catch (Throwable t) {" + NL + "\t\t}" + NL + "\t}";
   protected final String TEXT_16 = NL;
 
 /* (non-javadoc)
@@ -60,10 +60,8 @@ public class EnumValueAttribute
 	String enumClass = javaenumtype.getElementName();
 	
 	ItemType it = attribute.getType();
-	
-	
 	 
-	 String defaultValue = (String) attribute.getAttribute(WorkspaceCST.ATTRIBUTE_at_DEFAULT_VALUE);
+	 String defaultValue = (String) attribute.getAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 	 if (defaultValue == null || defaultValue.length() == 0)
 	 	defaultValue = (String) it.getAttribute("defaultValue");
 	

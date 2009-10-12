@@ -1,4 +1,4 @@
-package fr.imag.adele.cadse.cadseg.pages;
+package fr.imag.adele.cadse.cadseg.pages.attributes;
 
 import fede.workspace.model.manager.properties.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
@@ -13,46 +13,39 @@ import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
- * @generated
+ @generated
  */
-public class ProductModelCreationPage1_CreationPage extends PageImpl {
+public class UnresolvedAttributeTypeModificationPageUnresolvedAttributeType_ModificationPage
+		extends PageImpl {
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public Item			parent;
+	public Item item;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public ItemType		it;
+	protected DTextUI __short_name__;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public LinkType		lt;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI	__short_name__;
-
-	/**
-	 * @generated
-	 */
-	protected ProductModelCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected UnresolvedAttributeTypeModificationPageUnresolvedAttributeType_ModificationPage(
+			String id, String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public ProductModelCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create ProductModel", "Create ProductModel", "", false, 3);
-		this.parent = parent;
-		this.it = it;
-		this.lt = lt;
+	public UnresolvedAttributeTypeModificationPageUnresolvedAttributeType_ModificationPage(
+			Item item) {
+		super("modification-page-UnresolvedAttributeType",
+				"UnresolvedAttributeType", "UnresolvedAttributeType", "",
+				false, 3);
+		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
 		addLast(this.__short_name__);
@@ -65,10 +58,10 @@ public class ProductModelCreationPage1_CreationPage extends PageImpl {
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
 	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
+		return FieldsCore.createUniqueNameField();
 	}
 
 }

@@ -18,6 +18,12 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.actions;
 
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
+import fr.imag.adele.cadse.core.ContentItem;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -28,11 +34,18 @@ import org.eclipse.ui.ide.IDE;
 import fr.imag.adele.cadse.cadseg.contents.actions.DynamicActionsCIF;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.impl.var.VariableImpl;
+import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.Variable;
 
 /**
  * @generated
  */
 public class DynamicActionsManager extends MenuAbstractManager {
+
+	
+
 
 	/**
 	 * @generated
@@ -48,13 +61,14 @@ public class DynamicActionsManager extends MenuAbstractManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			Item currentItem;
 			return item.getName();
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
 		}
 	}
+
+	
 
 	@Override
 	public IContentItemFactory getContentItemFactory() {

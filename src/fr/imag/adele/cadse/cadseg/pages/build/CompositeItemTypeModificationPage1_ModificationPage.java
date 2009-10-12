@@ -7,7 +7,7 @@ import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -24,38 +24,40 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class CompositeItemTypeModificationPage1_ModificationPage extends PageImpl {
+public class CompositeItemTypeModificationPage1_ModificationPage extends
+		PageImpl {
 
 	/**
 	 * @generated
 	 */
-	public Item				item;
+	public Item item;
 
 	/**
 	 * @generated
 	 */
-	protected DTextUI		__short_name__;
+	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
 	 */
-	protected DBrowserUI	fieldItemType;
+	protected DBrowserUI fieldItemType;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI		fieldComposers;
+	protected DListUI fieldComposers;
 
 	/**
 	 * @generated
 	 */
-	protected DListUI		fieldBuilders;
+	protected DListUI fieldBuilders;
 
 	/**
 	 * @generated
 	 */
-	protected CompositeItemTypeModificationPage1_ModificationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected CompositeItemTypeModificationPage1_ModificationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
@@ -63,14 +65,16 @@ public class CompositeItemTypeModificationPage1_ModificationPage extends PageImp
 	 * @generated
 	 */
 	public CompositeItemTypeModificationPage1_ModificationPage(Item item) {
-		super("modification-page1", "CompositeItemType", "CompositeItemType", "", false, 3);
+		super("modification-page1", "CompositeItemType", "CompositeItemType",
+				"", false, 3);
 		this.item = item;
 		this.__short_name__ = createInternalNameField();
 		this.fieldItemType = createFieldItemType();
 		this.fieldComposers = createFieldComposers();
 		this.fieldBuilders = createFieldBuilders();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldItemType, this.fieldComposers, this.fieldBuilders);
+		addLast(this.__short_name__, this.fieldItemType, this.fieldComposers,
+				this.fieldBuilders);
 
 		registerListener();
 	}
@@ -90,33 +94,40 @@ public class CompositeItemTypeModificationPage1_ModificationPage extends PageImp
 	 * @generated
 	 */
 	public DBrowserUI createFieldItemType() {
-		LinkModelController mc = new LinkModelController(true, null, WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
-		return new DBrowserUI(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE.getName(), "item-type", EPosLabel.left, mc,
-				ic);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
+		return new DBrowserUI(CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE
+				.getName(), "item-type", EPosLabel.left, mc, ic);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DListUI createFieldComposers() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
-		return new DListUI(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS.getName(), "composers", EPosLabel.top, mc, ic,
-				true, false, false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
+		return new DListUI(
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS.getName(),
+				"composers", EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 	/**
 	 * @generated
 	 */
 	public DListUI createFieldBuilders() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
-		return new DListUI(WorkspaceCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS.getName(), "builders", EPosLabel.top, mc, ic,
-				true, false, false, false);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
+		return new DListUI(CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS.getName(),
+				"builders", EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

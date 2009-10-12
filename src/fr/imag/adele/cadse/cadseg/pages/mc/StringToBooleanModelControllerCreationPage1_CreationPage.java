@@ -13,22 +13,25 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class StringToBooleanModelControllerCreationPage1_CreationPage extends ModelControllerCreationPage1_CreationPage {
+public class StringToBooleanModelControllerCreationPage1_CreationPage extends
+		ModelControllerCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected StringToBooleanModelControllerCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected StringToBooleanModelControllerCreationPage1_CreationPage(
+			String id, String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public StringToBooleanModelControllerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create StringToBooleanModelController", "Create StringToBooleanModelController", "",
-				false, 3);
+	public StringToBooleanModelControllerCreationPage1_CreationPage(
+			Item parent, ItemType it, LinkType lt) {
+		super("creation-page1", "Create StringToBooleanModelController",
+				"Create StringToBooleanModelController", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

@@ -22,8 +22,9 @@ package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 import java.util.List;
 import java.util.Set;
 
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -50,9 +51,30 @@ public class FolderExporterManager extends EclipseExporterManager {
 	}
 
 	/**
+		@generated
+	*/
+	@Override
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			Object value;
+			Item currentItem;
+			sb.append(parent.getQualifiedName());
+			if (sb.length() != 0) {
+				sb.append(".");
+			}
+			sb.append(name);
+			return sb.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	/**
 	 * The Class MyContentItem.
 	 */
-	public class MyContentItem extends ExporterManager.MyContentItem {
+	public class MyContentItem extends ExporterManager.ExporterContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -63,8 +85,8 @@ public class FolderExporterManager extends EclipseExporterManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(ContentItem parent, Item item) throws CadseException {
-			super(parent, item);
+		public MyContentItem(CompactUUID id) throws CadseException {
+			super(id);
 		}
 
 		/*
@@ -124,45 +146,11 @@ public class FolderExporterManager extends EclipseExporterManager {
 	 * createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentManager(Item subContentModel) throws CadseException {
-		MyContentItem cm = new MyContentItem(null, subContentModel);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		MyContentItem cm = new MyContentItem(id);
 		cm.setComposers();
 		cm.setExporters();
 		return cm;
-	}
-
-	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
-	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
-		StringBuilder sb = new StringBuilder();
-		try {
-			Object value;
-			Item currentItem;
-			sb.append(parent.getQualifiedName());
-			if (sb.length() != 0) {
-				sb.append(".");
-			}
-			sb.append(name);
-			return sb.toString();
-		} catch (Throwable e) {
-			e.printStackTrace();
-			return "error";
-		}
 	}
 
 	/**
@@ -197,7 +185,7 @@ public class FolderExporterManager extends EclipseExporterManager {
 	 * @generated
 	 */
 	public static final String getPathAttribute(Item folderExporter) {
-		return folderExporter.getAttributeWithDefaultValue(WorkspaceCST.FOLDER_EXPORTER_at_PATH_, null);
+		return folderExporter.getAttributeWithDefaultValue(CadseGCST.FOLDER_EXPORTER_at_PATH_, null);
 	}
 
 	/**
@@ -212,7 +200,7 @@ public class FolderExporterManager extends EclipseExporterManager {
 	 */
 	public static final void setPathAttribute(Item folderExporter, String value) {
 		try {
-			folderExporter.setAttribute(WorkspaceCST.FOLDER_EXPORTER_at_PATH_, value);
+			folderExporter.setAttribute(CadseGCST.FOLDER_EXPORTER_at_PATH_, value);
 		} catch (Throwable t) {
 
 		}

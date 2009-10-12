@@ -13,12 +13,14 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
 /**
  * @generated
  */
-public class AJProjectComposerCreationPage1_CreationPage extends EclipseComposerCreationPage1_CreationPage {
+public class AJProjectComposerCreationPage1_CreationPage extends
+		EclipseComposerCreationPage1_CreationPage {
 
 	/**
 	 * @generated
 	 */
-	protected AJProjectComposerCreationPage1_CreationPage(String id, String label, String title, String description,
+	protected AJProjectComposerCreationPage1_CreationPage(String id,
+			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -26,8 +28,10 @@ public class AJProjectComposerCreationPage1_CreationPage extends EclipseComposer
 	/**
 	 * @generated
 	 */
-	public AJProjectComposerCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create AJProjectComposer", "Create AJProjectComposer", "", false, 3);
+	public AJProjectComposerCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create AJProjectComposer",
+				"Create AJProjectComposer", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

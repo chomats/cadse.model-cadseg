@@ -19,16 +19,19 @@ public class AspectJProjectContentModelCreationPage1_CreationPage extends
 	/**
 	 * @generated
 	 */
-	protected AspectJProjectContentModelCreationPage1_CreationPage(String id, String label, String title,
-			String description, boolean isPageComplete, int hspan) {
+	protected AspectJProjectContentModelCreationPage1_CreationPage(String id,
+			String label, String title, String description,
+			boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	 * @generated
 	 */
-	public AspectJProjectContentModelCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
-		super("creation-page1", "Create AspectJProjectContentModel", "Create AspectJProjectContentModel", "", false, 3);
+	public AspectJProjectContentModelCreationPage1_CreationPage(Item parent,
+			ItemType it, LinkType lt) {
+		super("creation-page1", "Create AspectJProjectContentModel",
+				"Create AspectJProjectContentModel", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;

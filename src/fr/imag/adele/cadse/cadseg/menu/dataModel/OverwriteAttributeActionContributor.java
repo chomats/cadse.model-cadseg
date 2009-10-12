@@ -19,6 +19,7 @@
 package fr.imag.adele.cadse.cadseg.menu.dataModel;
 
 import fr.imag.adele.cadse.core.IItemNode;
+import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
@@ -32,6 +33,11 @@ public class OverwriteAttributeActionContributor implements IActionContributor {
 	 * @generated
 	 */
 	public OverwriteAttributeActionContributor() {
+	}
+
+	public void contributeMenuAction(Menu menu, IItemNode[] selection) {
+		// TODO Auto-generated method stub
+
 	}
 
 	public void contributeMenuAction(ViewDescription viewDescription, Menu menu, IItemNode[] selection) {

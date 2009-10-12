@@ -28,7 +28,7 @@ import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelContr
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.cadseg.WorkspaceCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -71,23 +71,10 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Compute unique name.
-	 * 
-	 * @param item
-	 *            the item
-	 * @param shortName
-	 *            the short name
-	 * @param parent
-	 *            the parent
-	 * @param lt
-	 *            the lt
-	 * 
-	 * @return the string
-	 * 
-	 * @generated
-	 */
+		@generated
+	*/
 	@Override
-	public String computeUniqueName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -131,7 +118,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Link getLinkTypeLink(Item viewLinkType) {
-		return viewLinkType.getOutgoingLink(WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
+		return viewLinkType.getOutgoingLink(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
 	}
 
 	/**
@@ -140,7 +127,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getLinkTypeAll(Item viewLinkType) {
-		return viewLinkType.getOutgoingItem(WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE, false);
+		return viewLinkType.getOutgoingItem(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE, false);
 	}
 
 	/**
@@ -213,7 +200,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 */
 	protected UIField createFieldAggregation() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.VIEW_LINK_TYPE_at_AGGREGATION, "aggregation", EPosLabel.none, mc, null);
+		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION, "aggregation", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -224,10 +211,10 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @not generated
 	 */
 	protected UIField createFieldLinkType() {
-		LinkModelController mc = new LinkModelController(false, null, WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
-		return new DBrowserUI(WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE.getName(), "link-type", EPosLabel.left, mc,
+		LinkModelController mc = new LinkModelController(false, null, CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
+		return new DBrowserUI(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE.getName(), "link-type", EPosLabel.left, mc,
 				new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-						WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE), 0);
+						CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE), 0);
 	}
 
 	/**
@@ -239,7 +226,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 */
 	protected UIField createFieldCanCreateItem() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM, "can create item", EPosLabel.none, mc,
+		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM, "can create item", EPosLabel.none, mc,
 				null);
 	}
 
@@ -252,20 +239,8 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 */
 	protected UIField createFieldCanCreateLink() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK, "can create link", EPosLabel.none, mc,
+		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK, "can create link", EPosLabel.none, mc,
 				null);
-	}
-
-	/**
-	 * Creates the field display create.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @generated
-	 */
-	protected UIField createFieldDisplayCreate() {
-		return new DTextUI(WorkspaceCST.VIEW_LINK_TYPE_at_DISPLAY_CREATE, "display-create", EPosLabel.left,
-				new MC_AttributesItem(), null);
 	}
 
 	/**
@@ -279,7 +254,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final boolean isAggregationAttribute(Item viewLinkType) {
-		return viewLinkType.getAttributeWithDefaultValue(WorkspaceCST.VIEW_LINK_TYPE_at_AGGREGATION_, true);
+		return viewLinkType.getAttributeWithDefaultValue(CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION_, true);
 	}
 
 	/**
@@ -294,7 +269,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 */
 	public static final void setAggregationAttribute(Item viewLinkType, boolean value) {
 		try {
-			viewLinkType.setAttribute(WorkspaceCST.VIEW_LINK_TYPE_at_AGGREGATION_, value);
+			viewLinkType.setAttribute(CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION_, value);
 		} catch (Throwable t) {
 
 		}
@@ -311,7 +286,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public Item getLinkType(Item viewLinkType) {
-		return viewLinkType.getOutgoingItem(WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE, true);
+		return viewLinkType.getOutgoingItem(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE, true);
 	}
 
 	/**
@@ -328,53 +303,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	static public void setLinkType(Item viewLinkType, Item value) throws CadseException {
-		viewLinkType.setOutgoingItem(WorkspaceCST.VIEW_LINK_TYPE_lt_LINK_TYPE, value);
-	}
-
-	/**
-	 * get a link '#invert_part_view-link-types_to_ViewItemType' from
-	 * 'ViewLinkType' to 'ViewItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Link get_$_Invert_part_viewLinkTypes_to_ViewItemTypeLink(Item viewLinkType) {
-		return viewLinkType
-				.getOutgoingLink(WorkspaceCST.VIEW_LINK_TYPE_lt__$_INVERT_PART_VIEW_LINK_TYPES_TO_VIEW_ITEM_TYPE);
-	}
-
-	/**
-	 * get all link destination '#invert_part_view-link-types_to_ViewItemType'
-	 * from 'ViewLinkType' to 'ViewItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_viewLinkTypes_to_ViewItemTypeAll(Item viewLinkType) {
-		return viewLinkType.getOutgoingItem(
-				WorkspaceCST.VIEW_LINK_TYPE_lt__$_INVERT_PART_VIEW_LINK_TYPES_TO_VIEW_ITEM_TYPE, false);
-	}
-
-	/**
-	 * get resolved link destination
-	 * '#invert_part_view-link-types_to_ViewItemType' from 'ViewLinkType' to
-	 * 'ViewItemType'.
-	 * 
-	 * @generated
-	 */
-	static public Item get_$_Invert_part_viewLinkTypes_to_ViewItemType(Item viewLinkType) {
-		return viewLinkType.getOutgoingItem(
-				WorkspaceCST.VIEW_LINK_TYPE_lt__$_INVERT_PART_VIEW_LINK_TYPES_TO_VIEW_ITEM_TYPE, true);
-	}
-
-	/**
-	 * set a link '#invert_part_view-link-types_to_ViewItemType' from
-	 * 'ViewLinkType' to 'ViewItemType'.
-	 * 
-	 * @generated
-	 */
-	static public void set_$_Invert_part_viewLinkTypes_to_ViewItemType(Item viewLinkType, Item value)
-			throws CadseException {
-		viewLinkType.setOutgoingItem(WorkspaceCST.VIEW_LINK_TYPE_lt__$_INVERT_PART_VIEW_LINK_TYPES_TO_VIEW_ITEM_TYPE,
-				value);
+		viewLinkType.setOutgoingItem(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE,value);
 	}
 
 	/**
@@ -388,7 +317,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final boolean isCanCreateItemAttribute(Item viewLinkType) {
-		return viewLinkType.getAttributeWithDefaultValue(WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, true);
+		return viewLinkType.getAttributeWithDefaultValue(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, true);
 	}
 
 	/**
@@ -403,7 +332,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 */
 	public static final void setCanCreateItemAttribute(Item viewLinkType, boolean value) {
 		try {
-			viewLinkType.setAttribute(WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, value);
+			viewLinkType.setAttribute(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, value);
 		} catch (Throwable t) {
 
 		}
@@ -420,7 +349,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final boolean isCanCreateLinkAttribute(Item viewLinkType) {
-		return viewLinkType.getAttributeWithDefaultValue(WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK_, true);
+		return viewLinkType.getAttributeWithDefaultValue(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK_, true);
 	}
 
 	/**
@@ -435,7 +364,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 */
 	public static final void setCanCreateLinkAttribute(Item viewLinkType, boolean value) {
 		try {
-			viewLinkType.setAttribute(WorkspaceCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK_, value);
+			viewLinkType.setAttribute(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK_, value);
 		} catch (Throwable t) {
 
 		}
@@ -452,7 +381,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final String getDisplayCreateAttribute(Item viewLinkType) {
-		return viewLinkType.getAttributeWithDefaultValue(WorkspaceCST.VIEW_LINK_TYPE_at_DISPLAY_CREATE_, null);
+		return viewLinkType.getAttributeWithDefaultValue(CadseGCST.VIEW_LINK_TYPE_at_DISPLAY_CREATE_, null);
 	}
 
 	/**
@@ -467,7 +396,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 */
 	public static final void setDisplayCreateAttribute(Item viewLinkType, String value) {
 		try {
-			viewLinkType.setAttribute(WorkspaceCST.VIEW_LINK_TYPE_at_DISPLAY_CREATE_, value);
+			viewLinkType.setAttribute(CadseGCST.VIEW_LINK_TYPE_at_DISPLAY_CREATE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -533,7 +462,7 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	// public RefactoringStatus computeRenameAnnotationChange(CompositeChange
 	// change, Item itemAnnotation,
 	// Item itemAnnoted, ContextVariable newCxt, ContextVariable oldCxt) {
-	// if (itemAnnoted.isInstanceOf(WorkspaceCST.LINK)) {
+	// if (itemAnnoted.isInstanceOf(CadseGCST.LINK)) {
 	// itemAnnotation.computeRenameChange(change, itemAnnoted.getName(),
 	// newCxt, oldCxt);
 	// }

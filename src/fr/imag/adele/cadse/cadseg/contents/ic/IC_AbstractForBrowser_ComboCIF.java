@@ -6,6 +6,7 @@ import fr.imag.adele.cadse.cadseg.managers.ic.IC_AbstractForBrowser_ComboManager
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -14,7 +15,7 @@ public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 	/**
 	 * The Class MyContentItem.
 	 */
-	class MyContentItem extends InteractionControllerCIF.MyContentItem {
+	public static class IC_AbstractForBrowser_ComboContent extends InteractionControllerContent {
 
 		/**
 		 * Instantiates a new my content manager.
@@ -25,9 +26,9 @@ public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(ContentItem parent, Item item, InteractionControllerManager interactionControllerManager)
+		protected IC_AbstractForBrowser_ComboContent(CompactUUID id, InteractionControllerManager interactionControllerManager)
 				throws CadseException {
-			super(parent, item, interactionControllerManager);
+			super(id, interactionControllerManager);
 		}
 
 		/*
@@ -70,7 +71,7 @@ public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(Item item) throws CadseException {
-		return new MyContentItem(null, item, _manager);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		return new IC_AbstractForBrowser_ComboContent(id, _manager);
 	}
 }
