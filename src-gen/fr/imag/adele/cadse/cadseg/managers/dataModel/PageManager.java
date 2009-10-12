@@ -930,7 +930,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	public static boolean isModificationPage(Item page) {
 		Item dialog = page.getIncomingItem(CadseGCST.MODIFICATION_DIALOG_lt_PAGES);
 		if (dialog == null) {
-			return page.getIncomingLinks(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES) != null;
+			List<Link> incomingLinks = page.getIncomingLinks(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES);
+			return incomingLinks.size() != 0;
 		}
 		return dialog.getType() == CadseGCST.MODIFICATION_DIALOG;
 	}

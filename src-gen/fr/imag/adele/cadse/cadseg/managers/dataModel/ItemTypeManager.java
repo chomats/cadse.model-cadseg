@@ -1439,7 +1439,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @return the all super types
 	 */
 	public static Item[] getAllSuperTypes(Item itemtype) {
-		LinkedHashSet<Item> ret = new LinkedHashSet<Item>();
+		List<Item> ret = new ArrayList<Item>();
 		ret.add(itemtype);
 		getAllSuperTypes(itemtype, ret);
 		Item[] ret_array = ret.toArray(new Item[ret.size()]);
@@ -1456,7 +1456,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * 
 	 * @return the all super types
 	 */
-	public static void getAllSuperTypes(Item itemtype, Set<Item> types) {
+	public static void getAllSuperTypes(Item itemtype, List<Item> types) {
 		HashSet<Item> visited = new HashSet<Item>();
 		itemtype = getSuperType(itemtype);
 		while (itemtype != null) {
@@ -1562,8 +1562,10 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		LinkedHashSet<Item> types = new LinkedHashSet<Item>();
 		types.add(itemtype);
 
-		if (includeSuperTypes) {
-			getAllSuperTypes(itemtype, types);
+		if (includeSuperTypes) {			
+			List<Item> types2 = new ArrayList<Item>();
+			getAllSuperTypes(itemtype, types2 );
+			types.addAll(types2);
 		}
 		if (includeSubTypes) {
 			getAllSubTypes(itemtype, types);

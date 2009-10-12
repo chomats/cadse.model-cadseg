@@ -1010,6 +1010,17 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		if (link.getLinkType() == CadseGCST.MODIFICATION_DIALOG_lt_PAGES) {
 			link.getSource().getPartParent().createLink(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES, link.getDestination());
 		}
+		
+		if (link.getLinkType() == CadseGCST.ITEM_TYPE_lt_SUPER_TYPE) {
+			ItemDelta item = link.getSource();
+			ItemDelta itemCreationDialog = item.getOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG, false);
+			ItemDelta itemFirstCreationPage = itemCreationDialog.getOutgoingItem(CadseGCST.CREATION_DIALOG_lt_PAGES,
+					false);
+			if (itemFirstCreationPage.isAdded()) {
+				syncFieldName(wc, itemFirstCreationPage);
+			}
+		}
+			
 	}
 
 	private void syncDisplay(LogicalWorkspaceTransaction wc, Item field) throws CadseException {
@@ -1213,7 +1224,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			//	pc1 = getFirstCreationPage(wc, itemType, true);
 			//}
 			
-			 Item nameField = getFieldFromAttribute(CadseGCST.ITEM_at_NAME_, page);
+			 Item nameField = getFieldFromAttribute(wc, CadseGCST.ITEM_at_NAME_, page);
 			 if (nameField == null) {
 			// create name field if not exists
 				 nameField = wc.createItemIfNeed(null, CadseGCST.ITEM_at_NAME, CadseGCST.FIELD, page,
@@ -1221,6 +1232,11 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 					CadseGCST.ITEM_at_NAME_, CadseGCST.FIELD_at_LABEL_, CadseGCST.ITEM_at_NAME,
 					CadseGCST.FIELD_at_POSITION_, EPosLabel.defaultpos);
 			}
+		} else {
+			 ItemDelta nameField = getFieldFromAttribute(wc, CadseGCST.ITEM_at_NAME_, page);
+			 if (nameField != null && nameField.isAdded())
+				 nameField.delete(true);
+				
 		}
 	}
 
@@ -1425,16 +1441,20 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		return attribute.getName();
 	}
 
-	private Item getFieldFromAttribute(Item attribute, Item p1) {
+	private ItemDelta getFieldFromAttribute(LogicalWorkspaceTransaction wc, Item attribute, Item p1) {
+		return getFieldFromAttribute(wc.getItem(attribute), p1);
+		
+	}
+	private ItemDelta getFieldFromAttribute(ItemDelta attribute, Item p1) {
 		if (p1 == null) {
 			return null;
 		}
 
-		Collection<Item> fields = getFieldsFromAttribute(attribute);
+		Collection<ItemDelta> fields = getFieldsFromAttribute(attribute);
 		if (fields == null || fields.size() == 0) {
 			return null;
 		}
-		for (Item f : fields) {
+		for (ItemDelta f : fields) {
 			if (f.getPartParent() == p1) {
 				return f;
 			}
@@ -1442,8 +1462,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		return null;
 	}
 
-	private Collection<Item> getFieldsFromAttribute(Item attribute) {
-		return attribute.getIncomingItems(CadseGCST.FIELD_lt_ATTRIBUTE);
+	private Collection<ItemDelta> getFieldsFromAttribute(ItemDelta attribute) {
+		return attribute.getIncomingItems(CadseGCST.FIELD_lt_ATTRIBUTE, false, true);
 	}
 
 	/**
