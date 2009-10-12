@@ -160,7 +160,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 			ItemType superItem = (ItemType) ItemTypeManager.getSuperType(cm.itemtype);
 			if (superItem != null) {
-				cm.superClassName = superItem.getItemManagerClass();
+				cm.superClassName = ItemTypeManager.getManagerClass(superItem, cxt, null);
 				cm.overwriteClass = true;
 			} else if (ItemTypeManager.isIsMetaItemTypeAttribute(cm.itemtype)) {
 				cm.superClassName = "fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager";
