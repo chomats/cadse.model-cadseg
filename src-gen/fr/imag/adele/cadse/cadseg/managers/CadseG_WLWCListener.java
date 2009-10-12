@@ -37,6 +37,7 @@ import org.eclipse.ui.ide.IDE;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fede.workspace.eclipse.java.manager.JavaProjectContentManager;
+import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaFileCST;
@@ -240,6 +241,53 @@ class RenameCadseDefinitionMappingOperartion extends RenameMappingOperation {
 
 public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransactionListener {
 
+	private final class CustomManagerOperation extends MappingOperation {
+		private CustomManagerOperation(ItemDelta parent) throws CadseException {
+			super(parent);
+		}
+
+		@Override
+		protected String getLabel() {
+			return "custom manager";
+		}
+
+		@Override
+		public void commit(LogicalWorkspace wl, Item theItemType) {
+			ItemType it = (ItemType) theItemType;
+			Item cm = ItemTypeManager.getCadseDefinition(theItemType);
+			CadseDefinitionContent	contentcm = (CadseDefinitionContent) cm.getContentItem();
+			String qClass = it.getItemManagerClass();
+			IFile f = contentcm.getCustomJavaSourceElementContainer(wl.getContext()).getFile(new Path(qClass.replace('.', '/')+".java"));
+			if (!f.exists()) {
+				String superQClass = GenerateJavaIdentifier.getQualifiedManager(wl.getContext(),it, ItemTypeManager.getManager(it),false);
+				String superCN = JavaIdentifier.getlastclassName(superQClass);
+				String superPN = JavaIdentifier.getPackageName(superQClass);
+				
+				String cn = JavaIdentifier.getlastclassName(qClass);
+				String pn = JavaIdentifier.getPackageName(qClass);
+				try {
+					StringBuilder sb = new StringBuilder();
+					sb.append("package ").append(pn).append(";\n");
+					sb.append("\n");
+					if (!superPN.equals(pn)) 
+						sb.append("import ").append(superQClass).append(";\n\n");
+					sb.append("public class ").append(cn).append(" extends ").append(superCN).append(" {\n");
+					sb.append("\n\n}\n");
+					
+					String str = sb.toString();
+					MappingManager.createContainer(f.getParent(), View.getDefaultMonitor());
+					f.create(new ByteArrayInputStream(str.getBytes(f.getProject().getDefaultCharset())), true, View.getDefaultMonitor());
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	private static final String	CREATION_PAGE_TITLE_PREFIX	= "Create ";
 	private static final String	MODIFICATION_PAGE_PREFIX	= "modification-page-";
 	private static final String	CREATION_PAGE_PREFIX		= "creation-page-";
@@ -299,7 +347,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				item.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, CadseGCST.ITEM);
 			
 			
-			if (cr.isInstanceOf(CadseGCST.CADSE_DEFINITION)) { // manager
+			if (cr.isInstanceOf(CadseGCST.CADSE_DEFINITION) && item.getType() != CadseGCST.EXT_ITEM_TYPE) { // manager
+				// seul les items des Cadse Definition(cadseg) et non pas des extention peuvent avoir des manager
 				try {
 					/// TODO Test remove this line
 					///ItemTypeManager.setIsAbstractAttribute(item, false);
@@ -506,48 +555,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			} catch (Throwable e1) {
 			}
 			if (attOperation.getCurrentValue() == Boolean.TRUE) {
-				item.addMappingOperaion(new MappingOperation(item) {
-					
-					@Override
-					protected String getLabel() {
-						return "custom manager";
-					}
-					
-					@Override
-					public void commit(LogicalWorkspace wl, Item theItemType) {
-						ItemType it = (ItemType) theItemType;
-						Item cm = ItemTypeManager.getCadseDefinition(theItemType);
-						CadseDefinitionContent	contentcm = (CadseDefinitionContent) cm.getContentItem();
-						String qClass = it.getItemManagerClass();
-						IFile f = contentcm.getSourceFolder(new ContextVariable(false)).getFile(new Path(qClass.replace('.', '/')+".java"));
-						if (!f.exists()) {
-							String superQClass = GenerateJavaIdentifier.getQualifiedManager(wl.getContext(),it, ItemTypeManager.getManager(it),false);
-							String superCN = JavaIdentifier.getlastclassName(superQClass);
-							String superPN = JavaIdentifier.getPackageName(superQClass);
-							
-							String cn = JavaIdentifier.getlastclassName(qClass);
-							String pn = JavaIdentifier.getPackageName(qClass);
-							try {
-								StringBuilder sb = new StringBuilder();
-								sb.append("pacakge ").append(pn).append(";\n");
-								sb.append("\n");
-								if (!superPN.equals(pn)) 
-									sb.append("import ").append(superQClass).append(";\n\n");
-								sb.append("public class ").append(cn).append(" extends ").append(superCN).append(" {\n");
-								sb.append("\n\n}\n");
-								
-								String str = sb.toString();
-								f.create(new ByteArrayInputStream(str.getBytes(f.getProject().getDefaultCharset())), true, View.getDefaultMonitor());
-							} catch (CoreException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (UnsupportedEncodingException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					}
-				});
+				item.addMappingOperaion(new CustomManagerOperation(item));
 			}
 		}
 		if (!item.isAdded() && item.getType() == CadseGCST.CADSE_DEFINITION
