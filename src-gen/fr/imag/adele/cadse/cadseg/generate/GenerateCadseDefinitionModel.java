@@ -591,7 +591,7 @@ public class GenerateCadseDefinitionModel {
 			pattern_valid_id = null;
 		}
 		cit.setPatternValidId(pattern_valid_id);
-		cit.setManagerClass(itemType.getItemManagerClass());
+		cit.setManagerClass(ItemTypeManager.getManagerClass(itemType,null, null));
 		cit.setCstName(GenerateJavaIdentifier.cstItemType(cxt, itemType));
 
 	}
