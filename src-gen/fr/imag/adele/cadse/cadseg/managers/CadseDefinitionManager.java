@@ -363,7 +363,7 @@ public class CadseDefinitionManager extends CadseRuntimeManager implements IMode
 	// public static final String IMPORTS_ATTRIBUTE = "imports";
 
 	/** The Constant SOURCES. */
-	private static final String	SOURCES	= "sources";
+	private static final String	SOURCES	= "src-gen";
 
 
 
