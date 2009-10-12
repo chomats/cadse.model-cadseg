@@ -74,6 +74,7 @@ public class GenerateJavaFileCST extends GenerateClass {
 		imports.add("fr.imag.adele.cadse.core.LinkType");
 
 		for (Item itemType : itemTypes) {
+			if (itemType.getType()== CadseGCST.EXT_ITEM_TYPE) continue;
 			sb.appendGeneratedTag();
 			sb.newline().append("public static ItemType ");
 			sb.append(GenerateJavaIdentifier.cstItemType(context, itemType)).append(";");
