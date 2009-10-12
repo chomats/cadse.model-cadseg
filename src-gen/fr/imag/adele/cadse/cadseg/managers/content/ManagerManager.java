@@ -149,7 +149,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 			ManagerManager.GenerateModel cm = new ManagerManager.GenerateModel();
 
-			cxt.setGenerated(true);
 			ICompilationUnit cu = getCompilationUnit(cxt);
 			cm.itemtype = getItemType(manager);
 			cm.manager = manager;
@@ -207,7 +206,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
-
+			
 		}
 
 		/*
