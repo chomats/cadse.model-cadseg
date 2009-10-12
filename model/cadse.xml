@@ -685,7 +685,7 @@ Item.action-contributor (teamwork)
         <modification-pages>
             <page titre="Item" uuid="885d93a1-806d-4e0d-9475-205397f4e3f5" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.dataModel.ItemModificationPageItem_ModificationPage" id="modification-page-Item"/>
         </modification-pages>
-        <action-contributor class="fr.imag.adele.cadse.root.menu.TeamWorkMenuActionContributor"/>
+        <action-contributor class="fr.imag.adele.cadse.cadseg.menu.TeamWorkMenuActionContributor"/>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/itemtype-icon.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager" display-name="Item type" is-abstract="false" is-root-element="false" intID="0" has-content="false" package-name="dataModel" super-type-name="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" name="ItemType" qualified-name="CadseG.dataModel.ItemType" cst-name="ITEM_TYPE" id="43808065-4f70-4290-adba-cca999431ba1">
         <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="86dafd46-a860-4575-abd9-8290ef8b5dff" cst-name="ITEM_TYPE_lt_CADSE_RUNTIME" intID="0" destination="b81c6546-c321-4590-b0eb-7b13929cb1dd" isPart="false" isRequire="false" isComposition="false" isAnnotation="false" isAggregation="false" max="1" min="0" name="cadse-runtime"/>
