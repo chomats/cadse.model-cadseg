@@ -500,8 +500,11 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			throws CadseException {
 
 		if (attOperation.getAttributeDefinition() == CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER_) {
-			item.setAttribute(CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_, 
-						GenerateJavaIdentifier.getQualifiedManager(wc.getNewContext(), item.getAdapter(ItemType.class), ItemTypeManager.getManager(item),attOperation.getCurrentValue() == Boolean.TRUE));
+			try {
+				item.setAttribute(CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_, 
+							GenerateJavaIdentifier.getQualifiedManager(wc.getNewContext(), item.getAdapter(ItemType.class), ItemTypeManager.getManager(item),attOperation.getCurrentValue() == Boolean.TRUE));
+			} catch (Throwable e1) {
+			}
 			if (attOperation.getCurrentValue() == Boolean.TRUE) {
 				item.addMappingOperaion(new MappingOperation(item) {
 					
@@ -516,7 +519,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 						Item cm = ItemTypeManager.getCadseDefinition(theItemType);
 						CadseDefinitionContent	contentcm = (CadseDefinitionContent) cm.getContentItem();
 						String qClass = it.getItemManagerClass();
-						IFile f = contentcm.getSourceFolder(wl.getContext()).getFile(new Path(qClass.replace('.', '/')+".java"));
+						IFile f = contentcm.getSourceFolder(new ContextVariable(false)).getFile(new Path(qClass.replace('.', '/')+".java"));
 						if (!f.exists()) {
 							String superQClass = GenerateJavaIdentifier.getQualifiedManager(wl.getContext(),it, ItemTypeManager.getManager(it),false);
 							String superCN = JavaIdentifier.getlastclassName(superQClass);
