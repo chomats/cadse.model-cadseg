@@ -31,6 +31,7 @@ import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.generate.GenerateExtItemType;
+import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CompactUUID;
@@ -54,16 +55,112 @@ import fr.imag.adele.fede.workspace.si.view.View;
  */
 public class ExtItemTypeManager extends ItemTypeManager {
 
+	static final class PackageNameVariable extends VariableImpl {
+
+		public final static Variable	INSTANCE	= new PackageNameVariable();
+
+		public String compute(ContextVariable context, Item itemCurrent) {
+			try {
+				return GenerateJavaIdentifier.getExtPackage(context, itemCurrent);
+			} catch (Throwable e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}
+	}
+
+	static final class ClassNameVariable extends VariableImpl {
+
+		public final static Variable	INSTANCE	= new ClassNameVariable();
+
+		public String compute(ContextVariable context, Item itemCurrent) {
+			try {
+				return GenerateJavaIdentifier.getExtClassName(context, itemCurrent);
+			} catch (Throwable e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}
+	}
+
 	/**
-		@generated
-	*/
-	public class ExtItemTypeContent extends JavaFileContentManager {
+	 * The Class ExtItemTypeContent. implements IGenerateContent
+	 * 
+	 * @generated
+	 */
+	public class ExtItemTypeContent extends JavaFileContentManager implements IGenerateContent {
 
 		/**
 			@generated
 		*/
 		public ExtItemTypeContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
 			super(id, packageNameVariable, classNameVariable);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.
+		 * cadse.core.var.ContextVariable)
+		 */
+		public void generate(ContextVariable cxt) {
+			Item extit = getOwnerItem();
+
+			GenerateExtItemType ge = new GenerateExtItemType(cxt, this);
+			Item cadseDefinition = extit.getPartParent(CadseGCST.CADSE_DEFINITION);
+
+			((IGenerateContent) cadseDefinition.getContentItem()).generate(cxt);
+
+			String path = getPath(cxt);
+			try {
+				EclipsePluginContentManger.generateJava(MelusineProjectManager.getProject(cadseDefinition).getFile(
+						new Path(path)), ge.getContent(), View.getDefaultMonitor());
+
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fr.imag.adele.cadse.core.IGenerateContent#getGenerateModel()
+		 */
+		public ManagerManager.GenerateModel getGenerateModel() {
+			return null;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
+		 * computeExportsPackage(java.util.Set)
+		 */
+		public void computeExportsPackage(Set<String> exports) {
+			exports.add(getPackageName(ContextVariable.DEFAULT));
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
+		 * computeImportsPackage(java.util.Set)
+		 */
+		public void computeImportsPackage(Set<String> imports) {
+
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion
+		 * (org.eclipse.pde.core.plugin.IPluginBase,
+		 * org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
+		 */
+		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
 		}
 
 	}
@@ -134,12 +231,11 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	}
 
 	/**
-		@generated
 	*/
 	@Override
 	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
 		ExtItemTypeContent cm = new ExtItemTypeContent(
-			id, NullVariable.INSTANCE, NullVariable.INSTANCE
+			id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE
 			);
 		cm.setComposers(
 		);
