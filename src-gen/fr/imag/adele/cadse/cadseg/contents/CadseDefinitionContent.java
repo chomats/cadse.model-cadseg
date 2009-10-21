@@ -25,7 +25,6 @@ import org.eclipse.pde.internal.core.plugin.PluginElement;
 import org.eclipse.pde.internal.core.plugin.PluginExtension;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
-import fede.workspace.dependencies.eclipse.java.IJavaItemManager.DependencyNature;
 import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaProjectManager;
@@ -41,7 +40,6 @@ import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModels;
 import fr.imag.adele.cadse.cadseg.template.LaunchApplicationTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -75,20 +73,23 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.eclipse.java.manager.JavaProjectContentManager#addDependencyClasspathEntry(fr.imag.adele.cadse.core.Link,
-	 *      fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
-	 *      fede.workspace.dependencies.eclipse.java.IJavaItemManager.DependencyNature,
-	 *      java.util.Set, org.eclipse.core.runtime.MultiStatus)
+	 * @seefede.workspace.eclipse.java.manager.JavaProjectContentManager#
+	 * addDependencyClasspathEntry(fr.imag.adele.cadse.core.Link,
+	 * fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
+	 * fede.workspace
+	 * .dependencies.eclipse.java.IJavaItemManager.DependencyNature,
+	 * java.util.Set, org.eclipse.core.runtime.MultiStatus)
 	 */
 	@Override
-	public void addDependencyClasspathEntry(Link requirementLink, Item target, Item source,
-			DependencyNature nature, Set<IClasspathEntry> classpath, MultiStatus ms) {
+	public void addDependencyClasspathEntry(Link requirementLink, Item target, Item source, DependencyNature nature,
+			Set<IClasspathEntry> classpath, MultiStatus ms) {
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.eclipse.composition.java.EclipsePluginContentManger#getDefaultPackage()
+	 * @seefede.workspace.eclipse.composition.java.EclipsePluginContentManger#
+	 * getDefaultPackage()
 	 */
 	@Override
 	protected String getDefaultPackage() {
@@ -98,7 +99,9 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage(java.util.Set)
+	 * @see
+	 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage
+	 * (java.util.Set)
 	 */
 	public void computeExportsPackage(Set<String> exports) {
 		exports.add(getDefaultPackage());
@@ -107,7 +110,9 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage(java.util.Set)
+	 * @see
+	 * fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage
+	 * (java.util.Set)
 	 */
 	public void computeImportsPackage(Set<String> imports) {
 		List<String> importsList = CadseDefinitionManager.getImports(getItem());
@@ -121,7 +126,8 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.eclipse.composition.java.EclipsePluginContentManger#computeManifest(fede.workspace.eclipse.java.osgi.OsgiManifest)
+	 * @seefede.workspace.eclipse.composition.java.EclipsePluginContentManger#
+	 * computeManifest(fede.workspace.eclipse.java.osgi.OsgiManifest)
 	 */
 	@Override
 	public void computeManifest(OsgiManifest omf) {
@@ -136,19 +142,16 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.eclipse.composition.java.EclipsePluginContentManger#generate(fr.imag.adele.cadse.core.var.ContextVariable)
+	 * @see
+	 * fede.workspace.eclipse.composition.java.EclipsePluginContentManger#generate
+	 * (fr.imag.adele.cadse.core.var.ContextVariable)
 	 */
 	@Override
 	synchronized public void generate(ContextVariable cxt) {
+		if (!getOwnerItem().exists())
+			return;
 		super.generate(cxt);
 
-		// IProgressMonitor monitor = Eclipse.getDefaultMonitor();
-		// try {
-		// generateViewXml(getProject(), monitor);
-		// } catch (CoreException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 		generateStrandardXML();
 
 		try {
@@ -171,7 +174,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	public void generateStrandardXML() {
 		IProject p = getProject();
 		IFile f = p.getFile(new Path("model/cadse.xml"));
-		CCadse cadse = GenerateCadseDefinitionModel.generateCADSE(getItem());
+		CCadse cadse = GenerateCadseDefinitionModel.generateCADSE(getOwnerItem());
 		StringWriter writer = new StringWriter();
 
 		try {
@@ -180,8 +183,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 			Marshaller m = jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m.marshal(cadse, writer);
-			MappingManager
-					.generate(p, f.getParent().getProjectRelativePath(), f.getName(), writer.toString(), null);
+			MappingManager.generate(p, f.getParent().getProjectRelativePath(), f.getName(), writer.toString(), null);
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (JAXBException e) {
@@ -193,34 +195,36 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.eclipse.composition.java.EclipsePluginContentManger#create()
+	 * @see
+	 * fede.workspace.eclipse.composition.java.EclipsePluginContentManger#create
+	 * ()
 	 */
 	@Override
 	public void create() throws CadseException {
 		super.create();
-	
+
 		try {
 			IProgressMonitor monitor = View.getDefaultMonitor();
 			JavaProjectManager.createJavaSourceFolder(getOwnerItem(), getProject().getFolder("src"), null, monitor);
-			
+
 			IFile launchAppli = getProject().getFile("run-cadse-" + getOwnerItem().getName() + ".launch");
 			if (!launchAppli.exists()) {
 				LaunchApplicationTemplate lat = new LaunchApplicationTemplate();
-				MappingManager
-						.generate(getProject(), null, launchAppli.getName(), lat.generate(getOwnerItem()), monitor);
+				MappingManager.generate(getProject(), null, launchAppli.getName(), lat.generate(getOwnerItem()),
+						monitor);
 			}
 		} catch (CoreException e) {
-			throw new CadseException("Cannot create workspace project from cadse {0} : {1}", e,
-					getOwnerItem().getName(), e.getMessage());
+			throw new CadseException("Cannot create workspace project from cadse {0} : {1}", e, getOwnerItem()
+					.getName(), e.getMessage());
 		}
 	}
-	
+
 	@Override
 	protected void computeModel(PDEGenerateModel model) {
 		super.computeModel(model);
 		model.sourceName = "src-gen";
 	}
-	
+
 	/**
 	 * Gets the java source element.
 	 * 
@@ -237,7 +241,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets the java source element.
 	 * 
@@ -253,25 +257,14 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		}
 		return null;
 	}
-	
-
-	// private void setFile(IFile fdefinition, String plugin_id, String
-	// path,
-	// IProgressMonitor monitor) throws CoreException, IOException {
-	// Bundle b = Platform.getBundle(plugin_id);
-	// URL data = b.getEntry(path);
-	// if (fdefinition.exists()) {
-	// fdefinition.setContents(data.openStream(), true, false,monitor);
-	// } else {
-	// fdefinition.create(data.openStream(), true, monitor);
-	// }
-	// }
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion(org.eclipse.pde.core.plugin.IPluginBase,
-	 *      org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
+	 * @see
+	 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion
+	 * (org.eclipse.pde.core.plugin.IPluginBase,
+	 * org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
 	 */
 	public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
 		try {
@@ -363,64 +356,5 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		}
 		return null;
 	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fede.workspace.eclipse.content.ProjectContentManager#computeRenameChange(org.eclipse.ltk.core.refactoring.CompositeChange,
-	// * fr.imag.adele.cadse.core.var.ContextVariable,
-	// * fr.imag.adele.cadse.core.var.ContextVariable)
-	// */
-	// @Override
-	// public RefactoringStatus computeRenameChange(CompositeChange
-	// change,
-	// ContextVariable newCxt,
-	// ContextVariable oldCxt) {
-	// RefactoringStatus ret = new RefactoringStatus();
-	//
-	// // change class java CST
-	// String oldDefaultPackage =
-	// CadseDefinitionManager.getDefaultPackage(oldCxt, getItem());
-	// String newDefaultPackage =
-	// CadseDefinitionManager.getDefaultPackage(newCxt, getItem());
-	//
-	// String oldCSTName =
-	// GenerateJavaIdentifier.javaClassNameFileCST_FromCadseDefinition(oldCxt,
-	// getItem());
-	// String newCSTName =
-	// GenerateJavaIdentifier.javaClassNameFileCST_FromCadseDefinition(newCxt,
-	// getItem());
-	//
-	// IPackageFragment pack =
-	// getJavaSourceElement(oldCxt).getPackageFragment(oldDefaultPackage);
-	// final ICompilationUnit unit = pack.getCompilationUnit(oldCSTName
-	// +
-	// ".java");
-	// NullProgressMonitor pm = new NullProgressMonitor();
-	//
-	// change.add(new RenameConstanteFile(unit, newCSTName + ".java"));
-	//
-	// change.add(new RenameDefaultPackage(pack, newDefaultPackage));
-	//
-	// // RenamePackageChange packageChange = new
-	// RenamePackageChange(pack,
-	// // newDefaultPackage,true);
-	// // change.add(packageChange);
-	//
-	// ret.merge(super.computeRenameChange(change, newCxt, oldCxt));
-	// if (ret.hasFatalError()) {
-	// return ret;
-	// }
-	//
-	// // ChangeMananifest
-	// CorrectManifestAfterRenameChange manifestChange = new
-	// CorrectManifestAfterRenameChange(this,
-	// oldDefaultPackage, newDefaultPackage, oldCxt.getValue(getItem(),
-	// WorkspaceDomain.UNIQUE_NAME_ATTRIBUTE));
-	// change.add(manifestChange);
-	//
-	// return ret;
-	// }
 
 }
