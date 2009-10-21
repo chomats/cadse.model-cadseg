@@ -1082,17 +1082,24 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 
 		if (link.getLinkType() == CadseGCST.CREATION_DIALOG_lt_PAGES) {
-			LinkDelta l = link.getSource().getPartParent().getOutgoingLink(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES,
-					link.getDestination().getId());
-			if (l != null)
-				l.delete();
+			ItemDelta s;
+			ItemDelta p;
+			if (((s = link.getSource()) != null) && ((p = s.getPartParent()) != null)) {
+				LinkDelta l = p.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES, link.getDestination().getId());
+				if (l != null)
+					l.delete();
+			}
 		}
 
 		if (link.getLinkType() == CadseGCST.MODIFICATION_DIALOG_lt_PAGES) {
-			LinkDelta l = link.getSource().getPartParent().getOutgoingLink(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES,
-					link.getDestination().getId());
-			if (l != null)
-				l.delete();
+			ItemDelta s;
+			ItemDelta p;
+			if (((s = link.getSource()) != null) && ((p = s.getPartParent()) != null)) {
+				LinkDelta l = p.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES, link.getDestination()
+						.getId());
+				if (l != null)
+					l.delete();
+			}
 		}
 	}
 
