@@ -27,12 +27,12 @@ import java.util.Properties;
 import java.util.Set;
 
 import fede.workspace.eclipse.java.JavaIdentifier;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -56,17 +56,19 @@ public class GenerateJavaIdentifier {
 	 * @return the manager class name
 	 */
 	public static String getManagerClassName(ContextVariable cxt, ItemType itemType, Item manager, boolean custom) {
-		//Item itemType = ManagerManager.getItemType(manager);
+		// Item itemType = ManagerManager.getItemType(manager);
 		if (itemType != null && itemType.isRuntime()) {
 			String m = itemType.getAttribute(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_);
 			return JavaIdentifier.getlastclassName(m);
 		}
 		if (itemType == null)
-			itemType =(ItemType) ManagerManager.getItemType(manager);
-		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, custom ? "CustomManager": "Manager");
+			itemType = (ItemType) ManagerManager.getItemType(manager);
+		if (itemType == null)
+			return "???";
+		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, custom ? "CustomManager"
+				: "Manager");
 	}
-	
-	
+
 	/**
 	 * Gets the manager class name.
 	 * 
@@ -80,8 +82,7 @@ public class GenerateJavaIdentifier {
 	public static String getCIFClassName(ContextVariable cxt, Item itemType) {
 		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, "CIF");
 	}
-	
-	
+
 	/**
 	 * Gets the manager class name.
 	 * 
@@ -121,18 +122,18 @@ public class GenerateJavaIdentifier {
 	 * @return the manager package
 	 */
 	public static String getManagerPackage(ContextVariable cxt, ItemType itemType, Item manager) {
-		
+
 		if (itemType != null && itemType.isRuntime()) {
 			String m = itemType.getAttribute(CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_);
 			return JavaIdentifier.getPackageName(m);
 		}
 		if (itemType == null)
-			itemType =(ItemType) ManagerManager.getItemType(manager);
+			itemType = (ItemType) ManagerManager.getItemType(manager);
 		if (itemType == null)
-			return "cannot-find-item-type-from-"+manager.getName();
+			return "cannot-find-item-type-from-" + manager.getName();
 		return getItemTypePackage(cxt, itemType, null, ".managers");
 	}
-	
+
 	/**
 	 * Gets the manager package.
 	 * 
@@ -149,10 +150,11 @@ public class GenerateJavaIdentifier {
 			return JavaIdentifier.getPackageName(m);
 		}
 		if (itemType == null)
-			itemType =(ItemType) ManagerManager.getItemType(manager);
-		return getItemTypePackage(cxt, itemType, null, ".managers")+"."+getManagerClassName(cxt, itemType, manager, custom);
+			itemType = (ItemType) ManagerManager.getItemType(manager);
+		return getItemTypePackage(cxt, itemType, null, ".managers") + "."
+				+ getManagerClassName(cxt, itemType, manager, custom);
 	}
-	
+
 	/**
 	 * Gets the manager package.
 	 * 
@@ -243,6 +245,8 @@ public class GenerateJavaIdentifier {
 		if (absItemType == null) {
 			absItemType = attribute.getPartParent();
 		}
+		if (absItemType == null)
+			return "??";
 
 		if (AttributeManager.isLinkAttribute(attribute)) {
 			return JavaIdentifier.javaIdentifierFromStringUPPER(cxt.getName(absItemType), null) + "_lt_"
@@ -405,12 +409,15 @@ public class GenerateJavaIdentifier {
 	 * @return the string
 	 */
 	public static String javaPackageNameFileCST_FromCadseDefinition(ContextVariable cxt, Item cadseDefinition) {
+		if (cadseDefinition == null)
+			return "??";
 		if (cadseDefinition.getType() == CadseGCST.CADSE_RUNTIME) {
 			if (cadseDefinition.getBaseItem() == null)
 				return "??";
-			return JavaIdentifier.getPackageName(((CadseRuntime)cadseDefinition.getBaseItem()).getCstQualifiedClassName());
+			return JavaIdentifier.getPackageName(((CadseRuntime) cadseDefinition.getBaseItem())
+					.getCstQualifiedClassName());
 		}
-		
+
 		String defaultValue = CadseDefinitionManager.getDefaultPackage(cxt, cadseDefinition);
 		return ow(cadseDefinition, "java.package.cst", defaultValue);
 	}
@@ -475,12 +482,15 @@ public class GenerateJavaIdentifier {
 	 * @return the string
 	 */
 	public static String javaClassNameFileCST_FromCadseDefinition(ContextVariable cxt, Item cadseDefinition) {
+		if (cadseDefinition == null)
+			return "??";
 		if (cadseDefinition.getType() == CadseGCST.CADSE_RUNTIME) {
 			if (cadseDefinition.getBaseItem() == null)
 				return "??";
-			return JavaIdentifier.getlastclassName(((CadseRuntime)cadseDefinition.getBaseItem()).getCstQualifiedClassName());
+			return JavaIdentifier.getlastclassName(((CadseRuntime) cadseDefinition.getBaseItem())
+					.getCstQualifiedClassName());
 		}
-		
+
 		return ow(cadseDefinition, "java.classname.cst", JavaIdentifier.javaIdentifierFromString(cxt
 				.getName(cadseDefinition), true, false, "CST"));
 	}
