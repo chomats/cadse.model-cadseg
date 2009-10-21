@@ -622,13 +622,17 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 		if (attOperation.getAttributeDefinition() == CadseGCST.CREATION_DIALOG_at_DEFAULT_SHORT_NAME_) {
 			if (attOperation.getCurrentValue() == null || ((String) attOperation.getCurrentValue()).isEmpty()) {
-				syncFieldName(wc, getFirstCreationPage(wc, item.getPartParent(), true));
+				ItemDelta itemType = item.getPartParent();
+				if (itemType.exists())
+					syncFieldName(wc, getFirstCreationPage(wc, itemType, true));
 			}
 		}
 
 		if (attOperation.getAttributeDefinition() == CadseGCST.CREATION_DIALOG_at_AUTOMATIC_SHORT_NAME_) {
 			if (attOperation.getCurrentValue() == Boolean.FALSE) {
-				syncFieldName(wc, getFirstCreationPage(wc, item.getPartParent(), true));
+				ItemDelta itemType = item.getPartParent();
+				if (itemType.exists())
+					syncFieldName(wc, getFirstCreationPage(wc, itemType, true));
 			}
 		}
 		// if (item.isInstanceOf(CadseGCST.MANAGER)
@@ -696,11 +700,14 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 
 		if (item.isInstanceOf(CadseGCST.ATTRIBUTE)) {
-			if (attOperation.getAttributeDefinition() == CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_) {
-				syncFieldFromAttribute(wc, item.getPartParent(), item, false);
-			}
-			if (attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
-				syncFieldFromAttribute(wc, item.getPartParent(), item, false);
+			ItemDelta itemType = item.getPartParent();
+			if (itemType.exists()) {
+				if (attOperation.getAttributeDefinition() == CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_) {
+					syncFieldFromAttribute(wc, itemType, item, false);
+				}
+				if (attOperation.getAttributeDefinition() == CadseGCST.ITEM_at_NAME_) {
+					syncFieldFromAttribute(wc, itemType, item, false);
+				}
 			}
 			if (attOperation.getAttributeDefinition() == CadseGCST.ATTRIBUTE_at_IS_LIST_) {
 				syncDisplayFromAttribute(wc, item);
