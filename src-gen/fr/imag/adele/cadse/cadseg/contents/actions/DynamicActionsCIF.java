@@ -86,10 +86,12 @@ public class DynamicActionsCIF implements IContentItemFactory {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.cadse.core.var.ContextVariable)
+		 * @see
+		 * fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.
+		 * cadse.core.var.ContextVariable)
 		 */
 		public void generate(ContextVariable cxt) {
-			generate(cxt, getItem());
+			generate(cxt, getOwnerItem());
 		}
 
 		/**
@@ -115,10 +117,15 @@ public class DynamicActionsCIF implements IContentItemFactory {
 				@Override
 				protected void generateMethods(GenStringBuilder sb, Set<String> imports, GenContext context) {
 					imports.add("fr.imag.adele.cadse.core.IItemNode");
-					imports.add("fr.imag.adele.cadse.core.IMenuAction");
-					imports.add("fr.imag.adele.cadse.core.IMenuAction.Menu");
+					imports.add("fr.imag.adele.cadse.core.Menu");
+					imports.add("fr.imag.adele.cadse.core.ui.IActionContributor");
+					imports.add("fr.imag.adele.cadse.core.ui.view.ViewDescription");
 
-					sb.newline().append("public void contributeMenuAction(Menu menu, IItemNode[] selection) {");
+					sb.newline().append("@Override");
+					sb
+							.newline()
+							.append(
+									"public void contributeMenuAction(ViewDescription viewDescription, Menu menu, IItemNode[] selection) {");
 					sb.newline().append("	// TODO Auto-generated method stub");
 					sb.newline();
 					sb.newline().append("}");
@@ -138,11 +145,13 @@ public class DynamicActionsCIF implements IContentItemFactory {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage(java.util.Set)
+		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
+		 * computeImportsPackage(java.util.Set)
 		 */
 		public void computeImportsPackage(Set<String> imports) {
 			imports.add("fr.imag.adele.cadse.core");
 			imports.add("fr.imag.adele.cadse.core.ui");
+			imports.add("fr.imag.adele.cadse.core.ui.view");
 		}
 
 		public GenerateModel getGenerateModel() {
@@ -158,7 +167,7 @@ public class DynamicActionsCIF implements IContentItemFactory {
 	}
 
 	public ContentItem createContentItem(CompactUUID id) throws CadseException {
-		DynamicActionsContent cm = new DynamicActionsContent(id , PackageNameVariable.INSTANCE,
+		DynamicActionsContent cm = new DynamicActionsContent(id, PackageNameVariable.INSTANCE,
 				ClassNameVariable.INSTANCE);
 		cm.setComposers();
 		cm.setExporters();
