@@ -74,6 +74,13 @@ public class DynamicActionsManager extends MenuAbstractManager {
 	public IContentItemFactory getContentItemFactory() {
 		return new DynamicActionsCIF();
 	}
+	
+	@Override
+	public ContentItem getParentContentItemWherePutMyContent(ContentItem cm) {
+		return cm.getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION).getContentItem();
+	}
+	
+	
 
 	@Override
 	public void doubleClick(Item item) {
