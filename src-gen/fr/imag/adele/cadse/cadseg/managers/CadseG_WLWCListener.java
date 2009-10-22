@@ -309,7 +309,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 	@Override
 	public void notifyCreatedItem(LogicalWorkspaceTransaction wc, ItemDelta item) throws CadseException {
-
+		if (!isInCadseDefinition(item))
+			return;
 		/*
 		 * Create dialog item and first page
 		 */
@@ -542,6 +543,9 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	public void notifyChangeAttribute(LogicalWorkspaceTransaction wc, ItemDelta item, SetAttributeOperation attOperation)
 			throws CadseException {
 
+		if (!isInCadseDefinition(item))
+			return;
+		
 		if (attOperation.getAttributeDefinition() == CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER_) {
 			try {
 				item.setAttribute(CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_, GenerateJavaIdentifier.getQualifiedManager(wc
@@ -734,6 +738,10 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 	}
 
+	private boolean isInCadseDefinition(ItemDelta item) {
+		return item.getPartParent(CadseGCST.CADSE_DEFINITION) != null;
+	}
+
 	private void addRenameOperation(ItemDelta anItemDelta, ContextVariable oldContext, ContextVariable newContext)
 			throws CadseException {
 		if (anItemDelta == null || anItemDelta.isAdded()) {
@@ -880,6 +888,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	 */
 	@Override
 	public void notifyDeletedItem(LogicalWorkspaceTransaction wc, ItemDelta item) throws CadseException {
+		if (!isInCadseDefinition(item))
+			return;
 		if (item.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)) {
 			ItemDelta manager = (ItemDelta) ManagerManager.getManagerFromItemType(item);
 			if (manager != null && !manager.isDeleted()) {
@@ -973,7 +983,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 	@Override
 	public void notifyCreatedLink(LogicalWorkspaceTransaction wc, LinkDelta link) throws CadseException {
-
+		if (!isInCadseDefinition(link.getSource()))
+			return;
 		if (link.getLinkType() == CadseGCST.FIELD_lt_ATTRIBUTE) {
 			ItemDelta field = link.getSource();
 			syncDisplay(wc, field);
@@ -1069,6 +1080,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 	@Override
 	public void notifyDeletedLink(LogicalWorkspaceTransaction wc, LinkDelta link) throws CadseException {
+		if (!isInCadseDefinition(link.getSource()))
+			return;
 		if (link.getLinkType() == CadseGCST.FIELD_lt_ATTRIBUTE) {
 			ItemDelta field = link.getSource();
 			Item display = FieldManager.getDisplay(field);
@@ -1589,40 +1602,41 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 
 		for (ItemDelta oper : loadedItems) {
-			if (oper.isInstanceOf(CadseGCST.ATTRIBUTE)) {
-				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
-				if (uuid != null && uuid.length() != 0)
-					try {
-						oper.setAttribute(CadseGCST.ATTRIBUTE_at_ID_RUNTIME_, uuid);
-					} catch (CadseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				try {
-					oper.setAttribute("UUID_ATTRIBUTE", null);
-				} catch (CadseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				continue;
-			}
-			if (oper.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)) {
-				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
-				if (uuid != null && uuid.length() != 0)
-					try {
-						oper.setAttribute(CadseGCST.ABSTRACT_ITEM_TYPE_at_ID_RUNTIME_, uuid);
-					} catch (CadseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				try {
-					oper.setAttribute("UUID_ATTRIBUTE", null);
-				} catch (CadseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				continue;
-			}
+		// remove this code (present in import code)
+//			if (oper.isInstanceOf(CadseGCST.ATTRIBUTE)) {
+//				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
+//				if (uuid != null && uuid.length() != 0)
+//					try {
+//						oper.setAttribute(CadseGCST.ATTRIBUTE_at_ID_RUNTIME_, uuid);
+//					} catch (CadseException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				try {
+//					oper.setAttribute("UUID_ATTRIBUTE", null);
+//				} catch (CadseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				continue;
+//			}
+//			if (oper.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)) {
+//				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
+//				if (uuid != null && uuid.length() != 0)
+//					try {
+//						oper.setAttribute(CadseGCST.ABSTRACT_ITEM_TYPE_at_ID_RUNTIME_, uuid);
+//					} catch (CadseException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				try {
+//					oper.setAttribute("UUID_ATTRIBUTE", null);
+//				} catch (CadseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				continue;
+//			}
 			if (oper.getType() == CadseGCST.CADSE_DEFINITION) {
 				String qname = oper.getQualifiedName();
 				if (qname == null || !qname.contains("."))
@@ -1630,20 +1644,21 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 						oper.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX + oper.getName());
 					} catch (CadseException ignored) {
 					}
-				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
-				if (uuid != null && uuid.length() != 0)
-					try {
-						oper.setAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, uuid);
-					} catch (CadseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				try {
-					oper.setAttribute("UUID_ATTRIBUTE", null);
-				} catch (CadseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					// remove this code (present in import code)
+//				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
+//				if (uuid != null && uuid.length() != 0)
+//					try {
+//						oper.setAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, uuid);
+//					} catch (CadseException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				try {
+//					oper.setAttribute("UUID_ATTRIBUTE", null);
+//				} catch (CadseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				continue;
 			}
 			if (oper.getType() == CadseGCST.DATA_MODEL) {
