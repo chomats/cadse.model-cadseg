@@ -12,6 +12,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.key.SpaceKeyType;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import java.net.URL;
@@ -55,6 +56,7 @@ public class CadseRuntimeManager extends ItemManager {
 	@Override
 	public void init() {
 		getItemType().setHasQualifiedNameAttribute(false);
+		CadseGCST.CADSE_RUNTIME.setSpaceKeyType(new SpaceKeyType(CadseGCST.CADSE_RUNTIME, null));
 	}
 
 	/**
