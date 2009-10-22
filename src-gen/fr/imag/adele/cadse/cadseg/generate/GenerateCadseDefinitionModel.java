@@ -54,7 +54,7 @@ import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
 import fr.imag.adele.cadse.cadseg.IAttributeGenerator;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.cadseg.ext.actions.ExtItemTypeExt;
+import fr.imag.adele.cadse.cadseg.ext.actions.ActionExtItemTypeExt;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuManager;
@@ -210,7 +210,7 @@ public class GenerateCadseDefinitionModel {
 		generateModificationDialog(cxt, factory, abstractItemType, cit);
 		generateAttributes(cxt, factory, abstractItemType, cit);
 
-		Item menu = ExtItemTypeExt.getActionsModel(abstractItemType);
+		Item menu = ActionExtItemTypeExt.getActionsModel(abstractItemType);
 		if (menu != null) {
 			generateMenu(cxt, factory, menu, cit, null);
 		}
