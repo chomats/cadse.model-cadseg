@@ -18,11 +18,15 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
+import fede.workspace.eclipse.content.SubFileContentManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.var.Variable;
 
 /**
  * @generated

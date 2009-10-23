@@ -1,6 +1,7 @@
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
 
+import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemManager;
 import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -31,6 +32,11 @@ public class MC_NameAttributeManager extends ModelControllerManager {
 		try {
 			Object value;
 			Item currentItem;
+			if (parent != null) {
+				value = ItemManager.getQualifiedNameAttribute(parent);
+				sb.append(
+				String.valueOf(value));
+			}
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
