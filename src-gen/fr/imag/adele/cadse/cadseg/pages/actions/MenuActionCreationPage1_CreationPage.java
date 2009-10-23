@@ -107,11 +107,11 @@ public class MenuActionCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldLabel = createFieldLabel();
 		this.fieldPath = createFieldPath();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldLabel, this.fieldPath);
+		addLast(this.fieldName, this.fieldLabel, this.fieldPath);
 
 		registerListener();
 	}
