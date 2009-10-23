@@ -19,7 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg;
 
-import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
+import fede.workspace.model.manager.properties.IC_ForCheckedViewer;
+import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
+import fede.workspace.model.manager.properties.impl.ui.DCheckedListUI;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -29,9 +31,6 @@ import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fede.workspace.model.manager.properties.IC_ForCheckedViewer;
-import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
-import fede.workspace.model.manager.properties.impl.ui.DCheckedListUI;
 
 /**
  * The Class FieldsCheckedUserController.
@@ -69,14 +68,15 @@ final public class FieldsCheckedUserController extends IC_AbstractForChecked imp
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.properties.IC_ForCheckedViewer#getSources()
+	 * @see
+	 * fede.workspace.model.manager.properties.IC_ForCheckedViewer#getSources()
 	 */
 	public Object[] getSources() {
-		_itemtype = _page.getPartParent().getPartParent();
+		_itemtype = _page.getPartParent();
 		Item[] attributes = ItemTypeManager.getAllAttributes(null, _itemtype, new ItemFilter() {
 
 			public boolean accept(Item item) {
-				return true ; //!AttributeManager.isClassAttributeAttribute(item);
+				return true; // !AttributeManager.isClassAttributeAttribute(item);
 			}
 
 			public boolean stop() {
@@ -90,7 +90,8 @@ final public class FieldsCheckedUserController extends IC_AbstractForChecked imp
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.properties.impl.ic.IC_Abstract#dispose()
+	 * @see
+	 * fede.workspace.model.manager.properties.impl.ic.IC_Abstract#dispose()
 	 */
 	@Override
 	public void dispose() {

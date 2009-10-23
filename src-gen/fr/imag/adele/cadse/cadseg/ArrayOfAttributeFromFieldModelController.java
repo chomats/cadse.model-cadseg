@@ -78,8 +78,9 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieValueChanged(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
+	 * @see
+	 * fr.imag.adele.cadse.core.ui.IEventListener#notifieValueChanged(fr.imag
+	 * .adele.cadse.core.ui.UIField, java.lang.Object)
 	 */
 	public void notifieValueChanged(UIField field, Object value) {
 	}
@@ -87,8 +88,9 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.core.ui.AbstractModelController#notifieSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
+	 * @see
+	 * fr.imag.adele.cadse.core.ui.AbstractModelController#notifieSubValueAdded
+	 * (fr.imag.adele.cadse.core.ui.UIField, java.lang.Object)
 	 */
 	@Override
 	public void notifieSubValueAdded(UIField field, Object added) {
@@ -142,7 +144,7 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 		String shortName = CadseG_WLWCListener.doShortName(attribute);
 
 		try {
-			ISpaceKey key = CadseGCST.FIELD.getSpaceKeyType().computeKey(shortName, page, attribute);
+			ISpaceKey key = CadseGCST.FIELD.getSpaceKeyType().computeKey(shortName, page, shortName, attribute);
 			Item field = CadseCore.getLogicalWorkspace().getItem(key);
 			if (field != null) {
 				field.delete(false);
@@ -156,8 +158,9 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.core.ui.AbstractModelController#notifieSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
+	 * @see
+	 * fr.imag.adele.cadse.core.ui.AbstractModelController#notifieSubValueRemoved
+	 * (fr.imag.adele.cadse.core.ui.UIField, java.lang.Object)
 	 */
 	@Override
 	public void notifieSubValueRemoved(UIField field, Object removed) {
