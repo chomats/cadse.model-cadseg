@@ -408,7 +408,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final boolean isIsRootElementAttribute(Item viewItemType) {
-		return viewItemType.getAttributeWithDefaultValue(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_, null);
+		return viewItemType.getAttributeWithDefaultValue(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_, false);
 	}
 
 	/**
