@@ -29,6 +29,7 @@ import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.impl.var.NullVariable;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -41,17 +42,17 @@ import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 public class PageListenerManager extends DefaultItemManager {
 
 	/**
-	 * @generated
+	 * @not generated
 	 */
 	static final class PackageNameVariable extends VariableImpl {
 
 		/**
-		 * @generated
+		 * 
 		 */
 		public final static Variable	INSTANCE	= new PackageNameVariable();
 
 		/**
-		 * @generated
+		 * 
 		 */
 		public String compute(ContextVariable context, Item itemCurrent) {
 			try {
@@ -65,17 +66,17 @@ public class PageListenerManager extends DefaultItemManager {
 	}
 
 	/**
-	 * @generated
+	 * 
 	 */
 	static final class ClassNameVariable extends VariableImpl {
 
 		/**
-		 * @generated
+		 * 
 		 */
 		public final static Variable	INSTANCE	= new ClassNameVariable();
 
 		/**
-		 * @generated
+		 * 
 		 */
 		public String compute(ContextVariable context, Item itemCurrent) {
 			try {
@@ -124,7 +125,7 @@ public class PageListenerManager extends DefaultItemManager {
 	}
 
 	/**
-		@generated
+		@not generated
 	*/
 	@Override
 	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
