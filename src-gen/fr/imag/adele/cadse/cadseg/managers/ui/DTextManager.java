@@ -237,7 +237,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 * @generated
 	 */
 	public static final boolean isNoBorderAttribute(Item dText) {
-		return dText.getAttributeWithDefaultValue(CadseGCST.DTEXT_at_NO_BORDER_, null);
+		return dText.getAttributeWithDefaultValue(CadseGCST.DTEXT_at_NO_BORDER_, false);
 	}
 
 	/**

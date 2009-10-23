@@ -343,7 +343,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @generated
 	 */
 	public static final EPosLabel getPositionAttribute(Item field) {
-		Object value = field.getAttribute(CadseGCST.FIELD_at_POSITION);
+		Object value = field.getAttribute(CadseGCST.FIELD_at_POSITION_);
 		return Convert.toEnum(value,CadseGCST.FIELD_at_POSITION_,EPosLabel.defaultpos);
 	}
 
@@ -359,7 +359,7 @@ public class FieldManager extends DefaultItemManager {
 	 */
 	public static final void setPositionAttribute(Item field, EPosLabel value) {
 		try {
-			field.setAttribute(CadseGCST.FIELD_at_POSITION, value);
+			field.setAttribute(CadseGCST.FIELD_at_POSITION_, value);
 		} catch (Throwable t) {
 		}
 	}
@@ -400,7 +400,7 @@ public class FieldManager extends DefaultItemManager {
 		@generated
 	*/
 	public static final boolean isEditableAttribute(Item field) {
-		return field.getAttributeWithDefaultValue(CadseGCST.FIELD_at_EDITABLE_, null);
+		return field.getAttributeWithDefaultValue(CadseGCST.FIELD_at_EDITABLE_, false);
 	}
 
 	/**
