@@ -1,0 +1,26 @@
+<%@ jet package="fr.imag.adele.cadse.cadseg.template" class="ValueClassAttribute"
+skeleton="AttributeSkelton.skeleton"
+ imports="fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier
+    fr.imag.adele.cadse.core.ItemType
+   fr.imag.adele.cadse.core.var.ContextVariable
+   fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager
+   "%>
+
+<%
+	Item itemType = attribute.getPartParent();
+	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
+	String cstType = GenerateJavaIdentifier.cstQualifiedAttributeItemType(ContextVariable.DEFAULT, itemType, null, imports);
+	ItemType it = attribute.getType();
+
+	 String typeJava = null;
+	 AttributeManager manager = (AttributeManager) attribute.getType().getItemManager();
+     typeJava = manager.getTypeJava(true).getSimpleName();
+	 if (typeJava == null) typeJava = "Object";
+%>
+
+	/**
+		@generated
+	*/
+	public static final <%=typeJava%> <%=GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute)%>() {
+		return <%=cstType%>.getAttribute(<%=cstAttribute%>_);
+	}
