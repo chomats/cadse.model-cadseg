@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
+import fede.workspace.eclipse.content.SubFileContentManager;
 import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
@@ -33,6 +34,9 @@ import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.core.var.Variable;
+import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
