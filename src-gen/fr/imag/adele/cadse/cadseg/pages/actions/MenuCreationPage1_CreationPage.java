@@ -63,10 +63,10 @@ public class MenuCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldPath = createFieldPath();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldPath);
+		addLast(this.fieldName, this.fieldPath);
 
 		registerListener();
 	}
@@ -88,7 +88,7 @@ public class MenuCreationPage1_CreationPage extends
 		if (CadseGCST.ABSTRACT_ITEM_TYPE.isSuperTypeOf(menu.getPartParent()
 				.getType())) {
 			fieldPath.internalSetVisible(false);
-			__short_name__.internalSetVisible(false);
+			fieldName.internalSetVisible(false);
 			try {
 				menu.setName("default");
 				MenuManager.setPathAttribute(menu, "default");
