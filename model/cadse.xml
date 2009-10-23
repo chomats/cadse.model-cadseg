@@ -439,7 +439,6 @@
     <item-type hidden="false" pattern-id="${#parent.qualified-name}{.}${#name}" manager-class="fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemManager" display-name="ExtItem" is-abstract="true" is-root-element="false" intID="0" has-content="false" package-name="dataModel" super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="ExtItem" qualified-name="CadseG.dataModel.ExtItem" cst-name="EXT_ITEM" id="d72bd5b1-cf11-4fa6-84f1-c12582dc5989">
         <creation-pages>
             <page titre="Create ExtItem" uuid="122e8937-185b-4713-bdc7-cbf18cba07b8" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.dataModel.ExtItemCreationPageExtItem_CreationPage" id="creation-page-ExtItem"/>
-            <page titre="Create ExtItem" uuid="122e8937-185b-4713-bdc7-cbf18cba07b8" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.dataModel.ExtItemCreationPageExtItem_CreationPage" id="creation-page-ExtItem"/>
         </creation-pages>
         <modification-pages/>
     </item-type>
@@ -681,8 +680,7 @@
         <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="20e185b9-5f65-4def-9e22-6df614090aa5" cst-name="ITEM_at_REQUIRE_NEW_REV_" min="0" type="boolean" value="false" key="requireNewRev" type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a"/>
         <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="d674931c-a818-41b3-8dda-62cce15c4ef5" cst-name="ITEM_at_REV_MODIFIED_" min="0" type="boolean" value="false" key="revModified" type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a"/>
         <creation-pages>
-            <page titre="Create Item" uuid="b0d5dc82-29a6-4b70-9447-8b362dbf83c4" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.CadseRuntimeCreationPageItem_CreationPage" id="creation-page-Item"/>
-            <page titre="Create Item" uuid="b0d5dc82-29a6-4b70-9447-8b362dbf83c4" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.CadseRuntimeCreationPageItem_CreationPage" id="creation-page-Item"/>
+            <page titre="Create Item" uuid="b0d5dc82-29a6-4b70-9447-8b362dbf83c4" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.dataModel.ItemCreationPageItem_CreationPage" id="creation-page-Item"/>
         </creation-pages>
         <modification-pages>
             <page titre="Item" uuid="885d93a1-806d-4e0d-9475-205397f4e3f5" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.dataModel.ItemModificationPageItem_ModificationPage" id="modification-page-Item"/>
