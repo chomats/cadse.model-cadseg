@@ -21,11 +21,10 @@ package fr.imag.adele.cadse.cadseg.menu.group;
 import java.net.URL;
 import java.text.MessageFormat;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.IShellProvider;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.swt.widgets.Shell;
 
 import fede.workspace.model.manager.properties.impl.ui.UIWizardDialog;
 import fede.workspace.model.manager.properties.impl.ui.WizardController;
@@ -44,36 +43,17 @@ import fr.imag.adele.cadse.core.ui.view.NewContext;
  */
 public class MenuNewAction extends IMenuAction {
 
-	
-	private IShellProvider	_workbenchWindow;
-	private String				_label;
+
 	private NewContext _c;
 
-	/**
-	 * Creates a new wizard shortcut menu for the IDE.
-	 * 
-	 * @param window
-	 *            the window containing the menu
-	 * @param parent
-	 *            the item parent for the new item or the item from the new item
-	 *            is created..
-	 * @param string
-	 *            label
-	 */
-	public MenuNewAction(IShellProvider window, NewContext c, String label) {
-		Assert.isNotNull(window);
+	
 
-		this._workbenchWindow = window;
-		this._c = c;
-		
-		if (label == null) {
-			label = c.getDestinationType().getDisplayName();
-		}
-		this._label = label;
+	public MenuNewAction(NewContext nc) {
+		_c = nc;
 	}
 
 	public int compareTo(MenuNewAction arg0) {
-		return this._label.compareTo(arg0._label);
+		return this._c.getLabel().compareTo(arg0._c.getLabel());
 	}
 
 	@Override
@@ -83,7 +63,7 @@ public class MenuNewAction extends IMenuAction {
 
 	@Override
 	public String getLabel() {
-		return _label;
+		return _c.getLabel();
 	}
 
 	@Override
@@ -103,14 +83,15 @@ public class MenuNewAction extends IMenuAction {
 
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
+		Shell shell = ((IShellProvider) _c.getView().getWindowProvider()).getShell();
 		try {
 			WizardController wizard = createWizard();
-			UIWizardDialog wd = new UIWizardDialog(_workbenchWindow.getShell(), wizard);
+			UIWizardDialog wd = new UIWizardDialog(shell, wizard);
 			wd.open();
 		} catch (Throwable e1) {
 			e1.printStackTrace();
 			String message = MessageFormat.format("Cannot create an item from {0}", _c);
-			MessageDialog.openError(_workbenchWindow.getShell(), "Error in create dialog", message);
+			MessageDialog.openError(shell, "Error in create dialog", message);
 			WSPlugin.log(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, 0, message, e1));
 		}
 	}
