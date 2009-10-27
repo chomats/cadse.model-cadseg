@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="CadseG"
+            id="Model.Workspace.CadseG.view-model.category">
+      </category>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="Cadse"
+            class="fr.imag.adele.cadse.cadseg.preferences.TeamWorkPreferencePage"
+            id="Model.Workspace.Cadseg.teamwork.page1"
+            name="Cadse Repo Preference Page">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="fr.imag.adele.cadse.cadseg.preferences.CadsePrefPage"
+            id="Cadse"
+            name="Cadse">
+      </page>
+   </extension>
+   
+
+</plugin>
