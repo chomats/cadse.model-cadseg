@@ -57,7 +57,9 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Menu;
+import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.Accessor;
+import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.eclipse.view.IViewLinkManager;
@@ -143,6 +145,11 @@ public class ItemActionGroup {
 					(IShellProvider) viewDescription.getWindowProvider()), true);
 		}
 
+		FilterContext context = new FilterContext(null, null, null, viewDescription, 
+				null, null, selection.length == 1 ? selection[0].getItem() : null, null, null, null, null);
+		
+		CadseCore.getLogicalWorkspace().getNewContextFrom(context );
+		
 		if (selection.length <= 1) {
 			Menu newmenu = computeNewMenu(viewDescription, selection.length == 1 ? selection[0].getItem() : null);
 			if (newmenu != null) {
