@@ -442,25 +442,6 @@ public class ItemActionGroup {
 		return menu;
 	}
 
-	private List<ItemType> getAllSourceGroupHead(LinkType groupLT) {
-		ArrayList<ItemType> groupHeads = new ArrayList<ItemType>();
-		ArrayList<ItemType> groupTypes = new ArrayList<ItemType>();
-		groupTypes.add(groupLT.getSource());
-		while (!groupTypes.isEmpty()) {
-			ItemType gt = groupTypes.remove(0);
-			if (gt.isGroupHead()) {
-				groupHeads.add(gt);
-			}
-			groupTypes.addAll(Arrays.asList(gt.getSubTypes()));
-			for (Item i : gt.getItems()) {
-				if (i instanceof ItemType) {
-					groupHeads.add((ItemType) i);
-				}
-			}
-		}
-		return groupHeads;
-	}
-
 	/**
 	 * Adds the items to show to the given list.
 	 * 
