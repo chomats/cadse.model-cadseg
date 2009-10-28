@@ -622,6 +622,24 @@ public class LinkManager extends AttributeManager implements IModelWorkspaceMana
 	}
 
 	/**
+		@generated
+	*/
+	public static final boolean isGroupAttribute(Item link) {
+		return link.getAttributeWithDefaultValue(CadseGCST.LINK_at_GROUP_, false);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setGroupAttribute(Item link, boolean value) {
+		try {
+			link.setAttribute(CadseGCST.LINK_at_GROUP_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
 	 * Checks if is annotation.
 	 * 
 	 * @param linkType
