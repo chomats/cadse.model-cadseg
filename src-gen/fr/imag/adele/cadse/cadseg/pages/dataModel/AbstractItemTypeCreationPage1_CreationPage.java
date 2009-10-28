@@ -71,7 +71,7 @@ public class AbstractItemTypeCreationPage1_CreationPage extends PageImpl {
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.fieldName = createInternalNameField();
+		this.fieldName = createFieldName();
 		setActionPage(null);
 		addLast(this.fieldName);
 
@@ -85,7 +85,7 @@ public class AbstractItemTypeCreationPage1_CreationPage extends PageImpl {
 	/**
 	    @generated
 	 */
-	public DTextUI createInternalNameField() {
+	public DTextUI createFieldName() {
 		return FieldsCore.createShortNameField();
 	}
 
