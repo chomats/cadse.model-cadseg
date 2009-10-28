@@ -97,7 +97,7 @@ public class ItemTypeCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.fieldName = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldSuperType = createFieldSuperType();
 		this.fieldIsRootElement = createFieldIsRootElement();
 		this.fieldHasContent = createFieldHasContent();
