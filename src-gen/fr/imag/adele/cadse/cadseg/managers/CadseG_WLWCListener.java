@@ -739,7 +739,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	}
 
 	private boolean isInCadseDefinition(ItemDelta item) {
-		return item.getPartParent(CadseGCST.CADSE_DEFINITION) != null;
+		return item.isInstanceOf(CadseGCST.CADSE_DEFINITION) || item.getPartParent(CadseGCST.CADSE_DEFINITION) != null;
 	}
 
 	private void addRenameOperation(ItemDelta anItemDelta, ContextVariable oldContext, ContextVariable newContext)
