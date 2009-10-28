@@ -140,10 +140,10 @@ public class ExtItemTypeCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createInternalNameField();
 		this.fieldRefType = createFieldRefType();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldRefType);
+		addLast(this.fieldName, this.fieldRefType);
 
 		registerListener();
 	}
