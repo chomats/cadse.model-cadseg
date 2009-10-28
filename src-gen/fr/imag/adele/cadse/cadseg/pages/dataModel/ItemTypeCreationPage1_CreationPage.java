@@ -97,7 +97,7 @@ public class ItemTypeCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createInternalNameField();
 		this.fieldSuperType = createFieldSuperType();
 		this.fieldIsRootElement = createFieldIsRootElement();
 		this.fieldHasContent = createFieldHasContent();
@@ -105,7 +105,7 @@ public class ItemTypeCreationPage1_CreationPage extends
 		this.fieldCadseRuntime = createFieldCadseRuntime();
 		this.fieldItemFactory = createFieldItemFactory();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldSuperType,
+		addLast(this.fieldName, this.fieldSuperType,
 				this.fieldIsRootElement, this.fieldHasContent,
 				this.fieldIsAbstract, this.fieldCadseRuntime,
 				this.fieldItemFactory);

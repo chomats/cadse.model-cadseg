@@ -50,7 +50,7 @@ public class AbstractItemTypeCreationPage1_CreationPage extends PageImpl {
 	/**
 	    @generated
 	 */
-	protected DTextUI __short_name__;
+	protected DTextUI fieldName;
 
 	/**
 	 * @generated
@@ -71,9 +71,9 @@ public class AbstractItemTypeCreationPage1_CreationPage extends PageImpl {
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast(this.fieldName);
 
 		registerListener();
 	}
