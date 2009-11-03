@@ -63,7 +63,8 @@ public class MenuNewAction extends IMenuAction {
 
 	@Override
 	public String getLabel() {
-		return _c.getLabel();
+		String l = _c.getLabel();
+		return l == null ? "?": l;
 	}
 
 	@Override
