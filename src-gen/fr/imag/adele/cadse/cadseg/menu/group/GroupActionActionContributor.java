@@ -315,6 +315,7 @@ public class GroupActionActionContributor implements  IActionContributor {
 		};
 		SortedSet<IMenuAction> list = new TreeSet<IMenuAction>(comparator);
 		for (NewContext nc : newActions) {
+			if (nc == null) continue;
 			list.add(new MenuNewAction(nc));
 		}
 		return new Menu(IMenuAction.NEW_MENU_ID+2, "New2", null, new ArrayList(list));

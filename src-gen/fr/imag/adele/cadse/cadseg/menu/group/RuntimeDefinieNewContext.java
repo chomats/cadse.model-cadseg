@@ -31,7 +31,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						computePartNew(view, it, cxt, result);
 						continue;
 					}
-					if (it.isMemberType()) {
+					if (it.isGroupType()) {
 						for (LinkType groupLT : it.getIncomingLinkTypes()) {
 							if (groupLT.isGroup()) {
 								for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
@@ -40,6 +40,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 									newContext.setGroupHead(groupHead, groupLT);
 									newContext.setGroupType(groupHead
 											.getGroupType());
+									newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
 									if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 									result.add(newContext);
 								}
@@ -49,11 +50,13 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 					} else if (it.isGroupType()) {
 						NewContext newContext = new NewContext(cxt);
 						newContext.setDestinationType(it);
+						newContext.setLabel(it.getDisplayName());
 						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 						result.add(newContext);
 					} else {
 						NewContext newContext = new NewContext(cxt);
 						newContext.setDestinationType(it);
+						newContext.setLabel(it.getDisplayName());
 						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 						result.add(newContext);
 					}
@@ -64,7 +67,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 				if (!view.canCreateDestination(lt))
 					continue;
 				
-				if (lt.isPart() && lt.isMember() && source instanceof ItemType) {
+				if (lt.isPart() && lt.isGroup() && source instanceof ItemType) {
 					for (ItemType it : getAllDestType(lt.getDestination())) {
 						if (it.isAbstract()) {
 							continue;
@@ -76,6 +79,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						newContext.setPartParent(source, lt);
 						newContext.setGroupHead((ItemType) source, lt);
 						newContext.setGroupType(groupType);
+						newContext.setLabel(source.getDisplayName()+" "+it.getDisplayName());
 						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 						result.add(newContext);
 					}
@@ -87,24 +91,26 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						NewContext newContext = new NewContext(cxt);
 						newContext.setDestinationType(it);
 						newContext.setPartParent(source, lt);
-						if (it.isMember()) {
+						if (it.isMemberType()) {
 							for (LinkType groupLT : it.getIncomingLinkTypes()) {
 								if (groupLT.isGroup()) {
 									for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
 										NewContext newContext2 = new NewContext(newContext);
 										newContext2.setGroupHead(groupHead, groupLT);
 										newContext2.setGroupType(groupHead.getGroupType());
+										newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
 										if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
 										result.add(newContext2);
 									}
 								}
 							}
 						} else {
+							newContext.setLabel(it.getDisplayName());
 							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 							result.add(newContext);
 						}
 					}
-				} else if (lt.isMember()) {
+				} else if (lt.isGroup()) {
 					for (ItemType it : getAllDestType(lt.getDestination())) {
 						if (it.isAbstract()) {
 							continue;
@@ -120,6 +126,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 									for (Item parent : getAllSourcePart(partLt)) {
 										NewContext newContext2 = new NewContext(newContext);
 										newContext2.setPartParent(parent, partLt);
+										newContext.setLabel(source.getDisplayName()+" "+it.getDisplayName()+ " of "+parent.getDisplayName());
 										if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
 										result.add(newContext2);
 									}
@@ -127,26 +134,34 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 							}
 							
 						} else {
+							newContext.setLabel(source.getDisplayName()+" "+it.getDisplayName());
 							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 							result.add(newContext);
 						}
 							
 					}
 				} else  {
+					if (lt.getDestination().hasIncomingParts() && !lt.isGroup())
+						continue;
+					
 					for (ItemType it : getAllDestType(lt.getDestination())) {
 						if (it.isAbstract()) {
 							continue;
 						}
+						if (it.hasIncomingParts() && !lt.isGroup())
+							continue;
 						NewContext newContext = new NewContext(cxt);
 						newContext.setDestinationType(it);
 						newContext.setPartParent(source, lt);
-						if (it.isMember()) {
+						if (it.isGroupType()) {
 							for (LinkType groupLT : it.getIncomingLinkTypes()) {
 								if (groupLT.isGroup()) {
 									for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
 										NewContext newContext2 = new NewContext(newContext);
 										newContext2.setGroupHead(groupHead, groupLT);
 										newContext2.setGroupType(groupHead.getGroupType());
+										newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
+										
 										if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
 										result.add(newContext2);
 									}
@@ -154,13 +169,13 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 							}
 						} else {
 							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
+							newContext.setLabel(it.getDisplayName());
 							result.add(newContext);
 						}
 					}
 				}
 			}
 		}
-
 	}
 
 	private List<ItemType> getAllDestType(ItemType it) {
@@ -200,7 +215,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 
 	private void computePartNew(ViewDescription view, ItemType it, FilterContext cxt, List<NewContext> result) {
 		for (LinkType partLT : it.getIncomingLinkTypes()) {
-			if (partLT.isPart() && partLT.isMember()) {
+			if (partLT.isPart() && partLT.isGroup()) {
 					if (it.isAbstract()) {
 						continue;
 					}
@@ -211,6 +226,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						newContext.setPartParent(groupHead, partLT);
 						newContext.setGroupHead((ItemType) groupHead, partLT);
 						newContext.setGroupType(groupType);
+						newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
 						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 						result.add(newContext);
 					}
@@ -219,19 +235,21 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 					NewContext newContext = new NewContext(cxt);
 					newContext.setDestinationType(it);
 					newContext.setPartParent(s, partLT);
-					if (it.isMember()) {
+					if (it.isGroupType()) {
 						for (LinkType groupLT : it.getIncomingLinkTypes()) {
 							if (groupLT.isGroup()) {
 								for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
 									NewContext newContext2 = new NewContext(newContext);
 									newContext2.setGroupHead(groupHead, groupLT);
 									newContext2.setGroupType(groupHead.getGroupType());
+									newContext2.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
 									if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
 									result.add(newContext2);
 								}
 							}
 						}
 					} else {
+						newContext.setLabel(it.getDisplayName());
 						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 						result.add(newContext);
 					}
