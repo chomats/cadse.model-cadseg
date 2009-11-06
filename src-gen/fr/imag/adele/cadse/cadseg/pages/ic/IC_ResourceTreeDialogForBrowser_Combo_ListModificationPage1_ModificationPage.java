@@ -35,9 +35,8 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListModificationPage1_Modific
 				"IC_ResourceTreeDialogForBrowser_Combo_List",
 				"IC_ResourceTreeDialogForBrowser_Combo_List", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

@@ -14,7 +14,7 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
  * @generated
  */
 public class JavaJarFileContentModelCreationPage1_CreationPage extends
-		ContentItemCreationPage1_CreationPage {
+		ContentItemTypeCreationPage1_CreationPage {
 
 	/**
 	 * @generated

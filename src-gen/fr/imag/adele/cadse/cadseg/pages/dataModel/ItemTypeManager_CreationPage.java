@@ -27,13 +27,13 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.PageFactory;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -93,13 +93,14 @@ public class ItemTypeManager_CreationPage extends PageImpl {
 
 		registerListener();
 	}
-	
+
 	@Override
 	public void init(IPageController pageController) throws CadseException {
-		Item manager = getItem().getIncomingItem(CadseGCST.MANAGER_lt_ITEM_TYPE);
+		Item manager = getItem()
+				.getIncomingItem(CadseGCST.MANAGER_lt_ITEM_TYPE);
 		setItem(manager);
 		super.init(pageController);
-		
+
 	}
 
 	protected void registerListener() {

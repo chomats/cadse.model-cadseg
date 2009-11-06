@@ -34,9 +34,8 @@ public class IC_LinkForBrowser_Combo_ListModificationPage1_ModificationPage
 		super("modification-page1", "IC_LinkForBrowser_Combo_List",
 				"IC_LinkForBrowser_Combo_List", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

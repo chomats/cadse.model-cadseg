@@ -58,7 +58,6 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.ic.IC_StaticArrayOfObjectForBrowser_Combo;
 import fede.workspace.model.manager.properties.impl.ic.IC_TreeModel;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DComboUI;
 import fede.workspace.model.manager.properties.impl.ui.DGridUI;
@@ -93,14 +92,17 @@ import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.ui.PagesImpl;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.eclipse.view.SelfViewContentProvider;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ActionController;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DButtonUI;
 
 /**
  * Dialog used for asking confirmation of items to commit. Informations provided
@@ -1085,7 +1087,7 @@ public class CommitDialogPage extends PageImpl {
 	 * Create read only require new revision check box.
 	 */
 	public DCheckBoxUI createReqNewRevField() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		DCheckBoxUI checkBoxField = new DCheckBoxUI(CadseGCST.ITEM_at_REQUIRE_NEW_REV,
 				"Commit will create a new revision", EPosLabel.none, mc, null) {
 			@Override

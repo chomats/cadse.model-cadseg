@@ -35,6 +35,7 @@ import fr.imag.adele.cadse.cadseg.contents.actions.DynamicActionsCIF;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.impl.var.NullVariable;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
@@ -45,6 +46,22 @@ import fr.imag.adele.cadse.core.var.Variable;
 public class DynamicActionsManager extends MenuAbstractManager {
 
 	
+
+
+	/**
+		@generated
+	*/
+	public class DynamicActionsContent extends JavaFileContentManager {
+
+		/**
+			@generated
+		*/
+		public DynamicActionsContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+			super(id, packageNameVariable, classNameVariable);
+		}
+
+	}
+
 
 
 	/**
@@ -69,6 +86,21 @@ public class DynamicActionsManager extends MenuAbstractManager {
 	}
 
 	
+
+	/**
+		@generated
+	*/
+	@Override
+	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+		DynamicActionsContent cm = new DynamicActionsContent(
+			id, NullVariable.INSTANCE, NullVariable.INSTANCE
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
+		return cm;
+	}
 
 	@Override
 	public IContentItemFactory getContentItemFactory() {

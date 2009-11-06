@@ -34,12 +34,14 @@ import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -117,10 +119,10 @@ public class AttributeEvolDef_CreationPage extends PageImpl {
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWEvol() {
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("??", "??",
+				TWEvol.class);
 		StringToEnumModelController mc = new StringToEnumModelController(
 				TWEvol.class, TWEvol.twImmutable);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
-				"Select a value.", "Select a value.", TWEvol.class);
 		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWEVOL, "TWEvol",
 				EPosLabel.left, mc, ic);
 	}
@@ -138,10 +140,10 @@ public class AttributeEvolDef_CreationPage extends PageImpl {
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWCommitKind() {
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("??", "??",
+				TWCommitKind.class);
 		StringToEnumModelController mc = new StringToEnumModelController(
 				TWCommitKind.class, TWCommitKind.conflict);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
-				"Select a value.", "Select a value.", TWCommitKind.class);
 		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND,
 				"TWCommitKind", EPosLabel.left, mc, ic);
 	}
@@ -150,10 +152,10 @@ public class AttributeEvolDef_CreationPage extends PageImpl {
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWUpdateKind() {
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("??", "??",
+				TWUpdateKind.class);
 		StringToEnumModelController mc = new StringToEnumModelController(
 				TWUpdateKind.class, TWUpdateKind.merge);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
-				"Select a value.", "Select a value.", TWUpdateKind.class);
 		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND,
 				"TWUpdateKind", EPosLabel.left, mc, ic);
 	}

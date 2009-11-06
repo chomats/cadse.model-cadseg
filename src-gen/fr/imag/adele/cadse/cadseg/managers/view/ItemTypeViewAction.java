@@ -38,10 +38,10 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class ItemTypeViewAction.
@@ -56,7 +56,7 @@ public class ItemTypeViewAction extends IMenuAction {
 	/**
 	 * The Class DataModelViewWizardController.
 	 */
-	class DataModelViewWizardController extends AbstractActionPage implements IModelController {
+	class DataModelViewWizardController extends AbstractActionPage implements RunningModelController {
 
 		/**
 		 * Instantiates a new data model view wizard controller.
@@ -65,7 +65,7 @@ public class ItemTypeViewAction extends IMenuAction {
 		}
 
 		/** The ic. */
-		private IInteractionController	ic;
+		private RuningInteractionController	ic;
 
 		/** The ui. */
 		private UIField					ui;
@@ -75,7 +75,7 @@ public class ItemTypeViewAction extends IMenuAction {
 		 * 
 		 * @return the interaction controller
 		 */
-		public IInteractionController getInteractionController() {
+		public RuningInteractionController getInteractionController() {
 			return ic;
 		}
 
@@ -94,7 +94,7 @@ public class ItemTypeViewAction extends IMenuAction {
 		 * @param ic
 		 *            the new interaction controller
 		 */
-		public void setInteractionController(IInteractionController ic) {
+		public void setInteractionController(RuningInteractionController ic) {
 			this.ic = ic;
 		}
 

@@ -402,7 +402,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	@Override
 	public void init() {
 		CadseGCST.PAGE.setHasQualifiedNameAttribute(false);
-		CadseGCST.PAGE.setSpaceKeyType(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.ABSTRACT_ITEM_TYPE));
+		CadseGCST.PAGE.setSpaceKeyType(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.TYPE_DEFINITION));
 	}
 
 	/**
@@ -542,40 +542,6 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	}
 
 	/**
-	 * Adds the fields.
-	 * 
-	 * @param page
-	 *            the page
-	 * @param value
-	 *            the value
-	 * 
-	 * @throws CadseException
-	 *             the melusine exception
-	 * 
-	 * @generated
-	 */
-	static public void addFields(Item page, Item value) throws CadseException {
-        page.addOutgoingItem(CadseGCST.PAGE_lt_FIELDS,value);
-    }
-
-	/**
-	 * Removes the fields.
-	 * 
-	 * @param page
-	 *            the page
-	 * @param value
-	 *            the value
-	 * 
-	 * @throws CadseException
-	 *             the melusine exception
-	 * 
-	 * @generated
-	 */
-	static public void removeFields(Item page, Item value) throws CadseException {
-        page.removeOutgoingItem(CadseGCST.PAGE_lt_FIELDS,value);
-    }
-
-	/**
 	 * Gets the title attribute.
 	 * 
 	 * @param page
@@ -640,181 +606,6 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	}
 
 	/**
-	 * Gets the hspan attribute.
-	 * 
-	 * @param page
-	 *            the page
-	 * 
-	 * @return the hspan attribute
-	 * 
-	 * @generated
-	 */
-	public static final int getHspanAttribute(Item page) {
-		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_HSPAN_, 3);
-	}
-
-	/**
-	 * Sets the hspan attribute.
-	 * 
-	 * @param page
-	 *            the page
-	 * @param value
-	 *            the value
-	 * 
-	 * @generated
-	 */
-	public static final void setHspanAttribute(Item page, int value) {
-		try {
-			page.setAttribute(CadseGCST.PAGE_at_HSPAN_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * Checks if is create page action attribute.
-	 * 
-	 * @param page
-	 *            the page
-	 * 
-	 * @return true, if checks if is create page action attribute
-	 * 
-	 * @generated
-	 */
-	public static final boolean isCreatePageActionAttribute(Item page) {
-		return page.getAttributeWithDefaultValue(CadseGCST.PAGE_at_CREATE_PAGE_ACTION_, false);
-	}
-
-	/**
-	 * Sets the create page action attribute.
-	 * 
-	 * @param page
-	 *            the page
-	 * @param value
-	 *            the value
-	 * 
-	 * @generated
-	 */
-	public static final void setCreatePageActionAttribute(Item page, boolean value) {
-		try {
-			page.setAttribute(CadseGCST.PAGE_at_CREATE_PAGE_ACTION_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * get links 'listeners' from 'Page' to 'UIListener'.
-	 * 
-	 * @generated
-	 */
-	static public List<Link> getListenersLink(Item page) {
-        return page.getOutgoingLinks(CadseGCST.PAGE_lt_LISTENERS);
-    }
-
-	/**
-	 * @generated
-	 */
-	static public Collection<Item> getListenersAll(Item page) {
-        return page.getOutgoingItems(CadseGCST.PAGE_lt_LISTENERS, false);
-    }
-
-	/**
-	 * @generated
-	 */
-	static public Collection<Item> getListeners(Item page) {
-        return page.getOutgoingItems(CadseGCST.PAGE_lt_LISTENERS,true);
-    }
-
-	/**
-	 * @generated
-	 */
-	static public void addListeners(Item page, Item value) throws CadseException {
-        page.addOutgoingItem(CadseGCST.PAGE_lt_LISTENERS,value);
-    }
-
-	/**
-	 * @generated
-	 */
-	static public void removeListeners(Item page, Item value) throws CadseException {
-        page.removeOutgoingItem(CadseGCST.PAGE_lt_LISTENERS,value);
-    }
-
-	/**
-	 * get a link 'super' from 'Page' to 'Page'.
-	 * 
-	 * @generated
-	 */
-	static public Link getSuperLink(Item page) {
-		return page.getOutgoingLink(CadseGCST.PAGE_lt_SUPER);
-	}
-
-	/**
-	 * get all link destination 'super' from 'Page' to 'Page'.
-	 * 
-	 * @generated
-	 */
-	static public Item getSuperAll(Item page) {
-		return page.getOutgoingItem(CadseGCST.PAGE_lt_SUPER, false);
-	}
-
-	/**
-	 * get resolved link destination 'super' from 'Page' to 'Page'.
-	 * 
-	 * @generated
-	 */
-	static public Item getSuper(Item page) {
-		return page.getOutgoingItem(CadseGCST.PAGE_lt_SUPER, true);
-	}
-
-	/**
-	 * set a link 'super' from 'Page' to 'Page'.
-	 * 
-	 * @generated
-	 */
-	static public void setSuper(Item page, Item value) throws CadseException {
-		page.setOutgoingItem(CadseGCST.PAGE_lt_SUPER,value);
-	}
-
-	/**
-	 * get links 'deleted-fields' from 'Page' to 'Field'.
-	 * 
-	 * @generated
-	 */
-	static public List<Link> getDeletedFieldsLink(Item page) {
-        return page.getOutgoingLinks(CadseGCST.PAGE_lt_DELETED_FIELDS);
-    }
-
-	/**
-	 * @generated
-	 */
-	static public Collection<Item> getDeletedFieldsAll(Item page) {
-        return page.getOutgoingItems(CadseGCST.PAGE_lt_DELETED_FIELDS, false);
-    }
-
-	/**
-	 * @generated
-	 */
-	static public Collection<Item> getDeletedFields(Item page) {
-        return page.getOutgoingItems(CadseGCST.PAGE_lt_DELETED_FIELDS,true);
-    }
-
-	/**
-	 * @generated
-	 */
-	static public void addDeletedFields(Item page, Item value) throws CadseException {
-        page.addOutgoingItem(CadseGCST.PAGE_lt_DELETED_FIELDS,value);
-    }
-
-	/**
-	 * @generated
-	 */
-	static public void removeDeletedFields(Item page, Item value) throws CadseException {
-        page.removeOutgoingItem(CadseGCST.PAGE_lt_DELETED_FIELDS,value);
-    }
-
-
-	/**
 	 * change default value to false
 	 * 
 	 * @generated
@@ -870,6 +661,42 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 
 		}
 	}
+
+	/**
+		get  links 'overwrite' from 'Page' to 'Page'.
+        @generated
+    */
+    static public List<Link> getOverwriteLink(Item page) {
+        return page.getOutgoingLinks(CadseGCST.PAGE_lt_OVERWRITE);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getOverwriteAll(Item page) {
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_OVERWRITE, false);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getOverwrite(Item page) {
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_OVERWRITE,true);
+    }
+
+	/**
+        @generated
+    */
+    static public void addOverwrite(Item page, Item value) throws CadseException {
+        page.addOutgoingItem(CadseGCST.PAGE_lt_OVERWRITE,value);
+    }
+
+	/**
+        @generated
+    */
+    static public void removeOverwrite(Item page, Item value) throws CadseException {
+        page.removeOutgoingItem(CadseGCST.PAGE_lt_OVERWRITE,value);
+    }
 
 	/**
 	 * Gets the desciption.
@@ -949,31 +776,39 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	}
 
 	/**
-	 * get links 'fields' from 'Page' to 'Field'.
-	 * 
-	 * @param page
-	 *            the page
-	 * 
-	 * @return the fields link
-	 * 
-	 * @generated
-	 */
-	static public List<Link> getFieldsLink(Item page) {
-        return page.getOutgoingLinks(CadseGCST.PAGE_lt_FIELDS);
+		get  links 'attributes' from 'Page' to 'Attribute'.
+        @generated
+    */
+    static public List<Link> getAttributesLink(Item page) {
+        return page.getOutgoingLinks(CadseGCST.PAGE_lt_ATTRIBUTES);
     }
 
 	/**
-	 * Gets the fields all.
-	 * 
-	 * @param page
-	 *            the page
-	 * 
-	 * @return the fields all
-	 * 
-	 * @generated
-	 */
-	static public Collection<Item> getFieldsAll(Item page) {
-        return page.getOutgoingItems(CadseGCST.PAGE_lt_FIELDS, false);
+        @generated
+    */
+    static public Collection<Item> getAttributesAll(Item page) {
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_ATTRIBUTES, false);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getAttributes(Item page) {
+        return page.getOutgoingItems(CadseGCST.PAGE_lt_ATTRIBUTES,true);
+    }
+
+	/**
+        @generated
+    */
+    static public void addAttributes(Item page, Item value) throws CadseException {
+        page.addOutgoingItem(CadseGCST.PAGE_lt_ATTRIBUTES,value);
+    }
+
+	/**
+        @generated
+    */
+    static public void removeAttributes(Item page, Item value) throws CadseException {
+        page.removeOutgoingItem(CadseGCST.PAGE_lt_ATTRIBUTES,value);
     }
 
 	/*
@@ -1007,7 +842,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		if (absItemType == null) {
 			return null;
 		}
-		Item superItemType = AbstractItemTypeManager.getSuperAbstractItemType(absItemType);
+		Item superItemType = TypeDefinitionManager.getSuperAbstractItemType(absItemType);
 		if (superItemType == null) {
 			return null;
 		}
@@ -1048,7 +883,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		if (absItemType == null) {
 			return;
 		}
-		Item superItemType = AbstractItemTypeManager.getSuperAbstractItemType(absItemType);
+		Item superItemType = TypeDefinitionManager.getSuperAbstractItemType(absItemType);
 		if (superItemType == null) {
 			return;
 		}

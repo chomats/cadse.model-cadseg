@@ -34,9 +34,8 @@ public class StringToEnumModelControllerModificationPage1_ModificationPage
 				"a string to enum model controller",
 				"a string to enum model controller", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

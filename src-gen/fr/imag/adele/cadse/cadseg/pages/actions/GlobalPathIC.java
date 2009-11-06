@@ -28,8 +28,8 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
 import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
 import fede.workspace.model.manager.properties.Proposal;
-import fede.workspace.model.manager.properties.impl.ic.IC_Abstract;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.impl.ui.ic.IC_Abstract;
 
 /**
  * The Class GlobalPathIC.

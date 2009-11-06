@@ -2,6 +2,7 @@ package fr.imag.adele.cadse.cadseg.pages.ui;
 
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
+import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
@@ -14,12 +15,15 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -42,9 +46,9 @@ public class FieldCreationPage1_CreationPage extends PageImpl {
 	public LinkType lt;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	protected DTextUI __short_name__;
+	protected DTextUI fieldName;
 
 	/**
 	    @generated
@@ -72,12 +76,11 @@ public class FieldCreationPage1_CreationPage extends PageImpl {
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldOverwritefield = createFieldOverwritefield();
 		this.fieldEditable = createFieldEditable();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldOverwritefield,
-				this.fieldEditable);
+		addLast(this.fieldName, this.fieldOverwritefield, this.fieldEditable);
 
 		registerListener();
 	}
@@ -87,20 +90,22 @@ public class FieldCreationPage1_CreationPage extends PageImpl {
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
+	public DTextUI createFieldName() {
+		MC_ShortNameItemProperty mc = new MC_ShortNameItemProperty();
+		return new DTextUI(CadseGCST.ITEM_at_NAME, "name", EPosLabel.left, mc,
+				null, 1, "", false, false, false);
 	}
 
 	/**
 	    @generated
 	 */
 	public DBrowserUI createFieldOverwritefield() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.FIELD_lt_OVERWRITEFIELD);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.FIELD_lt_OVERWRITEFIELD);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.FIELD_lt_OVERWRITEFIELD);
 		return new DBrowserUI(CadseGCST.FIELD_lt_OVERWRITEFIELD.getName(),
 				"overwritefield", EPosLabel.left, mc, ic);

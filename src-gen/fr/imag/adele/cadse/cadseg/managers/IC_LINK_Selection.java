@@ -25,17 +25,17 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
 import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
 import fede.workspace.model.manager.properties.Proposal;
-import fede.workspace.model.manager.properties.impl.ic.IC_Abstract;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.path.ParsePath;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
+import fr.imag.adele.cadse.core.impl.ui.ic.IC_Abstract;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 
 /**
  * The Class SelectionUC.
  */
-public class IC_LINK_Selection extends IC_Abstract implements IInteractionController, IFieldContenProposalProvider,
+public class IC_LINK_Selection extends IC_Abstract implements RuningInteractionController, IFieldContenProposalProvider,
 		IContentProposalProvider {
 
 	/*

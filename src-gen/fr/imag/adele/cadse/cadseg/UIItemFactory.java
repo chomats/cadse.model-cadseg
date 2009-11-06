@@ -31,20 +31,20 @@ import fr.imag.adele.cadse.core.impl.ItemFactory;
 import fr.imag.adele.cadse.core.impl.internal.AbstractGeneratedItem;
 import fr.imag.adele.cadse.core.impl.internal.ItemImpl;
 import fr.imag.adele.cadse.core.impl.internal.ItemTypeImpl;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.ic.IC_Abstract;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Integer;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Date;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.IFedeFormToolkit;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
-import fede.workspace.model.manager.properties.impl.ic.IC_Abstract;
 import fede.workspace.model.manager.properties.impl.ic.IC_EnumForBrowser_Combo;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_PartLinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.IntModelController;
-import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
-import fede.workspace.model.manager.properties.impl.mc.MC_Date;
 import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.mc.StringToEnumModelController;
 import fede.workspace.model.manager.properties.impl.ui.DAbstractField;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
@@ -149,27 +149,7 @@ public class UIItemFactory extends ItemFactory implements IItemFactory {
 		}
 		CompactUUID id = item.getId();
 		String shortName = item.getName();
-		if (it == CadseGCST.DBROWSER) {
-			return new DBrowserUI(id, shortName);
-		}
-		if (it == CadseGCST.DTEXT) {
-			return new DTextUI(id, shortName);
-		}
-		if (it == CadseGCST.DTREE) {
-			return new DTreeUI(id, shortName);
-		}
-		if (it == CadseGCST.DCHECK_BOX) {
-			return new DCheckBoxUI(id, shortName);
-		}
-		if (it == CadseGCST.DCHECKED_LIST) {
-			return new DCheckedListUI(id, shortName);
-		}
-		if (it == CadseGCST.DCOMBO) {
-			return new DComboUI(id, shortName);
-		}
-		if (it == CadseGCST.DLIST) {
-			return new DListUI(id, shortName);
-		}
+		
 		if (it == CadseGCST.IC_ENUM_FOR_BROWSER_COMBO) {
 			return new IC_EnumForBrowser_Combo(id, shortName);
 		}
@@ -177,7 +157,7 @@ public class UIItemFactory extends ItemFactory implements IItemFactory {
 			return new IC_LinkForBrowser_Combo_List(id);
 		}
 		if (it == CadseGCST.STRING_TO_BOOLEAN_MODEL_CONTROLLER) {
-			return new StringToBooleanModelControler(id);
+			return new MC_StringToBoolean(id);
 		}
 		if (it == CadseGCST.LINK_MODEL_CONTROLLER) {
 			return new LinkModelController(id);
@@ -195,7 +175,7 @@ public class UIItemFactory extends ItemFactory implements IItemFactory {
 			return new MC_Date(id);
 		}
 		if (it == CadseGCST.INT_MODEL_CONTROLLER) {
-			return new IntModelController(id);
+			return new MC_Integer(id);
 		}
 		if (it == CadseGCST.STRING_TO_ENUM_MODEL_CONTROLLER) {
 			return new StringToEnumModelController(id);
@@ -222,7 +202,7 @@ public class UIItemFactory extends ItemFactory implements IItemFactory {
 		}
 		
 		
-		return new ItemImpl(wl, it, item);
+		return super.newForCommitItem(wl, it, item);
 	}
 
 }

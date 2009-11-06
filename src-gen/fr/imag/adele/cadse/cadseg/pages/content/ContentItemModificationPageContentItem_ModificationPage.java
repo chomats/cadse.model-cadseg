@@ -13,13 +13,15 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  @generated
@@ -31,11 +33,6 @@ public class ContentItemModificationPageContentItem_ModificationPage extends
 	    @generated
 	 */
 	public Item item;
-
-	/**
-	    @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	    @generated
@@ -63,11 +60,10 @@ public class ContentItemModificationPageContentItem_ModificationPage extends
 		super("modification-page-ContentItem", "ContentItem", "ContentItem",
 				"", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldOwnerItem = createFieldOwnerItem();
 		this.fieldChildren = createFieldChildren();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldOwnerItem, this.fieldChildren);
+		addLast(this.fieldOwnerItem, this.fieldChildren);
 
 		registerListener();
 	}
@@ -79,18 +75,11 @@ public class ContentItemModificationPageContentItem_ModificationPage extends
 	/**
 	    @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	    @generated
-	 */
 	public DBrowserUI createFieldOwnerItem() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM);
 		return new DBrowserUI(CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM.getName(),
 				"owner-item", EPosLabel.left, mc, ic);
@@ -100,10 +89,10 @@ public class ContentItemModificationPageContentItem_ModificationPage extends
 	    @generated
 	 */
 	public DListUI createFieldChildren() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.CONTENT_ITEM_lt_CHILDREN);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.CONTENT_ITEM_lt_CHILDREN);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.CONTENT_ITEM_lt_CHILDREN);
 		return new DListUI(CadseGCST.CONTENT_ITEM_lt_CHILDREN.getName(),
 				"children", EPosLabel.top, mc, ic, true, false, false, false);

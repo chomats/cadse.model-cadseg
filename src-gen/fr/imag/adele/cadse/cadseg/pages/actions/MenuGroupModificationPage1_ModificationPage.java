@@ -49,9 +49,8 @@ public class MenuGroupModificationPage1_ModificationPage extends
 	public MenuGroupModificationPage1_ModificationPage(Item item) {
 		super("modification-page1", "MenuGroup", "MenuGroup", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

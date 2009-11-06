@@ -33,9 +33,8 @@ public class IC_StaticArrayOfObjectForBrowser_ComboModificationPage1_Modificatio
 		super("modification-page1", "IC_StaticArrayOfObjectForBrowser_Combo",
 				"IC_StaticArrayOfObjectForBrowser_Combo", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

@@ -7,14 +7,15 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -60,14 +61,13 @@ public class IC_AbstractTreeDialogForList_Browser_ComboModificationPage1_Modific
 				"IC_AbstractTreeDialogForList_Browser_Combo",
 				"IC_AbstractTreeDialogForList_Browser_Combo", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldMessage = createFieldMessage();
 		this.fieldTitle = createFieldTitle();
 		this.fieldSelectMessage = createFieldSelectMessage();
 		this.fieldSelectTitle = createFieldSelectTitle();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldMessage, this.fieldTitle,
-				this.fieldSelectMessage, this.fieldSelectTitle);
+		addLast(this.fieldMessage, this.fieldTitle, this.fieldSelectMessage,
+				this.fieldSelectTitle);
 
 		registerListener();
 	}

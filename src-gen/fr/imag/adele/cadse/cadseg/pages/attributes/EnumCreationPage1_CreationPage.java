@@ -26,12 +26,11 @@ import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
 import fede.workspace.model.manager.properties.impl.ic.IC_PartLinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
-import fede.workspace.model.manager.properties.Proposal;
-import fede.workspace.model.manager.properties.impl.ic.IC_Abstract;
-import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
+import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
+import fede.workspace.model.manager.properties.Proposal;
+import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.MaxModelController;
 import fede.workspace.model.manager.properties.impl.mc.MinModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
@@ -45,18 +44,22 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.ic.IC_Abstract;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.EventAdapter;
 import fr.imag.adele.cadse.core.ui.IEventListener;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -76,7 +79,7 @@ public class EnumCreationPage1_CreationPage extends
 	 * The Class DefaultValueIC.
 	 */
 	public static final class DefaultValueIC extends IC_Abstract implements
-			IInteractionController, IEventListener,
+			RuningInteractionController, IEventListener,
 			IFieldContenProposalProvider, IContentProposalProvider {
 
 		/** The values. */
@@ -378,15 +381,14 @@ public class EnumCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldEnumType = createFieldEnumType();
 		this.fieldDefaultValue = createFieldDefaultValue();
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(new EnumCreationPage1_CreationPageAction());
-		addLast(this.__short_name__, this.fieldEnumType,
-				this.fieldDefaultValue, this.fieldMustBeInitialized,
-				this.fieldIsList);
+		addLast(this.fieldName, this.fieldEnumType, this.fieldDefaultValue,
+				this.fieldMustBeInitialized, this.fieldIsList);
 
 		registerListener();
 	}

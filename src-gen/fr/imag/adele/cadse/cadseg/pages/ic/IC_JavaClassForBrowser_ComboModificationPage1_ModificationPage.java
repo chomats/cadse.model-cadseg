@@ -33,9 +33,8 @@ public class IC_JavaClassForBrowser_ComboModificationPage1_ModificationPage
 		super("modification-page1", "IC_JavaClassForBrowser_Combo",
 				"IC_JavaClassForBrowser_Combo", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

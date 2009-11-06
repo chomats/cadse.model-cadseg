@@ -27,7 +27,7 @@ import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 
 /**
@@ -47,10 +47,6 @@ public class AbstractItemTypeCreationPage1_CreationPage extends PageImpl {
 	    @generated
 	 */
 	public LinkType lt;
-	/**
-	    @generated
-	 */
-	protected DTextUI fieldName;
 
 	/**
 	 * @generated
@@ -71,22 +67,14 @@ public class AbstractItemTypeCreationPage1_CreationPage extends PageImpl {
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.fieldName = createFieldName();
 		setActionPage(null);
-		addLast(this.fieldName);
+		addLast();
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	    @generated
-	 */
-	public DTextUI createFieldName() {
-		return FieldsCore.createShortNameField();
 	}
 
 }

@@ -34,7 +34,7 @@ import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.key.ISpaceKey;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 /**
@@ -42,7 +42,7 @@ import fr.imag.adele.cadse.core.ui.UIField;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ArrayOfAttributeFromFieldModelController extends AbstractModelController implements IModelController {
+public class ArrayOfAttributeFromFieldModelController extends AbstractModelController implements RunningModelController {
 
 	/** The page. */
 	private Item	page;

@@ -33,7 +33,7 @@ import fr.imag.adele.cadse.core.ui.UIField;
 /**
  * @generated
  */
-public class EnumCreationPage1_CreationPageAction extends AttributeCreationPage1_CreationPageAction {
+public class EnumCreationPage1_CreationPageAction extends AbstractActionPage {
 	UIField	enumTypeField;
 
 	public EnumCreationPage1_CreationPageAction(Link l, Item item, IItemNode node, ItemType type, LinkType lt) {

@@ -19,12 +19,9 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.window.IShellProvider;
 
 import fede.workspace.tool.view.WSPlugin;
-import fede.workspace.tool.view.actions.AddCadseModelAction;
 import fede.workspace.tool.view.actions.CreateLinkAction;
-import fede.workspace.tool.view.actions.DeleteItemAction;
 import fede.workspace.tool.view.actions.DeleteLinkAction;
 import fede.workspace.tool.view.actions.GenerateAction;
-import fede.workspace.tool.view.actions.RenameAction;
 import fede.workspace.tool.view.addlink.LinkRootNode;
 import fede.workspace.tool.view.menu.RecreatePartLinkAction;
 import fede.workspace.tool.view.node.RootNode;
@@ -45,6 +42,9 @@ import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.eclipse.view.IViewLinkManager;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.AddCadseModelAction;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.DeleteItemAction;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.RenameAction;
 
 
 

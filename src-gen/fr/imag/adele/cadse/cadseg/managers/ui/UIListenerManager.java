@@ -30,6 +30,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.var.NullVariable;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
@@ -39,54 +40,6 @@ import fede.workspace.eclipse.java.manager.JavaFileContentManager;
  * @generated
  */
 public class UIListenerManager extends DefaultItemManager {
-
-	/**
-	 * @generated
-	 */
-	static final class PackageNameVariable extends VariableImpl {
-
-		/**
-		 * @generated
-		 */
-		public final static Variable	INSTANCE	= new PackageNameVariable();
-
-		/**
-		 * @generated
-		 */
-		public String compute(ContextVariable context, Item itemCurrent) {
-			try {
-				Object value;
-				return context.getName(itemCurrent);
-			} catch (Throwable e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	static final class ClassNameVariable extends VariableImpl {
-
-		/**
-		 * @generated
-		 */
-		public final static Variable	INSTANCE	= new ClassNameVariable();
-
-		/**
-		 * @generated
-		 */
-		public String compute(ContextVariable context, Item itemCurrent) {
-			try {
-				Object value;
-				return context.getName(itemCurrent);
-			} catch (Throwable e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}
-	}
 
 	/**
 		@generated
@@ -150,7 +103,7 @@ public class UIListenerManager extends DefaultItemManager {
 	@Override
 	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
 		UIListenerContent cm = new UIListenerContent(
-			id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE
+			id, NullVariable.INSTANCE, NullVariable.INSTANCE
 			);
 		cm.setComposers(
 		);

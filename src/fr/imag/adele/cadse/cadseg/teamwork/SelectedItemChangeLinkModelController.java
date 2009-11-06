@@ -28,7 +28,7 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
-import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 
 public class SelectedItemChangeLinkModelController extends LinkModelController implements ItemSelectionListener {
 
@@ -64,8 +64,8 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 		}
 	}
 
-	public SelectedItemChangeLinkModelController(boolean mandatory, String msg, LinkType lt) {
-		super(mandatory, msg, lt);
+	public SelectedItemChangeLinkModelController(boolean mandatory, String msg) {
+		super(mandatory, msg);
 	}
 
 	@Override

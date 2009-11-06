@@ -28,6 +28,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionCIF;
@@ -35,6 +36,7 @@ import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.impl.var.NullVariable;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
@@ -45,6 +47,22 @@ import fr.imag.adele.cadse.core.var.Variable;
  * @generated
  */
 public class MenuActionManager extends MenuAbstractManager {
+
+	/**
+		@generated
+	*/
+	public class MenuActionContent extends JavaFileContentManager {
+
+		/**
+			@generated
+		*/
+		public MenuActionContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+			super(id, packageNameVariable, classNameVariable);
+		}
+
+	}
+
+
 
 	/**
 	 * The Constructor.
@@ -92,6 +110,21 @@ public class MenuActionManager extends MenuAbstractManager {
 	}
 
 	
+
+	/**
+		@generated
+	*/
+	@Override
+	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+		MenuActionContent cm = new MenuActionContent(
+			id, NullVariable.INSTANCE, NullVariable.INSTANCE
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
+		return cm;
+	}
 
 	@Override
 	public void doubleClick(Item item) {

@@ -18,6 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.ui;
 
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -26,34 +27,26 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
  */
-public class DisplayModificationPage1_ModificationPage extends PageImpl {
-
-	/**
-	 * @generated
-	 */
-	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
+public class DisplayModificationPage1_ModificationPage extends
+		FieldModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
@@ -73,26 +66,6 @@ public class DisplayModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI fieldEditable;
-
-	/**
-	 * @generated
-	 */
-	protected DCheckBoxUI fieldEnable;
-
-	/**
-	    @generated
-	 */
-	protected DBrowserUI fieldIc;
-
-	/**
-	    @generated
-	 */
-	protected DBrowserUI fieldMc;
-
-	/**
-	 * @generated
-	 */
 	protected DisplayModificationPage1_ModificationPage(String id,
 			String label, String title, String description,
 			boolean isPageComplete, int hspan) {
@@ -105,32 +78,18 @@ public class DisplayModificationPage1_ModificationPage extends PageImpl {
 	public DisplayModificationPage1_ModificationPage(Item item) {
 		super("modification-page1", "Display", "Display", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldExtendsInteractionController = createFieldExtendsInteractionController();
 		this.fieldExtendsModelController = createFieldExtendsModelController();
 		this.fieldExtendsUiField = createFieldExtendsUiField();
-		this.fieldEditable = createFieldEditable();
-		this.fieldEnable = createFieldEnable();
-		this.fieldIc = createFieldIc();
-		this.fieldMc = createFieldMc();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldExtendsInteractionController,
-				this.fieldExtendsModelController, this.fieldExtendsUiField,
-				this.fieldEditable, this.fieldEnable, this.fieldIc,
-				this.fieldMc);
+		addLast(this.fieldExtendsInteractionController,
+				this.fieldExtendsModelController, this.fieldExtendsUiField);
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
 	}
 
 	/**
@@ -158,48 +117,6 @@ public class DisplayModificationPage1_ModificationPage extends PageImpl {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
 		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI,
 				"extends ui field", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldEditable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EDITABLE, "editable",
-				EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldEnable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_ENABLE, "enable",
-				EPosLabel.none, mc, null);
-	}
-
-	/**
-	    @generated
-	 */
-	public DBrowserUI createFieldIc() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.DISPLAY_lt_IC);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.", CadseGCST.DISPLAY_lt_IC);
-		return new DBrowserUI(CadseGCST.DISPLAY_lt_IC.getName(), "ic",
-				EPosLabel.left, mc, ic);
-	}
-
-	/**
-	    @generated
-	 */
-	public DBrowserUI createFieldMc() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.DISPLAY_lt_MC);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.", CadseGCST.DISPLAY_lt_MC);
-		return new DBrowserUI(CadseGCST.DISPLAY_lt_MC.getName(), "mc",
-				EPosLabel.left, mc, ic);
 	}
 
 }

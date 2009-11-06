@@ -31,7 +31,7 @@ import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
+import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
@@ -43,16 +43,19 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -75,9 +78,9 @@ public class EnumTypeCreationPage1_CreationPage extends PageImpl {
 	public LinkType lt;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	protected DTextUI __short_name__;
+	protected DTextUI fieldName;
 
 	/**
 	 * @generated
@@ -107,11 +110,11 @@ public class EnumTypeCreationPage1_CreationPage extends PageImpl {
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldValues = createFieldValues();
 		this.fieldJavaClass = createFieldJavaClass();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldValues, this.fieldJavaClass);
+		addLast(this.fieldName, this.fieldValues, this.fieldJavaClass);
 
 		registerListener();
 	}
@@ -162,6 +165,15 @@ public class EnumTypeCreationPage1_CreationPage extends PageImpl {
 		// })
 		// )
 		// );
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldName() {
+		MC_ShortNameItemProperty mc = new MC_ShortNameItemProperty();
+		return new DTextUI(CadseGCST.ITEM_at_NAME, "name", EPosLabel.left, mc,
+				null, 1, "", false, false, false);
 	}
 
 	@Override
@@ -258,17 +270,9 @@ public class EnumTypeCreationPage1_CreationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DListUI createFieldValues() {
+		IC_DefaultForList ic = new IC_DefaultForList("", "", false);
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
-				"Select a value.", false);
 		return new DListUI(CadseGCST.ENUM_TYPE_at_VALUES, "values",
 				EPosLabel.top, mc, ic, true, false, false, false);
 	}

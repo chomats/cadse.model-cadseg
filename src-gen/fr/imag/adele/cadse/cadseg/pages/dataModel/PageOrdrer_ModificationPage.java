@@ -29,13 +29,15 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -81,11 +83,12 @@ public class PageOrdrer_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldFields() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.PAGE_lt_FIELDS);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.", CadseGCST.PAGE_lt_FIELDS);
-		return new DListUI(CadseGCST.PAGE_lt_FIELDS.getName(), "fields",
+				"Select a value.", "Select a value.",
+				CadseGCST.PAGE_lt_ATTRIBUTES);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.PAGE_lt_ATTRIBUTES);
+		return new DListUI(CadseGCST.PAGE_lt_ATTRIBUTES.getName(), "fields",
 				EPosLabel.top, mc, ic, false, false, true, false);
 	}
 

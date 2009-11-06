@@ -146,8 +146,8 @@ public class ImportCadseUtil {
 					itemDelta.setAttribute(CadseGCST.PAGE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
 				} else if (itemDelta.isInstanceOf(CadseGCST.ATTRIBUTE)) {
 					itemDelta.setAttribute(CadseGCST.ATTRIBUTE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
-				} else if (itemDelta.isInstanceOf(CadseGCST.ABSTRACT_ITEM_TYPE)) {
-					itemDelta.setAttribute(CadseGCST.ABSTRACT_ITEM_TYPE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+				} else if (itemDelta.isInstanceOf(CadseGCST.TYPE_DEFINITION)) {
+					itemDelta.setAttribute(CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_, uuid_att.getCurrentValue());
 				} else {
 					System.out.println("Cannot set UUID_ATTRIBUTE for type " + itemDelta.getType().getName());
 				}

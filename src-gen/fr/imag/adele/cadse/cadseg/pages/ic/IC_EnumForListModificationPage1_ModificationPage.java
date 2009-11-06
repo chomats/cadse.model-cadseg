@@ -32,9 +32,8 @@ public class IC_EnumForListModificationPage1_ModificationPage extends
 		super("modification-page1", "IC_EnumForList", "IC_EnumForList", "",
 				false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

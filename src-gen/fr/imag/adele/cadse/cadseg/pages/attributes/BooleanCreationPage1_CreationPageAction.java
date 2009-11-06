@@ -28,7 +28,7 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 /**
  * @generated
  */
-public class BooleanCreationPage1_CreationPageAction extends AttributeCreationPage1_CreationPageAction {
+public class BooleanCreationPage1_CreationPageAction extends AbstractActionPage {
 
 	public BooleanCreationPage1_CreationPageAction(Link l, Item item, IItemNode node, ItemType type, LinkType lt) {
 		// TODO

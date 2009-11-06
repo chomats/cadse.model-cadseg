@@ -60,7 +60,7 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
 /**
  * The Class ItemTypeManager.
  */
-public class ItemTypeManager extends AbstractItemTypeManager {
+public class ItemTypeManager extends TypeDefinitionManager {
 
 	/**
 	 * Gets the package.
@@ -97,7 +97,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.ITEM_TYPE.setSpaceKeyType(new SpaceKeyType(CadseGCST.ITEM_TYPE, CadseGCST.CADSE_RUNTIME) {
+		CadseGCST.ITEM_TYPE.setSpaceKeyType(new SpaceKeyType(CadseGCST.ITEM_TYPE, CadseGCST.CADSE) {
 			@Override
 			protected String convertName(String name) {
 				if (name == null) return null;
@@ -111,8 +111,8 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		});
 		CadseGCST.ITEM_TYPE.setHasNameAttribute(true);
 		CadseGCST.ITEM_TYPE.setHasQualifiedNameAttribute(true);
-		CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES.setIsNatif(true);
-		CadseGCST.ITEM_TYPE_lt_CREATION_PAGES.setIsNatif(true);
+		CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES.setIsNatif(true);
+		CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES.setIsNatif(true);
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @return the attributes
 	 */
 	static public Collection<Item> getAttributes(Item itemtype) {
-		return itemtype.getOutgoingItems(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, true);
+		return itemtype.getOutgoingItems(CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, true);
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 
 		for (Link l : itemtype.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
+			if (l.getLinkType() == CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES && l.isLinkResolved()) {
 				Item destination = l.getResolvedDestination();
 				if (destination == null) {
 					continue;
@@ -209,7 +209,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			for (Item ext : extensions) {
 				for (Link l : ext.getOutgoingLinks()) {
 					// Select link has kind Part and destination.
-					if (l.getLinkType() == CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
+					if (l.getLinkType() == CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES && l.isLinkResolved()) {
 						Item destination = l.getResolvedDestination();
 						if (destination == null) {
 							continue;
@@ -250,7 +250,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 
 		for (Link l : itemtype.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
+			if (l.getLinkType() == CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES && l.isLinkResolved()) {
 				Item destination = l.getResolvedDestination();
 				// if dest not null, take this destination to return list.
 				if (itemfilter == null || itemfilter.accept(destination)) {
@@ -263,7 +263,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 			for (Item ext : extensions) {
 				for (Link l : ext.getOutgoingLinks()) {
 					// Select link has kind Part and destination.
-					if (l.getLinkType() == CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES && l.isLinkResolved()) {
+					if (l.getLinkType() == CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES && l.isLinkResolved()) {
 						Item destination = l.getResolvedDestination();
 						// if dest not null, take this destination to return
 						// list.
@@ -317,7 +317,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 *             the melusine exception
 	 */
 	static public void setAttributes(Item ItemType, List<Item> value) throws CadseException {
-		ItemType.setOutgoingItems(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
+		ItemType.setOutgoingItems(CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, value);
 	}
 
 	/**
@@ -332,7 +332,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 *             the melusine exception
 	 */
 	static public void addAttributes(Item ItemType, Item value) throws CadseException {
-		ItemType.addOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
+		ItemType.addOutgoingItem(CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, value);
 	}
 
 	/**
@@ -347,7 +347,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 *             the melusine exception
 	 */
 	static public void removeAttributes(Item ItemType, Item value) throws CadseException {
-		ItemType.removeOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, value);
+		ItemType.removeOutgoingItem(CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, value);
 	}
 
 	/**
@@ -647,36 +647,6 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	}
 
 	/**
-		get  links 'cadse-runtime' from 'ItemType' to 'CadseRuntime'.
-        @generated
-    */
-    static public Link getCadseRuntimeLink(Item itemType) {
-		return itemType.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME);
-	}
-
-	/**
-        @generated
-    */
-    static public Item getCadseRuntimeAll(Item itemType) {
-		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME, false);
-	}
-
-	/**
-        @generated
-    */
-    static public Item getCadseRuntime(Item itemType) {
-		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME, true);
-	}
-
-	/**
-		set a link 'cadse-runtime' from 'ItemType' to 'CadseRuntime'.
-		@generated
-	*/
-	static public void setCadseRuntime(Item itemType, Item value) throws CadseException {
-		itemType.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME,value);
-	}
-
-	/**
 		@generated
 	*/
 	public static final String getItemFactoryAttribute(Item itemType) {
@@ -812,33 +782,6 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 		return true;
 	}
 
-	/**
-	 * Delete dialog.
-	 * 
-	 * @param managerItem
-	 *            the manager item
-	 */
-	private void deleteDialog(Item managerItem) {
-		Item createDialog = getCreationDialog(managerItem);
-		if (createDialog != null) {
-			try {
-				createDialog.delete(false);
-			} catch (CadseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		Item modificationDialog = getModificationDialog(managerItem);
-		if (modificationDialog != null) {
-			try {
-				modificationDialog.delete(false);
-			} catch (CadseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 
 	/**
 	 * Gets the main data model.
@@ -887,7 +830,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 */
 	static public Item getCadseDefinition(Item theItemType) {
 		while (theItemType != null) {
-			if (theItemType.getType() == CadseGCST.CADSE_DEFINITION || theItemType.getType() == CadseGCST.CADSE_RUNTIME) {
+			if (theItemType.getType() == CadseGCST.CADSE_DEFINITION || theItemType.getType() == CadseGCST.CADSE) {
 				return theItemType;
 			}
 			theItemType = theItemType.getPartParent();
@@ -1026,14 +969,14 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	public static Item findAttribute(Item theItemType, String shortName) {
 		// Ajout le cas pour les extentions.
 		if (theItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
-			Item findItem = getOutgoingItems(theItemType, CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, shortName);
+			Item findItem = getOutgoingItems(theItemType, CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, shortName);
 			if (findItem != null) {
 				return findItem;
 			}
 			theItemType = ExtItemTypeManager.getRefType(theItemType);
 		}
 		while (theItemType != null) {
-			Item findItem = getOutgoingItems(theItemType, CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, shortName);
+			Item findItem = getOutgoingItems(theItemType, CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, shortName);
 			if (findItem != null) {
 				return findItem;
 			}
@@ -1271,78 +1214,6 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	}
 
 	/**
-		get  links 'modification-pages' from 'ItemType' to 'Page'.
-        @generated
-    */
-    static public List<Link> getModificationPagesLink(Item itemType) {
-        return itemType.getOutgoingLinks(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES);
-    }
-
-	/**
-        @generated
-    */
-    static public Collection<Item> getModificationPagesAll(Item itemType) {
-        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES, false);
-    }
-
-	/**
-        @generated
-    */
-    static public Collection<Item> getModificationPages(Item itemType) {
-        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES,true);
-    }
-
-	/**
-        @generated
-    */
-    static public void addModificationPages(Item itemType, Item value) throws CadseException {
-        itemType.addOutgoingItem(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES,value);
-    }
-
-	/**
-        @generated
-    */
-    static public void removeModificationPages(Item itemType, Item value) throws CadseException {
-        itemType.removeOutgoingItem(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES,value);
-    }
-
-	/**
-		get  links 'creation-pages' from 'ItemType' to 'ItemType'.
-        @generated
-    */
-    static public List<Link> getCreationPagesLink(Item itemType) {
-        return itemType.getOutgoingLinks(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES);
-    }
-
-	/**
-        @generated
-    */
-    static public Collection<Item> getCreationPagesAll(Item itemType) {
-        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES, false);
-    }
-
-	/**
-        @generated
-    */
-    static public Collection<Item> getCreationPages(Item itemType) {
-        return itemType.getOutgoingItems(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES,true);
-    }
-
-	/**
-        @generated
-    */
-    static public void addCreationPages(Item itemType, Item value) throws CadseException {
-        itemType.addOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES,value);
-    }
-
-	/**
-        @generated
-    */
-    static public void removeCreationPages(Item itemType, Item value) throws CadseException {
-        itemType.removeOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATION_PAGES,value);
-    }
-
-	/**
 		@generated
 	*/
 	public static final boolean isCustomManagerAttribute(Item itemType) {
@@ -1478,21 +1349,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @return the all creation pages
 	 */
 	public static Item[] getAllCreationPages(Item itemtype) {
-		Item[] supertype = getAllSuperTypes(itemtype);
-		Map<String, Item> pages = new HashMap<String, Item>();
-		for (int i = 0; i < supertype.length; i++) {
-			Item anItem = supertype[i];
-			Item dialog = getCreationDialogAll(anItem);
-			if (dialog == null || !dialog.isResolved()) {
-				continue;
-			}
-			Collection<Item> itempages = CreationDialogManager.getPages(dialog);
-			for (Item aPage : itempages) {
-				pages.put(aPage.getName(), aPage);
-			}
-		}
-		Collection<Item> pagevalues = pages.values();
-		return pagevalues.toArray(new Item[pagevalues.size()]);
+		return getAllObject(itemtype, CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES, CadseGCST.PAGE_lt_OVERWRITE);
 	}
 
 	/**
@@ -1504,21 +1361,31 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * @return the all modification pages
 	 */
 	public static Item[] getAllModificationPages(Item itemtype) {
+		return getAllObject(itemtype, CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES, CadseGCST.PAGE_lt_OVERWRITE);
+	}
+	
+	/**
+	 * Gets the all modification pages.
+	 * 
+	 * @param itemtype
+	 *            the itemtype
+	 * 
+	 * @return the all modification pages
+	 */
+	public static Item[] getAllObject(Item itemtype, LinkType type_to_object, LinkType overwriteLT) {
 		Item[] supertype = getAllSuperTypes(itemtype);
-		Map<String, Item> pages = new HashMap<String, Item>();
+		ArrayList<Item> pages = new ArrayList<Item>();
 		for (int i = 0; i < supertype.length; i++) {
 			Item anItem = supertype[i];
-			Item dialog = getModificationDialog(anItem);
-			if (dialog == null || !dialog.isResolved()) {
-				continue;
-			}
-			Collection<Item> itempages = CreationDialogManager.getPages(dialog);
+			Collection<Item> itempages = anItem.getOutgoingItems(type_to_object, true);
 			for (Item aPage : itempages) {
-				pages.put(aPage.getName(), aPage);
+				if (overwriteLT != null) {
+					pages.removeAll(aPage.getOutgoingItems(overwriteLT, true));
+				}
+				pages.add(aPage);
 			}
 		}
-		Collection<Item> pagevalues = pages.values();
-		return pagevalues.toArray(new Item[pagevalues.size()]);
+		return pages.toArray(new Item[pages.size()]);
 	}
 
 	/**
@@ -1975,7 +1842,7 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	public static Item getAttribute(Item itemtype, String attr) {
 		for (Link l : itemtype.getOutgoingLinks()) {
 			// Select link has kind Part and destination.
-			if (l.getLinkType() == (CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES) && l.isLinkResolved()
+			if (l.getLinkType() == (CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES) && l.isLinkResolved()
 					&& l.getResolvedDestination().getName().equals(attr)) {
 				Item destination = l.getResolvedDestination();
 				return destination;
@@ -2054,8 +1921,8 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * 
 	 * @return the creation dialog
 	 */
-	public static Item getCreationDialog(Item itemType) {
-		return itemType.getOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_CREATION_DIALOG, true);
+	public static Collection<Item> getCreationPages(Item itemType) {
+		return itemType.getOutgoingItems(CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES, true);
 	}
 
 	/**
@@ -2066,8 +1933,8 @@ public class ItemTypeManager extends AbstractItemTypeManager {
 	 * 
 	 * @return the modification dialog
 	 */
-	public static Item getModificationDialog(Item itemType) {
-		return itemType.getOutgoingItem(CadseGCST.ABSTRACT_ITEM_TYPE_lt_MODIFICATION_DIALOG, true);
+	public static Collection<Item> getModificationPages(Item itemType) {
+		return itemType.getOutgoingItems(CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES, true);
 	}
 
 	public static String getMetaType(Item itemType) {

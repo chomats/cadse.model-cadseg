@@ -281,7 +281,6 @@ public class GeneratePageClass2 extends GenerateClass {
 		String key = PageManager.getKey(page);
 		String title = PageManager.getTitle(page);
 		String description = PageManager.getDesciption(page);
-		int hspan = PageManager.getHspanAttribute(page);
 		String label = title;
 		String isComplete = "false";
 
@@ -297,7 +296,7 @@ public class GeneratePageClass2 extends GenerateClass {
 		sb.newline().appendStringValue_vir(title);
 		sb.newline().appendStringValue_vir(description);
 		sb.newline().append(isComplete).append(",");
-		sb.newline().append(hspan).append(");");
+		sb.newline().append(-1).append(");");
 		sb.end();
 
 		if (cas == ConfigurablePageFactory.PAGE_CREATION_ITEM) {
@@ -314,7 +313,7 @@ public class GeneratePageClass2 extends GenerateClass {
 		for (FieldGenerateInfo info : fields) {
 			sb.newline().append("this.").append(info.fieldName).append("=").append(" ").append(info.methodName).append(
 					"();");
-			boolean isReadOnly = FieldManager.isReadonlyAttribute(info.field);
+			boolean isReadOnly = FieldManager.isEditableAttribute(info.field);
 			if (isReadOnly) {
 				sb.newline().append("this.").append(info.fieldName).append(".setEditable(false);");
 			}

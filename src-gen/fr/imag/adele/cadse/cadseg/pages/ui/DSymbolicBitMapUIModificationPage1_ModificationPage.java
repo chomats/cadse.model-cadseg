@@ -24,15 +24,18 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
@@ -41,7 +44,7 @@ import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -90,17 +93,13 @@ public class DSymbolicBitMapUIModificationPage1_ModificationPage extends
 		super("modification-page1", "DSymbolicBitMapUI", "DSymbolicBitMapUI",
 				"", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldExtendsUI = createFieldExtendsUI();
-		this.fieldEnable = createFieldEnable();
 		this.fieldExtendsIC = createFieldExtendsIC();
-		this.fieldEditable = createFieldEditable();
 		this.fieldExtendsMC = createFieldExtendsMC();
 		this.fieldNumberColumn = createFieldNumberColumn();
 		this.fieldLabels = createFieldLabels();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldExtendsUI, this.fieldEnable,
-				this.fieldExtendsIC, this.fieldEditable, this.fieldExtendsMC,
+		addLast(this.fieldExtendsUI, this.fieldExtendsIC, this.fieldExtendsMC,
 				this.fieldNumberColumn, this.fieldLabels);
 
 		registerListener();
@@ -151,9 +150,8 @@ public class DSymbolicBitMapUIModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DListUI createFieldLabels() {
+		IC_DefaultForList ic = new IC_DefaultForList("", "", false);
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
-				"Select a value.", false);
 		return new DListUI(CadseGCST.DSYMBOLIC_BIT_MAP_UI_at_LABELS, "labels",
 				EPosLabel.top, mc, ic, true, false, false, false);
 	}

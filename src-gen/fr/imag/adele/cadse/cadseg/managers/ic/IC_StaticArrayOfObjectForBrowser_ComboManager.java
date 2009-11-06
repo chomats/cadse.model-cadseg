@@ -36,11 +36,11 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class IC_StaticArrayOfObjectForBrowser_ComboManager.
@@ -175,7 +175,7 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
 				DisplayManager.IC_DEFAULT_NAME);
 
-		IModelController mc = new MC_AttributesItem();
+		RunningModelController mc = new MC_AttributesItem();
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
 				"String[] interaction controller for browser or combo",

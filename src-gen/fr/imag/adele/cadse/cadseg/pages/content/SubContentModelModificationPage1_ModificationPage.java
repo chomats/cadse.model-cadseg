@@ -14,7 +14,7 @@ import fr.imag.adele.cadse.core.ui.PageFactory;
  * @generated
  */
 public class SubContentModelModificationPage1_ModificationPage extends
-		ContentItemModificationPage1_ModificationPage {
+		ContentItemTypeModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
@@ -32,9 +32,8 @@ public class SubContentModelModificationPage1_ModificationPage extends
 		super("modification-page1", "SubContentModel", "SubContentModel", "",
 				false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

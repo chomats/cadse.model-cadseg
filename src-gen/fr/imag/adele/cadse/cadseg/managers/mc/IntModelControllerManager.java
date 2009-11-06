@@ -21,7 +21,6 @@ package fr.imag.adele.cadse.cadseg.managers.mc;
 
 import java.util.Set;
 
-import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
@@ -37,10 +36,12 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Integer;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class IntModelControllerManager.
@@ -304,9 +305,9 @@ public class IntModelControllerManager extends ModelControllerManager implements
 				DisplayManager.MC_DEFAULT_NAME);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
-				"a int model controller", 3, FieldsCore.createTextField("min", "min", new IntModelController(1, -1,
+				"a int model controller", 3, FieldsCore.createTextField("min", "min", new MC_Integer(1, -1,
 						null, null, null)), FieldsCore.createTextField("min-error", "min error message"), FieldsCore
-						.createTextField("max", "max", new IntModelController(1, -1, null, null, null)), FieldsCore
+						.createTextField("max", "max", new MC_Integer(1, -1, null, null, null)), FieldsCore
 						.createTextField("max-error", "max error message"), FieldsCore.createTextField("default-value",
 						"default value")));
 	}
@@ -321,9 +322,9 @@ public class IntModelControllerManager extends ModelControllerManager implements
 		AbstractActionPage action = new ModificationAction(item);
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
-				"a int model controller", 3, FieldsCore.createTextField("min", "min", new IntModelController(1, -1,
+				"a int model controller", 3, FieldsCore.createTextField("min", "min", new MC_Integer(1, -1,
 						null, null, null)), FieldsCore.createTextField("min-error", "min error message"), FieldsCore
-						.createTextField("max", "max", new IntModelController(1, -1, null, null, null)), FieldsCore
+						.createTextField("max", "max", new MC_Integer(1, -1, null, null, null)), FieldsCore
 						.createTextField("max-error", "max error message"), FieldsCore.createTextField("default-value",
 						"default value")));
 	}

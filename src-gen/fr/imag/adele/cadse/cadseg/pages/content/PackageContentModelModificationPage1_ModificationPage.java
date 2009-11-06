@@ -32,9 +32,8 @@ public class PackageContentModelModificationPage1_ModificationPage extends
 		super("modification-page1", "PackageContentModel",
 				"PackageContentModel", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

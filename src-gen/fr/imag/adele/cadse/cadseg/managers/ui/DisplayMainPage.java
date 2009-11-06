@@ -27,9 +27,9 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.PageFactory;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 
 /**
@@ -61,7 +61,7 @@ public class DisplayMainPage extends PageFactory {
 	 * @generated
 	 */
 	static public DCheckBoxUI createFieldExtendsIC() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
 				mc, null);
 	}
@@ -74,7 +74,7 @@ public class DisplayMainPage extends PageFactory {
 	 * @generated
 	 */
 	static public DCheckBoxUI createFieldExtendsMC() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
 	}
 
@@ -86,7 +86,7 @@ public class DisplayMainPage extends PageFactory {
 	 * @generated
 	 */
 	static public DCheckBoxUI createFieldExtendsUI() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
 	}
 
@@ -98,20 +98,8 @@ public class DisplayMainPage extends PageFactory {
 	 * @generated
 	 */
 	static public DCheckBoxUI createFieldEditable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * Creates the field enable.
-	 * 
-	 * @return the d check box ui
-	 * 
-	 * @generated
-	 */
-	static public DCheckBoxUI createFieldEnable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_ENABLE, "enable", EPosLabel.none, mc, null);
+		MC_StringToBoolean mc = new MC_StringToBoolean();
+		return new DCheckBoxUI(CadseGCST.FIELD_at_EDITABLE, "editable", EPosLabel.none, mc, null);
 	}
 
 	/*

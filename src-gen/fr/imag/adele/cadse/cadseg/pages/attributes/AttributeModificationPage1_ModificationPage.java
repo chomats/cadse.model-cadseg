@@ -30,16 +30,18 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -50,11 +52,6 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
@@ -112,7 +109,6 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 		super("modification-page1", "an attribute", "an attribute", "", false,
 				3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldIsList = createFieldIsList();
 		this.fieldDefaultValue = createFieldDefaultValue();
 		this.fieldRequire = createFieldRequire();
@@ -122,8 +118,8 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 		this.fieldFinalValue = createFieldFinalValue();
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldIsList, this.fieldDefaultValue,
-				this.fieldRequire, this.fieldCannotBeDefined, this.fieldNatif,
+		addLast(this.fieldIsList, this.fieldDefaultValue, this.fieldRequire,
+				this.fieldCannotBeDefined, this.fieldNatif,
 				this.fieldTransient, this.fieldFinalValue,
 				this.fieldMustBeInitialized);
 
@@ -132,13 +128,6 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
 	}
 
 	@Override
@@ -215,7 +204,7 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 		return new MC_AttributesItem();
 	}
 
-	protected IInteractionController createICDefaultValue() {
+	protected RuningInteractionController createICDefaultValue() {
 		return null;
 	}
 

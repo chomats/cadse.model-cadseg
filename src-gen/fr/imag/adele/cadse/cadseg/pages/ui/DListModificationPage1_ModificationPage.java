@@ -18,6 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.ui;
 
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -26,18 +27,19 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -94,7 +96,6 @@ public class DListModificationPage1_ModificationPage extends
 	public DListModificationPage1_ModificationPage(Item item) {
 		super("modification-page1", "DList", "DList", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldEditableButton = createFieldEditableButton();
 		this.fieldUpdateButton = createFieldUpdateButton();
 		this.fieldOrderButton = createFieldOrderButton();
@@ -102,12 +103,10 @@ public class DListModificationPage1_ModificationPage extends
 		this.fieldExtendsIC = createFieldExtendsIC();
 		this.fieldExtendsMC = createFieldExtendsMC();
 		this.fieldExtendsUI = createFieldExtendsUI();
-		this.fieldEditable = createFieldEditable();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldEditableButton,
-				this.fieldUpdateButton, this.fieldOrderButton,
-				this.fieldShowFilter, this.fieldExtendsIC, this.fieldExtendsMC,
-				this.fieldExtendsUI, this.fieldEditable);
+		addLast(this.fieldEditableButton, this.fieldUpdateButton,
+				this.fieldOrderButton, this.fieldShowFilter,
+				this.fieldExtendsIC, this.fieldExtendsMC, this.fieldExtendsUI);
 
 		registerListener();
 	}

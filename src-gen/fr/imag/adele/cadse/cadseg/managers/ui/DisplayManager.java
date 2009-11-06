@@ -27,7 +27,6 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.UIItemFactory;
@@ -50,6 +49,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.Variable;
@@ -527,95 +527,6 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	}
 
 	/**
-	 * Checks if is enable attribute.
-	 * 
-	 * @param display
-	 *            the display
-	 * 
-	 * @return true, if checks if is enable attribute
-	 * 
-	 * @generated
-	 */
-	public static final boolean isEnableAttribute(Item display) {
-		return display.getAttributeWithDefaultValue(CadseGCST.DISPLAY_at_ENABLE_, true);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final void setEnableAttribute(Item display, boolean value) {
-		try {
-			display.setAttribute(CadseGCST.DISPLAY_at_ENABLE_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-		get a link 'ic' from 'Display' to 'InteractionController'.
-		@generated
-	*/
-	static public Link getIcLink(Item display) {
-		return display.getOutgoingLink(CadseGCST.DISPLAY_lt_IC);
-	}
-
-	/**
-		get all link destination 'ic' from 'Display' to 'InteractionController'.
-		@generated
-	*/
-	static public Item getIcAll(Item display) {
-		return display.getOutgoingItem(CadseGCST.DISPLAY_lt_IC, false);
-	}
-
-	/**
-		get resolved link destination 'ic' from 'Display' to 'InteractionController'.
-		@generated
-	*/
-	static public Item getIc(Item display) {
-		return display.getOutgoingItem(CadseGCST.DISPLAY_lt_IC, true);
-	}
-
-	/**
-		set a link 'ic' from 'Display' to 'InteractionController'.
-		@generated
-	*/
-	static public void setIc(Item display, Item value) throws CadseException {
-		display.setOutgoingItem(CadseGCST.DISPLAY_lt_IC,value);
-	}
-
-	/**
-		get a link 'mc' from 'Display' to 'ModelController'.
-		@generated
-	*/
-	static public Link getMcLink(Item display) {
-		return display.getOutgoingLink(CadseGCST.DISPLAY_lt_MC);
-	}
-
-	/**
-		get all link destination 'mc' from 'Display' to 'ModelController'.
-		@generated
-	*/
-	static public Item getMcAll(Item display) {
-		return display.getOutgoingItem(CadseGCST.DISPLAY_lt_MC, false);
-	}
-
-	/**
-		get resolved link destination 'mc' from 'Display' to 'ModelController'.
-		@generated
-	*/
-	static public Item getMc(Item display) {
-		return display.getOutgoingItem(CadseGCST.DISPLAY_lt_MC, true);
-	}
-
-	/**
-		set a link 'mc' from 'Display' to 'ModelController'.
-		@generated
-	*/
-	static public void setMc(Item display, Item value) throws CadseException {
-		display.setOutgoingItem(CadseGCST.DISPLAY_lt_MC,value);
-	}
-
-	/**
 	 * Checks if is editable attribute.
 	 * 
 	 * @param display
@@ -626,7 +537,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * 
 	 */
 	public static final boolean isEditableAttribute(Item display) {
-		Object value = display.getAttribute(CadseGCST.DISPLAY_at_EDITABLE);
+		Object value = display.getAttribute(CadseGCST.FIELD_at_EDITABLE_);
 		if (value == null) {
 			return true;
 		}
@@ -689,17 +600,6 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	}
 
 	/**
-	 * @generated
-	 */
-	public static final void setEditableAttribute(Item display, boolean value) {
-		try {
-			display.setAttribute(CadseGCST.DISPLAY_at_EDITABLE_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
 	 * Creates the field extends ic.
 	 * 
 	 * @return the d check box ui
@@ -707,7 +607,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @not generated
 	 */
 	static public DCheckBoxUI createFieldExtendsIC() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
 				mc, null);
 	}
@@ -720,7 +620,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @not generated
 	 */
 	static public DCheckBoxUI createFieldExtendsMC() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
 	}
 
@@ -732,7 +632,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @not generated
 	 */
 	static public DCheckBoxUI createFieldExtendsUI() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
 	}
 
@@ -744,21 +644,11 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @not generated
 	 */
 	static public DCheckBoxUI createFieldEditable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EDITABLE, "editable", EPosLabel.none, mc, null);
+		MC_StringToBoolean mc = new MC_StringToBoolean();
+		return new DCheckBoxUI(CadseGCST.FIELD_at_EDITABLE, "editable", EPosLabel.none, mc, null);
 	}
 
-	/**
-	 * Creates the field enable.
-	 * 
-	 * @return the d check box ui
-	 * 
-	 * @not generated
-	 */
-	static public DCheckBoxUI createFieldEnable() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_ENABLE, "enable", EPosLabel.none, mc, null);
-	}
+	
 
 	@Override
 	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {

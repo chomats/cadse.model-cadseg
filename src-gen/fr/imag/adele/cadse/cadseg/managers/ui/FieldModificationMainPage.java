@@ -23,8 +23,6 @@ import org.eclipse.swt.SWT;
 
 import fede.workspace.model.manager.properties.impl.ic.IC_EnumForBrowser_Combo;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.mc.StringToEnumModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
@@ -35,13 +33,15 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class FieldModificationMainPage.
@@ -57,17 +57,7 @@ public class FieldModificationMainPage extends PageFactory {
 		super("main");
 	}
 
-	/**
-	 * Creates the wizard field isreadonly.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @generated
-	 */
-	public static UIField createWizardFieldIsreadonly() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.FIELD_at_READONLY, "is readonly", EPosLabel.left, mc, null);
-	}
+	
 
 	/**
 	 * Creates the wizard field label.
@@ -123,12 +113,12 @@ public class FieldModificationMainPage extends PageFactory {
 		if (cas == PAGE_CREATION_ITEM) {
 			return new PageImpl(null, "main", "main", "Create a field", "Create a field", false, 3, null,
 					createWizardFieldFattribute(), createWizardFieldFattribute(), FieldsCore.createShortNameField(),
-					createWizardFieldIsreadonly(), createWizardFieldLabel(), createWizardFieldFposition());
+					createWizardFieldLabel(), createWizardFieldFposition());
 
 		}
 		if (cas == PAGE_PROPERTY_ITEM || cas == PAGE_PROPERTY_VIEW_ITEM) {
 			return new PageImpl(null, "main", "Main field page", "Main field page", "Main field page", false, 3, null,
-					createWizardFieldFattribute(), FieldsCore.createShortNameField(), createWizardFieldIsreadonly(),
+					createWizardFieldFattribute(), FieldsCore.createShortNameField(), 
 					createWizardFieldLabel(), createWizardFieldFposition());
 
 		}

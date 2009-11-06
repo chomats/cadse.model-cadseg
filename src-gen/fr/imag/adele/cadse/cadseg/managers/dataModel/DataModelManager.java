@@ -621,7 +621,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 		}
 
 		Item thelinktype = copy.createItem(CadseGCST.LINK, sourceItemType,
-				CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
+				CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES);
 		CadseCore.setName(thelinktype, ltname);
 		LinkManager.setMaxAttribute(thelinktype, -1);
 		LinkManager.setMinAttribute(thelinktype, 0);

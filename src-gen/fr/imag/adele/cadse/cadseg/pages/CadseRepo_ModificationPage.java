@@ -7,19 +7,19 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  @generated
  */
-public class CadseRuntimeRepo_ModificationPage extends PageImpl {
+public class CadseRepo_ModificationPage extends PageImpl {
 
 	/**
 	    @generated
@@ -49,15 +49,15 @@ public class CadseRuntimeRepo_ModificationPage extends PageImpl {
 	/**
 	    @generated
 	 */
-	protected CadseRuntimeRepo_ModificationPage(String id, String label,
-			String title, String description, boolean isPageComplete, int hspan) {
+	protected CadseRepo_ModificationPage(String id, String label, String title,
+			String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
 
 	/**
 	    @generated
 	 */
-	public CadseRuntimeRepo_ModificationPage(Item item) {
+	public CadseRepo_ModificationPage(Item item) {
 		super("repo", "repo", "repo", "repo Page", false, 3);
 		this.item = item;
 		this.fieldItemRepoLogin = createFieldItemRepoLogin();
@@ -79,16 +79,16 @@ public class CadseRuntimeRepo_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public DTextUI createFieldItemRepoLogin() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_ITEM_REPO_LOGIN,
-				"itemRepoLogin", EPosLabel.left, new MC_AttributesItem(), null,
-				1, "", false, false, false);
+		return new DTextUI(CadseGCST.CADSE_at_ITEM_REPO_LOGIN, "itemRepoLogin",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 	/**
 	    @generated
 	 */
 	public DTextUI createFieldDefaultContentRepoURL() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_DEFAULT_CONTENT_REPO_URL,
+		return new DTextUI(CadseGCST.CADSE_at_DEFAULT_CONTENT_REPO_URL,
 				"defaultContentRepoURL", EPosLabel.left,
 				new MC_AttributesItem(), null, 1, "", false, false, false);
 	}
@@ -97,7 +97,7 @@ public class CadseRuntimeRepo_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public DTextUI createFieldItemRepoPasswd() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_ITEM_REPO_PASSWD,
+		return new DTextUI(CadseGCST.CADSE_at_ITEM_REPO_PASSWD,
 				"itemRepoPasswd", EPosLabel.left, new MC_AttributesItem(),
 				null, 1, "", false, false, false);
 	}
@@ -106,9 +106,9 @@ public class CadseRuntimeRepo_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public DTextUI createFieldItemRepoURL() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_ITEM_REPO_URL,
-				"itemRepoURL", EPosLabel.left, new MC_AttributesItem(), null,
-				1, "", false, false, false);
+		return new DTextUI(CadseGCST.CADSE_at_ITEM_REPO_URL, "itemRepoURL",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 }

@@ -16,15 +16,19 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Integer;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  @generated
@@ -35,11 +39,6 @@ public class ItemModificationPageItem_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public Item item;
-
-	/**
-	    @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	    @generated
@@ -131,7 +130,6 @@ public class ItemModificationPageItem_ModificationPage extends PageImpl {
 	public ItemModificationPageItem_ModificationPage(Item item) {
 		super("modification-page-Item", "Item", "Item", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldCommittedBy = createFieldCommittedBy();
 		this.fieldDisplayName = createFieldDisplayName();
 		this.fieldInstanceOf = createFieldInstanceOf();
@@ -148,26 +146,19 @@ public class ItemModificationPageItem_ModificationPage extends PageImpl {
 		this.fieldCommittedDate = createFieldCommittedDate();
 		this.fieldContents = createFieldContents();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldCommittedBy,
-				this.fieldDisplayName, this.fieldInstanceOf,
-				this.fieldItemHidden, this.fieldItemReadonly, this.fieldName,
-				this.fieldParent, this.fieldModifiedAttributes,
-				this.fieldQualifiedName, this.fieldRequireNewRev,
-				this.fieldTWVersion, this.fieldRevModified, this.fieldId,
-				this.fieldCommittedDate, this.fieldContents);
+		addLast(this.fieldCommittedBy, this.fieldDisplayName,
+				this.fieldInstanceOf, this.fieldItemHidden,
+				this.fieldItemReadonly, this.fieldName, this.fieldParent,
+				this.fieldModifiedAttributes, this.fieldQualifiedName,
+				this.fieldRequireNewRev, this.fieldTWVersion,
+				this.fieldRevModified, this.fieldId, this.fieldCommittedDate,
+				this.fieldContents);
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	    @generated
-	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
 	}
 
 	/**
@@ -192,10 +183,10 @@ public class ItemModificationPageItem_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public DBrowserUI createFieldInstanceOf() {
-		LinkModelController mc = new LinkModelController(true, null,
-				CadseGCST.ITEM_lt_INSTANCE_OF);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.ITEM_lt_INSTANCE_OF);
+		LinkModelController mc = new LinkModelController(true, null,
 				CadseGCST.ITEM_lt_INSTANCE_OF);
 		return new DBrowserUI(CadseGCST.ITEM_lt_INSTANCE_OF.getName(),
 				"instance-of", EPosLabel.left, mc, ic);
@@ -231,10 +222,10 @@ public class ItemModificationPageItem_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public DBrowserUI createFieldParent() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_lt_PARENT);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.", CadseGCST.ITEM_lt_PARENT);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.ITEM_lt_PARENT);
 		return new DBrowserUI(CadseGCST.ITEM_lt_PARENT.getName(), "parent",
 				EPosLabel.left, mc, ic);
 	}
@@ -243,10 +234,10 @@ public class ItemModificationPageItem_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public DListUI createFieldModifiedAttributes() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES);
 		return new DListUI(CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES.getName(),
 				"modified-attributes", EPosLabel.top, mc, ic, true, false,
@@ -310,12 +301,12 @@ public class ItemModificationPageItem_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public DBrowserUI createFieldContents() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_lt_CONTENTS);
 		IC_PartLinkForBrowser_Combo_List ic = new IC_PartLinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
 				CadseGCST.ITEM_lt_CONTENTS, CadseGCST.MANAGER_lt_CONTENT_MODEL,
-				"??");
+				"Select a value.");
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.ITEM_lt_CONTENTS);
 		return new DBrowserUI(CadseGCST.ITEM_lt_CONTENTS.getName(), "contents",
 				EPosLabel.left, mc, ic);
 	}

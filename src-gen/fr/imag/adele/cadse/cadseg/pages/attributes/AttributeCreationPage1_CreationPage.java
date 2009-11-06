@@ -18,9 +18,10 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
+import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import java.text.MessageFormat;
 
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -33,16 +34,18 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -65,9 +68,9 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	public LinkType lt;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	protected DTextUI __short_name__;
+	protected DTextUI fieldName;
 
 	/**
 	 * @generated
@@ -114,12 +117,12 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldIsList = createFieldIsList();
 		this.fieldDefaultValue = createFieldDefaultValue();
 		this.fieldRequire = createFieldRequire();
 		setActionPage(new AttributeCreationPage1_CreationPageAction());
-		addLast(this.__short_name__, this.fieldIsList, this.fieldDefaultValue,
+		addLast(this.fieldName, this.fieldIsList, this.fieldDefaultValue,
 				this.fieldRequire);
 
 		registerListener();
@@ -130,10 +133,12 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
+	public DTextUI createFieldName() {
+		MC_ShortNameItemProperty mc = new MC_ShortNameItemProperty();
+		return new DTextUI(CadseGCST.ITEM_at_NAME, "name", EPosLabel.left, mc,
+				null, 1, "", false, false, false);
 	}
 
 	/**
@@ -144,7 +149,7 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 	 * @change label is-list ==> is list
 	 */
 	public DCheckBoxUI createFieldIsList() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_IS_LIST, "is list",
 				EPosLabel.none, mc, null);
 	}
@@ -178,7 +183,7 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 		return new MC_AttributesItem();
 	}
 
-	protected IInteractionController createICDefaultValue() {
+	protected RuningInteractionController createICDefaultValue() {
 		return null;
 	}
 

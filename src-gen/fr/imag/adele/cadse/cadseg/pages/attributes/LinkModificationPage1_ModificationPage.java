@@ -21,9 +21,9 @@ package fr.imag.adele.cadse.cadseg.pages.attributes;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.mc.MaxModelController;
 import fede.workspace.model.manager.properties.impl.mc.MinModelController;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
@@ -36,14 +36,18 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Integer;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -75,6 +79,11 @@ public class LinkModificationPage1_ModificationPage extends
 	    @generated
 	 */
 	protected DBrowserUI fieldSource;
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldGroup;
 
 	/**
 	 * @generated
@@ -235,16 +244,25 @@ public class LinkModificationPage1_ModificationPage extends
 	    @generated
 	 */
 	public DBrowserUI createFieldSource() {
-		LinkModelController mc = new LinkModelController(true, null,
-				CadseGCST.LINK_lt_SOURCE);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.", CadseGCST.LINK_lt_SOURCE);
+		LinkModelController mc = new LinkModelController(true, null,
+				CadseGCST.LINK_lt_SOURCE);
 		return new DBrowserUI(CadseGCST.LINK_lt_SOURCE.getName(), "source",
 				EPosLabel.left, mc, ic);
 	}
 
-	public DCheckBoxUI createFieldNatif() {
+	/**
+	    @generated
+	 */
+	public DCheckBoxUI createFieldGroup() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.LINK_at_GROUP, "group",
+				EPosLabel.none, mc, null);
+	}
+
+	public DCheckBoxUI createFieldNatif() {
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_NATIF, "natif",
 				EPosLabel.none, mc, null);
 	}
