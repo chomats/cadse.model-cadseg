@@ -11,13 +11,15 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -46,10 +48,9 @@ public class PDEProjectContentModelModificationPage1_ModificationPage extends
 		super("modification-page1", "PDEProjectContentModel",
 				"PDEProjectContentModel", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldContentModel = createFieldContentModel();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldContentModel);
+		addLast(this.fieldContentModel);
 
 		registerListener();
 	}
@@ -63,10 +64,10 @@ public class PDEProjectContentModelModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DListUI createFieldContentModel() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL);
 		return new DListUI(CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL
 				.getName(), "content-model", EPosLabel.top, mc, ic, true,

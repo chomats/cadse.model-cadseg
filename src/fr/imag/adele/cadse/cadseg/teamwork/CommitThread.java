@@ -23,7 +23,7 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.Activator;
-import fr.imag.adele.cadse.cadseg.managers.CadseRuntimeManager;
+import fr.imag.adele.cadse.cadseg.managers.CadseManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
@@ -130,10 +130,10 @@ public class CommitThread extends Thread {
 		ItemType itemType = item.getType();
 
 		// set repository for this item
-		Item cadseRuntime = itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME, true);
-		String url = CadseRuntimeManager.getItemRepoURLAttribute(cadseRuntime);
-		String login = CadseRuntimeManager.getItemRepoLoginAttribute(cadseRuntime);
-		String pwd = CadseRuntimeManager.getItemRepoPasswdAttribute(cadseRuntime);
+		Item cadseRuntime = itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE, true);
+		String url = CadseManager.getItemRepoURLAttribute(cadseRuntime);
+		String login = CadseManager.getItemRepoLoginAttribute(cadseRuntime);
+		String pwd = CadseManager.getItemRepoPasswdAttribute(cadseRuntime);
 		if ((login == null) || (login.trim().length() == 0)) {
 			db.setConnectionURL(url);
 		} else {

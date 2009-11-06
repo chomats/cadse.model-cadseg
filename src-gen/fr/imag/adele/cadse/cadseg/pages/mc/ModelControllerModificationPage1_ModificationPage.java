@@ -24,15 +24,15 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 
@@ -45,11 +45,6 @@ public class ModelControllerModificationPage1_ModificationPage extends PageImpl 
 	 * @generated
 	 */
 	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
@@ -67,22 +62,14 @@ public class ModelControllerModificationPage1_ModificationPage extends PageImpl 
 		super("modification-page1", "ModelController", "ModelController", "",
 				false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
 	}
 
 }

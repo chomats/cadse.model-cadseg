@@ -33,12 +33,14 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.enumdef.TWDestEvol;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -92,10 +94,10 @@ public class LinkEvolDef_CreationPage extends AttributeEvolDef_CreationPage {
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWDestEvol() {
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("??", "??",
+				TWDestEvol.class);
 		StringToEnumModelController mc = new StringToEnumModelController(
 				TWDestEvol.class, TWDestEvol.immutable);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
-				"Select a value.", "Select a value.", TWDestEvol.class);
 		return new DBrowserUI(CadseGCST.LINK_at_TWDEST_EVOL, "TWDestEvol",
 				EPosLabel.left, mc, ic);
 	}

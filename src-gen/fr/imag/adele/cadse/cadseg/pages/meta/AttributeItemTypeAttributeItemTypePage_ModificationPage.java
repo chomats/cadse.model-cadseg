@@ -7,14 +7,15 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -26,11 +27,6 @@ public class AttributeItemTypeAttributeItemTypePage_ModificationPage extends
 	 * @generated
 	 */
 	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
@@ -57,23 +53,15 @@ public class AttributeItemTypeAttributeItemTypePage_ModificationPage extends
 				"This page help to put the description of the type of attribute definition",
 				false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldRuntimeQualifiedClass = createFieldRuntimeQualifiedClass();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldRuntimeQualifiedClass);
+		addLast(this.fieldRuntimeQualifiedClass);
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
 	}
 
 	/**

@@ -40,6 +40,7 @@ public class OverwriteAttributeActionContributor implements IActionContributor {
 
 	}
 
+	@Override
 	public void contributeMenuAction(ViewDescription viewDescription, Menu menu, IItemNode[] selection) {
 		// TODO Auto-generated method stub
 

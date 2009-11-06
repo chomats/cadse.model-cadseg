@@ -27,7 +27,7 @@ import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 
 /**
@@ -52,9 +52,9 @@ public class UUIDCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast(this.fieldName);
 
 		registerListener();
 	}

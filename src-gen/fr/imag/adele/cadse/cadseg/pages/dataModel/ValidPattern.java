@@ -3,7 +3,7 @@ package fr.imag.adele.cadse.cadseg.pages.dataModel;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 public class ValidPattern extends MC_AttributesItem {

@@ -18,22 +18,24 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 
@@ -65,12 +67,12 @@ public class StringCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldDefaultValue = createFieldDefaultValue();
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldDefaultValue,
+		addLast(this.fieldName, this.fieldDefaultValue,
 				this.fieldMustBeInitialized, this.fieldIsList);
 
 		registerListener();

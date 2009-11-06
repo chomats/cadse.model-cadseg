@@ -2,8 +2,6 @@ package fr.imag.adele.cadse.cadseg.pages;
 
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
@@ -14,18 +12,20 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  @generated
  */
-public class CadseRuntimeCreationPage1_CreationPage extends PageImpl {
+public class CadseCreationPage1_CreationPage extends PageImpl {
 
 	/**
 	    @generated
@@ -45,12 +45,7 @@ public class CadseRuntimeCreationPage1_CreationPage extends PageImpl {
 	/**
 	    @generated
 	 */
-	protected DTextUI __short_name__;
-
-	/**
-	    @generated
-	 */
-	protected CadseRuntimeCreationPage1_CreationPage(String id, String label,
+	protected CadseCreationPage1_CreationPage(String id, String label,
 			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
 	}
@@ -58,29 +53,19 @@ public class CadseRuntimeCreationPage1_CreationPage extends PageImpl {
 	/**
 	    @generated
 	 */
-	public CadseRuntimeCreationPage1_CreationPage(Item parent, ItemType it,
-			LinkType lt) {
-		super("creation-page1", "Create CadseRuntime", "Create CadseRuntime",
-				"", false, 3);
+	public CadseCreationPage1_CreationPage(Item parent, ItemType it, LinkType lt) {
+		super("creation-page1", "Create Cadse", "Create Cadse", "", false, 3);
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}
 
 	protected void registerListener() {
 		// add init and register
-	}
-
-	/**
-	    @generated
-	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
 	}
 
 }

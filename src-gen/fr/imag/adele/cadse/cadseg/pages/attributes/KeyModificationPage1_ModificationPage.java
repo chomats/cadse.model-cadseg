@@ -38,15 +38,18 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -98,7 +101,6 @@ public class KeyModificationPage1_ModificationPage extends
 	public KeyModificationPage1_ModificationPage(Item item) {
 		super("modification-page1", "Key", "Key", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldTWRevSpecific = createFieldTWRevSpecific();
 		this.fieldTWEvol = createFieldTWEvol();
 		this.fieldNatif = createFieldNatif();
@@ -113,11 +115,11 @@ public class KeyModificationPage1_ModificationPage extends
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldTWRevSpecific, this.fieldTWEvol,
-				this.fieldNatif, this.fieldTWCommitKind,
-				this.fieldTWUpdateKind, this.fieldTransient,
-				this.fieldCannotBeUndefined, this.fieldDefaultValue,
-				this.fieldWcListens, this.fieldFinalValue, this.fieldRequire,
+		addLast(this.fieldTWRevSpecific, this.fieldTWEvol, this.fieldNatif,
+				this.fieldTWCommitKind, this.fieldTWUpdateKind,
+				this.fieldTransient, this.fieldCannotBeUndefined,
+				this.fieldDefaultValue, this.fieldWcListens,
+				this.fieldFinalValue, this.fieldRequire,
 				this.fieldMustBeInitialized, this.fieldIsList);
 
 		registerListener();
@@ -141,10 +143,10 @@ public class KeyModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWEvol() {
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("??", "??",
+				TWEvol.class);
 		StringToEnumModelController mc = new StringToEnumModelController(
 				TWEvol.class, TWEvol.twImmutable);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
-				"Select a value.", "Select a value.", TWEvol.class);
 		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWEVOL, "TWEvol",
 				EPosLabel.left, mc, ic);
 	}
@@ -153,10 +155,10 @@ public class KeyModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWCommitKind() {
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("??", "??",
+				TWCommitKind.class);
 		StringToEnumModelController mc = new StringToEnumModelController(
 				TWCommitKind.class, TWCommitKind.conflict);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
-				"Select a value.", "Select a value.", TWCommitKind.class);
 		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND,
 				"TWCommitKind", EPosLabel.left, mc, ic);
 	}
@@ -165,10 +167,10 @@ public class KeyModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DBrowserUI createFieldTWUpdateKind() {
+		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo("??", "??",
+				TWUpdateKind.class);
 		StringToEnumModelController mc = new StringToEnumModelController(
 				TWUpdateKind.class, TWUpdateKind.merge);
-		IC_EnumForBrowser_Combo ic = new IC_EnumForBrowser_Combo(
-				"Select a value.", "Select a value.", TWUpdateKind.class);
 		return new DBrowserUI(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND,
 				"TWUpdateKind", EPosLabel.left, mc, ic);
 	}
@@ -186,10 +188,10 @@ public class KeyModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DListUI createFieldWcListens() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ATTRIBUTE_lt_WC_LISTENS);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.ATTRIBUTE_lt_WC_LISTENS);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.ATTRIBUTE_lt_WC_LISTENS);
 		return new DListUI(CadseGCST.ATTRIBUTE_lt_WC_LISTENS.getName(),
 				"wcListens", EPosLabel.top, mc, ic, true, false, false, false);

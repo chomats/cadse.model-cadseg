@@ -31,32 +31,33 @@ import fr.imag.adele.cadse.cadseg.ItemLabelProvider;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.AbstractItemTypeManager;
+import fr.imag.adele.cadse.cadseg.managers.dataModel.TypeDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Integer;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
 import fede.workspace.model.manager.properties.impl.ic.IC_AbstractTreeDialogForList_Browser_Combo;
 import fede.workspace.model.manager.properties.impl.ic.ItemTreeContentProvider;
-import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class PageCreationPage1_CreationPageFactory.
@@ -79,6 +80,11 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	 * @generated
 	 */
 	public LinkType lt;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldName;
 
 	/**
 	 * The Class IC_SelectPages.
@@ -125,9 +131,8 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 		@Override
 		protected Object getInputValues() {
 			Item theItemType = dialog.getPartParent();
-			Item[] ret = ItemTypeManager
-					.getAllSuperTypes(AbstractItemTypeManager
-							.getSuperAbstractItemType(theItemType));
+			Item[] ret = ItemTypeManager.getAllSuperTypes(TypeDefinitionManager
+					.getSuperAbstractItemType(theItemType));
 			Arrays.sort(ret, new ItemShortNameComparator());
 			return ret;
 		}
@@ -244,13 +249,6 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	protected DTextUI __short_name__;
 
 	/**
-	 * The field create page action.
-	 * 
-	 * @generated
-	 */
-	protected DCheckBoxUI fieldCreatePageAction;
-
-	/**
 	    @generated
 	 */
 	protected DTextUI fieldLabel;
@@ -261,13 +259,6 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	 * @generated
 	 */
 	protected DTextUI fieldDescription;
-
-	/**
-	 * The field hspan.
-	 * 
-	 * @generated
-	 */
-	protected DTextUI fieldHspan;
 
 	/**
 	 * The field title.
@@ -284,15 +275,13 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		this.fieldTitle = createFieldTitle();
 		this.fieldDescription = createFieldDescription();
-		this.fieldHspan = createFieldHspan();
-		this.fieldCreatePageAction = createFieldCreatePageAction();
 		this.fieldLabel = createFieldLabel();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldTitle, this.fieldDescription,
-				this.fieldHspan, this.fieldCreatePageAction, this.fieldLabel);
+		addLast(this.fieldName, this.fieldTitle, this.fieldDescription,
+				this.fieldLabel);
 
 		registerListener();
 	}
@@ -303,19 +292,6 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	protected PageCreationPage1_CreationPage(String id, String label,
 			String title, String description, boolean isPageComplete, int hspan) {
 		super(id, label, title, description, isPageComplete, hspan);
-	}
-
-	/**
-	 * Creates the field create page action.
-	 * 
-	 * @return the d check box ui
-	 * 
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldCreatePageAction() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.PAGE_at_CREATE_PAGE_ACTION,
-				"create page action", EPosLabel.none, mc, null);
 	}
 
 	/**
@@ -337,20 +313,6 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 		return new DTextUI(CadseGCST.PAGE_at_DESCRIPTION, "description",
 				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
 				false, false);
-	}
-
-	/**
-	 * Creates the field hspan.
-	 * 
-	 * @return the d text ui
-	 * 
-	 * @generated
-	 */
-	public DTextUI createFieldHspan() {
-		IntModelController mc = new IntModelController(1, 0,
-				"The number of column must be > 0", null, 3);
-		return new DTextUI(CadseGCST.PAGE_at_HSPAN, "number of columns",
-				EPosLabel.left, mc, null, 1, "", false, false, false);
 	}
 
 	/**
@@ -385,10 +347,12 @@ public class PageCreationPage1_CreationPage extends PageImpl {
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
+	public DTextUI createFieldName() {
+		MC_ShortNameItemProperty mc = new MC_ShortNameItemProperty();
+		return new DTextUI(CadseGCST.ITEM_at_NAME, "name", EPosLabel.left, mc,
+				null, 1, "", false, false, false);
 	}
 
 }

@@ -439,7 +439,7 @@ public class ImportPagesAction extends AbstractActionPage {
 		theitemtype.setAttribute(CadseGCST.ITEM_TYPE_at_IS_ABSTRACT_, cit.isIsAbstract());
 		theitemtype.setAttribute(CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_, cit.isIsRootElement());
 		theitemtype.setAttribute(CadseGCST.ITEM_TYPE_at_HAS_CONTENT_, cit.isHasContent());
-		theitemtype.setAttribute(CadseGCST.ABSTRACT_ITEM_TYPE_at_ID_RUNTIME_, cit.getId());
+		theitemtype.setAttribute(CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_, cit.getId());
 
 		// get the mapping model
 		Item mappingModel = CadseDefinitionManager.getMappingModel(ItemTypeManager.getCadseDefinition(theitemtype));
@@ -497,7 +497,7 @@ public class ImportPagesAction extends AbstractActionPage {
 		}
 
 		Item thelinktype = copy.createItem(CadseGCST.LINK, sourceItemType,
-				CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES);
+				CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES);
 		CadseCore.setName(thelinktype, ltname.getName());
 		LinkManager.setMaxAttribute(thelinktype, ltname.getMax());
 		LinkManager.setMinAttribute(thelinktype, ltname.getMin());

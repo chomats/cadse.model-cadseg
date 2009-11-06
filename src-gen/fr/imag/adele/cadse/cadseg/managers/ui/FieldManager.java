@@ -210,38 +210,6 @@ public class FieldManager extends DefaultItemManager {
 	}
 
 	/**
-	 * Checks if is readonly attribute.
-	 * 
-	 * @param field
-	 *            the field
-	 * 
-	 * @return true, if checks if is readonly attribute
-	 * 
-	 * @generated
-	 */
-	public static final boolean isReadonlyAttribute(Item field) {
-		return field.getAttributeWithDefaultValue(CadseGCST.FIELD_at_READONLY_, false);
-	}
-
-	/**
-	 * Sets the readonly attribute.
-	 * 
-	 * @param field
-	 *            the field
-	 * @param value
-	 *            the value
-	 * 
-	 * @generated
-	 */
-	public static final void setReadonlyAttribute(Item field, boolean value) {
-		try {
-			field.setAttribute(CadseGCST.FIELD_at_READONLY_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
 	 * Gets the label attribute.
 	 * 
 	 * @param field
@@ -271,37 +239,6 @@ public class FieldManager extends DefaultItemManager {
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/**
-	 * Gets the display.
-	 * 
-	 * @param field
-	 *            the field
-	 * 
-	 * @return the display
-	 * 
-	 * @generated
-	 */
-	static public Item getDisplay(Item field) {
-		return field.getOutgoingItem(CadseGCST.FIELD_lt_DISPLAY, true);
-	}
-
-	/**
-	 * Sets the display.
-	 * 
-	 * @param field
-	 *            the field
-	 * @param value
-	 *            the value
-	 * 
-	 * @throws CadseException
-	 *             the melusine exception
-	 * 
-	 * @generated
-	 */
-	static public void setDisplay(Item field, Item value) throws CadseException {
-		field.setOutgoingItem(CadseGCST.FIELD_lt_DISPLAY,value);
 	}
 
 	/**
@@ -414,6 +351,70 @@ public class FieldManager extends DefaultItemManager {
 		}
 	}
 
+	/**
+		get a link 'ic' from 'Field' to 'InteractionController'.
+		@generated
+	*/
+	static public Link getIcLink(Item field) {
+		return field.getOutgoingLink(CadseGCST.FIELD_lt_IC);
+	}
+
+	/**
+		get all link destination 'ic' from 'Field' to 'InteractionController'.
+		@generated
+	*/
+	static public Item getIcAll(Item field) {
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_IC, false);
+	}
+
+	/**
+		get resolved link destination 'ic' from 'Field' to 'InteractionController'.
+		@generated
+	*/
+	static public Item getIc(Item field) {
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_IC, true);
+	}
+
+	/**
+		set a link 'ic' from 'Field' to 'InteractionController'.
+		@generated
+	*/
+	static public void setIc(Item field, Item value) throws CadseException {
+		field.setOutgoingItem(CadseGCST.FIELD_lt_IC,value);
+	}
+
+	/**
+		get a link 'mc' from 'Field' to 'ModelController'.
+		@generated
+	*/
+	static public Link getMcLink(Item field) {
+		return field.getOutgoingLink(CadseGCST.FIELD_lt_MC);
+	}
+
+	/**
+		get all link destination 'mc' from 'Field' to 'ModelController'.
+		@generated
+	*/
+	static public Item getMcAll(Item field) {
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_MC, false);
+	}
+
+	/**
+		get resolved link destination 'mc' from 'Field' to 'ModelController'.
+		@generated
+	*/
+	static public Item getMc(Item field) {
+		return field.getOutgoingItem(CadseGCST.FIELD_lt_MC, true);
+	}
+
+	/**
+		set a link 'mc' from 'Field' to 'ModelController'.
+		@generated
+	*/
+	static public void setMc(Item field, Item value) throws CadseException {
+		field.setOutgoingItem(CadseGCST.FIELD_lt_MC,value);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -432,34 +433,6 @@ public class FieldManager extends DefaultItemManager {
 	@Override
 	public String getDisplayName(Item item) {
 		return item.getName();
-	}
-
-	/**
-	 * get a link 'display' from 'Field' to 'Display'.
-	 * 
-	 * @param field
-	 *            the field
-	 * 
-	 * @return the display link
-	 * 
-	 * @generated
-	 */
-	static public Link getDisplayLink(Item field) {
-		return field.getOutgoingLink(CadseGCST.FIELD_lt_DISPLAY);
-	}
-
-	/**
-	 * get all link destination 'display' from 'Field' to 'Display'.
-	 * 
-	 * @param field
-	 *            the field
-	 * 
-	 * @return the display all
-	 * 
-	 * @generated
-	 */
-	static public Item getDisplayAll(Item field) {
-		return field.getOutgoingItem(CadseGCST.FIELD_lt_DISPLAY, false);
 	}
 
 	/*

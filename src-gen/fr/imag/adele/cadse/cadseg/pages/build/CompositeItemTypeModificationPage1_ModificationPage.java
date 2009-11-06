@@ -13,13 +13,15 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -31,11 +33,6 @@ public class CompositeItemTypeModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
@@ -68,13 +65,11 @@ public class CompositeItemTypeModificationPage1_ModificationPage extends
 		super("modification-page1", "CompositeItemType", "CompositeItemType",
 				"", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldItemType = createFieldItemType();
 		this.fieldComposers = createFieldComposers();
 		this.fieldBuilders = createFieldBuilders();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldItemType, this.fieldComposers,
-				this.fieldBuilders);
+		addLast(this.fieldItemType, this.fieldComposers, this.fieldBuilders);
 
 		registerListener();
 	}
@@ -86,18 +81,11 @@ public class CompositeItemTypeModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DBrowserUI createFieldItemType() {
-		LinkModelController mc = new LinkModelController(true, null,
-				CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
+		LinkModelController mc = new LinkModelController(true, null,
 				CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE);
 		return new DBrowserUI(CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE
 				.getName(), "item-type", EPosLabel.left, mc, ic);
@@ -107,10 +95,10 @@ public class CompositeItemTypeModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DListUI createFieldComposers() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS);
 		return new DListUI(
 				CadseGCST.COMPOSITE_ITEM_TYPE_lt_COMPOSERS.getName(),
@@ -121,10 +109,10 @@ public class CompositeItemTypeModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DListUI createFieldBuilders() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS);
 		return new DListUI(CadseGCST.COMPOSITE_ITEM_TYPE_lt_BUILDERS.getName(),
 				"builders", EPosLabel.top, mc, ic, true, false, false, false);

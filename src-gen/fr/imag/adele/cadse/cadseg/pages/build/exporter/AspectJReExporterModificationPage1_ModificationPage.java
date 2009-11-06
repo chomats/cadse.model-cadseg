@@ -32,9 +32,8 @@ public class AspectJReExporterModificationPage1_ModificationPage extends
 		super("modification-page1", "AspectJReExporter", "AspectJReExporter",
 				"", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

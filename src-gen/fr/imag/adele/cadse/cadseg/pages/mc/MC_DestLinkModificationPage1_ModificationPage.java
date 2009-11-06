@@ -49,9 +49,8 @@ public class MC_DestLinkModificationPage1_ModificationPage extends
 	public MC_DestLinkModificationPage1_ModificationPage(Item item) {
 		super("modification-page1", "MC_DestLink", "MC_DestLink", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

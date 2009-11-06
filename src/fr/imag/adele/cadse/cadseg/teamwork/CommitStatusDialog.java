@@ -50,14 +50,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
 
-import fede.workspace.model.manager.properties.impl.ic.IC_TreeModel;
-import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fede.workspace.model.manager.properties.impl.ui.DGridUI;
-import fede.workspace.model.manager.properties.impl.ui.DListUI;
-import fede.workspace.model.manager.properties.impl.ui.DSashFormUI;
-import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fede.workspace.model.manager.properties.impl.ui.DTreeModelUI;
-import fede.workspace.model.manager.properties.impl.ui.WizardController;
 import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.ArrayFilterItem;
@@ -80,21 +72,34 @@ import fr.imag.adele.cadse.core.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.ui.PagesImpl;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.Pages;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.eclipse.view.SelfViewContentProvider;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForList;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeModel;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeModelUI;
 
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
 /**
  * Dialog used for providing informations about commit operation to user. Status
  * informations provided to the user are : - order of items to commit - commit
@@ -104,7 +109,7 @@ import fr.imag.adele.cadse.eclipse.view.SelfViewContentProvider;
  * @author Thomas
  * 
  */
-public class CommitStatusPage extends PageImpl {
+public class CommitStatusDialog {
 
 	/*
 	 * UI fields.
@@ -113,17 +118,17 @@ public class CommitStatusPage extends PageImpl {
 
 	protected DSashFormUI							_rootSashField;
 
-	protected DTreeModelUI							_treeField;
+	protected DTreeModelUI<ModifiedItemTreeIC>			_treeField;
 
-	protected DTextUI								_errorsField;
+	protected DTextUI<RuningInteractionController>				_errorsField;
 
 	protected DCheckBoxUI							_commitedField;
 
 	protected DTextUI								_revField;
 
-	protected DListUI								_listOfCommitedItemsField;
+	protected DListUI<IC_DynamicArrayOfObjectForList>								_listOfCommitedItemsField;
 
-	protected List<UIField>							_selectDependentFields	= new ArrayList<UIField>();
+	protected List<UIRunningField<?>>							_selectDependentFields	= new ArrayList<UIRunningField<?>>();
 
 	/**
 	 * Status and definition of commit operation.
@@ -150,6 +155,10 @@ public class CommitStatusPage extends PageImpl {
 	 * Commit operation thread.
 	 */
 	private CommitThread							_commitThread;
+
+	private SWTUIPlatform _swtuiPlatform;
+
+	private IPage _page;
 
 	/*
 	 * Tree Structure controller classes.
@@ -385,17 +394,12 @@ public class CommitStatusPage extends PageImpl {
 
 	public class DefaultMC_AttributesItem extends MC_AttributesItem {
 
-		@Override
-		public Item getItem() {
-			return _selectedItem;
-		}
-
-		@Override
-		public Object getValue() {
-			if (getItem() == null) {
+				@Override
+		public Object getValue(IPageController uiPlatform) {
+			if (uiPlatform.getItem(getUIField()) == null) {
 				return "";
 			}
-			Object _ret = super.getValue();
+			Object _ret = super.getValue(uiPlatform);
 			if (_ret == null) {
 				return "";
 			}
@@ -403,21 +407,17 @@ public class CommitStatusPage extends PageImpl {
 		}
 
 		@Override
-		public void notifieValueChanged(UIField field, Object value) {
+		public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
 			// read only value
 		}
 	}
 
 	public class ItemError_MC extends MC_AttributesItem {
 
-		@Override
-		public Item getItem() {
-			return _selectedItem;
-		}
 
 		@Override
-		public Object getValue() {
-			Item item = getItem();
+		public Object getValue(IPageController uiPlatform) {
+			Item item = uiPlatform.getItem(getUIField());
 			if (item == null) {
 				return "";
 			}
@@ -435,7 +435,7 @@ public class CommitStatusPage extends PageImpl {
 		}
 
 		@Override
-		public void notifieValueChanged(UIField field, Object value) {
+		public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
 			// read only value
 		}
 	}
@@ -443,7 +443,7 @@ public class CommitStatusPage extends PageImpl {
 	public class CommitActionPage extends AbstractActionPage {
 
 		@Override
-		public void doFinish(Object monitor) throws Exception {
+		public void doFinish(IPageController uiPlatform, Object monitor) throws Exception {
 			Object[] array = _treeField.getSelectedObjects();
 
 			// TODO implement it, commit the workspace logique copy
@@ -500,12 +500,12 @@ public class CommitStatusPage extends PageImpl {
 				return;
 			}
 
-			getPageController().setMessage(null, IPageController.NONE);
+			_uiPlatform.setMessage(null, IPageController.NONE);
 			setSelectedItem(node.getItem());
 		}
 
 		private void selectInvalidTreeItem() {
-			getPageController().setMessage("This node should not be selected.", IPageController.ERROR);
+			_uiPlatform.setMessage("This node should not be selected.", IPageController.ERROR);
 		}
 
 		/**
@@ -586,11 +586,11 @@ public class CommitStatusPage extends PageImpl {
 
 	public class MC_CommitTree extends AbstractModelController {
 
-		public Object getValue() {
+		public Object getValue(IPageController uiPlatform) {
 			return _commitState.getItemsToCommit();
 		}
 
-		public void notifieValueChanged(UIField field, Object value) {
+		public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
 
 		}
 
@@ -599,12 +599,12 @@ public class CommitStatusPage extends PageImpl {
 		}
 
 		@Override
-		public void notifieSubValueAdded(UIField field, Object added) {
+		public void notifieSubValueAdded(IPageController uiPlatform, UIField field, Object added) {
 			// do nothing
 		}
 
 		@Override
-		public void notifieSubValueRemoved(UIField field, Object removed) {
+		public void notifieSubValueRemoved(IPageController uiPlatform, UIField field, Object removed) {
 			// do nothing
 		}
 	}
@@ -615,9 +615,11 @@ public class CommitStatusPage extends PageImpl {
 	 * _errorsField _commitedField _revField DGrillUI (selection independent
 	 * part) _listOfCommitedItemsField
 	 */
-	public CommitStatusPage(CommitState commitState) {
-		super("commitStatusDialogPage", "Commit Status", "Commit Status", "", false, 3);
-
+	public CommitStatusDialog(CommitState commitState) {
+		
+		_swtuiPlatform = new SWTUIPlatform();
+		_page = _swtuiPlatform.createPageDescription("Commit Status", "Commit Status");
+		
 		// create a transaction to perform commit operation
 		_workspaceCopy = CadseCore.getLogicalWorkspace().createTransaction();
 
@@ -634,47 +636,48 @@ public class CommitStatusPage extends PageImpl {
 
 		DefaultMC_AttributesItem defaultMc = new DefaultMC_AttributesItem();
 
-		_rootSashField = new DSashFormUI("#rootSash", "", EPosLabel.none, defaultMc, null);
+		
+		// create selection part containing a tree
+		DGridUI treeGrild = _swtuiPlatform.createDGridUI(_page,	"#tree", "", EPosLabel.none, defaultMc, null, _treeField);
+		_selectSashField.setWeight(60); // 60% , 40%
 
+		// create part with editors for selected node
+		DGridUI selectDependentFieldsGrild = _swtuiPlatform.createDGridUI(_page,
+				"#selectEdit", "", EPosLabel.none, defaultMc, null,_errorsField, _commitedField, _revField);
+		
 		/*
 		 * Selection part
 		 */
-		_selectSashField = new DSashFormUI("#selectSash", "", EPosLabel.none, defaultMc, null);
+		_selectSashField = _swtuiPlatform.createDSashFormUI(_page, 
+				"#selectSash","", EPosLabel.none, defaultMc, null, treeGrild, selectDependentFieldsGrild);
 
-		// create selection part containing a tree
-		DGridUI treeGrild = new DGridUI("#tree", "", EPosLabel.none, defaultMc, null);
-		_selectSashField.setWeight(60); // 60% , 40%
-		treeGrild.setChildren(_treeField);
-
-		// create part with editors for selected node
-		DGridUI selectDependentFieldsGrild = new DGridUI("#selectEdit", "", EPosLabel.none, defaultMc, null);
-		selectDependentFieldsGrild.setChildren(_errorsField, _commitedField, _revField);
+		
 
 		_selectDependentFields.add(_errorsField);
 		_selectDependentFields.add(_commitedField);
 		_selectDependentFields.add(_revField);
-
-		_selectSashField.setChildren(treeGrild, selectDependentFieldsGrild);
 
 		/*
 		 * Selection independent part
 		 */
 
 		// create part with editors independent of selected node
-		DGridUI selectIndependentFieldsGrid = new DGridUI("#noSelectEdit", "", EPosLabel.none, defaultMc, null);
-		selectIndependentFieldsGrid.setChildren(_listOfCommitedItemsField);
+		DGridUI selectIndependentFieldsGrid = 
+		_swtuiPlatform.createDGridUI(_page,
+				"#noSelectEdit", "", EPosLabel.none, defaultMc, null, _listOfCommitedItemsField);
 
-		_rootSashField.setChildren(_selectSashField, selectIndependentFieldsGrid);
+		
+
+		
+		_rootSashField = _swtuiPlatform.createDSashFormUI(_page, "#rootSash", "", EPosLabel.none, defaultMc, null, _selectSashField, selectIndependentFieldsGrid);
+		
 		_rootSashField.setHorizontal(false);
 		// 65%
 		// 35%
 		_rootSashField.setWeight(65);
-
 		// add main field
-		addLast(_rootSashField);
+		_page.addLast(_rootSashField.getAttributeDefinition());
 
-		// configure the page
-		setActionPage(null);
 
 		// add listeners
 		registerListener();
@@ -693,7 +696,7 @@ public class CommitStatusPage extends PageImpl {
 		}
 
 		synchronized (_refreshTreeLock) {
-			SelfViewContentProvider contentProvider = (SelfViewContentProvider) _treeField.getInteractionController()
+			SelfViewContentProvider contentProvider = (SelfViewContentProvider) _treeField._ic
 					.getContentProvider();
 			contentProvider.notifieChangeEvent(null);
 			_treeField.getTreeViewer().refresh();
@@ -726,7 +729,7 @@ public class CommitStatusPage extends PageImpl {
 	 * 
 	 */
 	protected void refreshSelectDependentFields() {
-		for (UIField field : _selectDependentFields) {
+		for (UIRunningField<?> field : _selectDependentFields) {
 			field.resetVisualValue();
 		}
 	}
@@ -734,8 +737,8 @@ public class CommitStatusPage extends PageImpl {
 	/**
 	 * Create a tree field.
 	 */
-	public DTreeModelUI createTreeField(boolean checkBox) {
-		DTreeModelUI treeField = new DTreeModelUI("#list", "Items which are commiting", EPosLabel.top,
+	public DTreeModelUI<ModifiedItemTreeIC> createTreeField(boolean checkBox) {
+		DTreeModelUI<ModifiedItemTreeIC> treeField = _swtuiPlatform.createTreeModelUI(_page, "#list", "Items which are commiting", EPosLabel.top,
 				new MC_CommitTree(), new ModifiedItemTreeIC(), checkBox);
 		return treeField;
 	}
@@ -744,35 +747,31 @@ public class CommitStatusPage extends PageImpl {
 	 * Create a text field to display the errors related to selected item.
 	 */
 	public DTextUI createRevField() {
-		return new DTextUI(CadseGCST.ITEM_at_TW_VERSION, "Current Revision", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, "Current Revision", false, false, false) {
-
-			@Override
-			public Object getContext() {
-				return _selectedItem;
-			}
-		};
-	}
+		return _swtuiPlatform.createTextUI(_page, CadseGCST.ITEM_at_TW_VERSION_, "Current Revision", EPosLabel.left,
+				new MC_AttributesItem(), null, 1, false, false, false,false, false);
+	  }
 
 	/**
 	 * Create a text field to display the errors related to selected item.
 	 */
 	public DTextUI createErrorsField() {
-		return new DTextUI("#errorsField", "Errors", EPosLabel.top, new ItemError_MC(), null, 10, "", true, false, true);
+		return _swtuiPlatform.createTextUI(_page, "#errorsField",
+				"Errors", EPosLabel.top, new ItemError_MC(), null, 10, true, false, true, false, false);
 	}
 
 	/**
 	 * Create a list field showing modified attributes.
 	 */
-	protected DListUI createListOfCommitedItemsField() {
-		IModelController mc = new AbstractModelController() {
+	protected DListUI<IC_DynamicArrayOfObjectForList> createListOfCommitedItemsField() {
+		RunningModelController mc = new AbstractModelController() {
 
-			public Object getValue() {
+			@Override
+			public Object getValue(IPageController uiPlatform) {
 				List<CompactUUID> itemIds = _commitState.getItemsToCommit();
 				return itemIds.toArray(new CompactUUID[itemIds.size()]);
 			}
 
-			public void notifieValueChanged(UIField field, Object value) {
+			public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
 				// do nothing
 			}
 
@@ -786,8 +785,9 @@ public class CommitStatusPage extends PageImpl {
 		IC_DynamicArrayOfObjectForList ic = new IC_DynamicArrayOfObjectForList("Last Used Comment",
 				"Last Used Comment", idsToCommit.toArray(new CompactUUID[idsToCommit.size()]), _workspaceCopy);
 
-		DListUI listField = new DListUI("#listOfCommittedItemsField", "Commit Order", EPosLabel.top, mc, ic, false,
-				false, false, false);
+		DListUI<IC_DynamicArrayOfObjectForList> listField =
+			_swtuiPlatform.createDListUI(_page, "#listOfCommittedItemsField",
+				"Commit Order", EPosLabel.top, mc, ic, false, false, false, false);
 		return listField;
 	}
 
@@ -797,15 +797,16 @@ public class CommitStatusPage extends PageImpl {
 	public DCheckBoxUI createCommittedField() {
 		AbstractModelController mc = new AbstractModelController() {
 
-			public Object getValue() {
-				if (_selectedItem == null) {
+			@Override
+			public Object getValue(IPageController uiPlatform) {
+					if (_selectedItem == null) {
 					return Boolean.FALSE;
 				}
 
 				return _commitState.isCommitted(_selectedItem.getId());
 			}
 
-			public void notifieValueChanged(UIField field, Object value) {
+			public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
 				// do nothing
 			}
 
@@ -813,14 +814,9 @@ public class CommitStatusPage extends PageImpl {
 				return null;
 			}
 		};
-		DCheckBoxUI checkBoxField = new DCheckBoxUI("#committedField", "Commited without Errors", EPosLabel.none, mc,
-				null) {
-			@Override
-			public Object getContext() {
-				return _selectedItem;
-			}
-		};
-		checkBoxField.setEditable(false);
+		DCheckBoxUI checkBoxField = _swtuiPlatform.createCheckBoxUI(_page, "#committedField", "Commited without Errors", EPosLabel.none, mc,
+				null);
+		checkBoxField._field.setEditable(false);
 
 		return checkBoxField;
 	}
@@ -949,10 +945,6 @@ public class CommitStatusPage extends PageImpl {
 		return _commitState;
 	}
 
-	@Override
-	public ItemType getParentItemType() {
-		return CadseGCST.ITEM;
-	}
 
 	@Override
 	public void initAfterUI() {
@@ -995,7 +987,7 @@ public class CommitStatusPage extends PageImpl {
 		_itemsToShow.add(itemId);
 
 		// compute the ancestors of this item
-		Item item = getLogicalWorkspace().getItem(itemId);
+		Item item = CadseCore.getLogicalWorkspace().getItem(itemId);
 		Stack<Item> pathToRoot = new Stack<Item>();
 		if (!findPathToRoot(item, pathToRoot)) {
 			return false; // TODO should add a warning, item will not be shown
@@ -1042,7 +1034,7 @@ public class CommitStatusPage extends PageImpl {
 	private List<AbstractCadseViewNode> findItemNodes(Item item) {
 		CompactUUID itemId = item.getId();
 
-		AbstractCadseViewNode rootNode = _treeField.getInteractionController().getOrCreateFilteredNode();
+		AbstractCadseViewNode rootNode = _treeField._ic.getOrCreateFilteredNode();
 		List<AbstractCadseViewNode> itemNodes = new ArrayList<AbstractCadseViewNode>();
 		findItemNodes(itemId, rootNode, itemNodes);
 

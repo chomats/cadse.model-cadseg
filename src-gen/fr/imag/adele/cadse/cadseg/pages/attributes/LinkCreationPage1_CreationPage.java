@@ -26,11 +26,11 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 
 import fede.workspace.model.manager.properties.Proposal;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.ic.ItemTreeContentProvider;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
+import fede.workspace.model.manager.properties.impl.ic.ItemTreeContentProvider;
 import fede.workspace.model.manager.properties.impl.mc.MaxModelController;
 import fede.workspace.model.manager.properties.impl.mc.MinModelController;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
@@ -48,14 +48,17 @@ import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -218,12 +221,7 @@ public class LinkCreationPage1_CreationPage extends
 	/**
 	 * @generated
 	 */
-	protected DCheckBoxUI	fieldMustBeInitialized;
-
-	/**
-	 * @generated
-	 */
-	protected DBrowserUI	fieldDestination;
+	protected DBrowserUI fieldDestination;
 
 	/**
 	 * @generated
@@ -254,6 +252,11 @@ public class LinkCreationPage1_CreationPage extends
 	 * @generated
 	 */
 	protected DTextUI fieldSelection;
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldGroup;
 
 	private DTextUI fieldMax;
 
@@ -289,9 +292,11 @@ public class LinkCreationPage1_CreationPage extends
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 
 		setActionPage(new AttributeCreationPage1_CreationPageAction());
-		addLast(this.__short_name__, this.fieldDestination, this.fieldInverseLink, this.fieldMustBeInitialized,
-				this.fieldAggregation, this.fieldPart, this.fieldRequire, this.fieldAnnotation, this.fieldComposition,
-				this.fieldMin, this.fieldMax);
+		addLast(this.__short_name__, this.fieldDestination,
+				this.fieldInverseLink, this.fieldMustBeInitialized,
+				this.fieldAggregation, this.fieldPart, this.fieldRequire,
+				this.fieldAnnotation, this.fieldComposition, this.fieldMin,
+				this.fieldMax);
 
 		registerListener();
 	}
@@ -391,18 +396,18 @@ public class LinkCreationPage1_CreationPage extends
 				false, false);
 	}
 
+	/**
+	    @generated
+	 */
+	public DCheckBoxUI createFieldGroup() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.LINK_at_GROUP, "group",
+				EPosLabel.none, mc, null);
+	}
+
 	private DTextUI createFieldMin() {
 		MinModelController minVC = new MinModelController(true);
 		return FieldsCore.createIntField(CadseGCST.LINK_at_MIN, "min", minVC,
 				minVC);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckBoxUI createFieldMustBeInitialized() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED, "show attribute in creation wizard",
-				EPosLabel.none, mc, null);
 	}
 }

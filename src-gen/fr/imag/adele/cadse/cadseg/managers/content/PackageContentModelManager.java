@@ -35,12 +35,12 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class PackageContentModelManager.
@@ -240,7 +240,7 @@ public class PackageContentModelManager extends FolderContentModelManager {
 	public Pages createModificationPage(Item item) {
 		AbstractActionPage action = new ModificationAction(item);
 
-		IModelController getandsetcontroller = new MC_AttributesItem();
+		RunningModelController getandsetcontroller = new MC_AttributesItem();
 		ItemType it = CadseGCST.PACKAGE_CONTENT_MODEL;
 
 		String title = it.getDisplayName();

@@ -11,12 +11,14 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  @generated
@@ -27,11 +29,6 @@ public class ListModificationPageList_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	public Item item;
-
-	/**
-	    @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	    @generated
@@ -53,10 +50,9 @@ public class ListModificationPageList_ModificationPage extends PageImpl {
 	public ListModificationPageList_ModificationPage(Item item) {
 		super("modification-page-List", "List", "List", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldSubType = createFieldSubType();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldSubType);
+		addLast(this.fieldSubType);
 
 		registerListener();
 	}
@@ -68,18 +64,11 @@ public class ListModificationPageList_ModificationPage extends PageImpl {
 	/**
 	    @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	    @generated
-	 */
 	public DBrowserUI createFieldSubType() {
-		LinkModelController mc = new LinkModelController(true, null,
-				CadseGCST.LIST_lt_SUB_TYPE);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.LIST_lt_SUB_TYPE);
+		LinkModelController mc = new LinkModelController(true, null,
 				CadseGCST.LIST_lt_SUB_TYPE);
 		return new DBrowserUI(CadseGCST.LIST_lt_SUB_TYPE.getName(), "sub-type",
 				EPosLabel.left, mc, ic);

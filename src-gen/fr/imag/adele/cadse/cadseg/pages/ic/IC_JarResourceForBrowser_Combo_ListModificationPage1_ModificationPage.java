@@ -34,9 +34,8 @@ public class IC_JarResourceForBrowser_Combo_ListModificationPage1_ModificationPa
 		super("modification-page1", "IC_JarResourceForBrowser_Combo_List",
 				"IC_JarResourceForBrowser_Combo_List", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

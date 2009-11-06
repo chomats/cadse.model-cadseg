@@ -5,7 +5,6 @@ import org.eclipse.swt.SWT;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_IconResourceForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.mc.StringToOneResourceModelController;
 import fede.workspace.model.manager.properties.impl.mc.StringToResourceSimpleModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
@@ -21,15 +20,17 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -40,11 +41,6 @@ public class ViewModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	    @generated
@@ -76,15 +72,6 @@ public class ViewModificationPage1_ModificationPage extends PageImpl {
 	protected void registerListener() {
 		// add init and register
 	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	
 
 	/**
 	 * Creates the field icon.

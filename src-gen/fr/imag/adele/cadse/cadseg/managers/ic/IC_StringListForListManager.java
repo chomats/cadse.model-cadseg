@@ -34,11 +34,11 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.CreationAction;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class IC_StringListForListManager.
@@ -226,7 +226,7 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 	public Pages createModificationPage(Item item) {
 		AbstractActionPage action = new ModificationAction(item);
 
-		IModelController getandsetcontroller = new MC_AttributesItem();
+		RunningModelController getandsetcontroller = new MC_AttributesItem();
 
 		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a text field",
 				"Create a text field", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"),

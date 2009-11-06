@@ -19,14 +19,15 @@
 
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
+import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.IC_ForCheckedViewer;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.IntModelController;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckedListUI;
+import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.cadseg.ArrayOfAttributeFromFieldModelController;
 import fr.imag.adele.cadse.cadseg.FieldsCheckedUserController;
@@ -36,14 +37,19 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Integer;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -58,11 +64,6 @@ public class PageModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	protected DTextUI __short_name__;
-
-	/**
-	 * @generated
-	 */
 	protected DTextUI fieldTitle;
 
 	/**
@@ -71,29 +72,9 @@ public class PageModificationPage1_ModificationPage extends PageImpl {
 	protected DTextUI fieldDescription;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	protected DCheckBoxUI fieldCreatePageAction;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI fieldHspan;
-
-	/**
-	 * @generated
-	 */
-	protected DCheckedListUI fieldFields;
-
-	/**
-	 * @generated
-	 */
-	protected DBrowserUI fieldSuper;
-
-	/**
-	 * @generated
-	 */
-	protected DCheckedListUI fieldDeletedFields;
+	protected DCheckedListUI fieldAttributes;
 
 	/**
 	 * @generated
@@ -109,6 +90,11 @@ public class PageModificationPage1_ModificationPage extends PageImpl {
 	    @generated
 	 */
 	protected DTextUI fieldIdRuntime;
+
+	/**
+	    @generated
+	 */
+	protected DListUI fieldOverwrite;
 
 	/**
 	 * @generated
@@ -154,13 +140,6 @@ public class PageModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DTextUI createFieldTitle() {
 		return new DTextUI(CadseGCST.PAGE_at_TITLE, "title", EPosLabel.left,
 				new MC_AttributesItem(), null, 1, "", false, false, false);
@@ -176,50 +155,11 @@ public class PageModificationPage1_ModificationPage extends PageImpl {
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public DCheckBoxUI createFieldCreatePageAction() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
-		return new DCheckBoxUI(CadseGCST.PAGE_at_CREATE_PAGE_ACTION,
-				"create page action", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DTextUI createFieldHspan() {
-		IntModelController mc = new IntModelController(1, 0,
-				"The number of columns must be > 0", null, 3);
-		return new DTextUI(CadseGCST.PAGE_at_HSPAN, "number of columns",
-				EPosLabel.left, mc, null, 1, "", false, false, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckedListUI createFieldFields() {
-		return new DCheckedListUI(CadseGCST.PAGE_lt_FIELDS.getName(), "fields",
-				EPosLabel.top, new MC_AttributesItem(), null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DBrowserUI createFieldSuper() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.PAGE_lt_SUPER);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.", CadseGCST.PAGE_lt_SUPER);
-		return new DBrowserUI(CadseGCST.PAGE_lt_SUPER.getName(), "super",
-				EPosLabel.left, mc, ic);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DCheckedListUI createFieldDeletedFields() {
-		return new DCheckedListUI(CadseGCST.PAGE_lt_DELETED_FIELDS.getName(),
-				"deleted-fields", EPosLabel.top, new MC_AttributesItem(), null);
+	public DCheckedListUI createFieldAttributes() {
+		return new DCheckedListUI(CadseGCST.PAGE_lt_ATTRIBUTES.getName(),
+				"attributes", EPosLabel.top, new MC_AttributesItem(), null);
 	}
 
 	/**
@@ -246,6 +186,19 @@ public class PageModificationPage1_ModificationPage extends PageImpl {
 		return new DTextUI(CadseGCST.PAGE_at_ID_RUNTIME, "id-runtime",
 				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
 				false, false);
+	}
+
+	/**
+	    @generated
+	 */
+	public DListUI createFieldOverwrite() {
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.PAGE_lt_OVERWRITE);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.PAGE_lt_OVERWRITE);
+		return new DListUI(CadseGCST.PAGE_lt_OVERWRITE.getName(), "overwrite",
+				EPosLabel.top, mc, ic, true, false, false, false);
 	}
 
 }

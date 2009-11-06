@@ -18,26 +18,29 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.ui;
 
+import fede.workspace.model.manager.properties.impl.mc.IntModelController;
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Integer;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fede.workspace.model.manager.properties.impl.mc.IntModelController;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
+import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -99,11 +102,8 @@ public class DTextModificationPage1_ModificationPage extends
 	public DTextModificationPage1_ModificationPage(Item item) {
 		super("modification-page1", "DText", "DText", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldToolTip = createFieldToolTip();
 		this.fieldVerticalSpan = createFieldVerticalSpan();
-		this.fieldEditable = createFieldEditable();
-		this.fieldEnable = createFieldEnable();
 		this.fieldExtendsIC = createFieldExtendsIC();
 		this.fieldExtendsMC = createFieldExtendsMC();
 		this.fieldExtendsUI = createFieldExtendsUI();
@@ -111,8 +111,7 @@ public class DTextModificationPage1_ModificationPage extends
 		this.fieldWrapLine = createFieldWrapLine();
 		this.fieldNoBorder = createFieldNoBorder();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldToolTip, this.fieldVerticalSpan,
-				this.fieldEditable, this.fieldEnable, this.fieldExtendsIC,
+		addLast(this.fieldToolTip, this.fieldVerticalSpan, this.fieldExtendsIC,
 				this.fieldExtendsMC, this.fieldExtendsUI, this.fieldMultiLigne,
 				this.fieldWrapLine, this.fieldNoBorder);
 
@@ -137,8 +136,7 @@ public class DTextModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public DTextUI createFieldVerticalSpan() {
-		IntModelController mc = new IntModelController(1, -1,
-				"The value must be bigger than 1", null, 1);
+		IntModelController mc = new IntModelController(0, 0, null, null, null);
 		return new DTextUI(CadseGCST.DTEXT_at_VERTICAL_SPAN, "vertical span",
 				EPosLabel.left, mc, null, 1, "", false, false, false);
 	}

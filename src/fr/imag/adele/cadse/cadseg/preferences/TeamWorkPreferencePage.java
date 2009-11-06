@@ -28,21 +28,25 @@ import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.ui.PagesImpl;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.ui.AbstractUIRunningValidator;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fede.workspace.model.manager.properties.impl.ic.IC_TreeModel;
-import fede.workspace.model.manager.properties.impl.ui.DGridUI;
-import fede.workspace.model.manager.properties.impl.ui.DSashFormUI;
-import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fede.workspace.model.manager.properties.impl.ui.DTreeModelUI;
-import fede.workspace.model.manager.properties.impl.ui.FieldsPreferencePage;
+import fr.imag.adele.cadse.core.ui.UIValidator;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeModel;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeModelUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.FieldsPreferencePage;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.FilteredItemNode;
 import fede.workspace.tool.view.node.FilteredItemNodeModel;
@@ -51,7 +55,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 
 public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWorkbenchPreferencePage {
 
-	private PageImpl		pages;
+	private IPage		_page;
 
 	protected DGridUI		fieldsCadse;
 
@@ -70,6 +74,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 	protected DTextUI		fieldDefaultContentRepoURL;
 
 	public TeamWorkPreferencePage() {
+		this._page = _swtPlatform.createPageDescription("Cadse Repository Definition", "Cadse Repository Definition");
 		this.fieldExtends = createFieldExtends();
 		this.fieldDescription = createFieldDescription();
 		this.fieldItemRepoURL = createFieldItemRepoURL();
@@ -79,47 +84,47 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 
 		MyMC_AttributesItem defaultMc = new MyMC_AttributesItem();
 
-		this.fieldsShash = new DSashFormUI("#sash", "", EPosLabel.none, defaultMc, null);
-		fieldsShash.setHorizontal(false);
-		DGridUI comp1 = new DGridUI("#tree", "", EPosLabel.none, defaultMc, null);
+		
+		DGridUI comp1 = _swtPlatform.createDGridUI(_page, "#tree", "", EPosLabel.none, defaultMc, null, fieldExtends);
 		fieldsShash.setWeight(60);
-		comp1.setChildren(fieldExtends);
 
-		DGridUI comp = new DGridUI("#edit", "", EPosLabel.none, defaultMc, null);
-		comp.setChildren(this.fieldDescription, this.fieldItemRepoURL, this.fieldItemRepoLogin,
+		DGridUI comp = _swtPlatform.createDGridUI(_page, "#edit", "", EPosLabel.none, defaultMc, null,
+				this.fieldDescription, this.fieldItemRepoURL, this.fieldItemRepoLogin,
 				this.fieldItemRepoPassword, this.fieldDefaultContentRepoURL);
 
-		this.fieldsShash.setChildren(comp1, comp);
+		this.fieldsShash = _swtPlatform.createDSashFormUI(_page, "#sash", "", EPosLabel.none, defaultMc, null,
+				comp1, comp);
+		fieldsShash.setHorizontal(false);
 
+		_page.addLast(fieldsShash.getAttributeDefinition());
 		registerListener();
 
 		setController(createPages());
 	}
 
 	public DTextUI createFieldDefaultContentRepoURL() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_DEFAULT_CONTENT_REPO_URL, "Default Content Repository URL",
-				EPosLabel.left, new MyMC_AttributesItem(), null, 1, "", false, false, false);
+		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_DEFAULT_CONTENT_REPO_URL_, "Default Content Repository URL",
+				EPosLabel.left, new MyMC_AttributesItem(), null, 1, false, false, false, false, false);
 	}
 
 	public DTextUI createFieldItemRepoPassword() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_ITEM_REPO_PASSWD, "Item Repository Password", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, "", false, false, false);
+		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_PASSWD_, "Item Repository Password", EPosLabel.left,
+				new MyMC_AttributesItem(), null, 1, false, false, false, false, false);
 	}
 
 	public DTextUI createFieldItemRepoLogin() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_ITEM_REPO_LOGIN, "Item Repository Login", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, "", false, false, false);
+		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_LOGIN_, "Item Repository Login", EPosLabel.left,
+				new MyMC_AttributesItem(), null, 1, false, false, false, false, false);
 	}
 
 	public DTextUI createFieldItemRepoURL() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_ITEM_REPO_URL, "Item Repository URL", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, "", false, false, false);
+		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_URL_, "Item Repository URL", EPosLabel.left,
+				new MyMC_AttributesItem(), null, 1, false, false, false, false, false);
 	}
 
 	public PagesImpl createPages() {
-		this.pages = new PageImpl("TWPref-page", "Cadse Repository Definition", "Cadse Repository Definition",
-				"Cadse Repository Definition", true, 3, newAction(), fieldsShash);
-		return new PagesImpl(false, this.newAction(), pages);
+		
+		return _swtPlatform.createPages(newAction(), _page, new AbstractUIRunningValidator());
 	}
 
 	private IActionPage newAction() {

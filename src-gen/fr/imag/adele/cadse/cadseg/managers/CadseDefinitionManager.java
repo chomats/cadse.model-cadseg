@@ -48,7 +48,6 @@ import fede.workspace.dependencies.eclipse.java.fix.IFixManager;
 import fede.workspace.eclipse.java.osgi.OsgiManifest;
 import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
 import fede.workspace.model.manager.properties.Proposal;
-import fede.workspace.model.manager.properties.impl.ic.IC_Abstract;
 import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionCIF;
@@ -72,17 +71,19 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.ic.IC_Abstract;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.key.SpaceKeyType;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
  * The Class CadseDefinitionManager.
  */
-public class CadseDefinitionManager extends CadseRuntimeManager implements IModelWorkspaceManager, IFixManager {
+public class CadseDefinitionManager extends CadseManager implements IModelWorkspaceManager, IFixManager {
 	public static final String	MAPPING				= "mapping";
 
 	public static final String	BUILD_MODEL			= "build-model";
@@ -105,7 +106,7 @@ public class CadseDefinitionManager extends CadseRuntimeManager implements IMode
 	 * @return the uUID
 	 */
 	public static CompactUUID getIdRuntime(Item cadseDefinition) {
-		if (cadseDefinition.getType() == CadseGCST.CADSE_RUNTIME) {
+		if (cadseDefinition.getType() == CadseGCST.CADSE) {
 			return cadseDefinition.getId();
 		}
 		
@@ -133,8 +134,8 @@ public class CadseDefinitionManager extends CadseRuntimeManager implements IMode
 	 * @return the uUID
 	 */
 	public static CompactUUID getIdDef(Item cadseDefinition) {
-		if (cadseDefinition.getType() == CadseGCST.CADSE_RUNTIME) {
-			return new CompactUUID(cadseDefinition.getAttribute(CadseGCST.CADSE_RUNTIME_at_ID_DEFINITION_));
+		if (cadseDefinition.getType() == CadseGCST.CADSE) {
+			return new CompactUUID(cadseDefinition.getAttribute(CadseGCST.CADSE_at_ID_DEFINITION_));
 		}
 		return cadseDefinition.getId();
 	}
@@ -297,7 +298,7 @@ public class CadseDefinitionManager extends CadseRuntimeManager implements IMode
 	/**
 	 * The Class ValidFieldUC.
 	 */
-	public static class ValidFieldUC extends IC_Abstract implements IInteractionController,
+	public static class ValidFieldUC extends IC_Abstract implements RuningInteractionController,
 			IFieldContenProposalProvider {
 
 		/*
@@ -1429,7 +1430,7 @@ public class CadseDefinitionManager extends CadseRuntimeManager implements IMode
 			return "Cannot extend this cadse : it's the root cadse";
 		}
 
-		if (lt == CadseGCST.CADSE_RUNTIME_lt_EXTENDS) {
+		if (lt == CadseGCST.CADSE_lt_EXTENDS) {
 			if (dest == source) {
 				return "Cannot extends self";
 			}

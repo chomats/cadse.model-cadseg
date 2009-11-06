@@ -32,7 +32,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
 import fede.workspace.model.manager.properties.impl.ui.WizardController;
 

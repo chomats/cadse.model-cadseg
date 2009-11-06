@@ -26,16 +26,18 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
@@ -81,11 +83,10 @@ public class CadseDefinitionCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
 		this.fieldPackagename = createFieldPackagename();
 		this.fieldExtends = createFieldExtends();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldPackagename, this.fieldExtends);
+		addLast(this.fieldPackagename, this.fieldExtends);
 
 		registerListener();
 	}
@@ -143,10 +144,10 @@ public class CadseDefinitionCreationPage1_CreationPage extends
 	    @generated
 	 */
 	public DListUI createFieldExtends() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.CADSE_RUNTIME_lt_EXTENDS);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.CADSE_RUNTIME_lt_EXTENDS);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.CADSE_RUNTIME_lt_EXTENDS);
 		return new DListUI(CadseGCST.CADSE_RUNTIME_lt_EXTENDS.getName(),
 				"extends", EPosLabel.top, mc, ic, true, false, false, false);

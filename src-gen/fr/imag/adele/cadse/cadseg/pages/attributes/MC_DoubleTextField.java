@@ -23,7 +23,7 @@ package fr.imag.adele.cadse.cadseg.pages.attributes;
 
 import java.text.MessageFormat;
 
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 public final class MC_DoubleTextField extends MC_AttributesItem {

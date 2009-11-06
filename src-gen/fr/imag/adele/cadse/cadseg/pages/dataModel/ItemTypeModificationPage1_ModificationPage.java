@@ -34,21 +34,24 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
  */
 public class ItemTypeModificationPage1_ModificationPage extends
-		AbstractItemTypeModificationPage1_ModificationPage {
+		TypeDefinitionModificationPage1_ModificationPage {
 
 	/**
 	 * @generated
@@ -78,7 +81,27 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	/**
 	    @generated
 	 */
+	protected DListUI fieldLinkType;
+
+	/**
+	    @generated
+	 */
+	protected DListUI fieldSubTypes;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldPackageName;
+
+	/**
+	    @generated
+	 */
 	protected DCheckBoxUI fieldCustomManager;
+
+	/**
+	    @generated
+	 */
+	protected DTextUI fieldManagerClass;
 
 	/**
 	 * @generated
@@ -89,6 +112,11 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	protected DCheckBoxUI fieldIsAbstract;
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldIsMetaItemType;
 
 	private DTextUI displayNameField;
 
@@ -125,7 +153,7 @@ public class ItemTypeModificationPage1_ModificationPage extends
 				CadseGCST.MANAGER_at_ICON, "icon", EPosLabel.left);
 		this.iconField.setItem(manager);
 		this.fieldCustomManager = createFieldCustomManager();
-		
+
 		setActionPage(null);
 		addLast(this.__short_name__, this.displayNameField,
 				this.fieldSuperType, this.fieldHasContent,
@@ -157,7 +185,7 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	 * 
 	 */
 	public DCheckBoxUI createFieldIsRootElement() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT,
 				"is-root-element", EPosLabel.none, mc, null);
 	}
@@ -191,6 +219,41 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	/**
 	    @generated
 	 */
+	public DListUI createFieldLinkType() {
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.ITEM_TYPE_lt_LINK_TYPE);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.ITEM_TYPE_lt_LINK_TYPE);
+		return new DListUI(CadseGCST.ITEM_TYPE_lt_LINK_TYPE.getName(),
+				"link-type", EPosLabel.top, mc, ic, true, false, false, false);
+	}
+
+	/**
+	    @generated
+	 */
+	public DListUI createFieldSubTypes() {
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
+				"Select a value.", "Select a value.",
+				CadseGCST.ITEM_TYPE_lt_SUB_TYPES);
+		LinkModelController mc = new LinkModelController(false, null,
+				CadseGCST.ITEM_TYPE_lt_SUB_TYPES);
+		return new DListUI(CadseGCST.ITEM_TYPE_lt_SUB_TYPES.getName(),
+				"sub-types", EPosLabel.top, mc, ic, true, false, false, false);
+	}
+
+	/**
+	    @generated
+	 */
+	public DTextUI createFieldPackageName() {
+		return new DTextUI(CadseGCST.ITEM_TYPE_at_PACKAGE_NAME, "package-name",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
+	}
+
+	/**
+	    @generated
+	 */
 	public DCheckBoxUI createFieldCustomManager() {
 		StringToBooleanModelControler mc = new StringToBooleanModelControler();
 		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER,
@@ -198,11 +261,20 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	}
 
 	/**
+	    @generated
+	 */
+	public DTextUI createFieldManagerClass() {
+		return new DTextUI(CadseGCST.ITEM_TYPE_at_MANAGER_CLASS,
+				"manager-class", EPosLabel.left, new MC_AttributesItem(), null,
+				1, "", false, false, false);
+	}
+
+	/**
 	 * @generated FieldsCore.createCheckBox(ItemTypeManager.HAS_CONTENT_ATTRIBUTE,
 	 *            "has content")
 	 */
 	public DCheckBoxUI createFieldHasContent() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_HAS_CONTENT,
 				"has-content", EPosLabel.none, mc, null);
 	}
@@ -212,9 +284,19 @@ public class ItemTypeModificationPage1_ModificationPage extends
 	 *            "is abstract"),
 	 */
 	public DCheckBoxUI createFieldIsAbstract() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_IS_ABSTRACT,
 				"is-abstract", EPosLabel.none, mc, null);
+	}
+
+	/**
+	    @generated
+	 */
+	public DCheckBoxUI createFieldIsMetaItemType() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_IS_META_ITEM_TYPE,
+				"is-meta-item-type (advanced users only)", EPosLabel.none, mc,
+				null);
 	}
 
 }

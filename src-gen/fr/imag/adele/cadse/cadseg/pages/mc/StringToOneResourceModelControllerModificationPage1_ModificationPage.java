@@ -33,9 +33,8 @@ public class StringToOneResourceModelControllerModificationPage1_ModificationPag
 		super("modification-page1", "StringToOneResourceModelController",
 				"StringToOneResourceModelController", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast();
 
 		registerListener();
 	}

@@ -18,6 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.build.composer;
 
+import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.cadseg.pages.build.ComposerCreationPage1_CreationPage;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -54,9 +55,9 @@ public class EclipseComposerCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast(this.fieldName);
 
 		registerListener();
 	}

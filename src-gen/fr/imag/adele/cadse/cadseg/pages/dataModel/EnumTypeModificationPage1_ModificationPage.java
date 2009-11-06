@@ -28,7 +28,6 @@ import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
 import fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
@@ -41,14 +40,17 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -63,17 +65,7 @@ public class EnumTypeModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	protected DTextUI __short_name__;
-
-	/**
-	 * @generated
-	 */
-	protected DListUI	fieldValues;
-
-	/**
-	    @generated
-	 */
-	protected DBrowserUI	fieldJavaClass;
+	protected DListUI fieldValues;
 
 	/**
 	 * @generated
@@ -90,11 +82,9 @@ public class EnumTypeModificationPage1_ModificationPage extends PageImpl {
 	public EnumTypeModificationPage1_ModificationPage(Item item) {
 		super("modification-page1", "EnumType", "EnumType", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldValues = createFieldValues();
-		this.fieldJavaClass = createFieldJavaClass();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldValues, this.fieldJavaClass);
+		addLast(this.fieldValues);
 
 		registerListener();
 	}
@@ -108,7 +98,7 @@ public class EnumTypeModificationPage1_ModificationPage extends PageImpl {
 		this.fieldValues.addValidateContributor(this);
 
 	}
-	
+
 	@Override
 	public void notifieValueChanged(UIField field, Object value) {
 		//		if (field == this.fieldMustBeGenerated) {
@@ -127,7 +117,9 @@ public class EnumTypeModificationPage1_ModificationPage extends PageImpl {
 		if (field == this.fieldJavaClass) {
 			IType javaClass = value instanceof IType ? (IType) value : null;
 			if (javaClass != null) {
-				this.fieldValues.setVisualValue(EnumTypeCreationPage1_CreationPage.getEnumTypeValues(javaClass));
+				this.fieldValues
+						.setVisualValue(EnumTypeCreationPage1_CreationPage
+								.getEnumTypeValues(javaClass));
 				EnumTypeManager.setMustBeGeneratedAttribute(getItem(), false);
 				this.fieldValues.setEnabled(false);
 			} else {
@@ -191,31 +183,11 @@ public class EnumTypeModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DListUI createFieldValues() {
+		IC_DefaultForList ic = new IC_DefaultForList("", "", false);
 		MC_DefaultForList mc = new MC_DefaultForList(0, -1);
-		IC_DefaultForList ic = new IC_DefaultForList("Select a value.",
-				"Select a value.", false);
 		return new DListUI(CadseGCST.ENUM_TYPE_at_VALUES, "values",
 				EPosLabel.top, mc, ic, true, false, false, false);
-	}
-	
-	/**
-	    @generated
-	 */
-	public DBrowserUI createFieldJavaClass() {
-		IC_JavaClassForBrowser_Combo ic = new IC_JavaClassForBrowser_Combo(
-				"select an enum class", "select an enum class",
-				IJavaElementSearchConstants.CONSIDER_ENUMS, "");
-		MC_StringToJavaElement mc = new MC_StringToJavaElement();
-		return new DBrowserUI(CadseGCST.ENUM_TYPE_at_JAVA_CLASS,
-				"enum class", EPosLabel.left, mc, ic);
 	}
 
 }

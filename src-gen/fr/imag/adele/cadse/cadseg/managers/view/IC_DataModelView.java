@@ -35,7 +35,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
 import fede.workspace.model.manager.properties.impl.ic.IC_ContextMenu;
@@ -48,7 +48,7 @@ import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCheckedUI, IC_ContextMenu,
-		IModelController {
+		RunningModelController {
 
 	/**
 	 * The Class RootAction.

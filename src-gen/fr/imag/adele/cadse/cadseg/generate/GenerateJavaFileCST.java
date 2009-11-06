@@ -98,7 +98,7 @@ public class GenerateJavaFileCST extends GenerateClass {
 	 *            the abs item type
 	 */
 	private void generateAttributesForItemTypeCST(GenStringBuilder sb, Item absItemType, Set<String> imports) {
-		Collection<Item> outgoingItem = absItemType.getOutgoingItems(CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES,
+		Collection<Item> outgoingItem = absItemType.getOutgoingItems(CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES,
 				true);
 		Item[] attributeItems = outgoingItem.toArray(new Item[outgoingItem.size()]);
 		Arrays.sort(attributeItems, new ItemShortNameComparator());

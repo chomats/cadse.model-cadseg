@@ -61,7 +61,7 @@ public final class IC_SuperTypeForBrowser_Combo extends IC_LinkForBrowser_Combo_
 	protected ITreeContentProvider getTreeContentProvider() {
 		return new ItemTreeContentProvider(new ItemShortNameComparator(), CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,
 				CadseGCST.DATA_MODEL_lt_TYPES, CadseGCST.DATA_MODEL_lt_CATEGORIES, 
-				CadseGCST.CADSE_RUNTIME_lt_ITEM_TYPES);
+				CadseGCST.CADSE_lt_ITEM_TYPES);
 	}
 
 	/*

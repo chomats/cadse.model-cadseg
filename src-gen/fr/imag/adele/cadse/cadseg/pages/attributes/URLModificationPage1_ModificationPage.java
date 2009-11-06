@@ -18,10 +18,9 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
+import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ic.IC_EnumForBrowser_Combo;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.mc.StringToEnumModelController;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
@@ -38,13 +37,16 @@ import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -71,7 +73,6 @@ public class URLModificationPage1_ModificationPage extends
 	public URLModificationPage1_ModificationPage(Item item) {
 		super("modification-page1", "URL", "URL", "", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldNatif = createFieldNatif();
 		this.fieldTransient = createFieldTransient();
 		this.fieldCannotBeUndefined = createFieldCannotBeUndefined();
@@ -80,7 +81,7 @@ public class URLModificationPage1_ModificationPage extends
 		this.fieldMustBeInitialized = createFieldMustBeInitialized();
 		this.fieldIsList = createFieldIsList();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldNatif, this.fieldTransient,
+		addLast(this.fieldNatif, this.fieldTransient,
 				this.fieldCannotBeUndefined, this.fieldFinalValue,
 				this.fieldRequire, this.fieldMustBeInitialized,
 				this.fieldIsList);

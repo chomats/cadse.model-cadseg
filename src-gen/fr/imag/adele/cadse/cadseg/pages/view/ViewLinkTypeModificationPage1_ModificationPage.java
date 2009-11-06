@@ -12,14 +12,17 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -30,11 +33,6 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
@@ -77,16 +75,15 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 		super("modification-page1", "ViewLinkType", "ViewLinkType", "", false,
 				3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldLinkType = createFieldLinkType();
 		this.fieldCanCreateItem = createFieldCanCreateItem();
 		this.fieldCanCreateLink = createFieldCanCreateLink();
 		this.fieldDisplayCreate = createFieldDisplayCreate();
 		this.fieldAggregation = createFieldAggregation();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldLinkType,
-				this.fieldCanCreateItem, this.fieldCanCreateLink,
-				this.fieldDisplayCreate, this.fieldAggregation);
+		addLast(this.fieldLinkType, this.fieldCanCreateItem,
+				this.fieldCanCreateLink, this.fieldDisplayCreate,
+				this.fieldAggregation);
 
 		registerListener();
 	}
@@ -98,18 +95,11 @@ public class ViewLinkTypeModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DBrowserUI createFieldLinkType() {
-		LinkModelController mc = new LinkModelController(true, null,
-				CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
+		LinkModelController mc = new LinkModelController(true, null,
 				CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
 		return new DBrowserUI(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE.getName(),
 				"link-type", EPosLabel.left, mc, ic);

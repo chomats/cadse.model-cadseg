@@ -18,17 +18,22 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.dataModel;
 
+import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * @generated
@@ -51,9 +56,9 @@ public class WCListenerCreationPage1_CreationPage extends PageImpl {
 	public LinkType lt;
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	protected DTextUI __short_name__;
+	protected DTextUI fieldName;
 
 	/**
 	 * @generated
@@ -73,9 +78,9 @@ public class WCListenerCreationPage1_CreationPage extends PageImpl {
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast(this.fieldName);
 
 		registerListener();
 	}
@@ -85,10 +90,12 @@ public class WCListenerCreationPage1_CreationPage extends PageImpl {
 	}
 
 	/**
-	 * @generated
+	    @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createShortNameField();
+	public DTextUI createFieldName() {
+		MC_ShortNameItemProperty mc = new MC_ShortNameItemProperty();
+		return new DTextUI(CadseGCST.ITEM_at_NAME, "name", EPosLabel.left, mc,
+				null, 1, "", false, false, false);
 	}
 
 }

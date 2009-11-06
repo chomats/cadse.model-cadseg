@@ -13,13 +13,15 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -30,11 +32,6 @@ public class ComposerLinkModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
@@ -62,11 +59,10 @@ public class ComposerLinkModificationPage1_ModificationPage extends PageImpl {
 		super("modification-page1", "ComposerLink", "ComposerLink", "", false,
 				3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldLink = createFieldLink();
 		this.fieldExporters = createFieldExporters();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldLink, this.fieldExporters);
+		addLast(this.fieldLink, this.fieldExporters);
 
 		registerListener();
 	}
@@ -78,18 +74,11 @@ public class ComposerLinkModificationPage1_ModificationPage extends PageImpl {
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DBrowserUI createFieldLink() {
-		LinkModelController mc = new LinkModelController(true, null,
-				CadseGCST.COMPOSER_LINK_lt_LINK);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSER_LINK_lt_LINK);
+		LinkModelController mc = new LinkModelController(true, null,
 				CadseGCST.COMPOSER_LINK_lt_LINK);
 		return new DBrowserUI(CadseGCST.COMPOSER_LINK_lt_LINK.getName(),
 				"link", EPosLabel.left, mc, ic);
@@ -99,10 +88,10 @@ public class ComposerLinkModificationPage1_ModificationPage extends PageImpl {
 	 * @generated
 	 */
 	public DListUI createFieldExporters() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.COMPOSER_LINK_lt_EXPORTERS);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.COMPOSER_LINK_lt_EXPORTERS);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.COMPOSER_LINK_lt_EXPORTERS);
 		return new DListUI(CadseGCST.COMPOSER_LINK_lt_EXPORTERS.getName(),
 				"exporters", EPosLabel.top, mc, ic, true, false, false, false);

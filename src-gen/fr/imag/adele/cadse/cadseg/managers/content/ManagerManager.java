@@ -59,6 +59,8 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.si.view.View;
@@ -753,8 +755,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public List<Link> getExportersLink(Item manager) {
-		return manager.getOutgoingLinks(CadseGCST.MANAGER_lt_EXPORTERS);
-	}
+        return manager.getOutgoingLinks(CadseGCST.MANAGER_lt_EXPORTERS);
+    }
 
 	/**
 	 * Gets the exporters all.
@@ -767,8 +769,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Collection<Item> getExportersAll(Item manager) {
-		return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS, false);
-	}
+        return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS, false);
+    }
 
 	/**
 	 * Gets the exporters.
@@ -781,8 +783,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public Collection<Item> getExporters(Item manager) {
-		return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS, true);
-	}
+        return manager.getOutgoingItems(CadseGCST.MANAGER_lt_EXPORTERS,true);
+    }
 
 	/**
 	 * Adds the exporters.
@@ -798,8 +800,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public void addExporters(Item manager, Item value) throws CadseException {
-		manager.addOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS, value);
-	}
+        manager.addOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS,value);
+    }
 
 	/**
 	 * Removes the exporters.
@@ -815,8 +817,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public void removeExporters(Item manager, Item value) throws CadseException {
-		manager.removeOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS, value);
-	}
+        manager.removeOutgoingItem(CadseGCST.MANAGER_lt_EXPORTERS,value);
+    }
 
 	/**
 	 * Gets the unique name template.
@@ -924,7 +926,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public void setItemType(Item manager, Item value) throws CadseException {
-		manager.setOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE, value);
+		manager.setOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE,value);
 	}
 
 	/**
@@ -985,7 +987,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	static public void setContentModel(Item manager, Item value) throws CadseException {
-		manager.setOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL, value);
+		manager.setOutgoingItem(CadseGCST.MANAGER_lt_CONTENT_MODEL,value);
 	}
 
 	/**

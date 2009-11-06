@@ -12,13 +12,15 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
@@ -30,11 +32,6 @@ public class ConfigurationModelModificationPage1_ModificationPage extends
 	 * @generated
 	 */
 	public Item item;
-
-	/**
-	 * @generated
-	 */
-	protected DTextUI __short_name__;
 
 	/**
 	 * @generated
@@ -57,10 +54,9 @@ public class ConfigurationModelModificationPage1_ModificationPage extends
 		super("modification-page1", "ConfigurationModel", "ConfigurationModel",
 				"", false, 3);
 		this.item = item;
-		this.__short_name__ = createInternalNameField();
 		this.fieldBuild = createFieldBuild();
 		setActionPage(null);
-		addLast(this.__short_name__, this.fieldBuild);
+		addLast(this.fieldBuild);
 
 		registerListener();
 	}
@@ -72,18 +68,11 @@ public class ConfigurationModelModificationPage1_ModificationPage extends
 	/**
 	 * @generated
 	 */
-	public DTextUI createInternalNameField() {
-		return FieldsCore.createUniqueNameField();
-	}
-
-	/**
-	 * @generated
-	 */
 	public DListUI createFieldBuild() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.CONFIGURATION_MODEL_lt_BUILD);
 		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
 				"Select a value.", "Select a value.",
+				CadseGCST.CONFIGURATION_MODEL_lt_BUILD);
+		LinkModelController mc = new LinkModelController(false, null,
 				CadseGCST.CONFIGURATION_MODEL_lt_BUILD);
 		return new DListUI(CadseGCST.CONFIGURATION_MODEL_lt_BUILD.getName(),
 				"build", EPosLabel.top, mc, ic, true, false, false, false);

@@ -19,7 +19,6 @@
 package fr.imag.adele.cadse.cadseg.pages.attributes;
 
 import fr.imag.adele.cadse.core.IItemNode;
-import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -28,6 +27,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
@@ -55,9 +55,9 @@ public class LongCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.__short_name__ = createInternalNameField();
+		this.fieldName = createFieldName();
 		setActionPage(null);
-		addLast(this.__short_name__);
+		addLast(this.fieldName);
 
 		registerListener();
 	}
@@ -80,7 +80,7 @@ public class LongCreationPage1_CreationPage extends
 	 * @not generated
 	 */
 	public DCheckBoxUI createFieldMustBeInitialized() {
-		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		MC_StringToBoolean mc = new MC_StringToBoolean();
 		return new DCheckBoxUI(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED,
 				"show attribute in creation wizard", EPosLabel.none, mc, null);
 	}

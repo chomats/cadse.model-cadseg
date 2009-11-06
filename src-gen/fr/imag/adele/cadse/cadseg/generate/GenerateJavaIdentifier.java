@@ -411,7 +411,7 @@ public class GenerateJavaIdentifier {
 	public static String javaPackageNameFileCST_FromCadseDefinition(ContextVariable cxt, Item cadseDefinition) {
 		if (cadseDefinition == null)
 			return "??";
-		if (cadseDefinition.getType() == CadseGCST.CADSE_RUNTIME) {
+		if (cadseDefinition.getType() == CadseGCST.CADSE) {
 			if (cadseDefinition.getBaseItem() == null)
 				return "??";
 			return JavaIdentifier.getPackageName(((CadseRuntime) cadseDefinition.getBaseItem())
@@ -484,7 +484,7 @@ public class GenerateJavaIdentifier {
 	public static String javaClassNameFileCST_FromCadseDefinition(ContextVariable cxt, Item cadseDefinition) {
 		if (cadseDefinition == null)
 			return "??";
-		if (cadseDefinition.getType() == CadseGCST.CADSE_RUNTIME) {
+		if (cadseDefinition.getType() == CadseGCST.CADSE) {
 			if (cadseDefinition.getBaseItem() == null)
 				return "??";
 			return JavaIdentifier.getlastclassName(((CadseRuntime) cadseDefinition.getBaseItem())
@@ -647,7 +647,7 @@ public class GenerateJavaIdentifier {
 	 * @return the string
 	 */
 	public static String javaPackageMenuAction(ContextVariable cxt, Item menuaction) {
-		Item itemtype = menuaction.getPartParent(CadseGCST.ABSTRACT_ITEM_TYPE);
+		Item itemtype = menuaction.getPartParent(CadseGCST.TYPE_DEFINITION);
 		Item cadseDefinition = itemtype.getPartParent(CadseGCST.CADSE_DEFINITION);
 		return getItemTypePackage(cxt, itemtype, cadseDefinition, ".menu");
 	}

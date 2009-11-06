@@ -34,11 +34,15 @@ import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
+
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class ProjectContentModelManager.
@@ -232,7 +236,7 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 	 * @generated
 	 */
 	public static final String getProjectNameAttribute(Item projectContentModel) {
-		return projectContentModel.getAttributeWithDefaultValue(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_, null);
+		return projectContentModel.getAttributeWithDefaultValue(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_, "${#qualified-name}");
 	}
 
 	/**

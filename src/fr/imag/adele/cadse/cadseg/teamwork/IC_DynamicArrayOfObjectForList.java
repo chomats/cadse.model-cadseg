@@ -26,7 +26,7 @@ import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
-import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForList;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForList;
 
 /**
  * Interaction controller used to represent a dynamic array of objects.
@@ -40,11 +40,13 @@ public class IC_DynamicArrayOfObjectForList extends IC_AbstractForList implement
 	private LogicalWorkspace	_wl;
 
 	public IC_DynamicArrayOfObjectForList(String title, String message, CompactUUID[] itemIds, LogicalWorkspace wl) {
-		super(title, message);
+		this.message = message;
+		this.title = title;
 		this._itemIds = itemIds;
 		_wl = wl;
 	}
 
+	
 	@Override
 	public Object[] getValues() {
 		return _itemIds;

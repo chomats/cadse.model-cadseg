@@ -21,6 +21,7 @@ package fr.imag.adele.cadse.cadseg.pages.dataModel;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.mc.LinkModelController;
+import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
 import fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler;
 import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
 import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
@@ -33,21 +34,24 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * @generated
  */
 public class ItemTypeCreationPage1_CreationPage extends
-		AbstractItemTypeCreationPage1_CreationPage {
+		TypeDefinitionCreationPage1_CreationPage {
 
 	/**
 	 * @generated
@@ -67,12 +71,17 @@ public class ItemTypeCreationPage1_CreationPage extends
 	/**
 	    @generated
 	 */
-	protected DBrowserUI fieldCadseRuntime;
+	protected DTextUI fieldItemFactory;
 
 	/**
 	    @generated
 	 */
-	protected DTextUI fieldItemFactory;
+	protected DTextUI fieldName;
+
+	/**
+	    @generated
+	 */
+	protected DCheckBoxUI fieldCustomManager;
 
 	/**
 	 * @generated
@@ -97,18 +106,17 @@ public class ItemTypeCreationPage1_CreationPage extends
 		this.parent = parent;
 		this.it = it;
 		this.lt = lt;
-		this.fieldName = createFieldName();
 		this.fieldSuperType = createFieldSuperType();
 		this.fieldIsRootElement = createFieldIsRootElement();
 		this.fieldHasContent = createFieldHasContent();
 		this.fieldIsAbstract = createFieldIsAbstract();
-		this.fieldCadseRuntime = createFieldCadseRuntime();
 		this.fieldItemFactory = createFieldItemFactory();
+		this.fieldName = createFieldName();
+		this.fieldCustomManager = createFieldCustomManager();
 		setActionPage(null);
-		addLast(this.fieldName, this.fieldSuperType,
-				this.fieldIsRootElement, this.fieldHasContent,
-				this.fieldIsAbstract, this.fieldCadseRuntime,
-				this.fieldItemFactory);
+		addLast(this.fieldSuperType, this.fieldIsRootElement,
+				this.fieldHasContent, this.fieldIsAbstract,
+				this.fieldItemFactory, this.fieldName, this.fieldCustomManager);
 
 		registerListener();
 	}
@@ -160,23 +168,28 @@ public class ItemTypeCreationPage1_CreationPage extends
 	/**
 	    @generated
 	 */
-	public DBrowserUI createFieldCadseRuntime() {
-		LinkModelController mc = new LinkModelController(false, null,
-				CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME);
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.",
-				CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME);
-		return new DBrowserUI(CadseGCST.ITEM_TYPE_lt_CADSE_RUNTIME.getName(),
-				"cadse-runtime", EPosLabel.left, mc, ic);
+	public DTextUI createFieldItemFactory() {
+		return new DTextUI(CadseGCST.ITEM_TYPE_at_ITEM_FACTORY, "item-factory",
+				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
+				false, false);
 	}
 
 	/**
 	    @generated
 	 */
-	public DTextUI createFieldItemFactory() {
-		return new DTextUI(CadseGCST.ITEM_TYPE_at_ITEM_FACTORY, "item-factory",
-				EPosLabel.left, new MC_AttributesItem(), null, 1, "", false,
-				false, false);
+	public DTextUI createFieldName() {
+		MC_ShortNameItemProperty mc = new MC_ShortNameItemProperty();
+		return new DTextUI(CadseGCST.ITEM_at_NAME, "name", EPosLabel.left, mc,
+				null, 1, "", false, false, false);
+	}
+
+	/**
+	    @generated
+	 */
+	public DCheckBoxUI createFieldCustomManager() {
+		StringToBooleanModelControler mc = new StringToBooleanModelControler();
+		return new DCheckBoxUI(CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER,
+				"custom-manager", EPosLabel.none, mc, null);
 	}
 
 	/**

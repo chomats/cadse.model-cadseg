@@ -30,7 +30,7 @@ import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.IPageObject;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 import fede.workspace.eclipse.composition.java.JavaProjectExporter;
 
 /**
