@@ -40,8 +40,8 @@ public class IC_DynamicArrayOfObjectForList extends IC_AbstractForList implement
 	private LogicalWorkspace	_wl;
 
 	public IC_DynamicArrayOfObjectForList(String title, String message, CompactUUID[] itemIds, LogicalWorkspace wl) {
-		this.message = message;
-		this.title = title;
+		this._message = message;
+		this._title = title;
 		this._itemIds = itemIds;
 		_wl = wl;
 	}
