@@ -26,13 +26,14 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.widgets.Shell;
 
-import fede.workspace.model.manager.properties.impl.ui.UIWizardDialog;
-import fede.workspace.model.manager.properties.impl.ui.WizardController;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.UIWizardDialog;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 
 /**
  * A <code>BaseNewWizardMenu</code> is used to populate a menu manager with
@@ -77,16 +78,12 @@ public class MenuNewAction extends IMenuAction {
 		return false;
 	}
 
-	public WizardController createWizard()
-			throws CadseException {
-		return new WizardController(_c.getDestinationType().getGoodCreationPage(_c), _c);
-	}
 
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
 		Shell shell = ((IShellProvider) _c.getView().getWindowProvider()).getShell();
 		try {
-			WizardController wizard = createWizard();
+			WizardController wizard = new WizardController(new SWTUIPlatform(_c.getDestinationType().getGoodCreationPage(_c), shell));
 			UIWizardDialog wd = new UIWizardDialog(shell, wizard);
 			wd.open();
 		} catch (Throwable e1) {

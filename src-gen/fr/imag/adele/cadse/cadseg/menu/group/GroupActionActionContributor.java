@@ -110,18 +110,18 @@ public class GroupActionActionContributor implements  IActionContributor {
 			}
 		}
 
-		Set<IItemNode> itemsToDelete = getItemsToDelete(selection);
-		if (itemsToDelete.size() != 0) {
-			principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new DeleteItemAction(itemsToDelete), true);
-		}
+		//Set<IItemNode> itemsToDelete = getItemsToDelete(selection);
+	//	if (itemsToDelete.size() != 0) {
+	//		principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new DeleteItemAction(itemsToDelete), true);
+	//	}
 
-		if (Platform.inDevelopmentMode()) {
-			Set<IItemNode> itemsToRename = getItemsToRename(selection);
-			if (itemsToRename.size() != 0) {
-				principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new RenameAction(itemsToRename,
-						(IShellProvider) viewDescription.getWindowProvider()), true);
-			}
-		}
+	//	if (Platform.inDevelopmentMode()) {
+	//		Set<IItemNode> itemsToRename = getItemsToRename(selection);
+	//		if (itemsToRename.size() != 0) {
+	//			principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new RenameAction(itemsToRename,
+	//					(IShellProvider) viewDescription.getWindowProvider()), true);
+	//		}
+	//	}
 
 		Set<IItemNode> linksToDelete = getLinksToDelete(selection);
 		if (linksToDelete.size() != 0) {
@@ -148,7 +148,7 @@ public class GroupActionActionContributor implements  IActionContributor {
 			}
 		}
 
-		principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
+		//principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
 	}
 	
 	public IContributionItem findUsingPath(IContributionManager manager, String path) {
@@ -313,7 +313,11 @@ public class GroupActionActionContributor implements  IActionContributor {
 		SortedSet<IMenuAction> list = new TreeSet<IMenuAction>(comparator);
 		for (NewContext nc : newActions) {
 			if (nc == null) continue;
-			list.add(new MenuNewAction(nc));
+			try {
+				list.add(new MenuNewAction(nc));
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
 		}
 		return new Menu(IMenuAction.NEW_MENU_ID+2, "New2", null, new ArrayList(list));
 
