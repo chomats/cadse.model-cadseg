@@ -118,7 +118,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 				return AbstractSpaceKey.INVALID;
 			
 			return new PageSpaceKey(null, this, name, parentKey,
-					parentItem.getType() == CadseGCST.MODIFICATION_DIALOG);
+					parentItem.getPartParentLinkType() == CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES);
 		}
 
 		@Override
@@ -231,10 +231,10 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * Generate.
 		 */
 		public void generate() {
-			GeneratePageClass2.generate(ContextVariable.DEFAULT, this, getOwnerItem());
-			if (hasPageAction(getOwnerItem())) {
-				GeneratePageActionClass.generate(ContextVariable.DEFAULT, getOwnerItem());
-			}
+			//GeneratePageClass2.generate(ContextVariable.DEFAULT, this, getOwnerItem());
+			//if (hasPageAction(getOwnerItem())) {
+			//	GeneratePageActionClass.generate(ContextVariable.DEFAULT, getOwnerItem());
+			//}
 		}
 
 		/*
@@ -263,134 +263,134 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	public PageManager() {
 	}
 
-	public static boolean _addInternalShortName(Item page) {
-		Item dialog = page.getPartParent();
-		if (dialog == null) {
-			return false;
-		}
+//	public static boolean _addInternalShortName(Item page) {
+//		Item dialog = page.getPartParent();
+//		if (dialog == null) {
+//			return false;
+//		}
+//
+//		if (isModificationPage(page)) {
+//			return false;
+//		}
+//
+//		if (CreationDialogManager.isAutomaticShortNameAttribute(dialog)) {
+//			return false;
+//		}
+//		if (CreationDialogManager.getDefaultShortNameAttribute(dialog) != null) {
+//			return false;
+//		}
+//
+//		Item absItemType = dialog.getPartParent();
+//		if (absItemType == null) {
+//			return false;
+//		}
+//		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
+//			return false;
+//		}
+//		return true;
+//	}
 
-		if (isModificationPage(page)) {
-			return false;
-		}
+//	/**
+//	 * est-ce qu'il faut ajouter un le field short name dans la page.
+//	 * 
+//	 * @param page
+//	 *            the page
+//	 * 
+//	 * @return true, if adds the internal short name
+//	 */
+//	public static boolean addInternalShortName(Item page) {
+//		Item dialog = page.getPartParent();
+//		if (dialog == null) {
+//			return false;
+//		}
+//
+//		if (isModificationPage(page)) {
+//			return false;
+//		}
+//
+//		if (CreationDialogManager.isAutomaticShortNameAttribute(dialog)) {
+//			return false;
+//		}
+//		if (CreationDialogManager.getDefaultShortNameAttribute(dialog) != null) {
+//			return false;
+//		}
+//
+//		Item absItemType = dialog.getPartParent();
+//		if (absItemType == null) {
+//			return false;
+//		}
+//		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
+//			return false;
+//		}
+//
+//		//
+//		Item[] allSuperTypes = ItemTypeManager.getAllSuperTypes(absItemType);
+//		if (allSuperTypes.length != 0) {
+//			for (int i = 0; i < allSuperTypes.length; i++) {
+//				Item superTypeBase = allSuperTypes[i];
+//				Item creationDialog = ItemTypeManager.getCreationDialog(superTypeBase);
+//				if (creationDialog == null) {
+//					continue;
+//				}
+//				Collection<Item> pages = CreationDialogManager.getPages(creationDialog);
+//				// recherche le premier super type qui a une page de creation
+//				if (pages.size() != 0) {
+//					// la première page
+//					// est-ce qu'elle a un name
+//					Item p = pages.iterator().next();
+//					return _addInternalShortName(p) && p.getName().equals(page.getName());
+//				}
+//			}
+//		}
+//		List<? extends Link> links = dialog.getOutgoingLinks();
+//		for (Link l : links) {
+//			if (l.getResolvedDestination() == page) {
+//				return l.getIndex() == 0;
+//			}
+//		}
+//
+//		return false;
+//	}
 
-		if (CreationDialogManager.isAutomaticShortNameAttribute(dialog)) {
-			return false;
-		}
-		if (CreationDialogManager.getDefaultShortNameAttribute(dialog) != null) {
-			return false;
-		}
-
-		Item absItemType = dialog.getPartParent();
-		if (absItemType == null) {
-			return false;
-		}
-		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * est-ce qu'il faut ajouter un le field short name dans la page.
-	 * 
-	 * @param page
-	 *            the page
-	 * 
-	 * @return true, if adds the internal short name
-	 */
-	public static boolean addInternalShortName(Item page) {
-		Item dialog = page.getPartParent();
-		if (dialog == null) {
-			return false;
-		}
-
-		if (isModificationPage(page)) {
-			return false;
-		}
-
-		if (CreationDialogManager.isAutomaticShortNameAttribute(dialog)) {
-			return false;
-		}
-		if (CreationDialogManager.getDefaultShortNameAttribute(dialog) != null) {
-			return false;
-		}
-
-		Item absItemType = dialog.getPartParent();
-		if (absItemType == null) {
-			return false;
-		}
-		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
-			return false;
-		}
-
-		//
-		Item[] allSuperTypes = ItemTypeManager.getAllSuperTypes(absItemType);
-		if (allSuperTypes.length != 0) {
-			for (int i = 0; i < allSuperTypes.length; i++) {
-				Item superTypeBase = allSuperTypes[i];
-				Item creationDialog = ItemTypeManager.getCreationDialog(superTypeBase);
-				if (creationDialog == null) {
-					continue;
-				}
-				Collection<Item> pages = CreationDialogManager.getPages(creationDialog);
-				// recherche le premier super type qui a une page de creation
-				if (pages.size() != 0) {
-					// la première page
-					// est-ce qu'elle a un name
-					Item p = pages.iterator().next();
-					return _addInternalShortName(p) && p.getName().equals(page.getName());
-				}
-			}
-		}
-		List<? extends Link> links = dialog.getOutgoingLinks();
-		for (Link l : links) {
-			if (l.getResolvedDestination() == page) {
-				return l.getIndex() == 0;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Adds the internal attribute.
-	 * 
-	 * @param item
-	 *            the item
-	 * 
-	 * @return true, if successful
-	 */
-	public static boolean addInternalAttribute(Item item) {
-		Item dialog = item.getPartParent();
-		if (dialog == null) {
-			return false;
-		}
-
-		Item absItemType = dialog.getPartParent();
-		if (absItemType == null) {
-			return false;
-		}
-		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
-			return false;
-		}
-
-		if (dialog.getType() != CadseGCST.MODIFICATION_DIALOG) {
-			return false;
-		}
-
-		if (!ModificationDialogManager.isShowInternalAttribute(dialog)) {
-			return false;
-		}
-
-		List<? extends Link> links = dialog.getOutgoingLinks();
-		for (Link l : links) {
-			if (l.getResolvedDestination() == item) {
-				return l.getIndex() == 0;
-			}
-		}
-
-		return false;
-	}
+//	/**
+//	 * Adds the internal attribute.
+//	 * 
+//	 * @param item
+//	 *            the item
+//	 * 
+//	 * @return true, if successful
+//	 */
+//	public static boolean addInternalAttribute(Item item) {
+//		Item dialog = item.getPartParent();
+//		if (dialog == null) {
+//			return false;
+//		}
+//
+//		Item absItemType = dialog.getPartParent();
+//		if (absItemType == null) {
+//			return false;
+//		}
+//		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
+//			return false;
+//		}
+//
+//		if (dialog.getType() != CadseGCST.MODIFICATION_DIALOG) {
+//			return false;
+//		}
+//
+//		if (!ModificationDialogManager.isShowInternalAttribute(dialog)) {
+//			return false;
+//		}
+//
+//		List<? extends Link> links = dialog.getOutgoingLinks();
+//		for (Link l : links) {
+//			if (l.getResolvedDestination() == item) {
+//				return l.getIndex() == 0;
+//			}
+//		}
+//
+//		return false;
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -405,17 +405,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		CadseGCST.PAGE.setSpaceKeyType(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.TYPE_DEFINITION));
 	}
 
-	/**
-	 * Checks for page action.
-	 * 
-	 * @param item
-	 *            the item
-	 * 
-	 * @return true, if successful
-	 */
-	public static boolean hasPageAction(Item item) {
-		return Convert.toBooleanFalseIfNull(item.getAttribute(CadseGCST.PAGE_at_CREATE_PAGE_ACTION_));
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -478,68 +468,57 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		return dialog.getPartParent();
 	}
 
-	/**
-	 * Gets the fields.
-	 * 
-	 * @param page
-	 *            the page
-	 * 
-	 * @return the fields
-	 */
-	public Collection<Item> getFields(Item page) {
-		return page.getOutgoingItems(CadseGCST.PAGE_lt_FIELDS, true);
-	}
 
-	/**
-	 * Gets the field generate infos.
-	 * 
-	 * @param cxt
-	 *            the cxt
-	 * @param page
-	 *            the page
-	 * @param imports
-	 *            the imports
-	 * 
-	 * @return the field generate infos
-	 */
-	public static Collection<FieldGenerateInfo> getFieldGenerateInfos(ContextVariable cxt, Item page,
-			Set<String> imports, Item superpage) {
-		ArrayList<FieldGenerateInfo> ret = new ArrayList<FieldGenerateInfo>();
-		HashMap<String, Item> supersField = null;
-		if (superpage != null) {
-			ArrayList<Item> superpages = new ArrayList<Item>();
-			superpages.add(superpage);
-			PageManager.getSuperPages(superpage, superpages);
-
-			supersField = new HashMap<String, Item>();
-			for (Item p : superpages) {
-				Collection<Item> fields = PageManager.getFieldsAll(p);
-				for (Item f : fields) {
-					if (!supersField.containsKey(f.getName())) {
-						supersField.put(f.getName(), f);
-					}
-				}
-			}
-		}
-
-		for (Link l : page.getOutgoingLinks()) {
-			// Select link has kind Part and destination.
-			if (l.getLinkType() == CadseGCST.PAGE_lt_FIELDS) {
-				if (l.isLinkResolved()) {
-					Item field = l.getDestination();
-					Item superField = supersField == null ? null : supersField.get(field.getName());
-					FieldGenerateInfo fieldGenerateInfo = FieldManager.getFieldGenerateInfo(cxt, field, superField,
-							imports);
-					if (fieldGenerateInfo != null) {
-						ret.add(fieldGenerateInfo);
-					}
-				}
-			}
-		}
-
-		return ret;
-
-	}
+//	/**
+//	 * Gets the field generate infos.
+//	 * 
+//	 * @param cxt
+//	 *            the cxt
+//	 * @param page
+//	 *            the page
+//	 * @param imports
+//	 *            the imports
+//	 * 
+//	 * @return the field generate infos
+//	 */
+//	public static Collection<FieldGenerateInfo> getFieldGenerateInfos(ContextVariable cxt, Item page,
+//			Set<String> imports, Item superpage) {
+//		ArrayList<FieldGenerateInfo> ret = new ArrayList<FieldGenerateInfo>();
+//		HashMap<String, Item> supersField = null;
+//		if (superpage != null) {
+//			ArrayList<Item> superpages = new ArrayList<Item>();
+//			superpages.add(superpage);
+//			PageManager.getSuperPages(superpage, superpages);
+//
+//			supersField = new HashMap<String, Item>();
+//			for (Item p : superpages) {
+//				Collection<Item> fields = PageManager.getFieldsAll(p);
+//				for (Item f : fields) {
+//					if (!supersField.containsKey(f.getName())) {
+//						supersField.put(f.getName(), f);
+//					}
+//				}
+//			}
+//		}
+//
+//		for (Link l : page.getOutgoingLinks()) {
+//			// Select link has kind Part and destination.
+//			if (l.getLinkType() == CadseGCST.PAGE_lt_FIELDS) {
+//				if (l.isLinkResolved()) {
+//					Item field = l.getDestination();
+//					Item superField = supersField == null ? null : supersField.get(field.getName());
+//					FieldGenerateInfo fieldGenerateInfo = FieldManager.getFieldGenerateInfo(cxt, field, superField,
+//							imports);
+//					if (fieldGenerateInfo != null) {
+//						ret.add(fieldGenerateInfo);
+//					}
+//				}
+//			}
+//		}
+//
+//		return ret;
+//
+//	}
 
 	/**
 	 * Gets the title attribute.
@@ -755,12 +734,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * @return true, if is modification page
 	 */
 	public static boolean isModificationPage(Item page) {
-		Item dialog = page.getIncomingItem(CadseGCST.MODIFICATION_DIALOG_lt_PAGES);
-		if (dialog == null) {
-			List<Link> incomingLinks = page.getIncomingLinks(CadseGCST.ITEM_TYPE_lt_MODIFICATION_PAGES);
-			return incomingLinks.size() != 0;
-		}
-		return dialog.getType() == CadseGCST.MODIFICATION_DIALOG;
+		List<Link> incomingLinks = page.getIncomingLinks(CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES);
+		return incomingLinks.size() != 0;
 	}
 
 	/*
@@ -836,87 +811,87 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		return ItemTypeManager.getCadseDefinition(itemtype);
 	}
 
-	public static Item getSuperPage(Item page) {
-		// Item actualSuperPage =
-		Item absItemType = getItemTypeFromPage(page);
-		if (absItemType == null) {
-			return null;
-		}
-		Item superItemType = TypeDefinitionManager.getSuperAbstractItemType(absItemType);
-		if (superItemType == null) {
-			return null;
-		}
+//	public static Item getSuperPage(Item page) {
+//		// Item actualSuperPage =
+//		Item absItemType = getItemTypeFromPage(page);
+//		if (absItemType == null) {
+//			return null;
+//		}
+//		Item superItemType = TypeDefinitionManager.getSuperAbstractItemType(absItemType);
+//		if (superItemType == null) {
+//			return null;
+//		}
+//
+//		if (isModificationPage(page)) {
+//			while (true) {
+//				Item dialog = ItemTypeManager.getModificationDialog(superItemType);
+//				if (dialog != null) {
+//					Item superpage = ModificationDialogManager.getPage(dialog, page.getName());
+//					if (superpage != null) {
+//						return superpage;
+//					}
+//				}
+//				superItemType = ItemTypeManager.getSuperType(superItemType);
+//				if (superItemType == null) {
+//					return null;
+//				}
+//			}
+//		} else {
+//			while (true) {
+//				Item dialog = ItemTypeManager.getCreationDialog(superItemType);
+//				if (dialog != null) {
+//					Item superpage = CreationDialogManager.getPage(dialog, page.getName());
+//					if (superpage != null) {
+//						return superpage;
+//					}
+//				}
+//				superItemType = ItemTypeManager.getSuperType(superItemType);
+//				if (superItemType == null) {
+//					return null;
+//				}
+//			}
+//		}
+//	}
 
-		if (isModificationPage(page)) {
-			while (true) {
-				Item dialog = ItemTypeManager.getModificationDialog(superItemType);
-				if (dialog != null) {
-					Item superpage = ModificationDialogManager.getPage(dialog, page.getName());
-					if (superpage != null) {
-						return superpage;
-					}
-				}
-				superItemType = ItemTypeManager.getSuperType(superItemType);
-				if (superItemType == null) {
-					return null;
-				}
-			}
-		} else {
-			while (true) {
-				Item dialog = ItemTypeManager.getCreationDialog(superItemType);
-				if (dialog != null) {
-					Item superpage = CreationDialogManager.getPage(dialog, page.getName());
-					if (superpage != null) {
-						return superpage;
-					}
-				}
-				superItemType = ItemTypeManager.getSuperType(superItemType);
-				if (superItemType == null) {
-					return null;
-				}
-			}
-		}
-	}
-
-	public static void getSuperPages(Item page, ArrayList<Item> pages) {
-		Item absItemType = getItemTypeFromPage(page);
-		if (absItemType == null) {
-			return;
-		}
-		Item superItemType = TypeDefinitionManager.getSuperAbstractItemType(absItemType);
-		if (superItemType == null) {
-			return;
-		}
-
-		if (isModificationPage(page)) {
-			while (true) {
-				Item dialog = ItemTypeManager.getModificationDialog(superItemType);
-				if (dialog != null) {
-					Item superpage = ModificationDialogManager.getPage(dialog, page.getName());
-					if (superpage != null) {
-						pages.add(superpage);
-					}
-				}
-				superItemType = ItemTypeManager.getSuperType(superItemType);
-				if (superItemType == null) {
-					return;
-				}
-			}
-		} else {
-			while (true) {
-				Item dialog = ItemTypeManager.getCreationDialog(superItemType);
-				if (dialog != null) {
-					Item superpage = CreationDialogManager.getPage(dialog, page.getName());
-					if (superpage != null) {
-						pages.add(superpage);
-					}
-				}
-				superItemType = ItemTypeManager.getSuperType(superItemType);
-				if (superItemType == null) {
-					return;
-				}
-			}
-		}
-	}
+//	public static void getSuperPages(Item page, ArrayList<Item> pages) {
+//		Item absItemType = getItemTypeFromPage(page);
+//		if (absItemType == null) {
+//			return;
+//		}
+//		Item superItemType = TypeDefinitionManager.getSuperAbstractItemType(absItemType);
+//		if (superItemType == null) {
+//			return;
+//		}
+//
+//		if (isModificationPage(page)) {
+//			while (true) {
+//				Item dialog = ItemTypeManager.getModificationDialog(superItemType);
+//				if (dialog != null) {
+//					Item superpage = ModificationDialogManager.getPage(dialog, page.getName());
+//					if (superpage != null) {
+//						pages.add(superpage);
+//					}
+//				}
+//				superItemType = ItemTypeManager.getSuperType(superItemType);
+//				if (superItemType == null) {
+//					return;
+//				}
+//			}
+//		} else {
+//			while (true) {
+//				Item dialog = ItemTypeManager.getCreationDialog(superItemType);
+//				if (dialog != null) {
+//					Item superpage = CreationDialogManager.getPage(dialog, page.getName());
+//					if (superpage != null) {
+//						pages.add(superpage);
+//					}
+//				}
+//				superItemType = ItemTypeManager.getSuperType(superItemType);
+//				if (superItemType == null) {
+//					return;
+//				}
+//			}
+//		}
+//	}
 
 }

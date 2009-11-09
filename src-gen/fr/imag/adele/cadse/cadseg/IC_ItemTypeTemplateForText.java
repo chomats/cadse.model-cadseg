@@ -36,15 +36,15 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.impl.ui.ic.IC_Abstract;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 
 /**
  * The Class IC_ItemTypeTemplateForText.
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class IC_ItemTypeTemplateForText extends IC_Abstract implements RuningInteractionController,
+public class IC_ItemTypeTemplateForText extends ICRunningField implements RuningInteractionController,
 		IFieldContenProposalProvider, IContentProposalProvider {
 
 	/** The itemtype. */

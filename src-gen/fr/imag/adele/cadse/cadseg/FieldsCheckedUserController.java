@@ -19,9 +19,6 @@
 
 package fr.imag.adele.cadse.cadseg;
 
-import fede.workspace.model.manager.properties.IC_ForCheckedViewer;
-import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
-import fede.workspace.model.manager.properties.impl.ui.DCheckedListUI;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -31,6 +28,8 @@ import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForChecked;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForCheckedViewer;
 
 /**
  * The Class FieldsCheckedUserController.
@@ -57,7 +56,7 @@ final public class FieldsCheckedUserController extends IC_AbstractForChecked imp
 															&& (itemItemTypeEvent == _itemtype || ItemTypeManager
 																	.isSuperTypeOf(itemItemTypeEvent, _itemtype))
 															&& itemAttributeEvent.isInstanceOf(CadseGCST.ATTRIBUTE)) {
-														((DCheckedListUI) getUIField()).setSource(getSources());
+														//((DCheckedListUI) getUIField()).setSource(getSources());
 														break;
 													}
 												}

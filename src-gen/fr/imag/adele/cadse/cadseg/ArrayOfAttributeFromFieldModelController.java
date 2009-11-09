@@ -63,7 +63,7 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 	 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
 	 */
 	public Object getValue() {
-		Collection<Item> ret = page.getOutgoingItems(CadseGCST.PAGE_lt_FIELDS, true);
+		Collection<Item> ret = page.getOutgoingItems(CadseGCST.PAGE_lt_ATTRIBUTES, true);
 		List<Item> attributesList = new ArrayList<Item>();
 		for (Item item : ret) {
 			Item att = FieldManager.getAttribute(item);
@@ -121,9 +121,9 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 	 */
 	private void doCreateField(Item att) {
 		try {
-			Item itemType = PageManager.getItemTypeFromPage(page);
 			LogicalWorkspaceTransaction copy = CadseCore.getLogicalWorkspace().createTransaction();
-			CadseG_WLWCListener.doCreateField(copy, itemType, att, page);
+			//CadseG_WLWCListener.doCreateField(copy, itemType, att, page);
+			copy.getItem(page).createLink(CadseGCST.PAGE_lt_ATTRIBUTES, att);
 			copy.commit();
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
