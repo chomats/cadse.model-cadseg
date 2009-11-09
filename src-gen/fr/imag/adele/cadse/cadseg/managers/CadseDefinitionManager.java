@@ -71,7 +71,6 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.impl.ui.ic.IC_Abstract;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.key.SpaceKeyType;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
@@ -79,6 +78,7 @@ import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 
 /**
  * The Class CadseDefinitionManager.
@@ -286,7 +286,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			ParsePath pp = new ParsePath(source, dest, (String) value);
 			String error = pp.getError();
 			if (error != null) {
-				setMessageError(error);
+				_uiPlatform.setMessageError(error);
 				return true;
 			}
 			return false;
@@ -298,7 +298,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	/**
 	 * The Class ValidFieldUC.
 	 */
-	public static class ValidFieldUC extends IC_Abstract implements RuningInteractionController,
+	public static class ValidFieldUC extends ICRunningField implements RuningInteractionController,
 			IFieldContenProposalProvider {
 
 		/*
@@ -353,10 +353,6 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			return proposal.getContent();
 		}
 
-		public ItemType getType() {
-			// TODO Auto-generated method stub
-			return null;
-		}
 
 	}
 
