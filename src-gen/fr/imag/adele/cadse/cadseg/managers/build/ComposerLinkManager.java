@@ -122,46 +122,46 @@ public class ComposerLinkManager extends DefaultItemManager {
         return composerLink.getOutgoingItems(CadseGCST.COMPOSER_LINK_lt_EXPORTERS, false);
     }
 
-	/**
-	 * Creates the wizard page page1.
-	 * 
-	 * @return the i page
-	 */
-	IPage createWizardPagePage1() {
-		return FieldsCore.createPage("page1", "Create ComposerLink", "", 2, FieldsCore.createShortNameField());
-	}
+//	/**
+//	 * Creates the wizard page page1.
+//	 * 
+//	 * @return the i page
+//	 */
+//	IPage createWizardPagePage1() {
+//		return FieldsCore.createPage("page1", "Create ComposerLink", "", 2, FieldsCore.createShortNameField());
+//	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-		return FieldsCore
-				.createWizard(new CreationAction(theItemParent, desType, theLinkType), createWizardPagePage1());
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//		return FieldsCore
+//				.createWizard(new CreationAction(theItemParent, desType, theLinkType), createWizardPagePage1());
+//	}
+//
+//	/**
+//	 * Creates the property folder folder1.
+//	 * 
+//	 * @return the i page
+//	 */
+//	IPage createPropertyFolderFolder1() {
+//		return FieldsCore.createPage("folder1", "ComposerLink", "", 2, FieldsCore.createShortNameField());
+//	}
 
-	/**
-	 * Creates the property folder folder1.
-	 * 
-	 * @return the i page
-	 */
-	IPage createPropertyFolderFolder1() {
-		return FieldsCore.createPage("folder1", "ComposerLink", "", 2, FieldsCore.createShortNameField());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		return FieldsCore.createWizard(new ModificationAction(item), createPropertyFolderFolder1());
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		return FieldsCore.createWizard(new ModificationAction(item), createPropertyFolderFolder1());
+//	}
 
 	/**
 	 * Gets the link.
