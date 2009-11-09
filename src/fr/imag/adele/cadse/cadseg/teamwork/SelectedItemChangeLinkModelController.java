@@ -29,6 +29,7 @@ import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 
 public class SelectedItemChangeLinkModelController extends LinkModelController implements ItemSelectionListener {
 
@@ -45,7 +46,7 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 			if (itemDelta.hasAddedOutgoingLink()) {
 				for (Link l : itemDelta.getLinksAdded()) {
 					if (l.getLinkType().equals(lt)) {
-						getUIField().thisFieldHasChanged();
+						_uiPlatform.broadcastThisFieldHasChanged(getUIField());
 						return;
 					}
 				}
@@ -53,13 +54,13 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 			if (itemDelta.hasRemovedOutgoingLink()) {
 				for (Link l : itemDelta.getLinksRemoved()) {
 					if (l.getLinkType().equals(lt)) {
-						getUIField().thisFieldHasChanged();
+						_uiPlatform.broadcastThisFieldHasChanged(getUIField());
 						return;
 					}
 				}
 			}
 			if (itemDelta.hasOrderOutgoingLinkChanged()) {
-				getUIField().thisFieldHasChanged();
+				_uiPlatform.broadcastThisFieldHasChanged(getUIField());
 			}
 		}
 	}
@@ -69,8 +70,9 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 	}
 
 	@Override
-	public void init() throws CadseException {
-		item = getItem();
+	public void init(UIPlatform uiPlatform) {
+		super.init(uiPlatform);
+		Item item = getItem();
 		if (item == null) {
 			return;
 		}
@@ -80,6 +82,7 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 
 	@Override
 	public Object getValue() {
+		Item item = getItem();
 		if (item != null) {
 			return super.getValue();
 		}
@@ -88,6 +91,7 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 	}
 
 	public void selectItem(Item newItem) {
+		Item item = getItem();
 		if (item != null) {
 			deselectItem(item);
 		}
@@ -109,6 +113,7 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 	}
 
 	public void noMoreSelectedItem() {
+		Item item = getItem();
 		if (item == null) {
 			return;
 		}

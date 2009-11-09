@@ -395,11 +395,11 @@ public class CommitStatusDialog {
 	public class DefaultMC_AttributesItem extends MC_AttributesItem {
 
 				@Override
-		public Object getValue(UIPlatform uiPlatform) {
-			if (uiPlatform.getItem(getUIField()) == null) {
+		public Object getValue() {
+			if (_uiPlatform.getItem(getUIField()) == null) {
 				return "";
 			}
-			Object _ret = super.getValue(uiPlatform);
+			Object _ret = super.getValue();
 			if (_ret == null) {
 				return "";
 			}
@@ -407,7 +407,7 @@ public class CommitStatusDialog {
 		}
 
 		@Override
-		public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
+		public void notifieValueChanged(UIField field, Object value) {
 			// read only value
 		}
 	}
@@ -416,8 +416,8 @@ public class CommitStatusDialog {
 
 
 		@Override
-		public Object getValue(UIPlatform uiPlatform) {
-			Item item = uiPlatform.getItem(getUIField());
+		public Object getValue() {
+			Item item = _uiPlatform.getItem(getUIField());
 			if (item == null) {
 				return "";
 			}
@@ -435,7 +435,7 @@ public class CommitStatusDialog {
 		}
 
 		@Override
-		public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
+		public void notifieValueChanged(UIField field, Object value) {
 			// read only value
 		}
 	}
@@ -599,12 +599,12 @@ public class CommitStatusDialog {
 		}
 
 		@Override
-		public void notifieSubValueAdded(UIPlatform uiPlatform, UIField field, Object added) {
+		public void notifieSubValueAdded(UIField field, Object added) {
 			// do nothing
 		}
 
 		@Override
-		public void notifieSubValueRemoved(UIPlatform uiPlatform, UIField field, Object removed) {
+		public void notifieSubValueRemoved(UIField field, Object removed) {
 			// do nothing
 		}
 	}
@@ -766,7 +766,7 @@ public class CommitStatusDialog {
 		RunningModelController mc = new AbstractModelController() {
 
 			@Override
-			public Object getValue(UIPlatform uiPlatform) {
+			public Object getValue() {
 				List<CompactUUID> itemIds = _commitState.getItemsToCommit();
 				return itemIds.toArray(new CompactUUID[itemIds.size()]);
 			}
@@ -798,7 +798,7 @@ public class CommitStatusDialog {
 		AbstractModelController mc = new AbstractModelController() {
 
 			@Override
-			public Object getValue(UIPlatform uiPlatform) {
+			public Object getValue() {
 					if (_selectedItem == null) {
 					return Boolean.FALSE;
 				}
