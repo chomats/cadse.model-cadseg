@@ -40,6 +40,7 @@ import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.UIValidator;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeModel;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
@@ -61,17 +62,17 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 
 	protected DSashFormUI	fieldsShash;
 
-	protected DTreeModelUI	fieldExtends;
+	protected DTreeModelUI<?>	fieldExtends;
 
-	protected DTextUI		fieldDescription;
+	protected DTextUI<?>		fieldDescription;
 
-	protected DTextUI		fieldItemRepoURL;
+	protected DTextUI<?>		fieldItemRepoURL;
 
-	protected DTextUI		fieldItemRepoLogin;
+	protected DTextUI<?>		fieldItemRepoLogin;
 
-	protected DTextUI		fieldItemRepoPassword;
+	protected DTextUI<?>		fieldItemRepoPassword;
 
-	protected DTextUI		fieldDefaultContentRepoURL;
+	protected DTextUI<?>		fieldDefaultContentRepoURL;
 
 	public TeamWorkPreferencePage() {
 		this._page = _swtPlatform.createPageDescription("Cadse Repository Definition", "Cadse Repository Definition");
@@ -124,7 +125,13 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 
 	public PagesImpl createPages() {
 		
-		return _swtPlatform.createPages(newAction(), _page, new AbstractUIRunningValidator());
+		return _swtPlatform.createPages(newAction(), _page, new AbstractUIRunningValidator() {
+			@Override
+			public void initAfterUI() {
+				// TODO Auto-generated method stub
+				super.initAfterUI();
+			}
+		});
 	}
 
 	private IActionPage newAction() {
@@ -181,10 +188,12 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 	}
 
 	public class MyActionPage extends AbstractActionPage {
-
-		@Override
-		public void doFinish(Object monitor) throws Exception {
-		}
+ @Override
+public void doFinish(UIPlatform uiPlatform, Object monitor)
+		throws Exception {
+	// TODO Auto-generated method stub
+	super.doFinish(uiPlatform, monitor);
+}
 	}
 
 	public class IC_ItemTypeForTreeUI extends IC_TreeModel {
@@ -200,7 +209,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 				model = new FilteredItemNodeModel();
 				// en premier on rajoute les insances de cadse runtime trier par
 				// le nom
-				model.addItemFromItemTypeEntry(null, CadseGCST.CADSE_RUNTIME, ItemShortNameComparator.INSTANCE);
+				model.addItemFromItemTypeEntry(null, CadseGCST.CADSE, ItemShortNameComparator.INSTANCE);
 
 				// on creer deux categories
 				categoryExtendsTo = new FilteredItemNode.Category();
@@ -210,10 +219,10 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 				categoryExtendedBy.name = "extended by";
 
 				// on lie les deux category à un instance de ce Cadseruntime
-				model.addCategories(CadseGCST.CADSE_RUNTIME, categoryExtendsTo, categoryExtendedBy);
-				model.addItemFromLinkTypeEntry(categoryExtendsTo, CadseGCST.CADSE_RUNTIME_lt_EXTENDS,
+				model.addCategories(CadseGCST.CADSE, categoryExtendsTo, categoryExtendedBy);
+				model.addItemFromLinkTypeEntry(categoryExtendsTo, CadseGCST.CADSE_lt_EXTENDS,
 						ItemShortNameComparator.INSTANCE, false, false);
-				model.addItemFromLinkTypeEntry(categoryExtendedBy, CadseGCST.CADSE_RUNTIME_lt_EXTENDS,
+				model.addItemFromLinkTypeEntry(categoryExtendedBy, CadseGCST.CADSE_lt_EXTENDS,
 						ItemShortNameComparator.INSTANCE, false, true);
 
 			}
@@ -232,7 +241,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		@Override
 		public void select(Object data) {
 			IItemNode node = (IItemNode) data;
-			if (node.getItem() == null || node.getItem().getType() != CadseGCST.CADSE_RUNTIME) {
+			if (node.getItem() == null || node.getItem().getType() != CadseGCST.CADSE) {
 				return;
 			}
 			setSelectedItem(node.getItem());
@@ -288,16 +297,16 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 	/**
 	 * 
 	 */
-	public DTreeModelUI createFieldExtends() {
-		return new DTreeModelUI("#list", "Cadse", EPosLabel.top, new MC_CDtree(), new IC_ItemTypeForTreeUI(), false);
+	public DTreeModelUI<IC_ItemTypeForTreeUI> createFieldExtends() {
+		return _swtPlatform.createTreeModelUI(_page, "#list", "Cadse", EPosLabel.top, new MC_CDtree(), new IC_ItemTypeForTreeUI(), false);
 	}
 
 	/**
 	 * 
 	 */
 	public DTextUI createFieldDescription() {
-		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_DESCRIPTION, "description", EPosLabel.left,
-				new ReadOnlyMC_AttributesItem(), null, 20, "", true, false, false);
+		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_DESCRIPTION, "description", EPosLabel.left,
+				new ReadOnlyMC_AttributesItem(), null, 20, true, false, false, true, false);
 	}
 
 	public void init(IWorkbench workbench) {
