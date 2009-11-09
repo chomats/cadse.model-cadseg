@@ -198,41 +198,41 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a text field",
-				"Create a text field", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"),
-				FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "select message"), FieldsCore.createCheckBox(
-						ALLOW_DUPLICATE_ATTRIBUTE, "allow duplicate value")));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		RunningModelController getandsetcontroller = new MC_AttributesItem();
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a text field",
-				"Create a text field", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"),
-				FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "select message"), FieldsCore.createCheckBox(
-						ALLOW_DUPLICATE_ATTRIBUTE, "allow duplicate value")));
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				DisplayManager.IC_DEFAULT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a text field",
+//				"Create a text field", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"),
+//				FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "select message"), FieldsCore.createCheckBox(
+//						ALLOW_DUPLICATE_ATTRIBUTE, "allow duplicate value")));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		RunningModelController getandsetcontroller = new MC_AttributesItem();
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a text field",
+//				"Create a text field", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"),
+//				FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "select message"), FieldsCore.createCheckBox(
+//						ALLOW_DUPLICATE_ATTRIBUTE, "allow duplicate value")));
+//	}
 
 	/*
 	 * (non-Javadoc)

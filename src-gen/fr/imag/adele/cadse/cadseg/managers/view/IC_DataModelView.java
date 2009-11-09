@@ -37,10 +37,9 @@ import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
-import fede.workspace.model.manager.properties.impl.ic.IC_ContextMenu;
-import fede.workspace.model.manager.properties.impl.ic.IC_TreeCheckedUI;
-import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForChecked;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ContextMenu;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeCheckedUI;
 
 /**
  * The Class IC_DataModelView.

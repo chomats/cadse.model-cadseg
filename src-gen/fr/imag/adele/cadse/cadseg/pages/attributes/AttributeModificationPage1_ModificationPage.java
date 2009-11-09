@@ -36,7 +36,7 @@ import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
@@ -131,7 +131,7 @@ public class AttributeModificationPage1_ModificationPage extends PageImpl {
 	}
 
 	@Override
-	public void init(IPageController pageController) throws CadseException {
+	public void init(UIPlatform pageController) throws CadseException {
 		super.init(pageController);
 		if (AttributeManager.isDevGeneratedAttribute(getItem())) {
 			for (UIField uif : getFields()) {

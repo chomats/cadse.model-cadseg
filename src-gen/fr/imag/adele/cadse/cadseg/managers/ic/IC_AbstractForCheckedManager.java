@@ -26,7 +26,6 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.var.Variable;
 import fede.workspace.eclipse.content.SubFileContentManager;
-import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
 
 /**
  * @generated

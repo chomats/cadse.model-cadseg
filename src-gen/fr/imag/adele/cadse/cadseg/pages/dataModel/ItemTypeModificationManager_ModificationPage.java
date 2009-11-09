@@ -15,7 +15,7 @@ import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
@@ -69,7 +69,7 @@ public class ItemTypeModificationManager_ModificationPage extends PageImpl {
 	}
 
 	@Override
-	public void init(IPageController pageController) throws CadseException {
+	public void init(UIPlatform pageController) throws CadseException {
 		for (UIField f : getFields()) {
 			f.setItem(item);
 		}

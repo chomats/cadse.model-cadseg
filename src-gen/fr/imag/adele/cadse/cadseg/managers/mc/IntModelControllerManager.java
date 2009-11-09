@@ -292,42 +292,42 @@ public class IntModelControllerManager extends ModelControllerManager implements
 		return new MyContentItem(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.MC_DEFAULT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
-				"a int model controller", 3, FieldsCore.createTextField("min", "min", new MC_Integer(1, -1,
-						null, null, null)), FieldsCore.createTextField("min-error", "min error message"), FieldsCore
-						.createTextField("max", "max", new MC_Integer(1, -1, null, null, null)), FieldsCore
-						.createTextField("max-error", "max error message"), FieldsCore.createTextField("default-value",
-						"default value")));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
-				"a int model controller", 3, FieldsCore.createTextField("min", "min", new MC_Integer(1, -1,
-						null, null, null)), FieldsCore.createTextField("min-error", "min error message"), FieldsCore
-						.createTextField("max", "max", new MC_Integer(1, -1, null, null, null)), FieldsCore
-						.createTextField("max-error", "max error message"), FieldsCore.createTextField("default-value",
-						"default value")));
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				DisplayManager.MC_DEFAULT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
+//				"a int model controller", 3, FieldsCore.createTextField("min", "min", new MC_Integer(1, -1,
+//						null, null, null)), FieldsCore.createTextField("min-error", "min error message"), FieldsCore
+//						.createTextField("max", "max", new MC_Integer(1, -1, null, null, null)), FieldsCore
+//						.createTextField("max-error", "max error message"), FieldsCore.createTextField("default-value",
+//						"default value")));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
+//				"a int model controller", 3, FieldsCore.createTextField("min", "min", new MC_Integer(1, -1,
+//						null, null, null)), FieldsCore.createTextField("min-error", "min error message"), FieldsCore
+//						.createTextField("max", "max", new MC_Integer(1, -1, null, null, null)), FieldsCore
+//						.createTextField("max-error", "max error message"), FieldsCore.createTextField("default-value",
+//						"default value")));
+//	}
 
 	/*
 	 * (non-Javadoc)

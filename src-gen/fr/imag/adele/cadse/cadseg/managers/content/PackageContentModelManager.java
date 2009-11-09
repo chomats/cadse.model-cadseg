@@ -190,65 +190,65 @@ public class PackageContentModelManager extends FolderContentModelManager {
 	/** The Constant PACKAGE_NAME_ATTRIBUTE. */
 	public static final String	PACKAGE_NAME_ATTRIBUTE	= "package-name";
 
-	/**
-	 * Creates the package name field.
-	 * 
-	 * @return the uI field
-	 */
-	protected UIField createPackageNameField() {
-		return FieldsCore.createTextField(PACKAGE_NAME_ATTRIBUTE, "package name:", 1, "",
-				new IC_ItemTypeTemplateForText() {
-					@Override
-					protected Item getItemFromContext() {
-						Item manager = getContext().getPartParent();
-						return ManagerManager.getItemType(manager);
-					}
-				}, new MC_AttributesItem() {
-					@Override
-					public Object defaultValue() {
-						return "${#short-name}";
-					}
-				});
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		ItemType it = CadseGCST.PACKAGE_CONTENT_MODEL;
-
-		String title = "Create " + desType.getDisplayName();
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, it.getName());
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create " + title, "Create " + title, 3,
-				FieldsCore.createCheckBox(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS, "extends class"),
-				createPackageNameField()));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		RunningModelController getandsetcontroller = new MC_AttributesItem();
-		ItemType it = CadseGCST.PACKAGE_CONTENT_MODEL;
-
-		String title = it.getDisplayName();
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create " + title, "Create " + title, 3,
-				FieldsCore.createCheckBox(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS, "extends class"),
-				createPackageNameField()));
-	}
+//	/**
+//	 * Creates the package name field.
+//	 * 
+//	 * @return the uI field
+//	 */
+//	protected UIField createPackageNameField() {
+//		return FieldsCore.createTextField(PACKAGE_NAME_ATTRIBUTE, "package name:", 1, "",
+//				new IC_ItemTypeTemplateForText() {
+//					@Override
+//					protected Item getItemFromContext() {
+//						Item manager = getContext().getPartParent();
+//						return ManagerManager.getItemType(manager);
+//					}
+//				}, new MC_AttributesItem() {
+//					@Override
+//					public Object defaultValue() {
+//						return "${#short-name}";
+//					}
+//				});
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.content.ContentModelManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		ItemType it = CadseGCST.PACKAGE_CONTENT_MODEL;
+//
+//		String title = "Create " + desType.getDisplayName();
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, it.getName());
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create " + title, "Create " + title, 3,
+//				FieldsCore.createCheckBox(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS, "extends class"),
+//				createPackageNameField()));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.content.ContentModelManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		RunningModelController getandsetcontroller = new MC_AttributesItem();
+//		ItemType it = CadseGCST.PACKAGE_CONTENT_MODEL;
+//
+//		String title = it.getDisplayName();
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create " + title, "Create " + title, 3,
+//				FieldsCore.createCheckBox(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS, "extends class"),
+//				createPackageNameField()));
+//	}
 
 	/*
 	 * (non-Javadoc)

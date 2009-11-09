@@ -42,9 +42,6 @@ import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.eclipse.view.IViewLinkManager;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.AddCadseModelAction;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.DeleteItemAction;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.RenameAction;
 
 
 

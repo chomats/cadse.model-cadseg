@@ -38,7 +38,7 @@ import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Date;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.IFedeFormToolkit;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fede.workspace.model.manager.properties.impl.ic.IC_EnumForBrowser_Combo;
 import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
@@ -111,7 +111,7 @@ public class UIItemFactory extends ItemFactory implements IItemFactory {
 		}
 
 		@Override
-		public Object createControl(IPageController globalUIController,
+		public Object createControl(UIPlatform globalUIController,
 				IFedeFormToolkit toolkit, Object container, int hspan) {
 			// TODO Auto-generated method stub
 			return null;
