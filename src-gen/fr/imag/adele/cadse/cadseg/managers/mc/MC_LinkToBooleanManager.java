@@ -116,36 +116,36 @@ public class MC_LinkToBooleanManager extends LinkModelControllerManager {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.LinkModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.MC_DEFAULT_NAME);
-
-		RunningModelController mc = new MC_AttributesItem();
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Add a Link to boolean model controller",
-				"Add a Link to boolean model controller for check box", 2));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.LinkModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Link to boolean model controller",
-				"Link to boolean model controller", 3
-
-		));
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.mc.LinkModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				DisplayManager.MC_DEFAULT_NAME);
+//
+//		RunningModelController mc = new MC_AttributesItem();
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Add a Link to boolean model controller",
+//				"Add a Link to boolean model controller for check box", 2));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.mc.LinkModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Link to boolean model controller",
+//				"Link to boolean model controller", 3
+//
+//		));
+//	}
 }

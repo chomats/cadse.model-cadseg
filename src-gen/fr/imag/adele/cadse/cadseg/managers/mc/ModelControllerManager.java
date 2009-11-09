@@ -377,35 +377,35 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 		return FieldManager.getAttribute(field);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.MC_DEFAULT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a default model controller",
-				"Create a default model controller", 3));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a default model controller",
-				"a default model controller", 3));
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				DisplayManager.MC_DEFAULT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a default model controller",
+//				"Create a default model controller", 3));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a default model controller",
+//				"a default model controller", 3));
+//	}
 
 	/**
 	 * Generate call arguments.

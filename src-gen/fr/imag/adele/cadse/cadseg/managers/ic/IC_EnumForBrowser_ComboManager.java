@@ -161,41 +161,41 @@ public class IC_EnumForBrowser_ComboManager extends IC_AbstractForBrowser_ComboM
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Create a interaction controler for browser or combo with an enum attribut",
-				"Create a interaction controler for browser or combo with an enum attribut", 3, FieldsCore
-						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Create a interaction controler for browser or combo with an enum attribut",
-				"Create a interaction controler for browser or combo with an enum attribut", 3, FieldsCore
-						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				DisplayManager.IC_DEFAULT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
+//				"Create a interaction controler for browser or combo with an enum attribut",
+//				"Create a interaction controler for browser or combo with an enum attribut", 3, FieldsCore
+//						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
+//						SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
+//				"Create a interaction controler for browser or combo with an enum attribut",
+//				"Create a interaction controler for browser or combo with an enum attribut", 3, FieldsCore
+//						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
+//						SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
+//	}
 
 	/*
 	 * (non-Javadoc)

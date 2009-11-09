@@ -84,7 +84,7 @@ import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
@@ -395,7 +395,7 @@ public class CommitStatusDialog {
 	public class DefaultMC_AttributesItem extends MC_AttributesItem {
 
 				@Override
-		public Object getValue(IPageController uiPlatform) {
+		public Object getValue(UIPlatform uiPlatform) {
 			if (uiPlatform.getItem(getUIField()) == null) {
 				return "";
 			}
@@ -407,7 +407,7 @@ public class CommitStatusDialog {
 		}
 
 		@Override
-		public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
+		public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
 			// read only value
 		}
 	}
@@ -416,7 +416,7 @@ public class CommitStatusDialog {
 
 
 		@Override
-		public Object getValue(IPageController uiPlatform) {
+		public Object getValue(UIPlatform uiPlatform) {
 			Item item = uiPlatform.getItem(getUIField());
 			if (item == null) {
 				return "";
@@ -435,7 +435,7 @@ public class CommitStatusDialog {
 		}
 
 		@Override
-		public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
+		public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
 			// read only value
 		}
 	}
@@ -443,7 +443,7 @@ public class CommitStatusDialog {
 	public class CommitActionPage extends AbstractActionPage {
 
 		@Override
-		public void doFinish(IPageController uiPlatform, Object monitor) throws Exception {
+		public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
 			Object[] array = _treeField.getSelectedObjects();
 
 			// TODO implement it, commit the workspace logique copy
@@ -500,12 +500,12 @@ public class CommitStatusDialog {
 				return;
 			}
 
-			_uiPlatform.setMessage(null, IPageController.NONE);
+			_uiPlatform.setMessage(null, UIPlatform.NONE);
 			setSelectedItem(node.getItem());
 		}
 
 		private void selectInvalidTreeItem() {
-			_uiPlatform.setMessage("This node should not be selected.", IPageController.ERROR);
+			_uiPlatform.setMessage("This node should not be selected.", UIPlatform.ERROR);
 		}
 
 		/**
@@ -586,11 +586,11 @@ public class CommitStatusDialog {
 
 	public class MC_CommitTree extends AbstractModelController {
 
-		public Object getValue(IPageController uiPlatform) {
+		public Object getValue(UIPlatform uiPlatform) {
 			return _commitState.getItemsToCommit();
 		}
 
-		public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
+		public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
 
 		}
 
@@ -599,12 +599,12 @@ public class CommitStatusDialog {
 		}
 
 		@Override
-		public void notifieSubValueAdded(IPageController uiPlatform, UIField field, Object added) {
+		public void notifieSubValueAdded(UIPlatform uiPlatform, UIField field, Object added) {
 			// do nothing
 		}
 
 		@Override
-		public void notifieSubValueRemoved(IPageController uiPlatform, UIField field, Object removed) {
+		public void notifieSubValueRemoved(UIPlatform uiPlatform, UIField field, Object removed) {
 			// do nothing
 		}
 	}
@@ -766,12 +766,12 @@ public class CommitStatusDialog {
 		RunningModelController mc = new AbstractModelController() {
 
 			@Override
-			public Object getValue(IPageController uiPlatform) {
+			public Object getValue(UIPlatform uiPlatform) {
 				List<CompactUUID> itemIds = _commitState.getItemsToCommit();
 				return itemIds.toArray(new CompactUUID[itemIds.size()]);
 			}
 
-			public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
+			public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
 				// do nothing
 			}
 
@@ -798,7 +798,7 @@ public class CommitStatusDialog {
 		AbstractModelController mc = new AbstractModelController() {
 
 			@Override
-			public Object getValue(IPageController uiPlatform) {
+			public Object getValue(UIPlatform uiPlatform) {
 					if (_selectedItem == null) {
 					return Boolean.FALSE;
 				}
@@ -806,7 +806,7 @@ public class CommitStatusDialog {
 				return _commitState.isCommitted(_selectedItem.getId());
 			}
 
-			public void notifieValueChanged(IPageController uiPlatform, UIField field, Object value) {
+			public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
 				// do nothing
 			}
 

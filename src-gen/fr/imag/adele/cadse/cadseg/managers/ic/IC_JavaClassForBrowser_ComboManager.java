@@ -40,7 +40,6 @@ import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
-import fede.workspace.model.manager.properties.impl.ic.IC_StaticArrayOfObjectForBrowser_Combo;
 
 /**
  * The Class IC_JavaClassForBrowser_ComboManager.
@@ -191,59 +190,59 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Create a interaction controler for browser or combo with a java class attribut",
-				"Create a interaction controler for browser or combo with a java class attribut", 3, FieldsCore
-						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createComboBox(STYLE_ATTRIBUTE,
-						"style", EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", style_values),
-						null, true), FieldsCore.createTextField(FILTER_ATTRIBUTE, "filter",
-						"The initial pattern to filter the set of types.\n"
-								+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
-								+ "The meta character '?' representing any character and\n"
-								+ "'*' representing any string are supported.\n"
-								+ "You can pass an empty string if no filtering is required")
-
-		));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-				"Create a interaction controler for browser or combo with a java class attribut",
-				"Create a interaction controler for browser or combo with a java class attribut", 3, FieldsCore
-						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createComboBox(STYLE_ATTRIBUTE,
-						"style", EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", style_values),
-						null, true), FieldsCore.createTextField(FILTER_ATTRIBUTE, "filter",
-						"The initial pattern to filter the set of types.\n"
-								+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
-								+ "The meta character '?' representing any character and\n"
-								+ "'*' representing any string are supported.\n"
-								+ "You can pass an empty string if no filtering is required")
-
-		));
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				DisplayManager.IC_DEFAULT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
+//				"Create a interaction controler for browser or combo with a java class attribut",
+//				"Create a interaction controler for browser or combo with a java class attribut", 3, FieldsCore
+//						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
+//						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createComboBox(STYLE_ATTRIBUTE,
+//						"style", EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", style_values),
+//						null, true), FieldsCore.createTextField(FILTER_ATTRIBUTE, "filter",
+//						"The initial pattern to filter the set of types.\n"
+//								+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
+//								+ "The meta character '?' representing any character and\n"
+//								+ "'*' representing any string are supported.\n"
+//								+ "You can pass an empty string if no filtering is required")
+//
+//		));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
+//				"Create a interaction controler for browser or combo with a java class attribut",
+//				"Create a interaction controler for browser or combo with a java class attribut", 3, FieldsCore
+//						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
+//						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createComboBox(STYLE_ATTRIBUTE,
+//						"style", EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", style_values),
+//						null, true), FieldsCore.createTextField(FILTER_ATTRIBUTE, "filter",
+//						"The initial pattern to filter the set of types.\n"
+//								+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
+//								+ "The meta character '?' representing any character and\n"
+//								+ "'*' representing any string are supported.\n"
+//								+ "You can pass an empty string if no filtering is required")
+//
+//		));
+//	}
 
 	/*
 	 * (non-Javadoc)

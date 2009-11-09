@@ -27,7 +27,6 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
-import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.UIItemFactory;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -49,6 +48,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.impl.ItemFactory;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
@@ -598,61 +598,61 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 
 		}
 	}
-
-	/**
-	 * Creates the field extends ic.
-	 * 
-	 * @return the d check box ui
-	 * 
-	 * @not generated
-	 */
-	static public DCheckBoxUI createFieldExtendsIC() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
-				mc, null);
-	}
-
-	/**
-	 * Creates the field extends mc.
-	 * 
-	 * @return the d check box ui
-	 * 
-	 * @not generated
-	 */
-	static public DCheckBoxUI createFieldExtendsMC() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * Creates the field extends ui.
-	 * 
-	 * @return the d check box ui
-	 * 
-	 * @not generated
-	 */
-	static public DCheckBoxUI createFieldExtendsUI() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * Creates the field editable.
-	 * 
-	 * @return the d check box ui
-	 * 
-	 * @not generated
-	 */
-	static public DCheckBoxUI createFieldEditable() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI(CadseGCST.FIELD_at_EDITABLE, "editable", EPosLabel.none, mc, null);
-	}
+//
+//	/**
+//	 * Creates the field extends ic.
+//	 * 
+//	 * @return the d check box ui
+//	 * 
+//	 * @not generated
+//	 */
+//	static public DCheckBoxUI createFieldExtendsIC() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
+//				mc, null);
+//	}
+//
+//	/**
+//	 * Creates the field extends mc.
+//	 * 
+//	 * @return the d check box ui
+//	 * 
+//	 * @not generated
+//	 */
+//	static public DCheckBoxUI createFieldExtendsMC() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
+//	}
+//
+//	/**
+//	 * Creates the field extends ui.
+//	 * 
+//	 * @return the d check box ui
+//	 * 
+//	 * @not generated
+//	 */
+//	static public DCheckBoxUI createFieldExtendsUI() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
+//	}
+//
+//	/**
+//	 * Creates the field editable.
+//	 * 
+//	 * @return the d check box ui
+//	 * 
+//	 * @not generated
+//	 */
+//	static public DCheckBoxUI createFieldEditable() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI(CadseGCST.FIELD_at_EDITABLE, "editable", EPosLabel.none, mc, null);
+//	}
 
 	
 
 	@Override
 	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {
-		return UIItemFactory.SINGLETON.newForCommitItem(wl, it, item);
+		return ItemFactory.SINGLETON.newForCommitItem(wl, it, item);
 	}
 
 }

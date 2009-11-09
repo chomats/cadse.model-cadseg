@@ -155,34 +155,34 @@ public class DComboManager extends DisplayManager implements IItemManager {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, DEFAULT_SHORT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a combo", "Create a combo", 3,
-				createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI(), createFieldEditable()));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a combo", "a combo", 3,
-				createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI(), createFieldEditable()));
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, DEFAULT_SHORT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a combo", "Create a combo", 3,
+//				createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI(), createFieldEditable()));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a combo", "a combo", 3,
+//				createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI(), createFieldEditable()));
+//	}
 
 	/*
 	 * (non-Javadoc)

@@ -42,7 +42,7 @@ import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.ui.field.core.FieldsCore;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
@@ -237,7 +237,7 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 														this.superAttribute
 																.getPartParent()
 																.getName()),
-										IPageController.ERROR);
+										UIPlatform.ERROR);
 					}
 
 				} else {
@@ -254,7 +254,7 @@ public class AttributeCreationPage1_CreationPage extends PageImpl {
 															.getName(),
 													getItem().getType()
 															.getName()),
-									IPageController.ERROR);
+									UIPlatform.ERROR);
 					return true;
 				}
 			} else {

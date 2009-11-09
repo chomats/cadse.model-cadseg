@@ -32,7 +32,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.IPageObject;
 import fr.imag.adele.cadse.core.ui.IValidateContributor;
 import fr.imag.adele.cadse.core.ui.UIField;
@@ -116,14 +116,14 @@ public class AttributeCreationPage1_CreationPageAction extends AbstractActionPag
 					 */{
 						pageObject.getPageController().setMessage(
 								MessageFormat.format(Messages.error_overwrite_attribute_cannot_permitted,
-										this.superAttribute.getPartParent().getName()), IPageController.ERROR);
+										this.superAttribute.getPartParent().getName()), UIPlatform.ERROR);
 					}
 
 				} else {
 					pageObject.getPageController().setMessage(
 							MessageFormat.format(Messages.error_overwrite_attribute_bad_type, this.superAttribute
 									.getPartParent().getName(), this.superAttribute.getType().getName(), getItem()
-									.getType().getName()), IPageController.ERROR);
+									.getType().getName()), UIPlatform.ERROR);
 					return true;
 				}
 			} else {

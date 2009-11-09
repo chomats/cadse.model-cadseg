@@ -250,26 +250,26 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 		}
 	}
 
-	/**
-	 * Creates the project field.
-	 * 
-	 * @return the uI field
-	 */
-	protected UIField createProjectField() {
-		return FieldsCore.createTextField(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME, "project name:", 1, "",
-				new IC_ItemTypeTemplateForText() {
-					@Override
-					protected Item getItemFromContext() {
-						Item manager = getContext().getPartParent();
-						return ManagerManager.getItemType(manager);
-					}
-				}, new MC_AttributesItem() {
-					@Override
-					public Object defaultValue() {
-						return "${#unique-name}";
-					}
-				});
-	}
+//	/**
+//	 * Creates the project field.
+//	 * 
+//	 * @return the uI field
+//	 */
+//	protected UIField createProjectField() {
+//		return FieldsCore.createTextField(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME, "project name:", 1, "",
+//				new IC_ItemTypeTemplateForText() {
+//					@Override
+//					protected Item getItemFromContext() {
+//						Item manager = getContext().getPartParent();
+//						return ManagerManager.getItemType(manager);
+//					}
+//				}, new MC_AttributesItem() {
+//					@Override
+//					public Object defaultValue() {
+//						return "${#unique-name}";
+//					}
+//				});
+//	}
 
 	/*
 	 * (non-Javadoc)

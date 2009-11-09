@@ -97,7 +97,7 @@ import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.eclipse.view.SelfViewContentProvider;
@@ -537,12 +537,12 @@ public class CommitDialogPage extends PageImpl {
 				return;
 			}
 
-			getPageController().setMessage(null, IPageController.NONE);
+			getPageController().setMessage(null, UIPlatform.NONE);
 			setSelectedItem(node.getItem());
 		}
 
 		private void selectInvalidTreeItem() {
-			getPageController().setMessage("This node should not be selected.", IPageController.ERROR);
+			getPageController().setMessage("This node should not be selected.", UIPlatform.ERROR);
 		}
 
 		/**
@@ -705,7 +705,7 @@ public class CommitDialogPage extends PageImpl {
 				if (_commitState.getErrors().hasError()) {
 					errorMsg = "You cannot commit items with errors.";
 				}
-				getPageController().setMessage(errorMsg, IPageController.ERROR);
+				getPageController().setMessage(errorMsg, UIPlatform.ERROR);
 			}
 
 			return !isValid;
@@ -730,7 +730,7 @@ public class CommitDialogPage extends PageImpl {
 				if (_commitState.getErrors().hasError()) {
 					errorMsg = "You cannot commit items with errors.";
 				}
-				getPageController().setMessage(errorMsg, IPageController.ERROR);
+				getPageController().setMessage(errorMsg, UIPlatform.ERROR);
 			}
 
 			return false;

@@ -11,7 +11,7 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.PageFactory;
 
 /**
@@ -50,7 +50,7 @@ public class JavaReExporterCreationPage1_CreationPage extends
 	}
 
 	@Override
-	public void init(IPageController pageController) throws CadseException {
+	public void init(UIPlatform pageController) throws CadseException {
 		super.init(pageController);
 		JavaReExporterManager.addTypesAttribute(getItem(),
 				JavaProjectExporter.JAVA_TYPE_EXPORTER);

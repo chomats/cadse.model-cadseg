@@ -216,37 +216,37 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 		return new MyContentItem(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-				DisplayManager.IC_DEFAULT_NAME);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "IC_AbstractForBrowser_ComboManager",
-				"IC_AbstractForBrowser_ComboManager", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE,
-						"dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-
-		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "IC_AbstractForBrowser_ComboManager",
-				"IC_AbstractForBrowser_ComboManager", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE,
-						"dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				DisplayManager.IC_DEFAULT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "IC_AbstractForBrowser_ComboManager",
+//				"IC_AbstractForBrowser_ComboManager", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE,
+//						"dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "IC_AbstractForBrowser_ComboManager",
+//				"IC_AbstractForBrowser_ComboManager", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE,
+//						"dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
+//	}
 
 	/*
 	 * (non-Javadoc)
