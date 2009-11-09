@@ -30,16 +30,18 @@ import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseUtil;
 import fr.imag.adele.cadse.core.Item;
-import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.ic.ItemTreeContentProvider;
 import fede.workspace.tool.view.WSPlugin;
-
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ItemTreeContentProvider;
 /**
  * The Class IC_SuperTypeForBrowser_Combo.
  */
 @SuppressWarnings("deprecation")
 public final class IC_SuperTypeForBrowser_Combo extends IC_LinkForBrowser_Combo_List {
 
+	public IC_SuperTypeForBrowser_Combo() {
+	}
+	
 	/**
 	 * Instantiates a new i c_ super type for browser_ combo.
 	 * 
@@ -49,7 +51,8 @@ public final class IC_SuperTypeForBrowser_Combo extends IC_LinkForBrowser_Combo_
 	 *            the message
 	 */
 	public IC_SuperTypeForBrowser_Combo(String title, String message) {
-		super(title, message, CadseGCST.ITEM_TYPE_lt_SUPER_TYPE);
+		this._title = title;
+		this._message = message;
 	}
 
 	/*
