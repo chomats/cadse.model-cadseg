@@ -61,10 +61,8 @@ import fr.imag.adele.cadse.cadseg.managers.actions.MenuManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.CreationDialogManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.ModificationDialogManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
@@ -231,7 +229,7 @@ public class GenerateCadseDefinitionModel {
 	private static void generateAttributes(ContextVariable cxt, ObjectFactory factory, Item abstractItemType,
 			CAbsItemType cit) {
 		Collection<Item> outgoingItem = abstractItemType.getOutgoingItems(
-				CadseGCST.ABSTRACT_ITEM_TYPE_lt_ATTRIBUTES, true);
+				CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, true);
 		Item[] attributeItems = outgoingItem.toArray(new Item[outgoingItem.size()]);
 		Arrays.sort(attributeItems, new ItemShortNameComparator());
 		for (Item attribute : attributeItems) {
