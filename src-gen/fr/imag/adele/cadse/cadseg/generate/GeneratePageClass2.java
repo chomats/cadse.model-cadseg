@@ -96,49 +96,49 @@ public class GeneratePageClass2 extends GenerateClass {
 	 *            the page
 	 */
 	public static void generate(ContextVariable cxt, PageContentManager cm, Item page) {
-		GeneratePageClass2 ret;
-		String cn = cm.getClassName(cxt);
-		String pn = cm.getPackageName(cxt);
-
-		String super_pn = "fr.imag.adele.cadse.core.impl.ui";
-		String super_cn = "PageImpl";
-
-		Item cadseDefinition = PageManager.getCadseDefinition(page);
-
-		Item superPage = PageManager.getSuperPage(page);
-		PageContentManager supercm = null;
-		if (superPage != null) {
-			supercm = (PageContentManager) superPage.getContentItem();
-			if (supercm != null) {
-				super_pn = supercm.getPackageName(cxt);
-				super_cn = supercm.getClassName(cxt);
-			} else {
-				superPage = null;
-			}
-		}
-
-		IFile f = CadseDefinitionManager.getJavaFile(cadseDefinition, "page", pn, cn);
-		IType javatype = CadseDefinitionManager.getJavaType(cadseDefinition, f, cn);
-
-		ret = new GeneratePageClass2(cxt, pn, cn, super_pn + "." + super_cn, javatype, superPage, supercm);
-		ret.id = page.getName();
-		ret.page = page;
-		///ret.addInternalShortName = PageManager.addInternalShortName(page);
-	///	ret.addInternalAttribute = PageManager.addInternalAttribute(page);
-
-		ret.fields = PageManager.getFieldGenerateInfos(cxt, page, ret.imports, superPage);
-		ret.heritage = superPage != null;
-		ret.cas = PageManager.isModificationPage(page) ? ConfigurablePageFactory.PAGE_PROPERTY_ITEM
-				: ConfigurablePageFactory.PAGE_CREATION_ITEM;
-
-		String content = ret.getContent();
-		try {
-			EclipsePluginContentManger.generateJava(f, content, new Pattern[] { ret.heritage ? p_to_heritage
-					: p_to_not_heritage }, new String[] { ret.heritage ? r_to_heritage : r_to_not_heritage }, View
-					.getDefaultMonitor());
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+//		GeneratePageClass2 ret;
+//		String cn = cm.getClassName(cxt);
+//		String pn = cm.getPackageName(cxt);
+//
+//		String super_pn = "fr.imag.adele.cadse.core.impl.ui";
+//		String super_cn = "PageImpl";
+//
+//		Item cadseDefinition = PageManager.getCadseDefinition(page);
+//
+//		Item superPage = PageManager.getSuperPage(page);
+//		PageContentManager supercm = null;
+//		if (superPage != null) {
+//			supercm = (PageContentManager) superPage.getContentItem();
+//			if (supercm != null) {
+//				super_pn = supercm.getPackageName(cxt);
+//				super_cn = supercm.getClassName(cxt);
+//			} else {
+//				superPage = null;
+//			}
+//		}
+//
+//		IFile f = CadseDefinitionManager.getJavaFile(cadseDefinition, "page", pn, cn);
+//		IType javatype = CadseDefinitionManager.getJavaType(cadseDefinition, f, cn);
+//
+//		ret = new GeneratePageClass2(cxt, pn, cn, super_pn + "." + super_cn, javatype, superPage, supercm);
+//		ret.id = page.getName();
+//		ret.page = page;
+//		///ret.addInternalShortName = PageManager.addInternalShortName(page);
+//	///	ret.addInternalAttribute = PageManager.addInternalAttribute(page);
+//
+//		ret.fields = PageManager.getFieldGenerateInfos(cxt, page, ret.imports, superPage);
+//		ret.heritage = superPage != null;
+//		ret.cas = PageManager.isModificationPage(page) ? ConfigurablePageFactory.PAGE_PROPERTY_ITEM
+//				: ConfigurablePageFactory.PAGE_CREATION_ITEM;
+//
+//		String content = ret.getContent();
+//		try {
+//			EclipsePluginContentManger.generateJava(f, content, new Pattern[] { ret.heritage ? p_to_heritage
+//					: p_to_not_heritage }, new String[] { ret.heritage ? r_to_heritage : r_to_not_heritage }, View
+//					.getDefaultMonitor());
+//		} catch (Throwable e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
@@ -178,7 +178,7 @@ public class GeneratePageClass2 extends GenerateClass {
 		imports.add("fr.imag.adele.cadse.core.ui.IActionPage");
 
 		for (FieldGenerateInfo info : fields) {
-			ContentItemImpl.generate(info.display, sb, "page", "inner-class", imports, context);
+			ContentItemImpl.generate(info.field, sb, "page", "inner-class", imports, context);
 		}
 
 		if (!heritage) {
@@ -261,7 +261,7 @@ public class GeneratePageClass2 extends GenerateClass {
 				continue;
 			}
 			FieldManager.generateMethod(info, sb, imports);
-			ContentItemImpl.generate(info.display, sb, "page", "methods", imports, context);
+			ContentItemImpl.generate(info.field, sb, "page", "methods", imports, context);
 		}
 	}
 
@@ -348,12 +348,12 @@ public class GeneratePageClass2 extends GenerateClass {
 	 *            the context
 	 */
 	private void generateCreateAction(GenStringBuilder sb, Set<String> imports, GenContext context) {
-		boolean hasAction = PageManager.hasPageAction(page);
-		if (hasAction) {
-			String cn = GenerateJavaIdentifier.javaClassNamePageActionFromPage(cxt, page);
-			sb.newline().append("setActionPage( new ").append(cn).append("());");
-		} else {
-			sb.newline().append("setActionPage(null);");
-		}
+//		boolean hasAction = PageManager.hasPageAction(page);
+//		if (hasAction) {
+//			String cn = GenerateJavaIdentifier.javaClassNamePageActionFromPage(cxt, page);
+//			sb.newline().append("setActionPage( new ").append(cn).append("());");
+//		} else {
+//			sb.newline().append("setActionPage(null);");
+//		}
 	}
 }

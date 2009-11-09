@@ -31,9 +31,6 @@ public class FieldGenerateInfo {
 	/** The field. */
 	public Item		field;
 
-	/** The display. */
-	public Item		display;
-
 	/** The ic. */
 	public Item		ic;
 

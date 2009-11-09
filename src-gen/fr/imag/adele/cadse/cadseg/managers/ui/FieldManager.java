@@ -464,12 +464,12 @@ public class FieldManager extends DefaultItemManager {
 			Set<String> imports) {
 		FieldGenerateInfo ret = new FieldGenerateInfo();
 		ret.field = field;
-		ret.display = getDisplay(field);
-		if (ret.display == null) {
-			return null;
-		}
-		ret.mc = ret.display != null ? DisplayManager.getItemMC(ret.display) : null;
-		ret.ic = ret.display != null ? DisplayManager.getItemIC(ret.display) : null;
+//		ret.display = getDisplay(field);
+//		if (ret.display == null) {
+//			return null;
+//		}
+		ret.mc = ret.field != null ? DisplayManager.getItemMC(ret.field) : null;
+		ret.ic = ret.field != null ? DisplayManager.getItemIC(ret.field) : null;
 		computeUITypeName(cxt, ret, imports);
 		ret.methodName = "createField" + JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, null);
 		ret.fieldName = "field" + JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, null);
@@ -488,7 +488,7 @@ public class FieldManager extends DefaultItemManager {
 	 *            the imports
 	 */
 	private static void computeUITypeName(ContextVariable cxt, FieldGenerateInfo info, Set<String> imports) {
-		info.extendsUI = DisplayManager.isExtendsUIAttribute(info.display);
+		info.extendsUI = DisplayManager.isExtendsUIAttribute(info.field);
 		if (info.extendsUI) {
 			Item page = info.field.getPartParent();
 			JavaFileContentManager contentManager = (JavaFileContentManager) page.getContentItem();
@@ -498,7 +498,7 @@ public class FieldManager extends DefaultItemManager {
 			imports.add(contentManager.getPackageName(cxt) + "." + contentManager.getClassName(cxt) + "." + cn);
 			info.uiTypeName = cn;
 		} else {
-			DisplayManager m = (DisplayManager) info.display.getType().getItemManager();
+			DisplayManager m = (DisplayManager) info.field.getType().getItemManager();
 			String defaultQualifiedClassName = m.getDefaultClassName();
 			imports.add(defaultQualifiedClassName);
 			info.uiTypeName = JavaIdentifier.getlastclassName(defaultQualifiedClassName);
@@ -522,10 +522,10 @@ public class FieldManager extends DefaultItemManager {
 		sb.append(info.methodName).append("() {");
 		sb.begin();
 
-		if (info.display == null) {
+		if (info.field == null) {
 			sb.newline().append("return null;");
 		} else {
-			ContentItemImpl.generate(info.display, sb, "field", "in-field", imports, null);
+			ContentItemImpl.generate(info.field, sb, "field", "in-field", imports, null);
 		}
 		sb.end();
 		sb.newline().append("}");

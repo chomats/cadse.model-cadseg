@@ -30,7 +30,6 @@ import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
-import fede.workspace.model.manager.properties.impl.ui.WizardController;
 
 /**
  * The Class ExportCadseAction.

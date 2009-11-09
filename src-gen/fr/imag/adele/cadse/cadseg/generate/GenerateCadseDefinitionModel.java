@@ -204,8 +204,8 @@ public class GenerateCadseDefinitionModel {
 	private static void generateCommonInformation(ContextVariable cxt, ObjectFactory factory, Item abstractItemType,
 			CAbsItemType cit) {
 		// creation page
-		generateCreationDialog(cxt, factory, abstractItemType, cit);
-		generateModificationDialog(cxt, factory, abstractItemType, cit);
+		//generateCreationDialog(cxt, factory, abstractItemType, cit);
+		//generateModificationDialog(cxt, factory, abstractItemType, cit);
 		generateAttributes(cxt, factory, abstractItemType, cit);
 
 		Item menu = ActionExtItemTypeExt.getActionsModel(abstractItemType);
@@ -661,39 +661,39 @@ public class GenerateCadseDefinitionModel {
 		return clt;
 	}
 
-	/**
-	 * Generate creation dialog.
-	 * 
-	 * @param cxt
-	 *            the cxt
-	 * @param factory
-	 *            the factory
-	 * @param itemType
-	 *            the item type
-	 * @param cit
-	 *            the cit
-	 * 
-	 * @return the item
-	 */
-	private static Item generateCreationDialog(ContextVariable cxt, ObjectFactory factory, Item itemType,
-			CAbsItemType cit) {
-		Item creationDialog = ItemTypeManager.getCreationDialog(itemType);
-		if (creationDialog != null) {
-			CPages pages = factory.createCPages();
-			cit.setCreationPages(pages);
-			if (CreationDialogManager.hasGlobalActionPage(creationDialog)) {
-				pages.setMainActionClass(GenerateJavaIdentifier.qualifiedGlobalCreationActionFromCreationDialog(cxt,
-						creationDialog));
-			}
-			String defaultShortName = notempty(CreationDialogManager.getDefaultShortNameAttribute(creationDialog));
-
-			pages.setDefaultShortName(defaultShortName);
-
-			Collection<Item> pagesItems = CreationDialogManager.getPages(creationDialog);
-			generatePages(cxt, factory, pages, pagesItems);
-		}
-		return creationDialog;
-	}
+//	/**
+//	 * Generate creation dialog.
+//	 * 
+//	 * @param cxt
+//	 *            the cxt
+//	 * @param factory
+//	 *            the factory
+//	 * @param itemType
+//	 *            the item type
+//	 * @param cit
+//	 *            the cit
+//	 * 
+//	 * @return the item
+//	 */
+//	private static Item generateCreationDialog(ContextVariable cxt, ObjectFactory factory, Item itemType,
+//			CAbsItemType cit) {
+//		Item creationDialog = ItemTypeManager.getCreationDialog(itemType);
+//		if (creationDialog != null) {
+//			CPages pages = factory.createCPages();
+//			cit.setCreationPages(pages);
+//			if (CreationDialogManager.hasGlobalActionPage(creationDialog)) {
+//				pages.setMainActionClass(GenerateJavaIdentifier.qualifiedGlobalCreationActionFromCreationDialog(cxt,
+//						creationDialog));
+//			}
+//			String defaultShortName = notempty(CreationDialogManager.getDefaultShortNameAttribute(creationDialog));
+//
+//			pages.setDefaultShortName(defaultShortName);
+//
+//			Collection<Item> pagesItems = CreationDialogManager.getPages(creationDialog);
+//			generatePages(cxt, factory, pages, pagesItems);
+//		}
+//		return creationDialog;
+//	}
 
 	/**
 	 * Notempty.
@@ -713,32 +713,32 @@ public class GenerateCadseDefinitionModel {
 		return aString;
 	}
 
-	/**
-	 * Generate modification dialog.
-	 * 
-	 * @param cxt
-	 *            the cxt
-	 * @param factory
-	 *            the factory
-	 * @param itemType
-	 *            the item type
-	 * @param cit
-	 *            the cit
-	 * 
-	 * @return the item
-	 */
-	private static Item generateModificationDialog(ContextVariable cxt, ObjectFactory factory, Item itemType,
-			CAbsItemType cit) {
-		Item modificationDialog = ItemTypeManager.getModificationDialog(itemType);
-		if (modificationDialog != null) {
-			CPages pages = factory.createCPages();
-			cit.setModificationPages(pages);
-
-			Collection<Item> pagesItems = ModificationDialogManager.getPages(modificationDialog);
-			generatePages(cxt, factory, pages, pagesItems);
-		}
-		return modificationDialog;
-	}
+//	/**
+//	 * Generate modification dialog.
+//	 * 
+//	 * @param cxt
+//	 *            the cxt
+//	 * @param factory
+//	 *            the factory
+//	 * @param itemType
+//	 *            the item type
+//	 * @param cit
+//	 *            the cit
+//	 * 
+//	 * @return the item
+//	 */
+//	private static Item generateModificationDialog(ContextVariable cxt, ObjectFactory factory, Item itemType,
+//			CAbsItemType cit) {
+//		Item modificationDialog = ItemTypeManager.getModificationDialog(itemType);
+//		if (modificationDialog != null) {
+//			CPages pages = factory.createCPages();
+//			cit.setModificationPages(pages);
+//
+//			Collection<Item> pagesItems = ModificationDialogManager.getPages(modificationDialog);
+//			generatePages(cxt, factory, pages, pagesItems);
+//		}
+//		return modificationDialog;
+//	}
 
 	/**
 	 * Generate pages.
