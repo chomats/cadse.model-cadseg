@@ -97,6 +97,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeModelUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
@@ -443,6 +444,21 @@ public class CommitStatusDialog {
 	public class CommitActionPage extends AbstractActionPage {
 
 		@Override
+		public void initAfterUI(UIPlatform uiPlatform) {
+			super.initAfterUI(uiPlatform);
+			CheckboxTreeViewer treeViewer = _treeField.getTreeViewer();
+			treeViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
+					new ErrorDecorator()));
+
+			FilteredTree treeOfList = (FilteredTree) _listOfCommitedItemsField.getMainControl();
+			TreeViewer listViewer = treeOfList.getViewer();
+			listViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) listViewer.getLabelProvider(),
+					new ErrorDecorator()));
+
+			_listOfCommitedItemsField.setVisualValue(_commitState.getItemsToCommit());
+		}
+		
+		@Override
 		public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
 			Object[] array = _treeField.getSelectedObjects();
 
@@ -748,7 +764,7 @@ public class CommitStatusDialog {
 	 */
 	public DTextUI createRevField() {
 		return _swtuiPlatform.createTextUI(_page, CadseGCST.ITEM_at_TW_VERSION_, "Current Revision", EPosLabel.left,
-				new MC_AttributesItem(), null, 1, false, false, false,false, false);
+				new MC_AttributesItem(), null, 1, false, false, false,false, false, null);
 	  }
 
 	/**
@@ -756,7 +772,7 @@ public class CommitStatusDialog {
 	 */
 	public DTextUI createErrorsField() {
 		return _swtuiPlatform.createTextUI(_page, "#errorsField",
-				"Errors", EPosLabel.top, new ItemError_MC(), null, 10, true, false, true, false, false);
+				"Errors", EPosLabel.top, new ItemError_MC(), null, 10, true, false, true, false, false, null);
 	}
 
 	/**
@@ -847,9 +863,9 @@ public class CommitStatusDialog {
 		d.syncExec(new Runnable() {
 			public void run() {
 				try {
-					final CommitStatusPage p = new CommitStatusPage(commitState);
-					final Pages f = new PagesImpl(false, p.getFinishAction(), p);
-					WizardController wc = new WizardController(f) {
+					final CommitStatusDialog p = new CommitStatusDialog(commitState);
+					final Pages f = p._swtuiPlatform.createPages( p.getFinishAction(), p._page, null);
+					WizardController wc = new WizardController(p._swtuiPlatform) {
 
 						@Override
 						public boolean canFinish() {
@@ -879,7 +895,7 @@ public class CommitStatusDialog {
 								public void run(IProgressMonitor monitor) throws InvocationTargetException,
 										InterruptedException {
 									try {
-										f.doFinish(monitor);
+										f.getAction().doFinish(p._swtuiPlatform, monitor);
 									} catch (CoreException e) {
 										throw new InvocationTargetException(e);
 									} catch (Throwable e) {
@@ -946,20 +962,6 @@ public class CommitStatusDialog {
 	}
 
 
-	@Override
-	public void initAfterUI() {
-		super.initAfterUI();
-		CheckboxTreeViewer treeViewer = _treeField.getTreeViewer();
-		treeViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
-				new ErrorDecorator()));
-
-		FilteredTree treeOfList = (FilteredTree) _listOfCommitedItemsField.getMainControl();
-		TreeViewer listViewer = treeOfList.getViewer();
-		listViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) listViewer.getLabelProvider(),
-				new ErrorDecorator()));
-
-		_listOfCommitedItemsField.setVisualValue(_commitState.getItemsToCommit());
-	}
 
 	protected void computeItemsToShow(CommitState commitState) {
 		List<CompactUUID> itemsToCommit = commitState.getItemsToCommit();

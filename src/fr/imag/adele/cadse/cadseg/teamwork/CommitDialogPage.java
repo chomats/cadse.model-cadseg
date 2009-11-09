@@ -96,6 +96,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ActionController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForBrowserOrCombo;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForList;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_StaticArrayOfObjectForBrowser_Combo;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeModel;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DButtonUI;
@@ -106,6 +107,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeModelUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
 
 /**
@@ -480,6 +482,13 @@ public class CommitDialogPage extends SWTDialog {
 
 	public class CommitActionPage extends AbstractActionPage {
 
+		@Override
+		public void initAfterUI(UIPlatform uiPlatform) {
+			CheckboxTreeViewer treeViewer = _treeField.getTreeViewer();
+			treeViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
+					new ErrorDecorator()));
+		}
+		
 		@Override
 		public void doFinish(UIPlatform uiPlatform, Object monitor)
 				throws Exception {
@@ -1054,20 +1063,18 @@ public class CommitDialogPage extends SWTDialog {
 	 * Create a text field to display the errors related to selected item.
 	 */
 	public DTextUI createErrorsField() {
-		return _swtuiPlatforms.createTextUI("#errorsField", "Errors", EPosLabel.top, new ItemError_MC(), null, 7, "", true, false, true);
+		return _swtuiPlatforms.createTextUI(_page, "#errorsField", "Errors", EPosLabel.top, new ItemError_MC(), null, 7, true, false, true, false, false);
 	}
 
 	/**
 	 * Create a list field showing modified attributes.
 	 */
 	protected DListUI createModifiedAttrsField() {
-		SelectedItemChangeLinkModelController mc = new SelectedItemChangeLinkModelController(false, null,
-				CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES);
+		SelectedItemChangeLinkModelController mc = new SelectedItemChangeLinkModelController(false, null);
 		_selectListeners.add(mc);
 
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-				CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES);
-		return _swtuiPlatforms.createDListUI(CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES.getName(),
+		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.");
+		return _swtuiPlatforms.createDListUI(_page, CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,
 				"Modified Attributes and Links", EPosLabel.top, mc, ic, false, false, false, false);
 	}
 
@@ -1075,8 +1082,8 @@ public class CommitDialogPage extends SWTDialog {
 	 * Create a text field to edit commit comment.
 	 */
 	public DTextUI createCommentField() {
-		return new DTextUI("#commentField", "Comment", EPosLabel.left, new CommentMC(), null, 3,
-				"Provide a comment for the commit", true, false, false);
+		return _swtuiPlatforms.createTextUI(_page, "#commentField", "Comment", EPosLabel.left, new CommentMC(), null, 3,
+				true, false, false, false, false, "Provide a comment for the commit");
 	}
 
 	/**
@@ -1084,14 +1091,9 @@ public class CommitDialogPage extends SWTDialog {
 	 */
 	public DCheckBoxUI createReqNewRevField() {
 		MC_StringToBoolean mc = new MC_StringToBoolean();
-		DCheckBoxUI checkBoxField = new DCheckBoxUI(CadseGCST.ITEM_at_REQUIRE_NEW_REV,
-				"Commit will create a new revision", EPosLabel.none, mc, null) {
-			@Override
-			public Object getContext() {
-				return _selectedItem;
-			}
-		};
-		checkBoxField.setEditable(false);
+		DCheckBoxUI checkBoxField = _swtuiPlatforms.createCheckBoxUI(_page, CadseGCST.ITEM_at_REQUIRE_NEW_REV,
+				"Commit will create a new revision", EPosLabel.none, mc, null);
+		checkBoxField._field.setEditable(false);
 		return checkBoxField;
 	}
 
@@ -1123,8 +1125,9 @@ public class CommitDialogPage extends SWTDialog {
 			public void run() {
 				try {
 					final CommitDialogPage p = new CommitDialogPage(commitState);
-					final Pages f = new PagesImpl(false, p.getFinishAction(), p);
-					WizardController wc = new WizardController(f) {
+					final Pages f = p._swtuiPlatforms.createPages( p.getFinishAction(), p._page, null);
+					
+					WizardController wc = new WizardController(p._swtuiPlatforms) {
 
 						@Override
 						public boolean canFinish() {
@@ -1144,7 +1147,7 @@ public class CommitDialogPage extends SWTDialog {
 								public void run(IProgressMonitor monitor) throws InvocationTargetException,
 										InterruptedException {
 									try {
-										f.doFinish(monitor);
+										f.getAction().doFinish(p._swtuiPlatforms, monitor);
 									} catch (CoreException e) {
 										throw new InvocationTargetException(e);
 									} catch (Throwable e) {
@@ -1192,7 +1195,7 @@ public class CommitDialogPage extends SWTDialog {
 					}
 
 					// open status dialog
-					CommitStatusPage.openDialog(p._commitState);
+					CommitStatusDialog.openDialog(p._commitState);
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
@@ -1210,13 +1213,6 @@ public class CommitDialogPage extends SWTDialog {
 	}
 
 
-	@Override
-	public void initAfterUI() {
-		super.initAfterUI();
-		CheckboxTreeViewer treeViewer = _treeField.getTreeViewer();
-		treeViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
-				new ErrorDecorator()));
-	}
 
 	protected void computeItemsToShow(CommitState commitState) {
 		List<CompactUUID> itemsToCommit = commitState.getItemsToCommit();
@@ -1522,7 +1518,7 @@ public class CommitDialogPage extends SWTDialog {
 		// second try to navigate thought aggregate links
 		List<? extends Link> incomingLinks = item.getIncomingLinks();
 		for (Link link : incomingLinks) {
-			if (link.getLinkType().isPart() || !link.isAggregation()) {
+			if (link.getLinkType().isPart() || !link.getLinkType().isAggregation()) {
 				continue;
 			}
 
@@ -1533,7 +1529,7 @@ public class CommitDialogPage extends SWTDialog {
 
 		// finally try all other links
 		for (Link link : incomingLinks) {
-			if (link.getLinkType().isPart() || link.isAggregation()) {
+			if (link.getLinkType().isPart() || link.getLinkType().isAggregation()) {
 				continue;
 			}
 

@@ -40,6 +40,7 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 		@Override
 		public void workspaceChanged(ImmutableWorkspaceDelta delta) {
 			ImmutableItemDelta itemDelta = delta.getItem(getItem());
+			LinkType lt = (LinkType) getAttributeDefinition();
 			if (itemDelta == null) {
 				return;
 			}
@@ -97,9 +98,10 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 		}
 		item = newItem;
 
+		LinkType lt = (LinkType) getAttributeDefinition();
 		if (!item.isInstanceOf(lt.getSource())) {
 			throw new AssertionError(MessageFormat.format("The link type {0} in the item type {1} is bad.",
-					getUIField().getAttributeName(), item.getType().getName()));
+					lt.getName(), item.getType().getName()));
 		}
 
 		_Listener = new MyListener();
