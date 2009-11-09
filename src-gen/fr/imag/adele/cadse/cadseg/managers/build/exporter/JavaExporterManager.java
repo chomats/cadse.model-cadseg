@@ -19,13 +19,11 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 
 /**
@@ -36,7 +34,7 @@ import fr.imag.adele.cadse.core.LinkType;
 public class JavaExporterManager extends EclipseExporterManager {
 
 	/** The Constant DEFAULT_EXPORTER_SHORT_NAME. */
-	private static final String	DEFAULT_EXPORTER_SHORT_NAME	= "java-exporter";
+	private static final String DEFAULT_EXPORTER_SHORT_NAME = "java-exporter";
 
 	/**
 	 * The Constructor.
@@ -48,10 +46,11 @@ public class JavaExporterManager extends EclipseExporterManager {
 	}
 
 	/**
-		@generated
-	*/
+	 * @generated
+	 */
 	@Override
-	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent,
+			LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -153,7 +152,7 @@ public class JavaExporterManager extends EclipseExporterManager {
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.composition.java.JavaProjectExporter";
+	public static final String DEFAUL_CLASS_NAME = "fede.workspace.eclipse.composition.java.JavaProjectExporter";
 
 	/*
 	 * (non-Javadoc)

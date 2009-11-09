@@ -22,17 +22,14 @@ package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 import java.util.List;
 import java.util.Set;
 
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
 
 /**
  * The Class FolderExporterManager.
@@ -51,10 +48,11 @@ public class FolderExporterManager extends EclipseExporterManager {
 	}
 
 	/**
-		@generated
-	*/
+	 * @generated
+	 */
 	@Override
-	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent,
+			LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -127,7 +125,8 @@ public class FolderExporterManager extends EclipseExporterManager {
 		 * java.util.Set, fr.imag.adele.cadse.core.GenContext)
 		 */
 		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
+		protected void generateCallArguments(GenStringBuilder sb,
+				Set<String> imports, GenContext context) {
 			List<String> type = getTypesAttribute(getItem());
 			if (type != null && type.size() == 1) {
 				sb.append(' ').appendStringValue(type.get(0)).append(',');
@@ -185,7 +184,8 @@ public class FolderExporterManager extends EclipseExporterManager {
 	 * @generated
 	 */
 	public static final String getPathAttribute(Item folderExporter) {
-		return folderExporter.getAttributeWithDefaultValue(CadseGCST.FOLDER_EXPORTER_at_PATH_, null);
+		return folderExporter.getAttributeWithDefaultValue(
+				CadseGCST.FOLDER_EXPORTER_at_PATH_, null);
 	}
 
 	/**
@@ -200,7 +200,8 @@ public class FolderExporterManager extends EclipseExporterManager {
 	 */
 	public static final void setPathAttribute(Item folderExporter, String value) {
 		try {
-			folderExporter.setAttribute(CadseGCST.FOLDER_EXPORTER_at_PATH_, value);
+			folderExporter.setAttribute(CadseGCST.FOLDER_EXPORTER_at_PATH_,
+					value);
 		} catch (Throwable t) {
 
 		}
@@ -208,7 +209,7 @@ public class FolderExporterManager extends EclipseExporterManager {
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.exporter.FolderExporter";
+	public static final String DEFAUL_CLASS_NAME = "fede.workspace.eclipse.exporter.FolderExporter";
 
 	/*
 	 * (non-Javadoc)

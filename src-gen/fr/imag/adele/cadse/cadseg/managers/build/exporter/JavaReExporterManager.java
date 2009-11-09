@@ -19,19 +19,8 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
-import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
-import fr.imag.adele.cadse.core.impl.ui.CreationAction;
-import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
-import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.IPageObject;
-import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
-import fede.workspace.eclipse.composition.java.JavaProjectExporter;
 
 /**
  * The Class JavaReExporterManager.
@@ -50,10 +39,11 @@ public class JavaReExporterManager extends EclipseReExporterManager {
 	}
 
 	/**
-		@generated
-	*/
+	 * @generated
+	 */
 	@Override
-	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent,
+			LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
