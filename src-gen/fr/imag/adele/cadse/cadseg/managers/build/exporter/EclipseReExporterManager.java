@@ -19,24 +19,11 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
-import fr.imag.adele.cadse.core.impl.ui.CreationAction;
-import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
-import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
-import fr.imag.adele.cadse.core.ui.EPosLabel;
-import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
-import fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList;
-import fede.workspace.model.manager.properties.impl.ui.DListUI;
 
 /**
  * The Class EclipseReExporterManager.
@@ -75,10 +62,11 @@ public class EclipseReExporterManager extends ExporterManager {
 	}
 
 	/**
-		@generated
-	*/
+	 * @generated
+	 */
 	@Override
-	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent,
+			LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -132,7 +120,7 @@ public class EclipseReExporterManager extends ExporterManager {
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.exporter.CompositeReExporter";
+	public static final String DEFAUL_CLASS_NAME = "fede.workspace.eclipse.exporter.CompositeReExporter";
 
 	/*
 	 * (non-Javadoc)

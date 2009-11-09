@@ -19,21 +19,11 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
-import fede.workspace.eclipse.content.SubFileContentManager;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.var.Variable;
-import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
-import fr.imag.adele.cadse.core.impl.ui.CreationAction;
-import fr.imag.adele.cadse.core.impl.ui.ModificationAction;
-import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class EclipseExporterManager.
@@ -43,13 +33,13 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 public class EclipseExporterManager extends ExporterManager {
 
 	/**
-		@generated
-	*/
+	 * @generated
+	 */
 	public class EclipseExporterContent extends ExporterManager.ExporterContent {
 
 		/**
-			@generated
-		*/
+		 * @generated
+		 */
 		public EclipseExporterContent(CompactUUID id) throws CadseException {
 			super(id);
 		}
@@ -66,10 +56,11 @@ public class EclipseExporterManager extends ExporterManager {
 	}
 
 	/**
-		@generated
-	*/
+	 * @generated
+	 */
 	@Override
-	public String computeQualifiedName(Item item, String name, Item parent, LinkType lt) {
+	public String computeQualifiedName(Item item, String name, Item parent,
+			LinkType lt) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			Object value;
@@ -108,23 +99,19 @@ public class EclipseExporterManager extends ExporterManager {
 	}
 
 	/**
-		@generated
-	*/
+	 * @generated
+	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
-		EclipseExporterContent cm = new EclipseExporterContent(
-			id
-			);
-		cm.setComposers(
-		);
-		cm.setExporters(
-		);
+	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+		EclipseExporterContent cm = new EclipseExporterContent(id);
+		cm.setComposers();
+		cm.setExporters();
 		return cm;
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.exporter.EclipseExporter";
+	public static final String DEFAUL_CLASS_NAME = "fede.workspace.eclipse.exporter.EclipseExporter";
 
 	/*
 	 * (non-Javadoc)
