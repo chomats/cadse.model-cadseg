@@ -29,13 +29,13 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.path.ParsePath;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.impl.ui.ic.IC_Abstract;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 
 /**
  * The Class SelectionUC.
  */
-public class IC_LINK_Selection extends IC_Abstract implements RuningInteractionController, IFieldContenProposalProvider,
+public class IC_LINK_Selection extends ICRunningField implements RuningInteractionController, IFieldContenProposalProvider,
 		IContentProposalProvider {
 
 	/*
