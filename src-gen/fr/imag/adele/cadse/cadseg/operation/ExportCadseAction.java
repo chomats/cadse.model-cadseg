@@ -91,22 +91,22 @@ public class ExportCadseAction extends IMenuAction {
 	 */
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
-		try {
-
-			ExportCadsePagesAction myaction = new ExportCadsePagesAction();
-			myaction.setCadsedef(cadsedef);
-			myaction.setSelectJar(null);
-			Pages f = FieldsCore.createWizard(myaction, FieldsCore.createPage("page1", "Export cadse", "Export cadse",
-					4, myaction.createImportField(), myaction.createTimeStampField()));
-
-			WizardController wc = new WizardController(f);
-			WizardDialog wd = new WizardDialog(null, wc);
-			wd.setPageSize(300, 200);
-			wd.open();
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+//		try {
+//
+//			ExportCadsePagesAction myaction = new ExportCadsePagesAction();
+//			myaction.setCadsedef(cadsedef);
+//			myaction.setSelectJar(null);
+//			Pages f = FieldsCore.createWizard(myaction, FieldsCore.createPage("page1", "Export cadse", "Export cadse",
+//					4, myaction.createImportField(), myaction.createTimeStampField()));
+//
+//			WizardController wc = new WizardController(f);
+//			WizardDialog wd = new WizardDialog(null, wc);
+//			wd.setPageSize(300, 200);
+//			wd.open();
+//
+//		} catch (Throwable e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }
