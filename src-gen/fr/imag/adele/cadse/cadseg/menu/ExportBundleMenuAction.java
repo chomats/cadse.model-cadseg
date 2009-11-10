@@ -27,7 +27,6 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ui.MenuAction;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
-import fede.workspace.model.manager.properties.impl.ui.WizardController;
 
 /**
  * The Class ExportBundleMenuAction.
@@ -63,24 +62,24 @@ public class ExportBundleMenuAction extends MenuAction {
 	 */
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
-		try {
-
-			ExportBundlePagesAction myaction = new ExportBundlePagesAction();
-			Item cadsedef = selection[0].getItem();
-			myaction.setCadsedef(cadsedef);
-			myaction.setSelectJar(null);
-			Pages f = FieldsCore.createWizard(myaction, FieldsCore.createPage("page1", "Build plugin cadse",
-					"Build plugin cadse", 4, myaction.createChooseFolderField(), myaction.createTimeStampField(),
-					myaction.createDeleteOldField(), myaction.createExportSourceField()));
-
-			WizardController wc = new WizardController(f);
-			WizardDialog wd = new WizardDialog(null, wc);
-			wd.setPageSize(300, 200);
-			wd.open();
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+//		try {
+//
+//			ExportBundlePagesAction myaction = new ExportBundlePagesAction();
+//			Item cadsedef = selection[0].getItem();
+//			myaction.setCadsedef(cadsedef);
+//			myaction.setSelectJar(null);
+//			Pages f = FieldsCore.createWizard(myaction, FieldsCore.createPage("page1", "Build plugin cadse",
+//					"Build plugin cadse", 4, myaction.createChooseFolderField(), myaction.createTimeStampField(),
+//					myaction.createDeleteOldField(), myaction.createExportSourceField()));
+//
+//			WizardController wc = new WizardController(f);
+//			WizardDialog wd = new WizardDialog(null, wc);
+//			wd.setPageSize(300, 200);
+//			wd.open();
+//
+//		} catch (Throwable e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	/*
