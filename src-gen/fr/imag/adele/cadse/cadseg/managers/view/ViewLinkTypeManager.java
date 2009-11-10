@@ -21,10 +21,6 @@ package fr.imag.adele.cadse.cadseg.managers.view;
 
 import java.util.List;
 
-import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.ui.DBrowserUI;
-import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -131,118 +127,118 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 		return viewLinkType.getOutgoingItem(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE, false);
 	}
 
-	/**
-	 * Creates the creation page creation page1.
-	 * 
-	 * @return the i page
-	 * 
-	 * @not generated
-	 */
-	protected IPage createCreationPageCreationPage1() {
-		return FieldsCore.createPage("creation-page1", "Create ViewLinkType", "", 3, FieldsCore.createShortNameField());
-	}
-
-	/**
-	 * Creates the creation pages.
-	 * 
-	 * @param theItemParent
-	 *            the the item parent
-	 * @param theLinkType
-	 *            the the link type
-	 * @param desType
-	 *            the des type
-	 * 
-	 * @return the pages
-	 * 
-	 * @not generated
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType);
-
-		return FieldsCore.createWizard(action, createCreationPageCreationPage1());
-	}
-
-	/**
-	 * Creates the modification page modification page1.
-	 * 
-	 * @return the i page
-	 * 
-	 * @not generated
-	 */
-	protected IPage createModificationPageModificationPage1() {
-		return FieldsCore.createPage("modification-page1", "ViewLinkType", "", 3, FieldsCore.createUniqueNameField(),
-				createFieldCanCreateItem(), createFieldCanCreateLink());
-	}
-
-	/**
-	 * Creates the modification page.
-	 * 
-	 * @param item
-	 *            the item
-	 * 
-	 * @return the pages
-	 * 
-	 * @not generated
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-		return FieldsCore.createWizard(action, createModificationPageModificationPage1());
-	}
-
-	/**
-	 * Creates the field aggregation.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @not generated
-	 */
-	protected UIField createFieldAggregation() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION, "aggregation", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * Creates the field link type.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @not generated
-	 */
-	protected UIField createFieldLinkType() {
-		LinkModelController mc = new LinkModelController(false, null, CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
-		return new DBrowserUI(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE.getName(), "link-type", EPosLabel.left, mc,
-				new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
-						CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE), 0);
-	}
-
-	/**
-	 * Creates the field can create item.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @not generated
-	 */
-	protected UIField createFieldCanCreateItem() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM, "can create item", EPosLabel.none, mc,
-				null);
-	}
-
-	/**
-	 * Creates the field can create link.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @not generated
-	 */
-	protected UIField createFieldCanCreateLink() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK, "can create link", EPosLabel.none, mc,
-				null);
-	}
+//	/**
+//	 * Creates the creation page creation page1.
+//	 * 
+//	 * @return the i page
+//	 * 
+//	 * @not generated
+//	 */
+//	protected IPage createCreationPageCreationPage1() {
+//		return FieldsCore.createPage("creation-page1", "Create ViewLinkType", "", 3, FieldsCore.createShortNameField());
+//	}
+//
+//	/**
+//	 * Creates the creation pages.
+//	 * 
+//	 * @param theItemParent
+//	 *            the the item parent
+//	 * @param theLinkType
+//	 *            the the link type
+//	 * @param desType
+//	 *            the des type
+//	 * 
+//	 * @return the pages
+//	 * 
+//	 * @not generated
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType);
+//
+//		return FieldsCore.createWizard(action, createCreationPageCreationPage1());
+//	}
+//
+//	/**
+//	 * Creates the modification page modification page1.
+//	 * 
+//	 * @return the i page
+//	 * 
+//	 * @not generated
+//	 */
+//	protected IPage createModificationPageModificationPage1() {
+//		return FieldsCore.createPage("modification-page1", "ViewLinkType", "", 3, FieldsCore.createUniqueNameField(),
+//				createFieldCanCreateItem(), createFieldCanCreateLink());
+//	}
+//
+//	/**
+//	 * Creates the modification page.
+//	 * 
+//	 * @param item
+//	 *            the item
+//	 * 
+//	 * @return the pages
+//	 * 
+//	 * @not generated
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//		return FieldsCore.createWizard(action, createModificationPageModificationPage1());
+//	}
+//
+//	/**
+//	 * Creates the field aggregation.
+//	 * 
+//	 * @return the UI field
+//	 * 
+//	 * @not generated
+//	 */
+//	protected UIField createFieldAggregation() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION, "aggregation", EPosLabel.none, mc, null);
+//	}
+//
+//	/**
+//	 * Creates the field link type.
+//	 * 
+//	 * @return the UI field
+//	 * 
+//	 * @not generated
+//	 */
+//	protected UIField createFieldLinkType() {
+//		LinkModelController mc = new LinkModelController(false, null, CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE);
+//		return new DBrowserUI(CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE.getName(), "link-type", EPosLabel.left, mc,
+//				new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.",
+//						CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE), 0);
+//	}
+//
+//	/**
+//	 * Creates the field can create item.
+//	 * 
+//	 * @return the UI field
+//	 * 
+//	 * @not generated
+//	 */
+//	protected UIField createFieldCanCreateItem() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM, "can create item", EPosLabel.none, mc,
+//				null);
+//	}
+//
+//	/**
+//	 * Creates the field can create link.
+//	 * 
+//	 * @return the UI field
+//	 * 
+//	 * @not generated
+//	 */
+//	protected UIField createFieldCanCreateLink() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI(CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK, "can create link", EPosLabel.none, mc,
+//				null);
+//	}
 
 	/**
 	 * Checks if is aggregation attribute.

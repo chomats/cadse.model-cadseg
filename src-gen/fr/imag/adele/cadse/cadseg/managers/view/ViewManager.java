@@ -41,7 +41,6 @@ import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
@@ -498,22 +497,22 @@ public class ViewManager extends DefaultItemManager {
 		CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
 	}
 
-	/**
-	 * Creates the field data model.
-	 * 
-	 * @param view
-	 *            the view
-	 * 
-	 * @return the uI field
-	 */
-	protected DCheckedTreeUI createFieldDataModel(Item view) {
-		Item cadsedef = getCadsegModel(view);
-		IC_ViewManager_DataModelView ic_mc = new IC_ViewManager_DataModelView(CadseDefinitionManager
-				.getDependenciesCadsesAndMe(cadsedef), view);
-		DCheckedTreeUI checkedTreeUI = new DCheckedTreeUI("sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
-		ic_mc.setCheckedTreeUI(checkedTreeUI);
-		return checkedTreeUI;
-	}
+//	/**
+//	 * Creates the field data model.
+//	 * 
+//	 * @param view
+//	 *            the view
+//	 * 
+//	 * @return the uI field
+//	 */
+//	protected DCheckedTreeUI createFieldDataModel(Item view) {
+//		Item cadsedef = getCadsegModel(view);
+//		IC_ViewManager_DataModelView ic_mc = new IC_ViewManager_DataModelView(CadseDefinitionManager
+//				.getDependenciesCadsesAndMe(cadsedef), view);
+//		DCheckedTreeUI checkedTreeUI = new DCheckedTreeUI("sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
+//		ic_mc.setCheckedTreeUI(checkedTreeUI);
+//		return checkedTreeUI;
+//	}
 
 	/**
 	 * Gets the icon path.
