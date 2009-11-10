@@ -864,7 +864,8 @@ public class CommitStatusDialog {
 			public void run() {
 				try {
 					final CommitStatusDialog p = new CommitStatusDialog(commitState);
-					final Pages f = p._swtuiPlatform.createPages( p.getFinishAction(), p._page, null);
+					p._swtuiPlatform.setAction(p.getFinishAction());
+					final Pages f = p._swtuiPlatform.getPages();
 					WizardController wc = new WizardController(p._swtuiPlatform) {
 
 						@Override

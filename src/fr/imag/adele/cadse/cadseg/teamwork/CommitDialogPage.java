@@ -1125,7 +1125,8 @@ public class CommitDialogPage extends SWTDialog {
 			public void run() {
 				try {
 					final CommitDialogPage p = new CommitDialogPage(commitState);
-					final Pages f = p._swtuiPlatforms.createPages( p.getFinishAction(), p._page, null);
+					p._swtuiPlatforms.setAction(p.getFinishAction());
+					final Pages f = p._swtuiPlatforms.getPages();
 					
 					WizardController wc = new WizardController(p._swtuiPlatforms) {
 
