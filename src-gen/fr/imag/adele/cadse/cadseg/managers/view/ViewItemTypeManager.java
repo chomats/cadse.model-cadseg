@@ -25,11 +25,6 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 
-import fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List;
-import fede.workspace.model.manager.properties.impl.mc.TextLinkModelController;
-import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fede.workspace.model.manager.properties.impl.ui.DListUI;
-import fede.workspace.model.manager.properties.impl.ui.DTextUI;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -168,114 +163,114 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	static public Item getItemTypeAll(Item viewItemType) {
 		return viewItemType.getOutgoingItem(CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE, false);
 	}
-
-	/**
-	 * Creates the creation page creation page1.
-	 * 
-	 * @return the i page
-	 * 
-	 * @not generated
-	 */
-	protected IPage createCreationPageCreationPage1() {
-		return FieldsCore.createPage("creation-page1", "Create ViewItemType", "", 3, FieldsCore.createShortNameField());
-	}
-
-	/**
-	 * Creates the creation pages.
-	 * 
-	 * @param theItemParent
-	 *            the the item parent
-	 * @param theLinkType
-	 *            the the link type
-	 * @param desType
-	 *            the des type
-	 * 
-	 * @return the pages
-	 * 
-	 * @not generated
-	 */
-	@Override
-	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-
-		CreationAction action = new CreationAction(theItemParent, desType, theLinkType);
-
-		return FieldsCore.createWizard(action, createCreationPageCreationPage1());
-	}
-
-	/**
-	 * Creates the modification page modification page1.
-	 * 
-	 * @return the i page
-	 */
-	protected IPage createModificationPageModificationPage1() {
-		return FieldsCore.createPage("modification-page1", "ViewItemType", "", 3, FieldsCore.createUniqueNameField(),
-				createFieldItemType(), createFieldIsFirstElement());
-	}
-
-	/**
-	 * Creates the modification page.
-	 * 
-	 * @param item
-	 *            the item
-	 * 
-	 * @return the pages
-	 * 
-	 * @not generated
-	 */
-	@Override
-	public Pages createModificationPage(Item item) {
-		AbstractActionPage action = new ModificationAction(item);
-		return FieldsCore.createWizard(action, createModificationPageModificationPage1());
-	}
-
-	/**
-	 * Creates the field item type.
-	 * 
-	 * @return the uI field
-	 */
-	protected UIField createFieldItemType() {
-		TextLinkModelController mc = new TextLinkModelController(false, null, CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE);
-		return new DTextUI("item-type", "item-type", EPosLabel.left, mc, null, SWT.BORDER | SWT.SINGLE | SWT.READ_ONLY,
-				1, null);
-	}
-
-	/**
-	 * Creates the field view link types.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @not generated
-	 */
-	protected UIField createFieldViewLinkTypes() {
-		LinkModelController mc = new LinkModelController(false, null, CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES);
-		return new DListUI("view-link-types", "view-link-types", EPosLabel.top, mc, new IC_LinkForBrowser_Combo_List(
-				"Select a value.", "Select a value.", CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES), true, true);
-	}
-
-	/**
-	 * Creates the field ref.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @not generated
-	 */
-	protected UIField createFieldRef() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI("ref", "ref", EPosLabel.none, mc, null);
-	}
-
-	/**
-	 * Creates the field is first element.
-	 * 
-	 * @return the UI field
-	 * 
-	 * @not generated
-	 */
-	protected UIField createFieldIsFirstElement() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		return new DCheckBoxUI(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT, "is first element", EPosLabel.none, mc,
-				null);
-	}
+//
+//	/**
+//	 * Creates the creation page creation page1.
+//	 * 
+//	 * @return the i page
+//	 * 
+//	 * @not generated
+//	 */
+//	protected IPage createCreationPageCreationPage1() {
+//		return FieldsCore.createPage("creation-page1", "Create ViewItemType", "", 3, FieldsCore.createShortNameField());
+//	}
+//
+//	/**
+//	 * Creates the creation pages.
+//	 * 
+//	 * @param theItemParent
+//	 *            the the item parent
+//	 * @param theLinkType
+//	 *            the the link type
+//	 * @param desType
+//	 *            the des type
+//	 * 
+//	 * @return the pages
+//	 * 
+//	 * @not generated
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType);
+//
+//		return FieldsCore.createWizard(action, createCreationPageCreationPage1());
+//	}
+//
+//	/**
+//	 * Creates the modification page modification page1.
+//	 * 
+//	 * @return the i page
+//	 */
+//	protected IPage createModificationPageModificationPage1() {
+//		return FieldsCore.createPage("modification-page1", "ViewItemType", "", 3, FieldsCore.createUniqueNameField(),
+//				createFieldItemType(), createFieldIsFirstElement());
+//	}
+//
+//	/**
+//	 * Creates the modification page.
+//	 * 
+//	 * @param item
+//	 *            the item
+//	 * 
+//	 * @return the pages
+//	 * 
+//	 * @not generated
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//		return FieldsCore.createWizard(action, createModificationPageModificationPage1());
+//	}
+//
+//	/**
+//	 * Creates the field item type.
+//	 * 
+//	 * @return the uI field
+//	 */
+//	protected UIField createFieldItemType() {
+//		TextLinkModelController mc = new TextLinkModelController(false, null, CadseGCST.VIEW_ITEM_TYPE_lt_ITEM_TYPE);
+//		return new DTextUI("item-type", "item-type", EPosLabel.left, mc, null, SWT.BORDER | SWT.SINGLE | SWT.READ_ONLY,
+//				1, null);
+//	}
+//
+//	/**
+//	 * Creates the field view link types.
+//	 * 
+//	 * @return the UI field
+//	 * 
+//	 * @not generated
+//	 */
+//	protected UIField createFieldViewLinkTypes() {
+//		LinkModelController mc = new LinkModelController(false, null, CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES);
+//		return new DListUI("view-link-types", "view-link-types", EPosLabel.top, mc, new IC_LinkForBrowser_Combo_List(
+//				"Select a value.", "Select a value.", CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES), true, true);
+//	}
+//
+//	/**
+//	 * Creates the field ref.
+//	 * 
+//	 * @return the UI field
+//	 * 
+//	 * @not generated
+//	 */
+//	protected UIField createFieldRef() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI("ref", "ref", EPosLabel.none, mc, null);
+//	}
+//
+//	/**
+//	 * Creates the field is first element.
+//	 * 
+//	 * @return the UI field
+//	 * 
+//	 * @not generated
+//	 */
+//	protected UIField createFieldIsFirstElement() {
+//		MC_StringToBoolean mc = new MC_StringToBoolean();
+//		return new DCheckBoxUI(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT, "is first element", EPosLabel.none, mc,
+//				null);
+//	}
 
 	/**
 	 * Gets the item type.
