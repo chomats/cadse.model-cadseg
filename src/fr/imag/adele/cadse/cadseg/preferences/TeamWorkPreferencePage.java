@@ -100,39 +100,39 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		_page.addLast(fieldsShash.getAttributeDefinition());
 		registerListener();
 
-		setController(createPages());
+		setController(_swtPlatform.getPages());
 	}
 
 	public DTextUI createFieldDefaultContentRepoURL() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_DEFAULT_CONTENT_REPO_URL_, "Default Content Repository URL",
-				EPosLabel.left, new MyMC_AttributesItem(), null, 1, false, false, false, false, false);
+				EPosLabel.left, new MyMC_AttributesItem(), null, 1, false, false, false, false, false, null);
 	}
 
 	public DTextUI createFieldItemRepoPassword() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_PASSWD_, "Item Repository Password", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, false, false, false, false, false);
+				new MyMC_AttributesItem(), null, 1, false, false, false, false, false, null);
 	}
 
 	public DTextUI createFieldItemRepoLogin() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_LOGIN_, "Item Repository Login", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, false, false, false, false, false);
+				new MyMC_AttributesItem(), null, 1, false, false, false, false, false, null);
 	}
 
 	public DTextUI createFieldItemRepoURL() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_URL_, "Item Repository URL", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, false, false, false, false, false);
+				new MyMC_AttributesItem(), null, 1, false, false, false, false, false, null);
 	}
 
-	public PagesImpl createPages() {
-		
-		return _swtPlatform.createPages(newAction(), _page, new AbstractUIRunningValidator() {
-			@Override
-			public void initAfterUI() {
-				// TODO Auto-generated method stub
-				super.initAfterUI();
-			}
-		});
-	}
+//	public PagesImpl createPages() {
+//		
+//		return _swtPlatform.createPages(newAction(), _page, new AbstractUIRunningValidator() {
+//			@Override
+//			public void initAfterUI() {
+//				// TODO Auto-generated method stub
+//				super.initAfterUI();
+//			}
+//		});
+//	}
 
 	private IActionPage newAction() {
 		return new MyActionPage();
@@ -255,7 +255,6 @@ public void doFinish(UIPlatform uiPlatform, Object monitor)
 				((DTreeModelUI) getUIField()).selectNode(rootNodes[0]);
 			}
 		}
-
 	}
 
 	public class MC_CDtree extends AbstractModelController {
