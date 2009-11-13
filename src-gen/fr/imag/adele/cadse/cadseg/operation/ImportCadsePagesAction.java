@@ -19,19 +19,10 @@
 
 package fr.imag.adele.cadse.cadseg.operation;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.jar.JarFile;
-import java.util.zip.ZipEntry;
 
 import javax.xml.bind.JAXBException;
 
@@ -41,37 +32,23 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import adele.util.io.ZipUtil;
-import fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile;
-import fede.workspace.model.manager.properties.impl.ui.DChooseFileUI;
 import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
 import fede.workspace.tool.view.WSPlugin;
-import fr.imag.adele.cadse.core.CadseDomain;
-import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.Link;
-import fr.imag.adele.cadse.core.LogicalWorkspace;
-import fr.imag.adele.cadse.core.ProjectAssociation;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.delta.ItemDelta;
-import fr.imag.adele.cadse.core.delta.LinkDelta;
-import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
-import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
 
 /**
  * The Class ImportCadsePagesAction.
@@ -201,23 +178,23 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 		public boolean validValueChanged(UIField field, Object value) {
 			file = getFile((IPath) value);
 			if (file == null || !file.exists() || file.isDirectory()) {
-				setMessageError("Select a valid cadse zip file");
+				_uiPlatform.setMessageError("Select a valid cadse zip file");
 				return true;
 			}
 			try {
 				cadse = ImportCadseUtil.readCadse(file);
 				if (cadse == null) {
-					setMessageError("Select a valid cadse zip file");
+					_uiPlatform.setMessageError("Select a valid cadse zip file");
 					return true;
 				}
 
 			} catch (IOException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			} catch (JAXBException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			}
 			return false;
@@ -271,9 +248,9 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 	 * 
 	 * @return the d choose file ui
 	 */
-	public DChooseFileUI createImportField() {
+	public DChooseFileUI createImportField(IPage page, SWTUIPlatform swtuiPlatform) {
 		
-		return new DChooseFileUI("selectJar", "Select cadse deployed zip", EPosLabel.left, new MC_Import(),
+		return swtuiPlatform.createDChooseFileUI(page, "#selectJar", "Select cadse deployed zip", EPosLabel.left, new MC_Import(),
 				new IC_Import(), "Select cadse deployed zip");
 	}
 
@@ -306,14 +283,9 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 	/** The its_c. */
 	HashMap<String, CItemType>	its_c;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
-	 */
 	@Override
-	public void doFinish(Object monitor) throws Exception {
-		super.doFinish(monitor);
+	public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
+		super.doFinish(uiPlatform, monitor);
 		ImportCadseUtil.importCadse(cadse, new FileInputStream(file));	
 	}
 

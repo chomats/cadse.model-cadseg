@@ -21,14 +21,10 @@ package fr.imag.adele.cadse.cadseg.operation;
 
 import java.net.URL;
 
-import org.eclipse.jface.wizard.WizardDialog;
-
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
-import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class ImportCadseAction.

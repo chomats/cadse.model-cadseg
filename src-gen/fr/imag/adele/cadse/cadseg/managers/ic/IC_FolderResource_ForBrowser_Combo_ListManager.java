@@ -19,11 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
-import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.IItemManager;
+import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.LinkType;
 
 /**
  * The Class IC_FolderResource_ForBrowser_Combo_ListManager.

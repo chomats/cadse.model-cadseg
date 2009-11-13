@@ -23,13 +23,14 @@ import java.net.URL;
 
 import org.eclipse.jface.wizard.WizardDialog;
 
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
-import fede.workspace.model.manager.properties.impl.ui.WizardController;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 
 /**
  * The Class ImportAction.
@@ -80,15 +81,12 @@ public class ImportAction extends IMenuAction {
 	public void run(IItemNode[] selection) throws CadseException {
 		try {
 
+			SWTUIPlatform swtuiPlatform = new SWTUIPlatform();
+			IPage page = swtuiPlatform.createPageDescription( "Import binary plugin",
+					"Import binary plugin");
 			ImportPagesAction myaction = new ImportPagesAction();
 			myaction.setSelectJar(null);
-			Pages f = FieldsCore.createWizard(myaction, FieldsCore.createPage("page1", "Import binary plugin",
-					"Import binary plugin", 4, myaction.createImportField()));
-
-			WizardController wc = new WizardController(f);
-			WizardDialog wd = new WizardDialog(null, wc);
-			wd.setPageSize(300, 200);
-			wd.open();
+			page.addLast(myaction.createImportField(page, swtuiPlatform).getAttributeDefinition());
 
 		} catch (Throwable e) {
 			e.printStackTrace();

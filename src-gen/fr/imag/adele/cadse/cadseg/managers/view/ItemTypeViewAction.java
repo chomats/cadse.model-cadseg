@@ -25,12 +25,9 @@ import java.util.List;
 
 import org.eclipse.jface.wizard.WizardDialog;
 
-import fede.workspace.model.manager.properties.impl.ic.IC_AbstractForChecked;
-import fede.workspace.model.manager.properties.impl.ic.IC_TreeCheckedUI;
-import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
-import fede.workspace.model.manager.properties.impl.ui.WizardController;
-import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.cadseg.managers.view.DataModelViewAction.DataModelViewWizardController;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
@@ -38,10 +35,16 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForChecked;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeCheckedUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedTreeUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 
 /**
  * The Class ItemTypeViewAction.
@@ -211,7 +214,7 @@ public class ItemTypeViewAction extends IMenuAction {
 		 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
 		 */
 		@Override
-		public void doFinish(Object monitor) throws Exception {
+		public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
 			Object[] selected = (Object[]) checkedTreeUI.getVisualValue();
 			for (Object so : selected) {
 				System.out.println(so.toString());
@@ -235,7 +238,7 @@ public class ItemTypeViewAction extends IMenuAction {
 		 * 
 		 * @see fr.imag.adele.cadse.core.ui.IModelController#init()
 		 */
-		public void init() throws CadseException {
+		public void init()  {
 			// TODO Auto-generated method stub
 
 		}
@@ -302,6 +305,24 @@ public class ItemTypeViewAction extends IMenuAction {
 		public boolean isAnonymous() {
 			// TODO Auto-generated method stub
 			return false;
+		}
+
+		@Override
+		public void initAfterUI(UIField field) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public Item getDescriptor() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int incrementError() {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 	}
 
@@ -393,6 +414,10 @@ public class ItemTypeViewAction extends IMenuAction {
 
 	/** The checked tree ui. */
 	DCheckedTreeUI	checkedTreeUI;
+
+	private IPage	_page;
+
+	private SWTUIPlatform	_uiPlatform;
 
 	/**
 	 * Instantiates a new item type view action.
@@ -509,13 +534,9 @@ public class ItemTypeViewAction extends IMenuAction {
 	public void run(IItemNode[] selection) throws CadseException {
 		try {
 			DataModelViewWizardController action = new DataModelViewWizardController();
-			checkedTreeUI = new DCheckedTreeUI("sel", "non", EPosLabel.none, action, new IC_DataModelView(), true,
-					false);
-			WizardController wc = new WizardController(FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-					"Select Item Type and Link", "Select Item Type and Link for this view", 3, checkedTreeUI)));
-			WizardDialog wd = new WizardDialog(null, wc);
-			wd.setPageSize(300, 500);
-			wd.open();
+			_page = _uiPlatform.createPageDescription("Select Item Type and Link", "Select Item Type and Link for this view");
+			checkedTreeUI = _uiPlatform.createDCheckedTreeUI(_page, "#sel", "", EPosLabel.none, action, new IC_DataModelView(), true, false);
+			_uiPlatform.open(null, _page, action, false);
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

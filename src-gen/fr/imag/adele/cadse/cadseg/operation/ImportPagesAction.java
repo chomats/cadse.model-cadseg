@@ -40,20 +40,17 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile;
-import fede.workspace.model.manager.properties.impl.ui.DChooseFileUI;
 import fede.workspace.tool.loadmodel.model.jaxb.CCadse;
 import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
 import fede.workspace.tool.loadmodel.model.jaxb.CLink;
 import fede.workspace.tool.loadmodel.model.jaxb.CLinkType;
 import fede.workspace.tool.view.WSPlugin;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRuntime;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
@@ -61,7 +58,12 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
 
 /**
  * The Class ImportPagesAction.
@@ -167,32 +169,32 @@ public class ImportPagesAction extends AbstractActionPage {
 		public boolean validValueChanged(UIField field, Object value) {
 			file = getFile((IPath) value);
 			if (file == null || !file.exists()) {
-				setMessageError("Select a valid cadse jar");
+				_uiPlatform.setMessageError("Select a valid cadse jar");
 				return true;
 			}
 			try {
 				cadse = readCadse(file);
 				if (cadse == null) {
-					setMessageError("Select a valid cadse jar");
+					_uiPlatform.setMessageError("Select a valid cadse jar");
 					return true;
 				}
 				String name = cadse.getName();
 				Item cadseDef = CadseCore.getItem(name, null, CadseGCST.CADSE_DEFINITION, null, null);
 				if (cadseDef != null) {
-					setMessageError("cannot import : allready exists");
+					_uiPlatform.setMessageError("cannot import : allready exists");
 					return true;
 				}
 			} catch (IOException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			} catch (JAXBException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			} catch (CadseException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			}
 			return false;
@@ -243,11 +245,13 @@ public class ImportPagesAction extends AbstractActionPage {
 
 	/**
 	 * Creates the import field.
+	 * @param swtuiPlatform 
+	 * @param page 
 	 * 
 	 * @return the d choose file ui
 	 */
-	public DChooseFileUI createImportField() {
-		return new DChooseFileUI("selectJar", "Select cadse deployed jar", EPosLabel.left, new MC_Import(),
+	public DChooseFileUI<IC_Import> createImportField(IPage page, SWTUIPlatform swtuiPlatform) {
+		return swtuiPlatform.createDChooseFileUI(page, "selectJar", "Select cadse deployed jar", EPosLabel.left, new MC_Import(),
 				new IC_Import(), "Select cadse deployed jar");
 	}
 
@@ -305,14 +309,15 @@ public class ImportPagesAction extends AbstractActionPage {
 	/** The its_c. */
 	HashMap<String, CItemType>	its_c;
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
 	 */
 	@Override
-	public void doFinish(Object monitor) throws Exception {
-		super.doFinish(monitor);
+	public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
+		super.doFinish(uiPlatform, monitor);
 		IProgressMonitor pmo = (IProgressMonitor) monitor;
 		CadseCore.getCadseDomain().beginOperation("Import binary cadse");
 		try {
