@@ -50,21 +50,21 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 import adele.util.io.FileUtil;
 import adele.util.io.ZipUtil;
+import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
+import fede.workspace.eclipse.java.osgi.OsgiManifest;
+import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
-import fede.workspace.eclipse.java.osgi.OsgiManifest;
-import fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile;
-import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fede.workspace.model.manager.properties.impl.ui.DChooseFileUI;
-import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
 
 /**
  * The Class ExportBundlePagesAction.
@@ -294,7 +294,7 @@ public class ExportBundlePagesAction extends AbstractActionPage {
 		public boolean validValueChanged(UIField field, Object value) {
 			file = getFile((IPath) value);
 			if (file == null || !file.exists() || !file.isDirectory()) {
-				setMessageError("Select a folder");
+				this._uiPlatform.setMessageError("Select a folder");
 				return true;
 			}
 			return false;
@@ -410,13 +410,14 @@ public class ExportBundlePagesAction extends AbstractActionPage {
 	HashMap<String, CItemType>	its_c;
 
 	/*
+	 
 	 * (non-Javadoc)
 	 * 
 	 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
 	 */
 	@Override
-	public void doFinish(Object monitor) throws Exception {
-		super.doFinish(monitor);
+	public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
+		super.doFinish(uiPlatform, monitor);
 		IProgressMonitor pmo = (IProgressMonitor) monitor;
 		try {
 			EclipsePluginContentManger project = (EclipsePluginContentManger) cadsedef.getContentItem();

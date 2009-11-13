@@ -23,8 +23,8 @@ import java.net.URL;
 
 import org.eclipse.jface.wizard.WizardDialog;
 
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
@@ -32,9 +32,11 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
-import fede.workspace.model.manager.properties.impl.ui.DCheckedTreeUI;
-import fede.workspace.model.manager.properties.impl.ui.WizardController;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedTreeUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 
 /**
  * The Class DataModelViewAction.
@@ -70,7 +72,7 @@ public class DataModelViewAction extends IMenuAction {
 		 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
 		 */
 		@Override
-		public void doFinish(Object monitor) throws Exception {
+		public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
 			Object[] selected = (Object[]) checkedTreeUI.getVisualValue();
 			for (Object so : selected) {
 				System.out.println(so.toString());
@@ -114,6 +116,12 @@ public class DataModelViewAction extends IMenuAction {
 
 	/** The checked tree ui. */
 	DCheckedTreeUI	checkedTreeUI;
+	
+	SWTUIPlatform _uiPlatform;
+
+	private String	title;
+
+	private IPage	_page;
 
 	/**
 	 * Instantiates a new data model view action.
@@ -140,15 +148,12 @@ public class DataModelViewAction extends IMenuAction {
 		try {
 			IC_DataModelView_Creation ic_mc = new IC_DataModelView_Creation(new Item[] { datamodel }, view);
 			DataModelViewWizardController action = new DataModelViewWizardController(ic_mc);
-			checkedTreeUI = new DCheckedTreeUI("sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
+			_page = _uiPlatform.createPageDescription("Select Item Type and Link", "Select Item Type and Link for this view");
+			checkedTreeUI = _uiPlatform.createDCheckedTreeUI(_page, "#sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
+			//new DCheckedTreeUI("sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
 			ic_mc.setCheckedTreeUI(checkedTreeUI);
-			WizardController wc = new WizardController(FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-					"Select Item Type and Link", "Select Item Type and Link for this view", 3, checkedTreeUI
-
-			)));
-			WizardDialog wd = new WizardDialog(null, wc);
-			wd.setPageSize(300, 500);
-			wd.open();
+			_uiPlatform.open(null, _page, action, false);
+			
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

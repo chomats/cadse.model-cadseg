@@ -19,9 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.dataModel;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -33,13 +31,9 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
-import fr.imag.adele.cadse.cadseg.generate.GeneratePageActionClass;
-import fr.imag.adele.cadse.cadseg.generate.GeneratePageClass2;
-import fr.imag.adele.cadse.cadseg.managers.ui.FieldGenerateInfo;
-import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -55,8 +49,6 @@ import fr.imag.adele.cadse.core.key.AbstractSpaceKey;
 import fr.imag.adele.cadse.core.key.ISpaceKey;
 import fr.imag.adele.cadse.core.key.SpaceKey;
 import fr.imag.adele.cadse.core.key.SpaceKeyType;
-import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**

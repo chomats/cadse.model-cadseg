@@ -45,11 +45,7 @@ import org.osgi.service.prefs.BackingStoreException;
 import adele.util.io.FileUtil;
 import adele.util.io.ZipUtil;
 import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
-import fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile;
-import fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI;
-import fede.workspace.model.manager.properties.impl.ui.DChooseFileUI;
 import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
-import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -59,6 +55,10 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
 
 /**
  * The Class ExportCadsePagesAction.
@@ -162,15 +162,14 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	class MC_Import extends AbstractModelController {
 		IEclipsePreferences	node;
 
-		@Override
-		public void init() throws CadseException {
+		public void init(fr.imag.adele.cadse.core.ui.UIPlatform uiPlatform) {
 			// 1. get config pref node
 			node = new ConfigurationScope().getNode("fr.imag.adele.cadse.export-cadse");
 			String path = node.get("export-path", "");
 			if (path != null) {
 				selectJar = new org.eclipse.core.runtime.Path(path);
 			}
-			super.init();
+			super.init(uiPlatform);
 		}
 
 		/*
@@ -222,7 +221,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		public boolean validValueChanged(UIField field, Object value) {
 			file = getFile((IPath) value);
 			if (file == null || !file.exists() || !file.isDirectory()) {
-				setMessageError("Select a folder");
+				_uiPlatform.setMessageError("Select a folder");
 				return true;
 			}
 			return false;
@@ -324,8 +323,8 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
 	 */
 	@Override
-	public void doFinish(Object monitor) throws Exception {
-		super.doFinish(monitor);
+	public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
+		super.doFinish(uiPlatform, monitor);
 		IProgressMonitor pmo = (IProgressMonitor) monitor;
 		CadseCore.getCadseDomain().beginOperation("Import cadse");
 		try {

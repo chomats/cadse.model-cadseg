@@ -21,6 +21,9 @@ package fr.imag.adele.cadse.cadseg.menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import fede.workspace.tool.view.actions.AbstractEclipseMenuAction;
+import fr.imag.adele.cadse.cadseg.teamwork.CommitDialogPage;
+import fr.imag.adele.cadse.cadseg.teamwork.CommitState;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
@@ -28,9 +31,6 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
-import fede.workspace.tool.view.actions.AbstractEclipseMenuAction;
-import fr.imag.adele.cadse.cadseg.teamwork.CommitDialogPage;
-import fr.imag.adele.cadse.cadseg.teamwork.CommitState;
 
 /**
  * @generated

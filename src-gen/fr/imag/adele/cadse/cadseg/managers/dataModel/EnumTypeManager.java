@@ -36,20 +36,15 @@ import org.eclipse.jdt.core.JavaModelException;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.IBuildManager;
 import fr.imag.adele.cadse.cadseg.template.EnumSkeltonTemplate;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
-import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**

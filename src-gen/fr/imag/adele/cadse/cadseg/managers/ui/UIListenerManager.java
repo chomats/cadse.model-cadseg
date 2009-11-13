@@ -21,20 +21,17 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.core.CadseGCST;
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.var.NullVariable;
-import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
-import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 
 /**
  * @generated

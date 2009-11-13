@@ -19,14 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.menu;
 
-import org.eclipse.jface.wizard.WizardDialog;
-
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
-import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ui.MenuAction;
-import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class ExportBundleMenuAction.

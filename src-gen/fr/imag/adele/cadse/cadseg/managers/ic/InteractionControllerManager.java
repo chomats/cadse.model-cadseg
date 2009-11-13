@@ -28,31 +28,21 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.UIItemFactory;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
-import fr.imag.adele.cadse.cadseg.managers.content.ContentItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
-import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.delta.ItemDelta;
-import fr.imag.adele.cadse.core.var.Variable;
-import java.util.Collection;
-import java.util.List;
-import fede.workspace.eclipse.composition.java.IPDEContributor;
-import fede.workspace.eclipse.content.SubFileContentManager;
-import fr.imag.adele.cadse.core.CadseGCST;
-import fede.workspace.eclipse.java.JavaIdentifier;
+import fr.imag.adele.cadse.core.impl.ItemFactory;
 
 /**
  * The Class InteractionControllerManager.
@@ -376,6 +366,6 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 	}
 	
 	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {
-		return UIItemFactory.SINGLETON.newForCommitItem(wl, it, item);
+		return ItemFactory.SINGLETON.newForCommitItem(wl, it, item);
 	}
 }

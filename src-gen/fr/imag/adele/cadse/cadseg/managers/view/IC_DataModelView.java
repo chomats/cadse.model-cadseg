@@ -27,8 +27,8 @@ import java.util.List;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -37,9 +37,11 @@ import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForChecked;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ContextMenu;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeCheckedUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedTreeUI;
 
 /**
  * The Class IC_DataModelView.
@@ -931,6 +933,30 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 	public boolean isAnonymous() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void initAfterUI(UIField field) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Item getDescriptor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int incrementError() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void init(UIPlatform uiPlatform) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

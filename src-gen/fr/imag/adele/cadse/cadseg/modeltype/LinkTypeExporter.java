@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.modeltype;
 
+import fede.workspace.tool.loadmodel.model.jaxb.CLinkType;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ContentItem;
@@ -27,7 +28,6 @@ import fr.imag.adele.cadse.core.build.Exporter;
 import fr.imag.adele.cadse.core.build.IBuildingContext;
 import fr.imag.adele.cadse.core.build.IExportedContent;
 import fr.imag.adele.cadse.core.build.IExporterTarget;
-import fede.workspace.tool.loadmodel.model.jaxb.CLinkType;
 
 /**
  * The Class LinkTypeExporter.
