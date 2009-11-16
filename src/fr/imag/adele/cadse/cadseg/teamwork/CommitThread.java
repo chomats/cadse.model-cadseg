@@ -130,7 +130,7 @@ public class CommitThread extends Thread {
 		ItemType itemType = item.getType();
 
 		// set repository for this item
-		Item cadseRuntime = itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CADSE, true);
+		Item cadseRuntime = itemType.getOutgoingItem(CadseGCST.TYPE_DEFINITION_lt_CADSE, true);
 		String url = CadseManager.getItemRepoURLAttribute(cadseRuntime);
 		String login = CadseManager.getItemRepoLoginAttribute(cadseRuntime);
 		String pwd = CadseManager.getItemRepoPasswdAttribute(cadseRuntime);
