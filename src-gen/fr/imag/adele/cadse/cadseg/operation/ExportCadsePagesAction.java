@@ -54,8 +54,11 @@ import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
@@ -109,6 +112,9 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	/** The cadse viewer filter. */
 	public ViewerFilter	cadseViewerFilter	= new CadseViewerFilter();
 
+	SWTUIPlatform _swtuiPlatform;
+
+	private IPage	_page;
 	/**
 	 * The Class MC_TSTamp.
 	 */
@@ -266,7 +272,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	 * @return the d choose file ui
 	 */
 	public DChooseFileUI createImportField() {
-		return new DChooseFileUI("selectJar", "Select folder", EPosLabel.left, new MC_Import(), new IC_Import(),
+		return _swtuiPlatform.createDChooseFileUI(_page, "selectJar", "Select folder", EPosLabel.left, new MC_Import(), new IC_Import(),
 				"Select folder");
 	}
 
@@ -275,8 +281,8 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	 * 
 	 * @return the uI field
 	 */
-	public UIField createTimeStampField() {
-		return new DCheckBoxUI("tstamp", "add time stamp", EPosLabel.none, new MC_TSTamp(), null);
+	public DCheckBoxUI<ICRunningField> createTimeStampField() {
+		return _swtuiPlatform.createCheckBoxUI(_page, "tstamp", "add time stamp", EPosLabel.none, new MC_TSTamp(), null);
 	}
 
 	/** The cadsedef. */

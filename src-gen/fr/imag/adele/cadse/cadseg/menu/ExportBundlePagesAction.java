@@ -60,8 +60,11 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
@@ -121,6 +124,9 @@ public class ExportBundlePagesAction extends AbstractActionPage {
 	/** The cadse viewer filter. */
 	public ViewerFilter	cadseViewerFilter	= new CadseViewerFilter();
 
+	SWTUIPlatform _swtuiPlatform;
+
+	private IPage	_page;
 	/**
 	 * The Class MC_TSTamp.
 	 */
@@ -339,7 +345,7 @@ public class ExportBundlePagesAction extends AbstractActionPage {
 	 * @return the d choose file ui
 	 */
 	public DChooseFileUI createChooseFolderField() {
-		return new DChooseFileUI("selectJar", "Select folder", EPosLabel.left, new MC_ChooseFolder(),
+		return _swtuiPlatform.createDChooseFileUI(_page, "selectJar", "Select folder", EPosLabel.left, new MC_ChooseFolder(),
 				new IC_ChooseFolder(), "Select folder");
 	}
 
@@ -348,8 +354,8 @@ public class ExportBundlePagesAction extends AbstractActionPage {
 	 * 
 	 * @return the uI field
 	 */
-	public UIField createTimeStampField() {
-		return new DCheckBoxUI("tstamp", "Add time stamp", EPosLabel.none, new MC_TSTamp(), null);
+	public DCheckBoxUI<ICRunningField> createTimeStampField() {
+		return _swtuiPlatform.createCheckBoxUI(_page, "tstamp", "Add time stamp", EPosLabel.none, new MC_TSTamp(), null);
 	}
 
 	/**
@@ -357,8 +363,8 @@ public class ExportBundlePagesAction extends AbstractActionPage {
 	 * 
 	 * @return the uI field
 	 */
-	public UIField createDeleteOldField() {
-		return new DCheckBoxUI("delete-old-bundle", "Delete old bundle", EPosLabel.none, new MC_DeleteOld(), null);
+	public DCheckBoxUI<ICRunningField> createDeleteOldField() {
+		return _swtuiPlatform.createCheckBoxUI(_page, "delete-old-bundle", "Delete old bundle", EPosLabel.none, new MC_DeleteOld(), null);
 	}
 
 	/**
@@ -366,8 +372,8 @@ public class ExportBundlePagesAction extends AbstractActionPage {
 	 * 
 	 * @return the uI field
 	 */
-	public UIField createExportSourceField() {
-		return new DCheckBoxUI("export-source", "Export source", EPosLabel.none, new MC_ExportSource(), null);
+	public DCheckBoxUI<ICRunningField> createExportSourceField() {
+		return _swtuiPlatform.createCheckBoxUI(_page, "export-source", "Export source", EPosLabel.none, new MC_ExportSource(), null);
 	}
 
 	/** The cadsedef. */
