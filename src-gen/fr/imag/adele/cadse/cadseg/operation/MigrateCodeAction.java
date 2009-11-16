@@ -80,13 +80,8 @@ public class MigrateCodeAction extends IMenuAction {
 		try {
 
 			MigrateCodePagesAction myaction = new MigrateCodePagesAction();
-			Pages f = FieldsCore.createWizard(myaction, FieldsCore.createPage("page1", IMPORT_BINARY_CADSE,
-					IMPORT_BINARY_CADSE, 4, myaction.createOldCadseField(), myaction.createNewCadseField()));
-
-			WizardController wc = new WizardController(f);
-			WizardDialog wd = new WizardDialog(null, wc);
-			wd.setPageSize(300, 200);
-			wd.open();
+			myaction.open();
+			
 
 		} catch (Throwable e) {
 			e.printStackTrace();

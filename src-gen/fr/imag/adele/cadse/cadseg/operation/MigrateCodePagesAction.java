@@ -54,6 +54,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.refactoring.RenameSupport;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.wizard.WizardDialog;
 
 import fede.workspace.eclipse.java.JMergeUtil;
 import fede.workspace.tool.loadmodel.model.jaxb.CCadse;
@@ -61,14 +62,20 @@ import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
 import fede.workspace.tool.loadmodel.model.jaxb.CLink;
 import fede.workspace.tool.loadmodel.model.jaxb.CLinkType;
 import fede.workspace.tool.view.WSPlugin;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 
 /**
  * The Class MigrateCodePagesAction.
@@ -116,9 +123,13 @@ public class MigrateCodePagesAction extends AbstractActionPage {
 
 	/** The new cadse. */
 	CCadse				newCadse;
+	
+	SWTUIPlatform 		_swtuiPlatform;
 
 	/** The cadse viewer filter. */
 	public ViewerFilter	cadseViewerFilter	= new CadseViewerFilter();
+
+	private IPage	_page;
 
 	/**
 	 * The Class MC_OldCadse.
@@ -187,32 +198,32 @@ public class MigrateCodePagesAction extends AbstractActionPage {
 		public boolean validValueChanged(UIField field, Object value) {
 			oldProject = getProject((IPath) value);
 			if (oldProject == null || !oldProject.exists()) {
-				setMessageError("Select a valid java project");
+				_uiPlatform.setMessageError("Select a valid java project");
 				return true;
 			}
 			try {
 				oldCadse = readCadse(oldProject);
 				if (oldCadse == null) {
-					setMessageError("Select a valid cadse jar");
+					_uiPlatform.setMessageError("Select a valid cadse jar");
 					return true;
 				}
 				IJavaProject jp = JavaCore.create((IProject) oldProject);
 				if (jp == null || !jp.exists()) {
-					setMessageError("select a java project");
+					_uiPlatform.setMessageError("select a java project");
 					return true;
 				}
 
 			} catch (IOException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			} catch (JAXBException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			} catch (CoreException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			}
 			return false;
@@ -291,32 +302,32 @@ public class MigrateCodePagesAction extends AbstractActionPage {
 		public boolean validValueChanged(UIField field, Object value) {
 			newProject = getProject((IPath) value);
 			if (newProject == null || !newProject.exists()) {
-				setMessageError("Select a valid java project");
+				_uiPlatform.setMessageError("Select a valid java project");
 				return true;
 			}
 			try {
 				newCadse = readCadse(newProject);
 				if (newCadse == null) {
-					setMessageError("Select a valid cadse jar");
+					_uiPlatform.setMessageError("Select a valid cadse jar");
 					return true;
 				}
 				IJavaProject jp = JavaCore.create((IProject) newProject);
 				if (jp == null || !jp.exists()) {
-					setMessageError("select a java project");
+					_uiPlatform.setMessageError("select a java project");
 					return true;
 				}
 
 			} catch (IOException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			} catch (JAXBException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			} catch (CoreException e) {
 				WSPlugin.logException(e);
-				setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			}
 			return false;
@@ -360,7 +371,7 @@ public class MigrateCodePagesAction extends AbstractActionPage {
 	 * @return the d choose file ui
 	 */
 	public DChooseFileUI createOldCadseField() {
-		return new DChooseFileUI("selectJar", "Select old cadse", EPosLabel.left, new MC_OldCadse(), new IC_Import(),
+		return _swtuiPlatform.createDChooseFileUI(_page,"selectJar", "Select old cadse", EPosLabel.left, new MC_OldCadse(), new IC_Import(),
 				"Select old cadse");
 	}
 
@@ -370,7 +381,7 @@ public class MigrateCodePagesAction extends AbstractActionPage {
 	 * @return the d choose file ui
 	 */
 	public DChooseFileUI createNewCadseField() {
-		return new DChooseFileUI("selectJar", "Select new cadse", EPosLabel.left, new MC_NewCadse(), new IC_Import(),
+		return _swtuiPlatform.createDChooseFileUI(_page, "selectJar", "Select new cadse", EPosLabel.left, new MC_NewCadse(), new IC_Import(),
 				"Select new cadse");
 	}
 
@@ -432,14 +443,9 @@ public class MigrateCodePagesAction extends AbstractActionPage {
 	/** The its_new. */
 	HashMap<String, CItemType>	its_new;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
-	 */
 	@Override
-	public void doFinish(Object monitor) throws Exception {
-		super.doFinish(monitor);
+	public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
+		super.doFinish(uiPlatform, monitor);
 		IProgressMonitor pmo = (IProgressMonitor) monitor;
 		its_old = new HashMap<String, CItemType>();
 		its_new = new HashMap<String, CItemType>();
@@ -666,6 +672,14 @@ public class MigrateCodePagesAction extends AbstractActionPage {
 	 */
 	private IProject getProject(IPath selectJar2) {
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(selectJar2.lastSegment());
+	}
+
+	public void open() throws CadseException {
+		_swtuiPlatform = new SWTUIPlatform();
+		_page = _swtuiPlatform.createPageDescription(MigrateCodeAction.IMPORT_BINARY_CADSE,
+				MigrateCodeAction.IMPORT_BINARY_CADSE);
+		_page.addLast(createOldCadseField().getAttributeDefinition(), createNewCadseField().getAttributeDefinition());
+		_swtuiPlatform.open(null, _page, this, 300, 200, false);
 	}
 
 }
