@@ -35,6 +35,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
+import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
@@ -48,8 +49,89 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedTreeUI;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCheckedUI, IC_ContextMenu,
-		RunningModelController {
+public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCheckedUI, IC_ContextMenu
+		 {
+	
+	class MC extends AbstractModelController {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fr.imag.adele.cadse.core.ui.IModelController#defaultValue()
+		 */
+		public Object defaultValue() {
+			return null;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
+		 */
+		public Object getValue() {
+			ArrayList<Item> viewmodelItems = new ArrayList<Item>();
+			Item view = getViewmodel();
+			Collection<Item> viewitemtypes = ViewManager.getViewItemTypes(view);
+
+			for (Item item : viewitemtypes) {
+				Item itemtype = ViewItemTypeManager.getItemType(item);
+				if (itemtype == null) {
+					continue;
+				}
+				viewmodelItems.add(itemtype);
+				Collection<Item> viewlinktypes = ViewItemTypeManager.getViewLinkTypes(item);
+				for (Item vlt : viewlinktypes) {
+					Item lt = ViewLinkTypeManager.getLinkType(vlt);
+					if (lt == null) {
+						continue;
+					}
+					viewmodelItems.add(lt);
+				}
+			}
+			return viewmodelItems.toArray(new Item[viewmodelItems.size()]);
+		}
+		
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
+		 *      java.lang.Object)
+		 */
+		public void notifieSubValueAdded(UIField field, Object added) {
+			try {
+				if (added instanceof Object[]) {
+					Object[] arrayadded = (Object[]) added;
+					for (Object obj : arrayadded) {
+						addItem((Item) obj);
+					}
+				} else {
+					addItem((Item) added);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
+		 *      java.lang.Object)
+		 */
+		public void notifieSubValueRemoved(UIField field, Object removed) {
+			try {
+				if (removed instanceof Object[]) {
+					Object[] arrayremoved = (Object[]) removed;
+					for (Object obj : arrayremoved) {
+						removeItem((Item) obj);
+					}
+				} else {
+					removeItem((Item) removed);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * The Class RootAction.
@@ -601,102 +683,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 		this.checkedTreeUI = checkedTreeUI;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IModelController#defaultValue()
-	 */
-	public Object defaultValue() {
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
-	 */
-	public Object getValue() {
-		ArrayList<Item> viewmodelItems = new ArrayList<Item>();
-		Item view = getViewmodel();
-		Collection<Item> viewitemtypes = ViewManager.getViewItemTypes(view);
-
-		for (Item item : viewitemtypes) {
-			Item itemtype = ViewItemTypeManager.getItemType(item);
-			if (itemtype == null) {
-				continue;
-			}
-			viewmodelItems.add(itemtype);
-			Collection<Item> viewlinktypes = ViewItemTypeManager.getViewLinkTypes(item);
-			for (Item vlt : viewlinktypes) {
-				Item lt = ViewLinkTypeManager.getLinkType(vlt);
-				if (lt == null) {
-					continue;
-				}
-				viewmodelItems.add(lt);
-			}
-		}
-		return viewmodelItems.toArray(new Item[viewmodelItems.size()]);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieValueChanged(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public void notifieValueChanged(UIField field, Object value) {
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieValueDeleted(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public void notifieValueDeleted(UIField field, Object oldvalue) {
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public void notifieSubValueAdded(UIField field, Object added) {
-		try {
-			if (added instanceof Object[]) {
-				Object[] arrayadded = (Object[]) added;
-				for (Object obj : arrayadded) {
-					addItem((Item) obj);
-				}
-			} else {
-				addItem((Item) added);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public void notifieSubValueRemoved(UIField field, Object removed) {
-		try {
-			if (removed instanceof Object[]) {
-				Object[] arrayremoved = (Object[]) removed;
-				for (Object obj : arrayremoved) {
-					removeItem((Item) obj);
-				}
-			} else {
-				removeItem((Item) removed);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	/**
 	 * Removes the item.
@@ -866,97 +853,6 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IEventListener#init(fr.imag.adele.cadse.core.ui.UIField)
-	 */
-	public void init(UIField field) {
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validSubValueAdded(UIField field, Object added) {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validSubValueRemoved(UIField field, Object removed) {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validValue(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validValue(UIField field, Object value) {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validValueChanged(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validValueChanged(UIField field, Object value) {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validValueDeleted(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validValueDeleted(UIField field, Object removed) {
-		return false;
-	}
-
-	public ItemType getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean isAnonymous() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void initAfterUI(UIField field) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Item getDescriptor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int incrementError() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void init(UIPlatform uiPlatform) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
