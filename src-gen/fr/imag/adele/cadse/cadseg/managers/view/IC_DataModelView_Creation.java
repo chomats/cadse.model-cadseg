@@ -25,6 +25,7 @@ import java.util.Map;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 
 /**
  * The Class IC_DataModelView_Creation.
@@ -32,6 +33,10 @@ import fr.imag.adele.cadse.core.Item;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class IC_DataModelView_Creation extends IC_DataModelView {
+	
+	class DataModelMC extends AbstractModelController {
+		
+	}
 
 	/** The value. */
 	Map<Item, Integer>	value		= new HashMap<Item, Integer>();
@@ -216,5 +221,9 @@ public class IC_DataModelView_Creation extends IC_DataModelView {
 			newi &= ~kind;
 		}
 		value.put(key, newi);
+	}
+
+	public AbstractModelController mc() {
+		return new MC();
 	}
 }

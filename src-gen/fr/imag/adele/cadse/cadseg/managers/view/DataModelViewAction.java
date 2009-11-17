@@ -149,7 +149,7 @@ public class DataModelViewAction extends IMenuAction {
 			IC_DataModelView_Creation ic_mc = new IC_DataModelView_Creation(new Item[] { datamodel }, view);
 			DataModelViewWizardController action = new DataModelViewWizardController(ic_mc);
 			_page = _uiPlatform.createPageDescription("Select Item Type and Link", "Select Item Type and Link for this view");
-			checkedTreeUI = _uiPlatform.createDCheckedTreeUI(_page, "#sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
+			checkedTreeUI = _uiPlatform.createDCheckedTreeUI(_page, "#sel", "", EPosLabel.none, ic_mc.mc(), ic_mc, true, false);
 			//new DCheckedTreeUI("sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
 			ic_mc.setCheckedTreeUI(checkedTreeUI);
 			_uiPlatform.open(null, _page, action, false);

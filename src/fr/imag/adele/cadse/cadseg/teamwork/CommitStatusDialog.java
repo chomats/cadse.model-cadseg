@@ -779,7 +779,7 @@ public class CommitStatusDialog {
 	 * Create a list field showing modified attributes.
 	 */
 	protected DListUI<IC_DynamicArrayOfObjectForList> createListOfCommitedItemsField() {
-		RunningModelController mc = new AbstractModelController() {
+		AbstractModelController mc = new AbstractModelController() {
 
 			@Override
 			public Object getValue() {

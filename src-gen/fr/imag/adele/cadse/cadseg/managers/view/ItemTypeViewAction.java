@@ -34,6 +34,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
+import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
@@ -56,10 +57,53 @@ public class ItemTypeViewAction extends IMenuAction {
 	/** The manager. */
 	private final ViewManager	manager;
 
+	class DataModelMC extends AbstractModelController {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
+		 *      java.lang.Object)
+		 */
+		public void notifieSubValueAdded(UIField field, Object added) {
+			try {
+				if (added instanceof Object[]) {
+					Object[] arrayadded = (Object[]) added;
+					for (Object obj : arrayadded) {
+						addItem((Item) obj);
+					}
+				} else {
+					addItem((Item) added);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
+		 *      java.lang.Object)
+		 */
+		public void notifieSubValueRemoved(UIField field, Object removed) {
+			try {
+				if (removed instanceof Object[]) {
+					Object[] arrayremoved = (Object[]) removed;
+					for (Object obj : arrayremoved) {
+						removeItem((Item) obj);
+					}
+				} else {
+					removeItem((Item) removed);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	/**
 	 * The Class DataModelViewWizardController.
 	 */
-	class DataModelViewWizardController extends AbstractActionPage implements RunningModelController {
+	class DataModelViewWizardController extends AbstractActionPage   {
 
 		/**
 		 * Instantiates a new data model view wizard controller.
@@ -113,104 +157,6 @@ public class ItemTypeViewAction extends IMenuAction {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IModelController#defaultValue()
-		 */
-		public Object defaultValue() {
-			return null;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#dispose()
-		 */
-		@Override
-		public void dispose() {
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
-		 */
-		public Object getValue() {
-			return null;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IModelController#initAfterUI()
-		 */
-		@Override
-		public void initAfterUI() {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public void notifieSubValueAdded(UIField field, Object added) {
-			try {
-				if (added instanceof Object[]) {
-					Object[] arrayadded = (Object[]) added;
-					for (Object obj : arrayadded) {
-						addItem((Item) obj);
-					}
-				} else {
-					addItem((Item) added);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public void notifieSubValueRemoved(UIField field, Object removed) {
-			try {
-				if (removed instanceof Object[]) {
-					Object[] arrayremoved = (Object[]) removed;
-					for (Object obj : arrayremoved) {
-						removeItem((Item) obj);
-					}
-				} else {
-					removeItem((Item) removed);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieValueChanged(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public void notifieValueChanged(UIField field, Object value) {
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieValueDeleted(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public void notifieValueDeleted(UIField field, Object oldvalue) {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
 		 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
 		 */
 		@Override
@@ -231,98 +177,6 @@ public class ItemTypeViewAction extends IMenuAction {
 					ViewManager.createViewLinkType(view, dest);
 				}
 			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IModelController#init()
-		 */
-		public void init()  {
-			// TODO Auto-generated method stub
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IEventListener#init(fr.imag.adele.cadse.core.ui.UIField)
-		 */
-		public void init(UIField field) {
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public boolean validSubValueAdded(UIField field, Object added) {
-			return false;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public boolean validSubValueRemoved(UIField field, Object removed) {
-			return false;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validValue(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public boolean validValue(UIField field, Object value) {
-			return false;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validValueChanged(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public boolean validValueChanged(UIField field, Object value) {
-			return false;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validValueDeleted(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public boolean validValueDeleted(UIField field, Object removed) {
-			return false;
-		}
-
-		public boolean isAnonymous() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public void initAfterUI(UIField field) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public Item getDescriptor() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public int incrementError() {
-			// TODO Auto-generated method stub
-			return 0;
 		}
 	}
 
@@ -535,7 +389,7 @@ public class ItemTypeViewAction extends IMenuAction {
 		try {
 			DataModelViewWizardController action = new DataModelViewWizardController();
 			_page = _uiPlatform.createPageDescription("Select Item Type and Link", "Select Item Type and Link for this view");
-			checkedTreeUI = _uiPlatform.createDCheckedTreeUI(_page, "#sel", "", EPosLabel.none, action, new IC_DataModelView(), true, false);
+			checkedTreeUI = _uiPlatform.createDCheckedTreeUI(_page, "#sel", "", EPosLabel.none, new DataModelMC(), new IC_DataModelView(), true, false);
 			_uiPlatform.open(null, _page, action, false);
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
