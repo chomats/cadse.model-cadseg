@@ -112,11 +112,11 @@
         <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="5d901ef5-f74b-4256-9bd1-a7355eacd738" cst-name="CADSE_at_ITEM_REPO_PASSWD_" min="0" type="string" value="" key="itemRepoPasswd" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
         <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="9305f0f1-551a-49f9-9e19-d7d666059251" cst-name="CADSE_at_ITEM_REPO_URL_" min="0" type="string" value="" key="itemRepoURL" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
         <creation-pages>
-            <page titre="Create Cadse" uuid="98783bfe-9e97-4317-b316-298224283e89" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.CadseRuntimeCreationPage1_CreationPage" id="creation-page1"/>
+            <page titre="Create Cadse" uuid="98783bfe-9e97-4317-b316-298224283e89" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.CadseCreationPage1_CreationPage" id="creation-page1"/>
         </creation-pages>
         <modification-pages>
-            <page titre="Cadse" uuid="3404ffd0-d19f-416d-9934-37a880a81c81" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.CadseRuntimeModificationPage1_ModificationPage" id="modification-page1"/>
-            <page titre="repo" uuid="7a874d7f-6db9-4679-aafd-b8d6ce969534" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.CadseRuntimeRepo_ModificationPage" id="repo"/>
+            <page titre="Cadse" uuid="3404ffd0-d19f-416d-9934-37a880a81c81" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.CadseModificationPage1_ModificationPage" id="modification-page1"/>
+            <page titre="repo" uuid="7a874d7f-6db9-4679-aafd-b8d6ce969534" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.CadseRepo_ModificationPage" id="repo"/>
         </modification-pages>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[A-Za-z_][A-Z0-9a-z_]*(\.[A-Za-z_][A-Z0-9a-z_]*)*" pattern-id="Model.Workspace.${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/s4all-16x16-workspace.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager" display-name="CADSE definition" is-abstract="false" is-root-element="true" intID="0" has-content="true" package-name="" super-type-name="b81c6546-c321-4590-b0eb-7b13929cb1dd" name="CadseDefinition" qualified-name="CadseG..CadseDefinition" cst-name="CADSE_DEFINITION" id="07461b19-b1c4-4f45-a86b-db96ca524030">
