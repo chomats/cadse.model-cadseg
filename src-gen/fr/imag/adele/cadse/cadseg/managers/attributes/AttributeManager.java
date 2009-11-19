@@ -385,18 +385,20 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	}
 
 	/**
-	 * @generated
-	 */
-	public static final boolean isFinalValueAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_FINAL_VALUE_, false);
+		@generated
+	*/
+	public static final boolean isFinalAttribute(Item attribute) {
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_FINAL_, false);
 	}
 
+
+
 	/**
-	 * @generated
-	 */
-	public static final void setFinalValueAttribute(Item attribute, boolean value) {
+		@generated
+	*/
+	public static final void setFinalAttribute(Item attribute, boolean value) {
 		try {
-			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_FINAL_VALUE_, value);
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_FINAL_, value);
 		} catch (Throwable t) {
 
 		}
@@ -564,6 +566,28 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 
 		}
 	}
+
+	/**
+		@generated
+	*/
+	public static final boolean isHiddenInComputedPagesAttribute(Item attribute) {
+		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_, false);
+	}
+
+
+
+	/**
+		@generated
+	*/
+	public static final void setHiddenInComputedPagesAttribute(Item attribute, boolean value) {
+		try {
+			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+
 
 	/**
 	 * Gets the uUID.
