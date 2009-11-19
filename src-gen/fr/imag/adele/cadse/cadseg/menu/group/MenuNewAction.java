@@ -83,7 +83,8 @@ public class MenuNewAction extends IMenuAction {
 	public void run(IItemNode[] selection) throws CadseException {
 		Shell shell = ((IShellProvider) _c.getView().getWindowProvider()).getShell();
 		try {
-			WizardController wizard = new WizardController(new SWTUIPlatform(_c.getDestinationType().getGoodCreationPage(_c), shell));
+			_c.initTransaction(_c.getDestinationType().getLogicalWorkspace());
+			WizardController wizard = new WizardController(new SWTUIPlatform(_c.getNewItem().getCreationPages(_c), shell));
 			UIWizardDialog wd = new UIWizardDialog(shell, wizard);
 			wd.open();
 		} catch (Throwable e1) {
