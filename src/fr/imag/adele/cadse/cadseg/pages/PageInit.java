@@ -21,11 +21,13 @@ public class PageInit {
 		
 		CadseGCST.ITEM_at_NAME_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		
-		CadseGCST.ITEM.addField(new UIFieldImpl(CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.ITEM_at_NAME_,"name",EPosLabel.left,
+		CadseGCST.ITEM.addField(new UIFieldImpl(CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.ITEM_at_NAME_,
+				"name",EPosLabel.left,
 				new MC_Descriptor(CadseGCST.MC_NAME_ATTRIBUTE), null));
 		
 		CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.CADSE_lt_EXTENDS.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		
 		JavaClassValidator v  = new JavaClassValidator();
 		v.setClazz(JavaPackageValidator.class);
 		v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
