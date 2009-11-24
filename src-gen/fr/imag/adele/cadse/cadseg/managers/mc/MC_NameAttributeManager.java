@@ -1,10 +1,10 @@
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
 
-import fede.workspace.model.manager.properties.impl.mc.MC_ShortNameItemProperty;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Name;
 
 
 
@@ -66,7 +66,7 @@ public class MC_NameAttributeManager extends ModelControllerManager {
 	
 	@Override
 	public String getDefaultClassName() {
-		return MC_ShortNameItemProperty.class.getName();
+		return MC_Name.class.getName();
 	}
 
 }
