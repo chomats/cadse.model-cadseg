@@ -1951,4 +1951,16 @@ public class ItemTypeManager extends TypeDefinitionManager {
 			cxt = itemType.getLogicalWorkspace().getContext();
 		return GenerateJavaIdentifier.getQualifiedManager(cxt, itemType, manager, isCustomManagerAttribute(itemType));
 	}
+	
+	public static Item findSuperAttribute(Item attribute, String name) {
+		if (name == null)
+			name = attribute.getName();
+		Item absItemType = attribute.getPartParent();
+		Item superItemtype = getSuperAbstractItemType(absItemType);
+		if (superItemtype == null) {
+			return null;
+		}
+		return findAttribute(superItemtype, name);
+
+	}
 }

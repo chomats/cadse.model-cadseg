@@ -23,14 +23,14 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
-import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
-import fede.workspace.model.manager.properties.Proposal;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.path.ParsePath;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.IFieldContenProposalProvider;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.Proposal;
 
 /**
  * The Class SelectionUC.
