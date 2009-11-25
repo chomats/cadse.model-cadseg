@@ -378,40 +378,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 
 	
 
-	/**
-	 * Gets the all dependencies cadse.
-	 * 
-	 * @param cadseDefinition
-	 *            the cadse definition
-	 * 
-	 * @return the all dependencies cadse
-	 */
-	public static List<Item> getAllDependenciesCadse(Item cadseDefinition) {
-		List<Item> ret = new ArrayList<Item>();
-		Collection<Item> aextends = getExtends(cadseDefinition);
-		if (aextends.size() != 0) {
-			ret.addAll(aextends);
-			for (Item subcadse : aextends) {
-				ret.addAll(getAllDependenciesCadse(subcadse));
-			}
-		}
-		return ret;
-	}
-
-	/**
-	 * Gets the dependencies cadses and me.
-	 * 
-	 * @param cadsedef
-	 *            the cadsedef
-	 * 
-	 * @return the dependencies cadses and me
-	 */
-	public static Item[] getDependenciesCadsesAndMe(Item cadsedef) {
-		List<Item> allcadse = getAllDependenciesCadse(cadsedef);
-		allcadse.add(cadsedef);
-		Item[] ret = allcadse.toArray(new Item[allcadse.size()]);
-		return ret;
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -1414,32 +1381,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#canCreateLink(fr.imag
-	 * .adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
-	 * fr.imag.adele.cadse.core.LinkType)
-	 */
-	@Override
-	public String canCreateLink(Item source, Item dest, LinkType lt) {
-		if (source.getQualifiedName().equals(CadseDomain.CADSE_ROOT_MODEL)) {
-			return "Cannot extend this cadse : it's the root cadse";
-		}
-
-		if (lt == CadseGCST.CADSE_lt_EXTENDS) {
-			if (dest == source) {
-				return "Cannot extends self";
-			}
-
-			List<Item> deps = getAllDependenciesCadse(dest);
-			if (deps.contains(source)) {
-				return "Cannot extend this cadse";
-			}
-		}
-		return super.canCreateLink(source, dest, lt);
-	}
+	
 	
 	@Override
 	public boolean hasImageByItem() {

@@ -4,6 +4,7 @@ package fr.imag.adele.cadse.cadseg.managers;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemManager;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
+import fr.imag.adele.cadse.core.CadseDomain;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseRuntime;
@@ -16,6 +17,7 @@ import fr.imag.adele.cadse.core.key.SpaceKeyType;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -285,5 +287,66 @@ public class CadseManager extends ItemManager {
 		return true;
 	}
 
+	/**
+	 * Gets the all dependencies cadse.
+	 * 
+	 * @param cadseDefinition
+	 *            the cadse definition
+	 * 
+	 * @return the all dependencies cadse
+	 */
+	public static List<Item> getAllDependenciesCadse(Item cadseDefinition) {
+		List<Item> ret = new ArrayList<Item>();
+		Collection<Item> aextends = getExtends(cadseDefinition);
+		if (aextends.size() != 0) {
+			ret.addAll(aextends);
+			for (Item subcadse : aextends) {
+				ret.addAll(getAllDependenciesCadse(subcadse));
+			}
+		}
+		return ret;
+	}
+
+	/**
+	 * Gets the dependencies cadses and me.
+	 * 
+	 * @param cadsedef
+	 *            the cadsedef
+	 * 
+	 * @return the dependencies cadses and me
+	 */
+	public static Item[] getDependenciesCadsesAndMe(Item cadsedef) {
+		List<Item> allcadse = getAllDependenciesCadse(cadsedef);
+		allcadse.add(cadsedef);
+		Item[] ret = allcadse.toArray(new Item[allcadse.size()]);
+		return ret;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#canCreateLink(fr.imag
+	 * .adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
+	 * fr.imag.adele.cadse.core.LinkType)
+	 */
+	@Override
+	public String canCreateLink(Item source, Item dest, LinkType lt) {
+		if (source.getQualifiedName().equals(CadseDomain.CADSE_ROOT_MODEL)) {
+			return "Cannot extend this cadse : it's the root cadse";
+		}
+
+		if (lt == CadseGCST.CADSE_lt_EXTENDS) {
+			if (dest == source) {
+				return "Cannot extends self";
+			}
+
+			List<Item> deps = getAllDependenciesCadse(dest);
+			if (deps.contains(source)) {
+				return "Cannot extend this cadse";
+			}
+		}
+		return super.canCreateLink(source, dest, lt);
+	}
 }
 
