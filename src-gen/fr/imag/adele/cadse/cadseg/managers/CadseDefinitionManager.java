@@ -393,7 +393,12 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 		new CadseG_WLWCListener();
 		new CadseG_WorkspaceListener();
 		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
-		PageInit.init();
+		try {
+			PageInit.init();
+		} catch (CadseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/*
