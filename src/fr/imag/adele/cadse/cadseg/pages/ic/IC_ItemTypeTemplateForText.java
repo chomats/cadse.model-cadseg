@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package fr.imag.adele.cadse.cadseg;
+package fr.imag.adele.cadse.cadseg.pages.ic;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,8 +27,6 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
-import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
-import fede.workspace.model.manager.properties.Proposal;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
@@ -38,6 +36,8 @@ import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.IFieldContenProposalProvider;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.Proposal;
 
 /**
  * The Class IC_ItemTypeTemplateForText.

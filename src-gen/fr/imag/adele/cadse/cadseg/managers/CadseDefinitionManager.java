@@ -46,8 +46,6 @@ import org.osgi.framework.BundleException;
 
 import fede.workspace.dependencies.eclipse.java.fix.IFixManager;
 import fede.workspace.eclipse.java.osgi.OsgiManifest;
-import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
-import fede.workspace.model.manager.properties.Proposal;
 import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionCIF;
@@ -80,6 +78,8 @@ import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.IFieldContenProposalProvider;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.Proposal;
 
 /**
  * The Class CadseDefinitionManager.
