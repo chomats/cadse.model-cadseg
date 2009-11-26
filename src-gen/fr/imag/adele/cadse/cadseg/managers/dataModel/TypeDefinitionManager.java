@@ -26,8 +26,11 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 
 /**
  * The Class AbstractItemTypeManager.
@@ -354,6 +357,42 @@ public class TypeDefinitionManager extends ItemManager {
     */
     static public void removeModificationPages(Item typeDefinition, Item value) throws CadseException {
         typeDefinition.removeOutgoingItem(CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES,value);
+    }
+
+	/**
+		get  links 'goupsOfAttributes' from 'TypeDefinition' to 'GroupOfAttributes'.
+        @generated
+    */
+    static public List<Link> getGoupsOfAttributesLink(Item typeDefinition) {
+        return typeDefinition.getOutgoingLinks(CadseGCST.TYPE_DEFINITION_lt_GOUPS_OF_ATTRIBUTES);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getGoupsOfAttributesAll(Item typeDefinition) {
+        return typeDefinition.getOutgoingItems(CadseGCST.TYPE_DEFINITION_lt_GOUPS_OF_ATTRIBUTES, false);
+    }
+
+	/**
+        @generated
+    */
+    static public Collection<Item> getGoupsOfAttributes(Item typeDefinition) {
+        return typeDefinition.getOutgoingItems(CadseGCST.TYPE_DEFINITION_lt_GOUPS_OF_ATTRIBUTES,true);
+    }
+
+	/**
+        @generated
+    */
+    static public void addGoupsOfAttributes(Item typeDefinition, Item value) throws CadseException {
+        typeDefinition.addOutgoingItem(CadseGCST.TYPE_DEFINITION_lt_GOUPS_OF_ATTRIBUTES,value);
+    }
+
+	/**
+        @generated
+    */
+    static public void removeGoupsOfAttributes(Item typeDefinition, Item value) throws CadseException {
+        typeDefinition.removeOutgoingItem(CadseGCST.TYPE_DEFINITION_lt_GOUPS_OF_ATTRIBUTES,value);
     }
 
 	/**
