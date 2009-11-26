@@ -27,7 +27,7 @@ import fr.imag.adele.cadse.core.LinkType;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class MC_LinkToBooleanManager extends LinkModelControllerManager {
+public class MC_LinkToBooleanManager extends MC_LinkManager {
 	// boolean mandatory, String msg, LinkType lt
 
 	/**
