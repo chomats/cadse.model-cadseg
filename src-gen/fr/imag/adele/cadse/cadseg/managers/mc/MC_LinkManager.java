@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
+import fede.workspace.eclipse.content.SubFileContentManager;
 import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
@@ -33,6 +34,9 @@ import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.core.var.Variable;
+import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
@@ -40,14 +44,28 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class LinkModelControllerManager extends ModelControllerManager {
+public class MC_LinkManager extends ModelControllerManager {
 
 	
 
 	/**
+		@generated
+	*/
+	public class MC_LinkContent extends ModelControllerManager.ModelControllerContent {
+
+		/**
+			@generated
+		*/
+		public MC_LinkContent(CompactUUID id) throws CadseException {
+			super(id);
+		}
+
+	}
+
+	/**
 	 * @generated
 	 */
-	public LinkModelControllerManager() {
+	public MC_LinkManager() {
 		super();
 	}
 
@@ -246,16 +264,16 @@ public class LinkModelControllerManager extends ModelControllerManager {
 	/**
 		@generated
 	*/
-	public static final String getErrorMessageAttribute(Item linkModelController) {
-		return linkModelController.getAttributeWithDefaultValue(CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_, null);
+	public static final String getErrorMessageAttribute(Item mC_Link) {
+		return mC_Link.getAttributeWithDefaultValue(CadseGCST.MC_LINK_at_ERROR_MESSAGE_, null);
 	}
 
 	/**
 		@generated
 	*/
-	public static final void setErrorMessageAttribute(Item linkModelController, String value) {
+	public static final void setErrorMessageAttribute(Item mC_Link, String value) {
 		try {
-			linkModelController.setAttribute(CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_, value);
+			mC_Link.setAttribute(CadseGCST.MC_LINK_at_ERROR_MESSAGE_, value);
 		} catch (Throwable t) {
 
 		}
