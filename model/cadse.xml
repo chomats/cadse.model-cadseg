@@ -266,6 +266,14 @@
             <page titre="DList" uuid="b5a6fd5d-5574-4427-aebc-a852c2d1a225" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.ui.DListModificationPage1_ModificationPage" id="modification-page1"/>
         </modification-pages>
     </item-type>
+    <item-type hidden="false" pattern-id="${#parent.qualified-name}{.}${#name}" icon="" manager-class="fr.imag.adele.cadse.cadseg.managers.ui.DSectionManager" display-name="DSection" is-abstract="false" is-root-element="true" intID="0" has-content="true" package-name="ui" super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DSection" qualified-name="CadseG.ui.DSection" cst-name="DSECTION" id="afab9edf-c21b-43fd-87aa-68cc9bf11728">
+        <creation-pages>
+            <page titre="Create DSection" uuid="1bccbd8c-92da-435c-80b0-6da3218d2af6" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.ui.DSectionCreationPageDSection_CreationPage" id="creation-page-DSection"/>
+        </creation-pages>
+        <modification-pages>
+            <page titre="DSection" uuid="dbd88d31-3efe-4f77-a131-1d791333b9f3" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.ui.DSectionModificationPageDSection_ModificationPage" id="modification-page-DSection"/>
+        </modification-pages>
+    </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" manager-class="fr.imag.adele.cadse.cadseg.managers.ui.DSymbolicBitMapUIManager" display-name="DSymbolicBitMapUI" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="ui" super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DSymbolicBitMapUI" qualified-name="CadseG.ui.DSymbolicBitMapUI" cst-name="DSYMBOLIC_BIT_MAP_UI" id="889870e4-26ba-4357-ad6a-2d7c8e1f68c1">
         <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="1" id="cef85833-7df8-473c-a978-5bd1345789f8" cst-name="DSYMBOLIC_BIT_MAP_UI_at_LABELS_" max="-1" min="0" type="list" value="" key="labels" type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
             <element tw-rev-specific="false" flag="1" min="0" type="string" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
@@ -615,19 +623,6 @@
             <page titre="IC_StringListForList" uuid="8ebcee1e-bad4-4f46-bfea-b456948ca1b4" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.ic.IC_StringListForListModificationPage1_ModificationPage" id="modification-page1"/>
         </modification-pages>
     </item-type>
-    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.IntModelControllerManager" display-name="IntModelController" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="IntModelController" qualified-name="CadseG.mc.IntModelController" cst-name="INT_MODEL_CONTROLLER" id="74840058-24ec-4533-8733-f1f0dcce595b">
-        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="f630baa8-b7e4-4bc0-a2eb-91d7f65a61a8" cst-name="INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_" min="0" type="integer" value="" key="default-value" type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa"/>
-        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="93ae4e33-ae78-4a0f-94c9-913c2b5f0a42" cst-name="INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX_" min="0" type="string" value="" key="error-msg-max" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
-        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="c655fd05-fdf5-40bd-92d6-4cfaafc176b2" cst-name="INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_" min="0" type="string" value="" key="error-msg-min" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
-        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="5cf0ca98-2095-41b4-bb31-784e1504e619" cst-name="INT_MODEL_CONTROLLER_at_MAX_" min="0" type="integer" value="" key="max" type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa"/>
-        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="64a2a26a-bf07-4a47-8c8d-11bde5439e66" cst-name="INT_MODEL_CONTROLLER_at_MIN_" min="0" type="integer" value="" key="min" type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa"/>
-        <creation-pages default-short-name="mc">
-            <page titre="Create IntModelController" uuid="4eca1df8-6653-4689-ab2b-cf8af3b7a663" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.IntModelControllerCreationPage1_CreationPage" id="creation-page1"/>
-        </creation-pages>
-        <modification-pages>
-            <page titre="IntModelController" uuid="746caff2-60e4-4aee-9136-c7cd45ee0041" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.IntModelControllerModificationPage1_ModificationPage" id="modification-page1"/>
-        </modification-pages>
-    </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/attribute.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.attributes.IntegerManager" display-name="Integer" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="attributes" super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Integer" qualified-name="CadseG.attributes.Integer" cst-name="INTEGER" id="96b56223-b777-4d43-a4fd-d44afc9d50aa">
         <creation-pages>
             <page titre="Create Integer" uuid="d006bd09-3a97-46b1-904c-2208c44a43a3" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.attributes.IntegerCreationPage1_CreationPage" id="creation-page1"/>
@@ -792,15 +787,6 @@
             <page titre="Evolution definition" uuid="ec4e99f2-1237-4057-bd3d-a30faa7c83a4" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.attributes.LinkEvolDef_ModificationPage" id="evol-def"/>
         </modification-pages>
     </item-type>
-    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.LinkModelControllerManager" display-name="Link model controller" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="LinkModelController" qualified-name="CadseG.mc.LinkModelController" cst-name="LINK_MODEL_CONTROLLER" id="8b02bffe-8011-45e3-b7bd-afbcec04a5cb">
-        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="a0a010de-17cd-4464-a8a3-f0b0fb5adaf0" cst-name="LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_" min="0" type="string" value="" key="error-message" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
-        <creation-pages default-short-name="mc">
-            <page titre="Add a link model controller" uuid="d45ddd47-579a-440f-b143-e589027f0c95" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.LinkModelControllerCreationPage1_CreationPage" id="creation-page1"/>
-        </creation-pages>
-        <modification-pages>
-            <page titre="Link model controller" uuid="3b1fe9d8-c2b2-4a14-801d-9e2b16fc4868" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.LinkModelControllerModificationPage1_ModificationPage" id="modification-page1"/>
-        </modification-pages>
-    </item-type>
     <item-type hidden="false" pattern-id="${#parent-unique-name}{.}${#short-name}" manager-class="fr.imag.adele.cadse.cadseg.managers.attributes.ListManager" display-name="List" is-abstract="false" is-root-element="false" intID="0" has-content="false" package-name="attributes" super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="List" qualified-name="CadseG.attributes.List" cst-name="LIST" id="06b59d1d-b7a7-45df-b133-4b1099207a04">
         <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="3759a8b6-9efa-43dc-b91c-874e12c8d634" cst-name="LIST_lt_SUB_TYPE" intID="0" destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="1" min="1" name="sub-type"/>
         <creation-pages>
@@ -841,6 +827,28 @@
         </creation-pages>
         <modification-pages>
             <page titre="MC_DestLink" uuid="ade1cb52-e003-4fce-a93a-4751550c6d06" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_DestLinkModificationPage1_ModificationPage" id="modification-page1"/>
+        </modification-pages>
+    </item-type>
+    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_IntegerManager" display-name="MC_Integer" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_Integer" qualified-name="CadseG.mc.MC_Integer" cst-name="MC_INTEGER" id="74840058-24ec-4533-8733-f1f0dcce595b">
+        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="f630baa8-b7e4-4bc0-a2eb-91d7f65a61a8" cst-name="MC_INTEGER_at_DEFAULT_VALUE_" min="0" type="integer" value="" key="default-value" type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa"/>
+        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="93ae4e33-ae78-4a0f-94c9-913c2b5f0a42" cst-name="MC_INTEGER_at_ERROR_MSG_MAX_" min="0" type="string" value="" key="error-msg-max" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
+        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="c655fd05-fdf5-40bd-92d6-4cfaafc176b2" cst-name="MC_INTEGER_at_ERROR_MSG_MIN_" min="0" type="string" value="" key="error-msg-min" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
+        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="5cf0ca98-2095-41b4-bb31-784e1504e619" cst-name="MC_INTEGER_at_MAX_" min="0" type="integer" value="" key="max" type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa"/>
+        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="64a2a26a-bf07-4a47-8c8d-11bde5439e66" cst-name="MC_INTEGER_at_MIN_" min="0" type="integer" value="" key="min" type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa"/>
+        <creation-pages default-short-name="mc">
+            <page titre="Create MC_Integer" uuid="4eca1df8-6653-4689-ab2b-cf8af3b7a663" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_IntegerCreationPage1_CreationPage" id="creation-page1"/>
+        </creation-pages>
+        <modification-pages>
+            <page titre="MC_Integer" uuid="746caff2-60e4-4aee-9136-c7cd45ee0041" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_IntegerModificationPage1_ModificationPage" id="modification-page1"/>
+        </modification-pages>
+    </item-type>
+    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_LinkManager" display-name="Link model controller" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_Link" qualified-name="CadseG.mc.MC_Link" cst-name="MC_LINK" id="8b02bffe-8011-45e3-b7bd-afbcec04a5cb">
+        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="0" id="a0a010de-17cd-4464-a8a3-f0b0fb5adaf0" cst-name="MC_LINK_at_ERROR_MESSAGE_" min="0" type="string" value="" key="error-message" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
+        <creation-pages default-short-name="mc">
+            <page titre="Add a link model controller" uuid="d45ddd47-579a-440f-b143-e589027f0c95" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_LinkCreationPage1_CreationPage" id="creation-page1"/>
+        </creation-pages>
+        <modification-pages>
+            <page titre="Link model controller" uuid="3b1fe9d8-c2b2-4a14-801d-9e2b16fc4868" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_LinkModificationPage1_ModificationPage" id="modification-page1"/>
         </modification-pages>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_LinkToBooleanManager" display-name="Link to boolean model controller" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="8b02bffe-8011-45e3-b7bd-afbcec04a5cb" name="MC_LinkToBoolean" qualified-name="CadseG.mc.MC_LinkToBoolean" cst-name="MC_LINK_TO_BOOLEAN" id="dc046f30-2dc1-47f6-aae4-736762b10c6f">
