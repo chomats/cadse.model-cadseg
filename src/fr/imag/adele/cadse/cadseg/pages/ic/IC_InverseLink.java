@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.pages.attributes;
+package fr.imag.adele.cadse.cadseg.pages.ic;
 
 import java.util.HashSet;
 
@@ -83,19 +83,7 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 		}
 	}
 
-	/**
-	 * Instantiates a new i c_ inverse link.
-	 * 
-	 * @param title
-	 *            the title
-	 * @param message
-	 *            the message
-	 * @param type
-	 *            the type
-	 */
-	public IC_InverseLink(String title, String message, LinkType type) {
-		super(title, message, type);
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -104,7 +92,7 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 	 */
 	@Override
 	public Object[] getValues() {
-		Item theItemLinkType = getUIField().getItem();
+		Item theItemLinkType = _uiPlatform.getItem();
 
 		Item containerAttribute = theItemLinkType.getPartParent();
 

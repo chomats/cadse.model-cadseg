@@ -2,7 +2,9 @@ package fr.imag.adele.cadse.cadseg.pages;
 
 
 
-
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.core.CadseException;
@@ -12,10 +14,16 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 
 public class PageInit {
 	public static void init() throws CadseException {
@@ -52,12 +60,13 @@ public class PageInit {
 		CadseGCST.LINK_at_MAPPING_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_MAX_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_MIN_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-		CadseGCST.LINK_at_SELECTION_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.LINK_at_SELECTION_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.LINK_at_REQUIRE_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_TWDEST_EVOL_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_TWCOUPLED_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_lt_DESTINATION.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_lt_INVERSE_LINK.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.LINK_lt_INVERSE_LINK.setFlag(Item.CAN_BE_UNDEFINED, true);
 		
 		
 		
@@ -67,25 +76,87 @@ public class PageInit {
 				new MC_Descriptor(CadseGCST.MC_NAME_ATTRIBUTE), null));
 		
 		// create super type field (overwrite ic)
-		IC_Descriptor icSupertype = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST);
-		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icSupertype, IC_SuperTypeForBrowser_Combo.class);
-		icSupertype.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_, "Select a super type");
-		icSupertype.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_, "Select a super type");
+		{
+			IC_Descriptor icSupertype = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST,
 		
-		CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(
-				CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.ITEM_TYPE_lt_SUPER_TYPE,
-				"super type", EPosLabel.left,
-				new MC_Descriptor(CadseGCST.LINK_MODEL_CONTROLLER), icSupertype));
+					CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_, "Select a super type",
+					CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_, "Select a super type");
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icSupertype, IC_SuperTypeForBrowser_Combo.class);
+			
+			CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(
+					CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.ITEM_TYPE_lt_SUPER_TYPE,
+					"super type:", EPosLabel.left,
+					new MC_Descriptor(CadseGCST.LINK_MODEL_CONTROLLER), icSupertype));
+		}
 		
+		// create destination field (overwrite ic)
+		{
+			IC_Descriptor icDesttype = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST,
+				CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_, "Select a destination",
+				CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_, "Select a destination");
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icDesttype, IC_DestinationLinkForBrowser_Combo.class);
 		
-		// create a validator for attribute package name
-		JavaClassValidator v  = new JavaClassValidator();
-		v.setClazz(JavaPackageValidator.class);
-		v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
-		CadseGCST.CADSE_DEFINITION.addValidators(v);
+			CadseGCST.LINK.addField(new UIFieldImpl(
+				CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.LINK_lt_DESTINATION,
+				"destination:", EPosLabel.left,
+				new MC_Descriptor(CadseGCST.LINK_MODEL_CONTROLLER,
+						CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_,
+						"You must set the destination"), icDesttype));
+		}
 		
+		{// create destination field (overwrite ic)
+			IC_Descriptor icInverseLink = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST,
+					CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_, "Select an inverse link",
+					CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_, "Select an inverse link");
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icInverseLink, fr.imag.adele.cadse.cadseg.pages.ic.IC_InverseLink.class);
+			
+			CadseGCST.LINK.addField(new UIFieldImpl(
+					CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.LINK_lt_INVERSE_LINK,
+					"inverse link:", EPosLabel.left,
+					new MC_Descriptor(CadseGCST.LINK_MODEL_CONTROLLER), icInverseLink));
+			
+		}
+		{
+			IC_Descriptor icMin = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icMin, IC_Min.class);
+			
+			CadseGCST.LINK.addField(new UIFieldImpl(
+					CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.LINK_at_MIN_,
+					"min:", EPosLabel.left,
+					new MC_Descriptor(CadseGCST.INT_MODEL_CONTROLLER,
+							CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_, 0,
+							CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_, "min must be >= 0",
+							CadseGCST.INT_MODEL_CONTROLLER_at_MIN_, 0), icMin));
+		}
 		
+		{
+			IC_Descriptor icMax = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icMax, IC_Max.class);
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.INT_MODEL_CONTROLLER,
+					CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_, 0,
+					CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_, "max must be > 0",
+					CadseGCST.INT_MODEL_CONTROLLER_at_MIN_, 0);
+			CreatedObjectManager.register(null, mc, MaxModelController.class);
+			CadseGCST.LINK.addField(new UIFieldImpl(
+					CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.LINK_at_MIN_,
+					"max:", EPosLabel.left,
+					mc, icMax));
+		}
+		{
+			// create a validator for attribute package name
+			JavaClassValidator v  = new JavaClassValidator(null);
+			v.setClazz(JavaPackageValidator.class);
+			v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
+			CadseGCST.CADSE_DEFINITION.addValidators(v);
+		}
 		
+		{
+			// create a validator for attribute min and max value
+			JavaClassValidator v2  = new JavaClassValidator(null);
+			v2.setClazz(MinMaxValidator.class);
+			v2.setListenAttributes(CadseGCST.LINK_at_MIN_, CadseGCST.LINK_at_MAX_);
+			CadseGCST.LINK.addValidators(v2);
+		}
 	}
 
 	
