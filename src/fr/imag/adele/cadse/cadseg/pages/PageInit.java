@@ -2,8 +2,6 @@ package fr.imag.adele.cadse.cadseg.pages;
 
 
 
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
@@ -15,16 +13,14 @@ import fr.imag.adele.cadse.core.impl.ui.GroupOfAttributesDescriptor;
 import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
-import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
 
 public class PageInit {
 	public static void init() throws CadseException {
@@ -62,12 +58,14 @@ public class PageInit {
 		CadseGCST.LINK_at_MAX_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_MIN_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_SELECTION_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
+		CadseGCST.LINK_at_PART_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_REQUIRE_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_TWDEST_EVOL_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_at_TWCOUPLED_.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_lt_DESTINATION.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-		CadseGCST.LINK_lt_INVERSE_LINK.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.LINK_lt_INVERSE_LINK.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.LINK_lt_INVERSE_LINK.setFlag(Item.CAN_BE_UNDEFINED, true);
+		CadseGCST.LINK_lt_SOURCE.setFlag(Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		
 		
 		
@@ -139,7 +137,7 @@ public class PageInit {
 					CadseGCST.MC_INTEGER_at_MIN_, 0);
 			CreatedObjectManager.register(null, mc, MaxModelController.class);
 			CadseGCST.LINK.addField(new UIFieldImpl(
-					CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.LINK_at_MIN_,
+					CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.LINK_at_MAX_,
 					"max:", EPosLabel.left,
 					mc, icMax));
 		}
@@ -159,31 +157,65 @@ public class PageInit {
 			CadseGCST.LINK.addValidators(v2);
 		}
 		
-		GroupOfAttributesDescriptor gkinds = new GroupOfAttributesDescriptor("kinds", 3);
-		CadseGCST.LINK.addGroupOfAttributes(gkinds);
-		gkinds.add(CadseGCST.LINK_at_AGGREGATION_);
-		gkinds.add(CadseGCST.LINK_at_ANNOTATION_);
-		gkinds.add(CadseGCST.LINK_at_COMPOSITION_);
-		gkinds.add(CadseGCST.LINK_at_GROUP_);
-		gkinds.add(CadseGCST.LINK_at_MAPPING_);
-		gkinds.add(CadseGCST.LINK_at_PART_);
-		gkinds.add(CadseGCST.LINK_at_REQUIRE_);
+		{
+			GroupOfAttributesDescriptor gkinds = new GroupOfAttributesDescriptor("kinds", 4);
+			CadseGCST.LINK.addGroupOfAttributes(gkinds);
+			gkinds.add(CadseGCST.LINK_at_AGGREGATION_);
+			gkinds.add(CadseGCST.LINK_at_ANNOTATION_);
+			gkinds.add(CadseGCST.LINK_at_COMPOSITION_);
+			gkinds.add(CadseGCST.LINK_at_GROUP_);
+			gkinds.add(CadseGCST.LINK_at_MAPPING_);
+			gkinds.add(CadseGCST.LINK_at_PART_);
+			gkinds.add(CadseGCST.LINK_at_REQUIRE_);
+		}
+		{
+			GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor("cardinality", 2);
+			CadseGCST.LINK.addGroupOfAttributes(gcard);
+			gcard.add(CadseGCST.LINK_at_MIN_);
+			gcard.add(CadseGCST.LINK_at_MAX_);
+		}
+		{
+			GroupOfAttributesDescriptor gevol = new GroupOfAttributesDescriptor("evolution", 2);
+			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gevol);
+			gevol.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
+			gevol.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
+			gevol.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
+			gevol.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
 		
-		GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor("cardinality", 2);
-		CadseGCST.LINK.addGroupOfAttributes(gcard);
-		gkinds.add(CadseGCST.LINK_at_MIN_);
-		gkinds.add(CadseGCST.LINK_at_MAX_);
-		
-		
-		GroupOfAttributesDescriptor gevolLink = new GroupOfAttributesDescriptor("evolotion", 2);
-		CadseGCST.LINK.addGroupOfAttributes(gevolLink);
-
-		gevolLink.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
-		gevolLink.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
-		gevolLink.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
-		gevolLink.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
-		gevolLink.add(CadseGCST.LINK_at_TWCOUPLED_);		
-		gevolLink.add(CadseGCST.LINK_at_TWDEST_EVOL_);
+			GroupOfAttributesDescriptor gevolLink = new GroupOfAttributesDescriptor("evolution", 2);
+			CadseGCST.LINK.addGroupOfAttributes(gevolLink);
+			gevolLink.setOverWriteGroup(gevol);
+			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
+			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
+			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
+			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
+			gevolLink.add(CadseGCST.LINK_at_TWCOUPLED_);		
+			gevolLink.add(CadseGCST.LINK_at_TWDEST_EVOL_);
+		}
+		{
+			GroupOfAttributesDescriptor gattkinds = new GroupOfAttributesDescriptor("attribute kinds", 3);
+			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gattkinds);
+			gattkinds.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+			gattkinds.add(CadseGCST.ATTRIBUTE_at_FINAL_);
+			gattkinds.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
+			gattkinds.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
+			gattkinds.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
+			gattkinds.add(CadseGCST.ATTRIBUTE_at_NATIF_);
+			gattkinds.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
+			gattkinds.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+			
+			GroupOfAttributesDescriptor gattkindsLink = new GroupOfAttributesDescriptor("attribute kinds", 3);
+			CadseGCST.LINK.addGroupOfAttributes(gattkindsLink);
+			gattkindsLink.setOverWriteGroup(gattkinds);
+			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_FINAL_);
+			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
+			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
+			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
+			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_NATIF_);
+			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+			gattkindsLink.add(CadseGCST.LINK_at_HIDDEN_);
+		}
 		
 	}
 
