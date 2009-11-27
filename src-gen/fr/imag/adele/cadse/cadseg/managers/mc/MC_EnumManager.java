@@ -43,7 +43,7 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class StringToEnumModelControllerManager extends ModelControllerManager implements IItemManager {
+public class MC_EnumManager extends ModelControllerManager implements IItemManager {
 
 	/**
 	 * The Class MyContentItem.
@@ -122,7 +122,7 @@ public class StringToEnumModelControllerManager extends ModelControllerManager i
 	/**
 	 * Instantiates a new string to enum model controller manager.
 	 */
-	public StringToEnumModelControllerManager() {
+	public MC_EnumManager() {
 	}
 
 	/**

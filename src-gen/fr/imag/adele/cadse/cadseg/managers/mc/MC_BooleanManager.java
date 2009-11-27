@@ -1,4 +1,4 @@
-/*
+/* 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -19,93 +19,29 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import java.util.Set;
-
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 
 /**
- * The Class ListOfStringModelControllerManager.
+ * The Class StringToBooleanModelControllerManager.
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ListOfStringModelControllerManager extends ModelControllerManager implements IItemManager {
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends ModelControllerManager.ModelControllerContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		public MyContentItem(CompactUUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item mc = getItem();
-			sb.append_exp_vir(mc, MIN, "0");
-			sb.append_exp_vir(mc, MAX, "-1");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("min, max");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append("int min, int max");
-		}
-	}
+public class MC_BooleanManager extends ModelControllerManager implements IItemManager {
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList";
-
-	/** The Constant MIN. */
-	private static final String	MIN					= "MIN";
-
-	/** The Constant MAX. */
-	private static final String	MAX					= "MAX";
+	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.StringToBooleanModelControler";
 
 	/**
-	 * Instantiates a new list of string model controller manager.
+	 * Instantiates a new string to boolean model controller manager.
 	 */
-	public ListOfStringModelControllerManager() {
+	public MC_BooleanManager() {
 	}
 
 	/**
@@ -186,14 +122,10 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 //		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
 //				DisplayManager.MC_DEFAULT_NAME);
 //
-//		RunningModelController mc = new MC_AttributesItem();
-//		MinModelController minVC = new MinModelController();
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
+//				"Create a string to boolean model controler", "Create a string to boolean model controler", 3
 //
-//		MaxModelController maxVC = new MaxModelController();
-//		return FieldsCore
-//				.createWizard(action, FieldsCore.createPage("page1", "Create a list of string model controller",
-//						"Create a list of string model controller", 3, FieldsCore.createIntField(MIN, "min", minVC,
-//								minVC), FieldsCore.createIntField(MAX, "max", maxVC, maxVC)));
+//		));
 //	}
 //
 //	/*
@@ -205,13 +137,8 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 //	public Pages createModificationPage(Item item) {
 //		AbstractActionPage action = new ModificationAction(item);
 //
-//		RunningModelController mc = new MC_AttributesItem();
-//		MinModelController minVC = new MinModelController();
-//
-//		MaxModelController maxVC = new MaxModelController();
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a list of string model controller",
-//				"a list of string model controller", 3, FieldsCore.createIntField(MIN, "min", minVC, minVC), FieldsCore
-//						.createIntField(MAX, "max", maxVC, maxVC)));
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a a string to boolean model controler",
+//				"a string to boolean model controler", 3));
 //	}
 
 	/*
@@ -225,28 +152,13 @@ public class ListOfStringModelControllerManager extends ModelControllerManager i
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
 		Item field = itemParent.getPartParent();
 		Item attribut = FieldManager.getAttribute(field);
-		if (attribut == null) {
+		if (attribut == null)
 			return "Must set the attribut link for the item " + itemParent.getId();
-		}
-		boolean islist = AttributeManager.isIsListAttribute(attribut);
-		if (!islist) {
-			return "The attribut must be a list of string";
-		}
-
-		if (attribut.getType() == CadseGCST.STRING) {
+		if (AttributeManager.isIsListAttribute(attribut))
+			return "Must be a singleton value";
+		if (attribut.getType() == CadseGCST.BOOLEAN)
 			return null;
-		}
 
-		return "The attribut must be a list of string";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
-		return new MyContentItem(id);
+		return "The type of the attribut linked at the field must be boolean attribute";
 	}
 }
