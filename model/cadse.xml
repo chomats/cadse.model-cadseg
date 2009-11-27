@@ -256,6 +256,7 @@
     </item-type>
     <item-type hidden="false" pattern-id="${#parent.qualified-name}{.}${#name}" icon="" manager-class="fr.imag.adele.cadse.cadseg.managers.ui.DGroupManager" display-name="DGroup" is-abstract="false" is-root-element="true" intID="0" has-content="true" package-name="ui" super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="DGroup" qualified-name="CadseG.ui.DGroup" cst-name="DGROUP" id="d31c0460-7805-4899-9fb2-52f46036f13b">
         <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="1" id="71e92d10-1ca3-41e9-8472-e0525ba09705" cst-name="DGROUP_at_COLUMN_" min="0" type="integer" value="" key="column" type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa"/>
+        <attribute-type tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="1" id="f54d6114-8391-41b5-8224-28ba0506619c" cst-name="DGROUP_at_MAKE_COLUMNS_EQUAL_WIDTH_" min="0" type="boolean" value="false" key="makeColumnsEqualWidth" type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a"/>
         <creation-pages>
             <page titre="Create DGroup" uuid="34ebf431-e109-4657-b430-8e297abb74fe" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.ui.DGroupCreationPageDGroup_CreationPage" id="creation-page-DGroup"/>
         </creation-pages>
