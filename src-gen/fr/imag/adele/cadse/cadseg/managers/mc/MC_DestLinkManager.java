@@ -27,12 +27,12 @@ import fr.imag.adele.cadse.core.LinkType;
 /**
  * @generated
  */
-public class MC_DestLinkManager extends LinkModelControllerManager {
+public class MC_DestLinkManager extends MC_LinkManager {
 
 	/**
 		@generated
 	*/
-	public class MC_DestLinkContent extends LinkModelControllerManager.LinkModelControllerContent {
+	public class MC_DestLinkContent extends MC_LinkManager.LinkModelControllerContent {
 
 		/**
 			@generated
