@@ -1309,7 +1309,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			if (attribute_type == CadseGCST.ENUM) {
 				return CadseGCST.MC_STRING_LIST_TO_ENUM_LIST;
 			} else if (attribute_type == CadseGCST.LINK) {
-				return CadseGCST.LINK_MODEL_CONTROLLER;
+				return CadseGCST.MC_LINK;
 			} else if (attribute_type == CadseGCST.STRING) {
 				return CadseGCST.LIST_OF_STRING_MODEL_CONTROLLER;
 			}
@@ -1328,11 +1328,11 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				if (displayItem.getType() == CadseGCST.DCHECK_BOX) {
 					return CadseGCST.MC_LINK_TO_BOOLEAN;
 				}
-				return CadseGCST.LINK_MODEL_CONTROLLER;
+				return CadseGCST.MC_LINK;
 			} else if (attribute_type == CadseGCST.STRING) {
 				return null;
 			} else if (attribute.getType() == CadseGCST.INTEGER) {
-				return CadseGCST.INT_MODEL_CONTROLLER;
+				return CadseGCST.MC_INTEGER;
 			} else if (attribute.getType() == CadseGCST.DATE) {
 				return CadseGCST.MC_DATE;
 			}
