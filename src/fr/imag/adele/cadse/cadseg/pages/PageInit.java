@@ -86,7 +86,7 @@ public class PageInit {
 			CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(
 					CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.ITEM_TYPE_lt_SUPER_TYPE,
 					"super type:", EPosLabel.left,
-					new MC_Descriptor(CadseGCST.LINK_MODEL_CONTROLLER), icSupertype));
+					new MC_Descriptor(CadseGCST.MC_LINK), icSupertype));
 		}
 		
 		// create destination field (overwrite ic)
@@ -99,8 +99,8 @@ public class PageInit {
 			CadseGCST.LINK.addField(new UIFieldImpl(
 				CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.LINK_lt_DESTINATION,
 				"destination:", EPosLabel.left,
-				new MC_Descriptor(CadseGCST.LINK_MODEL_CONTROLLER,
-						CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_,
+				new MC_Descriptor(CadseGCST.MC_LINK,
+						CadseGCST.MC_LINK_at_ERROR_MESSAGE_,
 						"You must set the destination"), icDesttype));
 		}
 		
@@ -113,7 +113,7 @@ public class PageInit {
 			CadseGCST.LINK.addField(new UIFieldImpl(
 					CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.LINK_lt_INVERSE_LINK,
 					"inverse link:", EPosLabel.left,
-					new MC_Descriptor(CadseGCST.LINK_MODEL_CONTROLLER), icInverseLink));
+					new MC_Descriptor(CadseGCST.MC_LINK), icInverseLink));
 			
 		}
 		{
@@ -123,19 +123,19 @@ public class PageInit {
 			CadseGCST.LINK.addField(new UIFieldImpl(
 					CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.LINK_at_MIN_,
 					"min:", EPosLabel.left,
-					new MC_Descriptor(CadseGCST.INT_MODEL_CONTROLLER,
-							CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_, 0,
-							CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_, "min must be >= 0",
-							CadseGCST.INT_MODEL_CONTROLLER_at_MIN_, 0), icMin));
+					new MC_Descriptor(CadseGCST.MC_INTEGER,
+							CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_, 0,
+							CadseGCST.MC_INTEGER_at_ERROR_MSG_MIN_, "min must be >= 0",
+							CadseGCST.MC_INTEGER_at_MIN_, 0), icMin));
 		}
 		
 		{
 			IC_Descriptor icMax = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icMax, IC_Max.class);
-			MC_Descriptor mc = new MC_Descriptor(CadseGCST.INT_MODEL_CONTROLLER,
-					CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_, 0,
-					CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_, "max must be > 0",
-					CadseGCST.INT_MODEL_CONTROLLER_at_MIN_, 0);
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_INTEGER,
+					CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_, 0,
+					CadseGCST.MC_INTEGER_at_ERROR_MSG_MIN_, "max must be > 0",
+					CadseGCST.MC_INTEGER_at_MIN_, 0);
 			CreatedObjectManager.register(null, mc, MaxModelController.class);
 			CadseGCST.LINK.addField(new UIFieldImpl(
 					CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.LINK_at_MIN_,
