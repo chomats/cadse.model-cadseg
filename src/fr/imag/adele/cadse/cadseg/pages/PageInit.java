@@ -11,6 +11,7 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.impl.ui.GroupOfAttributesDescriptor;
 import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
@@ -157,6 +158,17 @@ public class PageInit {
 			v2.setListenAttributes(CadseGCST.LINK_at_MIN_, CadseGCST.LINK_at_MAX_);
 			CadseGCST.LINK.addValidators(v2);
 		}
+		
+		GroupOfAttributesDescriptor gkinds = new GroupOfAttributesDescriptor("kinds", 3);
+		CadseGCST.LINK.addGroupOfAttributes(gkinds);
+		gkinds.add(CadseGCST.LINK_at_AGGREGATION_);
+		gkinds.add(CadseGCST.LINK_at_ANNOTATION_);
+		gkinds.add(CadseGCST.LINK_at_COMPOSITION_);
+		gkinds.add(CadseGCST.LINK_at_GROUP_);
+		gkinds.add(CadseGCST.LINK_at_MAPPING_);
+		gkinds.add(CadseGCST.LINK_at_PART_);
+		gkinds.add(CadseGCST.LINK_at_REQUIRE_);
+		
 	}
 
 	
