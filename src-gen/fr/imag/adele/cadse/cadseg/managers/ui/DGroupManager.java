@@ -32,6 +32,11 @@ public class DGroupManager extends ItemManager {
 		try {
 			Object value;
 			Item currentItem;
+			if (parent != null) {
+				value = ItemManager.getQualifiedNameAttribute(parent);
+				sb.append(
+				String.valueOf(value));
+			}
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
