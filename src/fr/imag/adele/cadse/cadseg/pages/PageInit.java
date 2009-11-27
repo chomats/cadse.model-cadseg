@@ -169,6 +169,22 @@ public class PageInit {
 		gkinds.add(CadseGCST.LINK_at_PART_);
 		gkinds.add(CadseGCST.LINK_at_REQUIRE_);
 		
+		GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor("cardinality", 2);
+		CadseGCST.LINK.addGroupOfAttributes(gcard);
+		gkinds.add(CadseGCST.LINK_at_MIN_);
+		gkinds.add(CadseGCST.LINK_at_MAX_);
+		
+		
+		GroupOfAttributesDescriptor gevolLink = new GroupOfAttributesDescriptor("evolotion", 2);
+		CadseGCST.LINK.addGroupOfAttributes(gevolLink);
+
+		gevolLink.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
+		gevolLink.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
+		gevolLink.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
+		gevolLink.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
+		gevolLink.add(CadseGCST.LINK_at_TWCOUPLED_);		
+		gevolLink.add(CadseGCST.LINK_at_TWDEST_EVOL_);
+		
 	}
 
 	
