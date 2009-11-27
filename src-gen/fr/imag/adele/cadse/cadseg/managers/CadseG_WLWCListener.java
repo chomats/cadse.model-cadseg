@@ -282,13 +282,13 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 	}
 
-	private static final String	CREATION_PAGE_TITLE_PREFIX	= "Create ";
-	private static final String	MODIFICATION_PAGE_PREFIX	= "modification-page-";
-	private static final String	CREATION_PAGE_PREFIX		= "creation-page-";
-	// private static final String PARENT_NAME = "#invert_part_";
-
-	private static final String	EMPTY_PAGE_CREATION_ID		= "creation-page1";
-	private static final String	EMPTY_PAGE_MODIFICATION_ID	= "modification-page1";
+//	private static final String	CREATION_PAGE_TITLE_PREFIX	= "Create ";
+//	private static final String	MODIFICATION_PAGE_PREFIX	= "modification-page-";
+//	private static final String	CREATION_PAGE_PREFIX		= "creation-page-";
+//	// private static final String PARENT_NAME = "#invert_part_";
+//
+//	private static final String	EMPTY_PAGE_CREATION_ID		= "creation-page1";
+//	private static final String	EMPTY_PAGE_MODIFICATION_ID	= "modification-page1";
 	private static Logger		_logger						= Logger
 																	.getLogger("fr.imag.adele.cadse.cadseg.CadseG_WLWCListener");
 
@@ -476,26 +476,26 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		wc.createItemIfNeed(null, CadseDefinitionManager.MAPPING, CadseGCST.MAPPING_MODEL, cadseDefinition,
 				CadseGCST.CADSE_DEFINITION_lt_MAPPING);
 	}
-
-	/**
-	 * Create a first creation page
-	 * 
-	 * @param wc
-	 *            the current working copy
-	 * @param itemCreationDialog
-	 *            the creation dialog, the parent of the page which create
-	 * @throws CadseException
-	 */
-	private ItemDelta createFirstCreationPage(LogicalWorkspaceTransaction wc, Item itemCreationDialog)
-			throws CadseException {
-		Item abstype = itemCreationDialog.getPartParent();
-		String name = CREATION_PAGE_PREFIX + abstype.getName();
-
-		return wc.createItemIfNeed(null, name, CadseGCST.PAGE, itemCreationDialog, CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES,
-				CadseGCST.PAGE_at_TITLE,
-				CREATION_PAGE_TITLE_PREFIX + abstype.getName(), CadseGCST.PAGE_at_IS_REMOVED_, false,
-				CadseGCST.PAGE_at_DESCRIPTION_, "");
-	}
+//
+//	/**
+//	 * Create a first creation page
+//	 * 
+//	 * @param wc
+//	 *            the current working copy
+//	 * @param itemCreationDialog
+//	 *            the creation dialog, the parent of the page which create
+//	 * @throws CadseException
+//	 */
+//	private ItemDelta createFirstCreationPage(LogicalWorkspaceTransaction wc, Item itemCreationDialog)
+//			throws CadseException {
+//		Item abstype = itemCreationDialog.getPartParent();
+//		String name = CREATION_PAGE_PREFIX + abstype.getName();
+//
+//		return wc.createItemIfNeed(null, name, CadseGCST.PAGE, itemCreationDialog, CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES,
+//				CadseGCST.PAGE_at_TITLE,
+//				CREATION_PAGE_TITLE_PREFIX + abstype.getName(), CadseGCST.PAGE_at_IS_REMOVED_, false,
+//				CadseGCST.PAGE_at_DESCRIPTION_, "");
+//	}
 
 //	/**
 //	 * Create a first modification page
@@ -1111,40 +1111,40 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 //		}
 	}
 
-	private ItemType getDisplayTypeFromAttribute(Item attribute, ItemType attribute_type) throws CadseException {
-
-		if (AttributeManager.isIsListAttribute(attribute)) {
-			return CadseGCST.DLIST;
-		} else {
-			if (attribute_type == CadseGCST.BOOLEAN) {
-				return CadseGCST.DCHECK_BOX;
-			} else if (attribute_type == CadseGCST.DOUBLE) {
-				return CadseGCST.DTEXT;
-			} else if (attribute_type == CadseGCST.ENUM) {
-				return CadseGCST.DBROWSER;
-			} else if (attribute_type == CadseGCST.INTEGER) {
-				return CadseGCST.DTEXT;
-			} else if (attribute_type == CadseGCST.LINK) {
-				final int max = LinkManager.getMax(attribute);
-				if (max == 0 || max == 1) {
-					return CadseGCST.DBROWSER;
-				} else {
-					return CadseGCST.DLIST;
-				}
-			} else if (attribute_type == CadseGCST.STRING) {
-				return CadseGCST.DTEXT;
-			} else if (attribute_type == CadseGCST.DATE) {
-				return CadseGCST.DTEXT;
-			} else if (attribute_type == CadseGCST.LONG) {
-				return CadseGCST.DTEXT;
-			} else if (attribute_type == CadseGCST.URL) {
-				return CadseGCST.DBROWSER;
-			} else if (attribute_type == CadseGCST.UUID) {
-				return CadseGCST.DTEXT;
-			}
-		}
-		return null;
-	}
+//	private ItemType getDisplayTypeFromAttribute(Item attribute, ItemType attribute_type) throws CadseException {
+//
+//		if (AttributeManager.isIsListAttribute(attribute)) {
+//			return CadseGCST.DLIST;
+//		} else {
+//			if (attribute_type == CadseGCST.BOOLEAN) {
+//				return CadseGCST.DCHECK_BOX;
+//			} else if (attribute_type == CadseGCST.DOUBLE) {
+//				return CadseGCST.DTEXT;
+//			} else if (attribute_type == CadseGCST.ENUM) {
+//				return CadseGCST.DBROWSER;
+//			} else if (attribute_type == CadseGCST.INTEGER) {
+//				return CadseGCST.DTEXT;
+//			} else if (attribute_type == CadseGCST.LINK) {
+//				final int max = LinkManager.getMax(attribute);
+//				if (max == 0 || max == 1) {
+//					return CadseGCST.DBROWSER;
+//				} else {
+//					return CadseGCST.DLIST;
+//				}
+//			} else if (attribute_type == CadseGCST.STRING) {
+//				return CadseGCST.DTEXT;
+//			} else if (attribute_type == CadseGCST.DATE) {
+//				return CadseGCST.DTEXT;
+//			} else if (attribute_type == CadseGCST.LONG) {
+//				return CadseGCST.DTEXT;
+//			} else if (attribute_type == CadseGCST.URL) {
+//				return CadseGCST.DBROWSER;
+//			} else if (attribute_type == CadseGCST.UUID) {
+//				return CadseGCST.DTEXT;
+//			}
+//		}
+//		return null;
+//	}
 
 //	/**
 //	 * Do create field.
@@ -1250,198 +1250,198 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 //		}
 //	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
-	 * .cadse.core.Item)
-	 */
-	private void sync_IC_and_MC(LogicalWorkspaceTransaction wc, Item dbrowser, ItemType mcType, LinkType display_mc,
-			ItemType icType, LinkType display_ic) throws CadseException {
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see
+//	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
+//	 * .cadse.core.Item)
+//	 */
+//	private void sync_IC_and_MC(LogicalWorkspaceTransaction wc, Item dbrowser, ItemType mcType, LinkType display_mc,
+//			ItemType icType, LinkType display_ic) throws CadseException {
+//
+//		sync_IC_and_MC(wc, dbrowser, DisplayManager.MC_DEFAULT_NAME, DisplayManager.getItemMC(dbrowser), mcType,
+//				display_mc);
+//		sync_IC_and_MC(wc, dbrowser, DisplayManager.IC_DEFAULT_NAME, DisplayManager.getItemIC(dbrowser), icType,
+//				display_ic);
+//	}
 
-		sync_IC_and_MC(wc, dbrowser, DisplayManager.MC_DEFAULT_NAME, DisplayManager.getItemMC(dbrowser), mcType,
-				display_mc);
-		sync_IC_and_MC(wc, dbrowser, DisplayManager.IC_DEFAULT_NAME, DisplayManager.getItemIC(dbrowser), icType,
-				display_ic);
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see
+//	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
+//	 * .cadse.core.Item)
+//	 */
+//	private void sync_IC_and_MC(LogicalWorkspaceTransaction wc, Item displayItem, String shortName,
+//			Item ic_or_mc_foundItem, ItemType mc_or_ic_ItemType, LinkType display_lt_ic_or_mc) throws CadseException {
+//
+//		if (mc_or_ic_ItemType != null) {
+//			if (ic_or_mc_foundItem != null && ic_or_mc_foundItem.getType() != mc_or_ic_ItemType) {
+//				ic_or_mc_foundItem.delete(true);
+//				ic_or_mc_foundItem = null;
+//			}
+//			if (ic_or_mc_foundItem == null) {
+//				wc.createItemIfNeed(null, shortName, mc_or_ic_ItemType, displayItem, display_lt_ic_or_mc);
+//			}
+//		} else if (ic_or_mc_foundItem != null) {
+//			ic_or_mc_foundItem.delete(true);
+//		}
+//	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
-	 * .cadse.core.Item)
-	 */
-	private void sync_IC_and_MC(LogicalWorkspaceTransaction wc, Item displayItem, String shortName,
-			Item ic_or_mc_foundItem, ItemType mc_or_ic_ItemType, LinkType display_lt_ic_or_mc) throws CadseException {
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see
+//	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
+//	 * .cadse.core.Item)
+//	 */
+//	private ItemType getMCType(Item displayItem) throws CadseException {
+//
+//		Item field = displayItem.getPartParent();
+//		Item attribute = FieldManager.getAttribute(field);
+//
+//		if (attribute == null) {
+//			return null;
+//		}
+//		ItemType attribute_type = attribute.getType();
+//		if (AttributeManager.isIsListAttribute(attribute)) {
+//			if (attribute_type == CadseGCST.ENUM) {
+//				return CadseGCST.MC_STRING_LIST_TO_ENUM_LIST;
+//			} else if (attribute_type == CadseGCST.LINK) {
+//				return CadseGCST.MC_LINK;
+//			} else if (attribute_type == CadseGCST.STRING) {
+//				return CadseGCST.MC_LIST_OF_STRING;
+//			}
+//			return CadseGCST.MC_LIST_OF_STRING;
+//		} else {
+//			if (attribute == CadseGCST.ITEM_at_NAME_ || attribute.getBaseItem() == CadseGCST.ITEM_at_NAME_)
+//				return CadseGCST.MC_NAME_ATTRIBUTE;
+//
+//			if (attribute_type == CadseGCST.BOOLEAN) {
+//				return CadseGCST.MC_BOOLEAN;
+//			} else if (attribute_type == CadseGCST.DOUBLE) {
+//				return null;
+//			} else if (attribute_type == CadseGCST.ENUM) {
+//				return CadseGCST.MC_ENUM;
+//			} else if (attribute_type == CadseGCST.LINK) {
+//				if (displayItem.getType() == CadseGCST.DCHECK_BOX) {
+//					return CadseGCST.MC_LINK_TO_BOOLEAN;
+//				}
+//				return CadseGCST.MC_LINK;
+//			} else if (attribute_type == CadseGCST.STRING) {
+//				return null;
+//			} else if (attribute.getType() == CadseGCST.INTEGER) {
+//				return CadseGCST.MC_INTEGER;
+//			} else if (attribute.getType() == CadseGCST.DATE) {
+//				return CadseGCST.MC_DATE;
+//			}
+//
+//		}
+//		return null;
+//	}
 
-		if (mc_or_ic_ItemType != null) {
-			if (ic_or_mc_foundItem != null && ic_or_mc_foundItem.getType() != mc_or_ic_ItemType) {
-				ic_or_mc_foundItem.delete(true);
-				ic_or_mc_foundItem = null;
-			}
-			if (ic_or_mc_foundItem == null) {
-				wc.createItemIfNeed(null, shortName, mc_or_ic_ItemType, displayItem, display_lt_ic_or_mc);
-			}
-		} else if (ic_or_mc_foundItem != null) {
-			ic_or_mc_foundItem.delete(true);
-		}
-	}
+//	private ItemType getICTypeForDList(Item item) throws CadseException {
+//		Item field = item.getPartParent();
+//		Item attribute = FieldManager.getAttribute(field);
+//
+//		if (attribute == null) {
+//			return null;
+//		}
+//
+//		ItemType attribute_type = attribute.getType();
+//		if (AttributeManager.isIsListAttribute(attribute)) {
+//			if (attribute_type == CadseGCST.ENUM) {
+//				return CadseGCST.IC_ENUM_FOR_LIST;
+//			} else if (attribute_type == CadseGCST.LINK) {
+//				return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
+//			} else if (attribute_type == CadseGCST.STRING) {
+//				return CadseGCST.IC_STRING_LIST_FOR_LIST;
+//			}
+//			return CadseGCST.IC_STRING_LIST_FOR_LIST;
+//		} else {
+//			// it's not possible
+//			return null;
+//		}
+//	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
-	 * .cadse.core.Item)
-	 */
-	private ItemType getMCType(Item displayItem) throws CadseException {
-
-		Item field = displayItem.getPartParent();
-		Item attribute = FieldManager.getAttribute(field);
-
-		if (attribute == null) {
-			return null;
-		}
-		ItemType attribute_type = attribute.getType();
-		if (AttributeManager.isIsListAttribute(attribute)) {
-			if (attribute_type == CadseGCST.ENUM) {
-				return CadseGCST.MC_STRING_LIST_TO_ENUM_LIST;
-			} else if (attribute_type == CadseGCST.LINK) {
-				return CadseGCST.MC_LINK;
-			} else if (attribute_type == CadseGCST.STRING) {
-				return CadseGCST.LIST_OF_STRING_MODEL_CONTROLLER;
-			}
-			return CadseGCST.LIST_OF_STRING_MODEL_CONTROLLER;
-		} else {
-			if (attribute == CadseGCST.ITEM_at_NAME_ || attribute.getBaseItem() == CadseGCST.ITEM_at_NAME_)
-				return CadseGCST.MC_NAME_ATTRIBUTE;
-
-			if (attribute_type == CadseGCST.BOOLEAN) {
-				return CadseGCST.STRING_TO_BOOLEAN_MODEL_CONTROLLER;
-			} else if (attribute_type == CadseGCST.DOUBLE) {
-				return null;
-			} else if (attribute_type == CadseGCST.ENUM) {
-				return CadseGCST.STRING_TO_ENUM_MODEL_CONTROLLER;
-			} else if (attribute_type == CadseGCST.LINK) {
-				if (displayItem.getType() == CadseGCST.DCHECK_BOX) {
-					return CadseGCST.MC_LINK_TO_BOOLEAN;
-				}
-				return CadseGCST.MC_LINK;
-			} else if (attribute_type == CadseGCST.STRING) {
-				return null;
-			} else if (attribute.getType() == CadseGCST.INTEGER) {
-				return CadseGCST.MC_INTEGER;
-			} else if (attribute.getType() == CadseGCST.DATE) {
-				return CadseGCST.MC_DATE;
-			}
-
-		}
-		return null;
-	}
-
-	private ItemType getICTypeForDList(Item item) throws CadseException {
-		Item field = item.getPartParent();
-		Item attribute = FieldManager.getAttribute(field);
-
-		if (attribute == null) {
-			return null;
-		}
-
-		ItemType attribute_type = attribute.getType();
-		if (AttributeManager.isIsListAttribute(attribute)) {
-			if (attribute_type == CadseGCST.ENUM) {
-				return CadseGCST.IC_ENUM_FOR_LIST;
-			} else if (attribute_type == CadseGCST.LINK) {
-				return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
-			} else if (attribute_type == CadseGCST.STRING) {
-				return CadseGCST.IC_STRING_LIST_FOR_LIST;
-			}
-			return CadseGCST.IC_STRING_LIST_FOR_LIST;
-		} else {
-			// it's not possible
-			return null;
-		}
-	}
-
-	private ItemType getICTypeForDBrowserUI(Item dbrowser) throws CadseException {
-
-		Item field = dbrowser.getPartParent();
-		Item attribute = FieldManager.getAttribute(field);
-
-		if (attribute == null) {
-			return null;
-		}
-		ItemType attribute_type = attribute.getType();
-		if (AttributeManager.isIsListAttribute(attribute)) {
-			// it's not possible
-			return null;
-		} else {
-			if (attribute_type == CadseGCST.BOOLEAN) {
-				return null;
-			} else if (attribute_type == CadseGCST.DOUBLE) {
-				return null;
-			} else if (attribute_type == CadseGCST.ENUM) {
-				return CadseGCST.IC_ENUM_FOR_BROWSER_COMBO;
-
-			} else if (attribute_type == CadseGCST.INTEGER) {
-				return null;
-
-			} else if (attribute_type == CadseGCST.LINK) {
-				Item itemtypedest = LinkManager.getDestination(attribute);
-
-				Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
-
-				if (incomingLinkType.length == 1 && incomingLinkType[0] != attribute) {
-					return CadseGCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST;
-				} else {
-					return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
-				}
-
-			} else if (attribute_type == CadseGCST.STRING) {
-
-			}
-		}
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
-	 * .cadse.core.Item)
-	 */
-	private ItemType getICTypeForDCombo(Item item) throws CadseException {
-		// TODO:
-		Item field = item.getPartParent();
-		Item attribute = FieldManager.getAttribute(field);
-
-		if (attribute == null) {
-			return null;
-		}
-		ItemType attribute_type = attribute.getType();
-		if (AttributeManager.isIsListAttribute(attribute)) {
-			// it's not possible
-			return null;
-		} else {
-			if (attribute_type == CadseGCST.BOOLEAN) {
-				return null;
-			} else if (attribute_type == CadseGCST.DOUBLE) {
-				return null;
-			} else if (attribute_type == CadseGCST.ENUM) {
-				return CadseGCST.IC_ENUM_FOR_BROWSER_COMBO;
-			} else if (attribute_type == CadseGCST.INTEGER) {
-				return null;
-			} else if (attribute_type == CadseGCST.LINK) {
-				return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
-			} else if (attribute_type == CadseGCST.STRING) {
-				return null;
-			}
-		}
-		return null;
-	}
+//	private ItemType getICTypeForDBrowserUI(Item dbrowser) throws CadseException {
+//
+//		Item field = dbrowser.getPartParent();
+//		Item attribute = FieldManager.getAttribute(field);
+//
+//		if (attribute == null) {
+//			return null;
+//		}
+//		ItemType attribute_type = attribute.getType();
+//		if (AttributeManager.isIsListAttribute(attribute)) {
+//			// it's not possible
+//			return null;
+//		} else {
+//			if (attribute_type == CadseGCST.BOOLEAN) {
+//				return null;
+//			} else if (attribute_type == CadseGCST.DOUBLE) {
+//				return null;
+//			} else if (attribute_type == CadseGCST.ENUM) {
+//				return CadseGCST.IC_ENUM_FOR_BROWSER_COMBO;
+//
+//			} else if (attribute_type == CadseGCST.INTEGER) {
+//				return null;
+//
+//			} else if (attribute_type == CadseGCST.LINK) {
+//				Item itemtypedest = LinkManager.getDestination(attribute);
+//
+//				Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
+//
+//				if (incomingLinkType.length == 1 && incomingLinkType[0] != attribute) {
+//					return CadseGCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST;
+//				} else {
+//					return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
+//				}
+//
+//			} else if (attribute_type == CadseGCST.STRING) {
+//
+//			}
+//		}
+//		return null;
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see
+//	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
+//	 * .cadse.core.Item)
+//	 */
+//	private ItemType getICTypeForDCombo(Item item) throws CadseException {
+//		// TODO:
+//		Item field = item.getPartParent();
+//		Item attribute = FieldManager.getAttribute(field);
+//
+//		if (attribute == null) {
+//			return null;
+//		}
+//		ItemType attribute_type = attribute.getType();
+//		if (AttributeManager.isIsListAttribute(attribute)) {
+//			// it's not possible
+//			return null;
+//		} else {
+//			if (attribute_type == CadseGCST.BOOLEAN) {
+//				return null;
+//			} else if (attribute_type == CadseGCST.DOUBLE) {
+//				return null;
+//			} else if (attribute_type == CadseGCST.ENUM) {
+//				return CadseGCST.IC_ENUM_FOR_BROWSER_COMBO;
+//			} else if (attribute_type == CadseGCST.INTEGER) {
+//				return null;
+//			} else if (attribute_type == CadseGCST.LINK) {
+//				return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
+//			} else if (attribute_type == CadseGCST.STRING) {
+//				return null;
+//			}
+//		}
+//		return null;
+//	}
 
 	/**
 	 * Do short name.
@@ -1455,31 +1455,31 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		return attribute.getName();
 	}
 
-	private ItemDelta getFieldFromAttribute(LogicalWorkspaceTransaction wc, Item attribute, Item p1) {
-		return getFieldFromAttribute(wc.getItem(attribute), p1);
+//	private ItemDelta getFieldFromAttribute(LogicalWorkspaceTransaction wc, Item attribute, Item p1) {
+//		return getFieldFromAttribute(wc.getItem(attribute), p1);
+//
+//	}
 
-	}
-
-	private ItemDelta getFieldFromAttribute(ItemDelta attribute, Item p1) {
-		if (p1 == null) {
-			return null;
-		}
-
-		Collection<ItemDelta> fields = getFieldsFromAttribute(attribute);
-		if (fields == null || fields.size() == 0) {
-			return null;
-		}
-		for (ItemDelta f : fields) {
-			if (f.getPartParent() == p1) {
-				return f;
-			}
-		}
-		return null;
-	}
-
-	private Collection<ItemDelta> getFieldsFromAttribute(ItemDelta attribute) {
-		return attribute.getIncomingItems(CadseGCST.FIELD_lt_ATTRIBUTE, false, true);
-	}
+//	private ItemDelta getFieldFromAttribute(ItemDelta attribute, Item p1) {
+//		if (p1 == null) {
+//			return null;
+//		}
+//
+//		Collection<ItemDelta> fields = getFieldsFromAttribute(attribute);
+//		if (fields == null || fields.size() == 0) {
+//			return null;
+//		}
+//		for (ItemDelta f : fields) {
+//			if (f.getPartParent() == p1) {
+//				return f;
+//			}
+//		}
+//		return null;
+//	}
+//
+//	private Collection<ItemDelta> getFieldsFromAttribute(ItemDelta attribute) {
+//		return attribute.getIncomingItems(CadseGCST.FIELD_lt_ATTRIBUTE, false, true);
+//	}
 
 //	/**
 //	 * Do create field.
