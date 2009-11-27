@@ -806,20 +806,20 @@
             <page titre="List" uuid="2f24bba5-a2a2-49e5-8454-59a52c21bc4c" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.attributes.ListModificationPageList_ModificationPage" id="modification-page-List"/>
         </modification-pages>
     </item-type>
-    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.ListOfStringModelControllerManager" display-name="ModelController for list" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="ListOfStringModelController" qualified-name="CadseG.mc.ListOfStringModelController" cst-name="LIST_OF_STRING_MODEL_CONTROLLER" id="1d99ebf6-620f-4251-ba9a-82a876580923">
-        <creation-pages default-short-name="mc">
-            <page titre="Create ListOfStringModelController" uuid="0566f4f5-9fad-4fd3-a700-b2d35b965566" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.ListOfStringModelControllerCreationPage1_CreationPage" id="creation-page1"/>
-        </creation-pages>
-        <modification-pages>
-            <page titre="ListOfStringModelController" uuid="e92d8108-ce6c-4783-affa-42cf9481d931" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.ListOfStringModelControllerModificationPage1_ModificationPage" id="modification-page1"/>
-        </modification-pages>
-    </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" manager-class="fr.imag.adele.cadse.cadseg.managers.attributes.LongManager" display-name="Long" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="attributes" super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Long" qualified-name="CadseG.attributes.Long" cst-name="LONG" id="d06fc1c0-450d-46c3-8168-1dd2ff99fd1b">
         <creation-pages>
             <page titre="Create Long" uuid="517b7b0d-52a8-4dbb-b014-7cd5213fd3de" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.attributes.LongCreationPage1_CreationPage" id="creation-page1"/>
         </creation-pages>
         <modification-pages>
             <page titre="Long" uuid="8ad6da37-9e9f-444b-a7e3-7a96a5cc0591" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.attributes.LongModificationPage1_ModificationPage" id="modification-page1"/>
+        </modification-pages>
+    </item-type>
+    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_BooleanManager" display-name="MC_Boolean" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_Boolean" qualified-name="CadseG.mc.MC_Boolean" cst-name="MC_BOOLEAN" id="204bc831-2b99-4ee0-a9d6-9577b2e2eac9">
+        <creation-pages default-short-name="mc">
+            <page titre="Create MC_Boolean" uuid="c6b68b1e-b4e2-4c51-bdcb-93c70ee7fa18" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_BooleanCreationPage1_CreationPage" id="creation-page1"/>
+        </creation-pages>
+        <modification-pages>
+            <page titre="MC_Boolean" uuid="f078b1b9-5ac2-4c0b-a952-512f02d8f8ea" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_BooleanModificationPage1_ModificationPage" id="modification-page1"/>
         </modification-pages>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_DateManager" display-name="MC_Date" is-abstract="false" is-root-element="false" intID="0" has-content="false" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_Date" qualified-name="CadseG.mc.MC_Date" cst-name="MC_DATE" id="602f01c6-4721-4ba7-a9ae-5f52f2e590ff">
@@ -837,6 +837,14 @@
         </creation-pages>
         <modification-pages>
             <page titre="MC_DestLink" uuid="ade1cb52-e003-4fce-a93a-4751550c6d06" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_DestLinkModificationPage1_ModificationPage" id="modification-page1"/>
+        </modification-pages>
+    </item-type>
+    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_EnumManager" display-name="MC_Enum" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_Enum" qualified-name="CadseG.mc.MC_Enum" cst-name="MC_ENUM" id="49cc32e4-5ee3-452f-9ecc-49b8599e63d5">
+        <creation-pages default-short-name="mc">
+            <page titre="Create a string to enum model controller" uuid="6d111b83-f35c-4842-8a19-eb79f9796f68" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_EnumCreationPage1_CreationPage" id="creation-page1"/>
+        </creation-pages>
+        <modification-pages>
+            <page titre="a string to enum model controller" uuid="9996e615-7369-442f-a6c9-8e0c80fd3325" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_EnumModificationPage1_ModificationPage" id="modification-page1"/>
         </modification-pages>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_IntegerManager" display-name="MC_Integer" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_Integer" qualified-name="CadseG.mc.MC_Integer" cst-name="MC_INTEGER" id="74840058-24ec-4533-8733-f1f0dcce595b">
@@ -867,6 +875,14 @@
         </creation-pages>
         <modification-pages>
             <page titre="MC_LinkToBoolean" uuid="0fb150be-58de-48a2-9f43-68337d4edeb7" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_LinkToBooleanModificationPage1_ModificationPage" id="modification-page1"/>
+        </modification-pages>
+    </item-type>
+    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_ListOfStringManager" display-name="ModelController for list" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_ListOfString" qualified-name="CadseG.mc.MC_ListOfString" cst-name="MC_LIST_OF_STRING" id="1d99ebf6-620f-4251-ba9a-82a876580923">
+        <creation-pages default-short-name="mc">
+            <page titre="Create MC_ListOfString" uuid="0566f4f5-9fad-4fd3-a700-b2d35b965566" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_ListOfStringCreationPage1_CreationPage" id="creation-page1"/>
+        </creation-pages>
+        <modification-pages>
+            <page titre="MC_ListOfString" uuid="e92d8108-ce6c-4783-affa-42cf9481d931" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.MC_ListOfStringModificationPage1_ModificationPage" id="modification-page1"/>
         </modification-pages>
     </item-type>
     <item-type hidden="false" pattern-id="${#parent.qualified-name}{.}${#name}" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.MC_NameAttributeManager" display-name="MC_NameAttribute" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_NameAttribute" qualified-name="CadseG.mc.MC_NameAttribute" cst-name="MC_NAME_ATTRIBUTE" id="cf9dee1c-d0e6-436d-9d19-8dc8d073b320">
@@ -1038,22 +1054,6 @@
         <modification-pages>
             <page titre="String" uuid="02a798a9-4d22-4ad3-af21-8fbef6837efa" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.attributes.StringModificationPage1_ModificationPage" id="modification-page1"/>
             <page titre="String Advenced" uuid="8b6933c1-986a-4d8a-a18a-841c008c1dd1" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.attributes.StringStringAdvenced_ModificationPage" id="string-advenced"/>
-        </modification-pages>
-    </item-type>
-    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.StringToBooleanModelControllerManager" display-name="StringToBooleanModelController" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="StringToBooleanModelController" qualified-name="CadseG.mc.StringToBooleanModelController" cst-name="STRING_TO_BOOLEAN_MODEL_CONTROLLER" id="204bc831-2b99-4ee0-a9d6-9577b2e2eac9">
-        <creation-pages default-short-name="mc">
-            <page titre="Create StringToBooleanModelController" uuid="c6b68b1e-b4e2-4c51-bdcb-93c70ee7fa18" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.StringToBooleanModelControllerCreationPage1_CreationPage" id="creation-page1"/>
-        </creation-pages>
-        <modification-pages>
-            <page titre="StringToBooleanModelController" uuid="f078b1b9-5ac2-4c0b-a952-512f02d8f8ea" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.StringToBooleanModelControllerModificationPage1_ModificationPage" id="modification-page1"/>
-        </modification-pages>
-    </item-type>
-    <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.StringToEnumModelControllerManager" display-name="StringToEnumModelController" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="StringToEnumModelController" qualified-name="CadseG.mc.StringToEnumModelController" cst-name="STRING_TO_ENUM_MODEL_CONTROLLER" id="49cc32e4-5ee3-452f-9ecc-49b8599e63d5">
-        <creation-pages default-short-name="mc">
-            <page titre="Create a string to enum model controller" uuid="6d111b83-f35c-4842-8a19-eb79f9796f68" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.mc.StringToEnumModelControllerCreationPage1_CreationPage" id="creation-page1"/>
-        </creation-pages>
-        <modification-pages>
-            <page titre="a string to enum model controller" uuid="9996e615-7369-442f-a6c9-8e0c80fd3325" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.mc.StringToEnumModelControllerModificationPage1_ModificationPage" id="modification-page1"/>
         </modification-pages>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/mc.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.mc.StringToOneResourceModelControllerManager" display-name="StringToOneResourceModelController" is-abstract="false" is-root-element="false" intID="0" has-content="true" package-name="mc" super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="StringToOneResourceModelController" qualified-name="CadseG.mc.StringToOneResourceModelController" cst-name="STRING_TO_ONE_RESOURCE_MODEL_CONTROLLER" id="9b761f84-7935-4a60-8753-25e74fd414e6">
