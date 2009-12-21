@@ -34,7 +34,7 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
@@ -91,7 +91,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 		/**
 			@generated
 		*/
-		public ExtItemTypeContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+		public ExtItemTypeContent(UUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
 			super(id, packageNameVariable, classNameVariable);
 		}
 
@@ -231,7 +231,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	/**
 	*/
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id ) throws CadseException {
 		ExtItemTypeContent cm = new ExtItemTypeContent(
 			id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE
 			);

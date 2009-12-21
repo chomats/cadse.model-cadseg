@@ -33,7 +33,7 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
@@ -552,7 +552,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 
 		createManager(copy, theitemtype, superItem);
 
-		CompactUUID id = theitemtype.getId();
+		UUID id = theitemtype.getId();
 		copy.commit();
 
 		return model.getItem(id);

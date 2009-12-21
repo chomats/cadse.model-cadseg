@@ -25,7 +25,7 @@ import java.util.Set;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -53,7 +53,7 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(CompactUUID id) {
+		public MyContentItem(UUID id) {
 			super(id);
 		}
 
@@ -267,7 +267,7 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ProjectContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public MyContentItem createContentItem(CompactUUID id) throws CadseException {
+	public MyContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

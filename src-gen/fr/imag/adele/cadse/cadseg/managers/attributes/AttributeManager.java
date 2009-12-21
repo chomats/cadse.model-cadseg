@@ -36,7 +36,7 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -597,7 +597,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getIdRuntime(Item attribute) {
+	public static UUID getIdRuntime(Item attribute) {
 		if (attribute.isStatic())
 			return attribute.getId();
 		
@@ -606,12 +606,12 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			if (attribute.isReadOnly()) {
 				throw new CadseIllegalArgumentException("Cannot set id rutime on {0} of type {1}", attribute.getName(), attribute.getPartParent().getName());
 			}
-			CompactUUID uuid = CompactUUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
 			uuid_str = uuid.toString();
 			setIdRuntimeAttribute(attribute, uuid_str);
 			return uuid;
 		}
-		return new CompactUUID(uuid_str);
+		return new UUID(uuid_str);
 
 	}
 

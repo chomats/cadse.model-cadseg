@@ -61,7 +61,7 @@ import fr.imag.adele.cadse.core.CadseDomain;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
@@ -106,14 +106,14 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getIdRuntime(Item cadseDefinition) {
+	public static UUID getIdRuntime(Item cadseDefinition) {
 		if (cadseDefinition.getType() == CadseGCST.CADSE) {
 			return cadseDefinition.getId();
 		}
 		
 		String uuid_str = cadseDefinition.getAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_);
 		if (uuid_str == null || uuid_str.length() == 0) {
-			CompactUUID uuid = CompactUUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
 			uuid_str = uuid.toString();
 			try {
 				cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, uuid_str);
@@ -123,7 +123,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			}
 			return uuid;
 		}
-		return new CompactUUID(uuid_str);
+		return new UUID(uuid_str);
 	}
 	
 	/**
@@ -134,9 +134,9 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getIdDef(Item cadseDefinition) {
+	public static UUID getIdDef(Item cadseDefinition) {
 		if (cadseDefinition.getType() == CadseGCST.CADSE) {
-			return new CompactUUID(cadseDefinition.getAttribute(CadseGCST.CADSE_at_ID_DEFINITION_));
+			return new UUID(cadseDefinition.getAttribute(CadseGCST.CADSE_at_ID_DEFINITION_));
 		}
 		return cadseDefinition.getId();
 	}

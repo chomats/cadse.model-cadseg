@@ -50,7 +50,7 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -125,7 +125,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		private ManagerJavaFileContentManager(CompactUUID id) throws CadseException {
+		private ManagerJavaFileContentManager(UUID id) throws CadseException {
 			super(id, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
@@ -374,7 +374,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new ManagerJavaFileContentManager(id);
 	}
 

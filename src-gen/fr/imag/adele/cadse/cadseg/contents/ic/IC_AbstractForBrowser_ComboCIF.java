@@ -6,7 +6,7 @@ import fr.imag.adele.cadse.cadseg.managers.ic.IC_AbstractForBrowser_ComboManager
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -26,7 +26,7 @@ public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected IC_AbstractForBrowser_ComboContent(CompactUUID id, InteractionControllerManager interactionControllerManager)
+		protected IC_AbstractForBrowser_ComboContent(UUID id, InteractionControllerManager interactionControllerManager)
 				throws CadseException {
 			super(id, interactionControllerManager);
 		}
@@ -71,7 +71,7 @@ public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new IC_AbstractForBrowser_ComboContent(id, _manager);
 	}
 }

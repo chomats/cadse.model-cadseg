@@ -34,7 +34,7 @@ import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
@@ -196,7 +196,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		 * @param item
 		 *            the item
 		 */
-		public ComposerContent(CompactUUID id) throws CadseException {
+		public ComposerContent(UUID id) throws CadseException {
 			super(id);
 		}	
 
@@ -424,7 +424,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id ) throws CadseException {
 		ComposerContent cm = new ComposerContent(
 			id
 			);

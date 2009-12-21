@@ -7,7 +7,7 @@ import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ui.GroupOfAttributesDescriptor;
 import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
@@ -70,7 +70,7 @@ public class PageInit {
 		
 		
 		// create name field ( overwrite mc)
-		CadseGCST.ITEM.addField(new UIFieldImpl(CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.ITEM_at_NAME_,
+		CadseGCST.ITEM.addField(new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),CadseGCST.ITEM_at_NAME_,
 				"name",EPosLabel.left,
 				new MC_Descriptor(CadseGCST.MC_NAME_ATTRIBUTE), null));
 		
@@ -83,7 +83,7 @@ public class PageInit {
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icSupertype, IC_SuperTypeForBrowser_Combo.class);
 			
 			CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(
-					CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.ITEM_TYPE_lt_SUPER_TYPE,
+					CadseGCST.DBROWSER, UUID.randomUUID(),CadseGCST.ITEM_TYPE_lt_SUPER_TYPE,
 					"super type:", EPosLabel.left,
 					new MC_Descriptor(CadseGCST.MC_LINK), icSupertype));
 		}
@@ -96,7 +96,7 @@ public class PageInit {
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icDesttype, IC_DestinationLinkForBrowser_Combo.class);
 		
 			CadseGCST.LINK.addField(new UIFieldImpl(
-				CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.LINK_lt_DESTINATION,
+				CadseGCST.DBROWSER, UUID.randomUUID(),CadseGCST.LINK_lt_DESTINATION,
 				"destination:", EPosLabel.left,
 				new MC_Descriptor(CadseGCST.MC_LINK,
 						CadseGCST.MC_LINK_at_ERROR_MESSAGE_,
@@ -110,7 +110,7 @@ public class PageInit {
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icInverseLink, fr.imag.adele.cadse.cadseg.pages.ic.IC_InverseLink.class);
 			
 			CadseGCST.LINK.addField(new UIFieldImpl(
-					CadseGCST.DBROWSER, CompactUUID.randomUUID(),CadseGCST.LINK_lt_INVERSE_LINK,
+					CadseGCST.DBROWSER, UUID.randomUUID(),CadseGCST.LINK_lt_INVERSE_LINK,
 					"inverse link:", EPosLabel.left,
 					new MC_Descriptor(CadseGCST.MC_LINK), icInverseLink));
 			
@@ -120,7 +120,7 @@ public class PageInit {
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icMin, IC_Min.class);
 			
 			CadseGCST.LINK.addField(new UIFieldImpl(
-					CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.LINK_at_MIN_,
+					CadseGCST.DTEXT, UUID.randomUUID(),CadseGCST.LINK_at_MIN_,
 					"min:", EPosLabel.left,
 					new MC_Descriptor(CadseGCST.MC_INTEGER,
 							CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_, 0,
@@ -137,7 +137,7 @@ public class PageInit {
 					CadseGCST.MC_INTEGER_at_MIN_, 0);
 			CreatedObjectManager.register(null, mc, MaxModelController.class);
 			CadseGCST.LINK.addField(new UIFieldImpl(
-					CadseGCST.DTEXT, CompactUUID.randomUUID(),CadseGCST.LINK_at_MAX_,
+					CadseGCST.DTEXT, UUID.randomUUID(),CadseGCST.LINK_at_MAX_,
 					"max:", EPosLabel.left,
 					mc, icMax));
 		}

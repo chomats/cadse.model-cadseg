@@ -40,7 +40,7 @@ import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModels;
 import fr.imag.adele.cadse.cadseg.template.LaunchApplicationTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.var.StringVariable;
@@ -59,7 +59,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	 * @param item
 	 *            the item
 	 */
-	CadseDefinitionContent(final CompactUUID id) {
+	CadseDefinitionContent(final UUID id) {
 		super(id, new VariableImpl() {
 
 			public String compute(ContextVariable context, Item item) {

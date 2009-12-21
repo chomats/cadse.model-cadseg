@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
  * Represents one error attached to one item.
@@ -33,7 +33,7 @@ public interface Error {
 	 * 
 	 * @return item which is related to this error.
 	 */
-	public CompactUUID getItem();
+	public UUID getItem();
 	
 	/**
 	 * Return the message describing the error.

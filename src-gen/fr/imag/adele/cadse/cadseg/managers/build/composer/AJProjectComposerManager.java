@@ -27,7 +27,7 @@ import fr.imag.adele.cadse.cadseg.contents.ic.InteractionControllerContent;
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -55,7 +55,7 @@ public class AJProjectComposerManager extends EclipseComposerManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		public AJProjectComposerContent(CompactUUID id, InteractionControllerManager manager) throws CadseException {
+		public AJProjectComposerContent(UUID id, InteractionControllerManager manager) throws CadseException {
 			super(id, manager);
 		}
 

@@ -14,7 +14,7 @@ import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateClass;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -46,7 +46,7 @@ public class MenuActionCIF implements IContentItemFactory {
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		public MenuActionContent(CompactUUID id) throws CadseException {
+		public MenuActionContent(UUID id) throws CadseException {
 			super(id, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
@@ -150,7 +150,7 @@ public class MenuActionCIF implements IContentItemFactory {
 		}
 	}
 
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		MenuActionContent cm = new MenuActionContent(id);
 		cm.setComposers();
 		cm.setExporters();

@@ -35,7 +35,7 @@ import fr.imag.adele.cadse.cadseg.managers.build.CompositeItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -71,7 +71,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(CompactUUID id) {
+		public MyContentItem(UUID id) {
 			super(id);
 		}
 
@@ -161,7 +161,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 				sb.newline().append("	@generated");
 				sb.newline().append("*/");
 				sb.newline().append("@Override");
-				sb.newline().append("public ContentItem createContentItem(CompactUUID id ").append(
+				sb.newline().append("public ContentItem createContentItem(UUID id ").append(
 						") throws CadseException {");
 				/* 1 */sb.begin();
 				GenContext newcontext = new GenContext(context);
@@ -195,7 +195,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 				/* 1 */sb.end();
 				sb.newline().append("}").newline();
 				imports.add("fr.imag.adele.cadse.core.ContentItem");
-				imports.add("fr.imag.adele.cadse.core.CompactUUID");
+				imports.add("fr.imag.adele.cadse.core.UUID");
 				imports.add("fr.imag.adele.cadse.core.Item");
 				imports.add("fr.imag.adele.cadse.core.var.Variable");
 				imports.add("fr.imag.adele.cadse.core.CadseException");
@@ -418,7 +418,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 */
 		protected void generateConstructorParameter(GenStringBuilder sb) {
 			
-			sb.append("CompactUUID id,");
+			sb.append("UUID id,");
 			String[] kinds = getResourceKindsName();
 
 			if (kinds == null) {
@@ -582,7 +582,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new ContentItemTypeManager.MyContentItem(id);
 	}
 

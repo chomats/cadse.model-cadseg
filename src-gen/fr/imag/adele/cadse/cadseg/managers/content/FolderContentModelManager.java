@@ -25,7 +25,7 @@ import java.util.List;
 import fede.workspace.eclipse.content.FolderContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -51,7 +51,7 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(CompactUUID id) {
+		public MyContentItem(UUID id) {
 			super(id);
 		}
 
@@ -215,7 +215,7 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

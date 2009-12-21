@@ -34,7 +34,7 @@ import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
@@ -67,10 +67,10 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getIdRuntime(Item page) {
+	public static UUID getIdRuntime(Item page) {
 		String uuid_str = page.getAttribute(CadseGCST.PAGE_at_ID_RUNTIME_);
 		if (uuid_str == null || uuid_str.length() == 0) {
-			CompactUUID uuid = CompactUUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
 			uuid_str = uuid.toString();
 			try {
 				page.setAttribute(CadseGCST.PAGE_at_ID_RUNTIME_, uuid_str);
@@ -80,7 +80,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			}
 			return uuid;
 		}
-		return new CompactUUID(uuid_str);
+		return new UUID(uuid_str);
 
 	}
 
@@ -169,7 +169,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * @param item
 		 *            the item
 		 */
-		private PageContentManager(CompactUUID id) {
+		private PageContentManager(UUID id) {
 			super(id, new VariableImpl() {
 				public String compute(ContextVariable context, Item itemCurrent) {
 					return GenerateJavaIdentifier.javaPackagePageFactoryFromPage(context, itemCurrent);
@@ -407,7 +407,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) {
+	public ContentItem createContentItem(UUID id) {
 		return new PageContentManager(id);
 	}
 	

@@ -35,7 +35,7 @@ import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
@@ -68,7 +68,7 @@ public class ExporterManager extends DefaultItemManager implements
 		 * @param item
 		 *            the item
 		 */
-		public ExporterContent(CompactUUID id) throws CadseException {
+		public ExporterContent(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -463,7 +463,7 @@ public class ExporterManager extends DefaultItemManager implements
 	 * @generated
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		ExporterContent cm = new ExporterContent(id);
 		cm.setComposers();
 		cm.setExporters();

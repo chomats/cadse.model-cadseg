@@ -70,7 +70,7 @@ import fede.workspace.tool.view.node.FilteredItemNode.Category;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ChangeID;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemShortNameComparator;
@@ -164,7 +164,7 @@ public class CommitDialogPage extends SWTDialog {
 	 */
 	protected Item							_selectedItem			= null;
 
-	protected Set<CompactUUID>				_itemsToShow			= new HashSet<CompactUUID>();
+	protected Set<UUID>				_itemsToShow			= new HashSet<UUID>();
 
 	/*
 	 * Fields used for synchronization of tree refresh.
@@ -377,7 +377,7 @@ public class CommitDialogPage extends SWTDialog {
 			if (item == null) {
 				return null;
 			}
-			CompactUUID itemId = item.getId();
+			UUID itemId = item.getId();
 			if (_commitState.getErrors().isInError(itemId)) {
 				return computeImage(image, "icons/delete_ovr.gif");
 			}
@@ -875,7 +875,7 @@ public class CommitDialogPage extends SWTDialog {
 						continue;
 					}
 
-					CompactUUID itemId = item.getId();
+					UUID itemId = item.getId();
 					if (_commitState.isToCommit(itemId)) {
 						continue;
 					}
@@ -1216,14 +1216,14 @@ public class CommitDialogPage extends SWTDialog {
 
 
 	protected void computeItemsToShow(CommitState commitState) {
-		List<CompactUUID> itemsToCommit = commitState.getItemsToCommit();
+		List<UUID> itemsToCommit = commitState.getItemsToCommit();
 		if ((itemsToCommit == null) || itemsToCommit.isEmpty()) {
 			_itemsToShow.clear();
 			return;
 		}
 
 		_itemsToShow.clear();
-		for (CompactUUID itemId : itemsToCommit) {
+		for (UUID itemId : itemsToCommit) {
 			Item item = CadseCore.getLogicalWorkspace().getItem(itemId);
 			addItemToCommit(item);
 		}
@@ -1237,7 +1237,7 @@ public class CommitDialogPage extends SWTDialog {
 	 *            id of item to show
 	 * @return true if we have been able to find a path to this item.
 	 */
-	protected boolean addItemToShow(CompactUUID itemId) {
+	protected boolean addItemToShow(UUID itemId) {
 		_itemsToShow.add(itemId);
 
 		// compute the ancestors of this item
@@ -1286,7 +1286,7 @@ public class CommitDialogPage extends SWTDialog {
 	 * @return true if the tree should be refreshed or updated
 	 */
 	protected boolean removeItemToCommit(Item item) {
-		CompactUUID itemId = item.getId();
+		UUID itemId = item.getId();
 		if (!_commitState.isToCommit(itemId)) {
 			return false;
 		}
@@ -1303,14 +1303,14 @@ public class CommitDialogPage extends SWTDialog {
 	 * @return true if the tree should be refreshed or updated
 	 */
 	protected boolean removeItemToShow(Item item) {
-		CompactUUID itemId = item.getId();
+		UUID itemId = item.getId();
 
 		// compute new errors
 		boolean hasErrors = _commitState.getErrors().isInError(itemId);
 		_commitState.getErrors().removeErrors(itemId);
 		if (TWUtil.isRequireNewRev(item)) {
 			for (Item sourceItem : item.getIncomingItems()) {
-				CompactUUID sourceId = sourceItem.getId();
+				UUID sourceId = sourceItem.getId();
 				if (_commitState.isToCommit(sourceId)) {
 					_commitState.getErrors().addError(
 							sourceId,
@@ -1368,7 +1368,7 @@ public class CommitDialogPage extends SWTDialog {
 	 * @return all tree nodes which represent specified item.
 	 */
 	private List<AbstractCadseViewNode> findItemNodes(Item item) {
-		CompactUUID itemId = item.getId();
+		UUID itemId = item.getId();
 
 		AbstractCadseViewNode rootNode = _treeField._ic.getOrCreateFilteredNode();
 		List<AbstractCadseViewNode> itemNodes = new ArrayList<AbstractCadseViewNode>();
@@ -1388,7 +1388,7 @@ public class CommitDialogPage extends SWTDialog {
 	 * @param itemNodes
 	 *            list of item nodes which represent itemId
 	 */
-	private void findItemNodes(CompactUUID itemId, AbstractCadseViewNode rootNode, List<AbstractCadseViewNode> itemNodes) {
+	private void findItemNodes(UUID itemId, AbstractCadseViewNode rootNode, List<AbstractCadseViewNode> itemNodes) {
 		if (!rootNode.hasChildren()) {
 			return;
 		}
@@ -1438,7 +1438,7 @@ public class CommitDialogPage extends SWTDialog {
 	 * @return true if an update of tree is necessary.
 	 */
 	protected boolean addItemToCommit(Item item, VisitedItems visited) {
-		CompactUUID itemId = item.getId();
+		UUID itemId = item.getId();
 		if (_commitState.isToCommit(itemId)) {
 			return false;
 		}
@@ -1450,7 +1450,7 @@ public class CommitDialogPage extends SWTDialog {
 		// remove errors
 		if (TWUtil.isRequireNewRev(item)) {
 			for (Item sourceItem : item.getIncomingItems()) {
-				CompactUUID sourceId = sourceItem.getId();
+				UUID sourceId = sourceItem.getId();
 				if (!_commitState.isToCommit(sourceId)) {
 					continue;
 				}

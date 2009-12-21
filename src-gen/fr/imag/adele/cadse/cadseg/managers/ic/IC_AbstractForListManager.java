@@ -24,7 +24,7 @@ import java.util.Set;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -52,7 +52,7 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected IC_AbstractForListContent(CompactUUID id) throws CadseException {
+		protected IC_AbstractForListContent(UUID id) throws CadseException {
 			super(id);
 		}
 

@@ -34,7 +34,7 @@ import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -121,7 +121,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 		 * @param item
 		 *            the item
 		 */
-		protected DisplayContent(CompactUUID id) throws CadseException {
+		protected DisplayContent(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -435,7 +435,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new DisplayContent(id);
 	}
 
