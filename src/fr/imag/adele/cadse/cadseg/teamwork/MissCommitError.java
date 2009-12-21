@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
  * Represents an error where an item must be committed.
@@ -28,9 +28,9 @@ import fr.imag.adele.cadse.core.CompactUUID;
  */
 public class MissCommitError extends MsgError {
 	
-	private CompactUUID _missingItemId;
+	private UUID _missingItemId;
 
-	public MissCommitError(CompactUUID itemId, String errorMsg, CompactUUID missingItemId) {
+	public MissCommitError(UUID itemId, String errorMsg, UUID missingItemId) {
 		super(itemId, errorMsg);
 		_missingItemId = missingItemId;
 	}
@@ -40,7 +40,7 @@ public class MissCommitError extends MsgError {
 	 * 
 	 * @return the missing item id.
 	 */
-	public CompactUUID getMissingItemId() {
+	public UUID getMissingItemId() {
 		return _missingItemId;
 	}
 

@@ -7,7 +7,7 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.template.LinkAttributeMultiTemplate;
 import fr.imag.adele.cadse.cadseg.template.LinkAttributeOneTemplate;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -28,7 +28,7 @@ public class LinkCIF extends AttributeCIF {
 		 * @param item
 		 *            the item
 		 */
-		protected LinkTypeContentItem(CompactUUID id, AttributeManager manager) {
+		protected LinkTypeContentItem(UUID id, AttributeManager manager) {
 			super(id, manager);
 		}
 
@@ -71,7 +71,7 @@ public class LinkCIF extends AttributeCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new LinkTypeContentItem(id, _attributeManager);
 	}
 }

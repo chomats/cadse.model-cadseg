@@ -20,7 +20,7 @@
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -102,7 +102,7 @@ public class JavaExporterManager extends EclipseExporterManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(CompactUUID id) throws CadseException {
+		public MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -143,7 +143,7 @@ public class JavaExporterManager extends EclipseExporterManager {
 	 * createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		MyContentItem cm = new MyContentItem(id);
 		cm.setComposers();
 		cm.setExporters();

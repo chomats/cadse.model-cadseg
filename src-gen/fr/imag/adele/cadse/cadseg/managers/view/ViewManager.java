@@ -48,7 +48,7 @@ import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModel;
 import fr.imag.adele.cadse.cadseg.template.ViewerSkeltonTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
@@ -236,7 +236,7 @@ public class ViewManager extends DefaultItemManager {
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		private ViewJavaFileContentManager(CompactUUID id) throws CadseException {
+		private ViewJavaFileContentManager(UUID id) throws CadseException {
 			super(id, new VariableImpl() {
 				public String compute(ContextVariable context, Item itemCurrent) {
 					return ViewManager.getPackage(context, itemCurrent);
@@ -448,7 +448,7 @@ public class ViewManager extends DefaultItemManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new ViewJavaFileContentManager(id);
 	}
 

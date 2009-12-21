@@ -19,7 +19,7 @@
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
@@ -37,7 +37,7 @@ public class MC_DestLinkManager extends MC_LinkManager {
 		/**
 			@generated
 		*/
-		public MC_DestLinkContent(CompactUUID id) throws CadseException {
+		public MC_DestLinkContent(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -89,7 +89,7 @@ public class MC_DestLinkManager extends MC_LinkManager {
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id ) throws CadseException {
 		MC_DestLinkContent cm = new MC_DestLinkContent(
 			id
 			);

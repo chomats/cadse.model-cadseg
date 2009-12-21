@@ -66,7 +66,7 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.delta.WLWCOperation;
@@ -174,7 +174,7 @@ public class GenerateCadseDefinitionModel {
 					
 				}
 				if (refItemType.isResolved()) {
-					CompactUUID uuid = ItemTypeManager.getIdRuntime((ItemType) refItemType);
+					UUID uuid = ItemTypeManager.getIdRuntime((ItemType) refItemType);
 					ceit.setItemTypeSource(uuid.toString());
 				}
 			}

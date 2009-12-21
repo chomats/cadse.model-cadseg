@@ -31,7 +31,7 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -96,7 +96,7 @@ public class FieldManager extends DefaultItemManager {
 		 * @param item
 		 *            the item
 		 */
-		private FieldContentManager(CompactUUID id) {
+		private FieldContentManager(UUID id) {
 			super(id);
 		}
 
@@ -420,7 +420,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) {
+	public ContentItem createContentItem(UUID id) {
 		return new FieldContentManager(id);
 	}
 

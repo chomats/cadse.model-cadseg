@@ -21,7 +21,7 @@ package fr.imag.adele.cadse.cadseg.teamwork;
 import java.util.HashSet;
 import java.util.Set;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 
 /**
@@ -32,14 +32,14 @@ import fr.imag.adele.cadse.core.Item;
  */
 public class VisitedItems {
 
-	private Set<CompactUUID> _visited = new HashSet<CompactUUID>();
+	private Set<UUID> _visited = new HashSet<UUID>();
 
 	/**
 	 * Return set of id of item which has been visited.
 	 * 
 	 * @return set of id of item which has been visited.
 	 */
-	public Set<CompactUUID> getVisitedItemIds() {
+	public Set<UUID> getVisitedItemIds() {
 		return _visited;
 	}
 	
@@ -48,7 +48,7 @@ public class VisitedItems {
 	 * 
 	 * @param itemId item id
 	 */
-	public void markAsVisited(CompactUUID itemId) {
+	public void markAsVisited(UUID itemId) {
 		_visited.add(itemId);
 	}
 	
@@ -67,7 +67,7 @@ public class VisitedItems {
 	 * @param itemId item id
 	 * @return true if specified item has been visited.
 	 */
-	public boolean hasBeenVisited(CompactUUID itemId) {
+	public boolean hasBeenVisited(UUID itemId) {
 		return _visited.contains(itemId);
 	}
 	

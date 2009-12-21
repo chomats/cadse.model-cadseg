@@ -28,7 +28,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionCIF;
@@ -56,7 +56,7 @@ public class MenuActionManager extends MenuAbstractManager {
 		/**
 			@generated
 		*/
-		public MenuActionContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+		public MenuActionContent(UUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
 			super(id, packageNameVariable, classNameVariable);
 		}
 
@@ -115,7 +115,7 @@ public class MenuActionManager extends MenuAbstractManager {
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id ) throws CadseException {
 		MenuActionContent cm = new MenuActionContent(
 			id, NullVariable.INSTANCE, NullVariable.INSTANCE
 			);
