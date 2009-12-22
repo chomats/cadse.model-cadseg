@@ -46,7 +46,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.key.AbstractSpaceKey;
-import fr.imag.adele.cadse.core.key.ISpaceKey;
+import fr.imag.adele.cadse.core.key.Key;
 import fr.imag.adele.cadse.core.key.SpaceKey;
 import fr.imag.adele.cadse.core.key.SpaceKeyType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -90,8 +90,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		}
 
 		@Override
-		public ISpaceKey computeKey(Item item) {
-			ISpaceKey parentKey = null;
+		public Key computeKey(Item item) {
+			Key parentKey = null;
 			if (parentSpaceKeyType != null) {
 				parentKey = getParentSpaceKeyFromItem(item);
 			}
@@ -104,8 +104,8 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		}
 
 		@Override
-		public ISpaceKey computeKey(String name, Item parentItem, Object... key_attributes) {
-			ISpaceKey parentKey = getParentKeyFromParentItem(parentItem);
+		public Key computeKey(String name, Item parentItem, Object... key_attributes) {
+			Key parentKey = getParentKeyFromParentItem(parentItem);
 			if (parentKey == AbstractSpaceKey.INVALID)
 				return AbstractSpaceKey.INVALID;
 			
@@ -131,12 +131,12 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	static private final class PageSpaceKey extends SpaceKey {
 		final boolean	modificationPage;
 
-		PageSpaceKey(Item source, SpaceKeyType type, String name, ISpaceKey parentKey) {
+		PageSpaceKey(Item source, SpaceKeyType type, String name, Key parentKey) {
 			super(source, type, name, parentKey);
 			modificationPage = PageManager.isModificationPage(source);
 		}
 
-		PageSpaceKey(Item source, PageSpaceKeyType type, String name, ISpaceKey parentKey, boolean b) {
+		PageSpaceKey(Item source, PageSpaceKeyType type, String name, Key parentKey, boolean b) {
 			super(source, type, name, parentKey);
 			modificationPage = b;
 		}

@@ -52,7 +52,7 @@ import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.internal.ItemImpl;
-import fr.imag.adele.cadse.core.key.ISpaceKey;
+import fr.imag.adele.cadse.core.key.Key;
 import fr.imag.adele.cadse.core.key.SpaceKey;
 import fr.imag.adele.cadse.core.key.SpaceKeyType;
 import fr.imag.adele.cadse.core.util.Assert;
@@ -89,7 +89,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 		}
 
 		@Override
-		protected ISpaceKey getParentSpaceKeyFromItem(Item item) {
+		protected Key getParentSpaceKeyFromItem(Item item) {
 			Item it = null;
 			it = item.getPartParent(false);
 			if (it == null) {
@@ -106,7 +106,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 
 				it = it2;
 			}
-			ISpaceKey key = it.getKey();
+			Key key = it.getKey();
 			assert key != null;
 			return key;
 		}
