@@ -20,8 +20,8 @@ package fr.imag.adele.cadse.cadseg.managers.attributes;
 
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.delta.ItemDelta;
-import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.SetAttributeOperation;
 import fr.imag.adele.cadse.core.transaction.AbstractLogicalWorkspaceTransactionListener;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
