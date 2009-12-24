@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.exporter;
 import java.util.Set;
 
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.build.Exporter;

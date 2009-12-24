@@ -30,7 +30,7 @@ import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -83,7 +83,7 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 			if (incomingLinkType.length == 1 && incomingLinkType[0] != a) {
 				Item partLinkTytpe = incomingLinkType[0];
 				sb.append(
-						GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, partLinkTytpe, null,
+						GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, partLinkTytpe, null,
 								null, imports)).append(",");
 			} else {
 				sb.append("null /*error cannot find incoming part from ").append(a.getName()).append("*/,");

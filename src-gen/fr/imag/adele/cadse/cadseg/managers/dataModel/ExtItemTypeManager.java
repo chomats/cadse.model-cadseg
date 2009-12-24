@@ -35,7 +35,7 @@ import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -137,7 +137,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 		 * computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariable.DEFAULT));
+			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
 		/*

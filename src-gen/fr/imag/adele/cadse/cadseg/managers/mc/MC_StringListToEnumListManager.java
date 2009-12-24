@@ -30,7 +30,7 @@ import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -77,7 +77,7 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 
 			Item enumtype = EnumManager.getEnumType(enumattribute);
 
-			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, enumtype);
+			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumtype);
 
 			sb.append(javaenumtype.getElementName()).append(".class").append(",");
 			imports.add(javaenumtype.getFullyQualifiedName());
@@ -106,7 +106,7 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 
 			Item enumtype = EnumManager.getEnumType(enumattribute);
 
-			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, enumtype);
+			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumtype);
 
 			sb.append("Class<").append(javaenumtype.getElementName()).append(")> enumclass,");
 		}

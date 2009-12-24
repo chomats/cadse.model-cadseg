@@ -29,7 +29,7 @@ import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -134,7 +134,7 @@ public class MC_LinkManager extends ModelControllerManager {
 
 			Item a = ModelControllerManager.getAttribute(getItem());
 			sb.append(Boolean.toString(LinkManager.getMin(a) != 0)).append(", null,");
-			sb.append(GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, a, null, null, imports))
+			sb.append(GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, a, null, null, imports))
 					.append(",");
 		}
 

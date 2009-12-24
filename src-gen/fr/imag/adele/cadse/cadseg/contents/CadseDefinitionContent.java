@@ -93,7 +93,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	 */
 	@Override
 	protected String getDefaultPackage() {
-		return CadseDefinitionManager.getDefaultPackage(ContextVariable.DEFAULT, getOwnerItem());
+		return CadseDefinitionManager.getDefaultPackage(ContextVariableImpl.DEFAULT, getOwnerItem());
 	}
 
 	/*

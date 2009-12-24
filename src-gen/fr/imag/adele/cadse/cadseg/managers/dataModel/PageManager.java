@@ -35,7 +35,7 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -188,7 +188,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariable.DEFAULT));
+			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
 		/*
@@ -223,9 +223,9 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * Generate.
 		 */
 		public void generate() {
-			//GeneratePageClass2.generate(ContextVariable.DEFAULT, this, getOwnerItem());
+			//GeneratePageClass2.generate(ContextVariableImpl.DEFAULT, this, getOwnerItem());
 			//if (hasPageAction(getOwnerItem())) {
-			//	GeneratePageActionClass.generate(ContextVariable.DEFAULT, getOwnerItem());
+			//	GeneratePageActionClass.generate(ContextVariableImpl.DEFAULT, getOwnerItem());
 			//}
 		}
 

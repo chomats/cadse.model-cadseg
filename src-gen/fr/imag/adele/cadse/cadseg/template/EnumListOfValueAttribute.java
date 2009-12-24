@@ -70,10 +70,10 @@ public class EnumListOfValueAttribute
     stringBuffer.append(TEXT_1);
     	String upper_first_att_name = JavaIdentifier.javaIdentifierFromString(attribute.getName(),true, false, null);
 	String min_short_name = JavaIdentifier.javaIdentifierFromString(shortName,false, true, null);
-	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
+	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
 
 	Item enumType = EnumManager.getEnumType(attribute);
-	IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT,enumType);
+	IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT,enumType);
 	String enumClass = javaenumtype.getElementName();
 
 
@@ -81,7 +81,7 @@ public class EnumListOfValueAttribute
     stringBuffer.append(TEXT_2);
     stringBuffer.append(enumClass);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(min_short_name );
     stringBuffer.append(TEXT_5);
@@ -95,7 +95,7 @@ public class EnumListOfValueAttribute
     stringBuffer.append(TEXT_9);
     stringBuffer.append(enumClass);
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_11);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_12);

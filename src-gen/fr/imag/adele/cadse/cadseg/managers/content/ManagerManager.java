@@ -51,7 +51,7 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
@@ -249,7 +249,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		 * computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariable.DEFAULT));
+			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
 		/*
@@ -724,10 +724,10 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	// @Override
 	// public void regenerate(Item manager) {
 	// ((IGenerateContent)
-	// manager.getContentItem()).generate(ContextVariable.DEFAULT);
+	// manager.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 	// Item model = getWorkspaceModel(manager);
 	// ((IGenerateContent)
-	// model.getContentItem()).generate(ContextVariable.DEFAULT);
+	// model.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 	// }
 
 	/**
@@ -737,9 +737,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 *            the manager
 	 */
 	public static void _regenerate(Item manager) {
-		((IGenerateContent) manager.getContentItem()).generate(ContextVariable.DEFAULT);
+		((IGenerateContent) manager.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 		Item model = _getCadseDefinition(manager);
-		((IGenerateContent) model.getContentItem()).generate(ContextVariable.DEFAULT);
+		((IGenerateContent) model.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 	}
 
 	/**

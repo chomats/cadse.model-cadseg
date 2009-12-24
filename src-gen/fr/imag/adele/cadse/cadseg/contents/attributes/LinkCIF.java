@@ -8,7 +8,7 @@ import fr.imag.adele.cadse.cadseg.template.LinkAttributeMultiTemplate;
 import fr.imag.adele.cadse.cadseg.template.LinkAttributeOneTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;

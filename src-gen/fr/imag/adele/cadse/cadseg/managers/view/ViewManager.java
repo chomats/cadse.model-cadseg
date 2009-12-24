@@ -49,7 +49,7 @@ import fr.imag.adele.cadse.cadseg.template.ViewerSkeltonTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -270,7 +270,7 @@ public class ViewManager extends DefaultItemManager {
 		public void generate(ContextVariable cxt) {
 			Item view = getOwnerItem();
 			ViewerSkeltonTemplate skeltonTemplate = new ViewerSkeltonTemplate();
-			ViewModel vm = new ViewModel(ContextVariable.DEFAULT, getOwnerItem());
+			ViewModel vm = new ViewModel(ContextVariableImpl.DEFAULT, getOwnerItem());
 			try {
 				IFile javaFile = getFile();
 				EclipsePluginContentManger.generateJava(javaFile, skeltonTemplate.generate(vm), View
@@ -280,7 +280,7 @@ public class ViewManager extends DefaultItemManager {
 				e.printStackTrace();
 			}
 
-			((IGenerateContent) getCadsegModel(view).getContentItem()).generate(ContextVariable.DEFAULT);
+			((IGenerateContent) getCadsegModel(view).getContentItem()).generate(ContextVariableImpl.DEFAULT);
 		}
 
 		/*
@@ -307,7 +307,7 @@ public class ViewManager extends DefaultItemManager {
 		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariable.DEFAULT));
+			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
 		/*
@@ -478,7 +478,7 @@ public class ViewManager extends DefaultItemManager {
 				}
 
 				for (Item item : views) {
-					((IGenerateContent) item.getContentItem()).generate(ContextVariable.DEFAULT);
+					((IGenerateContent) item.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 				}
 			}
 

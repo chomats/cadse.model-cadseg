@@ -30,7 +30,7 @@ import org.eclipse.ui.ide.IDE;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionCIF;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.IContentItemFactory;
