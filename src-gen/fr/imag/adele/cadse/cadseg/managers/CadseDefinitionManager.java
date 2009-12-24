@@ -734,7 +734,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			String setvalue = value;
 			list.add(setvalue);
 			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS, list);
-			((IGenerateContent) cadseDefinition.getContentItem()).generate(ContextVariable.DEFAULT);
+			((IGenerateContent) cadseDefinition.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 		} catch (Throwable t) {
 
 		}
@@ -995,7 +995,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	public static IContainer getSourceFolder(Item cadseDefinition) {
 		CadseDefinitionContent cm = (CadseDefinitionContent) cadseDefinition.getContentItem();
 		if (cm != null) {
-			return cm.getSourceFolder(ContextVariable.DEFAULT);
+			return cm.getSourceFolder(ContextVariableImpl.DEFAULT);
 		}
 		return null;
 	}

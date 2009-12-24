@@ -284,7 +284,7 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 			return ret;
 		}
 
-		IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, itemenumtype);
+		IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, itemenumtype);
 		if (type != null && type.exists()) {
 			List<String> values = EnumTypeManager.getEnumTypeValues(itemenumtype);
 			if (values == null || !values.contains(defaultValue)) {
@@ -323,7 +323,7 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 
 		Item enumType = EnumManager.getEnumType(attribute);
 		if (enumType != null) {
-			IType enumTypeClass = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, enumType);
+			IType enumTypeClass = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumType);
 			if (enumTypeClass != null) {
 				if (AttributeManager.isIsListAttribute(attribute)) {
 					appendCST(cxt, sb, absItemType, attribute, imports, ListAttributeType.class, enumTypeClass);

@@ -53,7 +53,7 @@ import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -948,7 +948,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 
 		if (item.isInstanceOf(CadseGCST.ENUM_TYPE)) {
-			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, item);
+			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, item);
 			if (type != null) {
 				IResource jf = type.getResource();
 				if (jf != null && jf instanceof IFile) {

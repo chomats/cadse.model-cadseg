@@ -48,7 +48,7 @@ public class ViewModels {
 		this.categories.add(vc);
 
 		for (Item view : ViewModelManager.getViews(viewModel)) {
-			ViewModel vm = new ViewModel(ContextVariable.DEFAULT, view);
+			ViewModel vm = new ViewModel(ContextVariableImpl.DEFAULT, view);
 			vm.category = vc.id;
 
 			this.views.add(vm);

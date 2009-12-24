@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.build.CompositeItemTypeManager;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemState;
@@ -41,10 +41,10 @@ public class CadseG_WorkspaceListener extends WorkspaceListener {
 			final ContentItem contentItem = item.getContentItem();
 			if (contentItem != null && (contentItem instanceof IGenerateContent)) {
 				IGenerateContent cm = ((IGenerateContent) contentItem);
-				cm.generate(ContextVariable.DEFAULT);
+				cm.generate(ContextVariableImpl.DEFAULT);
 			} else {
 				if (item.getType().getItemManager() instanceof IBuildManager) {
-					((IBuildManager) item.getType().getItemManager()).generate(ContextVariable.DEFAULT, item);
+					((IBuildManager) item.getType().getItemManager()).generate(ContextVariableImpl.DEFAULT, item);
 				}
 			}
 		}

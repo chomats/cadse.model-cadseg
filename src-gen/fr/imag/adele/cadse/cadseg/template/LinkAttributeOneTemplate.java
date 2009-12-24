@@ -61,7 +61,7 @@ public class LinkAttributeOneTemplate
     final StringBuffer stringBuffer = new StringBuffer();
     stringBuffer.append(TEXT_1);
       String min_short_name = JavaIdentifier.javaIdentifierFromString(shortName,false,true,null);
-	String cst_linktype = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
+	String cst_linktype = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
 	Item  dest = LinkManager.getDestination(attribute);
 	Item source = LinkManager.getSource(attribute);
 	
@@ -72,7 +72,7 @@ public class LinkAttributeOneTemplate
     stringBuffer.append(TEXT_4);
     stringBuffer.append((dest== null?"unknown":dest.getName()));
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_6);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_7);
@@ -86,7 +86,7 @@ public class LinkAttributeOneTemplate
     stringBuffer.append(TEXT_11);
     stringBuffer.append((dest== null?"unknown":dest.getName()));
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_13);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_14);
@@ -100,7 +100,7 @@ public class LinkAttributeOneTemplate
     stringBuffer.append(TEXT_18);
     stringBuffer.append((dest== null?"unknown":dest.getName()));
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_20);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_21);
@@ -114,7 +114,7 @@ public class LinkAttributeOneTemplate
     stringBuffer.append(TEXT_25);
     stringBuffer.append((dest== null?"unknown":dest.getName()));
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_27);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_28);
