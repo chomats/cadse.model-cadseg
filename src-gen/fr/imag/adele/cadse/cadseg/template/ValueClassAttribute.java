@@ -39,8 +39,8 @@ public class ValueClassAttribute
     stringBuffer.append(TEXT_1);
     
 	Item itemType = attribute.getPartParent();
-	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
-	String cstType = GenerateJavaIdentifier.cstQualifiedAttributeItemType(ContextVariableImpl.DEFAULT, itemType, null, imports);
+	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
+	String cstType = GenerateJavaIdentifier.cstQualifiedAttributeItemType(ContextVariable.DEFAULT, itemType, null, imports);
 	ItemType it = attribute.getType();
 
 	 String typeJava = null;
@@ -51,7 +51,7 @@ public class ValueClassAttribute
     stringBuffer.append(TEXT_2);
     stringBuffer.append(typeJava);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(cstType);
     stringBuffer.append(TEXT_5);
