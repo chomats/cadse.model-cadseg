@@ -60,7 +60,7 @@ public class ValueAttribute
     final StringBuffer stringBuffer = new StringBuffer();
     stringBuffer.append(TEXT_1);
     	String min_short_name = JavaIdentifier.javaIdentifierFromString(shortName,false,true, null);
-	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
+	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
 	ItemType it = attribute.getType();
 	AttributeManager manager = (AttributeManager) it.getItemManager();
 
@@ -75,7 +75,7 @@ public class ValueAttribute
     stringBuffer.append(TEXT_2);
     stringBuffer.append(typeJava);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(min_short_name );
     stringBuffer.append(TEXT_5);
@@ -97,7 +97,7 @@ public class ValueAttribute
     stringBuffer.append(TEXT_13);
      } 
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariableImpl.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariable.DEFAULT, attribute));
     stringBuffer.append(TEXT_15);
     stringBuffer.append(min_short_name );
     stringBuffer.append(TEXT_16);
