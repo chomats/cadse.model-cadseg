@@ -469,7 +469,6 @@ public class CommitStatusDialog {
 	public class ModifiedItemTreeIC extends IC_TreeModel {
 
 		private IContentProvider	_contentProvider;
-		fede.workspace.tool.view.node.ItemNodeIsSelected _qf;
 		
 		@Override
 		public ItemType getType() {
