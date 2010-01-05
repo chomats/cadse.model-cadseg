@@ -64,8 +64,10 @@ import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
+import fr.imag.adele.cadse.core.key.KeyDefinition;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -459,7 +461,7 @@ public class ViewManager extends DefaultItemManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.VIEW.setSpaceKeyType(new SpaceKeyType(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
+		CadseGCST.VIEW.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
 
 		WorkspaceListener listener = new WorkspaceListener() {
 

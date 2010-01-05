@@ -469,7 +469,8 @@ public class CommitStatusDialog {
 	public class ModifiedItemTreeIC extends IC_TreeModel {
 
 		private IContentProvider	_contentProvider;
-
+		fede.workspace.tool.view.node.ItemNodeIsSelected _qf;
+		
 		@Override
 		public ItemType getType() {
 			return null;
@@ -542,7 +543,7 @@ public class CommitStatusDialog {
 
 				// children are all destinations items
 				model.addRule(CadseGCST.ITEM, new LinkTypeCategoryRule());
-				model.addRule(CadseGCST.LINK, new ItemsFromLinkFromLinkTypeRule(
+				model.addRule(CadseGCST.LINK_TYPE, new ItemsFromLinkFromLinkTypeRule(
 						ItemShortNameComparator.INSTANCE, false, false, new FilterItem() {
 							public boolean accept(Item item) {
 								return !item.isStatic() && _itemsToShow.contains(item.getId());

@@ -146,7 +146,7 @@ public class CommitThread extends Thread {
 			IAttributeType attrType = (IAttributeType) attrItem;
 
 			// links are updated in a second pass
-			if (attrType.isInstanceOf(CadseGCST.LINK)) {
+			if (attrType.isInstanceOf(CadseGCST.LINK_TYPE)) {
 				continue;
 			}
 
