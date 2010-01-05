@@ -43,7 +43,7 @@ Export-Package: fr.imag.adele.cadse.cadseg;version="2.2.1",
  fr.imag.adele.cadse.cadseg.type;version="2.2.1",
  fr.imag.adele.cadse.cadseg.util;version="2.2.1",
  fr.imag.adele.cadse.cadseg.views.cadseg;version="2.2.1"
-Import-Package: adele.util.io;version="1.0.0",
+Import-Package: adele.util.io,
  com.sun.xml.bind;version="2.1.5",
  com.sun.xml.bind.annotation;version="2.1.5",
  com.sun.xml.bind.api;version="2.1.5",
