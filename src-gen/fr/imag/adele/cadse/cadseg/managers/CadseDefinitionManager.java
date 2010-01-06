@@ -71,12 +71,13 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.IFieldContenProposalProvider;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.Proposal;
@@ -123,7 +124,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			}
 			return uuid;
 		}
-		return new UUID(uuid_str);
+		return UUID.fromString(uuid_str);
 	}
 	
 	/**
@@ -136,7 +137,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	 */
 	public static UUID getIdDef(Item cadseDefinition) {
 		if (cadseDefinition.getType() == CadseGCST.CADSE) {
-			return new UUID(cadseDefinition.getAttribute(CadseGCST.CADSE_at_ID_DEFINITION_));
+			return UUID.fromString(cadseDefinition.getAttribute(CadseGCST.CADSE_at_ID_DEFINITION_));
 		}
 		return cadseDefinition.getId();
 	}
@@ -196,7 +197,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 		 */
 		@Override
 		public String getName() {
-			return "Correct Manifest for item " + manager.getItem().getQualifiedName();
+			return "Correct Manifest for item " + manager.getOwnerItem().getQualifiedName();
 		}
 
 		/*
@@ -239,9 +240,9 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 				OsgiManifest omf = new OsgiManifest(manager.getProject());
 				omf.removeEntry(OsgiManifest.EXPORT_PACKAGE, oldDefaultPackage);
 				omf.putArray(OsgiManifest.EXPORT_PACKAGE, true, false, newDefaultPackage);
-				omf.put(OsgiManifest.BUNDLE_SYMBOLICNAME, manager.getItem().getQualifiedName());
-				omf.put(OsgiManifest.BUNDLE_NAME, manager.getItem().getQualifiedName());
-				omf.put(OsgiManifest.BUNDLE_SYMBOLICNAME, manager.getItem().getQualifiedName() + ";singleton:=true");
+				omf.put(OsgiManifest.BUNDLE_SYMBOLICNAME, manager.getOwnerItem().getQualifiedName());
+				omf.put(OsgiManifest.BUNDLE_NAME, manager.getOwnerItem().getQualifiedName());
+				omf.put(OsgiManifest.BUNDLE_SYMBOLICNAME, manager.getOwnerItem().getQualifiedName() + ";singleton:=true");
 				omf.put(OsgiManifest.BUNDLE_ACTIVATOR, newDefaultPackage + ".Activator");
 				manager.computeManifest(omf);
 				StringBuilder sb = new StringBuilder();
@@ -389,7 +390,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	 */
 	@Override
 	public void init() {
-		CadseGCST.CADSE_DEFINITION.setSpaceKeyType(new SpaceKeyType(CadseGCST.CADSE_DEFINITION, null));
+		CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
 		new CadseG_WLWCListener();
 		new CadseG_WorkspaceListener();
 		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
@@ -727,13 +728,13 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	@SuppressWarnings("unchecked")
 	public static final void addImportsAttribute(Item cadseDefinition, String value) {
 		try {
-			List<String> list = (List<String>) cadseDefinition.getAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS);
+			List<String> list = (List<String>) cadseDefinition.getAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_);
 			if (list == null) {
 				list = new ArrayList<String>();
 			}
 			String setvalue = value;
 			list.add(setvalue);
-			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS, list);
+			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_, list);
 			((IGenerateContent) cadseDefinition.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 		} catch (Throwable t) {
 
@@ -1066,7 +1067,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	 * @return the version
 	 */
 	public static int getVersion(Item cadseDefinition) {
-		return Convert.toInt(cadseDefinition.getAttribute(CadseGCST.ITEM_at_TW_VERSION),
+		return Convert.toInt(cadseDefinition.getAttribute(CadseGCST.ITEM_at_TW_VERSION_),
 				CadseGCST.ITEM_at_TW_VERSION_, 0);
 	}
 

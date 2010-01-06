@@ -25,9 +25,6 @@ import java.util.Set;
 
 import org.eclipse.jdt.core.IType;
 
-import fede.workspace.tool.loadmodel.model.jaxb.CAttType;
-import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
-import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -52,16 +49,17 @@ import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.internal.ItemImpl;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
+import fr.imag.adele.cadse.core.key.DefaultKeyImpl;
 import fr.imag.adele.cadse.core.key.Key;
-import fr.imag.adele.cadse.core.key.SpaceKey;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
-import fr.imag.adele.cadse.core.util.Assert;
+import fr.imag.adele.cadse.util.Assert;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.*;
 
 /**
  * The Class AttributeManager.
@@ -80,10 +78,10 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @return true, if is link attribute
 	 */
 	public static boolean isLinkAttribute(Item item) {
-		return item.getType() == CadseGCST.LINK;
+		return item.getType() == CadseGCST.LINK_TYPE;
 	}
 
-	private final class AttributeSpaceKeyType extends SpaceKeyType {
+	private final class AttributeSpaceKeyType extends DefaultKeyDefinitionImpl {
 		private AttributeSpaceKeyType(ItemType itemType, ItemType spaceKeyType) {
 			super(itemType, spaceKeyType);
 		}
@@ -96,7 +94,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 				it = ((Item) item).getPartParent(true);
 			}
 			if (it == null)
-				return SpaceKey.INVALID;
+				return DefaultKeyImpl.INVALID;
 			
 			if (it.getType() == CadseGCST.EXT_ITEM_TYPE) {
 				Item it2 = ExtItemTypeManager.getRefType(it);
@@ -182,7 +180,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 		getItemType().setHasNameAttribute(true);
 		getItemType().setHasQualifiedNameAttribute(false);
 		if (getItemType() == CadseGCST.ATTRIBUTE) {
-			CadseGCST.ATTRIBUTE.setSpaceKeyType(new AttributeSpaceKeyType(CadseGCST.ATTRIBUTE,
+			CadseGCST.ATTRIBUTE.setKeyDefinition(new AttributeSpaceKeyType(CadseGCST.ATTRIBUTE,
 					CadseGCST.ITEM_TYPE));
 			// new AttributeWLWC();
 		}
@@ -219,7 +217,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @return true, if is checks if is list attribute
 	 */
 	public static final boolean isIsListAttribute(Item attribute) {
-		if (attribute.getType() == CadseGCST.LINK) { // correction bug
+		if (attribute.getType() == CadseGCST.LINK_TYPE) { // correction bug
 			// Une definition d'un type de link n'a pas l'attribut 'is-list'
 			// pour dire si c'est une liste ou non
 			// C'est l'attribut max contient cette information sous une autre
@@ -611,7 +609,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			setIdRuntimeAttribute(attribute, uuid_str);
 			return uuid;
 		}
-		return new UUID(uuid_str);
+		return UUID.fromString(uuid_str);
 
 	}
 
@@ -792,7 +790,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @see fr.imag.adele.cadse.core.root.managers.attribute.InitModelLoadAndWrite#loadAttributeDefinition(fr.imag.adele.fede.workspace.as.initmodel.IInitModel,
 	 *      fr.imag.adele.cadse.core.IWorkspaceLogique,
 	 *      fr.imag.adele.cadse.core.ItemType,
-	 *      fede.workspace.tool.loadmodel.model.jaxb.CValuesType,
+	 *      fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType,
 	 *      java.lang.String)
 	 */
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
@@ -803,10 +801,10 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.core.root.managers.attribute.InitModelLoadAndWrite#writeAttributeDefinition(fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory,
+	 * @see fr.imag.adele.cadse.core.root.managers.attribute.InitModelLoadAndWrite#writeAttributeDefinition(fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory,
 	 *      fr.imag.adele.cadse.core.var.ContextVariable,
 	 *      fr.imag.adele.cadse.core.root.managers.attribute.IAttributeCadsegForGenerate,
-	 *      fede.workspace.tool.loadmodel.model.jaxb.CValuesType,
+	 *      fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType,
 	 *      fr.imag.adele.cadse.core.Item)
 	 */
 	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,

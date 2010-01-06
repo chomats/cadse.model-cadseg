@@ -26,9 +26,9 @@ import java.util.Set;
 
 import org.eclipse.jdt.core.IType;
 
-import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
-import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
-import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ValueTypeType;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.attributes.EnumCIF;
@@ -49,6 +49,7 @@ import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.ListAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 

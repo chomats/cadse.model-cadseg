@@ -31,12 +31,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import fede.workspace.tool.loadmodel.model.jaxb.CCadse;
-import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
-import fede.workspace.tool.loadmodel.model.jaxb.CLink;
-import fede.workspace.tool.loadmodel.model.jaxb.CLinkType;
-import fede.workspace.tool.loadmodel.model.jaxb.CPages;
-import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.*;
 
 public class Correction {
 	static final public String notnull(String v) {
@@ -100,7 +95,7 @@ public class Correction {
 	}
 
 	public static void main(String[] args) throws JAXBException {
-		JAXBContext jc = JAXBContext.newInstance("fede.workspace.tool.loadmodel.model.jaxb");
+		JAXBContext jc = JAXBContext.newInstance("fr.imag.adele.fede.workspace.as.initmodel.jaxb");
 
 		Unmarshaller um = jc.createUnmarshaller();
 		CCadse cadse = (CCadse) um.unmarshal(new File(

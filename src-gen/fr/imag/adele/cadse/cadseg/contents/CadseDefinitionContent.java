@@ -30,7 +30,6 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaProjectManager;
 import fede.workspace.eclipse.java.osgi.OsgiManifest;
 import fede.workspace.tool.eclipse.MappingManager;
-import fede.workspace.tool.loadmodel.model.jaxb.CCadse;
 import fr.imag.adele.cadse.cadseg.generate.GenerateCadseDefinitionModel;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaFileCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
@@ -46,6 +45,8 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.var.StringVariable;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -115,7 +116,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	 * (java.util.Set)
 	 */
 	public void computeImportsPackage(Set<String> imports) {
-		List<String> importsList = CadseDefinitionManager.getImports(getItem());
+		List<String> importsList = CadseDefinitionManager.getImports(getOwnerItem());
 		if (importsList != null) {
 			imports.addAll(importsList);
 		}
@@ -178,7 +179,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		StringWriter writer = new StringWriter();
 
 		try {
-			JAXBContext jc = JAXBContext.newInstance("fede.workspace.tool.loadmodel.model.jaxb", this.getClass()
+			JAXBContext jc = JAXBContext.newInstance("fr.imag.adele.fede.workspace.as.initmodel.jaxb", this.getClass()
 					.getClassLoader());
 			Marshaller m = jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -281,7 +282,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 			pluginExtension.setPoint("org.eclipse.ui.views");
 			findExt = pluginExtension;
 
-			ViewModels viewmodels = new ViewModels(CadseDefinitionManager.getViewModel(getItem()));
+			ViewModels viewmodels = new ViewModels(CadseDefinitionManager.getViewModel(getOwnerItem()));
 			for (ViewCategoryModel vc : viewmodels.categories) {
 				PluginElement categoryElt = new PluginElement();
 				categoryElt.setModel(workspacePluginModel);

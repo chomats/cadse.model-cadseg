@@ -43,7 +43,7 @@ public class LinkCIF extends AttributeCIF {
 		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
 
 			if (kind.equals("methods")) {
-				Item source = getItem();
+				Item source = getOwnerItem();
 				if (true) { // !AttributeManager.isClassAttributeAttribute(source)
 					int max = LinkManager.getMax(source);
 					if (max == 1) {
