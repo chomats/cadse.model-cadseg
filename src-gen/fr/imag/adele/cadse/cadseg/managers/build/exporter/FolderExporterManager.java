@@ -127,13 +127,13 @@ public class FolderExporterManager extends EclipseExporterManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb,
 				Set<String> imports, GenContext context) {
-			List<String> type = getTypesAttribute(getItem());
+			List<String> type = getTypesAttribute(getOwnerItem());
 			if (type != null && type.size() == 1) {
 				sb.append(' ').appendStringValue(type.get(0)).append(',');
 			} else {
 				sb.append(' ').append("error").append(',');
 			}
-			String path = getPathAttribute(getItem());
+			String path = getPathAttribute(getOwnerItem());
 			sb.append(' ').appendStringValue(path).append(',');
 		}
 	}

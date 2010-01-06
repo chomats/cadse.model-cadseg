@@ -31,26 +31,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fede.workspace.tool.loadmodel.model.jaxb.CAbsItemType;
-import fede.workspace.tool.loadmodel.model.jaxb.CAction;
-import fede.workspace.tool.loadmodel.model.jaxb.CActionContributor;
-import fede.workspace.tool.loadmodel.model.jaxb.CAttType;
-import fede.workspace.tool.loadmodel.model.jaxb.CCadse;
-import fede.workspace.tool.loadmodel.model.jaxb.CCadseRef;
-import fede.workspace.tool.loadmodel.model.jaxb.CExtensionItemType;
-import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
-import fede.workspace.tool.loadmodel.model.jaxb.CLinkType;
-import fede.workspace.tool.loadmodel.model.jaxb.CMenuAction;
-import fede.workspace.tool.loadmodel.model.jaxb.CMetaAttribute;
-import fede.workspace.tool.loadmodel.model.jaxb.CPage;
-import fede.workspace.tool.loadmodel.model.jaxb.CPages;
-import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
-import fede.workspace.tool.loadmodel.model.jaxb.CommitKindType;
-import fede.workspace.tool.loadmodel.model.jaxb.EvolutionDestinationKindType;
-import fede.workspace.tool.loadmodel.model.jaxb.EvolutionKindType;
-import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
-import fede.workspace.tool.loadmodel.model.jaxb.UpdateKindType;
-import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
 import fr.imag.adele.cadse.cadseg.IAttributeGenerator;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -76,7 +56,9 @@ import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
 import fr.imag.adele.cadse.core.impl.ui.ConfigurablePageFactory;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.*;
 
 /**
  * The Class WSModelGenerateModel.
@@ -100,7 +82,7 @@ public class GenerateCadseDefinitionModel {
 	public static CCadse generateCADSE(Item cadseDefinition) {
 
 		ObjectFactory factory = new ObjectFactory();
-		ContextVariable cxt = new ContextVariable();
+		ContextVariable cxt = new ContextVariableImpl();
 		CCadse cadse = factory.createCCadse();
 		cadse.setName(cadseDefinition.getQualifiedName());
 		// ItemTypeManager

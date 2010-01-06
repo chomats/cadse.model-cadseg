@@ -45,22 +45,11 @@ public class JavaClassExporter extends Exporter {
 	 * @param exporterTypes
 	 *            the exporter types
 	 */
-	protected JavaClassExporter(ContentItem contentItem, String... exporterTypes) {
+	protected JavaClassExporter(ContentItem contentItem, Class<?>... exporterTypes) {
 		super(contentItem, exporterTypes);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.build.Exporter#exportItem(fr.imag.adele.cadse.core.build.IBuildingContext,
-	 *      fr.imag.adele.cadse.core.build.IExporterTarget, java.lang.String)
-	 */
-	@Override
-	public IExportedContent exportItem(IBuildingContext context, IExporterTarget target, String exporterType)
-			throws CadseException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	/**
 	 * Generate construstor arguments.

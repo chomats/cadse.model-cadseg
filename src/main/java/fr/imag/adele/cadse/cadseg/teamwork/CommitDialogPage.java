@@ -577,7 +577,7 @@ public class CommitDialogPage extends SWTDialog {
 
 				// children are all destinations items
 				model.addRule(CadseGCST.ITEM, new LinkTypeCategoryRule());
-				model.addRule(CadseGCST.LINK, new ItemsFromLinkFromLinkTypeRule(
+				model.addRule(CadseGCST.LINK_TYPE, new ItemsFromLinkFromLinkTypeRule(
 						ItemShortNameComparator.INSTANCE, false, false, new FilterItem() {
 							public boolean accept(Item item) {
 								return !item.isStatic() && _itemsToShow.contains(item.getId());

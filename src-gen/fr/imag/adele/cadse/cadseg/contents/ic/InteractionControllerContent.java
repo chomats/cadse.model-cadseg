@@ -92,9 +92,9 @@ public class InteractionControllerContent extends SubFileContentManager implemen
 		if ("inner-class".equals(kind)) {
 			generateParts(sb, type, kind, imports, null);
 			boolean extendsClass = _manager.mustBeExtended()
-					|| InteractionControllerManager.isExtendsClass(getItem());
+					|| InteractionControllerManager.isExtendsClass(getOwnerItem());
 			if (extendsClass) {
-				Item uc = getItem();
+				Item uc = getOwnerItem();
 				Item field = uc.getPartParent().getPartParent();
 
 				String extendsClassName = defaultClassName;
@@ -133,9 +133,9 @@ public class InteractionControllerContent extends SubFileContentManager implemen
 			}
 		}
 		if (kind.equals("field-init")) {
-			Item ic = getItem();
+			Item ic = getOwnerItem();
 			boolean extendsClass = _manager.mustBeExtended()
-					|| InteractionControllerManager.isExtendsClass(getItem());
+					|| InteractionControllerManager.isExtendsClass(getOwnerItem());
 			if (extendsClass) {
 				Item field = ic.getPartParent().getPartParent();
 				defaultClassName = JavaIdentifier.javaIdentifierFromString(field.getName(), true, false,

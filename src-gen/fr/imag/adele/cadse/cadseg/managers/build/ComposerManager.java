@@ -235,11 +235,11 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 				imports.add("fr.imag.adele.cadse.core.build.IExporterTarget");
 				imports.add(defaultQualifiedClassName);
 
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getItem());
+				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
 				if (extendsClass) {
 
 					String extendsClassName = defaultClassName;
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(getItem().getName(), true, false,
+					defaultClassName = JavaIdentifier.javaIdentifierFromString(getOwnerItem().getName(), true, false,
 							"Composer");
 					sb.newline();
 					sb.newline().append("/**");
@@ -344,7 +344,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		 *            A context.
 		 */
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
-			List<String> types = getTypesAttribute(getItem());
+			List<String> types = getTypesAttribute(getOwnerItem());
 			if (types != null) {
 				for (String exporterType : types) {
 					sb.append(' ').appendStringValue(exporterType).append(',');
@@ -718,7 +718,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		Collection<Item> composerlinks = getComposerLinks(composer);
 		Item itemtype = CompositeItemTypeManager.getItemType(composer.getPartParent());
 		ONE: for (Link l : itemtype.getOutgoingLinks()) {
-			if (l.getDestinationType() != CadseGCST.LINK) {
+			if (l.getDestinationType() != CadseGCST.LINK_TYPE) {
 				continue;
 			}
 			if (!l.isLinkResolved()) {

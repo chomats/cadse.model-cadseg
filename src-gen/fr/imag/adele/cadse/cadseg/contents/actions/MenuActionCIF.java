@@ -66,7 +66,7 @@ public class MenuActionCIF implements IContentItemFactory {
 		 * @see fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.cadse.core.var.ContextVariable)
 		 */
 		public void generate(ContextVariable cxt) {
-			generate(cxt, getItem());
+			generate(cxt, getOwnerItem());
 		}
 
 		/**

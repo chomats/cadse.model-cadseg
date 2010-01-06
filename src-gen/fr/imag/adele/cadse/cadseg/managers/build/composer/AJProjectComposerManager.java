@@ -98,7 +98,7 @@ public class AJProjectComposerManager extends EclipseComposerManager {
 		 * java.util.Set, fr.imag.adele.cadse.core.GenContext)
 		 */
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
-			sb.append(getItem().getAttributeWithDefaultValue(SKIP_WEAVING_ATTRIBUTE, "false"));
+			sb.append(getOwnerItem().getAttributeWithDefaultValue(CadseGCST.AJPROJECT_COMPOSER_at_SKIP_WEAVING_, false));
 		}
 
 	}

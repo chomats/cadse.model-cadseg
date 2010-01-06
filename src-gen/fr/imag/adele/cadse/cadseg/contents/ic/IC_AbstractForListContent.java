@@ -37,9 +37,9 @@ public class IC_AbstractForListContent extends InteractionControllerContent {
 	 */
 	@Override
 	protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-		Item uc = getItem();
-		sb.append_string_vir(uc, IC_AbstractForListManager.SELECT_TITLE_ATTRIBUTE);
-		sb.append_string_vir(uc, IC_AbstractForListManager.SELECT_MESSAGE_ATTRIBUTE);
+		Item uc = getOwnerItem();
+		sb.append_string_vir(uc, IC_AbstractForListManager.SELECT_TITLE_ATTRIBUTE_);
+		sb.append_string_vir(uc, IC_AbstractForListManager.SELECT_MESSAGE_ATTRIBUTE_);
 
 	}
 

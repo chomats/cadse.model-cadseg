@@ -36,7 +36,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
