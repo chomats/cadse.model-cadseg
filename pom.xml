@@ -14,7 +14,7 @@
   	<dependency>
   		<groupId>org.eclipse</groupId>
   		<artifactId>org.eclipse.jdt.core</artifactId>
-  		<version>3.5.1.xx-20091214-2200-e35</version>
+  		<version>3.5.1.xx-20091215-2100-e35</version>
   	</dependency>
   	<dependency>
   		<groupId>fr.imag.adele.cadse</groupId>
