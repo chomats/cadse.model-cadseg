@@ -40,10 +40,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import fede.workspace.tool.loadmodel.model.jaxb.CCadse;
-import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
-import fede.workspace.tool.loadmodel.model.jaxb.CLink;
-import fede.workspace.tool.loadmodel.model.jaxb.CLinkType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLink;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLinkType;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
@@ -278,7 +278,7 @@ public class ImportPagesAction extends AbstractActionPage {
 			}
 		}
 		InputStream imput = jis.getInputStream(entry);
-		JAXBContext jc = JAXBContext.newInstance("fede.workspace.tool.loadmodel.model.jaxb", this.getClass()
+		JAXBContext jc = JAXBContext.newInstance("fr.imag.adele.fede.workspace.as.initmodel.jaxb", this.getClass()
 				.getClassLoader());
 		Unmarshaller m = jc.createUnmarshaller();
 		return (CCadse) m.unmarshal(imput);

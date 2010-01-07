@@ -34,6 +34,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.IItemManager.ProblemReporter;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class ParseTemplate.
@@ -118,7 +119,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 			this.returnInst = returnInst;
 			this.itemVar = itemVar;
 			this.parentVar = parentVar;
-			this.cxt = new ContextVariable();
+			this.cxt = new ContextVariableImpl();
 			this.contextVariable = usecontext;
 
 			if (packageName == null) {

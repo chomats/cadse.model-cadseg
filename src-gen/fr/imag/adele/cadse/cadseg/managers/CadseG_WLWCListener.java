@@ -53,22 +53,27 @@ import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
-import fr.imag.adele.cadse.core.delta.ItemDelta;
-import fr.imag.adele.cadse.core.delta.LinkDelta;
-import fr.imag.adele.cadse.core.delta.MappingOperation;
-import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.LinkDelta;
+import fr.imag.adele.cadse.core.transaction.delta.MappingOperation;
+import fr.imag.adele.cadse.core.transaction.delta.SetAttributeOperation;
 import fr.imag.adele.cadse.core.transaction.AbstractLogicalWorkspaceTransactionListener;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.si.view.View;
+import org.eclipse.jdt.core.refactoring.IJavaRefactorings;
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import org.eclipse.jdt.core.refactoring.IJavaRefactorings;
 
 class RenameJavaClassMappingOperartion extends RenameMappingOperation {
 
@@ -391,10 +396,10 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			item.setAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "0");
 		}
 
-		if (item.getType() == CadseGCST.LINK) {
+		if (item.getType() == CadseGCST.LINK_TYPE) {
 			Item parent = item.getPartParent();
 			if (parent != null) {
-				item.createLink(CadseGCST.LINK_lt_SOURCE, parent);
+				item.createLink(CadseGCST.LINK_TYPE_lt_SOURCE, parent);
 			}
 		}
 
@@ -718,8 +723,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 //
 //		}
 
-		if (item.isInstanceOf(CadseGCST.LINK)) {
-			if (attOperation.getAttributeDefinition() == CadseGCST.LINK_at_COMPOSITION_) {
+		if (item.isInstanceOf(CadseGCST.LINK_TYPE)) {
+			if (attOperation.getAttributeDefinition() == CadseGCST.LINK_TYPE_at_COMPOSITION_) {
 				syncCompositeType(wc, item, null, attOperation);
 			}
 		}
@@ -892,13 +897,13 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			}
 
 			// delete link which point to this
-			Collection<Item> links = item.getIncomingItems(CadseGCST.LINK_lt_DESTINATION);
+			Collection<Item> links = item.getIncomingItems(CadseGCST.LINK_TYPE_lt_DESTINATION);
 			for (Item linkTothis : links) {
 				((ItemDelta) linkTothis).delete(item.getDeleteOperation(), 0);
 			}
 		}
 
-		if (item.getType() == CadseGCST.LINK) {
+		if (item.getType() == CadseGCST.LINK_TYPE) {
 			Item composerlink = ComposerLinkManager.getComposerLinkFromLink(item);
 			if (composerlink != null) {
 				try {
@@ -948,7 +953,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		}
 
 		if (item.isInstanceOf(CadseGCST.ENUM_TYPE)) {
-			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, item);
+			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, item);
 			if (type != null) {
 				IResource jf = type.getResource();
 				if (jf != null && jf instanceof IFile) {
@@ -985,16 +990,16 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 //			syncDisplay(wc, field);
 //		}
 
-		if (link.getLinkType() == CadseGCST.LINK_lt_DESTINATION) {
+		if (link.getLinkType() == CadseGCST.LINK_TYPE_lt_DESTINATION) {
 			ItemDelta linkType = link.getSource();
 		}
 
-		if (link.getLinkType() == CadseGCST.LINK_lt_INVERSE_LINK) {
+		if (link.getLinkType() == CadseGCST.LINK_TYPE_lt_INVERSE_LINK) {
 			Item link1 = link.getSource();
 			Item inverseLink = link.getResolvedDestination();
 			Link inverseLink_link = LinkManager.getInverseLinkLink(inverseLink);
 			if (inverseLink_link == null) {
-				inverseLink.createLink(CadseGCST.LINK_lt_INVERSE_LINK, link1);
+				inverseLink.createLink(CadseGCST.LINK_TYPE_lt_INVERSE_LINK, link1);
 			} else {
 				// if (inverseLink_link.getResolvedDestination() != null) {
 				// } else {
@@ -1084,7 +1089,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 //				display.delete(false);
 //			}
 //		}
-		if (link.getLinkType() == CadseGCST.LINK_lt_DESTINATION && link.getDestination().isDeleted()) {
+		if (link.getLinkType() == CadseGCST.LINK_TYPE_lt_DESTINATION && link.getDestination().isDeleted()) {
 			// the destination is deleted, the link must be delete
 			link.getSource().delete(link.getDeleteOperation(), 0);
 		}
@@ -1635,10 +1640,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			if (oper.getType() == CadseGCST.CADSE_DEFINITION) {
 				String qname = oper.getQualifiedName();
 				if (qname == null || !qname.contains("."))
-					try {
-						oper.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX + oper.getName());
-					} catch (CadseException ignored) {
-					}
+					oper.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX + oper.getName());
 					// remove this code (present in import code)
 //				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
 //				if (uuid != null && uuid.length() != 0)
@@ -1708,7 +1710,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 						final ItemDelta destination = linkDelta.getDestination();
 						if (destination == null
 								|| destination.getType() == CadseGCST.UNRESOLVED_ATTRIBUTE_TYPE
-								|| (destination.getName().startsWith("#parent:") && destination.getType() == CadseGCST.LINK)) {
+								|| (destination.getName().startsWith("#parent:") && destination.getType() == CadseGCST.LINK_TYPE)) {
 							try {
 								linkDelta.delete();
 								// System.out.println("cadseg remove " +
@@ -1765,12 +1767,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		if (compositeitem != null && iscomposition) {
 			// set name
 			if (att != null) {
-				try {
-					compositeitem.setName(itemType.getName() + "-composite");
-				} catch (CadseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				compositeitem.setName(itemType.getName() + "-composite");
 			}
 			return;
 		}

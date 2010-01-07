@@ -351,12 +351,6 @@ public class GenerateJavaIdentifier {
 		if (AttributeManager.isLinkAttribute(attribute)) {
 			return "get" + upper_first_att_name;
 		} else {
-			ItemType it = attribute.getType();
-			String typeJava = (String) it.getAttribute("typeJava");
-			if (typeJava == null) {
-				typeJava = "";
-			}
-
 			return (!AttributeManager.isIsListAttribute(attribute) && attribute.getType() == CadseGCST.BOOLEAN ? "is"
 					: "get")
 					+ upper_first_att_name + "Attribute";

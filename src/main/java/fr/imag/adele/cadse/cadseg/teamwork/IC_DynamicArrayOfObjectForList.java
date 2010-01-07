@@ -22,7 +22,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -36,10 +36,10 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForList;
  */
 public class IC_DynamicArrayOfObjectForList extends IC_AbstractForList implements ILabelProvider {
 
-	private CompactUUID[]		_itemIds;
+	private UUID[]		_itemIds;
 	private LogicalWorkspace	_wl;
 
-	public IC_DynamicArrayOfObjectForList(String title, String message, CompactUUID[] itemIds, LogicalWorkspace wl) {
+	public IC_DynamicArrayOfObjectForList(String title, String message, UUID[] itemIds, LogicalWorkspace wl) {
 		this._message = message;
 		this._title = title;
 		this._itemIds = itemIds;
@@ -53,7 +53,7 @@ public class IC_DynamicArrayOfObjectForList extends IC_AbstractForList implement
 	}
 
 	public void setValues(Object[] values) {
-		this._itemIds = (CompactUUID[]) values;
+		this._itemIds = (UUID[]) values;
 	}
 
 	public ItemType getType() {
@@ -69,11 +69,11 @@ public class IC_DynamicArrayOfObjectForList extends IC_AbstractForList implement
 	}
 
 	public String getText(Object element) {
-		if ((element == null) || !(element instanceof CompactUUID)) {
+		if ((element == null) || !(element instanceof UUID)) {
 			return "";
 		}
 
-		CompactUUID itemId = (CompactUUID) element;
+		UUID itemId = (UUID) element;
 		Item item = _wl.getItem(itemId);
 		return item.getQualifiedName();
 	}

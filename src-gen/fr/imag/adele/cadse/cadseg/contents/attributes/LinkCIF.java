@@ -7,8 +7,8 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
 import fr.imag.adele.cadse.cadseg.template.LinkAttributeMultiTemplate;
 import fr.imag.adele.cadse.cadseg.template.LinkAttributeOneTemplate;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -28,7 +28,7 @@ public class LinkCIF extends AttributeCIF {
 		 * @param item
 		 *            the item
 		 */
-		protected LinkTypeContentItem(CompactUUID id, AttributeManager manager) {
+		protected LinkTypeContentItem(UUID id, AttributeManager manager) {
 			super(id, manager);
 		}
 
@@ -43,7 +43,7 @@ public class LinkCIF extends AttributeCIF {
 		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
 
 			if (kind.equals("methods")) {
-				Item source = getItem();
+				Item source = getOwnerItem();
 				if (true) { // !AttributeManager.isClassAttributeAttribute(source)
 					int max = LinkManager.getMax(source);
 					if (max == 1) {
@@ -71,7 +71,7 @@ public class LinkCIF extends AttributeCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new LinkTypeContentItem(id, _attributeManager);
 	}
 }

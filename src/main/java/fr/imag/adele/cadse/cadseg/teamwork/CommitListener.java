@@ -18,30 +18,23 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
- * Represents an error where an item must be committed.
+ * Listener interrested in commit operation status information.
  * 
  * @author Thomas
  *
  */
-public class MissCommitError extends MsgError {
+public interface CommitListener {
+
+	public void beginCommit();
 	
-	private CompactUUID _missingItemId;
-
-	public MissCommitError(CompactUUID itemId, String errorMsg, CompactUUID missingItemId) {
-		super(itemId, errorMsg);
-		_missingItemId = missingItemId;
-	}
-
-	/**
-	 * Returns the missing item id.
-	 * 
-	 * @return the missing item id.
-	 */
-	public CompactUUID getMissingItemId() {
-		return _missingItemId;
-	}
-
+	public void endCommit();
+	
+	public void commitFail();
+	
+	public void beginCommitItem(UUID itemId);
+	
+	public void endCommitItem(UUID itemId);
 }

@@ -1,6 +1,8 @@
 package fr.imag.adele.cadse.cadseg.generate;
 
-import fede.workspace.tool.loadmodel.model.jaxb.CCadse;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
+
+
 
 public interface GenerateCadseDefinitionModelExt {
 

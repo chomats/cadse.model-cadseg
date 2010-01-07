@@ -24,8 +24,8 @@ import java.util.List;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -46,7 +46,7 @@ public class UIListenerManager extends DefaultItemManager {
 		/**
 			@generated
 		*/
-		public UIListenerContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+		public UIListenerContent(UUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
 			super(id, packageNameVariable, classNameVariable);
 		}
 
@@ -98,7 +98,7 @@ public class UIListenerManager extends DefaultItemManager {
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id ) throws CadseException {
 		UIListenerContent cm = new UIListenerContent(
 			id, NullVariable.INSTANCE, NullVariable.INSTANCE
 			);

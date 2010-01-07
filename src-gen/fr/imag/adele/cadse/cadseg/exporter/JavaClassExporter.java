@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.exporter;
 import java.util.Set;
 
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.build.Exporter;
@@ -45,22 +45,11 @@ public class JavaClassExporter extends Exporter {
 	 * @param exporterTypes
 	 *            the exporter types
 	 */
-	protected JavaClassExporter(ContentItem contentItem, String... exporterTypes) {
+	protected JavaClassExporter(ContentItem contentItem, Class<?>... exporterTypes) {
 		super(contentItem, exporterTypes);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.build.Exporter#exportItem(fr.imag.adele.cadse.core.build.IBuildingContext,
-	 *      fr.imag.adele.cadse.core.build.IExporterTarget, java.lang.String)
-	 */
-	@Override
-	public IExportedContent exportItem(IBuildingContext context, IExporterTarget target, String exporterType)
-			throws CadseException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	/**
 	 * Generate construstor arguments.

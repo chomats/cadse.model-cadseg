@@ -18,23 +18,27 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
- * Listener interrested in commit operation status information.
+ * Represents one error attached to one item.
  * 
  * @author Thomas
  *
  */
-public interface CommitListener {
+public interface Error {
 
-	public void beginCommit();
+	/**
+	 * Return item which is related to this error.
+	 * 
+	 * @return item which is related to this error.
+	 */
+	public UUID getItem();
 	
-	public void endCommit();
-	
-	public void commitFail();
-	
-	public void beginCommitItem(CompactUUID itemId);
-	
-	public void endCommitItem(CompactUUID itemId);
+	/**
+	 * Return the message describing the error.
+	 * 
+	 * @return the message describing the error.
+	 */
+	public String getMessage();
 }
