@@ -20,15 +20,15 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import adele.util.io.ZipUtil;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.ProjectAssociation;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.delta.ItemDelta;
-import fr.imag.adele.cadse.core.delta.LinkDelta;
-import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.LinkDelta;
+import fr.imag.adele.cadse.core.transaction.delta.SetAttributeOperation;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
@@ -83,7 +83,7 @@ public class ImportCadseUtil {
 	 * @throws JAXBException
 	 *             the JAXB exception
 	 */
-	static public CompactUUID readCadseUUID(File f) throws IOException, JAXBException {
+	static public UUID readCadseUUID(File f) throws IOException, JAXBException {
 		JarFile jis = new JarFile(f);
 		ZipEntry entry = jis.getEntry(ExportCadsePagesAction.MELUSINE_DIR_CADSENAME_ID);
 		if (entry == null) {
@@ -94,7 +94,7 @@ public class ImportCadseUtil {
 		}
 		InputStream imput = jis.getInputStream(entry);
 		BufferedReader isr = new BufferedReader(new InputStreamReader(imput));
-		return new CompactUUID(isr.readLine());
+		return new UUID(isr.readLine());
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class ImportCadseUtil {
 	 * @throws JAXBException
 	 *             the JAXB exception
 	 */
-	static public CompactUUID readCadseUUIDFolder(File f) throws IOException {
+	static public UUID readCadseUUIDFolder(File f) throws IOException {
 		File uuid = new File(f, ExportCadsePagesAction.MELUSINE_DIR_CADSENAME_ID);
 
 		if (!uuid.exists()) {
@@ -119,7 +119,7 @@ public class ImportCadseUtil {
 		}
 		InputStream imput = new FileInputStream(uuid);
 		BufferedReader isr = new BufferedReader(new InputStreamReader(imput));
-		return new CompactUUID(isr.readLine());
+		return new UUID(isr.readLine());
 	}
 
 	static private void migrate(LogicalWorkspaceTransaction transaction) throws CadseException {
@@ -266,7 +266,7 @@ public class ImportCadseUtil {
 				pf = ImportCadseUtil.createTempDirectory(dir);
 
 			ZipUtil.unzip(input, pf);
-			CompactUUID uuid = readCadseUUIDFolder(pf);
+			UUID uuid = readCadseUUIDFolder(pf);
 			if (cadse == null) {
 				cadse = readCadseFolder(pf);
 				pf.renameTo(new File(dir, cadse));

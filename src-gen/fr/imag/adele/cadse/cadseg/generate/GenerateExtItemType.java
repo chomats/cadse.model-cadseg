@@ -77,7 +77,7 @@ public class GenerateExtItemType extends GenerateClass {
 		cim.generateParts(sb, "manager", "inner-class", imports, context);
 		cim.generateParts(sb, "manager", "cstes", imports, context);
 		cim.generateParts(sb, "manager", "attributes", imports, context);
-		Item cadsedef = cim.getItem().getPartParent(CadseGCST.CADSE_DEFINITION);
+		Item cadsedef = cim.getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION);
 		GenerateJavaIdentifier.addImportCST(cxt, cadsedef, imports);
 
 	}

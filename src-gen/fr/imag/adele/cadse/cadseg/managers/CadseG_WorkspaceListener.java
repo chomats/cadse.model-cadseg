@@ -4,15 +4,16 @@ import java.util.HashSet;
 
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.build.CompositeItemTypeManager;
-import fr.imag.adele.cadse.core.ContentItem;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemState;
 import fr.imag.adele.cadse.core.WorkspaceListener;
-import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
-import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 public class CadseG_WorkspaceListener extends WorkspaceListener {
 
@@ -41,10 +42,10 @@ public class CadseG_WorkspaceListener extends WorkspaceListener {
 			final ContentItem contentItem = item.getContentItem();
 			if (contentItem != null && (contentItem instanceof IGenerateContent)) {
 				IGenerateContent cm = ((IGenerateContent) contentItem);
-				cm.generate(ContextVariable.DEFAULT);
+				cm.generate(ContextVariableImpl.DEFAULT);
 			} else {
 				if (item.getType().getItemManager() instanceof IBuildManager) {
-					((IBuildManager) item.getType().getItemManager()).generate(ContextVariable.DEFAULT, item);
+					((IBuildManager) item.getType().getItemManager()).generate(ContextVariableImpl.DEFAULT, item);
 				}
 			}
 		}

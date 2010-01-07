@@ -253,7 +253,7 @@ public class IC_ItemTypeTemplateForText extends ICRunningField implements Runing
 		if (visited.add(theCurrentItemType)) {
 			Item[] attributes = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter() {
 				public boolean accept(Item item) {
-					return item.getType() != CadseGCST.LINK;
+					return item.getType() != CadseGCST.LINK_TYPE;
 				}
 
 				public boolean stop() {
@@ -269,7 +269,7 @@ public class IC_ItemTypeTemplateForText extends ICRunningField implements Runing
 
 			Item[] links = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter() {
 				public boolean accept(Item item) {
-					return item.getType() == CadseGCST.LINK && LinkManager.getMax(item) == 1;
+					return item.getType() == CadseGCST.LINK_TYPE && LinkManager.getMax(item) == 1;
 				}
 
 				public boolean stop() {

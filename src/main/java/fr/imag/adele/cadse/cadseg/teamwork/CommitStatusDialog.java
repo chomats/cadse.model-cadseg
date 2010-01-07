@@ -30,8 +30,6 @@ import java.util.TreeSet;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -45,15 +43,12 @@ import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.dialogs.ISelectionStatusValidator;
+import org.eclipse.ui.dialogs.FilteredTree;
 
 import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
@@ -63,115 +58,108 @@ import fede.workspace.tool.view.node.FilterItem;
 import fede.workspace.tool.view.node.FilteredItemNode;
 import fede.workspace.tool.view.node.FilteredItemNodeModel;
 import fede.workspace.tool.view.node.ItemNode;
-import fede.workspace.tool.view.node.ItemsFromLinkOfLinkTypeRule;
 import fede.workspace.tool.view.node.LinkTypeCategoryNode;
 import fede.workspace.tool.view.node.Rule;
 import fede.workspace.tool.view.node.FilteredItemNode.Category;
+import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ChangeID;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.ui.PagesImpl;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
-import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
+import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.RuningInteractionController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.Pages;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.eclipse.view.SelfViewContentProvider;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ActionController;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForBrowserOrCombo;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForList;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_StaticArrayOfObjectForBrowser_Combo;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeModel;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DButtonUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DComboUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeModelUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
 
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
 /**
- * Dialog used for asking confirmation of items to commit. Informations provided
- * by the user are : - list of items to commit - message for this commit
- * operation
- * 
- * Informations gived by the dialog : - errors which forbid to commit.
+ * Dialog used for providing informations about commit operation to user. Status
+ * informations provided to the user are : - order of items to commit - commit
+ * status of each item (not already commited, commited or commit failed) -
+ * commit error by item
  * 
  * @author Thomas
  * 
  */
-public class CommitDialogPage extends SWTDialog {
+public class CommitStatusDialog {
 
 	/*
 	 * UI fields.
 	 */
-	protected DButtonUI						_addItemField;
+	protected DSashFormUI							_selectSashField;
 
-	protected DButtonUI						_addAllItemsField;
+	protected DSashFormUI							_rootSashField;
 
-	protected DButtonUI						_deselectAllItemsField;
+	protected DTreeModelUI<ModifiedItemTreeIC>			_treeField;
 
-	protected DSashFormUI<RuningInteractionController>					_selectSashField;
+	protected DTextUI<RuningInteractionController>				_errorsField;
 
-	protected DSashFormUI<RuningInteractionController>					_rootSashField;
+	protected DCheckBoxUI							_commitedField;
 
-	protected DTreeModelUI<IC_TreeModel>					_treeField;
+	protected DTextUI								_revField;
 
-	protected DTextUI<RuningInteractionController>						_errorsField;
+	protected DListUI<IC_DynamicArrayOfObjectForList>								_listOfCommitedItemsField;
 
-	protected DListUI<IC_ForList>						_modifiedAttrsField;
-
-	protected DCheckBoxUI<RuningInteractionController>					_reqNewRevField;
-
-	protected DComboUI<IC_ForBrowserOrCombo>						_lastUsedCommentsField;
-
-	protected DTextUI						_commentField;
-
-	protected List<UIRunningField<?>>		_selectDependentFields	= new ArrayList<UIRunningField<?>>();
+	protected List<UIRunningField<?>>							_selectDependentFields	= new ArrayList<UIRunningField<?>>();
 
 	/**
 	 * Status and definition of commit operation.
 	 */
-	protected final CommitState				_commitState;
+	protected final CommitState						_commitState;
 
-	/**
-	 * Listeners interested in selection informations.
-	 */
-	protected List<ItemSelectionListener>	_selectListeners		= new ArrayList<ItemSelectionListener>();
+	protected final LogicalWorkspaceTransaction	_workspaceCopy;
 
 	/*
 	 * State of this dialog.
 	 */
-	protected Item							_selectedItem			= null;
+	protected Item									_selectedItem			= null;
 
-	protected Set<CompactUUID>				_itemsToShow			= new HashSet<CompactUUID>();
+	protected Set<UUID>						_itemsToShow			= new HashSet<UUID>();
 
 	/*
 	 * Fields used for synchronization of tree refresh.
 	 */
-	protected boolean						_refreshTree			= true;
+	protected boolean								_refreshTree			= true;
 
-	protected Object						_refreshTreeLock		= new Object();
+	protected Object								_refreshTreeLock		= new Object();
+
+	/**
+	 * Commit operation thread.
+	 */
+	private CommitThread							_commitThread;
+
+	private SWTUIPlatform _swtuiPlatform;
+
+	private IPage _page;
 
 	/*
 	 * Tree Structure controller classes.
@@ -333,7 +321,7 @@ public class CommitDialogPage extends SWTDialog {
 			}
 
 			for (LinkType linkType : linkTypes) {
-				if (linkType.isHidden()) { // || AttributeTypeManager.isIsMetaAttributeAttribute(linkType)) {
+				if (linkType.isHidden()) {// || AttributeManager.isIsMetaAttributeAttribute(linkType)) {
 					continue;
 				}
 
@@ -349,8 +337,6 @@ public class CommitDialogPage extends SWTDialog {
 	}
 
 	public class ErrorDecorator extends LabelProvider implements ILabelDecorator {
-
-		private static final String		ERROR_IMAGE_KEY		= "error";
 
 		private LocalResourceManager	_resourceManager	= new LocalResourceManager(JFaceResources
 																	.getResources(PlatformUI.getWorkbench()
@@ -377,9 +363,12 @@ public class CommitDialogPage extends SWTDialog {
 			if (item == null) {
 				return null;
 			}
-			CompactUUID itemId = item.getId();
+			UUID itemId = item.getId();
 			if (_commitState.getErrors().isInError(itemId)) {
 				return computeImage(image, "icons/delete_ovr.gif");
+			}
+			if (_commitState.isCommitted(itemId)) {
+				return computeImage(image, "icons/add_ovr.gif");
 			}
 
 			return null;
@@ -404,35 +393,11 @@ public class CommitDialogPage extends SWTDialog {
 	 * Classes for Model controllers and Interaction controllers.
 	 */
 
-	public class CommentMC extends AbstractModelController {
-
-		public Object getValue() {
-			return _commitState.getComment();
-		}
-
-		public void notifieValueChanged(UIField field, Object value) {
-			if (!field.equals(_commentField)) {
-				return;
-			}
-
-			_commitState.setComment((String) value);
-		}
-
-		public ItemType getType() {
-			return null;
-		}
-	}
-
 	public class DefaultMC_AttributesItem extends MC_AttributesItem {
 
-		@Override
-		public Item getItem() {
-			return _selectedItem;
-		}
-
-		@Override
+				@Override
 		public Object getValue() {
-			if (getItem() == null) {
+			if (_uiPlatform.getItem(getUIField()) == null) {
 				return "";
 			}
 			Object _ret = super.getValue();
@@ -450,14 +415,10 @@ public class CommitDialogPage extends SWTDialog {
 
 	public class ItemError_MC extends MC_AttributesItem {
 
-		@Override
-		public Item getItem() {
-			return _selectedItem;
-		}
 
 		@Override
 		public Object getValue() {
-			Item item = getItem();
+			Item item = _uiPlatform.getItem(getUIField());
 			if (item == null) {
 				return "";
 			}
@@ -484,27 +445,31 @@ public class CommitDialogPage extends SWTDialog {
 
 		@Override
 		public void initAfterUI(UIPlatform uiPlatform) {
+			super.initAfterUI(uiPlatform);
 			CheckboxTreeViewer treeViewer = _treeField.getTreeViewer();
 			treeViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
 					new ErrorDecorator()));
+
+			FilteredTree treeOfList = (FilteredTree) _listOfCommitedItemsField.getMainControl();
+			TreeViewer listViewer = treeOfList.getViewer();
+			listViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) listViewer.getLabelProvider(),
+					new ErrorDecorator()));
+
+			_listOfCommitedItemsField.setVisualValue(_commitState.getItemsToCommit());
 		}
 		
 		@Override
-		public void doFinish(UIPlatform uiPlatform, Object monitor)
-				throws Exception {
+		public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
 			Object[] array = _treeField.getSelectedObjects();
 
-			// save comment
-			LastCommitMsg.addLastCommitMsg((String) _commentField.getVisualValue());
-
-			// TODO implement it
+			// TODO implement it, commit the workspace logique copy
 		}
 	}
 
 	public class ModifiedItemTreeIC extends IC_TreeModel {
 
 		private IContentProvider	_contentProvider;
-
+		
 		@Override
 		public ItemType getType() {
 			return null;
@@ -577,7 +542,7 @@ public class CommitDialogPage extends SWTDialog {
 
 				// children are all destinations items
 				model.addRule(CadseGCST.ITEM, new LinkTypeCategoryRule());
-				model.addRule(CadseGCST.LINK, new ItemsFromLinkFromLinkTypeRule(
+				model.addRule(CadseGCST.LINK_TYPE, new ItemsFromLinkFromLinkTypeRule(
 						ItemShortNameComparator.INSTANCE, false, false, new FilterItem() {
 							public boolean accept(Item item) {
 								return !item.isStatic() && _itemsToShow.contains(item.getId());
@@ -637,11 +602,11 @@ public class CommitDialogPage extends SWTDialog {
 
 	public class MC_CommitTree extends AbstractModelController {
 
-		public Object getValue() {
+		public Object getValue(UIPlatform uiPlatform) {
 			return _commitState.getItemsToCommit();
 		}
 
-		public void notifieValueChanged(UIField field, Object value) {
+		public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
 
 		}
 
@@ -651,353 +616,91 @@ public class CommitDialogPage extends SWTDialog {
 
 		@Override
 		public void notifieSubValueAdded(UIField field, Object added) {
-			addItem(added);
-			refreshTree(false);
-			refreshSelectDependentFields();
-		}
-
-		private void addItem(Object added) {
-			if (!(added instanceof ItemNode)) {
-				return;
-			}
-
-			ItemNode itemNode = (ItemNode) added;
-			Item item = itemNode.getItem();
-			if (item == null) {
-				return;
-			}
-			if (addItemToCommit(item)) {
-				markTreeToRefresh();
-			}
-		}
-
-		private void markTreeToRefresh() {
-			synchronized (_refreshTreeLock) {
-				_refreshTree = true;
-			}
+			// do nothing
 		}
 
 		@Override
 		public void notifieSubValueRemoved(UIField field, Object removed) {
-			removeItem(removed);
-			refreshTree(true);
-			refreshSelectDependentFields();
-		}
-
-		private void removeItem(Object removed) {
-			if (!(removed instanceof ItemNode)) {
-				return;
-			}
-
-			ItemNode itemNode = (ItemNode) removed;
-			Item item = itemNode.getItem();
-			if (item == null) {
-				return;
-			}
-
-			if (removeItemToCommit(item)) {
-				markTreeToRefresh();
-			}
-		}
-
-		@Override
-		public boolean validSubValueAdded(UIField field, Object added) {
-			if (super.validSubValueAdded(field, added)) {
-				return true;
-			}
-
-			// add item to commit
-			addItem(added);
-
-			// compute errors
-			boolean isValid = validState();
-			if (!isValid) {
-				String errorMsg = "Error";
-				if (_commitState.hasNoItemToCommit()) {
-					errorMsg = "You must select at least one item to commit";
-				}
-				if (_commitState.getErrors().hasError()) {
-					errorMsg = "You cannot commit items with errors.";
-				}
-				_uiPlatform.setMessage(errorMsg, UIPlatform.ERROR);
-			}
-
-			return !isValid;
-		}
-
-		@Override
-		public boolean validSubValueRemoved(UIField field, Object removed) {
-			if (super.validSubValueRemoved(field, removed)) {
-				return true;
-			}
-
-			// remove item to commit
-			removeItem(removed);
-
-			// compute errors
-			boolean isValid = validState();
-			if (!isValid) {
-				String errorMsg = "Error";
-				if (_commitState.hasNoItemToCommit()) {
-					errorMsg = "You must select at least one item to commit";
-				}
-				if (_commitState.getErrors().hasError()) {
-					errorMsg = "You cannot commit items with errors.";
-				}
-				_uiPlatform.setMessage(errorMsg, UIPlatform.ERROR);
-			}
-
-			return false;
-		}
-
-		public boolean validState() {
-			return !_commitState.getErrors().hasError() && !_commitState.hasNoItemToCommit();
+			// do nothing
 		}
 	}
 
 	/**
 	 * Create the dialog structure... DSashFormUI DSashFormUI DGrillUI
 	 * (selection part) _treeField _ DGrillUI (selection dependent part)
-	 * _errorsField _modifiedAttrsField _reqNewRevField DGrillUI (selection
-	 * independent part) _commentField
+	 * _errorsField _commitedField _revField DGrillUI (selection independent
+	 * part) _listOfCommitedItemsField
 	 */
-	public CommitDialogPage(CommitState commitState) {
-		super(new SWTUIPlatform(), "Select items to commit", "Commit Operation Definition");
+	public CommitStatusDialog(CommitState commitState) {
 		
+		_swtuiPlatform = new SWTUIPlatform();
+		_page = _swtuiPlatform.createPageDescription("Commit Status", "Commit Status");
+		
+		// create a transaction to perform commit operation
+		_workspaceCopy = CadseCore.getLogicalWorkspace().createTransaction();
 
 		// set manipulated data
-		_commitState = new CommitState();
+		_commitState = commitState;
 		computeItemsToShow(commitState);
 
 		// create all UI fields
-		_treeField = createTreeField(true);
-		_addItemField = createAddItemField();
-		_addAllItemsField = createAddAllItemsField();
-		_deselectAllItemsField = createDeselectAllItemsField();
+		_treeField = createTreeField(false);
 		_errorsField = createErrorsField();
-		_modifiedAttrsField = createModifiedAttrsField();
-		_reqNewRevField = createReqNewRevField();
-		_lastUsedCommentsField = createLastUsedCommentsField();
-		_commentField = createCommentField();
+		_commitedField = createCommittedField();
+		_revField = createRevField();
+		_listOfCommitedItemsField = createListOfCommitedItemsField();
 
 		DefaultMC_AttributesItem defaultMc = new DefaultMC_AttributesItem();
 
 		
+		// create selection part containing a tree
+		DGridUI treeGrild = _swtuiPlatform.createDGridUI(_page,	"#tree", "", EPosLabel.none, defaultMc, null, _treeField);
+		_selectSashField.setWeight(60); // 60% , 40%
+
+		// create part with editors for selected node
+		DGridUI selectDependentFieldsGrild = _swtuiPlatform.createDGridUI(_page,
+				"#selectEdit", "", EPosLabel.none, defaultMc, null,_errorsField, _commitedField, _revField);
+		
 		/*
 		 * Selection part
 		 */
+		_selectSashField = _swtuiPlatform.createDSashFormUI(_page, 
+				"#selectSash","", EPosLabel.none, defaultMc, null, treeGrild, selectDependentFieldsGrild);
+
 		
-		// create selection part containing a tree
-		DGridUI treeGrild = _swtuiPlatforms.createDGridUI(_page, "#tree", "", EPosLabel.none, defaultMc, null, _treeField, _addAllItemsField, _addItemField, _deselectAllItemsField);
-		
-		// create part with editors for selected node
-		DGridUI selectDependentFieldsGrild = _swtuiPlatforms.createDGridUI(_page, "#selectEdit", "", EPosLabel.none, defaultMc, null, _errorsField, _modifiedAttrsField, _reqNewRevField);
 
 		_selectDependentFields.add(_errorsField);
-		_selectDependentFields.add(_modifiedAttrsField);
-		_selectDependentFields.add(_reqNewRevField);
+		_selectDependentFields.add(_commitedField);
+		_selectDependentFields.add(_revField);
 
-		_selectSashField = _swtuiPlatforms.createDSashFormUI(_page, "#selectSash", "", EPosLabel.none, defaultMc, null, treeGrild, selectDependentFieldsGrild);
-		_selectSashField.setWeight(60); // 60% , 40%
-		
 		/*
 		 * Selection independent part
 		 */
 
 		// create part with editors independent of selected node
-		DGridUI selectIndependentFieldsGrid = _swtuiPlatforms.createDGridUI(_page, "#noSelectEdit", "", EPosLabel.none, defaultMc, null, _lastUsedCommentsField, _commentField);
+		DGridUI selectIndependentFieldsGrid = 
+		_swtuiPlatform.createDGridUI(_page,
+				"#noSelectEdit", "", EPosLabel.none, defaultMc, null, _listOfCommitedItemsField);
 
-		_rootSashField = _swtuiPlatforms.createDSashFormUI(_page, "#rootSash", "", EPosLabel.none, defaultMc, null, _selectSashField, selectIndependentFieldsGrid);
+		
+
+		
+		_rootSashField = _swtuiPlatform.createDSashFormUI(_page, "#rootSash", "", EPosLabel.none, defaultMc, null, _selectSashField, selectIndependentFieldsGrid);
+		
 		_rootSashField.setHorizontal(false);
-		// 80%
-		// 20%
-		_rootSashField.setWeight(80);
-
+		// 65%
+		// 35%
+		_rootSashField.setWeight(65);
 		// add main field
-		addLast(_rootSashField);
+		_page.addLast(_rootSashField.getAttributeDefinition());
+
 
 		// add listeners
 		registerListener();
-	}
 
-	private DComboUI createLastUsedCommentsField() {
-		return _swtuiPlatforms.createDComboUI(_page, "#lastCommentsField", "Last Used Comment", EPosLabel.left, new AbstractModelController() {
-
-			public Object getValue() {
-
-				return null;
-			}
-
-			public void notifieValueChanged(UIField field, Object value) {
-				if (value == null) {
-					return;
-				}
-
-				if (!(value instanceof String)) {
-					return;
-				}
-
-				String msg = (String) value;
-				_commentField.setValue(msg);
-			}
-
-			public ItemType getType() {
-				return null;
-			}
-
-		}, new IC_StaticArrayOfObjectForBrowser_Combo("Last Used Comment", "Last Used Comment", LastCommitMsg
-				.getLastCommitMsgTab()), false);
-	}
-
-	private DButtonUI createDeselectAllItemsField() {
-		return _swtuiPlatforms.createDButtonUI(_page, "#deselectAllItemsField", "Deselect All", EPosLabel.defaultpos, null, new ActionController() {
-
-			@Override
-			public void callAction() {
-				_commitState.clearItemsToCommit();
-				_itemsToShow.clear();
-				_selectedItem = null;
-
-				// refresh tree
-				refreshTree(true);
-				refreshSelectDependentFields();
-			}
-		});
-	}
-
-	private DButtonUI createAddAllItemsField() {
-		return _swtuiPlatforms.createDButtonUI(_page, "#addAllItemsField", "Commit All Items", EPosLabel.defaultpos, null, new ActionController() {
-
-			@Override
-			public void callAction() {
-				for (Item item : CadseCore.getLogicalWorkspace().getItems()) {
-					if (item.isStatic() || !TWUtil.isModified(item)) {
-						continue;
-					}
-
-					CompactUUID itemId = item.getId();
-					if (_commitState.isToCommit(itemId)) {
-						continue;
-					}
-
-					addItemToCommit(item);
-				}
-
-				// refresh tree
-				refreshTree(true);
-				refreshSelectDependentFields();
-			}
-		});
-	}
-
-	private DButtonUI createAddItemField() {
-		return _swtuiPlatforms.createDButtonUI(_page, "#addItemField", "Add Item To Commit", EPosLabel.defaultpos, null, new ActionController() {
-
-			@Override
-			public void callAction() {
-				Shell parentShell = _swtuiPlatforms.getShell();
-				ElementTreeSelectionDialog lsd = new ElementTreeSelectionDialog(parentShell, getLabelProvider(),
-						getTreeContentProvider());
-				ViewerFilter filter = getFilter();
-				if (filter != null) {
-					lsd.addFilter(filter);
-				}
-				lsd.setValidator(new ISelectionStatusValidator() {
-					public IStatus validate(Object[] selection) {
-						if ((selection == null) || (selection.length == 0)) {
-							return Status.CANCEL_STATUS;
-						}
-
-						for (Object select : selection) {
-							if (!(select instanceof IItemNode)) {
-								return Status.CANCEL_STATUS;
-							}
-
-							IItemNode itemNode = (IItemNode) select;
-							Item item = itemNode.getItem();
-							if (!TWUtil.isModified(item) || item.isStatic()) {
-								return Status.CANCEL_STATUS;
-							}
-						}
-
-						return Status.OK_STATUS;
-					}
-				});
-				lsd.setInput(getInputValues());
-				lsd.setAllowMultiple(true);
-				lsd.setTitle("Select Items to commit");
-				lsd.setMessage("Select Items to commit");
-
-				lsd.open();
-
-				// manage selected items
-				Object[] results = lsd.getResult();
-				if (results == null) {
-					return;
-				}
-				for (Object selectObj : results) {
-					IItemNode itemNode = (IItemNode) selectObj;
-					addItemToCommit(itemNode.getItem());
-				}
-
-				// refresh tree
-				refreshTree(true);
-				refreshSelectDependentFields();
-			}
-
-			protected TWSelfViewContentProvider getTreeContentProvider() {
-				return new TWSelfViewContentProvider();
-			}
-
-			protected ILabelProvider getLabelProvider() {
-				return new LabelProvider() {
-					@Override
-					public String getText(Object element) {
-						if (element == null) {
-							return null;
-						}
-
-						return ((IItemNode) element).getItem().getDisplayName();
-					}
-
-					@Override
-					public Image getImage(Object element) {
-						if (element instanceof IItemNode) {
-							Item item = ((IItemNode) element).getItem();
-							return createImage(item.getType(), item);
-						}
-						return super.getImage(element);
-					}
-
-					private Image createImage(ItemType it, Item item) {
-						return WSPlugin.getDefault().getImageFrom(it, item);
-					}
-				};
-			}
-
-			protected Object getInputValues() {
-				FilteredItemNodeModel model = new FilteredItemNodeModel();
-
-				// roots are all item types
-				model.addRule(FilteredItemNodeModel.ROOT_ENTRY, new ItemsFromItemTypeWithFilterRule(
-						CadseGCST.ITEM_TYPE, ItemShortNameComparator.INSTANCE, null));
-
-				// children are all items of parent item type
-				model.addRule(CadseGCST.ITEM_TYPE, new ItemsFromLinkOfLinkTypeRule(
-						CadseGCST.ITEM_lt_INSTANCE_OF, ItemShortNameComparator.INSTANCE, true, true,
-						new FilterItem() {
-							public boolean accept(Item item) {
-								return TWUtil.isModified(item) && !_commitState.isToCommit(item.getId());
-							}
-						}));
-
-				return new FilteredItemNode(null, model);
-			}
-
-			protected ViewerFilter getFilter() {
-				return null;
-			}
-		});
+		// begin effective commit operation
+		_commitThread = new CommitThread(_commitState, _workspaceCopy);
+		_commitThread.start();
 	}
 
 	/**
@@ -1009,7 +712,8 @@ public class CommitDialogPage extends SWTDialog {
 		}
 
 		synchronized (_refreshTreeLock) {
-			SelfViewContentProvider contentProvider = (SelfViewContentProvider) _treeField._ic.getContentProvider();
+			SelfViewContentProvider contentProvider = (SelfViewContentProvider) _treeField._ic
+					.getContentProvider();
 			contentProvider.notifieChangeEvent(null);
 			_treeField.getTreeViewer().refresh();
 			_refreshTree = false;
@@ -1033,10 +737,6 @@ public class CommitDialogPage extends SWTDialog {
 	public void setSelectedItem(Item selectedItem) {
 		this._selectedItem = selectedItem;
 
-		for (ItemSelectionListener listener : _selectListeners) {
-			listener.selectItem(selectedItem);
-		}
-
 		refreshSelectDependentFields();
 	}
 
@@ -1053,47 +753,87 @@ public class CommitDialogPage extends SWTDialog {
 	/**
 	 * Create a tree field.
 	 */
-	public DTreeModelUI createTreeField(boolean checkBox) {
-		DTreeModelUI treeField = _swtuiPlatforms.createTreeModelUI(_page, "#list", "Items to commit", EPosLabel.top, new MC_CommitTree(),
-				new ModifiedItemTreeIC(), checkBox);
+	public DTreeModelUI<ModifiedItemTreeIC> createTreeField(boolean checkBox) {
+		DTreeModelUI<ModifiedItemTreeIC> treeField = _swtuiPlatform.createTreeModelUI(_page, "#list", "Items which are commiting", EPosLabel.top,
+				new MC_CommitTree(), new ModifiedItemTreeIC(), checkBox);
 		return treeField;
 	}
 
 	/**
 	 * Create a text field to display the errors related to selected item.
 	 */
+	public DTextUI createRevField() {
+		return _swtuiPlatform.createTextUI(_page, CadseGCST.ITEM_at_TW_VERSION_, "Current Revision", EPosLabel.left,
+				new MC_AttributesItem(), null, 1, false, false, false,false, false, null);
+	  }
+
+	/**
+	 * Create a text field to display the errors related to selected item.
+	 */
 	public DTextUI createErrorsField() {
-		return _swtuiPlatforms.createTextUI(_page, "#errorsField", "Errors", EPosLabel.top, new ItemError_MC(), null, 7, true, false, true, false, false);
+		return _swtuiPlatform.createTextUI(_page, "#errorsField",
+				"Errors", EPosLabel.top, new ItemError_MC(), null, 10, true, false, true, false, false, null);
 	}
 
 	/**
 	 * Create a list field showing modified attributes.
 	 */
-	protected DListUI createModifiedAttrsField() {
-		SelectedItemChangeLinkModelController mc = new SelectedItemChangeLinkModelController(false, null);
-		_selectListeners.add(mc);
+	protected DListUI<IC_DynamicArrayOfObjectForList> createListOfCommitedItemsField() {
+		AbstractModelController mc = new AbstractModelController() {
 
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.");
-		return _swtuiPlatforms.createDListUI(_page, CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,
-				"Modified Attributes and Links", EPosLabel.top, mc, ic, false, false, false, false);
+			@Override
+			public Object getValue() {
+				List<UUID> itemIds = _commitState.getItemsToCommit();
+				return itemIds.toArray(new UUID[itemIds.size()]);
+			}
+
+			public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
+				// do nothing
+			}
+
+			public ItemType getType() {
+				return null;
+			}
+		};
+
+		// retrieve list of items to commit
+		List<UUID> idsToCommit = _commitState.getItemsToCommit();
+		IC_DynamicArrayOfObjectForList ic = new IC_DynamicArrayOfObjectForList("Last Used Comment",
+				"Last Used Comment", idsToCommit.toArray(new UUID[idsToCommit.size()]), _workspaceCopy);
+
+		DListUI<IC_DynamicArrayOfObjectForList> listField =
+			_swtuiPlatform.createDListUI(_page, "#listOfCommittedItemsField",
+				"Commit Order", EPosLabel.top, mc, ic, false, false, false, false);
+		return listField;
 	}
 
 	/**
-	 * Create a text field to edit commit comment.
+	 * Create read only committed check box.
 	 */
-	public DTextUI createCommentField() {
-		return _swtuiPlatforms.createTextUI(_page, "#commentField", "Comment", EPosLabel.left, new CommentMC(), null, 3,
-				true, false, false, false, false, "Provide a comment for the commit");
-	}
+	public DCheckBoxUI createCommittedField() {
+		AbstractModelController mc = new AbstractModelController() {
 
-	/**
-	 * Create read only require new revision check box.
-	 */
-	public DCheckBoxUI createReqNewRevField() {
-		MC_StringToBoolean mc = new MC_StringToBoolean();
-		DCheckBoxUI checkBoxField = _swtuiPlatforms.createCheckBoxUI(_page, CadseGCST.ITEM_at_REQUIRE_NEW_REV,
-				"Commit will create a new revision", EPosLabel.none, mc, null);
+			@Override
+			public Object getValue() {
+					if (_selectedItem == null) {
+					return Boolean.FALSE;
+				}
+
+				return _commitState.isCommitted(_selectedItem.getId());
+			}
+
+			public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
+				// do nothing
+			}
+
+			public ItemType getType() {
+				return null;
+			}
+		};
+		DCheckBoxUI checkBoxField = _swtuiPlatform.createCheckBoxUI(_page, "#committedField", "Commited without Errors", EPosLabel.none, mc,
+				null);
 		checkBoxField._field.setEditable(false);
+
 		return checkBoxField;
 	}
 
@@ -1101,7 +841,7 @@ public class CommitDialogPage extends SWTDialog {
 	 * 
 	 * @return
 	 */
-	public IActionPage getFinishAction() {
+	private IActionPage getFinishAction() {
 		return new CommitActionPage();
 	}
 
@@ -1110,7 +850,6 @@ public class CommitDialogPage extends SWTDialog {
 	 * 
 	 * @param commitState
 	 *            status and definition of commit operation
-	 * @throws CadseException
 	 */
 	static public void openDialog(final CommitState commitState) {
 
@@ -1124,11 +863,10 @@ public class CommitDialogPage extends SWTDialog {
 		d.syncExec(new Runnable() {
 			public void run() {
 				try {
-					final CommitDialogPage p = new CommitDialogPage(commitState);
-					p._swtuiPlatforms.setAction(p.getFinishAction());
-					final Pages f = p._swtuiPlatforms.getPages();
-					
-					WizardController wc = new WizardController(p._swtuiPlatforms) {
+					final CommitStatusDialog p = new CommitStatusDialog(commitState);
+					p._swtuiPlatform.setAction(p.getFinishAction());
+					final Pages f = p._swtuiPlatform.getPages();
+					WizardController wc = new WizardController(p._swtuiPlatform) {
 
 						@Override
 						public boolean canFinish() {
@@ -1137,18 +875,28 @@ public class CommitDialogPage extends SWTDialog {
 							}
 
 							CommitState commitState = p.getCommitState();
-							return !commitState.getErrors().hasError() && !commitState.hasNoItemToCommit();
+							return !commitState.isPerformingCommit();
 						}
 
 						@Override
 						public boolean performFinish() {
-							p._commitState.beginCommit();
+							// if commit is ok, commit workspace logique copy
+							if (p._commitState.isCommitPerformed()) {
+								try {
+									p._workspaceCopy.commit();
+								} catch (CadseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							} else {
+								p._workspaceCopy.rollback();
+							}
 
 							IRunnableWithProgress op = new IRunnableWithProgress() {
 								public void run(IProgressMonitor monitor) throws InvocationTargetException,
 										InterruptedException {
 									try {
-										f.getAction().doFinish(p._swtuiPlatforms, monitor);
+										f.getAction().doFinish(p._swtuiPlatform, monitor);
 									} catch (CoreException e) {
 										throw new InvocationTargetException(e);
 									} catch (Throwable e) {
@@ -1181,6 +929,13 @@ public class CommitDialogPage extends SWTDialog {
 							super.performCancel();
 
 							p._commitState.abortCommit();
+							try {
+								// wait current item is committed for 10 seconds
+								p._commitThread.join(10000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							p._workspaceCopy.rollback();
 
 							return true;
 						}
@@ -1189,14 +944,8 @@ public class CommitDialogPage extends SWTDialog {
 					wd.setPageSize(800, 500);
 					wd.open();
 
-					// open commit progression dialog only if commit definition
-					// has not been aborted
-					if (!p._commitState.isPerformingCommit()) {
-						return;
-					}
+					// TODO manage errors
 
-					// open status dialog
-					CommitStatusDialog.openDialog(p._commitState);
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
@@ -1216,15 +965,15 @@ public class CommitDialogPage extends SWTDialog {
 
 
 	protected void computeItemsToShow(CommitState commitState) {
-		List<CompactUUID> itemsToCommit = commitState.getItemsToCommit();
+		List<UUID> itemsToCommit = commitState.getItemsToCommit();
 		if ((itemsToCommit == null) || itemsToCommit.isEmpty()) {
 			_itemsToShow.clear();
 			return;
 		}
 
 		_itemsToShow.clear();
-		for (CompactUUID itemId : itemsToCommit) {
-			Item item = CadseCore.getLogicalWorkspace().getItem(itemId);
+		for (UUID itemId : itemsToCommit) {
+			Item item = _workspaceCopy.getItem(itemId);
 			addItemToCommit(item);
 		}
 	}
@@ -1237,7 +986,7 @@ public class CommitDialogPage extends SWTDialog {
 	 *            id of item to show
 	 * @return true if we have been able to find a path to this item.
 	 */
-	protected boolean addItemToShow(CompactUUID itemId) {
+	protected boolean addItemToShow(UUID itemId) {
 		_itemsToShow.add(itemId);
 
 		// compute the ancestors of this item
@@ -1279,88 +1028,6 @@ public class CommitDialogPage extends SWTDialog {
 	}
 
 	/**
-	 * Remove specified item for list of items to commit. Update errors.
-	 * 
-	 * @param item
-	 *            item to remove
-	 * @return true if the tree should be refreshed or updated
-	 */
-	protected boolean removeItemToCommit(Item item) {
-		CompactUUID itemId = item.getId();
-		if (!_commitState.isToCommit(itemId)) {
-			return false;
-		}
-
-		_commitState.removeItemToCommit(itemId);
-		return removeItemToShow(item);
-	}
-
-	/**
-	 * Hide this item from tree and update errors.
-	 * 
-	 * @param item
-	 *            item to remove
-	 * @return true if the tree should be refreshed or updated
-	 */
-	protected boolean removeItemToShow(Item item) {
-		CompactUUID itemId = item.getId();
-
-		// compute new errors
-		boolean hasErrors = _commitState.getErrors().isInError(itemId);
-		_commitState.getErrors().removeErrors(itemId);
-		if (TWUtil.isRequireNewRev(item)) {
-			for (Item sourceItem : item.getIncomingItems()) {
-				CompactUUID sourceId = sourceItem.getId();
-				if (_commitState.isToCommit(sourceId)) {
-					_commitState.getErrors().addError(
-							sourceId,
-							new MissCommitError(sourceId, "Destination item " + item.getDisplayName()
-									+ " of link from " + sourceItem.getDisplayName() + " must be commited.", itemId));
-				}
-			}
-		}
-
-		// only remove it from tree if it has no child which is to commit
-		List<AbstractCadseViewNode> itemNodes = findItemNodes(item);
-		boolean toRemoveFromTree = true;
-		for (AbstractCadseViewNode itemNode : itemNodes) {
-			if (itemNode.hasChildren()) {
-				toRemoveFromTree = false;
-				break;
-			}
-		}
-		if (!toRemoveFromTree) {
-			return (!hasErrors);
-		}
-		_itemsToShow.remove(itemId);
-
-		// compute the ancestors of this item
-		Stack<AbstractCadseViewNode> pathToRoot = new Stack<AbstractCadseViewNode>();
-		for (AbstractCadseViewNode itemNode : itemNodes) {
-			if (!findPathToRootNode(itemNode, pathToRoot)) {
-				return true; // should never happen
-			}
-
-			// remove all items on the path if no more necessary
-			AbstractCadseViewNode curNode = pathToRoot.pop();
-			while (curNode != null) {
-				if ((curNode != itemNode) && (curNode.hasChildren())) {
-					Item curItem = curNode.getItem();
-					_itemsToShow.remove(curItem.getId());
-				}
-
-				if (!pathToRoot.isEmpty()) {
-					curNode = pathToRoot.pop();
-				} else {
-					curNode = null;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	/**
 	 * Returns all tree nodes which represent specified item.
 	 * 
 	 * @param item
@@ -1368,7 +1035,7 @@ public class CommitDialogPage extends SWTDialog {
 	 * @return all tree nodes which represent specified item.
 	 */
 	private List<AbstractCadseViewNode> findItemNodes(Item item) {
-		CompactUUID itemId = item.getId();
+		UUID itemId = item.getId();
 
 		AbstractCadseViewNode rootNode = _treeField._ic.getOrCreateFilteredNode();
 		List<AbstractCadseViewNode> itemNodes = new ArrayList<AbstractCadseViewNode>();
@@ -1388,7 +1055,7 @@ public class CommitDialogPage extends SWTDialog {
 	 * @param itemNodes
 	 *            list of item nodes which represent itemId
 	 */
-	private void findItemNodes(CompactUUID itemId, AbstractCadseViewNode rootNode, List<AbstractCadseViewNode> itemNodes) {
+	private void findItemNodes(UUID itemId, AbstractCadseViewNode rootNode, List<AbstractCadseViewNode> itemNodes) {
 		if (!rootNode.hasChildren()) {
 			return;
 		}
@@ -1407,26 +1074,6 @@ public class CommitDialogPage extends SWTDialog {
 		}
 	}
 
-	private boolean findPathToRootNode(AbstractCadseViewNode itemNode, Stack<AbstractCadseViewNode> pathToRoot) {
-		Item item = itemNode.getItem();
-
-		pathToRoot.push(itemNode);
-
-		AbstractCadseViewNode parentNode = (AbstractCadseViewNode) itemNode.getParent();
-		if ((parentNode == null) || item.getType().isRootElement()) {
-			return true;
-		}
-
-		// first try to navigate to parent
-		if (parentNode != null) {
-			if (findPathToRootNode(parentNode, pathToRoot)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 	/**
 	 * Add specified item to list of items to commit. Update errors. Returns
 	 * true if an update of tree is necessary.
@@ -1438,64 +1085,10 @@ public class CommitDialogPage extends SWTDialog {
 	 * @return true if an update of tree is necessary.
 	 */
 	protected boolean addItemToCommit(Item item, VisitedItems visited) {
-		CompactUUID itemId = item.getId();
-		if (_commitState.isToCommit(itemId)) {
-			return false;
-		}
+		UUID itemId = item.getId();
 
-		_commitState.addItemToCommit(itemId);
 		addItemToShow(itemId);
 		visited.markAsVisited(itemId);
-
-		// remove errors
-		if (TWUtil.isRequireNewRev(item)) {
-			for (Item sourceItem : item.getIncomingItems()) {
-				CompactUUID sourceId = sourceItem.getId();
-				if (!_commitState.isToCommit(sourceId)) {
-					continue;
-				}
-
-				// compute list of errors to remove
-				List<Error> errorsToRem = new ArrayList<Error>();
-				for (Error error : _commitState.getErrors().getErrors(sourceId)) {
-					if (!(error instanceof MissCommitError)) {
-						continue;
-					}
-
-					MissCommitError missError = (MissCommitError) error;
-					if (missError.getMissingItemId().equals(itemId)) {
-						errorsToRem.add(missError);
-					}
-				}
-
-				// remove these errors
-				for (Error error : errorsToRem) {
-					_commitState.getErrors().removeError(sourceId, error);
-				}
-			}
-		}
-
-		/*
-		 * Commit destination if destination is NewRev before committing source
-		 * 
-		 * Formal description: E1.commit() ; (Let E2 :=
-		 * E1.r.getDestinations().select()) & (E2.getState() = NewRev) =>
-		 * E2.commit(), E1.commit()
-		 */
-		for (Item destItem : item.getOutgoingItems(true)) {
-			if (visited.hasBeenVisited(destItem)) {
-				continue;
-			}
-
-			// ignore static items
-			if (destItem.isStatic()) {
-				continue;
-			}
-
-			if (TWUtil.isRequireNewRev(destItem)) {
-				addItemToCommit(destItem, visited);
-			}
-		}
 
 		return true; // TODO should compute if refresh UI is necessary
 	}
@@ -1519,7 +1112,7 @@ public class CommitDialogPage extends SWTDialog {
 		// second try to navigate thought aggregate links
 		List<? extends Link> incomingLinks = item.getIncomingLinks();
 		for (Link link : incomingLinks) {
-			if (link.getLinkType().isPart() || !link.getLinkType().isAggregation()) {
+			if (link.getLinkType().isPart() || !link.isAggregation()) {
 				continue;
 			}
 
@@ -1530,7 +1123,7 @@ public class CommitDialogPage extends SWTDialog {
 
 		// finally try all other links
 		for (Link link : incomingLinks) {
-			if (link.getLinkType().isPart() || link.getLinkType().isAggregation()) {
+			if (link.getLinkType().isPart() || link.isAggregation()) {
 				continue;
 			}
 

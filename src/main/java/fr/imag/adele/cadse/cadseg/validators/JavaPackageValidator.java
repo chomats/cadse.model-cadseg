@@ -36,6 +36,7 @@ import fr.imag.adele.cadse.core.ui.UIValidator;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
+import org.eclipse.jdt.core.JavaConventions;
 
 /**
  * @generated

@@ -18,27 +18,37 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
- * Represents one error attached to one item.
+ * Simple error containing only a message.
  * 
  * @author Thomas
  *
  */
-public interface Error {
-
-	/**
-	 * Return item which is related to this error.
-	 * 
-	 * @return item which is related to this error.
-	 */
-	public CompactUUID getItem();
+public class MsgError implements Error {
+	
+	private UUID _itemId;
+	
+	private String _errorMsg;
 	
 	/**
-	 * Return the message describing the error.
+	 * Create a new error with a message.
 	 * 
-	 * @return the message describing the error.
+	 * @param itemId   item id
+	 * @param errorMsg error message
 	 */
-	public String getMessage();
+	public MsgError(UUID itemId, String errorMsg) {
+		_itemId = itemId;
+		_errorMsg = errorMsg;
+	}
+
+	public UUID getItem() {
+		return _itemId;
+	}
+
+	public String getMessage() {
+		return _errorMsg;
+	}
+
 }

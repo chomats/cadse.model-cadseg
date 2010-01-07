@@ -62,7 +62,7 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 		 * @see fr.imag.adele.cadse.core.ItemFilter#accept(fr.imag.adele.cadse.core.Item)
 		 */
 		public boolean accept(Item linkAttribute) {
-			if (linkAttribute.getType() == CadseGCST.LINK) {
+			if (linkAttribute.getType() == CadseGCST.LINK_TYPE) {
 				Item findDestination = LinkManager.getDestination(linkAttribute);
 				Item invLink = LinkManager.getInverseLink(linkAttribute);
 				if (invLink != null && invLink != this.linkCreated) {

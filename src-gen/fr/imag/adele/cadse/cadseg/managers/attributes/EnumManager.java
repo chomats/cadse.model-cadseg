@@ -26,9 +26,9 @@ import java.util.Set;
 
 import org.eclipse.jdt.core.IType;
 
-import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
-import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
-import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ValueTypeType;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.attributes.EnumCIF;
@@ -49,6 +49,7 @@ import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.ListAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 
@@ -284,7 +285,7 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 			return ret;
 		}
 
-		IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, itemenumtype);
+		IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, itemenumtype);
 		if (type != null && type.exists()) {
 			List<String> values = EnumTypeManager.getEnumTypeValues(itemenumtype);
 			if (values == null || !values.contains(defaultValue)) {
@@ -323,7 +324,7 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 
 		Item enumType = EnumManager.getEnumType(attribute);
 		if (enumType != null) {
-			IType enumTypeClass = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, enumType);
+			IType enumTypeClass = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumType);
 			if (enumTypeClass != null) {
 				if (AttributeManager.isIsListAttribute(attribute)) {
 					appendCST(cxt, sb, absItemType, attribute, imports, ListAttributeType.class, enumTypeClass);

@@ -18,37 +18,30 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
- * Simple error containing only a message.
+ * Represents an error where an item must be committed.
  * 
  * @author Thomas
  *
  */
-public class MsgError implements Error {
+public class MissCommitError extends MsgError {
 	
-	private CompactUUID _itemId;
-	
-	private String _errorMsg;
-	
+	private UUID _missingItemId;
+
+	public MissCommitError(UUID itemId, String errorMsg, UUID missingItemId) {
+		super(itemId, errorMsg);
+		_missingItemId = missingItemId;
+	}
+
 	/**
-	 * Create a new error with a message.
+	 * Returns the missing item id.
 	 * 
-	 * @param itemId   item id
-	 * @param errorMsg error message
+	 * @return the missing item id.
 	 */
-	public MsgError(CompactUUID itemId, String errorMsg) {
-		_itemId = itemId;
-		_errorMsg = errorMsg;
-	}
-
-	public CompactUUID getItem() {
-		return _itemId;
-	}
-
-	public String getMessage() {
-		return _errorMsg;
+	public UUID getMissingItemId() {
+		return _missingItemId;
 	}
 
 }
