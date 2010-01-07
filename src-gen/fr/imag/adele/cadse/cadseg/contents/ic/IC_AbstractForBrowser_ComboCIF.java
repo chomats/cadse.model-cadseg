@@ -39,9 +39,9 @@ public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getItem(), IC_AbstractForBrowser_ComboManager.SELECT_TITLE_ATTRIBUTE,
+			DisplayManager.addAttributeInCall(getOwnerItem(), IC_AbstractForBrowser_ComboManager.SELECT_TITLE_ATTRIBUTE,
 					true, "??", sb);
-			DisplayManager.addAttributeInCall(getItem(), IC_AbstractForBrowser_ComboManager.SELECT_MESSAGE_ATTRIBUTE,
+			DisplayManager.addAttributeInCall(getOwnerItem(), IC_AbstractForBrowser_ComboManager.SELECT_MESSAGE_ATTRIBUTE,
 					true, "??", sb);
 		}
 
