@@ -41,8 +41,9 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.cadse.core.var.Variable;
 import fr.imag.adele.fede.workspace.si.view.View;
 
@@ -202,7 +203,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.EXT_ITEM_TYPE.setSpaceKeyType(new SpaceKeyType(CadseGCST.EXT_ITEM_TYPE, null));
+		CadseGCST.EXT_ITEM_TYPE.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.EXT_ITEM_TYPE, null));
 		CadseGCST.EXT_ITEM_TYPE.setHasNameAttribute(true);
 		CadseGCST.EXT_ITEM_TYPE.setHasQualifiedNameAttribute(false);
 	}

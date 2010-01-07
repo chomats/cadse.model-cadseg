@@ -23,7 +23,10 @@ import java.util.Set;
 
 import fr.imag.adele.cadse.core.CadseException;
 import java.util.UUID;
+
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
 
@@ -57,8 +60,9 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
 		 */
 		@Override
-		protected String[] getResourceKindsName() {
-			return new String[] { PACKAGE_NAME_ATTRIBUTE, CLASS_NAME_ATTRIBUTE };
+		protected StringAttributeType[] getResourceKindsName() {
+			return new StringAttributeType[] { CadseGCST.JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_,
+					CadseGCST.JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_ };
 		}
 
 		/*
@@ -74,13 +78,7 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 		}
 
 	}
-
-	/** The Constant PACKAGE_NAME_ATTRIBUTE. */
-	public static final String	PACKAGE_NAME_ATTRIBUTE	= "package-name";
-
-	/** The Constant CLASS_NAME_ATTRIBUTE. */
-	public static final String	CLASS_NAME_ATTRIBUTE	= "class-name";
-
+	
 	/**
 	 * Instantiates a new java file content model manager.
 	 */

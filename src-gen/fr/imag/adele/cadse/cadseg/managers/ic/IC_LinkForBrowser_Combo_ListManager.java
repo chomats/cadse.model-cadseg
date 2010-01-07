@@ -32,6 +32,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class IC_LinkForBrowser_Combo_ListManager.
@@ -68,7 +69,7 @@ public class IC_LinkForBrowser_Combo_ListManager extends IC_AbstractTreeDialogFo
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
-			Item ic = getItem();
+			Item ic = getOwnerItem();
 			Item a = FieldManager.getAttribute(ic.getPartParent().getPartParent());
 			sb.append(GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, a, null, null, imports))
 					.append(",");
@@ -197,7 +198,7 @@ public class IC_LinkForBrowser_Combo_ListManager extends IC_AbstractTreeDialogFo
 
 		Item field = itemParent.getPartParent();
 		Item attribute = FieldManager.getAttribute(field);
-		if (attribute.getType() != CadseGCST.LINK) {
+		if (attribute.getType() != CadseGCST.LINK_TYPE) {
 			return "It's not a link attribute";
 		}
 		return null;

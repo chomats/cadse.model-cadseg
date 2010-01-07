@@ -46,7 +46,7 @@ import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLink;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLinkType;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -441,7 +441,7 @@ public class ImportPagesAction extends AbstractActionPage {
 			theitemtype.createLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, superItem);
 		}
 
-		theitemtype.setAttribute(CadseGCST.ITEM_TYPE_at_IS_ABSTRACT_, cit.isIsAbstract());
+		theitemtype.setAttribute(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_, cit.isIsAbstract());
 		theitemtype.setAttribute(CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_, cit.isIsRootElement());
 		theitemtype.setAttribute(CadseGCST.ITEM_TYPE_at_HAS_CONTENT_, cit.isHasContent());
 		theitemtype.setAttribute(CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_, cit.getId());
@@ -501,19 +501,19 @@ public class ImportPagesAction extends AbstractActionPage {
 			throw new CadseException("Cannot find the item type {0}.", ltname.getDestination());
 		}
 
-		Item thelinktype = copy.createItem(CadseGCST.LINK, sourceItemType,
+		Item thelinktype = copy.createItem(CadseGCST.LINK_TYPE, sourceItemType,
 				CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES);
 		CadseCore.setName(thelinktype, ltname.getName());
-		LinkManager.setMaxAttribute(thelinktype, ltname.getMax());
-		LinkManager.setMinAttribute(thelinktype, ltname.getMin());
-		LinkManager.setDestinationAttribute(thelinktype, destItemType);
-		LinkManager.setIsListAttribute(thelinktype, ltname.getMax() != 0 && ltname.getMax() != 1);
-		thelinktype.setAttribute(CadseGCST.LINK_at_AGGREGATION, Boolean.toString(ltname.isIsAggregation()));
-		thelinktype.setAttribute(CadseGCST.LINK_at_PART, Boolean.toString(ltname.isIsPart()));
-		thelinktype.setAttribute(CadseGCST.ATTRIBUTE_at_REQUIRE, Boolean.toString(ltname.isIsRequire()));
-		thelinktype.setAttribute(CadseGCST.LINK_at_ANNOTATION, Boolean.toString(ltname.isIsAnnotation()));
-		thelinktype.setAttribute(CadseGCST.LINK_at_COMPOSITION, Boolean.toString(ltname.isIsComposition()));
-		thelinktype.setAttribute(CadseGCST.LINK_at_SELECTION, ltname.getSelectionExpression());
+		LinkTypeManager.setMaxAttribute(thelinktype, ltname.getMax());
+		LinkTypeManager.setMinAttribute(thelinktype, ltname.getMin());
+		LinkTypeManager.setDestinationAttribute(thelinktype, destItemType);
+		LinkTypeManager.setIsListAttribute(thelinktype, ltname.getMax() != 0 && ltname.getMax() != 1);
+		thelinktype.setAttribute(CadseGCST.LINK_TYPE_at_AGGREGATION_, (ltname.isIsAggregation()));
+		thelinktype.setAttribute(CadseGCST.LINK_TYPE_at_PART_, (ltname.isIsPart()));
+		thelinktype.setAttribute(CadseGCST.ATTRIBUTE_at_REQUIRE_, (ltname.isIsRequire()));
+		thelinktype.setAttribute(CadseGCST.LINK_TYPE_at_ANNOTATION_, (ltname.isIsAnnotation()));
+		thelinktype.setAttribute(CadseGCST.LINK_TYPE_at_COMPOSITION_,(ltname.isIsComposition()));
+		thelinktype.setAttribute(CadseGCST.LINK_TYPE_at_SELECTION_, ltname.getSelectionExpression());
 		// TODO inverse link
 
 		return thelinktype;

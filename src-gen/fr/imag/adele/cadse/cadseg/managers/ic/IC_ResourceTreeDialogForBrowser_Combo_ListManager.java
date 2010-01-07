@@ -71,7 +71,8 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
-			DisplayManager.addAttributeInCall(getItem(), SELECT_ROOT_ATTRIBUTE, false, "0", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), 
+					CadseGCST.IC_RESOURCE_TREE_DIALOG_FOR_BROWSER_COMBO_LIST_at_SELECT_TYPE_ROOT_, false, 0, sb);
 		}
 
 		/*

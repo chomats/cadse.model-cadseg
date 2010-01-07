@@ -82,9 +82,9 @@ public class DTextManager extends DisplayManager implements IItemManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
 			super.generateCallArguments(sb, imports);
-			Item display = getItem();
-			sb.append_exp_vir(display, CadseGCST.DTEXT_at_VERTICAL_SPAN, "1");
-			sb.append_string_vir(display, CadseGCST.DTEXT_at_TOOL_TIP);
+			Item display = getOwnerItem();
+			sb.append_exp_vir(display, CadseGCST.DTEXT_at_VERTICAL_SPAN_, 1);
+			sb.append_string_vir(display, CadseGCST.DTEXT_at_TOOL_TIP_);
 			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_MULTI_LINE_), false)).append(",");
 			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_NO_BORDER_), false)).append(",");
 			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_WRAP_LINE_), false)).append(",");

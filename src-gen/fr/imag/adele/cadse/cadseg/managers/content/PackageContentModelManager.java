@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.core.CadseException;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -137,11 +138,11 @@ public class PackageContentModelManager extends FolderContentModelManager {
 		@Override
 		protected void generateCallInit(GenStringBuilder sb, Set<String> imports, GenContext newcontext) {
 			String itemVar = newcontext.getAttribute("itemVar");
-			String value = getItem().getAttribute(PACKAGE_NAME_ATTRIBUTE);
+			String value = getOwnerItem().getAttribute(CadseGCST.PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_);
 			if (value == null || value.length() == 0) {
 				value = "${#short-name}";
 			}
-			Item itemtype = ManagerManager.getItemType(getItem().getPartParent());
+			Item itemtype = ManagerManager.getItemType(getOwnerItem().getPartParent());
 
 			ParseTemplate pt = new ParseTemplate(itemtype, value, null);
 			try {
@@ -176,8 +177,6 @@ public class PackageContentModelManager extends FolderContentModelManager {
 
 	}
 
-	/** The Constant PACKAGE_NAME_ATTRIBUTE. */
-	public static final String	PACKAGE_NAME_ATTRIBUTE	= "package-name";
 
 //	/**
 //	 * Creates the package name field.

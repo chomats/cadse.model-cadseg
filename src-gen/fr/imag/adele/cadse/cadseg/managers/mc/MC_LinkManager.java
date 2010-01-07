@@ -24,7 +24,7 @@ import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -35,6 +35,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.cadse.core.var.Variable;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -132,8 +133,8 @@ public class MC_LinkManager extends ModelControllerManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 
-			Item a = ModelControllerManager.getAttribute(getItem());
-			sb.append(Boolean.toString(LinkManager.getMin(a) != 0)).append(", null,");
+			Item a = ModelControllerManager.getAttribute(getOwnerItem());
+			sb.append(Boolean.toString(LinkTypeManager.getMin(a) != 0)).append(", null,");
 			sb.append(GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, a, null, null, imports))
 					.append(",");
 		}

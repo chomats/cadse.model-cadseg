@@ -6,7 +6,7 @@ import java.util.Set;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 
 public class ListOfValueAttribute
@@ -70,7 +70,7 @@ public class ListOfValueAttribute
     stringBuffer.append(TEXT_1);
     	String upper_first_att_name = JavaIdentifier.javaIdentifierFromString(attribute.getName(),true, false, null);
 	String min_short_name = JavaIdentifier.javaIdentifierFromString(shortName,false, true, null);
-	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
+	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
 
 	ItemType it = attribute.getType();
 	AttributeManager manager = (AttributeManager) it.getItemManager();
@@ -84,7 +84,7 @@ public class ListOfValueAttribute
     stringBuffer.append(TEXT_2);
     stringBuffer.append(typeJava);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(min_short_name );
     stringBuffer.append(TEXT_5);
@@ -98,7 +98,7 @@ public class ListOfValueAttribute
     stringBuffer.append(TEXT_9);
     stringBuffer.append(typeJava);
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_11);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_12);

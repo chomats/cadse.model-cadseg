@@ -61,6 +61,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -284,8 +285,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 	}
 
-	/** The Constant SUB_PACKAGE_ATTRIBUTE. */
-	public static final String	SUB_PACKAGE_ATTRIBUTE	= "sub-package";
 
 	/**
 	 * The Constructor.
@@ -575,7 +574,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getLongNameTemplateAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, null);
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_, null);
 	}
 
 	/**
@@ -590,7 +589,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static final void setLongNameTemplateAttribute(Item manager, String value) {
 		try {
-			manager.setAttribute(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, value);
+			manager.setAttribute(CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_, value);
 		} catch (Throwable t) {
 
 		}

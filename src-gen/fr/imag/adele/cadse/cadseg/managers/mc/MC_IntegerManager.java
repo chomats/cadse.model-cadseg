@@ -68,13 +68,13 @@ public class MC_IntegerManager extends ModelControllerManager implements IItemMa
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			sb.append(getItem().getAttributeWithDefaultValue("min", 0)).append(", ");
-			String maxAttribute = Convert.toString(getItem().getAttributeWithDefaultValue("max", 0));
+			sb.append(getOwnerItem().getAttributeWithDefaultValue(CadseGCST.MC_INTEGER_at_MIN_, 0)).append(", ");
+			String maxAttribute = Convert.toString(getOwnerItem().getAttributeWithDefaultValue(CadseGCST.MC_INTEGER_at_MAX_, 0));
 			if (maxAttribute == null || maxAttribute.length() == 0)
 				maxAttribute = "0";
 			sb.append(maxAttribute).append(", ");
-			String minError = getItem().getAttribute("min-error");
-			String maxError = getItem().getAttribute("max-error");
+			String minError = getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_ERROR_MSG_MIN_);
+			String maxError = getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_ERROR_MSG_MAX_);
 			if (minError == null || minError.length() == 0)
 				sb.append("null, ");
 			else
@@ -83,7 +83,7 @@ public class MC_IntegerManager extends ModelControllerManager implements IItemMa
 				sb.append("null, ");
 			else
 				sb.appendStringValue(maxError).append(", ");
-			sb.append(Convert.toInteger(getItem().getAttribute(CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_)))
+			sb.append(Convert.toInteger(getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_)))
 					.append(",");
 
 		}

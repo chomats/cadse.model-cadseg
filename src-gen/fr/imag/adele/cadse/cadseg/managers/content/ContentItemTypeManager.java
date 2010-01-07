@@ -36,6 +36,8 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
+
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -248,13 +250,13 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 *            the imports
 		 */
 		protected void generateAllClassVariables(GenStringBuilder sb, Set<String> imports) {
-			String[] kinds = getResourceKindsName();
+			StringAttributeType[] kinds = getResourceKindsName();
 
 			if (kinds == null) {
 				return;
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
-					String strKinds = kinds[i];
+					StringAttributeType strKinds = kinds[i];
 					String value = getOwnerItem().getAttribute(strKinds);
 
 					value = getDefaultValue(strKinds, value);
@@ -262,12 +264,12 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 						continue;
 					}
 					GenerateVariable.generateClassVariable(getOwnerItem(),
-							GenerateVariable.getClassVariable(strKinds, true), value, sb, imports);
+							GenerateVariable.getClassVariable(strKinds.getName(), true), value, sb, imports);
 				}
 			}
 		}
 
-		protected String getDefaultValue(String strKinds, String value) {
+		protected String getDefaultValue(StringAttributeType strKinds, String value) {
 			return value;
 		}
 
@@ -276,7 +278,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 * 
 		 * @return the resource kinds name
 		 */
-		protected String[] getResourceKindsName() {
+		protected StringAttributeType[] getResourceKindsName() {
 			return null;
 		}
 
@@ -373,19 +375,19 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 *            the context
 		 */
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
-			String[] kinds = getResourceKindsName();
+			StringAttributeType[] kinds = getResourceKindsName();
 			if (kinds == null) {
 				return;
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
-					String strKinds = kinds[i];
-					String value = getItem().getAttribute(strKinds);
+					StringAttributeType strKinds = kinds[i];
+					String value = getOwnerItem().getAttribute(strKinds);
 					value = getDefaultValue(strKinds, value);
 					if (value == null) {
 						sb.append(" ").append("NullVariable.INSTANCE,");
 						imports.add("fr.imag.adele.cadse.core.impl.var.NullVariable");
 					} else {
-						sb.append(" ").append(GenerateVariable.getClassVariable(strKinds, true)).append(".INSTANCE,");
+						sb.append(" ").append(GenerateVariable.getClassVariable(strKinds.getName(), true)).append(".INSTANCE,");
 					}
 				}
 			}
@@ -399,13 +401,13 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 */
 		protected void generateConstrustorArguments(GenStringBuilder sb) {
 			sb.append("id,");
-			String[] kinds = getResourceKindsName();
+			StringAttributeType[] kinds = getResourceKindsName();
 			if (kinds == null) {
 				return;
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
-					String strKinds = kinds[i];
-					sb.append(" ").append(GenerateVariable.getClassVariable(strKinds, false)).append(",");
+					StringAttributeType strKinds = kinds[i];
+					sb.append(" ").append(GenerateVariable.getClassVariable(strKinds.getName(), false)).append(",");
 				}
 			}
 		}
@@ -419,14 +421,14 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		protected void generateConstructorParameter(GenStringBuilder sb) {
 			
 			sb.append("UUID id,");
-			String[] kinds = getResourceKindsName();
+			StringAttributeType[] kinds = getResourceKindsName();
 
 			if (kinds == null) {
 				return;
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
-					String strKinds = kinds[i];
-					sb.append(" Variable ").append(GenerateVariable.getClassVariable(strKinds, false)).append(",");
+					StringAttributeType strKinds = kinds[i];
+					sb.append(" Variable ").append(GenerateVariable.getClassVariable(strKinds.getName(), false)).append(",");
 				}
 			}
 		}

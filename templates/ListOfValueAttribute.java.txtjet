@@ -2,13 +2,13 @@
 skeleton="AttributeSkelton.skeleton"
 imports="fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier fede.workspace.eclipse.java.JavaIdentifier
 fr.imag.adele.cadse.core.ItemType
-fr.imag.adele.cadse.core.var.ContextVariable
+fr.imag.adele.cadse.core.var.ContextVariableImpl
 fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager
 "%>
 
 <%	String upper_first_att_name = JavaIdentifier.javaIdentifierFromString(attribute.getName(),true, false, null);
 	String min_short_name = JavaIdentifier.javaIdentifierFromString(shortName,false, true, null);
-	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
+	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
 
 	ItemType it = attribute.getType();
 	AttributeManager manager = (AttributeManager) it.getItemManager();
@@ -23,7 +23,7 @@ fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager
 		@generated
 	*/
 	@SuppressWarnings("unchecked")
-	public static final List<<%=typeJava%>> <%=GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute)%>(Item <%=min_short_name %>) {
+	public static final List<<%=typeJava%>> <%=GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute)%>(Item <%=min_short_name %>) {
 		try {
 			List<<%=typeJava%>> list = <%=min_short_name%>.getAttribute(<%=cstAttribute%>_);
 
@@ -40,7 +40,7 @@ fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager
 		@generated
 	*/
 	@SuppressWarnings("unchecked")
-	public static final void <%=GenerateJavaIdentifier.cstSetAttribute(ContextVariable.DEFAULT, attribute)%>(Item <%=min_short_name%>, List<<%=typeJava%>> valueList) {
+	public static final void <%=GenerateJavaIdentifier.cstSetAttribute(ContextVariableImpl.DEFAULT, attribute)%>(Item <%=min_short_name%>, List<<%=typeJava%>> valueList) {
 		try {
 			List<<%=typeJava%>> list = new ArrayList<<%=typeJava%>>(valueList);
 			<%=min_short_name%>.setAttribute(<%=cstAttribute%>_, list);

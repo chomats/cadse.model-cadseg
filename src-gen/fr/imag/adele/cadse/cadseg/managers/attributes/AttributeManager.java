@@ -223,7 +223,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 			// C'est l'attribut max contient cette information sous une autre
 			// forme : un entier. '-1' siginifie qu'il n'y a pas de limite.
 			// 'unbounded' en anglais.
-			int max = LinkManager.getMax(attribute);
+			int max = LinkTypeManager.getMax(attribute);
 			return max == -1 || max > 1;
 		}
 		Object value = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_IS_LIST_);

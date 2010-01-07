@@ -65,8 +65,8 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
-			Item uc = getItem();
-			sb.append_exp_vir(uc, ALLOW_DUPLICATE_ATTRIBUTE, "false");
+			Item uc = getOwnerItem();
+			sb.append_exp_vir(uc, CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, false);
 
 		}
 
@@ -106,9 +106,6 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME			= "fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList";
-
-	/** The Constant ALLOW_DUPLICATE_ATTRIBUTE. */
-	private static final String	ALLOW_DUPLICATE_ATTRIBUTE	= "allow duplicate";
 
 	/**
 	 * Instantiates a new i c_ string list for list manager.

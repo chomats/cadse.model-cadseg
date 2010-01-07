@@ -45,11 +45,11 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.key.AbstractSpaceKey;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
+import fr.imag.adele.cadse.core.key.DefaultKeyImpl;
 import fr.imag.adele.cadse.core.key.Key;
-import fr.imag.adele.cadse.core.key.SpaceKey;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class PageManager.
@@ -80,11 +80,11 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			}
 			return uuid;
 		}
-		return new UUID(uuid_str);
+		return UUID.fromString(uuid_str);
 
 	}
 
-	static private final class PageSpaceKeyType extends SpaceKeyType {
+	static private final class PageSpaceKeyType extends DefaultKeyDefinitionImpl {
 		private PageSpaceKeyType(ItemType type, ItemType type2) {
 			super(type, type2);
 		}
@@ -92,52 +92,52 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		@Override
 		public Key computeKey(Item item) {
 			Key parentKey = null;
-			if (parentSpaceKeyType != null) {
+			if (_parentKeyDefinition != null) {
 				parentKey = getParentSpaceKeyFromItem(item);
 			}
-			if (parentKey == AbstractSpaceKey.INVALID) {
+			if (parentKey == DefaultKeyImpl.INVALID) {
 				Logger.getLogger("fr.imag.adele.cadse.key").log(Level.SEVERE, 
 						"Parent key is invalide for item "+item.getType().getName() + "::"+item.getDisplayName());				
-				return AbstractSpaceKey.INVALID;
+				return DefaultKeyImpl.INVALID;
 			}
 			return new PageSpaceKey(item, this, item.getName(), parentKey);
 		}
 
 		@Override
-		public Key computeKey(String name, Item parentItem, Object... key_attributes) {
-			Key parentKey = getParentKeyFromParentItem(parentItem);
-			if (parentKey == AbstractSpaceKey.INVALID)
-				return AbstractSpaceKey.INVALID;
+		public Key computeKey(Key parentKey, Object... values)
+				throws CadseException {
+			if (parentKey == DefaultKeyImpl.INVALID)
+				return DefaultKeyImpl.INVALID;
 			
-			return new PageSpaceKey(null, this, name, parentKey,
-					parentItem.getPartParentLinkType() == CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES);
+			return new PageSpaceKey(null, this, (String) values[0], parentKey, ((Boolean) values[1]).booleanValue()
+					);
+			//parentItem.getPartParentLinkType() == CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES
 		}
-
+		
 		@Override
-		public String getQualifiedString(AbstractSpaceKey key) {
-			StringBuilder sb = new StringBuilder();
+		public void getQualifiedString(Key key, StringBuilder sb) {
 			if (((PageSpaceKey) key).modificationPage) {
 				sb.append("Modification ");
 			} else {
 				sb.append("Creation ");
 			}
 			sb.append(getItemType().getName()).append(" ");
-			getQualifiedString(key, sb);
-			return sb.toString();
+			super.getQualifiedString(key, sb);
 		}
+
 
 	}
 
-	static private final class PageSpaceKey extends SpaceKey {
+	static private final class PageSpaceKey extends DefaultKeyImpl {
 		final boolean	modificationPage;
 
-		PageSpaceKey(Item source, SpaceKeyType type, String name, Key parentKey) {
-			super(source, type, name, parentKey);
+		PageSpaceKey(Item source, PageSpaceKeyType type, String name, Key parentKey) {
+			super(type, parentKey, name);
 			modificationPage = PageManager.isModificationPage(source);
 		}
 
 		PageSpaceKey(Item source, PageSpaceKeyType type, String name, Key parentKey, boolean b) {
-			super(source, type, name, parentKey);
+			super(type, parentKey, name);
 			modificationPage = b;
 		}
 
@@ -394,7 +394,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	@Override
 	public void init() {
 		CadseGCST.PAGE.setHasQualifiedNameAttribute(false);
-		CadseGCST.PAGE.setSpaceKeyType(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.TYPE_DEFINITION));
+		CadseGCST.PAGE.setKeyDefinition(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.TYPE_DEFINITION));
 	}
 
 	

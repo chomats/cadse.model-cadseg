@@ -52,7 +52,7 @@ import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionCIF;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
 import fr.imag.adele.cadse.cadseg.fields.RegExContentProposalProvider;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.operation.WorkspaceActionContributor;
 import fr.imag.adele.cadse.cadseg.pages.PageInit;
@@ -283,8 +283,8 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 		@Override
 		public boolean validValueChanged(UIField field, Object value) {
 			Item currentItem = getItem();
-			Item source = LinkManager.getSource(currentItem);
-			Item dest = LinkManager.getDestination(currentItem);
+			Item source = LinkTypeManager.getSource(currentItem);
+			Item dest = LinkTypeManager.getDestination(currentItem);
 			ParsePath pp = new ParsePath(source, dest, (String) value);
 			String error = pp.getError();
 			if (error != null) {

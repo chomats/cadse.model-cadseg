@@ -174,13 +174,6 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 
 	}
 
-	/**
-	 * The Constant EXTENDS_CLASS_ATTRIBUTE. "extends-class"
-	 * 
-	 * @Deprecated (use CadseGCST.COMPOSER_at_EXTENDS_CLASS)
-	 */
-	@Deprecated
-	public static final String	EXTENDS_CLASS_ATTRIBUTE	= CadseGCST.COMPOSER_at_EXTENDS_CLASS;
 
 	/**
 	 * The Class ContentManager.
@@ -302,10 +295,10 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 			}
 
 			if ("composers".equals(kind)) {
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getItem());
+				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
 
 				if (extendsClass) {
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(getItem().getName(), true, false,
+					defaultClassName = JavaIdentifier.javaIdentifierFromString(getOwnerItem().getName(), true, false,
 							"Composer");
 				}
 
@@ -492,7 +485,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @return true, if is extends class
 	 */
 	public static final boolean isExtendsClass(Item contentmodel) {
-		Object value = contentmodel.getAttribute(EXTENDS_CLASS_ATTRIBUTE);
+		Object value = contentmodel.getAttribute(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_);
 		if (value == null) {
 			return false;
 		}
@@ -692,7 +685,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @generated
 	 */
 	public static final boolean isExtendsClassAttribute(Item composer) {
-		return composer.getAttributeWithDefaultValue(CadseGCST.COMPOSER_at_EXTENDS_CLASS_, false);
+		return composer.getAttributeWithDefaultValue(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_, false);
 	}
 
 	/**
@@ -700,7 +693,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 */
 	public static final void setExtendsClassAttribute(Item composer, boolean value) {
 		try {
-			composer.setAttribute(CadseGCST.COMPOSER_at_EXTENDS_CLASS_, value);
+			composer.setAttribute(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_, value);
 		} catch (Throwable t) {
 
 		}

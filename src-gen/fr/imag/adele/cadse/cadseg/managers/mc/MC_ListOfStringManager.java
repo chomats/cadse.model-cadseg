@@ -66,9 +66,9 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item mc = getItem();
-			sb.append_exp_vir(mc, MIN, "0");
-			sb.append_exp_vir(mc, MAX, "-1");
+			Item mc = getOwnerItem();
+			sb.append_exp_vir(mc, CadseGCST.MC_LIST_OF_STRING_at_MIN_, 0);
+			sb.append_exp_vir(mc, CadseGCST.MC_LIST_OF_STRING_at_MAX_, -1);
 		}
 
 		/*
@@ -96,11 +96,6 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 	@SuppressWarnings("hiding")
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList";
 
-	/** The Constant MIN. */
-	private static final String	MIN					= "MIN";
-
-	/** The Constant MAX. */
-	private static final String	MAX					= "MAX";
 
 	/**
 	 * Instantiates a new list of string model controller manager.

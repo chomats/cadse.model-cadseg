@@ -19,7 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.path;
 
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.path.PathConstants;
 
@@ -43,7 +43,7 @@ public class IncomingLinkTypePath extends ElementPath {
 	 *            the lt
 	 */
 	public IncomingLinkTypePath(Item lt) {
-		fSource = LinkManager.getSource(lt);
+		fSource = LinkTypeManager.getSource(lt);
 		;
 		fLinkType = lt;
 	}

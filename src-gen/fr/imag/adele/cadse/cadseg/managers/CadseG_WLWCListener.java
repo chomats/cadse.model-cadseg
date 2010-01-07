@@ -39,7 +39,7 @@ import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.build.ComposerLinkManager;
 import fr.imag.adele.cadse.cadseg.managers.build.CompositeItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
@@ -916,8 +916,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 
 			syncCompositeType(wc, item, null, null);
 
-			if (LinkManager.isPart(item)) {
-				Item inverseLink = LinkManager.getInverseLink(item);
+			if (LinkTypeManager.isPart(item)) {
+				Item inverseLink = LinkTypeManager.getInverseLink(item);
 				if (inverseLink != null) {
 					inverseLink.delete(true);
 				}
@@ -997,7 +997,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		if (link.getLinkType() == CadseGCST.LINK_TYPE_lt_INVERSE_LINK) {
 			Item link1 = link.getSource();
 			Item inverseLink = link.getResolvedDestination();
-			Link inverseLink_link = LinkManager.getInverseLinkLink(inverseLink);
+			Link inverseLink_link = LinkTypeManager.getInverseLinkLink(inverseLink);
 			if (inverseLink_link == null) {
 				inverseLink.createLink(CadseGCST.LINK_TYPE_lt_INVERSE_LINK, link1);
 			} else {
@@ -1130,7 +1130,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 //			} else if (attribute_type == CadseGCST.INTEGER) {
 //				return CadseGCST.DTEXT;
 //			} else if (attribute_type == CadseGCST.LINK) {
-//				final int max = LinkManager.getMax(attribute);
+//				final int max = LinkTypeManager.getMax(attribute);
 //				if (max == 0 || max == 1) {
 //					return CadseGCST.DBROWSER;
 //				} else {
@@ -1394,7 +1394,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 //				return null;
 //
 //			} else if (attribute_type == CadseGCST.LINK) {
-//				Item itemtypedest = LinkManager.getDestination(attribute);
+//				Item itemtypedest = LinkTypeManager.getDestination(attribute);
 //
 //				Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
 //

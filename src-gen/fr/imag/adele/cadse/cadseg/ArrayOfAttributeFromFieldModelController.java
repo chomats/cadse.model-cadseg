@@ -144,7 +144,7 @@ public class ArrayOfAttributeFromFieldModelController extends AbstractModelContr
 		String shortName = CadseG_WLWCListener.doShortName(attribute);
 
 		try {
-			Key key = CadseGCST.FIELD.getKeyDefinition().computeKey(shortName, page, shortName, attribute);
+			Key key = CadseGCST.FIELD.getKeyDefinition().computeKey(page.getKey(), shortName, attribute);
 			Item field = CadseCore.getLogicalWorkspace().getItem(key);
 			if (field != null) {
 				field.delete(false);

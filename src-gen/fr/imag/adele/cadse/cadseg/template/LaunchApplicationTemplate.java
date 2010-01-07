@@ -28,7 +28,7 @@ public class LaunchApplicationTemplate
     final StringBuffer stringBuffer = new StringBuffer();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(item.getUniqueName());
+    stringBuffer.append(item.getQualifiedName());
     stringBuffer.append(TEXT_3);
     stringBuffer.append(TEXT_4);
     return stringBuffer.toString();

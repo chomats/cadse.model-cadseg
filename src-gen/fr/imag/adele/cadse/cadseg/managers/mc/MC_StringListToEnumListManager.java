@@ -37,6 +37,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class MC_StringListToEnumListManager.
@@ -71,7 +72,7 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item field = getItem().getPartParent().getPartParent();
+			Item field = getOwnerItem().getPartParent().getPartParent();
 
 			Item enumattribute = FieldManager.getAttribute(field);
 
@@ -100,7 +101,7 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 		 */
 		@Override
 		protected void generateConstructorParameter(GenStringBuilder sb) {
-			Item field = getItem().getPartParent().getPartParent();
+			Item field = getOwnerItem().getPartParent().getPartParent();
 
 			Item enumattribute = FieldManager.getAttribute(field);
 

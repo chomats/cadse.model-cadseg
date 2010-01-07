@@ -11,7 +11,7 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.CadseGCST;
 import org.eclipse.jdt.core.IType;
-import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 public class EnumValueAttribute
  {
@@ -51,24 +51,24 @@ public class EnumValueAttribute
   {
     final StringBuffer stringBuffer = new StringBuffer();
     stringBuffer.append(TEXT_1);
-    	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
+    	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
 	
 	String min_short_name = JavaIdentifier.javaIdentifierFromString(shortName,false,true, null);
 	
 	Item enumType = EnumManager.getEnumType(attribute);
-	IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, enumType);
+	IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumType);
 	String enumClass = javaenumtype.getElementName();
 	
 	ItemType it = attribute.getType();
 	 
 	 String defaultValue = (String) attribute.getAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 	 if (defaultValue == null || defaultValue.length() == 0)
-	 	defaultValue = (String) it.getAttribute("defaultValue");
+	 	defaultValue = (String) it.getAttribute(CadseGCST.ATTRIBUTE_ITEM_TYPE_at_DEFAULT_VALUE_);
 	
     stringBuffer.append(TEXT_2);
     stringBuffer.append(enumClass);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(min_short_name );
     stringBuffer.append(TEXT_5);
@@ -82,7 +82,7 @@ public class EnumValueAttribute
     stringBuffer.append(TEXT_9);
     stringBuffer.append(defaultValue);
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstSetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_11);
     stringBuffer.append(min_short_name );
     stringBuffer.append(TEXT_12);

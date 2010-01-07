@@ -3,7 +3,7 @@ package fr.imag.adele.cadse.cadseg.contents.attributes;
 import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.template.LinkAttributeMultiTemplate;
 import fr.imag.adele.cadse.cadseg.template.LinkAttributeOneTemplate;
 import fr.imag.adele.cadse.core.CadseException;
@@ -45,7 +45,7 @@ public class LinkCIF extends AttributeCIF {
 			if (kind.equals("methods")) {
 				Item source = getOwnerItem();
 				if (true) { // !AttributeManager.isClassAttributeAttribute(source)
-					int max = LinkManager.getMax(source);
+					int max = LinkTypeManager.getMax(source);
 					if (max == 1) {
 						LinkAttributeOneTemplate temp = new LinkAttributeOneTemplate();
 						sb.append(temp.generate(source.getPartParent().getName(), source, imports));

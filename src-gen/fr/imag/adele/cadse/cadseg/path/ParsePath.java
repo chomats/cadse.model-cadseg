@@ -27,7 +27,7 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.DataModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.Item;
@@ -173,7 +173,7 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 	// if (error != null)
 	// break ONE;
 	// findElements.add( new IncomingLinkTypePath(lt));
-	// findType = LinkManager.getSource(lt);
+	// findType = LinkTypeManager.getSource(lt);
 	// continue;
 	// }
 	// lt = ItemTypeManager.getOutgoingLinkType(findType, s);
@@ -182,7 +182,7 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 	// if (error != null)
 	// break ONE;
 	// findElements.add( new LinkTypePath(lt, closure));
-	// findType = LinkManager.getDestination(lt);
+	// findType = LinkTypeManager.getDestination(lt);
 	// }
 	// if (!partiel && dest != null
 	// && !(ItemTypeManager.isSuperTypeOf(dest, findType) || dest
@@ -307,7 +307,7 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 
 				Map<String, Item> lts = ItemTypeManager.getOugoingLinkTypesH(type);
 				for (Item item : lts.values()) {
-					Item dest = LinkManager.getDestination(item);
+					Item dest = LinkTypeManager.getDestination(item);
 					if (dest == null)
 						continue;
 					ret.add(new LinkTypePath(item, false, pos));
@@ -318,9 +318,9 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 				lts = ItemTypeManager.getIncomingLinkTypes(type);
 				for (Item item : lts.values()) {
 					ret.add(new IncomingLinkTypePath(item, pos));
-					if (LinkManager.isPart(item)) {
+					if (LinkTypeManager.isPart(item)) {
 						ret.add(new ParentPath(item, pos));
-						Item parent = LinkManager.getSource(item);
+						Item parent = LinkTypeManager.getSource(item);
 						while (parent != null) {
 							ParentItemTypePath v = new ParentItemTypePath(parent, pos);
 							if (ret.contains(v))
@@ -342,7 +342,7 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 
 				Map<String, Item> lts = ItemTypeManager.getOugoingLinkTypesH(type);
 				for (Item item : lts.values()) {
-					Item dest = LinkManager.getDestination(item);
+					Item dest = LinkTypeManager.getDestination(item);
 					if (dest == null)
 						continue;
 					ret.add(new LinkTypePath(item, false, pos));
@@ -355,9 +355,9 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 					ret.add(new IncomingLinkTypePath(item, pos));
 				}
 				for (Item item : lts.values()) {
-					if (LinkManager.isPart(item)) {
+					if (LinkTypeManager.isPart(item)) {
 						ret.add(new ParentPath(item, pos));
-						Item parent = LinkManager.getSource(item);
+						Item parent = LinkTypeManager.getSource(item);
 						while (parent != null) {
 							ret.add(new ParentItemTypePath(parent, pos));
 							parent = ItemTypeManager.getPartParent(parent);
@@ -423,7 +423,7 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 		if (error != null)
 			return;
 		findElements.add(new IncomingLinkTypePath(lt));
-		findType = LinkManager.getSource(lt);
+		findType = LinkTypeManager.getSource(lt);
 	}
 
 	/*
@@ -440,7 +440,7 @@ public class ParsePath extends AbstractParsePath implements IContentProposalProv
 		if (error != null)
 			return;
 		findElements.add(new LinkTypePath(lt, closure));
-		findType = LinkManager.getDestination(lt);
+		findType = LinkTypeManager.getDestination(lt);
 	}
 
 	/*
