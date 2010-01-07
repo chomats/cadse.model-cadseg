@@ -39,7 +39,7 @@ import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
@@ -239,7 +239,7 @@ public class GenerateCadseDefinitionModel {
 //			}
 			if (AttributeManager.isLinkAttribute(attribute)) {
 
-				Item itemTypeDest = LinkManager.getDestination(attribute);
+				Item itemTypeDest = LinkTypeManager.getDestination(attribute);
 				if (itemTypeDest == null) {
 					continue;
 				}
@@ -349,8 +349,8 @@ public class GenerateCadseDefinitionModel {
 		clt.setTwCommit(convert(AttributeManager.getTWCommitKindAttribute(attribute)));
 		clt.setTwUpdate(convert(AttributeManager.getTWUpdateKindAttribute(attribute)));
 		clt.setTwRevSpecific(AttributeManager.isTWRevSpecificAttribute(attribute));
-		clt.setTwEvolDestination(convert(LinkManager.getTWDestEvolAttribute(attribute)));
-		clt.setTwCoupled(LinkManager.isTWCoupledAttribute(attribute));
+		clt.setTwEvolDestination(convert(LinkTypeManager.getTWDestEvolAttribute(attribute)));
+		clt.setTwCoupled(LinkTypeManager.isTWCoupledAttribute(attribute));
 	}
 
 	private static UpdateKindType convert(TWUpdateKind updateKindAttribute) {
@@ -618,28 +618,28 @@ public class GenerateCadseDefinitionModel {
 		CLinkType clt = factory.createCLinkType();
 		cit.getOutgoingLink().add(clt);
 
-		clt.setId(LinkManager.getIdRuntime(linkType).toString());
-		clt.setIntID(0); // LinkManager.getIntID(linkType)
-		IType manager = LinkManager.getLinkManagerType(linkType);
+		clt.setId(LinkTypeManager.getIdRuntime(linkType).toString());
+		clt.setIntID(0); // LinkTypeManager.getIntID(linkType)
+		IType manager = LinkTypeManager.getLinkTypeManagerType(linkType);
 		if (manager != null) {
 			clt.setManagerClass(manager.getFullyQualifiedName());
 		}
 
 		clt.setName(linkType.getName());
-		clt.setMin(LinkManager.getMin(linkType));
-		clt.setMax(LinkManager.getMax(linkType));
+		clt.setMin(LinkTypeManager.getMin(linkType));
+		clt.setMax(LinkTypeManager.getMax(linkType));
 		clt.setDestination(ItemTypeManager.getIdRuntime((ItemType) itemTypeDest).toString());
-		clt.setIsComposition(LinkManager.isComposition(linkType));
-		clt.setIsAggregation(LinkManager.isAggregation(linkType));
-		clt.setIsPart(LinkManager.isPart(linkType));
-		clt.setIsRequire(LinkManager.isRequireAttribute(linkType));
-		clt.setIsAnnotation(LinkManager.isAnnotation(linkType));
-		clt.setIsNatif(LinkManager.isNatif(linkType));
-		clt.setSelectionExpression(notempty(LinkManager.getSelectionExpression(linkType)));
+		clt.setIsComposition(LinkTypeManager.isComposition(linkType));
+		clt.setIsAggregation(LinkTypeManager.isAggregation(linkType));
+		clt.setIsPart(LinkTypeManager.isPart(linkType));
+		clt.setIsRequire(LinkTypeManager.isRequireAttribute(linkType));
+		clt.setIsAnnotation(LinkTypeManager.isAnnotation(linkType));
+		clt.setIsNatif(LinkTypeManager.isNatif(linkType));
+		clt.setSelectionExpression(notempty(LinkTypeManager.getSelectionExpression(linkType)));
 		clt.setAssociationItemType(null);
 		clt.setCstName(GenerateJavaIdentifier.cstAttribute(cxt, linkType, itemType));
-		clt.setInverseLink(notempty(LinkManager.getInverseLinkName(linkType)));
-		clt.setHidden(LinkManager.isHiddenAttribute(linkType));
+		clt.setInverseLink(notempty(LinkTypeManager.getInverseLinkName(linkType)));
+		clt.setHidden(LinkTypeManager.isHiddenAttribute(linkType));
 		return clt;
 	}
 

@@ -20,7 +20,7 @@
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -161,7 +161,7 @@ public class DCheckBoxManager extends DisplayManager implements IItemManager {
 			return null;
 		}
 
-		if (CadseGCST.LINK == it && LinkManager.getMin(attribute) == 0) {
+		if (CadseGCST.LINK_TYPE == it && LinkTypeManager.getMin(attribute) == 0) {
 			return null;
 		}
 

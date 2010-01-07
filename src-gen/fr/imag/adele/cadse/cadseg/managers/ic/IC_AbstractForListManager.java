@@ -64,9 +64,9 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item uc = getItem();
-			sb.append_string_vir(uc, SELECT_TITLE_ATTRIBUTE);
-			sb.append_string_vir(uc, SELECT_MESSAGE_ATTRIBUTE);
+			Item uc = getOwnerItem();
+			sb.append_string_vir(uc, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_);
+			sb.append_string_vir(uc, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_);
 
 		}
 

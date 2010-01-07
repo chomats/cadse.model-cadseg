@@ -67,8 +67,8 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
 
-			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_PATTERN_SELECT_FILE, true, ".*", sb);
-			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_SELECT_FOLDER, false, "false", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_PATTERN_SELECT_FILE_, true, ".*", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_SELECT_FOLDER_, false, "false", sb);
 
 		}
 

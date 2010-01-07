@@ -89,7 +89,7 @@ public class DataModelViewAction extends IMenuAction {
 			for (Object so : selected) {
 				Item dest = (Item) so;
 				ItemType type = dest.getType();
-				if (type == CadseGCST.LINK) {
+				if (type == CadseGCST.LINK_TYPE) {
 					Item viewlinktype = ViewManager.createViewLinkType(view, dest);
 					int v = ic_mc.isSet(dest, IC_DataModelView_Creation.AGGREGATION);
 					if (v != -1) {

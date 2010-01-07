@@ -457,7 +457,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 
 			Item dest = l.getResolvedDestination();
 			ItemType type = dest.getType();
-			if (type == CadseGCST.ITEM_TYPE || type == CadseGCST.DATA_MODEL || type == CadseGCST.LINK) {
+			if (type == CadseGCST.ITEM_TYPE || type == CadseGCST.DATA_MODEL || type == CadseGCST.LINK_TYPE) {
 				ret.add(dest);
 			}
 		}
@@ -526,7 +526,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 			if (type == CadseGCST.ITEM_TYPE) {
 				Item viewitemtype = ViewManager.getViewItemType(viewmodel, itemsel);
 				manager.add(new RootAction(this, itemsel, viewitemtype, viewmodel));
-			} else if (type == CadseGCST.LINK) {
+			} else if (type == CadseGCST.LINK_TYPE) {
 				Item viewlinktype = null;
 				Item itemtype = itemsel.getPartParent();
 				Item viewitemtype = null;
@@ -704,7 +704,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 					e.printStackTrace();
 				}
 			}
-		} else if (type == CadseGCST.LINK) {
+		} else if (type == CadseGCST.LINK_TYPE) {
 			Item viewitemtype = ViewManager.getViewItemType(getViewmodel(), item.getPartParent());
 			if (viewitemtype != null) {
 				try {
@@ -746,7 +746,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 
 			Item dest = l.getResolvedDestination();
 			ItemType type = dest.getType();
-			if (type == CadseGCST.LINK) {
+			if (type == CadseGCST.LINK_TYPE) {
 				checkedTreeUI.selectObject(dest, sel);
 			} else if (type == CadseGCST.ITEM_TYPE) {
 				checkedTreeUI.selectObject(dest, sel);
@@ -778,7 +778,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 
 			Item dest = l.getResolvedDestination();
 			ItemType type = dest.getType();
-			if (type == CadseGCST.LINK) {
+			if (type == CadseGCST.LINK_TYPE) {
 				checkedTreeUI.selectObject(dest, sel);
 				if (sel) {
 					createViewLinkType(dest);
@@ -799,7 +799,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 			if (type == CadseGCST.ITEM_TYPE) {
 				selectAnItemType(item, true);
 				createViewItemType(item);
-			} else if (type == CadseGCST.LINK) {
+			} else if (type == CadseGCST.LINK_TYPE) {
 				checkedTreeUI.selectObject(item.getPartParent(), true);
 				createViewLinkType(item);
 			} else if (item.getType() == CadseGCST.DATA_MODEL) {
@@ -843,7 +843,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 				return false;
 			}
 			ItemType type = item.getType();
-			if (type != CadseGCST.ITEM_TYPE && type != CadseGCST.DATA_MODEL && type != CadseGCST.LINK) {
+			if (type != CadseGCST.ITEM_TYPE && type != CadseGCST.DATA_MODEL && type != CadseGCST.LINK_TYPE) {
 				return false;
 			}
 			if (list.contains(item)) {

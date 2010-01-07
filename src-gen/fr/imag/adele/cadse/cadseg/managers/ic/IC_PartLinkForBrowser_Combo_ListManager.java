@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
@@ -36,6 +36,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class IC_PartLinkForBrowser_Combo_ListManager.
@@ -73,10 +74,10 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
-			Item ic = getItem();
+			Item ic = getOwnerItem();
 
 			Item a = FieldManager.getAttribute(ic.getPartParent().getPartParent());
-			Item itemtypedest = LinkManager.getDestination(a);
+			Item itemtypedest = LinkTypeManager.getDestination(a);
 
 			Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
 
@@ -88,7 +89,7 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 			} else {
 				sb.append("null /*error cannot find incoming part from ").append(a.getName()).append("*/,");
 			}
-			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_MESSAGE,
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_,
 					true, "??", sb);
 
 		}
@@ -252,10 +253,10 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 
 		Item field = itemParent.getPartParent();
 		Item attribute = FieldManager.getAttribute(field);
-		if (attribute.getType() != CadseGCST.LINK) {
+		if (attribute.getType() != CadseGCST.LINK_TYPE) {
 			return "It's not a link attribute";
 		}
-		Item itemtypedest = LinkManager.getDestination(attribute);
+		Item itemtypedest = LinkTypeManager.getDestination(attribute);
 
 		Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
 		if (incomingLinkType.length == 1 && incomingLinkType[0] != attribute) {
@@ -277,7 +278,7 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 		Item ic = item;
 
 		Item a = FieldManager.getAttribute(ic.getPartParent().getPartParent());
-		Item itemtypedest = LinkManager.getDestination(a);
+		Item itemtypedest = LinkTypeManager.getDestination(a);
 
 		Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
 

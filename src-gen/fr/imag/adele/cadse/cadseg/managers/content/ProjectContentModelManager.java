@@ -29,6 +29,8 @@ import fr.imag.adele.cadse.cadseg.exp.TokenMgrError;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
+
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -66,8 +68,8 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
 		 */
 		@Override
-		protected String[] getResourceKindsName() {
-			return new String[] { CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME };
+		protected StringAttributeType[] getResourceKindsName() {
+			return new StringAttributeType[] { CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_ };
 		}
 
 		/*

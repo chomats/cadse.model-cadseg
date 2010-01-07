@@ -65,7 +65,7 @@ public class DComboManager extends DisplayManager implements IItemManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
 			super.generateCallArguments(sb, imports);
-			sb.append(isEditableAttribute(getItem())).append(',');
+			sb.append(isEditableAttribute(getOwnerItem())).append(',');
 		}
 
 		/*

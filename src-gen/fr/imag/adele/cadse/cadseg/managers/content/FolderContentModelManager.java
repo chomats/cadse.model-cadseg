@@ -26,6 +26,8 @@ import fede.workspace.eclipse.content.FolderContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
+
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -61,8 +63,8 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
 		 */
 		@Override
-		protected String[] getResourceKindsName() {
-			return new String[] { CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH };
+		protected StringAttributeType[] getResourceKindsName() {
+			return new StringAttributeType[] { CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_ };
 		}
 	}
 

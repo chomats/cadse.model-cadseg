@@ -41,7 +41,7 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModel;
@@ -664,8 +664,8 @@ public class ViewManager extends DefaultItemManager {
 					viewitemtype, CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES,
 					CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE, link,
 
-					CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION_, LinkManager.isAggregation(link),
-					CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, LinkManager.isAggregation(link),
+					CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION_, LinkTypeManager.isAggregation(link),
+					CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, LinkTypeManager.isAggregation(link),
 					CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK_, true);
 			return viewlinktype;
 		} catch (CadseException e) {

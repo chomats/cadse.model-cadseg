@@ -8,6 +8,7 @@ import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 
@@ -39,9 +40,9 @@ public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getOwnerItem(), IC_AbstractForBrowser_ComboManager.SELECT_TITLE_ATTRIBUTE,
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
 					true, "??", sb);
-			DisplayManager.addAttributeInCall(getOwnerItem(), IC_AbstractForBrowser_ComboManager.SELECT_MESSAGE_ATTRIBUTE,
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_,
 					true, "??", sb);
 		}
 

@@ -88,7 +88,7 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
 			super.generateCallArguments(sb, imports, context);
-			if (getItem().getAttributeWithDefaultValue(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_,
+			if (getOwnerItem().getAttributeWithDefaultValue(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_,
 					true)) {
 				// la classe dans lequels on ecrit ce code peut s'appeler
 				// JavaProjectManager.

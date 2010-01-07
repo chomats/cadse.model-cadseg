@@ -37,6 +37,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class StringToEnumModelControllerManager.

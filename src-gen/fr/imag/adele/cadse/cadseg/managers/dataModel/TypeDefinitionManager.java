@@ -430,7 +430,7 @@ public class TypeDefinitionManager extends ItemManager {
 			}
 			return uuid;
 		}
-		return new UUID(uuid_str);
+		return UUID.fromString(uuid_str);
 
 	}
 }

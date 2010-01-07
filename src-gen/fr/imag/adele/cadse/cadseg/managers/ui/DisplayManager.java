@@ -35,6 +35,9 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
+
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -49,6 +52,7 @@ import fr.imag.adele.cadse.core.impl.ItemFactory;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class DisplayManager.
@@ -88,13 +92,13 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @param sb
 	 *            the sb
 	 */
-	static public void addAttributeInCall(Item field, String key, boolean valueQuote, String defaultValue,
+	static public <T> void addAttributeInCall(Item field, IAttributeType<T> key, boolean valueQuote, T defaultValue,
 			GenStringBuilder sb) {
-		String value = field.getAttribute(key);
+		T value = field.getAttribute(key);
 		if (value == null) {
 			value = defaultValue;
 		}
-		if (value.length() == 0) {
+		if (value instanceof String && ((String)value).length() == 0) {
 			value = defaultValue;
 		}
 
@@ -102,7 +106,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 		if (value == null) {
 			sb.append("null,");
 		} else if (valueQuote) {
-			sb.appendStringValue_vir(value);
+			sb.appendStringValue_vir((String) value);
 		} else {
 			sb.append(value).append(",");
 		}
@@ -152,7 +156,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 		 */
 		public void computeImportsPackage(Set<String> imports) {
 			imports.add("fr.imag.adele.cadse.core.ui");
-			String className = getClassName(getItem());
+			String className = getClassName(getOwnerItem());
 			if (className == null) {
 				className = getDefaultClassName();
 				if (className != null) {
@@ -176,7 +180,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 			String defaultClassName = JavaIdentifier.getlastclassName(defaultQualifiedClassName);
 			if ("inner-class".equals(kind)) {
 				generateParts(sb, type, kind, imports, null);
-				Item display = getItem();
+				Item display = getOwnerItem();
 				boolean extendsUI = DisplayManager.isExtendsUIAttribute(display);
 				if (extendsUI) {
 					Item field = display.getPartParent();
@@ -214,7 +218,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 			if (kind.equals("in-field")) {
 				generateParts(sb, type, kind, imports, context);
 
-				Item display = getItem();
+				Item display = getOwnerItem();
 				Item field = display.getPartParent();
 				Item attribute = CadseG_WLWCListener.tryToRecreateAttributeLink(field);
 				if (attribute == null) {
@@ -257,7 +261,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 		 */
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
 
-			Item display = getItem();
+			Item display = getOwnerItem();
 			Item field = display.getPartParent();
 			Item attribute = CadseG_WLWCListener.tryToRecreateAttributeLink(field);
 			if (attribute == null) {
@@ -445,7 +449,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getClassName(fr.imag.adele.cadse.core.Item)
 	 */
 	public String getClassName(Item uc) {
-		return uc.getAttribute(CLASS_NAME);
+		return uc.getAttribute(CadseGCST.RUNTIME_ITEM_at_CLASS_NAME_);
 	}
 
 	/*

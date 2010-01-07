@@ -36,6 +36,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class IC_EnumForListManager.
@@ -71,7 +72,7 @@ public class IC_EnumForListManager extends IC_AbstractForBrowser_ComboManager im
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
-			Item uc = getItem();
+			Item uc = getOwnerItem();
 
 			Item field = uc.getPartParent().getPartParent();
 

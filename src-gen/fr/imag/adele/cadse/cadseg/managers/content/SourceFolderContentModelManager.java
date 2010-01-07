@@ -22,6 +22,8 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
+
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
@@ -32,9 +34,6 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class SourceFolderContentModelManager extends FolderContentModelManager {
-
-	/** The Constant FOLDER_PATH_ATTRIBUTE. */
-	public static final String	OUTPUT_PATH_ATTRIBUTE	= "output-path";
 
 	/**
 	 * The Class ContentManager.
@@ -59,13 +58,13 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
 		 */
 		@Override
-		protected String[] getResourceKindsName() {
-			return new String[] { CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH, OUTPUT_PATH_ATTRIBUTE };
+		protected StringAttributeType[] getResourceKindsName() {
+			return new StringAttributeType[] { CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_, CadseGCST.SOURCE_FOLDER_CONTENT_MODEL_at_OUTPUT_PATH_  };
 		}
 
 		@Override
-		protected String getDefaultValue(String strKinds, String value) {
-			if (strKinds.equals(OUTPUT_PATH_ATTRIBUTE)) {
+		protected String getDefaultValue(StringAttributeType strKinds, String value) {
+			if (strKinds == CadseGCST.SOURCE_FOLDER_CONTENT_MODEL_at_OUTPUT_PATH_) {
 				if (value != null && value.length() == 0) {
 					return null;
 				}

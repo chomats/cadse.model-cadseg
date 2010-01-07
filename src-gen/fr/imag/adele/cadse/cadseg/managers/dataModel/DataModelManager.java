@@ -29,7 +29,7 @@ import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -39,7 +39,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
 /**
@@ -79,7 +79,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 	@Override
 	public void init() {
 		CadseGCST.DATA_MODEL
-				.setSpaceKeyType(new SpaceKeyType(CadseGCST.DATA_MODEL, CadseGCST.CADSE_DEFINITION));
+				.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.DATA_MODEL, CadseGCST.CADSE_DEFINITION));
 		CadseGCST.DATA_MODEL.setHasNameAttribute(true);
 		CadseGCST.DATA_MODEL.setHasQualifiedNameAttribute(false);
 	}
@@ -619,12 +619,12 @@ public class DataModelManager extends DefaultWorkspaceManager {
 					datamodel.getQualifiedName());
 		}
 
-		Item thelinktype = copy.createItem(CadseGCST.LINK, sourceItemType,
+		Item thelinktype = copy.createItem(CadseGCST.LINK_TYPE, sourceItemType,
 				CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES);
 		CadseCore.setName(thelinktype, ltname);
-		LinkManager.setMaxAttribute(thelinktype, -1);
-		LinkManager.setMinAttribute(thelinktype, 0);
-		LinkManager.setDestination(thelinktype, destItemType);
+		LinkTypeManager.setMaxAttribute(thelinktype, -1);
+		LinkTypeManager.setMinAttribute(thelinktype, 0);
+		LinkTypeManager.setDestination(thelinktype, destItemType);
 		copy.commit();
 
 		return model.getItem(thelinktype.getId());

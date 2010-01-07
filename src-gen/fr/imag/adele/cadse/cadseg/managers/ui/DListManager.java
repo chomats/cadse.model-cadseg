@@ -91,10 +91,10 @@ public class DListManager extends DisplayManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
 			super.generateCallArguments(sb, imports);
-			sb.append(" ").append(isEditableButtonAttribute(getItem())).append(',');
-			sb.append(" ").append(isShowFilterAttribute(getItem())).append(',');
-			sb.append(" ").append(isOrderButtonAttribute(getItem())).append(',');
-			sb.append(" ").append(isUpdateButtonAttribute(getItem())).append(',');
+			sb.append(" ").append(isEditableButtonAttribute(getOwnerItem())).append(',');
+			sb.append(" ").append(isShowFilterAttribute(getOwnerItem())).append(',');
+			sb.append(" ").append(isOrderButtonAttribute(getOwnerItem())).append(',');
+			sb.append(" ").append(isUpdateButtonAttribute(getOwnerItem())).append(',');
 
 			imports.add("fede.workspace.model.manager.properties.IInteractionControllerForList");
 			imports.add("fr.imag.adele.cadse.core.ui.IModelController");
@@ -301,7 +301,7 @@ public class DListManager extends DisplayManager {
 	 * @return true, if is show filter attribute
 	 */
 	public static final boolean isShowFilterAttribute(Item display) {
-		Object value = display.getAttribute(CadseGCST.DLIST_at_SHOW_FILTER);
+		Object value = display.getAttribute(CadseGCST.DLIST_at_SHOW_FILTER_);
 		if (value == null) {
 			return false;
 		}

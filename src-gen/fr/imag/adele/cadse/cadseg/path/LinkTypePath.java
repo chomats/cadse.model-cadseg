@@ -19,7 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.path;
 
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.core.Item;
 
 /**
@@ -50,7 +50,7 @@ public class LinkTypePath extends ElementPath {
 	 *            the closure
 	 */
 	public LinkTypePath(Item lt, boolean closure) {
-		fDestination = LinkManager.getDestination(lt);
+		fDestination = LinkTypeManager.getDestination(lt);
 		if (fDestination == null)
 			throw new IllegalArgumentException("Invalide Link type");
 		fLinkType = lt;

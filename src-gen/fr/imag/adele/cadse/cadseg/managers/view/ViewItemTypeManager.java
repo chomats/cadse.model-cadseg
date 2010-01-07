@@ -416,22 +416,22 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	public static final boolean isIsFirstElementAttribute(Item viewItemType) {
 
 		Object value = viewItemType.getAttribute(CadseGCST.VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_);
-		if (value == null) {
-			value = viewItemType.getAttribute("root");
-			try {
-				viewItemType.setAttribute("root", null);
-			} catch (CadseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				boolean ret = Convert.toBooleanFalseIfNull(value);
-				setIsRootElementAttribute(viewItemType, ret);
-				return ret;
-			} catch (Throwable t) {
-				return false;
-			}
-		}
+//		if (value == null) {
+//			value = viewItemType.getAttribute("root");
+//			try {
+//				viewItemType.setAttribute("root", null);
+//			} catch (CadseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			try {
+//				boolean ret = Convert.toBooleanFalseIfNull(value);
+//				setIsRootElementAttribute(viewItemType, ret);
+//				return ret;
+//			} catch (Throwable t) {
+//				return false;
+//			}
+//		}
 
 		try {
 			return Convert.toBooleanFalseIfNull(value);

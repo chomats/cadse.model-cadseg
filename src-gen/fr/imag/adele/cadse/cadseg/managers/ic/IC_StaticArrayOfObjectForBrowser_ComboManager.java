@@ -69,9 +69,10 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
-			Item ic = getItem();
+			Item ic = getOwnerItem();
 
-			List<String> values = ic.getAttributeWithDefaultValue(VALUES_ATTRIBUTE, new ArrayList<String>());
+			List<String> values = ic.getAttributeWithDefaultValue(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_,
+					new ArrayList<String>());
 
 			sb.append(" new Object[] {");
 			sb.begin();
@@ -108,9 +109,6 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_StaticArrayOfObjectForBrowser_Combo";
-
-	/** The Constant VALUES_ATTRIBUTE. */
-	public static final String	VALUES_ATTRIBUTE	= "values";
 
 	/**
 	 * Instantiates a new i c_ static array of object for browser_ combo

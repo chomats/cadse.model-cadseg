@@ -33,6 +33,7 @@ import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemFactory;
@@ -131,9 +132,9 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 
 			if ("inner-class".equals(kind)) {
 				generateParts(sb, type, kind, imports, null);
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getItem());
+				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
 				if (extendsClass) {
-					Item uc = getItem();
+					Item uc = getOwnerItem();
 					Item field = uc.getPartParent().getPartParent();
 
 					String extendsClassName = defaultClassName;
@@ -172,8 +173,8 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 				}
 			}
 			if (kind.equals("field-init")) {
-				Item ic = getItem();
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getItem());
+				Item ic = getOwnerItem();
+				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
 				if (extendsClass) {
 					Item field = ic.getPartParent().getPartParent();
 					defaultClassName = JavaIdentifier.javaIdentifierFromString(field.getName(), true, false,
@@ -297,7 +298,7 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getClassName(fr.imag.adele.cadse.core.Item)
 	 */
 	public String getClassName(Item action) {
-		return action.getAttributeWithDefaultValue(CLASS_NAME, getDefaultClassName());
+		return action.getAttributeWithDefaultValue(CadseGCST.RUNTIME_ITEM_at_CLASS_NAME_, getDefaultClassName());
 	}
 
 	/*

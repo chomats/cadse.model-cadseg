@@ -30,7 +30,7 @@ import fede.workspace.model.manager.properties.impl.mc.MinModelController;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.DataModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -87,7 +87,7 @@ public class LinkCreationPage1_CreationPage extends
 			Item superAttribute = action == null ? null : action
 					.getSuperAttribute();
 			final Item superDestinationType = superAttribute == null ? null
-					: LinkManager.getDestination(superAttribute);
+					: LinkTypeManager.getDestination(superAttribute);
 
 			Item theAttribute = getItem();
 			final Item theItemType = theAttribute.getPartParent();
@@ -161,7 +161,7 @@ public class LinkCreationPage1_CreationPage extends
 						Item superAttribute = action == null ? null : action
 								.getSuperAttribute();
 						final Item superDestinationType = superAttribute == null ? null
-								: LinkManager.getDestination(superAttribute);
+								: LinkTypeManager.getDestination(superAttribute);
 
 						if (superDestinationType != null) {
 							if (ItemTypeManager.isSuperTypeOf(

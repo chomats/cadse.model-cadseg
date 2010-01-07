@@ -21,7 +21,7 @@ package fr.imag.adele.cadse.cadseg.managers.view;
 
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -411,13 +411,13 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 			reporter.report(item, 1, "Cannot find the link type from view link type {0}", item.getQualifiedName());
 			return ret;
 		}
-		Item itemtypedest = LinkManager.getDestination(lt);
+		Item itemtypedest = LinkTypeManager.getDestination(lt);
 		if (itemtypedest == null) {
 			reporter.report(item, 1, "Cannot find destination of link type {0}", lt.getQualifiedName());
 			return ret;
 		}
 
-		Item itemtypesource = LinkManager.getSource(lt);
+		Item itemtypesource = LinkTypeManager.getSource(lt);
 
 		Item view = item.getPartParent().getPartParent();
 		Item viewItemtype = ViewManager.getViewItemType(view, itemtypedest);

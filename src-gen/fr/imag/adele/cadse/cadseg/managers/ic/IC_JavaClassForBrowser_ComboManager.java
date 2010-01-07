@@ -32,6 +32,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_WithDialogAction;
 
 /**
  * The Class IC_JavaClassForBrowser_ComboManager.
@@ -87,10 +88,12 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getItem(), SELECT_TITLE_ATTRIBUTE, true, "??", sb);
-			DisplayManager.addAttributeInCall(getItem(), SELECT_MESSAGE_ATTRIBUTE, true, "??", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
+					true, "??", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_,
+					true, "??", sb);
 			sb.append(" IJavaElementSearchConstants.");
-			String style = getItem().getAttribute(STYLE_ATTRIBUTE);
+			String style = getOwnerItem().getAttribute(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_);
 			String stylecst = style_values_cst[0];
 			if (style != null) {
 				for (int i = 0; i < style_values.length; i++) {
@@ -101,7 +104,8 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 				}
 			}
 			sb.append(stylecst).append(",");
-			DisplayManager.addAttributeInCall(getItem(), FILTER_ATTRIBUTE, true, "", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), 
+					CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_, true, "", sb);
 			imports.add("org.eclipse.jdt.ui.IJavaElementSearchConstants");
 		}
 
