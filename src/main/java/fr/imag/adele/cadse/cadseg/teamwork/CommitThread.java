@@ -35,6 +35,7 @@ import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.ModelVersionDBService;
 import fr.imag.adele.teamwork.db.TransactionException;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 
 /**
  * Thread used to perform the effective commit operation.
