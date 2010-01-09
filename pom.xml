@@ -39,7 +39,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Export-Package>fr.imag.adele.cadse.cadseg*</Export-Package>
+						<Export-Package>fr.imag.adele.cadse.cadseg*;version="${version.cadse}"</Export-Package>
 						<Include-Resource>
 							build.properties=build.properties,
 							plugin.xml=plugin.xml,
