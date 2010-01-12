@@ -49,6 +49,7 @@
 							schema=schema
 			            </Include-Resource>
 						<Bundle-Activator>fr.imag.adele.cadse.cadseg.Activator</Bundle-Activator>
+						<Import-Package>javax.xml.bind*;version=!, *</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>
