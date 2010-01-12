@@ -22,8 +22,8 @@ import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -56,7 +56,7 @@ public class DynamicActionsManager extends MenuAbstractManager {
 		/**
 			@generated
 		*/
-		public DynamicActionsContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+		public DynamicActionsContent(UUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
 			super(id, packageNameVariable, classNameVariable);
 		}
 
@@ -91,7 +91,7 @@ public class DynamicActionsManager extends MenuAbstractManager {
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id ) throws CadseException {
 		DynamicActionsContent cm = new DynamicActionsContent(
 			id, NullVariable.INSTANCE, NullVariable.INSTANCE
 			);

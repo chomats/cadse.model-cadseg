@@ -45,7 +45,7 @@ import org.osgi.service.prefs.BackingStoreException;
 import adele.util.io.FileUtil;
 import adele.util.io.ZipUtil;
 import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
-import fede.workspace.tool.loadmodel.model.jaxb.CItemType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;

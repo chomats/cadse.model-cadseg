@@ -24,8 +24,8 @@ import java.util.Set;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -54,7 +54,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(CompactUUID id) throws CadseException {
+		protected MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -66,8 +66,10 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_TITLE, true, "???", sb);
-			DisplayManager.addAttributeInCall(getItem(), CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_MESSAGE, true, "???", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), 
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, true, "???", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), 
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, true, "???", sb);
 		}
 
 		/*
@@ -153,7 +155,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		@generated
 	*/
 	public static final String getMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
-		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_, null);
+		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, null);
 	}
 
 	/**
@@ -161,7 +163,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	*/
 	public static final void setMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
 		try {
-			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_, value);
+			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -171,7 +173,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		@generated
 	*/
 	public static final String getTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
-		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_, null);
+		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, null);
 	}
 
 	/**
@@ -179,7 +181,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	*/
 	public static final void setTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
 		try {
-			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_, value);
+			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -189,7 +191,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		@generated
 	*/
 	public static final String getSelectMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
-		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_MESSAGE_, "Select a value.");
+		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Select a value.");
 	}
 
 	/**
@@ -197,7 +199,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	*/
 	public static final void setSelectMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
 		try {
-			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_MESSAGE_, value);
+			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -207,7 +209,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		@generated
 	*/
 	public static final String getSelectTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
-		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_TITLE_, "Select a value.");
+		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select a value.");
 	}
 
 	/**
@@ -215,7 +217,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	*/
 	public static final void setSelectTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
 		try {
-			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_SELECT_TITLE_, value);
+			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -247,7 +249,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

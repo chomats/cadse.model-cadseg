@@ -21,6 +21,7 @@ package fr.imag.adele.cadse.cadseg.util;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 
 /**
  * The Class Util.
@@ -39,7 +40,7 @@ public class Util {
 	 * @param defaultValue
 	 *            the default value
 	 */
-	public static void setDefaultValueIfNeed(Item item, String key, Object defaultValue) {
+	public static <T> void setDefaultValueIfNeed(Item item, IAttributeType<T> key, T defaultValue) {
 		if (item.getAttribute(key) == null)
 			try {
 				item.setAttribute(key, defaultValue);

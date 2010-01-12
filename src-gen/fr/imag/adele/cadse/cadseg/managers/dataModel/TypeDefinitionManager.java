@@ -24,7 +24,7 @@ import java.util.List;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -416,11 +416,11 @@ public class TypeDefinitionManager extends ItemManager {
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getIdRuntime(Item itemtype) {
+	public static UUID getIdRuntime(Item itemtype) {
 		
 		String uuid_str = itemtype.getAttributeOwner(CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_);
 		if (uuid_str == null || uuid_str.length() == 0) {
-			CompactUUID uuid = CompactUUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
 			uuid_str = uuid.toString();
 			try {
 				itemtype.setAttribute(CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_, uuid_str);
@@ -430,7 +430,7 @@ public class TypeDefinitionManager extends ItemManager {
 			}
 			return uuid;
 		}
-		return new CompactUUID(uuid_str);
+		return UUID.fromString(uuid_str);
 
 	}
 }

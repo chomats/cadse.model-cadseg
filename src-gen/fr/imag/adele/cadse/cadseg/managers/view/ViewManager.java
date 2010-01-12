@@ -41,15 +41,15 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModel;
 import fr.imag.adele.cadse.cadseg.template.ViewerSkeltonTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -60,12 +60,14 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.Separator;
 import fr.imag.adele.cadse.core.WorkspaceListener;
-import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
-import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
+import fr.imag.adele.cadse.core.key.KeyDefinition;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -236,7 +238,7 @@ public class ViewManager extends DefaultItemManager {
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		private ViewJavaFileContentManager(CompactUUID id) throws CadseException {
+		private ViewJavaFileContentManager(UUID id) throws CadseException {
 			super(id, new VariableImpl() {
 				public String compute(ContextVariable context, Item itemCurrent) {
 					return ViewManager.getPackage(context, itemCurrent);
@@ -270,7 +272,7 @@ public class ViewManager extends DefaultItemManager {
 		public void generate(ContextVariable cxt) {
 			Item view = getOwnerItem();
 			ViewerSkeltonTemplate skeltonTemplate = new ViewerSkeltonTemplate();
-			ViewModel vm = new ViewModel(ContextVariable.DEFAULT, getOwnerItem());
+			ViewModel vm = new ViewModel(ContextVariableImpl.DEFAULT, getOwnerItem());
 			try {
 				IFile javaFile = getFile();
 				EclipsePluginContentManger.generateJava(javaFile, skeltonTemplate.generate(vm), View
@@ -280,7 +282,7 @@ public class ViewManager extends DefaultItemManager {
 				e.printStackTrace();
 			}
 
-			((IGenerateContent) getCadsegModel(view).getContentItem()).generate(ContextVariable.DEFAULT);
+			((IGenerateContent) getCadsegModel(view).getContentItem()).generate(ContextVariableImpl.DEFAULT);
 		}
 
 		/*
@@ -307,7 +309,7 @@ public class ViewManager extends DefaultItemManager {
 		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariable.DEFAULT));
+			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
 		/*
@@ -448,7 +450,7 @@ public class ViewManager extends DefaultItemManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new ViewJavaFileContentManager(id);
 	}
 
@@ -459,7 +461,7 @@ public class ViewManager extends DefaultItemManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.VIEW.setSpaceKeyType(new SpaceKeyType(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
+		CadseGCST.VIEW.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
 
 		WorkspaceListener listener = new WorkspaceListener() {
 
@@ -478,7 +480,7 @@ public class ViewManager extends DefaultItemManager {
 				}
 
 				for (Item item : views) {
-					((IGenerateContent) item.getContentItem()).generate(ContextVariable.DEFAULT);
+					((IGenerateContent) item.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 				}
 			}
 
@@ -662,8 +664,8 @@ public class ViewManager extends DefaultItemManager {
 					viewitemtype, CadseGCST.VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES,
 					CadseGCST.VIEW_LINK_TYPE_lt_LINK_TYPE, link,
 
-					CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION_, LinkManager.isAggregation(link),
-					CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, LinkManager.isAggregation(link),
+					CadseGCST.VIEW_LINK_TYPE_at_AGGREGATION_, LinkTypeManager.isAggregation(link),
+					CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_, LinkTypeManager.isAggregation(link),
 					CadseGCST.VIEW_LINK_TYPE_at_CAN_CREATE_LINK_, true);
 			return viewlinktype;
 		} catch (CadseException e) {

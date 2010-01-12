@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.imag.adele.cadse.core.ExtendedType;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.ui.view.DefineNewContext;
 import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
@@ -177,10 +179,10 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 		}
 	}
 
-	private List<ItemType> getAllDestType(ItemType it) {
+	private List<ItemType> getAllDestType(TypeDefinition it) {
 		ArrayList<ItemType> subTypes = new ArrayList<ItemType>();
 		ArrayList<ItemType> types = new ArrayList<ItemType>();
-		types.add(it);
+		add(it, types);
 		while (!types.isEmpty()) {
 			ItemType gt = types.remove(0);
 			subTypes.add(gt);
@@ -189,10 +191,22 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 		return subTypes;
 	}
 
+	private void add(TypeDefinition it, ArrayList<ItemType> types) {
+		if (it.isMainType())
+			types.add((ItemType) it);
+		else {
+			ExtendedType eit = (ExtendedType) it;
+			for (ItemType it2 : eit.getExendsItemType()) {
+				types.add(it2);
+			}
+			
+		}
+	}
+
 	private List<ItemType> getAllSourceGroupHead(LinkType groupLT) {
 		ArrayList<ItemType> groupHeads = new ArrayList<ItemType>();
 		ArrayList<ItemType> groupTypes = new ArrayList<ItemType>();
-		groupTypes.add(groupLT.getSource());
+		add(groupLT.getDestination(), groupTypes);
 		while (!groupTypes.isEmpty()) {
 			ItemType gt = groupTypes.remove(0);
 			if (gt.isGroupHead()) {

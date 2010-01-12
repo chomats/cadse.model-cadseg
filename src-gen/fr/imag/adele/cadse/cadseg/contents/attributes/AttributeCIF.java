@@ -11,8 +11,8 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.template.ListOfValueAttribute;
 import fr.imag.adele.cadse.cadseg.template.ValueAttribute;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IContentItemFactory;
@@ -44,7 +44,7 @@ public class AttributeCIF implements IContentItemFactory {
 		 * @generated
 		 *
 		 */
-		protected AttributeContentItem(CompactUUID id, AttributeManager attributeManager) {
+		protected AttributeContentItem(UUID id, AttributeManager attributeManager) {
 			super(id);
 			_attributeManager = attributeManager;
 		}
@@ -113,7 +113,7 @@ public class AttributeCIF implements IContentItemFactory {
 	/**
 	 * @generated
 	 */
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new AttributeContentItem(id, _attributeManager);
 	}
 }

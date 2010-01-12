@@ -9,7 +9,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.DataModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -38,7 +38,7 @@ public final class IC_DestinationLinkForBrowser_Combo extends
 	public Object[] getValues() {
 		Item superAttribute = getSuperAttribute();
 		final Item superDestinationType = superAttribute == null ? null
-				: LinkManager.getDestination(superAttribute);
+				: LinkTypeManager.getDestination(superAttribute);
 
 		Item theAttribute = getItem();
 		final Item theItemType = theAttribute.getPartParent();
@@ -112,7 +112,7 @@ public final class IC_DestinationLinkForBrowser_Combo extends
 				if (((Item) sel).getType() == CadseGCST.ITEM_TYPE) {
 					Item superAttribute = getSuperAttribute();
 					final Item superDestinationType = superAttribute == null ? null
-							: LinkManager.getDestination(superAttribute);
+							: LinkTypeManager.getDestination(superAttribute);
 
 					if (superDestinationType != null) {
 						if (ItemTypeManager.isSuperTypeOf(

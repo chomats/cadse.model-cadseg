@@ -22,7 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.view;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
@@ -78,7 +78,7 @@ public class IC_DataModelView_Creation extends IC_DataModelView {
 			return ret != 0;
 		}
 		if (viewlinktype == null) {
-			return LinkManager.isAggregation(linktype);
+			return LinkTypeManager.isAggregation(linktype);
 		}
 		return super.isAggregationChecked(linktype, viewlinktype);
 	}
@@ -96,7 +96,7 @@ public class IC_DataModelView_Creation extends IC_DataModelView {
 			return ret != 0;
 		}
 		if (viewlinktype == null) {
-			return LinkManager.isAggregation(linktype);
+			return LinkTypeManager.isAggregation(linktype);
 		}
 		return super.isCanCreateItemChecked(linktype, viewlinktype);
 	}

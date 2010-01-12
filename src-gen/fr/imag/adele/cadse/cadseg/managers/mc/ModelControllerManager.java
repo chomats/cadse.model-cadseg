@@ -32,8 +32,9 @@ import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemFactory;
@@ -42,7 +43,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
-import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.impl.ItemFactory;
 
 /**
@@ -67,7 +68,7 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 		 * @param item
 		 *            the item
 		 */
-		public ModelControllerContent(CompactUUID id) throws CadseException {
+		public ModelControllerContent(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -85,9 +86,9 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 
 			if ("inner-class".equals(kind)) {
 				generateParts(sb, type, kind, imports, null);
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getItem());
+				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
 				if (extendsClass) {
-					Item mc = getItem();
+					Item mc = getOwnerItem();
 					Item field = mc.getPartParent().getPartParent();
 
 					String extendsClassName = defaultClassName;
@@ -120,9 +121,9 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 				}
 			}
 			if (kind.equals("field-init")) {
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getItem());
+				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
 				if (extendsClass) {
-					Item mc = getItem();
+					Item mc = getOwnerItem();
 					Item field = mc.getPartParent().getPartParent();
 
 					defaultClassName = JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, "MC");
@@ -151,7 +152,7 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 		 *            the object
 		 */
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			ModelControllerManager.this.generateCallArguments(getItem(), sb, imports, object);
+			ModelControllerManager.this.generateCallArguments(getOwnerItem(), sb, imports, object);
 		}
 
 		/**
@@ -161,7 +162,7 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 		 *            the sb
 		 */
 		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			ModelControllerManager.this.generateConstrustorArguments(getItem(), sb);
+			ModelControllerManager.this.generateConstrustorArguments(getOwnerItem(), sb);
 		}
 
 		/**
@@ -171,7 +172,7 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 		 *            the sb
 		 */
 		protected void generateConstructorParameter(GenStringBuilder sb) {
-			ModelControllerManager.this.generateConstructorParameter(getItem(), sb);
+			ModelControllerManager.this.generateConstructorParameter(getOwnerItem(), sb);
 		}
 
 		/*
@@ -272,7 +273,7 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getClassName(fr.imag.adele.cadse.core.Item)
 	 */
 	public String getClassName(Item mc) {
-		String className = mc.getAttribute(CLASS_NAME);
+		String className = mc.getAttribute(CadseGCST.RUNTIME_ITEM_at_CLASS_NAME_);
 		if (className == null) {
 			className = getDefaultClassName();
 		}
@@ -306,7 +307,7 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new ModelControllerContent(id);
 	}
 

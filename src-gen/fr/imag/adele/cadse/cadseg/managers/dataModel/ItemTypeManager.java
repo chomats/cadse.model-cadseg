@@ -31,7 +31,7 @@ import java.util.Set;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -40,8 +40,8 @@ import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
-import fr.imag.adele.cadse.core.util.ArraysUtil;
+import fr.imag.adele.cadse.util.ArraysUtil;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
@@ -84,7 +84,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.ITEM_TYPE.setSpaceKeyType(new SpaceKeyType(CadseGCST.ITEM_TYPE, CadseGCST.CADSE) {
+		CadseGCST.ITEM_TYPE.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.ITEM_TYPE, CadseGCST.CADSE) {
 			@Override
 			protected String convertName(String name) {
 				if (name == null) return null;
@@ -426,7 +426,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 * @generated
 	 */
 	public static final boolean isIsAbstractAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_ABSTRACT_, false);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_, false);
 	}
 
 	/**
@@ -441,7 +441,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 */
 	public static final void setIsAbstractAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_ABSTRACT_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_, value);
 		} catch (Throwable t) {
 
 		}
@@ -583,7 +583,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 * @generated
 	 */
 	public static final boolean isIsHiddenAttribute(Item itemType) {
-		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_HIDDEN_, false);
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_, false);
 	}
 
 	/**
@@ -591,7 +591,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 */
 	public static final void setIsHiddenAttribute(Item itemType, boolean value) {
 		try {
-			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_HIDDEN_, value);
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -1008,10 +1008,10 @@ public class ItemTypeManager extends TypeDefinitionManager {
 			if (!l.isLinkResolved()) {
 				continue;
 			}
-			if (l.getDestinationType() != CadseGCST.LINK) {
+			if (l.getDestinationType() != CadseGCST.LINK_TYPE) {
 				continue;
 			}
-			boolean composition = LinkManager.isComposition(l.getResolvedDestination());
+			boolean composition = LinkTypeManager.isComposition(l.getResolvedDestination());
 			if (composition) {
 				return true;
 			}
@@ -1033,11 +1033,11 @@ public class ItemTypeManager extends TypeDefinitionManager {
 		while (itemtypedest != null) {
 			for (Link l : itemtypedest.getIncomingLinks()) {
 				Item item = l.getSource();
-				if (item.getType() != CadseGCST.LINK) {
+				if (item.getType() != CadseGCST.LINK_TYPE) {
 					continue;
 				}
 
-				if (LinkManager.isPart(item) && LinkManager.getSource(item) == itemtypesource) {
+				if (LinkTypeManager.isPart(item) && LinkTypeManager.getSource(item) == itemtypesource) {
 					return item;
 				}
 			}
@@ -1057,10 +1057,10 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	// Map<Item, Integer[]> ret = new HashMap<Item, Integer[]>();
 	// for (Link l : itemType.getIncomingLinks()) {
 	// Item item = l.getSource();
-	// if (!item.getType().getId().equals(LinkManager.NAME_TYPE)) continue;
+	// if (!item.getType().getId().equals(LinkTypeManager.NAME_TYPE)) continue;
 	//
 	// //it's a linktype
-	// if (!LinkManager.isPart(item))
+	// if (!LinkTypeManager.isPart(item))
 	// continue;
 	// ret.add(item.getPartParent()); // Le parent du linktype est la source de
 	// la relation. c'est un itemtype;
@@ -1082,7 +1082,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 		while (itemtype != null) {
 			for (Link l : itemtype.getIncomingLinks()) {
 				Item item = l.getSource();
-				if (item.getType() != CadseGCST.LINK) {
+				if (item.getType() != CadseGCST.LINK_TYPE) {
 					continue;
 				}
 
@@ -1112,7 +1112,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 					continue;
 				}
 				Item item = l.getResolvedDestination();
-				if (item.getType() != CadseGCST.LINK) {
+				if (item.getType() != CadseGCST.LINK_TYPE) {
 					continue;
 				}
 
@@ -1388,7 +1388,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 		while (itemtype != null) {
 			for (Link l : itemtype.getIncomingLinks()) {
 				Item item = l.getSource();
-				if (item.getType() != CadseGCST.LINK) {
+				if (item.getType() != CadseGCST.LINK_TYPE) {
 					continue;
 				}
 				if (ret.containsKey(item.getName())) {
@@ -1429,7 +1429,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 		for (Item it : types) {
 			for (Link l : it.getIncomingLinks()) {
 				Item linkDefinition = l.getSource();
-				if (linkDefinition.getType() != CadseGCST.LINK) {
+				if (linkDefinition.getType() != CadseGCST.LINK_TYPE) {
 					continue;
 				}
 
@@ -1452,11 +1452,11 @@ public class ItemTypeManager extends TypeDefinitionManager {
 		while (itemtype != null) {
 			for (Link l : itemtype.getIncomingLinks()) {
 				Item item = l.getSource();
-				if (item.getType() != CadseGCST.LINK) {
+				if (item.getType() != CadseGCST.LINK_TYPE) {
 					continue;
 				}
 
-				if (LinkManager.isPart(item)) {
+				if (LinkTypeManager.isPart(item)) {
 					ret.add(item);
 				}
 			}
@@ -1481,7 +1481,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 					continue;
 				}
 				Item item = l.getResolvedDestination();
-				if (item.getType() != CadseGCST.LINK) {
+				if (item.getType() != CadseGCST.LINK_TYPE) {
 					continue;
 				}
 
@@ -1510,7 +1510,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 				continue;
 			}
 			Item item = l.getResolvedDestination();
-			if (item.getType() != CadseGCST.LINK) {
+			if (item.getType() != CadseGCST.LINK_TYPE) {
 				continue;
 			}
 
@@ -1534,15 +1534,15 @@ public class ItemTypeManager extends TypeDefinitionManager {
 				continue;
 			}
 			Item linktype = l.getResolvedDestination();
-			if (linktype.getType() != CadseGCST.LINK) {
+			if (linktype.getType() != CadseGCST.LINK_TYPE) {
 				continue;
 			}
 
-			if (!LinkManager.isAggregation(linktype)) {
+			if (!LinkTypeManager.isAggregation(linktype)) {
 				continue;
 			}
 
-			Item dest = LinkManager.getDestination(linktype);
+			Item dest = LinkTypeManager.getDestination(linktype);
 			if (dest == null) {
 				continue;
 			}
@@ -1562,11 +1562,11 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	public static Item getPartParent(Item itemtype) {
 		for (Link l : itemtype.getIncomingLinks()) {
 			Item item = l.getSource();
-			if (l.getLinkType() != CadseGCST.LINK_lt_DESTINATION || (!AttributeManager.isLinkAttribute(item))) {
+			if (l.getLinkType() != CadseGCST.LINK_TYPE_lt_DESTINATION || (!AttributeManager.isLinkAttribute(item))) {
 				continue;
 			}
-			if (LinkManager.isPart(item)) {
-				return LinkManager.getSource(item);
+			if (LinkTypeManager.isPart(item)) {
+				return LinkTypeManager.getSource(item);
 			}
 		}
 		Item supertype = getSuperType(itemtype);
@@ -1588,18 +1588,18 @@ public class ItemTypeManager extends TypeDefinitionManager {
 		List<Item> ret = new ArrayList<Item>();
 		for (Link l : itemType.getIncomingLinks()) {
 			Item item = l.getSource();
-			if (l.getLinkType() != CadseGCST.LINK_lt_DESTINATION || (!AttributeManager.isLinkAttribute(item))) {
+			if (l.getLinkType() != CadseGCST.LINK_TYPE_lt_DESTINATION || (!AttributeManager.isLinkAttribute(item))) {
 				continue;
 			}
 
 			// it's a linktype
-			if (!LinkManager.isPart(item)) {
+			if (!LinkTypeManager.isPart(item)) {
 				continue;
 				// it's a part linktype
 			}
 
 			// get the source of the linktype : it's an itemtype
-			Item source = LinkManager.getSource(item);
+			Item source = LinkTypeManager.getSource(item);
 			if (source != null) {
 				ret.add(source);
 				// Le parent du linktype est la source de la relation. c'est un
@@ -1854,7 +1854,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 		for (Item anItemType : alltypes) {
 			Item[] linktypes = getOugoingLinkTypes(anItemType);
 			for (Item linktype : linktypes) {
-				LinkManager.computeIntID(linktype, intID++);
+				LinkTypeManager.computeIntID(linktype, intID++);
 			}
 		}
 	}

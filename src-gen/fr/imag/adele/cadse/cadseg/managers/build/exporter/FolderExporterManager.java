@@ -24,8 +24,8 @@ import java.util.Set;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -83,7 +83,7 @@ public class FolderExporterManager extends EclipseExporterManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(CompactUUID id) throws CadseException {
+		public MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -127,13 +127,13 @@ public class FolderExporterManager extends EclipseExporterManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb,
 				Set<String> imports, GenContext context) {
-			List<String> type = getTypesAttribute(getItem());
+			List<String> type = getTypesAttribute(getOwnerItem());
 			if (type != null && type.size() == 1) {
 				sb.append(' ').appendStringValue(type.get(0)).append(',');
 			} else {
 				sb.append(' ').append("error").append(',');
 			}
-			String path = getPathAttribute(getItem());
+			String path = getPathAttribute(getOwnerItem());
 			sb.append(' ').appendStringValue(path).append(',');
 		}
 	}
@@ -145,7 +145,7 @@ public class FolderExporterManager extends EclipseExporterManager {
 	 * createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		MyContentItem cm = new MyContentItem(id);
 		cm.setComposers();
 		cm.setExporters();

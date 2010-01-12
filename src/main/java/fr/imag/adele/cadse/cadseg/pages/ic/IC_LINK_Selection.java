@@ -23,7 +23,7 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.path.ParsePath;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -91,8 +91,8 @@ public class IC_LINK_Selection extends ICRunningField implements RuningInteracti
 	 */
 	public IContentProposal[] getProposals(String contents, int position) {
 		Item currentItem = getItem();
-		Item source = LinkManager.getSource(currentItem);
-		Item dest = LinkManager.getDestination(currentItem);
+		Item source = LinkTypeManager.getSource(currentItem);
+		Item dest = LinkTypeManager.getDestination(currentItem);
 		ParsePath pp = new ParsePath(source, dest, contents);
 		return pp.getProposals(contents, position);
 	}

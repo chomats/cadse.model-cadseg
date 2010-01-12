@@ -21,7 +21,7 @@ package fr.imag.adele.cadse.cadseg.pages.ic;
 import java.util.HashSet;
 
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -62,9 +62,9 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 		 * @see fr.imag.adele.cadse.core.ItemFilter#accept(fr.imag.adele.cadse.core.Item)
 		 */
 		public boolean accept(Item linkAttribute) {
-			if (linkAttribute.getType() == CadseGCST.LINK) {
-				Item findDestination = LinkManager.getDestination(linkAttribute);
-				Item invLink = LinkManager.getInverseLink(linkAttribute);
+			if (linkAttribute.getType() == CadseGCST.LINK_TYPE) {
+				Item findDestination = LinkTypeManager.getDestination(linkAttribute);
+				Item invLink = LinkTypeManager.getInverseLink(linkAttribute);
 				if (invLink != null && invLink != this.linkCreated) {
 					return false;
 				}
@@ -106,7 +106,7 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 			source = ExtItemTypeManager.getRefType(source);
 		}
 		// la destination de la relation
-		Item destination = LinkManager.getDestination(theItemLinkType);
+		Item destination = LinkTypeManager.getDestination(theItemLinkType);
 		if (destination == null) {
 			return new Object[0];
 		}

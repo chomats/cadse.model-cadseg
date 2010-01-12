@@ -26,7 +26,7 @@ import fr.imag.adele.cadse.cadseg.Activator;
 import fr.imag.adele.cadse.cadseg.managers.CadseManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
@@ -35,6 +35,7 @@ import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.ModelVersionDBService;
 import fr.imag.adele.teamwork.db.TransactionException;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 
 /**
  * Thread used to perform the effective commit operation.
@@ -73,7 +74,7 @@ public class CommitThread extends Thread {
 		int i = 0;
 		int itemNb = _commitState.getCommittedItems().size();
 		while ((i < itemNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
-			CompactUUID itemId = _commitState.getCommittedItems().get(i);
+			UUID itemId = _commitState.getCommittedItems().get(i);
 			_commitState.beginCommittingItem(itemId);
 
 			try {
@@ -89,7 +90,7 @@ public class CommitThread extends Thread {
 
 		// commit outgoing links
 		while (!_commitState.isFailed() && !_commitState.isCommitPerformed()) {
-			CompactUUID itemId = _commitState.getCommittedItems().remove(0);
+			UUID itemId = _commitState.getCommittedItems().remove(0);
 
 			try {
 				commitItemLinks(itemId, db);
@@ -118,11 +119,11 @@ public class CommitThread extends Thread {
 		}
 	}
 
-	private void commitItemLinks(CompactUUID itemId, ModelVersionDBService db) {
+	private void commitItemLinks(UUID itemId, ModelVersionDBService db) {
 		// TODO implement it
 	}
 
-	private void commitItemState(CompactUUID itemId, ModelVersionDBService db) throws ModelVersionDBException,
+	private void commitItemState(UUID itemId, ModelVersionDBService db) throws ModelVersionDBException,
 			TransactionException {
 
 		// commit item model database
@@ -146,7 +147,7 @@ public class CommitThread extends Thread {
 			IAttributeType attrType = (IAttributeType) attrItem;
 
 			// links are updated in a second pass
-			if (attrType.isInstanceOf(CadseGCST.LINK)) {
+			if (attrType.isInstanceOf(CadseGCST.LINK_TYPE)) {
 				continue;
 			}
 

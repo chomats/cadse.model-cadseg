@@ -25,6 +25,7 @@ import java.util.List;
 import fr.imag.adele.cadse.cadseg.managers.view.ViewModelManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class ViewModels.
@@ -48,7 +49,7 @@ public class ViewModels {
 		this.categories.add(vc);
 
 		for (Item view : ViewModelManager.getViews(viewModel)) {
-			ViewModel vm = new ViewModel(ContextVariable.DEFAULT, view);
+			ViewModel vm = new ViewModel(ContextVariableImpl.DEFAULT, view);
 			vm.category = vc.id;
 
 			this.views.add(vm);

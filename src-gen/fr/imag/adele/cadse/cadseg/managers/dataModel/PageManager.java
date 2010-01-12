@@ -34,8 +34,8 @@ import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -45,11 +45,11 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.key.AbstractSpaceKey;
-import fr.imag.adele.cadse.core.key.ISpaceKey;
-import fr.imag.adele.cadse.core.key.SpaceKey;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
+import fr.imag.adele.cadse.core.key.DefaultKeyImpl;
+import fr.imag.adele.cadse.core.key.Key;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class PageManager.
@@ -67,10 +67,10 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * 
 	 * @return the uUID
 	 */
-	public static CompactUUID getIdRuntime(Item page) {
+	public static UUID getIdRuntime(Item page) {
 		String uuid_str = page.getAttribute(CadseGCST.PAGE_at_ID_RUNTIME_);
 		if (uuid_str == null || uuid_str.length() == 0) {
-			CompactUUID uuid = CompactUUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
 			uuid_str = uuid.toString();
 			try {
 				page.setAttribute(CadseGCST.PAGE_at_ID_RUNTIME_, uuid_str);
@@ -80,64 +80,64 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			}
 			return uuid;
 		}
-		return new CompactUUID(uuid_str);
+		return UUID.fromString(uuid_str);
 
 	}
 
-	static private final class PageSpaceKeyType extends SpaceKeyType {
+	static private final class PageSpaceKeyType extends DefaultKeyDefinitionImpl {
 		private PageSpaceKeyType(ItemType type, ItemType type2) {
 			super(type, type2);
 		}
 
 		@Override
-		public ISpaceKey computeKey(Item item) {
-			ISpaceKey parentKey = null;
-			if (parentSpaceKeyType != null) {
+		public Key computeKey(Item item) {
+			Key parentKey = null;
+			if (_parentKeyDefinition != null) {
 				parentKey = getParentSpaceKeyFromItem(item);
 			}
-			if (parentKey == AbstractSpaceKey.INVALID) {
+			if (parentKey == DefaultKeyImpl.INVALID) {
 				Logger.getLogger("fr.imag.adele.cadse.key").log(Level.SEVERE, 
 						"Parent key is invalide for item "+item.getType().getName() + "::"+item.getDisplayName());				
-				return AbstractSpaceKey.INVALID;
+				return DefaultKeyImpl.INVALID;
 			}
 			return new PageSpaceKey(item, this, item.getName(), parentKey);
 		}
 
 		@Override
-		public ISpaceKey computeKey(String name, Item parentItem, Object... key_attributes) {
-			ISpaceKey parentKey = getParentKeyFromParentItem(parentItem);
-			if (parentKey == AbstractSpaceKey.INVALID)
-				return AbstractSpaceKey.INVALID;
+		public Key computeKey(Key parentKey, Object... values)
+				throws CadseException {
+			if (parentKey == DefaultKeyImpl.INVALID)
+				return DefaultKeyImpl.INVALID;
 			
-			return new PageSpaceKey(null, this, name, parentKey,
-					parentItem.getPartParentLinkType() == CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES);
+			return new PageSpaceKey(null, this, (String) values[0], parentKey, ((Boolean) values[1]).booleanValue()
+					);
+			//parentItem.getPartParentLinkType() == CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES
 		}
-
+		
 		@Override
-		public String getQualifiedString(AbstractSpaceKey key) {
-			StringBuilder sb = new StringBuilder();
+		public void getQualifiedString(Key key, StringBuilder sb) {
 			if (((PageSpaceKey) key).modificationPage) {
 				sb.append("Modification ");
 			} else {
 				sb.append("Creation ");
 			}
 			sb.append(getItemType().getName()).append(" ");
-			getQualifiedString(key, sb);
-			return sb.toString();
+			super.getQualifiedString(key, sb);
 		}
+
 
 	}
 
-	static private final class PageSpaceKey extends SpaceKey {
+	static private final class PageSpaceKey extends DefaultKeyImpl {
 		final boolean	modificationPage;
 
-		PageSpaceKey(Item source, SpaceKeyType type, String name, ISpaceKey parentKey) {
-			super(source, type, name, parentKey);
+		PageSpaceKey(Item source, PageSpaceKeyType type, String name, Key parentKey) {
+			super(type, parentKey, name);
 			modificationPage = PageManager.isModificationPage(source);
 		}
 
-		PageSpaceKey(Item source, PageSpaceKeyType type, String name, ISpaceKey parentKey, boolean b) {
-			super(source, type, name, parentKey);
+		PageSpaceKey(Item source, PageSpaceKeyType type, String name, Key parentKey, boolean b) {
+			super(type, parentKey, name);
 			modificationPage = b;
 		}
 
@@ -169,7 +169,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * @param item
 		 *            the item
 		 */
-		private PageContentManager(CompactUUID id) {
+		private PageContentManager(UUID id) {
 			super(id, new VariableImpl() {
 				public String compute(ContextVariable context, Item itemCurrent) {
 					return GenerateJavaIdentifier.javaPackagePageFactoryFromPage(context, itemCurrent);
@@ -188,7 +188,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariable.DEFAULT));
+			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
 		/*
@@ -223,9 +223,9 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		 * Generate.
 		 */
 		public void generate() {
-			//GeneratePageClass2.generate(ContextVariable.DEFAULT, this, getOwnerItem());
+			//GeneratePageClass2.generate(ContextVariableImpl.DEFAULT, this, getOwnerItem());
 			//if (hasPageAction(getOwnerItem())) {
-			//	GeneratePageActionClass.generate(ContextVariable.DEFAULT, getOwnerItem());
+			//	GeneratePageActionClass.generate(ContextVariableImpl.DEFAULT, getOwnerItem());
 			//}
 		}
 
@@ -394,7 +394,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	@Override
 	public void init() {
 		CadseGCST.PAGE.setHasQualifiedNameAttribute(false);
-		CadseGCST.PAGE.setSpaceKeyType(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.TYPE_DEFINITION));
+		CadseGCST.PAGE.setKeyDefinition(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.TYPE_DEFINITION));
 	}
 
 	
@@ -407,7 +407,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) {
+	public ContentItem createContentItem(UUID id) {
 		return new PageContentManager(id);
 	}
 	

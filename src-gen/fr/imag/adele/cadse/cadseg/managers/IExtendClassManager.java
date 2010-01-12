@@ -27,9 +27,7 @@ import fr.imag.adele.cadse.core.Item;
  */
 public interface IExtendClassManager extends IModelWorkspaceManager {
 
-	/** The Constant CLASS_NAME. */
-	public static final String	CLASS_NAME	= "class-name";
-
+	
 	/**
 	 * Gets the class name.
 	 * 

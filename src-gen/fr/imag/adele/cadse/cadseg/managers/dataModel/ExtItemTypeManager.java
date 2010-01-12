@@ -34,15 +34,16 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.key.SpaceKeyType;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.cadse.core.var.Variable;
 import fr.imag.adele.fede.workspace.si.view.View;
 
@@ -91,7 +92,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 		/**
 			@generated
 		*/
-		public ExtItemTypeContent(CompactUUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+		public ExtItemTypeContent(UUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
 			super(id, packageNameVariable, classNameVariable);
 		}
 
@@ -137,7 +138,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 		 * computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariable.DEFAULT));
+			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
 		/*
@@ -202,7 +203,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	 */
 	@Override
 	public void init() {
-		CadseGCST.EXT_ITEM_TYPE.setSpaceKeyType(new SpaceKeyType(CadseGCST.EXT_ITEM_TYPE, null));
+		CadseGCST.EXT_ITEM_TYPE.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.EXT_ITEM_TYPE, null));
 		CadseGCST.EXT_ITEM_TYPE.setHasNameAttribute(true);
 		CadseGCST.EXT_ITEM_TYPE.setHasQualifiedNameAttribute(false);
 	}
@@ -231,7 +232,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	/**
 	*/
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id ) throws CadseException {
 		ExtItemTypeContent cm = new ExtItemTypeContent(
 			id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE
 			);

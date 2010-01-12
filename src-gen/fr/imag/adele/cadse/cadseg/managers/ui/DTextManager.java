@@ -24,8 +24,8 @@ import java.util.Set;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -57,7 +57,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(CompactUUID id) throws CadseException {
+		protected MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -82,9 +82,9 @@ public class DTextManager extends DisplayManager implements IItemManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
 			super.generateCallArguments(sb, imports);
-			Item display = getItem();
-			sb.append_exp_vir(display, CadseGCST.DTEXT_at_VERTICAL_SPAN, "1");
-			sb.append_string_vir(display, CadseGCST.DTEXT_at_TOOL_TIP);
+			Item display = getOwnerItem();
+			sb.append_exp_vir(display, CadseGCST.DTEXT_at_VERTICAL_SPAN_, 1);
+			sb.append_string_vir(display, CadseGCST.DTEXT_at_TOOL_TIP_);
 			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_MULTI_LINE_), false)).append(",");
 			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_NO_BORDER_), false)).append(",");
 			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_WRAP_LINE_), false)).append(",");
@@ -308,7 +308,7 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

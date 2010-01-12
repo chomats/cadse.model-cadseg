@@ -25,8 +25,8 @@ import java.util.Set;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -53,7 +53,7 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(CompactUUID id) {
+		public MyContentItem(UUID id) {
 			super(id);
 		}
 
@@ -88,7 +88,7 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
 			super.generateCallArguments(sb, imports, context);
-			if (getItem().getAttributeWithDefaultValue(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_,
+			if (getOwnerItem().getAttributeWithDefaultValue(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_,
 					true)) {
 				// la classe dans lequels on ecrit ce code peut s'appeler
 				// JavaProjectManager.
@@ -267,7 +267,7 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ProjectContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public MyContentItem createContentItem(CompactUUID id) throws CadseException {
+	public MyContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

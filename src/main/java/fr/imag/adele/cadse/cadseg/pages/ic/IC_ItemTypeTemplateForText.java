@@ -27,7 +27,7 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -253,7 +253,7 @@ public class IC_ItemTypeTemplateForText extends ICRunningField implements Runing
 		if (visited.add(theCurrentItemType)) {
 			Item[] attributes = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter() {
 				public boolean accept(Item item) {
-					return item.getType() != CadseGCST.LINK;
+					return item.getType() != CadseGCST.LINK_TYPE;
 				}
 
 				public boolean stop() {
@@ -269,7 +269,7 @@ public class IC_ItemTypeTemplateForText extends ICRunningField implements Runing
 
 			Item[] links = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter() {
 				public boolean accept(Item item) {
-					return item.getType() == CadseGCST.LINK && LinkManager.getMax(item) == 1;
+					return item.getType() == CadseGCST.LINK_TYPE && LinkTypeManager.getMax(item) == 1;
 				}
 
 				public boolean stop() {
@@ -278,7 +278,7 @@ public class IC_ItemTypeTemplateForText extends ICRunningField implements Runing
 			}, true);
 
 			for (Item l : links) {
-				Item dest = LinkManager.getDestination(l);
+				Item dest = LinkTypeManager.getDestination(l);
 				if (dest == null) {
 					continue;
 				}

@@ -29,14 +29,15 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class MC_StringListToEnumListManager.
@@ -59,7 +60,7 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(CompactUUID id) throws CadseException {
+		public MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -71,13 +72,13 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item field = getItem().getPartParent().getPartParent();
+			Item field = getOwnerItem().getPartParent().getPartParent();
 
 			Item enumattribute = FieldManager.getAttribute(field);
 
 			Item enumtype = EnumManager.getEnumType(enumattribute);
 
-			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, enumtype);
+			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumtype);
 
 			sb.append(javaenumtype.getElementName()).append(".class").append(",");
 			imports.add(javaenumtype.getFullyQualifiedName());
@@ -100,13 +101,13 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 		 */
 		@Override
 		protected void generateConstructorParameter(GenStringBuilder sb) {
-			Item field = getItem().getPartParent().getPartParent();
+			Item field = getOwnerItem().getPartParent().getPartParent();
 
 			Item enumattribute = FieldManager.getAttribute(field);
 
 			Item enumtype = EnumManager.getEnumType(enumattribute);
 
-			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariable.DEFAULT, enumtype);
+			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumtype);
 
 			sb.append("Class<").append(javaenumtype.getElementName()).append(")> enumclass,");
 		}
@@ -193,7 +194,7 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

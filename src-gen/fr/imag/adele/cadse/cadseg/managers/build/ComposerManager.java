@@ -34,8 +34,8 @@ import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -174,13 +174,6 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 
 	}
 
-	/**
-	 * The Constant EXTENDS_CLASS_ATTRIBUTE. "extends-class"
-	 * 
-	 * @Deprecated (use CadseGCST.COMPOSER_at_EXTENDS_CLASS)
-	 */
-	@Deprecated
-	public static final String	EXTENDS_CLASS_ATTRIBUTE	= CadseGCST.COMPOSER_at_EXTENDS_CLASS;
 
 	/**
 	 * The Class ContentManager.
@@ -196,7 +189,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		 * @param item
 		 *            the item
 		 */
-		public ComposerContent(CompactUUID id) throws CadseException {
+		public ComposerContent(UUID id) throws CadseException {
 			super(id);
 		}	
 
@@ -235,11 +228,11 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 				imports.add("fr.imag.adele.cadse.core.build.IExporterTarget");
 				imports.add(defaultQualifiedClassName);
 
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getItem());
+				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
 				if (extendsClass) {
 
 					String extendsClassName = defaultClassName;
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(getItem().getName(), true, false,
+					defaultClassName = JavaIdentifier.javaIdentifierFromString(getOwnerItem().getName(), true, false,
 							"Composer");
 					sb.newline();
 					sb.newline().append("/**");
@@ -302,10 +295,10 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 			}
 
 			if ("composers".equals(kind)) {
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getItem());
+				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
 
 				if (extendsClass) {
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(getItem().getName(), true, false,
+					defaultClassName = JavaIdentifier.javaIdentifierFromString(getOwnerItem().getName(), true, false,
 							"Composer");
 				}
 
@@ -344,7 +337,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		 *            A context.
 		 */
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
-			List<String> types = getTypesAttribute(getItem());
+			List<String> types = getTypesAttribute(getOwnerItem());
 			if (types != null) {
 				for (String exporterType : types) {
 					sb.append(' ').appendStringValue(exporterType).append(',');
@@ -424,7 +417,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(CompactUUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id ) throws CadseException {
 		ComposerContent cm = new ComposerContent(
 			id
 			);
@@ -492,7 +485,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @return true, if is extends class
 	 */
 	public static final boolean isExtendsClass(Item contentmodel) {
-		Object value = contentmodel.getAttribute(EXTENDS_CLASS_ATTRIBUTE);
+		Object value = contentmodel.getAttribute(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_);
 		if (value == null) {
 			return false;
 		}
@@ -692,7 +685,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 * @generated
 	 */
 	public static final boolean isExtendsClassAttribute(Item composer) {
-		return composer.getAttributeWithDefaultValue(CadseGCST.COMPOSER_at_EXTENDS_CLASS_, false);
+		return composer.getAttributeWithDefaultValue(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_, false);
 	}
 
 	/**
@@ -700,7 +693,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	 */
 	public static final void setExtendsClassAttribute(Item composer, boolean value) {
 		try {
-			composer.setAttribute(CadseGCST.COMPOSER_at_EXTENDS_CLASS_, value);
+			composer.setAttribute(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_, value);
 		} catch (Throwable t) {
 
 		}
@@ -718,7 +711,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		Collection<Item> composerlinks = getComposerLinks(composer);
 		Item itemtype = CompositeItemTypeManager.getItemType(composer.getPartParent());
 		ONE: for (Link l : itemtype.getOutgoingLinks()) {
-			if (l.getDestinationType() != CadseGCST.LINK) {
+			if (l.getDestinationType() != CadseGCST.LINK_TYPE) {
 				continue;
 			}
 			if (!l.isLinkResolved()) {

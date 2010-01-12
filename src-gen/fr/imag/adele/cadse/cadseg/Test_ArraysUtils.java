@@ -19,7 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg;
 
-import fr.imag.adele.cadse.core.util.ArraysUtil;
+import fr.imag.adele.cadse.util.ArraysUtil;
 
 /**
  * The Class Test_ArraysUtils.

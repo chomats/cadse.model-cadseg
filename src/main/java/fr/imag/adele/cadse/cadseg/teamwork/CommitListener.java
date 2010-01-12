@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
  * Listener interrested in commit operation status information.
@@ -34,7 +34,7 @@ public interface CommitListener {
 	
 	public void commitFail();
 	
-	public void beginCommitItem(CompactUUID itemId);
+	public void beginCommitItem(UUID itemId);
 	
-	public void endCommitItem(CompactUUID itemId);
+	public void endCommitItem(UUID itemId);
 }

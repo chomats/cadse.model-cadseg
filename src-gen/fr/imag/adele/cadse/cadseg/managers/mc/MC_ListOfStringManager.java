@@ -25,8 +25,8 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -54,7 +54,7 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(CompactUUID id) throws CadseException {
+		public MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -66,9 +66,9 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item mc = getItem();
-			sb.append_exp_vir(mc, MIN, "0");
-			sb.append_exp_vir(mc, MAX, "-1");
+			Item mc = getOwnerItem();
+			sb.append_exp_vir(mc, CadseGCST.MC_LIST_OF_STRING_at_MIN_, 0);
+			sb.append_exp_vir(mc, CadseGCST.MC_LIST_OF_STRING_at_MAX_, -1);
 		}
 
 		/*
@@ -96,11 +96,6 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 	@SuppressWarnings("hiding")
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList";
 
-	/** The Constant MIN. */
-	private static final String	MIN					= "MIN";
-
-	/** The Constant MAX. */
-	private static final String	MAX					= "MAX";
 
 	/**
 	 * Instantiates a new list of string model controller manager.
@@ -246,7 +241,7 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 }

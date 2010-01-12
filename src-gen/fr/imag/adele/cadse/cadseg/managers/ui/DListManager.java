@@ -24,8 +24,8 @@ import java.util.Set;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -56,7 +56,7 @@ public class DListManager extends DisplayManager {
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(CompactUUID id) throws CadseException {
+		protected MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -91,10 +91,10 @@ public class DListManager extends DisplayManager {
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
 			super.generateCallArguments(sb, imports);
-			sb.append(" ").append(isEditableButtonAttribute(getItem())).append(',');
-			sb.append(" ").append(isShowFilterAttribute(getItem())).append(',');
-			sb.append(" ").append(isOrderButtonAttribute(getItem())).append(',');
-			sb.append(" ").append(isUpdateButtonAttribute(getItem())).append(',');
+			sb.append(" ").append(isEditableButtonAttribute(getOwnerItem())).append(',');
+			sb.append(" ").append(isShowFilterAttribute(getOwnerItem())).append(',');
+			sb.append(" ").append(isOrderButtonAttribute(getOwnerItem())).append(',');
+			sb.append(" ").append(isUpdateButtonAttribute(getOwnerItem())).append(',');
 
 			imports.add("fede.workspace.model.manager.properties.IInteractionControllerForList");
 			imports.add("fr.imag.adele.cadse.core.ui.IModelController");
@@ -132,7 +132,7 @@ public class DListManager extends DisplayManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 
@@ -301,7 +301,7 @@ public class DListManager extends DisplayManager {
 	 * @return true, if is show filter attribute
 	 */
 	public static final boolean isShowFilterAttribute(Item display) {
-		Object value = display.getAttribute(CadseGCST.DLIST_at_SHOW_FILTER);
+		Object value = display.getAttribute(CadseGCST.DLIST_at_SHOW_FILTER_);
 		if (value == null) {
 			return false;
 		}

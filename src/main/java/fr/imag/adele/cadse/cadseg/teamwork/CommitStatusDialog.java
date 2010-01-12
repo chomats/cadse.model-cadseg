@@ -65,7 +65,7 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ChangeID;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemShortNameComparator;
@@ -143,7 +143,7 @@ public class CommitStatusDialog {
 	 */
 	protected Item									_selectedItem			= null;
 
-	protected Set<CompactUUID>						_itemsToShow			= new HashSet<CompactUUID>();
+	protected Set<UUID>						_itemsToShow			= new HashSet<UUID>();
 
 	/*
 	 * Fields used for synchronization of tree refresh.
@@ -363,7 +363,7 @@ public class CommitStatusDialog {
 			if (item == null) {
 				return null;
 			}
-			CompactUUID itemId = item.getId();
+			UUID itemId = item.getId();
 			if (_commitState.getErrors().isInError(itemId)) {
 				return computeImage(image, "icons/delete_ovr.gif");
 			}
@@ -469,7 +469,7 @@ public class CommitStatusDialog {
 	public class ModifiedItemTreeIC extends IC_TreeModel {
 
 		private IContentProvider	_contentProvider;
-
+		
 		@Override
 		public ItemType getType() {
 			return null;
@@ -542,7 +542,7 @@ public class CommitStatusDialog {
 
 				// children are all destinations items
 				model.addRule(CadseGCST.ITEM, new LinkTypeCategoryRule());
-				model.addRule(CadseGCST.LINK, new ItemsFromLinkFromLinkTypeRule(
+				model.addRule(CadseGCST.LINK_TYPE, new ItemsFromLinkFromLinkTypeRule(
 						ItemShortNameComparator.INSTANCE, false, false, new FilterItem() {
 							public boolean accept(Item item) {
 								return !item.isStatic() && _itemsToShow.contains(item.getId());
@@ -783,8 +783,8 @@ public class CommitStatusDialog {
 
 			@Override
 			public Object getValue() {
-				List<CompactUUID> itemIds = _commitState.getItemsToCommit();
-				return itemIds.toArray(new CompactUUID[itemIds.size()]);
+				List<UUID> itemIds = _commitState.getItemsToCommit();
+				return itemIds.toArray(new UUID[itemIds.size()]);
 			}
 
 			public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
@@ -797,9 +797,9 @@ public class CommitStatusDialog {
 		};
 
 		// retrieve list of items to commit
-		List<CompactUUID> idsToCommit = _commitState.getItemsToCommit();
+		List<UUID> idsToCommit = _commitState.getItemsToCommit();
 		IC_DynamicArrayOfObjectForList ic = new IC_DynamicArrayOfObjectForList("Last Used Comment",
-				"Last Used Comment", idsToCommit.toArray(new CompactUUID[idsToCommit.size()]), _workspaceCopy);
+				"Last Used Comment", idsToCommit.toArray(new UUID[idsToCommit.size()]), _workspaceCopy);
 
 		DListUI<IC_DynamicArrayOfObjectForList> listField =
 			_swtuiPlatform.createDListUI(_page, "#listOfCommittedItemsField",
@@ -965,14 +965,14 @@ public class CommitStatusDialog {
 
 
 	protected void computeItemsToShow(CommitState commitState) {
-		List<CompactUUID> itemsToCommit = commitState.getItemsToCommit();
+		List<UUID> itemsToCommit = commitState.getItemsToCommit();
 		if ((itemsToCommit == null) || itemsToCommit.isEmpty()) {
 			_itemsToShow.clear();
 			return;
 		}
 
 		_itemsToShow.clear();
-		for (CompactUUID itemId : itemsToCommit) {
+		for (UUID itemId : itemsToCommit) {
 			Item item = _workspaceCopy.getItem(itemId);
 			addItemToCommit(item);
 		}
@@ -986,7 +986,7 @@ public class CommitStatusDialog {
 	 *            id of item to show
 	 * @return true if we have been able to find a path to this item.
 	 */
-	protected boolean addItemToShow(CompactUUID itemId) {
+	protected boolean addItemToShow(UUID itemId) {
 		_itemsToShow.add(itemId);
 
 		// compute the ancestors of this item
@@ -1035,7 +1035,7 @@ public class CommitStatusDialog {
 	 * @return all tree nodes which represent specified item.
 	 */
 	private List<AbstractCadseViewNode> findItemNodes(Item item) {
-		CompactUUID itemId = item.getId();
+		UUID itemId = item.getId();
 
 		AbstractCadseViewNode rootNode = _treeField._ic.getOrCreateFilteredNode();
 		List<AbstractCadseViewNode> itemNodes = new ArrayList<AbstractCadseViewNode>();
@@ -1055,7 +1055,7 @@ public class CommitStatusDialog {
 	 * @param itemNodes
 	 *            list of item nodes which represent itemId
 	 */
-	private void findItemNodes(CompactUUID itemId, AbstractCadseViewNode rootNode, List<AbstractCadseViewNode> itemNodes) {
+	private void findItemNodes(UUID itemId, AbstractCadseViewNode rootNode, List<AbstractCadseViewNode> itemNodes) {
 		if (!rootNode.hasChildren()) {
 			return;
 		}
@@ -1085,7 +1085,7 @@ public class CommitStatusDialog {
 	 * @return true if an update of tree is necessary.
 	 */
 	protected boolean addItemToCommit(Item item, VisitedItems visited) {
-		CompactUUID itemId = item.getId();
+		UUID itemId = item.getId();
 
 		addItemToShow(itemId);
 		visited.markAsVisited(itemId);

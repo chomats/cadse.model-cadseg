@@ -2,14 +2,14 @@
 skeleton="AttributeSkelton.skeleton"
  imports="fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier
     fr.imag.adele.cadse.core.ItemType
-   fr.imag.adele.cadse.core.var.ContextVariable
+   fr.imag.adele.cadse.core.var.ContextVariableImpl
    fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager
    "%>
 
 <%
 	Item itemType = attribute.getPartParent();
-	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
-	String cstType = GenerateJavaIdentifier.cstQualifiedAttributeItemType(ContextVariable.DEFAULT, itemType, null, imports);
+	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
+	String cstType = GenerateJavaIdentifier.cstQualifiedAttributeItemType(ContextVariableImpl.DEFAULT, itemType, null, imports);
 	ItemType it = attribute.getType();
 
 	 String typeJava = null;
@@ -21,6 +21,6 @@ skeleton="AttributeSkelton.skeleton"
 	/**
 		@generated
 	*/
-	public static final <%=typeJava%> <%=GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute)%>() {
+	public static final <%=typeJava%> <%=GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute)%>() {
 		return <%=cstType%>.getAttribute(<%=cstAttribute%>_);
 	}
