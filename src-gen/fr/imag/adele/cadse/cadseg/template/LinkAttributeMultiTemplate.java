@@ -5,8 +5,8 @@ import java.util.Set;
 
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fede.workspace.eclipse.java.JavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
-import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 public class LinkAttributeMultiTemplate
  {
@@ -58,12 +58,12 @@ public class LinkAttributeMultiTemplate
     final StringBuffer stringBuffer = new StringBuffer();
     
 	String upper_linktype_name = JavaIdentifier.javaIdentifierFromString(attribute.getName(),true,false,null);
-	String cst_linktype = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
-	//<!--int max = LinkManager.getMax(attribute);
+	String cst_linktype = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
+	//<!--int max = LinkTypeManager.getMax(attribute);
 	String min_short_name = JavaIdentifier.javaIdentifierFromString(shortName,false,true,null);
 
-	Item  dest = LinkManager.getDestination(attribute);
-	Item source = LinkManager.getSource(attribute);
+	Item  dest = LinkTypeManager.getDestination(attribute);
+	Item source = LinkTypeManager.getSource(attribute);
 	
     stringBuffer.append(TEXT_1);
     stringBuffer.append(attribute.getName());
@@ -72,7 +72,7 @@ public class LinkAttributeMultiTemplate
     stringBuffer.append(TEXT_3);
     stringBuffer.append((dest== null?"unknown":dest.getName()));
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_5);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_6);
@@ -80,7 +80,7 @@ public class LinkAttributeMultiTemplate
     stringBuffer.append(TEXT_7);
     stringBuffer.append(cst_linktype);
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_9);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_10);
@@ -88,7 +88,7 @@ public class LinkAttributeMultiTemplate
     stringBuffer.append(TEXT_11);
     stringBuffer.append(cst_linktype);
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute));
+    stringBuffer.append(GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute));
     stringBuffer.append(TEXT_13);
     stringBuffer.append(min_short_name);
     stringBuffer.append(TEXT_14);

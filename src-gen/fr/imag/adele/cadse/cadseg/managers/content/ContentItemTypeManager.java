@@ -35,8 +35,10 @@ import fr.imag.adele.cadse.cadseg.managers.build.CompositeItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
@@ -71,7 +73,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(CompactUUID id) {
+		public MyContentItem(UUID id) {
 			super(id);
 		}
 
@@ -161,7 +163,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 				sb.newline().append("	@generated");
 				sb.newline().append("*/");
 				sb.newline().append("@Override");
-				sb.newline().append("public ContentItem createContentItem(CompactUUID id ").append(
+				sb.newline().append("public ContentItem createContentItem(UUID id ").append(
 						") throws CadseException {");
 				/* 1 */sb.begin();
 				GenContext newcontext = new GenContext(context);
@@ -195,7 +197,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 				/* 1 */sb.end();
 				sb.newline().append("}").newline();
 				imports.add("fr.imag.adele.cadse.core.ContentItem");
-				imports.add("fr.imag.adele.cadse.core.CompactUUID");
+				imports.add("fr.imag.adele.cadse.core.UUID");
 				imports.add("fr.imag.adele.cadse.core.Item");
 				imports.add("fr.imag.adele.cadse.core.var.Variable");
 				imports.add("fr.imag.adele.cadse.core.CadseException");
@@ -248,13 +250,13 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 *            the imports
 		 */
 		protected void generateAllClassVariables(GenStringBuilder sb, Set<String> imports) {
-			String[] kinds = getResourceKindsName();
+			StringAttributeType[] kinds = getResourceKindsName();
 
 			if (kinds == null) {
 				return;
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
-					String strKinds = kinds[i];
+					StringAttributeType strKinds = kinds[i];
 					String value = getOwnerItem().getAttribute(strKinds);
 
 					value = getDefaultValue(strKinds, value);
@@ -262,12 +264,12 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 						continue;
 					}
 					GenerateVariable.generateClassVariable(getOwnerItem(),
-							GenerateVariable.getClassVariable(strKinds, true), value, sb, imports);
+							GenerateVariable.getClassVariable(strKinds.getName(), true), value, sb, imports);
 				}
 			}
 		}
 
-		protected String getDefaultValue(String strKinds, String value) {
+		protected String getDefaultValue(StringAttributeType strKinds, String value) {
 			return value;
 		}
 
@@ -276,7 +278,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 * 
 		 * @return the resource kinds name
 		 */
-		protected String[] getResourceKindsName() {
+		protected StringAttributeType[] getResourceKindsName() {
 			return null;
 		}
 
@@ -373,19 +375,19 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 *            the context
 		 */
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
-			String[] kinds = getResourceKindsName();
+			StringAttributeType[] kinds = getResourceKindsName();
 			if (kinds == null) {
 				return;
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
-					String strKinds = kinds[i];
-					String value = getItem().getAttribute(strKinds);
+					StringAttributeType strKinds = kinds[i];
+					String value = getOwnerItem().getAttribute(strKinds);
 					value = getDefaultValue(strKinds, value);
 					if (value == null) {
 						sb.append(" ").append("NullVariable.INSTANCE,");
 						imports.add("fr.imag.adele.cadse.core.impl.var.NullVariable");
 					} else {
-						sb.append(" ").append(GenerateVariable.getClassVariable(strKinds, true)).append(".INSTANCE,");
+						sb.append(" ").append(GenerateVariable.getClassVariable(strKinds.getName(), true)).append(".INSTANCE,");
 					}
 				}
 			}
@@ -399,13 +401,13 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 */
 		protected void generateConstrustorArguments(GenStringBuilder sb) {
 			sb.append("id,");
-			String[] kinds = getResourceKindsName();
+			StringAttributeType[] kinds = getResourceKindsName();
 			if (kinds == null) {
 				return;
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
-					String strKinds = kinds[i];
-					sb.append(" ").append(GenerateVariable.getClassVariable(strKinds, false)).append(",");
+					StringAttributeType strKinds = kinds[i];
+					sb.append(" ").append(GenerateVariable.getClassVariable(strKinds.getName(), false)).append(",");
 				}
 			}
 		}
@@ -418,15 +420,15 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		 */
 		protected void generateConstructorParameter(GenStringBuilder sb) {
 			
-			sb.append("CompactUUID id,");
-			String[] kinds = getResourceKindsName();
+			sb.append("UUID id,");
+			StringAttributeType[] kinds = getResourceKindsName();
 
 			if (kinds == null) {
 				return;
 			} else {
 				for (int i = 0; i < kinds.length; i++) {
-					String strKinds = kinds[i];
-					sb.append(" Variable ").append(GenerateVariable.getClassVariable(strKinds, false)).append(",");
+					StringAttributeType strKinds = kinds[i];
+					sb.append(" Variable ").append(GenerateVariable.getClassVariable(strKinds.getName(), false)).append(",");
 				}
 			}
 		}
@@ -582,7 +584,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new ContentItemTypeManager.MyContentItem(id);
 	}
 

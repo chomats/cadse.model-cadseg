@@ -25,8 +25,8 @@ import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -55,7 +55,7 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(CompactUUID id) throws CadseException {
+		protected MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -67,8 +67,8 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getItem(), SELECT_TITLE_ATTRIBUTE, true, "??", sb);
-			DisplayManager.addAttributeInCall(getItem(), SELECT_MESSAGE_ATTRIBUTE, true, "??", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, true, "??", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, true, "??", sb);
 		}
 
 		/*
@@ -146,7 +146,7 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 		@generated
 	*/
 	public static final String getMessageAttribute(Item iC_AbstractForBrowser_Combo) {
-		return iC_AbstractForBrowser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_, null);
+		return iC_AbstractForBrowser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, null);
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	*/
 	public static final void setMessageAttribute(Item iC_AbstractForBrowser_Combo, String value) {
 		try {
-			iC_AbstractForBrowser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_, value);
+			iC_AbstractForBrowser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -164,7 +164,7 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 		@generated
 	*/
 	public static final String getTitleAttribute(Item iC_AbstractForBrowser_Combo) {
-		return iC_AbstractForBrowser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_TITLE_, null);
+		return iC_AbstractForBrowser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, null);
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	*/
 	public static final void setTitleAttribute(Item iC_AbstractForBrowser_Combo, String value) {
 		try {
-			iC_AbstractForBrowser_Combo.setAttribute(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_TITLE_, value);
+			iC_AbstractForBrowser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -204,7 +204,7 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

@@ -36,7 +36,7 @@ import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.Pages;
 
 /**
- * The Class ComposerLinkManager.
+ * The Class ComposerLinkTypeManager.
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */

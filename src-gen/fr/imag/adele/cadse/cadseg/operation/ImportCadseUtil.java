@@ -20,15 +20,15 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import adele.util.io.ZipUtil;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.ProjectAssociation;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.delta.ItemDelta;
-import fr.imag.adele.cadse.core.delta.LinkDelta;
-import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.LinkDelta;
+import fr.imag.adele.cadse.core.transaction.delta.SetAttributeOperation;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
@@ -83,7 +83,7 @@ public class ImportCadseUtil {
 	 * @throws JAXBException
 	 *             the JAXB exception
 	 */
-	static public CompactUUID readCadseUUID(File f) throws IOException, JAXBException {
+	static public UUID readCadseUUID(File f) throws IOException, JAXBException {
 		JarFile jis = new JarFile(f);
 		ZipEntry entry = jis.getEntry(ExportCadsePagesAction.MELUSINE_DIR_CADSENAME_ID);
 		if (entry == null) {
@@ -94,7 +94,7 @@ public class ImportCadseUtil {
 		}
 		InputStream imput = jis.getInputStream(entry);
 		BufferedReader isr = new BufferedReader(new InputStreamReader(imput));
-		return new CompactUUID(isr.readLine());
+		return UUID.fromString(isr.readLine());
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class ImportCadseUtil {
 	 * @throws JAXBException
 	 *             the JAXB exception
 	 */
-	static public CompactUUID readCadseUUIDFolder(File f) throws IOException {
+	static public UUID readCadseUUIDFolder(File f) throws IOException {
 		File uuid = new File(f, ExportCadsePagesAction.MELUSINE_DIR_CADSENAME_ID);
 
 		if (!uuid.exists()) {
@@ -119,7 +119,7 @@ public class ImportCadseUtil {
 		}
 		InputStream imput = new FileInputStream(uuid);
 		BufferedReader isr = new BufferedReader(new InputStreamReader(imput));
-		return new CompactUUID(isr.readLine());
+		return UUID.fromString(isr.readLine());
 	}
 
 	static private void migrate(LogicalWorkspaceTransaction transaction) throws CadseException {
@@ -136,38 +136,38 @@ public class ImportCadseUtil {
 			if (!itemDelta.isLoaded())
 				continue;
 
-			SetAttributeOperation uuid_att = itemDelta.getSetAttributeOperation("UUID_ATTRIBUTE");
-			if (uuid_att != null) {
-				if (itemDelta.getType() == null) {
-					System.out.println("Import error type is null");
-				} else if (itemDelta.getType() == CadseGCST.CADSE_DEFINITION) {
-					itemDelta.setAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, uuid_att.getCurrentValue());
-				} else if (itemDelta.isInstanceOf(CadseGCST.PAGE)) {
-					itemDelta.setAttribute(CadseGCST.PAGE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
-				} else if (itemDelta.isInstanceOf(CadseGCST.ATTRIBUTE)) {
-					itemDelta.setAttribute(CadseGCST.ATTRIBUTE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
-				} else if (itemDelta.isInstanceOf(CadseGCST.TYPE_DEFINITION)) {
-					itemDelta.setAttribute(CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_, uuid_att.getCurrentValue());
-				} else {
-					System.out.println("Cannot set UUID_ATTRIBUTE for type " + itemDelta.getType().getName());
-				}
-				// remove old valeur
-				itemDelta.setAttribute("UUID_ATTRIBUTE", null);
-			}
-			if (itemDelta.getType() == CadseGCST.LINK) {
+//			SetAttributeOperation uuid_att = itemDelta.getSetAttributeOperation("UUID_ATTRIBUTE");
+//			if (uuid_att != null) {
+//				if (itemDelta.getType() == null) {
+//					System.out.println("Import error type is null");
+//				} else if (itemDelta.getType() == CadseGCST.CADSE_DEFINITION) {
+//					itemDelta.setAttribute(CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+//				} else if (itemDelta.isInstanceOf(CadseGCST.PAGE)) {
+//					itemDelta.setAttribute(CadseGCST.PAGE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+//				} else if (itemDelta.isInstanceOf(CadseGCST.ATTRIBUTE)) {
+//					itemDelta.setAttribute(CadseGCST.ATTRIBUTE_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+//				} else if (itemDelta.isInstanceOf(CadseGCST.TYPE_DEFINITION)) {
+//					itemDelta.setAttribute(CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_, uuid_att.getCurrentValue());
+//				} else {
+//					System.out.println("Cannot set UUID_ATTRIBUTE for type " + itemDelta.getType().getName());
+//				}
+//				// remove old valeur
+//				itemDelta.setAttribute("UUID_ATTRIBUTE", null);
+//			}
+			if (itemDelta.getType() == CadseGCST.LINK_TYPE) {
 				if (itemDelta.getName().startsWith("#invert_part")) {
 					itemDelta.delete(false);
 					for (Link l : itemDelta.getIncomingLinks()) {
 						l.delete();
 					}
 				}
-				LinkDelta l = itemDelta.getOutgoingLink(CadseGCST.LINK_lt_INVERSE_LINK);
+				LinkDelta l = itemDelta.getOutgoingLink(CadseGCST.LINK_TYPE_lt_INVERSE_LINK);
 				if (l != null && l.getDestination().getName().startsWith("#invert_part")) {
 					l.delete();
 				}
 			}
 			SetAttributeOperation committed_date_value = itemDelta
-					.getSetAttributeOperation(CadseGCST.ITEM_at_COMMITTED_DATE);
+					.getSetAttributeOperation(CadseGCST.ITEM_at_COMMITTED_DATE_);
 			if (committed_date_value != null) {
 				if (committed_date_value.getCurrentValue() instanceof Date) {
 					Date d = (Date) committed_date_value.getCurrentValue();
@@ -199,8 +199,8 @@ public class ImportCadseUtil {
 				if (!l.isLoaded())
 					continue;
 				if (l.getDestination().getType() == null) {
-					IAttributeType<?> att = l.getSource().getType().getAttributeType(l.getDestinationName(), false);
-
+					IAttributeType<?> att = l.getSource().getLocalAttributeType(l.getDestinationName());
+					
 					if (att != null) {
 						LinkDelta latt = itemDelta.getOutgoingLink(CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES, att.getId());
 						if (latt != null) {
@@ -266,7 +266,7 @@ public class ImportCadseUtil {
 				pf = ImportCadseUtil.createTempDirectory(dir);
 
 			ZipUtil.unzip(input, pf);
-			CompactUUID uuid = readCadseUUIDFolder(pf);
+			UUID uuid = readCadseUUIDFolder(pf);
 			if (cadse == null) {
 				cadse = readCadseFolder(pf);
 				pf.renameTo(new File(dir, cadse));

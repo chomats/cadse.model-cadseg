@@ -19,9 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fede.workspace.tool.loadmodel.model.jaxb.CValuesType;
-import fede.workspace.tool.loadmodel.model.jaxb.ObjectFactory;
-import fede.workspace.tool.loadmodel.model.jaxb.ValueTypeType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ValueTypeType;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
 import fr.imag.adele.cadse.core.CadseException;

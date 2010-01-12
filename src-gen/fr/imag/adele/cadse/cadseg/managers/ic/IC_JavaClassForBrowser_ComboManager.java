@@ -25,13 +25,14 @@ import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_WithDialogAction;
 
 /**
  * The Class IC_JavaClassForBrowser_ComboManager.
@@ -75,7 +76,7 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(CompactUUID id) throws CadseException {
+		protected MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -87,10 +88,12 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getItem(), SELECT_TITLE_ATTRIBUTE, true, "??", sb);
-			DisplayManager.addAttributeInCall(getItem(), SELECT_MESSAGE_ATTRIBUTE, true, "??", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
+					true, "??", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_,
+					true, "??", sb);
 			sb.append(" IJavaElementSearchConstants.");
-			String style = getItem().getAttribute(STYLE_ATTRIBUTE);
+			String style = getOwnerItem().getAttribute(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_);
 			String stylecst = style_values_cst[0];
 			if (style != null) {
 				for (int i = 0; i < style_values.length; i++) {
@@ -101,7 +104,8 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 				}
 			}
 			sb.append(stylecst).append(",");
-			DisplayManager.addAttributeInCall(getItem(), FILTER_ATTRIBUTE, true, "", sb);
+			DisplayManager.addAttributeInCall(getOwnerItem(), 
+					CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_, true, "", sb);
 			imports.add("org.eclipse.jdt.ui.IJavaElementSearchConstants");
 		}
 
@@ -262,7 +266,7 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

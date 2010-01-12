@@ -35,8 +35,8 @@ import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -68,7 +68,7 @@ public class ExporterManager extends DefaultItemManager implements
 		 * @param item
 		 *            the item
 		 */
-		public ExporterContent(CompactUUID id) throws CadseException {
+		public ExporterContent(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -110,15 +110,15 @@ public class ExporterManager extends DefaultItemManager implements
 			if ("inner-class".equals(kind)) {
 				generateParts(sb, type, kind, imports, null);
 				boolean extendsClass = mustBeExtended()
-						|| isExtendsClass(getItem());
+						|| isExtendsClass(getOwnerItem());
 
 				if (extendsClass) {
 
 					String extendsClassName = defaultClassName;
 					defaultClassName = JavaIdentifier.javaIdentifierFromString(
-							getItem().getName(), true, false, "Exporter");
+							getOwnerItem().getName(), true, false, "Exporter");
 
-					Item manager = getItem().getPartParent();
+					Item manager = getOwnerItem().getPartParent();
 
 					Item itemtype = ManagerManager.getItemType(manager);
 
@@ -182,11 +182,11 @@ public class ExporterManager extends DefaultItemManager implements
 			}
 			if ("exporters".equals(kind)) {
 				boolean extendsClass = mustBeExtended()
-						|| isExtendsClass(getItem());
+						|| isExtendsClass(getOwnerItem());
 
 				if (extendsClass) {
 					defaultClassName = JavaIdentifier.javaIdentifierFromString(
-							getItem().getName(), true, false, "Exporter");
+							getOwnerItem().getName(), true, false, "Exporter");
 				}
 
 				sb.newline().append("new ").append(defaultClassName).append(
@@ -216,7 +216,7 @@ public class ExporterManager extends DefaultItemManager implements
 		 */
 		protected void generateCallArguments(GenStringBuilder sb,
 				Set<String> imports, GenContext context) {
-			List<String> types = getTypesAttribute(getItem());
+			List<String> types = getTypesAttribute(getOwnerItem());
 			if (types != null) {
 				for (String exporterType : types) {
 					sb.append(' ').appendStringValue(exporterType).append(',');
@@ -423,9 +423,6 @@ public class ExporterManager extends DefaultItemManager implements
 		return true;
 	}
 
-	/** The Constant EXTENDS_CLASS_ATTRIBUTE. */
-	public static final String EXTENDS_CLASS_ATTRIBUTE = "extends-class";
-
 	/**
 	 * Checks if is extends class.
 	 * 
@@ -435,7 +432,7 @@ public class ExporterManager extends DefaultItemManager implements
 	 * @return true, if is extends class
 	 */
 	public static final boolean isExtendsClass(Item contentmodel) {
-		Object value = contentmodel.getAttribute(EXTENDS_CLASS_ATTRIBUTE);
+		Object value = contentmodel.getAttribute(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_);
 		if (value == null) {
 			return false;
 		}
@@ -463,7 +460,7 @@ public class ExporterManager extends DefaultItemManager implements
 	 * @generated
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		ExporterContent cm = new ExporterContent(id);
 		cm.setComposers();
 		cm.setExporters();

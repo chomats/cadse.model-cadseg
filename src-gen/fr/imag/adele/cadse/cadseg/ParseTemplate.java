@@ -27,13 +27,14 @@ import fr.imag.adele.cadse.cadseg.exp.ExpressionParseConstants;
 import fr.imag.adele.cadse.cadseg.exp.ItemExpressionParse;
 import fr.imag.adele.cadse.cadseg.exp.Token;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.attributes.LinkManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.IItemManager.ProblemReporter;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class ParseTemplate.
@@ -118,7 +119,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 			this.returnInst = returnInst;
 			this.itemVar = itemVar;
 			this.parentVar = parentVar;
-			this.cxt = new ContextVariable();
+			this.cxt = new ContextVariableImpl();
 			this.contextVariable = usecontext;
 
 			if (packageName == null) {
@@ -626,7 +627,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 				if (_currentItem != null) {
 					fCurrentLink = ItemTypeManager.getOutgoingLinkType(_currentItem, t.image);
 					if (fCurrentLink != null) {
-						_currentItem = LinkManager.getDestination(fCurrentLink);
+						_currentItem = LinkTypeManager.getDestination(fCurrentLink);
 					}
 				}
 				return fCurrentLink != null && _currentItem != null;

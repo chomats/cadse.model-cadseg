@@ -50,8 +50,8 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
@@ -61,6 +61,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -125,7 +126,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		 * @throws CadseException
 		 *             the melusine exception
 		 */
-		private ManagerJavaFileContentManager(CompactUUID id) throws CadseException {
+		private ManagerJavaFileContentManager(UUID id) throws CadseException {
 			super(id, new VariableImpl() {
 
 				public String compute(ContextVariable context, Item item) {
@@ -249,7 +250,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		 * computeExportsPackage(java.util.Set)
 		 */
 		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariable.DEFAULT));
+			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
 		/*
@@ -284,8 +285,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 	}
 
-	/** The Constant SUB_PACKAGE_ATTRIBUTE. */
-	public static final String	SUB_PACKAGE_ATTRIBUTE	= "sub-package";
 
 	/**
 	 * The Constructor.
@@ -374,7 +373,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new ManagerJavaFileContentManager(id);
 	}
 
@@ -575,7 +574,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @generated
 	 */
 	public static final String getLongNameTemplateAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, null);
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_, null);
 	}
 
 	/**
@@ -590,7 +589,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	public static final void setLongNameTemplateAttribute(Item manager, String value) {
 		try {
-			manager.setAttribute(CadseGCST.MANAGER_at_LONG_NAME_TEMPLATE_, value);
+			manager.setAttribute(CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -724,10 +723,10 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	// @Override
 	// public void regenerate(Item manager) {
 	// ((IGenerateContent)
-	// manager.getContentItem()).generate(ContextVariable.DEFAULT);
+	// manager.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 	// Item model = getWorkspaceModel(manager);
 	// ((IGenerateContent)
-	// model.getContentItem()).generate(ContextVariable.DEFAULT);
+	// model.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 	// }
 
 	/**
@@ -737,9 +736,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 *            the manager
 	 */
 	public static void _regenerate(Item manager) {
-		((IGenerateContent) manager.getContentItem()).generate(ContextVariable.DEFAULT);
+		((IGenerateContent) manager.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 		Item model = _getCadseDefinition(manager);
-		((IGenerateContent) model.getContentItem()).generate(ContextVariable.DEFAULT);
+		((IGenerateContent) model.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 	}
 
 	/**

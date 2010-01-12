@@ -24,7 +24,7 @@ import java.util.Set;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -52,7 +52,7 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected IC_AbstractForListContent(CompactUUID id) throws CadseException {
+		protected IC_AbstractForListContent(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -64,9 +64,9 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item uc = getItem();
-			sb.append_string_vir(uc, SELECT_TITLE_ATTRIBUTE);
-			sb.append_string_vir(uc, SELECT_MESSAGE_ATTRIBUTE);
+			Item uc = getOwnerItem();
+			sb.append_string_vir(uc, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_);
+			sb.append_string_vir(uc, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_);
 
 		}
 

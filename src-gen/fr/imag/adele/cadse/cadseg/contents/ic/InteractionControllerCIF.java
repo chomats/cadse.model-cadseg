@@ -4,8 +4,8 @@ package fr.imag.adele.cadse.cadseg.contents.ic;
 
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 
 public class InteractionControllerCIF implements IContentItemFactory {
@@ -15,7 +15,7 @@ public class InteractionControllerCIF implements IContentItemFactory {
 		_manager = interactionControllerManager;
 	}
 
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new InteractionControllerContent(id, _manager);
 	}
 	

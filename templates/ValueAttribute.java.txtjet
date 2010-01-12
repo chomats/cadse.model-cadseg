@@ -6,11 +6,11 @@ skeleton="AttributeSkelton.skeleton"
    fr.imag.adele.cadse.core.ItemType
    fr.imag.adele.cadse.core.CadseGCST 
    fr.imag.adele.cadse.cadseg.managers.attributes.StringManager
-   fr.imag.adele.cadse.core.var.ContextVariable
+   fr.imag.adele.cadse.core.var.ContextVariableImpl
    "%>
 
 <%	String min_short_name = JavaIdentifier.javaIdentifierFromString(shortName,false,true, null);
-	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariable.DEFAULT, attribute, null, null, null);
+	String cstAttribute = GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null, null);
 	ItemType it = attribute.getType();
 	AttributeManager manager = (AttributeManager) it.getItemManager();
 
@@ -25,7 +25,7 @@ skeleton="AttributeSkelton.skeleton"
 	/**
 		@generated
 	*/
-	public static final <%=typeJava%> <%=GenerateJavaIdentifier.cstGetAttribute(ContextVariable.DEFAULT, attribute)%>(Item <%=min_short_name %>) {
+	public static final <%=typeJava%> <%=GenerateJavaIdentifier.cstGetAttribute(ContextVariableImpl.DEFAULT, attribute)%>(Item <%=min_short_name %>) {
 <%  if (it == CadseGCST.BOOLEAN) { %>
 		return <%=min_short_name%>.getAttributeWithDefaultValue(<%=cstAttribute%>_, <%=defaultValue%>);
 <% } else {%>
@@ -36,7 +36,7 @@ skeleton="AttributeSkelton.skeleton"
 	/**
 		@generated
 	*/
-	public static final void <%=GenerateJavaIdentifier.cstSetAttribute(ContextVariable.DEFAULT, attribute)%>(Item <%=min_short_name %>, <%=typeJava%> value) {
+	public static final void <%=GenerateJavaIdentifier.cstSetAttribute(ContextVariableImpl.DEFAULT, attribute)%>(Item <%=min_short_name %>, <%=typeJava%> value) {
 		try {
 <% String exp_to_string = manager.exp_to_string();
 	if (exp_to_string == null || exp_to_string.trim().equals("value")) {%>

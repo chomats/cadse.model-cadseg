@@ -25,8 +25,8 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -56,7 +56,7 @@ public class MC_IntegerManager extends ModelControllerManager implements IItemMa
 		 *            the item
 		 * @throws CadseException
 		 */
-		public MyContentItem(CompactUUID id) throws CadseException {
+		public MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -68,13 +68,13 @@ public class MC_IntegerManager extends ModelControllerManager implements IItemMa
 		 */
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			sb.append(getItem().getAttributeWithDefaultValue("min", 0)).append(", ");
-			String maxAttribute = Convert.toString(getItem().getAttributeWithDefaultValue("max", 0));
+			sb.append(getOwnerItem().getAttributeWithDefaultValue(CadseGCST.MC_INTEGER_at_MIN_, 0)).append(", ");
+			String maxAttribute = Convert.toString(getOwnerItem().getAttributeWithDefaultValue(CadseGCST.MC_INTEGER_at_MAX_, 0));
 			if (maxAttribute == null || maxAttribute.length() == 0)
 				maxAttribute = "0";
 			sb.append(maxAttribute).append(", ");
-			String minError = getItem().getAttribute("min-error");
-			String maxError = getItem().getAttribute("max-error");
+			String minError = getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_ERROR_MSG_MIN_);
+			String maxError = getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_ERROR_MSG_MAX_);
 			if (minError == null || minError.length() == 0)
 				sb.append("null, ");
 			else
@@ -83,7 +83,7 @@ public class MC_IntegerManager extends ModelControllerManager implements IItemMa
 				sb.append("null, ");
 			else
 				sb.appendStringValue(maxError).append(", ");
-			sb.append(Convert.toInteger(getItem().getAttribute(CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_)))
+			sb.append(Convert.toInteger(getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_)))
 					.append(",");
 
 		}
@@ -280,7 +280,7 @@ public class MC_IntegerManager extends ModelControllerManager implements IItemMa
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

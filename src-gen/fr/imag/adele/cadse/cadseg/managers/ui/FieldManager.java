@@ -31,8 +31,8 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -41,7 +41,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.AbstractLinkTypeManager;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
-import fr.imag.adele.cadse.core.key.LinksSpaceKeyType;
+import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -96,7 +96,7 @@ public class FieldManager extends DefaultItemManager {
 		 * @param item
 		 *            the item
 		 */
-		private FieldContentManager(CompactUUID id) {
+		private FieldContentManager(UUID id) {
 			super(id);
 		}
 
@@ -110,8 +110,8 @@ public class FieldManager extends DefaultItemManager {
 	@Override
 	public void init() {
 		CadseGCST.FIELD.setHasQualifiedNameAttribute(false);
-		CadseGCST.FIELD.setSpaceKeyType(new LinksSpaceKeyType(CadseGCST.FIELD, CadseGCST.PAGE,
-				CadseGCST.FIELD_lt_ATTRIBUTE));
+		CadseGCST.FIELD.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.FIELD, CadseGCST.PAGE,
+				CadseGCST.ITEM_at_NAME_, CadseGCST.FIELD_lt_ATTRIBUTE));
 
 		CadseGCST.FIELD_lt_ATTRIBUTE.setManager(new AbstractLinkTypeManager() {
 			@Override
@@ -420,7 +420,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) {
+	public ContentItem createContentItem(UUID id) {
 		return new FieldContentManager(id);
 	}
 

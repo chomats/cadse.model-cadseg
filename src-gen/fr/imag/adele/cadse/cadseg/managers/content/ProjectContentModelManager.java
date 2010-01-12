@@ -28,8 +28,10 @@ import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.cadseg.exp.TokenMgrError;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -56,7 +58,7 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 		 * @param item
 		 *            the item
 		 */
-		public MyContentItem(CompactUUID id) {
+		public MyContentItem(UUID id) {
 			super(id);
 		}
 
@@ -66,8 +68,8 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
 		 */
 		@Override
-		protected String[] getResourceKindsName() {
-			return new String[] { CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME };
+		protected StringAttributeType[] getResourceKindsName() {
+			return new StringAttributeType[] { CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_ };
 		}
 
 		/*
@@ -269,7 +271,7 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public MyContentItem createContentItem(CompactUUID id) throws CadseException {
+	public MyContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

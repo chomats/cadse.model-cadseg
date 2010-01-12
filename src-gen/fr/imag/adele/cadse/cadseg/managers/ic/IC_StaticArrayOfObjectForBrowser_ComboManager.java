@@ -26,8 +26,8 @@ import java.util.Set;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.ContentItem;
+import java.util.UUID;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -56,7 +56,7 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		 *            the item
 		 * @throws CadseException
 		 */
-		protected MyContentItem(CompactUUID id) throws CadseException {
+		protected MyContentItem(UUID id) throws CadseException {
 			super(id);
 		}
 
@@ -69,9 +69,10 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		@Override
 		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
 			super.generateCallArguments(sb, imports, object);
-			Item ic = getItem();
+			Item ic = getOwnerItem();
 
-			List<String> values = ic.getAttributeWithDefaultValue(VALUES_ATTRIBUTE, new ArrayList<String>());
+			List<String> values = ic.getAttributeWithDefaultValue(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_,
+					new ArrayList<String>());
 
 			sb.append(" new Object[] {");
 			sb.begin();
@@ -108,9 +109,6 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_StaticArrayOfObjectForBrowser_Combo";
-
-	/** The Constant VALUES_ATTRIBUTE. */
-	public static final String	VALUES_ATTRIBUTE	= "values";
 
 	/**
 	 * Instantiates a new i c_ static array of object for browser_ combo
@@ -220,7 +218,7 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(CompactUUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id) throws CadseException {
 		return new MyContentItem(id);
 	}
 

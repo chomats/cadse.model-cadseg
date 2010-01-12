@@ -18,7 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
  * Simple error containing only a message.
@@ -28,7 +28,7 @@ import fr.imag.adele.cadse.core.CompactUUID;
  */
 public class MsgError implements Error {
 	
-	private CompactUUID _itemId;
+	private UUID _itemId;
 	
 	private String _errorMsg;
 	
@@ -38,12 +38,12 @@ public class MsgError implements Error {
 	 * @param itemId   item id
 	 * @param errorMsg error message
 	 */
-	public MsgError(CompactUUID itemId, String errorMsg) {
+	public MsgError(UUID itemId, String errorMsg) {
 		_itemId = itemId;
 		_errorMsg = errorMsg;
 	}
 
-	public CompactUUID getItem() {
+	public UUID getItem() {
 		return _itemId;
 	}
 

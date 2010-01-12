@@ -9,7 +9,7 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -32,7 +32,7 @@ public class InteractionControllerContent extends SubFileContentManager implemen
 	 *            the item
 	 * @param _manager2
 	 */
-	protected InteractionControllerContent(CompactUUID id, InteractionControllerManager manager) {
+	protected InteractionControllerContent(UUID id, InteractionControllerManager manager) {
 		super(id);
 		_manager = manager;
 	}
@@ -92,9 +92,9 @@ public class InteractionControllerContent extends SubFileContentManager implemen
 		if ("inner-class".equals(kind)) {
 			generateParts(sb, type, kind, imports, null);
 			boolean extendsClass = _manager.mustBeExtended()
-					|| InteractionControllerManager.isExtendsClass(getItem());
+					|| InteractionControllerManager.isExtendsClass(getOwnerItem());
 			if (extendsClass) {
-				Item uc = getItem();
+				Item uc = getOwnerItem();
 				Item field = uc.getPartParent().getPartParent();
 
 				String extendsClassName = defaultClassName;
@@ -133,9 +133,9 @@ public class InteractionControllerContent extends SubFileContentManager implemen
 			}
 		}
 		if (kind.equals("field-init")) {
-			Item ic = getItem();
+			Item ic = getOwnerItem();
 			boolean extendsClass = _manager.mustBeExtended()
-					|| InteractionControllerManager.isExtendsClass(getItem());
+					|| InteractionControllerManager.isExtendsClass(getOwnerItem());
 			if (extendsClass) {
 				Item field = ic.getPartParent().getPartParent();
 				defaultClassName = JavaIdentifier.javaIdentifierFromString(field.getName(), true, false,

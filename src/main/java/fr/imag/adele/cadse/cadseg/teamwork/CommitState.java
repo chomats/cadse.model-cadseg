@@ -21,7 +21,7 @@ package fr.imag.adele.cadse.cadseg.teamwork;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
  * Represents state of a commit operation :
@@ -35,9 +35,9 @@ import fr.imag.adele.cadse.core.CompactUUID;
  */
 public class CommitState {
 
-	private List<CompactUUID> _commitedItems = new ArrayList<CompactUUID>();
+	private List<UUID> _commitedItems = new ArrayList<UUID>();
 	
-	private List<CompactUUID> _toCommitItems = new ArrayList<CompactUUID>();
+	private List<UUID> _toCommitItems = new ArrayList<UUID>();
 
 	private Errors _errors = new Errors();
 	
@@ -65,7 +65,7 @@ public class CommitState {
 	 * 
 	 * @return all items which will be commit.
 	 */
-	public List<CompactUUID> getItemsToCommit() {
+	public List<UUID> getItemsToCommit() {
 		return _toCommitItems;
 	}
 
@@ -74,7 +74,7 @@ public class CommitState {
 	 * 
 	 * @param itemId item id
 	 */
-	public void addItemToCommit(CompactUUID itemId) {
+	public void addItemToCommit(UUID itemId) {
 		if (!_toCommitItems.contains(itemId))
 			_toCommitItems.add(itemId);
 	}
@@ -84,7 +84,7 @@ public class CommitState {
 	 * 
 	 * @param itemId item id
 	 */
-	public void beginCommittingItem(CompactUUID itemId) {
+	public void beginCommittingItem(UUID itemId) {
 		// notify listeners
 		synchronized (_listeners) {
 			for (CommitListener listener : _listeners) {
@@ -102,7 +102,7 @@ public class CommitState {
 	 * 
 	 * @param itemId item id
 	 */
-	public void markAsCommitted(CompactUUID itemId) {
+	public void markAsCommitted(UUID itemId) {
 		_toCommitItems.remove(itemId);
 		addCommitedItem(itemId);
 	}
@@ -112,7 +112,7 @@ public class CommitState {
 	 * 
 	 * @return all items which has been committed.
 	 */
-	public List<CompactUUID> getCommittedItems() {
+	public List<UUID> getCommittedItems() {
 		return _commitedItems;
 	}
 
@@ -121,7 +121,7 @@ public class CommitState {
 	 * 
 	 * @param itemId item id
 	 */
-	private void addCommitedItem(CompactUUID itemId) {
+	private void addCommitedItem(UUID itemId) {
 		if (!_commitedItems.contains(itemId)) {
 			_commitedItems.add(itemId);
 			
@@ -284,7 +284,7 @@ public class CommitState {
 	 * @param itemId item id
 	 * @return true if specified item will be committed.
 	 */
-	public boolean isToCommit(CompactUUID itemId) {
+	public boolean isToCommit(UUID itemId) {
 		if (itemId == null)
 			return false;
 		
@@ -297,7 +297,7 @@ public class CommitState {
 	 * @param itemId item id
 	 * @return true if specified item has been committed without errors.
 	 */
-	public boolean isCommitted(CompactUUID itemId) {
+	public boolean isCommitted(UUID itemId) {
 		if (itemId == null)
 			return false;
 		
@@ -309,7 +309,7 @@ public class CommitState {
 	 * 
 	 * @param itemId item id
 	 */
-	public void removeItemToCommit(CompactUUID itemId) {
+	public void removeItemToCommit(UUID itemId) {
 		_toCommitItems.remove(itemId);
 	}
 	

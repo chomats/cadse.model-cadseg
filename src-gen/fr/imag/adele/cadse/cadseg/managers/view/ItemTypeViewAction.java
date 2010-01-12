@@ -173,7 +173,7 @@ public class ItemTypeViewAction extends IMenuAction {
 			for (Object so : selected) {
 				Item dest = (Item) so;
 				ItemType type = dest.getType();
-				if (type == CadseGCST.LINK) {
+				if (type == CadseGCST.LINK_TYPE) {
 					ViewManager.createViewLinkType(view, dest);
 				}
 			}
@@ -219,7 +219,7 @@ public class ItemTypeViewAction extends IMenuAction {
 
 				Item dest = l.getResolvedDestination();
 				ItemType type = dest.getType();
-				if (type == CadseGCST.ITEM_TYPE || type == CadseGCST.DATA_MODEL || type == CadseGCST.LINK) {
+				if (type == CadseGCST.ITEM_TYPE || type == CadseGCST.DATA_MODEL || type == CadseGCST.LINK_TYPE) {
 					ret.add(dest);
 				}
 			}
@@ -325,7 +325,7 @@ public class ItemTypeViewAction extends IMenuAction {
 
 			Item dest = l.getResolvedDestination();
 			ItemType type = dest.getType();
-			if (type == CadseGCST.LINK) {
+			if (type == CadseGCST.LINK_TYPE) {
 				checkedTreeUI.selectObject(dest, sel);
 			} else if (type == CadseGCST.ITEM_TYPE) {
 				checkedTreeUI.selectObject(dest, sel);
@@ -348,7 +348,7 @@ public class ItemTypeViewAction extends IMenuAction {
 			selectAnItemType(item, true);
 		} else if (item.getType() == CadseGCST.DATA_MODEL) {
 			selectAnDataModel(item, true);
-		} else if (item.getType() == CadseGCST.LINK) {
+		} else if (item.getType() == CadseGCST.LINK_TYPE) {
 			checkedTreeUI.selectObject(item.getPartParent(), true);
 		}
 	}
@@ -373,7 +373,7 @@ public class ItemTypeViewAction extends IMenuAction {
 
 			Item dest = l.getResolvedDestination();
 			ItemType type = dest.getType();
-			if (type == CadseGCST.LINK) {
+			if (type == CadseGCST.LINK_TYPE) {
 				checkedTreeUI.selectObject(dest, sel);
 			}
 		}
