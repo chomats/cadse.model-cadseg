@@ -45,7 +45,7 @@ public class JavaClassExporter extends Exporter {
 	 * @param exporterTypes
 	 *            the exporter types
 	 */
-	protected JavaClassExporter(ContentItem contentItem, Class<?>... exporterTypes) {
+	protected JavaClassExporter(ContentItem contentItem, String... exporterTypes) {
 		super(contentItem, exporterTypes);
 	}
 
