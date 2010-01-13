@@ -5,18 +5,26 @@ package fr.imag.adele.cadse.cadseg.pages;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
+import fr.imag.adele.cadse.cadseg.views.cadseg.CadsegView;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ui.GroupOfAttributesDescriptor;
 import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
+import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_IconResourceForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
@@ -86,6 +94,16 @@ public class PageInit {
 					CadseGCST.DBROWSER, UUID.randomUUID(),CadseGCST.ITEM_TYPE_lt_SUPER_TYPE,
 					"super type:", EPosLabel.left,
 					new MC_Descriptor(CadseGCST.MC_LINK), icSupertype));
+		}
+		
+		{
+			IC_Descriptor icIcon = new IC_Descriptor(CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST,
+					
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select an icon",
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Select a icon");
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icIcon, IC_IconResourceForBrowser_Combo_List.class);
+			CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(CadseGCST.DBROWSER, UUID.randomUUID(), CadseGCST.ITEM_TYPE_at_ICON_,
+				"icon",EPosLabel.left, null, icIcon));
 		}
 		
 		// create destination field (overwrite ic)
@@ -216,6 +234,67 @@ public class PageInit {
 			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
 			gattkindsLink.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
 		}
+		
+		IPage evolPage = new PageImpl(UUID.randomUUID(), "Evolution control", 
+				"Evolution control",
+				"Evolution control","Evolution control", false,
+				
+				null, 
+				CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,
+				CadseGCST.ITEM_at_REV_MODIFIED_,
+				CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
+				CadseGCST.ITEM_at_TW_VERSION_,
+				CadseGCST.ITEM_at_COMMITTED_DATE_,
+				CadseGCST.ITEM_at_COMMITTED_BY_
+				
+		);
+		List<IPage> modificationPages = Collections.singletonList(evolPage);
+		CadseGCST.ITEM.addModificationPages(modificationPages);
+		
+		// create name field ( overwrite mc)
+		UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,
+				"Modified attributes",EPosLabel.top,
+				new MC_Descriptor(CadseGCST.MC_LINK), 
+				new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST));
+		field.setEditable(false);
+		CadseGCST.ITEM.addField(field);
+		
+		field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),CadseGCST.ITEM_at_REV_MODIFIED_,
+				"Is modified",EPosLabel.none,
+				new MC_Descriptor(CadseGCST.MC_BOOLEAN), 
+				null);
+		field.setEditable(false);
+		CadseGCST.ITEM.addField(field);
+		
+		field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
+				"Next commit will create a new revision",EPosLabel.none,
+				new MC_Descriptor(CadseGCST.MC_BOOLEAN), 
+				null);
+		field.setEditable(false);
+		CadseGCST.ITEM.addField(field);
+		
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),CadseGCST.ITEM_at_TW_VERSION_,
+				"Revision number",EPosLabel.left,
+				new MC_Descriptor(CadseGCST.MC_INTEGER), 
+				null);
+		field.setEditable(false);
+		CadseGCST.ITEM.addField(field);
+		
+		
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),CadseGCST.ITEM_at_COMMITTED_DATE_,
+				"Last commit date",EPosLabel.left,
+				new MC_Descriptor(CadseGCST.MC_DATE), 
+				null);
+		field.setEditable(false);
+		CadseGCST.ITEM.addField(field);
+				
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),CadseGCST.ITEM_at_COMMITTED_BY_,
+				"Last committer",EPosLabel.left,
+				null, 
+				null);
+		field.setEditable(false);		
+		CadseGCST.ITEM.addField(field);
+		
 		
 	}
 
