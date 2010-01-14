@@ -1,4 +1,4 @@
-package fr.imag.adele.cadse.cadseg.pages.dataModel;
+package fr.imag.adele.cadse.cadseg.pages;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
