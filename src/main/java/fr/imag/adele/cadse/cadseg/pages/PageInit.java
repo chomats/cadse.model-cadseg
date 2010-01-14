@@ -2,7 +2,9 @@ package fr.imag.adele.cadse.cadseg.pages;
 
 
 
+import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.cadseg.views.cadseg.CadsegView;
@@ -318,6 +320,43 @@ public class PageInit {
 		modificationPages = Collections.singletonList((IPage)nameControl);
 		CadseGCST.ITEM_TYPE.addModificationPages(modificationPages);
 		CadseGCST.ITEM_TYPE.addCreationPages(modificationPages);
+
+                IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+                        IC_ItemTypeTemplateForText.class);
+                field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+                            CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_,
+				"Qualified name template",EPosLabel.left,
+				null,
+				ic);
+		CadseGCST.ITEM_TYPE.addField(field);
+
+                field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+                            CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_,
+				"Display name template",EPosLabel.left,
+				null,
+				null);
+		CadseGCST.ITEM_TYPE.addField(field);
+
+                field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+                            CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_,
+				"Error message while invalid name",EPosLabel.left,
+				null,
+				ic);
+		CadseGCST.ITEM_TYPE.addField(field);
+
+                MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+                CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+                        CadseDefinitionManager.ValidFieldIC.class);
+                ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+                        ValidPattern.class);
+                field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+                            CadseGCST.MANAGER_at_VALID_PATTERN_ID_,
+				"Valid name pattern",EPosLabel.left,
+				mc,
+				ic);
+		CadseGCST.ITEM_TYPE.addField(field);
 	}
 
 	

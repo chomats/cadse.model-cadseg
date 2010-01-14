@@ -300,7 +300,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	/**
 	 * The Class ValidFieldUC.
 	 */
-	public static class ValidFieldUC extends ICRunningField implements RuningInteractionController,
+	public static class ValidFieldIC extends ICRunningField implements RuningInteractionController,
 			IFieldContenProposalProvider {
 
 		/*
