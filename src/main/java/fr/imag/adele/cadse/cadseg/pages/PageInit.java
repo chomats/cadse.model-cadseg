@@ -248,6 +248,9 @@ public class PageInit {
 				CadseGCST.ITEM_at_COMMITTED_BY_
 				
 		);
+		
+		
+		// page evolution.
 		List<IPage> modificationPages = Collections.singletonList(evolPage);
 		CadseGCST.ITEM.addModificationPages(modificationPages);
 		
@@ -296,6 +299,25 @@ public class PageInit {
 		CadseGCST.ITEM.addField(field);
 		
 		
+		/***********************/
+		/** NAME CONTROL PAGE **/
+		/***********************/
+		
+		PageImpl nameControl = new PageImpl(UUID.randomUUID(), "Name control", 
+				"Name control",
+				"Name control","Name control", false,
+				null, 
+				CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_,
+				CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_,
+				CadseGCST.MANAGER_at_VALID_PATTERN_ID_,
+				CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_
+				
+		);
+		ChangeItemAction action = new ChangeItemAction(nameControl);
+		nameControl.setActionPage(action);
+		modificationPages = Collections.singletonList((IPage)nameControl);
+		CadseGCST.ITEM_TYPE.addModificationPages(modificationPages);
+		CadseGCST.ITEM_TYPE.addCreationPages(modificationPages);
 	}
 
 	
