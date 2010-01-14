@@ -14,7 +14,7 @@ public class ValidPattern extends MC_AttributesItem {
 		try {
 			Pattern.compile((String) value);
 		} catch (PatternSyntaxException e) {
-			setMessageError(getUIField().getAttributeName() + ":" + e.getMessage());
+			_uiPlatform.setMessageError(getUIField().getAttributeDefinition().getName() + ":" + e.getMessage());
 		}
 
 		return super.validValue(field, value);
@@ -25,7 +25,8 @@ public class ValidPattern extends MC_AttributesItem {
 		try {
 			Pattern.compile((String) visualValue);
 		} catch (PatternSyntaxException e) {
-			setMessageError(getUIField().getAttributeName() + ":" + e.getMessage());
+			_uiPlatform.setMessageError(
+                                getUIField().getAttributeDefinition().getName() + ":" + e.getMessage());
 		}
 		return super.validValueChanged(field, visualValue);
 	}
