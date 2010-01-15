@@ -117,7 +117,7 @@ public class JavaJarFileContentModelManager extends ContentItemTypeManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public MyContentItem createContentItem(UUID id) throws CadseException {
+	public MyContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new MyContentItem(id);
 	}
 

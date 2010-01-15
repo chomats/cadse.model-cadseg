@@ -163,7 +163,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 				sb.newline().append("	@generated");
 				sb.newline().append("*/");
 				sb.newline().append("@Override");
-				sb.newline().append("public ContentItem createContentItem(UUID id ").append(
+				sb.newline().append("public ContentItem createContentItem(UUID id, Item owerItem ").append(
 						") throws CadseException {");
 				/* 1 */sb.begin();
 				GenContext newcontext = new GenContext(context);
@@ -181,13 +181,13 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 
 				sb.newline().append(");");
 				/* 2 */sb.end();
-				sb.newline().append("cm.setComposers(");
+				sb.newline().append("owerItem.setComposers(");
 				/* 2 */sb.begin();
 				generateComposersParts(getOwnerItem(), sb, type, "composers", imports, newcontext);
 				sb.decrementLength();
 				/* 2 */sb.end();
 				sb.newline().append(");");
-				sb.newline().append("cm.setExporters(");
+				sb.newline().append("owerItem.setExporters(");
 				/* 2 */sb.begin();
 				generateExportersParts(getOwnerItem(), sb, type, "exporters", imports, newcontext);
 				sb.decrementLength();
@@ -196,10 +196,11 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 				sb.newline().append("return cm;");
 				/* 1 */sb.end();
 				sb.newline().append("}").newline();
-				imports.add("fr.imag.adele.cadse.core.ContentItem");
-				imports.add("fr.imag.adele.cadse.core.UUID");
+				imports.add("fr.imag.adele.cadse.core.content.ContentItem");
+				imports.add("java.util.UUID");
 				imports.add("fr.imag.adele.cadse.core.Item");
 				imports.add("fr.imag.adele.cadse.core.var.Variable");
+				imports.add("fr.imag.adele.cadse.core.var.ContextVariable");
 				imports.add("fr.imag.adele.cadse.core.CadseException");
 				imports.add(defaultQualifiedClassName.getCanonicalName());
 
@@ -459,6 +460,8 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 			imports.add("fr.imag.adele.cadse.core.var");
 			imports.add("fr.imag.adele.cadse.core.impl.var");
 			imports.add("fr.imag.adele.cadse.core.impl");
+			imports.add("fr.imag.adele.cadse.core.content");
+			imports.add("fr.imag.adele.cadse.util");
 		}
 
 		/*
@@ -584,7 +587,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new ContentItemTypeManager.MyContentItem(id);
 	}
 

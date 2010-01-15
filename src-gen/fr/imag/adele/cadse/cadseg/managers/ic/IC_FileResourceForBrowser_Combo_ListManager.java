@@ -212,7 +212,7 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new MyContentItem(id);
 	}
 

@@ -132,7 +132,7 @@ public class DListManager extends DisplayManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new MyContentItem(id);
 	}
 
