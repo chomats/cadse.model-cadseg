@@ -89,7 +89,7 @@ public class MC_DestLinkManager extends MC_LinkManager {
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(UUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem ) throws CadseException {
 		MC_DestLinkContent cm = new MC_DestLinkContent(
 			id
 			);

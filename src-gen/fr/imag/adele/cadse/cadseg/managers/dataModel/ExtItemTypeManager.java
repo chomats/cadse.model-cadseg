@@ -232,7 +232,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	/**
 	*/
 	@Override
-	public ContentItem createContentItem(UUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem ) throws CadseException {
 		ExtItemTypeContent cm = new ExtItemTypeContent(
 			id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE
 			);

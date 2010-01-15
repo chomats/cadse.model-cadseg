@@ -439,7 +439,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new DisplayContent(id);
 	}
 

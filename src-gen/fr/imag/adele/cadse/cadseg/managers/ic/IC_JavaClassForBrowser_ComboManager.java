@@ -266,7 +266,7 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new MyContentItem(id);
 	}
 

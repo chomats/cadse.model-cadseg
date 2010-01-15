@@ -90,7 +90,7 @@ public class EclipseReExporterManager extends ExporterManager {
 	 * createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		MyContentItem cm = new MyContentItem(id);
 		cm.setComposers();
 		cm.setExporters();
