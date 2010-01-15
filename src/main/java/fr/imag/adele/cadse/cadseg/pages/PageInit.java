@@ -74,7 +74,8 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ATTRIBUTE_at_IS_LIST_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-		
+		CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_TYPE_at_AGGREGATION_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_TYPE_at_ANNOTATION_.setFlag(
@@ -437,6 +438,67 @@ public class PageInit {
 					CadseGCST.MANAGER_at_VALID_PATTERN_ID_, "Valid name pattern",
 					EPosLabel.left, mc, ic);
 			CadseGCST.ITEM_TYPE.addField(field);
+		}
+		
+		//********************************/
+		//**  EDITOR EVOLUTION FIELDS   **/
+		//********************************/
+		{
+			
+			//*****************************/
+			//** TWEVOL **/
+			//*****************************/
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_TWEVOL_,
+					"Change impact", EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
+			CadseGCST.ATTRIBUTE.addField(field);
+	
+			//***************************/
+			//** TWCOMMIT_KIND **/
+			//***************************/
+			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
+			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
+					"Conflict impact on commit", EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
+			CadseGCST.ATTRIBUTE.addField(field);
+	
+			//**********************/
+			//** TWREV_SPECIFIC **/
+			//**********************/
+			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
+					"Value is shared by all revisions", EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+			CadseGCST.ATTRIBUTE.addField(field);
+	
+			//**********************/
+			//** TWUPDATE_KIND **/
+			//**********************/
+			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
+			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_, "Conflict impact on update",
+					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
+			CadseGCST.ATTRIBUTE.addField(field);
+
+		
+			//**********************/
+			//** TWCOUPLED **/
+			//**********************/
+			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+					CadseGCST.LINK_TYPE_at_TWCOUPLED_, "Propagates evolution actions in both sides",
+					EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+			CadseGCST.LINK_TYPE.addField(field);
+
+			
+			//**********************/
+			//** TWDEST_EVOL **/
+			//**********************/
+			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
+			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.LINK_TYPE_at_TWDEST_EVOL_, "Change on dest impact",
+					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
+			CadseGCST.LINK_TYPE.addField(field);
+
 		}
 	}
 
