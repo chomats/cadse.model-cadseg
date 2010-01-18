@@ -357,7 +357,7 @@ public class PageInit {
 		/***********************/
 
 		PageImpl nameControl = new PageImpl(UUID.randomUUID(), "Name control",
-				"Name control", "Name control", "Name control", false, null,
+				"Name control", "Name control", "Name control", true, null,
 				CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_,
 				CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_,
 				CadseGCST.MANAGER_at_VALID_PATTERN_ID_,
