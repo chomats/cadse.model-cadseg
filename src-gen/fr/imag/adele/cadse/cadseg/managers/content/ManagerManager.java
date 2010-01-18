@@ -486,50 +486,50 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		}
 	}
 
-	/**
-	 * Gets the icon attribute.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * 
-	 * @return the icon attribute
-	 * 
-	 * @generated
-	 */
-	public static final String getIconAttribute(Item manager) {
-		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_ICON_, null);
-	}
+//	/**
+//	 * Gets the icon attribute.
+//	 * 
+//	 * @param manager
+//	 *            the manager
+//	 * 
+//	 * @return the icon attribute
+//	 * 
+//	 * @generated
+//	 */
+//	public static final String getIconAttribute(Item manager) {
+//		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_ICON_, null);
+//	}
+//
+//	/**
+//	 * Sets the icon attribute.
+//	 * 
+//	 * @param manager
+//	 *            the manager
+//	 * @param value
+//	 *            the value
+//	 * 
+//	 * @generated
+//	 */
+//	public static final void setIconAttribute(Item manager, String value) {
+//		try {
+//			manager.setAttribute(CadseGCST.MANAGER_at_ICON_, value);
+//		} catch (Throwable t) {
+//
+//		}
+//	}
 
-	/**
-	 * Sets the icon attribute.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * @param value
-	 *            the value
-	 * 
-	 * @generated
-	 */
-	public static final void setIconAttribute(Item manager, String value) {
-		try {
-			manager.setAttribute(CadseGCST.MANAGER_at_ICON_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * Sets the icon.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * @param value
-	 *            the value
-	 */
-	@Deprecated
-	public static final void setIcon(Item manager, String value) {
-		setIconAttribute(manager, value);
-	}
+//	/**
+//	 * Sets the icon.
+//	 * 
+//	 * @param manager
+//	 *            the manager
+//	 * @param value
+//	 *            the value
+//	 */
+//	@Deprecated
+//	public static final void setIcon(Item manager, String value) {
+//		setIconAttribute(manager, value);
+//	}
 
 	/**
 	 * Gets the valid pattern id attribute.
@@ -697,22 +697,22 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		return getHumanNameAttribute(manager);
 	}
 
-	/**
-	 * Gets the icon path.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * 
-	 * @return the icon path
-	 */
-	public static String getIconPath(Item manager) {
-		String pStr = getIconAttribute(manager);
-		if (pStr == null) {
-			return null;
-		}
-		IPath p = new Path(pStr);
-		return p.removeFirstSegments(1).makeRelative().toPortableString();
-	}
+//	/** moved to ItemTypeManager
+//	 * Gets the icon path.
+//	 * 
+//	 * @param manager
+//	 *            the manager
+//	 * 
+//	 * @return the icon path
+//	 */
+//	public static String getIconPath(Item manager) {
+//		String pStr = getIconAttribute(manager);
+//		if (pStr == null) {
+//			return null;
+//		}
+//		IPath p = new Path(pStr);
+//		return p.removeFirstSegments(1).makeRelative().toPortableString();
+//	}
 
 	// /*
 	// * (non-Javadoc)
@@ -877,7 +877,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	@Override
 	public URL getImage(Item item) {
-		String iconPath = getIconAttribute(item);
+		Item itemType = getItemType(item);
+		String iconPath = ItemTypeManager.getIconAttribute(itemType);
 		if (iconPath == null || iconPath.length() == 0) {
 			return null;
 		}

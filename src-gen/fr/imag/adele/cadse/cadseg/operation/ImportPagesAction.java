@@ -465,7 +465,7 @@ public class ImportPagesAction extends AbstractActionPage {
 		// create a link form manager to theitemtype
 		ManagerManager.setItemType(managerItem, theitemtype);
 
-		ManagerManager.setIconAttribute(managerItem, cit.getIcon());
+		ItemTypeManager.setIconAttribute(theitemtype, cit.getIcon());
 		// managerItem.setAttribute(ManagerManager.MANAGER_CLASS_ATTRIBUTE,
 		// cit.getManagerClass());
 
