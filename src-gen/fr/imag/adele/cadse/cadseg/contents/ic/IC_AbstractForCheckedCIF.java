@@ -28,7 +28,7 @@ public class IC_AbstractForCheckedCIF extends InteractionControllerCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new IC_AbstractForCheckedContent(id, _manager);
 	}
 

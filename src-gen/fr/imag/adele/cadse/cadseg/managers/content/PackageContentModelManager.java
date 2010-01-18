@@ -244,7 +244,7 @@ public class PackageContentModelManager extends FolderContentModelManager {
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentManager createContentItem(UUID id) throws CadseException {
+	public ContentManager createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new ContentManager(id);
 	}
 

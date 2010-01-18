@@ -150,7 +150,7 @@ public class ContentItemManager extends DefaultItemManager implements IItemFacto
 		}
 		ContentItem ret = null;
 		try {
-			ret = contentItemFactory.createContentItem(itemOp.getId());
+			ret = contentItemFactory.createContentItem(itemOp.getId(), null);
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -98,7 +98,7 @@ public class UIListenerManager extends DefaultItemManager {
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(UUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem ) throws CadseException {
 		UIListenerContent cm = new UIListenerContent(
 			id, NullVariable.INSTANCE, NullVariable.INSTANCE
 			);

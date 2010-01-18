@@ -72,7 +72,10 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-
+		CadseGCST.ATTRIBUTE_at_IS_LIST_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_TYPE_at_AGGREGATION_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_TYPE_at_ANNOTATION_.setFlag(
@@ -296,111 +299,207 @@ public class PageInit {
 			gattkindsLink.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
 		}
 
-		IPage evolPage = new PageImpl(UUID.randomUUID(), "Evolution control",
-				"Evolution control", "Evolution control", "Evolution control",
-				false,
+		//********************************/
+		//**      EVOLUTION PAGE        **/
+		//********************************/
+		{
+			IPage evolPage = new PageImpl(UUID.randomUUID(), "Evolution control",
+					"Evolution control", "Evolution control", "Evolution control",
+					false,
+	
+					null, CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,
+					CadseGCST.ITEM_at_REV_MODIFIED_,
+					CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
+					CadseGCST.ITEM_at_TW_VERSION_,
+					CadseGCST.ITEM_at_COMMITTED_DATE_,
+					CadseGCST.ITEM_at_COMMITTED_BY_
+	
+			);
+	
+			List<IPage> modificationPages = Collections.singletonList(evolPage);
+			CadseGCST.ITEM.addModificationPages(modificationPages);
+	
+			// create name field ( overwrite mc)
+			//*****************************/
+			//** MODIFIED_ATTRIBUTES     **/
+			//*****************************/
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
+					CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES, "Modified attributes",
+					EPosLabel.top, new MC_Descriptor(CadseGCST.MC_LINK),
+					new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST));
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+	
+			//*****************************/
+			//** REV_MODIFIED **/
+			//*****************************/
+			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+					CadseGCST.ITEM_at_REV_MODIFIED_, "Is modified", EPosLabel.none,
+					new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+	
+			//*****************************/
+			//** REQUIRE_NEW_REV **/
+			//*****************************/
+			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+					CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
+					"Next commit will create a new revision", EPosLabel.none,
+					new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+	
+			//*****************************/
+			//** TW_VERSION **/
+			//*****************************/
+			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.ITEM_at_TW_VERSION_, "Revision number",
+					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_INTEGER), null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+	
+			//*****************************/
+			//** COMMITTED_DATE **/
+			//*****************************/
+			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.ITEM_at_COMMITTED_DATE_, "Last commit date",
+					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_DATE), null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+	
+			//*****************************/
+			//** COMMITTED_BY **/
+			//*****************************/
+			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.ITEM_at_COMMITTED_BY_, "Last committer",
+					EPosLabel.left, null, null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+		}
+		
+		//********************************/
+		//** INSTANCE NAME CONTROL PAGE **/
+		//********************************/
+		{
+			PageImpl nameControl = new PageImpl(UUID.randomUUID(), "Instance name control",
+					"Instance name control", "Instance name control", "Instance name control", false, null,
+					CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_,
+					CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_,
+					CadseGCST.MANAGER_at_VALID_PATTERN_ID_,
+					CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_
+	
+			);
+			ChangeItemAction action = new ChangeItemAction(nameControl);
+			nameControl.setActionPage(action);
+			List<IPage> modificationPages = Collections.singletonList((IPage) nameControl);
+			CadseGCST.ITEM_TYPE.addModificationPages(modificationPages);
+			CadseGCST.ITEM_TYPE.addCreationPages(modificationPages);
+	
+			//*****************************/
+			//** QUALIFIED_NAME_TEMPLATE **/
+			//*****************************/
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+					IC_ItemTypeTemplateForText.class);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_,
+					"Qualified name template", EPosLabel.left, null, ic);
+			CadseGCST.ITEM_TYPE.addField(field);
+	
+			//***************************/
+			//** DISPLAY_NAME_TEMPLATE **/
+			//***************************/
+			ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+					IC_ItemTypeTemplateForText.class);
+			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_,
+					"Display name template", EPosLabel.left, null, ic);
+			CadseGCST.ITEM_TYPE.addField(field);
+	
+			//**********************/
+			//** MESSAGE_ERROR_ID **/
+			//**********************/
+			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_,
+					"Error message while invalid name", EPosLabel.left, null, null);
+			CadseGCST.ITEM_TYPE.addField(field);
+	
+			//**********************/
+			//** VALID_PATTERN_ID **/
+			//**********************/
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+					ValidPattern.class);
+			ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+					CadseDefinitionManager.ValidFieldIC.class);
+			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.MANAGER_at_VALID_PATTERN_ID_, "Valid name pattern",
+					EPosLabel.left, mc, ic);
+			CadseGCST.ITEM_TYPE.addField(field);
+		}
+		
+		//********************************/
+		//**  EDITOR EVOLUTION FIELDS   **/
+		//********************************/
+		{
+			
+			//*****************************/
+			//** TWEVOL **/
+			//*****************************/
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_TWEVOL_,
+					"Change impact", EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
+			CadseGCST.ATTRIBUTE.addField(field);
+	
+			//***************************/
+			//** TWCOMMIT_KIND **/
+			//***************************/
+			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
+			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
+					"Conflict impact on commit", EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
+			CadseGCST.ATTRIBUTE.addField(field);
+	
+			//**********************/
+			//** TWREV_SPECIFIC **/
+			//**********************/
+			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
+					"Value is shared by all revisions", EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+			CadseGCST.ATTRIBUTE.addField(field);
+	
+			//**********************/
+			//** TWUPDATE_KIND **/
+			//**********************/
+			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
+			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_, "Conflict impact on update",
+					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
+			CadseGCST.ATTRIBUTE.addField(field);
 
-				null, CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,
-				CadseGCST.ITEM_at_REV_MODIFIED_,
-				CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
-				CadseGCST.ITEM_at_TW_VERSION_,
-				CadseGCST.ITEM_at_COMMITTED_DATE_,
-				CadseGCST.ITEM_at_COMMITTED_BY_
+		
+			//**********************/
+			//** TWCOUPLED **/
+			//**********************/
+			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+					CadseGCST.LINK_TYPE_at_TWCOUPLED_, "Propagates evolution actions in both sides",
+					EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+			CadseGCST.LINK_TYPE.addField(field);
 
-		);
+			
+			//**********************/
+			//** TWDEST_EVOL **/
+			//**********************/
+			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
+			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.LINK_TYPE_at_TWDEST_EVOL_, "Change on dest impact",
+					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
+			CadseGCST.LINK_TYPE.addField(field);
 
-		// page evolution.
-		List<IPage> modificationPages = Collections.singletonList(evolPage);
-		CadseGCST.ITEM.addModificationPages(modificationPages);
-
-		// create name field ( overwrite mc)
-		UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
-				CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES, "Modified attributes",
-				EPosLabel.top, new MC_Descriptor(CadseGCST.MC_LINK),
-				new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST));
-		field.setEditable(false);
-		CadseGCST.ITEM.addField(field);
-
-		field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
-				CadseGCST.ITEM_at_REV_MODIFIED_, "Is modified", EPosLabel.none,
-				new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
-		field.setEditable(false);
-		CadseGCST.ITEM.addField(field);
-
-		field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
-				CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
-				"Next commit will create a new revision", EPosLabel.none,
-				new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
-		field.setEditable(false);
-		CadseGCST.ITEM.addField(field);
-
-		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-				CadseGCST.ITEM_at_TW_VERSION_, "Revision number",
-				EPosLabel.left, new MC_Descriptor(CadseGCST.MC_INTEGER), null);
-		field.setEditable(false);
-		CadseGCST.ITEM.addField(field);
-
-		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-				CadseGCST.ITEM_at_COMMITTED_DATE_, "Last commit date",
-				EPosLabel.left, new MC_Descriptor(CadseGCST.MC_DATE), null);
-		field.setEditable(false);
-		CadseGCST.ITEM.addField(field);
-
-		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-				CadseGCST.ITEM_at_COMMITTED_BY_, "Last committer",
-				EPosLabel.left, null, null);
-		field.setEditable(false);
-		CadseGCST.ITEM.addField(field);
-
-		/***********************/
-		/** NAME CONTROL PAGE **/
-		/***********************/
-
-		PageImpl nameControl = new PageImpl(UUID.randomUUID(), "Name control",
-				"Name control", "Name control", "Name control", true, null,
-				CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_,
-				CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_,
-				CadseGCST.MANAGER_at_VALID_PATTERN_ID_,
-				CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_
-
-		);
-		ChangeItemAction action = new ChangeItemAction(nameControl);
-		nameControl.setActionPage(action);
-		modificationPages = Collections.singletonList((IPage) nameControl);
-		CadseGCST.ITEM_TYPE.addModificationPages(modificationPages);
-		CadseGCST.ITEM_TYPE.addCreationPages(modificationPages);
-
-		IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
-		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
-				IC_ItemTypeTemplateForText.class);
-		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-				CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_,
-				"Qualified name template", EPosLabel.left, null, ic);
-		CadseGCST.ITEM_TYPE.addField(field);
-
-		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-				CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_,
-				"Display name template", EPosLabel.left, null, null);
-		CadseGCST.ITEM_TYPE.addField(field);
-
-		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-				CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_,
-				"Error message while invalid name", EPosLabel.left, null, ic);
-		CadseGCST.ITEM_TYPE.addField(field);
-
-		//********************/
-		//* VALID_PATTERN_ID */
-		//********************/
-		MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
-		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
-				ValidPattern.class);
-		ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
-		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
-				CadseDefinitionManager.ValidFieldIC.class);
-		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-				CadseGCST.MANAGER_at_VALID_PATTERN_ID_, "Valid name pattern",
-				EPosLabel.left, mc, ic);
-		CadseGCST.ITEM_TYPE.addField(field);
+		}
 	}
 
 }

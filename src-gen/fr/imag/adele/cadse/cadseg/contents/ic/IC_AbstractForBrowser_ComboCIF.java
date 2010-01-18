@@ -72,7 +72,7 @@ public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new IC_AbstractForBrowser_ComboContent(id, _manager);
 	}
 }

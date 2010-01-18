@@ -420,7 +420,7 @@ public class FieldManager extends DefaultItemManager {
 	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) {
+	public ContentItem createContentItem(UUID id, Item owerItem) {
 		return new FieldContentManager(id);
 	}
 

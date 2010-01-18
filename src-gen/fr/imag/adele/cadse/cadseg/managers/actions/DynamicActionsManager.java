@@ -91,7 +91,7 @@ public class DynamicActionsManager extends MenuAbstractManager {
 		@generated
 	*/
 	@Override
-	public ContentItem createContentItem(UUID id ) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem ) throws CadseException {
 		DynamicActionsContent cm = new DynamicActionsContent(
 			id, NullVariable.INSTANCE, NullVariable.INSTANCE
 			);

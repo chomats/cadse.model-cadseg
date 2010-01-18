@@ -181,7 +181,7 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#createContentManager(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new MyContentItem(id);
 	}
 
