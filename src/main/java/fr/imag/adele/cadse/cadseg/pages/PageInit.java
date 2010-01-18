@@ -3,6 +3,7 @@ package fr.imag.adele.cadse.cadseg.pages;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.cadseg.views.cadseg.CadsegView;
@@ -144,7 +145,7 @@ public class PageInit {
 					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_,
 					"Select a icon");
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icIcon,
-					IC_IconResourceForBrowser_Combo_List.class);
+					IC_ItemtypeIcon.class);
 			CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(CadseGCST.DBROWSER,
 					UUID.randomUUID(), CadseGCST.ITEM_TYPE_at_ICON_, "icon",
 					EPosLabel.left, null, icIcon));
