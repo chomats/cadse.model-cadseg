@@ -31,6 +31,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
 
 public class PageInit {
+	
 	public static void init() throws CadseException {
 		// set flag must be initialized...
 		CadseGCST.CADSE_DEFINITION_lt_BUILD.setFlag(
@@ -381,8 +382,8 @@ public class PageInit {
 		//** INSTANCE NAME CONTROL PAGE **/
 		//********************************/
 		{
-			PageImpl nameControl = new PageImpl(UUID.randomUUID(), "Instance name control",
-					"Instance name control", "Instance name control", "Instance name control", true, null,
+			PageImpl nameControl = new PageImpl(UUID.randomUUID(), CADSEG_UICST.INSTANCE_NAME_CONTROL_PAGE_TITLE,
+					CADSEG_UICST.INSTANCE_NAME_CONTROL_PAGE_TITLE, CADSEG_UICST.INSTANCE_NAME_CONTROL_PAGE_TITLE, CADSEG_UICST.INSTANCE_NAME_CONTROL_PAGE_TITLE, true, null,
 					CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_,
 					CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_,
 					CadseGCST.MANAGER_at_VALID_PATTERN_ID_,
