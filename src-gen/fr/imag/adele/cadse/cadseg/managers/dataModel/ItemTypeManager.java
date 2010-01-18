@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
@@ -620,6 +623,23 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	*/
 	public static final String getIconAttribute(Item itemType) {
 		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_ICON_, null);
+	}
+	
+	/**
+	 * Gets the icon path.
+	 * 
+	 * @param manager
+	 *            the manager
+	 * 
+	 * @return the icon path
+	 */
+	public static String getIconPath(Item manager) {
+		String pStr = getIconAttribute(manager);
+		if (pStr == null) {
+			return null;
+		}
+		IPath p = new Path(pStr);
+		return p.removeFirstSegments(1).makeRelative().toPortableString();
 	}
 
 	/**

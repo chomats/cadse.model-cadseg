@@ -1,5 +1,6 @@
 package fr.imag.adele.cadse.cadseg.pages;
 
+import fede.workspace.model.manager.properties.impl.mc.StringToResourceSimpleModelController;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
@@ -146,9 +147,12 @@ public class PageInit {
 					"Select a icon");
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icIcon,
 					IC_ItemtypeIcon.class);
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+					StringToResourceSimpleModelController.class);
 			CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(CadseGCST.DBROWSER,
 					UUID.randomUUID(), CadseGCST.ITEM_TYPE_at_ICON_, "icon",
-					EPosLabel.left, null, icIcon));
+					EPosLabel.left, mc, icIcon));
 		}
 
 		// create destination field (overwrite ic)

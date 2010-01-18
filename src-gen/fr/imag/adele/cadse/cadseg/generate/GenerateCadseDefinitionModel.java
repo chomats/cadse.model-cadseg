@@ -579,7 +579,7 @@ public class GenerateCadseDefinitionModel {
 			cit.setDisplayName(itemType.getName());
 		}
 
-		cit.setIcon(ManagerManager.getIconPath(manager));
+		cit.setIcon(ItemTypeManager.getIconPath(itemType));
 		cit.setIsAbstract(ItemTypeManager.isIsAbstractAttribute(itemType));
 		cit.setPatternId(ManagerManager.getUniqueNameTemplate(manager));
 		String error_valid_id = notempty(ManagerManager.getMessageErrorIdAttribute(manager));
