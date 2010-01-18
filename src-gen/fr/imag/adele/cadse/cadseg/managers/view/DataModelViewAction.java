@@ -165,7 +165,7 @@ public class DataModelViewAction extends IMenuAction {
 	 * 
 	 * @see fr.imag.adele.cadse.core.IMenuAction#getImage()
 	 */
-	public URL getImage() {
+	public String getImage() {
 		return datamodel.getType().getImage();
 	}
 

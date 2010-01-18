@@ -58,8 +58,8 @@ public class MenuNewAction extends IMenuAction {
 	}
 
 	@Override
-	public URL getImage() {
-		return WSPlugin.getDefault().getImageURLFrom(this._c.getDestinationType(), null);
+	public String getImage() {
+		return WSPlugin.getDefault().getImageURIFrom(this._c.getDestinationType(), null);
 	}
 
 	@Override
