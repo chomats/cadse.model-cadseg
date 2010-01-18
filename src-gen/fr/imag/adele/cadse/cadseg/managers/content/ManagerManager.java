@@ -876,7 +876,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * .cadse.core.Item)
 	 */
 	@Override
-	public URL getImage(Item item) {
+	public String getImage(Item item) {
 		Item itemType = getItemType(item);
 		String iconPath = ItemTypeManager.getIconAttribute(itemType);
 		if (iconPath == null || iconPath.length() == 0) {
@@ -884,16 +884,10 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		}
 		IFile f = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(iconPath));
 		if (f != null && f.exists()) {
-			// URI uri = f.getLocationURI();
-			try {
-				return f.getLocation().toFile().toURL();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			return "platform:/resource/"+f.getFullPath().toPortableString();
 		}
 
-		return super.getImage(item);
+		return iconPath;
 	}
 
 	/**

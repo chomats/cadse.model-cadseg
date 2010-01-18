@@ -492,7 +492,7 @@ public class ViewItemTypeManager extends DefaultItemManager {
 		 * @see fr.imag.adele.cadse.core.IMenuAction#getImage()
 		 */
 		@Override
-		public URL getImage() {
+		public String getImage() {
 			return linktype.getType().getImage();
 		}
 

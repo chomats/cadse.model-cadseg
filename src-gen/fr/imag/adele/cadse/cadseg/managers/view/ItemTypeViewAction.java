@@ -403,7 +403,7 @@ public class ItemTypeViewAction extends IMenuAction {
 	 * @see fr.imag.adele.cadse.core.IMenuAction#getImage()
 	 */
 	@Override
-	public URL getImage() {
+	public String getImage() {
 		return itemtype.getType().getImage();
 	}
 

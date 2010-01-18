@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
+
 
 
 /**
@@ -274,11 +276,11 @@ public class CadseManager extends ItemManager {
 	}
 
 	@Override
-	public URL getImage(Item item) {
+	public String getImage(Item item) {
     	if (item == null)
     		return CadseGCST.CADSE.getImage();
 		if (((item instanceof CadseRuntime) && ((CadseRuntime) item).isExecuted()) || isExecutedAttribute(item))
-			return WSPlugin.getImageURL("Model.Workspace.CadseG", "icons/cadseruntime.png");
+			return "platform:/plugin/Model.Workspace.CadseG/icons/cadseruntime.png";
 		return CadseGCST.CADSE.getImage();
 	}
 	

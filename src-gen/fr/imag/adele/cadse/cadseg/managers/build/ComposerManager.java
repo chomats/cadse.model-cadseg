@@ -138,7 +138,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		 * @see fr.imag.adele.cadse.core.IMenuAction#getImage()
 		 */
 		@Override
-		public URL getImage() {
+		public String getImage() {
 			return CadseGCST.COMPOSER_LINK.getImage();
 		}
 
