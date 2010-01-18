@@ -407,7 +407,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	 * fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) {
+	public ContentItem createContentItem(UUID id, Item owerItem) {
 		return new PageContentManager(id);
 	}
 	

@@ -460,7 +460,7 @@ public class ExporterManager extends DefaultItemManager implements
 	 * @generated
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		ExporterContent cm = new ExporterContent(id);
 		cm.setComposers();
 		cm.setExporters();

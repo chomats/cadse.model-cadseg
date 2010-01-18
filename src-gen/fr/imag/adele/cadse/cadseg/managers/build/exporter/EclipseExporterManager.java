@@ -102,7 +102,7 @@ public class EclipseExporterManager extends ExporterManager {
 	 * @generated
 	 */
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		EclipseExporterContent cm = new EclipseExporterContent(id);
 		cm.setComposers();
 		cm.setExporters();

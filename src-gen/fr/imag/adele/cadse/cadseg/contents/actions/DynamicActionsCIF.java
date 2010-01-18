@@ -166,7 +166,7 @@ public class DynamicActionsCIF implements IContentItemFactory {
 		}
 	}
 
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		DynamicActionsContent cm = new DynamicActionsContent(id, PackageNameVariable.INSTANCE,
 				ClassNameVariable.INSTANCE);
 		cm.setComposers();

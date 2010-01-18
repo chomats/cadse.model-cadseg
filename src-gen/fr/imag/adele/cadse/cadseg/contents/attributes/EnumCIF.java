@@ -82,7 +82,7 @@ public class EnumCIF extends AttributeCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new EnumAttributeContentItem(id, _attributeManager);
 	}
 

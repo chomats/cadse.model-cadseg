@@ -3,6 +3,8 @@ package fr.imag.adele.cadse.cadseg.contents.ic;
 
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.Item;
+
 import java.util.UUID;
 import fr.imag.adele.cadse.core.content.ContentItem;
 
@@ -12,7 +14,7 @@ public class IC_AbstractForListCIF extends InteractionControllerCIF {
 	}
 
 	@Override
-	public ContentItem createContentItem(UUID id) throws CadseException {
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
 		return new IC_AbstractForListContent(id, _manager);
 	}
 
