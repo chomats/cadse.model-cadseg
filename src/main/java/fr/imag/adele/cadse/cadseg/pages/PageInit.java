@@ -339,7 +339,8 @@ public class PageInit {
 					CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
 					CadseGCST.ITEM_at_TW_VERSION_,
 					CadseGCST.ITEM_at_COMMITTED_DATE_,
-					CadseGCST.ITEM_at_COMMITTED_BY_
+					CadseGCST.ITEM_at_COMMITTED_BY_,
+					CadseGCST.ITEM_at_TWLAST_COMMENT_
 	
 			);
 	
@@ -399,6 +400,15 @@ public class PageInit {
 			//*****************************/
 			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.ITEM_at_COMMITTED_BY_, "Last committer",
+					EPosLabel.left, null, null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+			
+			//*****************************/
+			//** ITEM_at_TWLAST_COMMENT_ **/
+			//*****************************/
+			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.ITEM_at_TWLAST_COMMENT_, "Last commit comment",
 					EPosLabel.left, null, null);
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
