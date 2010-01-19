@@ -6,6 +6,7 @@ import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.cadseg.views.cadseg.CadsegView;
 import fr.imag.adele.cadse.core.CadseException;
@@ -148,8 +149,8 @@ public class PageInit {
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icIcon,
 					IC_ItemtypeIcon.class);
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
-			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
-					StringToResourceSimpleModelController.class);
+			
+			CreatedObjectManager.register(null, mc, MC_ResourceToURL.class);
 			CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(CadseGCST.DBROWSER,
 					UUID.randomUUID(), CadseGCST.ITEM_TYPE_at_ICON_, "icon",
 					EPosLabel.left, mc, icIcon));
