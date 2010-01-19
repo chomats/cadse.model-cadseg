@@ -8,8 +8,11 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 
 
 
@@ -385,6 +388,42 @@ public class ItemManager extends DefaultItemManager {
 	*/
 	static public void setContents(Item item, Item value) throws CadseException {
 		item.setOutgoingItem(CadseGCST.ITEM_lt_CONTENTS,value);
+	}
+
+	/**
+		@generated
+	*/
+	public static final boolean isIsvalidAttribute(Item item) {
+		return item.getAttributeWithDefaultValue(CadseGCST.ITEM_at_ISVALID_, true);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setIsvalidAttribute(Item item, boolean value) {
+		try {
+			item.setAttribute(CadseGCST.ITEM_at_ISVALID_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getTWLastCommentAttribute(Item item) {
+		return item.getAttributeWithDefaultValue(CadseGCST.ITEM_at_TWLAST_COMMENT_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setTWLastCommentAttribute(Item item, String value) {
+		try {
+			item.setAttribute(CadseGCST.ITEM_at_TWLAST_COMMENT_, value);
+		} catch (Throwable t) {
+
+		}
 	}
 
 }
