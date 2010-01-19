@@ -54,6 +54,7 @@ import fr.imag.adele.cadse.cadseg.fields.RegExContentProposalProvider;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
+import fr.imag.adele.cadse.cadseg.menu.ItemActionGroup;
 import fr.imag.adele.cadse.cadseg.operation.WorkspaceActionContributor;
 import fr.imag.adele.cadse.cadseg.pages.PageInit;
 import fr.imag.adele.cadse.cadseg.path.ParsePath;
@@ -396,6 +397,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
 		try {
 			PageInit.init();
+			CadseGCST.ITEM.addActionContributeur(new ItemActionGroup());
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
