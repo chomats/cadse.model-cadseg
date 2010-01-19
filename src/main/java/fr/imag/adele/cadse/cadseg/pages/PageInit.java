@@ -1,37 +1,39 @@
 package fr.imag.adele.cadse.cadseg.pages;
 
-import fede.workspace.model.manager.properties.impl.mc.StringToResourceSimpleModelController;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForTextFromManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_FILE_NAME;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_FILE_PATH;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_PROJECT_NAME;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
-import fr.imag.adele.cadse.cadseg.views.cadseg.CadsegView;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ui.GroupOfAttributesDescriptor;
 import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_IconResourceForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 
 public class PageInit {
 	
@@ -114,6 +116,24 @@ public class PageInit {
 				.setFlag(Item.CAN_BE_UNDEFINED, true);
 		CadseGCST.LINK_TYPE_lt_SOURCE.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
+		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
+		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		
+		
+		CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 
 		// create name field ( overwrite mc)
 		CadseGCST.ITEM.addField(new UIFieldImpl(CadseGCST.DTEXT, UUID
@@ -507,6 +527,87 @@ public class PageInit {
 			CadseGCST.LINK_TYPE.addField(field);
 
 		}
+		
+		//LABELS ...
+		/**
+		Page de création d'un item type */
+		//**************************/
+		//** IS_INSTANCE_ABSTRACT **/
+		//**************************/
+		UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+				CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_, "Type is abstract",
+				EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+		CadseGCST.ITEM_TYPE.addField(field);
+		
+		//**************************/
+		//**  IS_INSTANCE_HIDDEN  **/
+		//**************************/
+		field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+				CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_, "Instances are hidden",
+				EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+		CadseGCST.ITEM_TYPE.addField(field);
+		
+		/**
+		Par défaut, mettre le focus dans le champ name.
+		Pages de properties d'un item type
+		is-instance-abstract ==> is-abstract-instance
+		is-instance-hidden ==> is-hidden-instance
+		validate-name-re ==> ????????????
+		goups-of-attributes ==> gRoups-of-attributes
+		cadse ==> CADSE
+		Page de properties d'un lien
+		Item-hidden ==> hidden-item
+		item-readonly ==> readonly item
+		kind????
+		*/
+		
+		
+		
+		//**************************/
+		//**     PROJECT_NAME     **/
+		//**************************/
+		MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_PROJECT_NAME.class);
+		IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+				IC_ItemTypeTemplateForTextFromManager.class);
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_, "Project name",
+				EPosLabel.left, mc, ic);
+		CadseGCST.PROJECT_CONTENT_MODEL.addField(field);
+		
+		
+		//**************************/
+		//**      FILE_NAME       **/
+		//**************************/
+		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_FILE_NAME.class);
+		ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+				IC_ItemTypeTemplateForTextFromManager.class);
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_, "File name",
+				EPosLabel.left, mc, ic);
+		CadseGCST.FILE_CONTENT_MODEL.addField(field);
+		
+		
+		//**************************/
+		//**      FILE_PATH       **/
+		//**************************/
+		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_FILE_PATH.class);
+		ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+				IC_ItemTypeTemplateForTextFromManager.class);
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_, "File path",
+				EPosLabel.left, mc, ic);
+		CadseGCST.FILE_CONTENT_MODEL.addField(field);
+
 	}
 
 }
+
