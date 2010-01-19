@@ -18,22 +18,34 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.mc;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
 
+import org.eclipse.core.internal.boot.PlatformURLHandler;
+import org.eclipse.core.internal.utils.Messages;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.osgi.util.NLS;
 
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 public class MC_ResourceToURL extends MC_AttributesItem {
 
+	public static final String RESOURCE = "resource"; //$NON-NLS-1$
+	public static final String RESOURCE_URL_STRING = PlatformURLHandler.PROTOCOL + PlatformURLHandler.PROTOCOL_SEPARATOR + '/' + RESOURCE + '/';
+	
+	
 	public MC_ResourceToURL() {
 		super();
 	}
@@ -64,27 +76,53 @@ public class MC_ResourceToURL extends MC_AttributesItem {
 		if (rString == null) {
 			return null;
 		}
-		URI r = URI.create(rString);
+		if (rString.startsWith(RESOURCE_URL_STRING)) {
+			try {
+				return get(new URL(rString));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		
-		return root.findMember(new Path(r.getPath()));
+		return root.findMember(new Path(rString));
 
 	}
 
+	IResource get(URL url) throws IOException {
+		String filePath = url.getFile().trim();
+		filePath = URLDecoder.decode(filePath, "UTF-8"); //$NON-NLS-1$
+		IPath spec = new Path(filePath).makeRelative();
+		if (!spec.segment(0).equals(RESOURCE))
+			throw new IOException(NLS.bind(Messages.url_badVariant, url));
+		int count = spec.segmentCount();
+		// if there is only one segment then we are talking about the workspace root.
+		if (count == 1)
+			return ResourcesPlugin.getWorkspace().getRoot();
+		// if there are two segments then the second is a project name.
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(spec.segment(1));
+		
+		IResource resource = null;
+		if (count == 2) {
+			resource = project;
+		} else {
+			spec = spec.removeFirstSegments(2);
+			resource = project.getFile(spec);
+		}
+		return resource;
+	}
+	
 	protected Object visualToAbstractValue(Object value) {
 		if (value == null) {
 			return null;
 		}
 		if (value instanceof IResource) {
 			IResource r = (IResource) value;
-
-			try {
-				return r.getLocationURI().toURL().toString();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return r.getFullPath().toPortableString();
+			return RESOURCE_URL_STRING+r.getFullPath().makeRelative().toPortableString();
 		}
 		return value.toString();
 	}
