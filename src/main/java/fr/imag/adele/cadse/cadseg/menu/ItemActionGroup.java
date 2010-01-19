@@ -649,13 +649,13 @@ public class ItemActionGroup implements IActionContributor {
 			if (cxtItem != null) {
 				Menu newmenu = computeNewMenu(workbenchWindow, cxtItem, viewUIController);
 				if (newmenu != null) {
-					menu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, true);
+					menu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, false);
 				}
 			}
 		} else if (selection.length == 0) {
 			Menu newmenu = computeNewMenu(workbenchWindow, null, viewUIController);
 			if (newmenu != null) {
-				menu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, true);
+				menu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, false);
 			}
 		}
 
