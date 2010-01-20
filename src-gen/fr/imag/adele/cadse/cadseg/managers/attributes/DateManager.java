@@ -30,6 +30,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.attribute.DateAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -100,7 +101,7 @@ public class DateManager extends AttributeManager {
 	
 	@Override
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
-			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
 		DateAttributeType ret = new DateAttributeType(initModel.getUUID(type.getId()), initModel.getFlag(type), type
 				.getKey(), type.getValue());
 		return ret;
