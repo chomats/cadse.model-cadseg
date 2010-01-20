@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.attribute.BooleanAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -110,7 +111,7 @@ public class BooleanManager extends AttributeManager implements IItemManager, IM
 	
 	@Override
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
-			ItemType parent, CValuesType type, String cadseName) {
+			TypeDefinition parent, CValuesType type, String cadseName) {
 		BooleanAttributeType ret = new BooleanAttributeType(initModel.getUUID(type.getId()), initModel.getFlag(type),
 				type.getKey(), type.getValue());
 		return ret;

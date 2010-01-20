@@ -42,6 +42,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.ListAttributeType;
 import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
@@ -793,8 +794,9 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 *      fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType,
 	 *      java.lang.String)
 	 */
+	@Override
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
-			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
 		return null;
 	}
 
@@ -807,6 +809,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 *      fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType,
 	 *      fr.imag.adele.cadse.core.Item)
 	 */
+	@Override
 	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
 			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
 		cvt.setMin(cadsegManager.isCadseRootRequireAttribute(attribute) ? 1 : 0);

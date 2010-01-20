@@ -42,6 +42,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
@@ -349,7 +350,7 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	
 	@Override
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
-			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
 		String enumTypeName = type.getTypeName();
 		if (type.getElement().size() == 1) {
 			CValuesType clazzElement = type.getElement().get(0);

@@ -31,6 +31,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.util.Convert;
@@ -174,7 +175,7 @@ public class StringManager extends AttributeManager implements IItemManager, IMo
 
 	@Override
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
-			ItemType parent, CValuesType type, String cadseName) throws CadseException {
+			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
 		StringAttributeType ret = new fr.imag.adele.cadse.core.impl.attribute.StringAttributeType(initModel.getUUID(type.getId()), initModel.getFlag(type),
 				type.getKey(), type.getValue());
 		return ret;
