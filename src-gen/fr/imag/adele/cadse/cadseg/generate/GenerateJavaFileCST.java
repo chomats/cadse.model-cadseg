@@ -87,11 +87,11 @@ public class GenerateJavaFileCST extends GenerateClass {
 			generateAttributesForItemTypeCST(sb, itemType, imports);
 		}
 
-		Item[] extItemTypes = ItemTypeManager.getAllExtItemType(theDataModel);
-		Arrays.sort(extItemTypes, new ItemShortNameComparator());
-		for (Item extIt : extItemTypes) {
-			generateAttributesForItemTypeCST(sb, extIt, imports);
-		}
+//		Item[] extItemTypes = ItemTypeManager.getAllExtItemType(theDataModel);
+//		Arrays.sort(extItemTypes, new ItemShortNameComparator());
+//		for (Item extIt : extItemTypes) {
+//			generateAttributesForItemTypeCST(sb, extIt, imports);
+//		}
 	}
 
 	/**
