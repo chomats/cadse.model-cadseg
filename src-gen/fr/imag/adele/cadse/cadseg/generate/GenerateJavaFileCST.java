@@ -71,12 +71,17 @@ public class GenerateJavaFileCST extends GenerateClass {
 		Item[] itemTypes = ItemTypeManager.getAllItemType(theDataModel);
 		Arrays.sort(itemTypes, new ItemShortNameComparator());
 		imports.add("fr.imag.adele.cadse.core.ItemType");
+		imports.add("fr.imag.adele.cadse.core.ExtendedType");
 		imports.add("fr.imag.adele.cadse.core.LinkType");
 
 		for (Item itemType : itemTypes) {
-			if (itemType.getType()== CadseGCST.EXT_ITEM_TYPE) continue;
 			sb.appendGeneratedTag();
-			sb.newline().append("public static ItemType ");
+			sb.newline().append("public static ");
+			if (itemType.getType()== CadseGCST.EXT_ITEM_TYPE) {
+				sb.append("ExtendedType ");;
+			}
+			else
+				sb.append("ItemType ");
 			sb.append(GenerateJavaIdentifier.cstItemType(context, itemType)).append(";");
 
 			generateAttributesForItemTypeCST(sb, itemType, imports);
