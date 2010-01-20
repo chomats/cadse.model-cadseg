@@ -545,7 +545,7 @@ public class PageInit {
 		//** IS_INSTANCE_ABSTRACT **/
 		//**************************/
 		UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
-				CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_, "Type is abstract",
+				CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_, "Is abstract",
 				EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
 		CadseGCST.ITEM_TYPE.addField(field);
 		
