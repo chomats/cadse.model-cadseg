@@ -407,12 +407,12 @@ public class PageInit {
 					"advanced properties", 3);
 			CadseGCST.STRING.addGroupOfAttributes(gStringAdvancedProps);
 			gStringAdvancedProps.setOverWriteGroup(gAdvancedProps);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_FINAL_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-			gAdvancedProps.add(CadseGCST.STRING_at_NOT_EMPTY_);
+			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_FINAL_);
+			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
+			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
+			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+			gStringAdvancedProps.add(CadseGCST.STRING_at_NOT_EMPTY_);
 			
 		}
 
