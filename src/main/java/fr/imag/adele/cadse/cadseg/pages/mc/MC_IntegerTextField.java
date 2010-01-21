@@ -19,7 +19,7 @@
 /**
  *
  */
-package fr.imag.adele.cadse.cadseg.pages.attributes;
+package fr.imag.adele.cadse.cadseg.pages.mc;
 
 import java.text.MessageFormat;
 
@@ -39,7 +39,7 @@ public final class MC_IntegerTextField extends MC_AttributesItem {
 		try {
 			Integer.valueOf((String) value);
 		} catch (Exception e) {
-			setMessageError(MessageFormat.format("{0} invalid integer value for field {1}", value, getUIField()
+			_uiPlatform.setMessageError(MessageFormat.format("{0} invalid integer value for field {1}", value, getUIField()
 					.getLabel()));
 			return true;
 		}
