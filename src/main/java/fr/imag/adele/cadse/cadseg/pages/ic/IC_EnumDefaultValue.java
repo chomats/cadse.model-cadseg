@@ -18,6 +18,7 @@ import fr.imag.adele.cadse.core.ui.IEventListener;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.core.ui.UIRunningValidator;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.IFieldContenProposalProvider;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.Proposal;
@@ -27,7 +28,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.Proposal;
  */
 public final class IC_EnumDefaultValue extends ICRunningField implements
 		RuningInteractionController, IEventListener,
-		IFieldContenProposalProvider, IContentProposalProvider {
+		IFieldContenProposalProvider, IContentProposalProvider, UIRunningValidator {
 
 	/** The values. */
 	List<String> values = null;
@@ -59,8 +60,7 @@ public final class IC_EnumDefaultValue extends ICRunningField implements
 	public void notifieValueChanged(UIField field, Object value) {
 		if (field != null
 				&& value instanceof Link
-				&& CadseGCST.ENUM_lt_ENUM_TYPE.getName().equals(
-						field.getName())) {
+				&& CadseGCST.ENUM_lt_ENUM_TYPE == field.getAttributeDefinition()) {
 			Item enumType = ((Link) value).getResolvedDestination();
 			if (enumType != null) {
 				// force to recomptue values
@@ -70,8 +70,8 @@ public final class IC_EnumDefaultValue extends ICRunningField implements
 					String actuelValues = (String) _uiPlatform.getVisualValue(getUIField());
 					if (!values.contains(actuelValues)) {
 						_uiPlatform.setVisualValue(getUIField().getAttributeDefinition(), values.get(0), true);
-						_uiPlatform.setEnabled(getUIField(), true);
 					}
+					_uiPlatform.setEnabled(getUIField(), true);
 				}
 			}
 		}
@@ -199,8 +199,7 @@ public final class IC_EnumDefaultValue extends ICRunningField implements
 
 	@Override
 	public void init(UIPlatform uiPlatform) throws CadseException {
-		// TODO Auto-generated method stub
-		
+		_uiPlatform = uiPlatform;
 	}
 
 	@Override
@@ -231,5 +230,15 @@ public final class IC_EnumDefaultValue extends ICRunningField implements
 	public boolean validValueDeleted(UIField field, Object deletedValue) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Item getDescriptor() {
+		return _ic;
+	}
+
+	@Override
+	public int incrementError() {
+		return 0;
 	}
 }

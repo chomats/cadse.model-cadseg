@@ -32,18 +32,22 @@ import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
 import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.UIValidator;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_DefaultForList;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 
 public class PageInit {
 	public static void init() throws CadseException {
@@ -134,6 +138,8 @@ public class PageInit {
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		
 		CadseGCST.ENUM_lt_ENUM_TYPE.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.ENUM_TYPE_at_VALUES_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		
 		CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_.setFlag(
@@ -715,9 +721,9 @@ public class PageInit {
 		CadseGCST.FILE_CONTENT_MODEL.addField(field);
 
 		
-		//**************************/
-		//**      BOOLEAN DEFAULT VALUE       **/
-		//**************************/
+		//***************************/
+		//** BOOLEAN DEFAULT VALUE **/
+		//***************************/
 		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
 				MC_BooleanTextField.class);
@@ -732,7 +738,7 @@ public class PageInit {
 		
 		
 		//**************************/
-		//**      DOUBLE DEFAULT VALUE       **/
+		//** DOUBLE DEFAULT VALUE **/
 		//**************************/
 		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
@@ -742,9 +748,9 @@ public class PageInit {
 				EPosLabel.left, mc, null);
 		CadseGCST.DOUBLE.addField(field);
 		
-		//**************************/
-		//**      INTEGER DEFAULT VALUE       **/
-		//**************************/
+		//***************************/
+		//** INTEGER DEFAULT VALUE **/
+		//***************************/
 		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
 				MC_IntegerTextField.class);
@@ -754,7 +760,7 @@ public class PageInit {
 		CadseGCST.INTEGER.addField(field);
 		
 		//**************************/
-		//**      Long DEFAULT VALUE       **/
+		//**  LONG DEFAULT VALUE  **/
 		//**************************/
 		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
@@ -777,6 +783,7 @@ public class PageInit {
 				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "Default value",
 				EPosLabel.left, mc, ic);
 		CadseGCST.ENUM.addField(field);
+		ic.setListenAttributes(CadseGCST.ENUM_lt_ENUM_TYPE);
 		
 		
 		//**************************/
@@ -789,6 +796,18 @@ public class PageInit {
 				CadseGCST.ENUM_lt_ENUM_TYPE, "Enum type",
 				EPosLabel.left, mc, ic);
 		CadseGCST.ENUM.addField(field);
+		
+		
+		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_DefaultForList.class);
+		ic = new IC_Descriptor(CadseGCST.IC_STRING_LIST_FOR_LIST, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
+				"Enter a new value", CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Enter a new value",
+				CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, false);
+		field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
+				CadseGCST.ENUM_TYPE_at_VALUES_, "Values",
+				EPosLabel.top, mc, ic);
+		CadseGCST.ENUM_TYPE.addField(field);
 		
 		/*
 		 * /**
