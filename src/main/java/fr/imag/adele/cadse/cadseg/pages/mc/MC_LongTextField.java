@@ -19,34 +19,31 @@
 /**
  *
  */
-package fr.imag.adele.cadse.cadseg.pages.attributes;
+package fr.imag.adele.cadse.cadseg.pages.mc;
+
+import java.text.MessageFormat;
 
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
 
-public final class MC_BooleanTextField extends MC_AttributesItem {
-
+public final class MC_LongTextField extends MC_AttributesItem {
 	@Override
 	public boolean validValueChanged(UIField field, Object value) {
 		if (value == null) {
-			if (field.getAttributeDefinition() != null) {
-				Object d = field.getAttributeDefinition().getDefaultValue();
-				if (d != null) {
-					return ((Boolean) d).booleanValue();
-				}
-			}
 			return false;
 		}
 		if (value.toString().length() == 0) {
 			return false;
 		}
-		if ("true".equals(value)) {
-			return false;
+
+		try {
+			Long.valueOf((String) value);
+		} catch (Exception e) {
+			_uiPlatform.setMessageError(MessageFormat
+					.format("{0} invalid long value for field {1}", value, getUIField().getLabel()));
+			return true;
 		}
-		if ("false".equals(value)) {
-			return false;
-		}
-		setMessageError("The default value must be 'true' or 'false'");
-		return true;
+		return false;
+
 	}
 }

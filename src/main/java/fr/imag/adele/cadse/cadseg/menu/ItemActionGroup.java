@@ -267,7 +267,7 @@ public class ItemActionGroup implements IActionContributor {
 			if (im.canCreateMeItem(itemParent, lt, it) != null) {
 				return false;
 			}
-			if (lt.getSource().getItemManager().canCreateChildItem(itemParent, lt, it) != null) {
+			if (lt.getSource().isMainType() && lt.getSource().getItemManager().canCreateChildItem(itemParent, lt, it) != null) {
 				return false;
 			}
 			LogicalWorkspace cadseModel = viewUIController.getCadseModel();

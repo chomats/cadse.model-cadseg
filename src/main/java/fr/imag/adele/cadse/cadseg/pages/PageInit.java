@@ -1,17 +1,25 @@
 package fr.imag.adele.cadse.cadseg.pages;
 
-import java.util.Collections;
-import java.util.List;
+
 import java.util.UUID;
 
+
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
+import fr.imag.adele.cadse.cadseg.managers.mc.MC_BooleanManager;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_BooleanDefaultValue;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_EnumDefaultValue;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
-import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForTextFromManager;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_BooleanTextField;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_DefaultEnum;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_DoubleTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_FILE_NAME;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_FILE_PATH;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_IntegerTextField;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_LongTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_PROJECT_NAME;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
@@ -23,20 +31,21 @@ import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
-import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
 
 public class PageInit {
-	
 	public static void init() throws CadseException {
 		// set flag must be initialized...
 		CadseGCST.CADSE_DEFINITION_lt_BUILD.setFlag(
@@ -82,6 +91,9 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		
 		CadseGCST.LINK_TYPE_at_AGGREGATION_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_TYPE_at_ANNOTATION_.setFlag(
@@ -121,6 +133,8 @@ public class PageInit {
 		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		
+		CadseGCST.ENUM_lt_ENUM_TYPE.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		
 		CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
@@ -259,26 +273,7 @@ public class PageInit {
 					CadseGCST.LINK_TYPE_at_MAX_);
 			CadseGCST.LINK_TYPE.addValidators(v2);
 		}
-
-		{
-			GroupOfAttributesDescriptor gkinds = new GroupOfAttributesDescriptor(
-					"kinds", 4);
-			CadseGCST.LINK_TYPE.addGroupOfAttributes(gkinds);
-			gkinds.add(CadseGCST.LINK_TYPE_at_AGGREGATION_);
-			gkinds.add(CadseGCST.LINK_TYPE_at_ANNOTATION_);
-			gkinds.add(CadseGCST.LINK_TYPE_at_COMPOSITION_);
-			gkinds.add(CadseGCST.LINK_TYPE_at_GROUP_);
-			gkinds.add(CadseGCST.LINK_TYPE_at_MAPPING_);
-			gkinds.add(CadseGCST.LINK_TYPE_at_PART_);
-			gkinds.add(CadseGCST.LINK_TYPE_at_REQUIRE_);
-		}
-		{
-			GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor(
-					"cardinality", 2);
-			CadseGCST.LINK_TYPE.addGroupOfAttributes(gcard);
-			gcard.add(CadseGCST.LINK_TYPE_at_MIN_);
-			gcard.add(CadseGCST.LINK_TYPE_at_MAX_);
-		}
+		
 		{
 			GroupOfAttributesDescriptor gevol = new GroupOfAttributesDescriptor(
 					"evolution", 2);
@@ -300,31 +295,135 @@ public class PageInit {
 			gevolLink.add(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
 		}
 		{
-			GroupOfAttributesDescriptor gattkinds = new GroupOfAttributesDescriptor(
-					"attribute kinds", 3);
-			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gattkinds);
-			gattkinds.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
-			gattkinds.add(CadseGCST.ATTRIBUTE_at_FINAL_);
-			gattkinds.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
-			gattkinds.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
-			gattkinds.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
-			gattkinds.add(CadseGCST.ATTRIBUTE_at_NATIF_);
-			gattkinds.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
-			gattkinds.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+			//*********************************//
+			//*** BASIC GROUP FOR ATTRIBUTE ***//
+			//*********************************//
+			
+			
+			GroupOfAttributesDescriptor gBasicProps3 = new GroupOfAttributesDescriptor(
+					"basic properties", 3);
+			gBasicProps3.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
+			gBasicProps3.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
+			gBasicProps3.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
+			gBasicProps3.setHasBoxGroup(true);
+			
+			GroupOfAttributesDescriptor gBasicProps = new GroupOfAttributesDescriptor(
+					"basic properties", 1);
+			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gBasicProps);
+			gBasicProps.add(CadseGCST.ITEM_at_NAME_);
+			gBasicProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
+			gBasicProps.add(gBasicProps3);
+			gBasicProps.setHasBoxGroup(false);
+			
+			
+			GroupOfAttributesDescriptor gAdvancedProps = new GroupOfAttributesDescriptor(
+					"advanced properties", 3);
+			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gAdvancedProps);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_FINAL_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
 
+			//*********************************//
+			//***   BASIC GROUP FOR LINK    ***//
+			//*********************************//
+			
+			GroupOfAttributesDescriptor gattkindsLink3 = new GroupOfAttributesDescriptor(
+					"basic properties", 3);
+			gattkindsLink3.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
+			gattkindsLink3.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
+			
+			GroupOfAttributesDescriptor gkinds = new GroupOfAttributesDescriptor(
+					"link properties", 4);
+			gkinds.add(CadseGCST.LINK_TYPE_at_AGGREGATION_);
+			gkinds.add(CadseGCST.LINK_TYPE_at_ANNOTATION_);
+			gkinds.add(CadseGCST.LINK_TYPE_at_COMPOSITION_);
+			gkinds.add(CadseGCST.LINK_TYPE_at_GROUP_);
+			gkinds.add(CadseGCST.LINK_TYPE_at_MAPPING_);
+			gkinds.add(CadseGCST.LINK_TYPE_at_PART_);
+			gkinds.add(CadseGCST.LINK_TYPE_at_REQUIRE_);
+			
+			GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor(
+					"cardinality", 2);
+			gcard.add(CadseGCST.LINK_TYPE_at_MIN_);
+			gcard.add(CadseGCST.LINK_TYPE_at_MAX_);
+			
 			GroupOfAttributesDescriptor gattkindsLink = new GroupOfAttributesDescriptor(
-					"attribute kinds", 3);
+					"basic properties", 1);
 			CadseGCST.LINK_TYPE.addGroupOfAttributes(gattkindsLink);
-			gattkindsLink.setOverWriteGroup(gattkinds);
-			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
-			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_FINAL_);
-			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
-			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
-			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
-			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_NATIF_);
-			gattkindsLink.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-			gattkindsLink.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
+			
+			gattkindsLink.setOverWriteGroup(gBasicProps);
+			gattkindsLink.add(CadseGCST.ITEM_at_NAME_);
+			gattkindsLink.add(CadseGCST.LINK_TYPE_lt_DESTINATION);
+			gattkindsLink.add(gattkindsLink3);
+			gattkindsLink.add(gkinds);
+			gattkindsLink.add(gcard);
+			gattkindsLink.setHasBoxGroup(false);
+			
+			GroupOfAttributesDescriptor gattkindsLinkA = new GroupOfAttributesDescriptor(
+					"advanced properties", 3);
+			CadseGCST.LINK_TYPE.addGroupOfAttributes(gattkindsLinkA);
+			gattkindsLinkA.setOverWriteGroup(gAdvancedProps);
+			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_NATIF_);
+			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+			gattkindsLinkA.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
+			
+			
+			//*********************************//
+			//***   BASIC GROUP FOR ENUM    ***//
+			//*********************************//
+			
+			GroupOfAttributesDescriptor gEnumProps3 = new GroupOfAttributesDescriptor(
+					"basic properties", 3);
+			gEnumProps3.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
+			gEnumProps3.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
+			gEnumProps3.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
+			gEnumProps3.setHasBoxGroup(true);
+			
+			GroupOfAttributesDescriptor gEnumProps = new GroupOfAttributesDescriptor(
+					"basic properties", 1);
+			CadseGCST.ENUM.addGroupOfAttributes(gEnumProps);
+			gEnumProps.add(CadseGCST.ITEM_at_NAME_);
+			gEnumProps.add(CadseGCST.ENUM_lt_ENUM_TYPE);
+			gEnumProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
+			gEnumProps.add(gBasicProps3);
+			gEnumProps.setHasBoxGroup(false);
+			gEnumProps.setOverWriteGroup(gBasicProps);			
+			
+			
+			//*********************************//
+			//*** ADVANCED GROUP FOR ENUM   ***//
+			//*********************************//
+			
+			GroupOfAttributesDescriptor gStringAdvancedProps = new GroupOfAttributesDescriptor(
+					"advanced properties", 3);
+			CadseGCST.STRING.addGroupOfAttributes(gStringAdvancedProps);
+			gStringAdvancedProps.setOverWriteGroup(gAdvancedProps);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_FINAL_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+			gAdvancedProps.add(CadseGCST.STRING_at_NOT_EMPTY_);
+			
 		}
+
+		//****************/
+		//** LINK_TYPE ***/
+		//****************/
+		
+		IPage ltHiddenAttributes = new PageImpl(UUID.randomUUID(), "Hidden attributes",
+				"Hidden attributes", "Hidden attributes", "Hidden attributes",
+				false,
+
+				null);
+		ltHiddenAttributes.addHiddenAttributes(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_,
+				CadseGCST.ATTRIBUTE_at_FINAL_,
+				CadseGCST.ATTRIBUTE_at_IS_LIST_);
+		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
+		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
 
 		//********************************/
 		//**      EVOLUTION PAGE        **/
@@ -344,8 +443,7 @@ public class PageInit {
 	
 			);
 	
-			List<IPage> modificationPages = Collections.singletonList(evolPage);
-			CadseGCST.ITEM.addModificationPages(modificationPages);
+			CadseGCST.ITEM.addModificationPages(evolPage);
 	
 			// create name field ( overwrite mc)
 			//*****************************/
@@ -428,9 +526,8 @@ public class PageInit {
 			);
 			ChangeItemAction action = new ChangeItemAction(nameControl);
 			nameControl.setActionPage(action);
-			List<IPage> modificationPages = Collections.singletonList((IPage) nameControl);
-			CadseGCST.ITEM_TYPE.addModificationPages(modificationPages);
-			CadseGCST.ITEM_TYPE.addCreationPages(modificationPages);
+			CadseGCST.ITEM_TYPE.addModificationPages(nameControl);
+			CadseGCST.ITEM_TYPE.addCreationPages(nameControl);
 	
 			//*****************************/
 			//** QUALIFIED_NAME_TEMPLATE **/
@@ -617,6 +714,94 @@ public class PageInit {
 				EPosLabel.left, mc, ic);
 		CadseGCST.FILE_CONTENT_MODEL.addField(field);
 
+		
+		//**************************/
+		//**      BOOLEAN DEFAULT VALUE       **/
+		//**************************/
+		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_BooleanTextField.class);
+		ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+				IC_BooleanDefaultValue.class);
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "Default value",
+				EPosLabel.left, mc, ic);
+		CadseGCST.BOOLEAN.addField(field);
+		
+		
+		
+		//**************************/
+		//**      DOUBLE DEFAULT VALUE       **/
+		//**************************/
+		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_DoubleTextField.class);
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "Default value",
+				EPosLabel.left, mc, null);
+		CadseGCST.DOUBLE.addField(field);
+		
+		//**************************/
+		//**      INTEGER DEFAULT VALUE       **/
+		//**************************/
+		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_IntegerTextField.class);
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "Default value",
+				EPosLabel.left, mc, null);
+		CadseGCST.INTEGER.addField(field);
+		
+		//**************************/
+		//**      Long DEFAULT VALUE       **/
+		//**************************/
+		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_LongTextField.class);
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "Default value",
+				EPosLabel.left, mc, null);
+		CadseGCST.LONG.addField(field);
+		
+		//**************************/
+		//**      ENUM DEFAULT VALUE       **/
+		//**************************/
+		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_DefaultEnum.class);
+		ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+				IC_EnumDefaultValue.class);
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "Default value",
+				EPosLabel.left, mc, ic);
+		CadseGCST.ENUM.addField(field);
+		
+		
+		//**************************/
+		//**      ENUM TYPE       **/
+		//**************************/
+		mc = new MC_Descriptor(CadseGCST.MC_LINK);
+		ic = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
+				"Select a type enum", CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Select a type enum");
+		field = new UIFieldImpl(CadseGCST.DBROWSER, UUID.randomUUID(),
+				CadseGCST.ENUM_lt_ENUM_TYPE, "Enum type",
+				EPosLabel.left, mc, ic);
+		CadseGCST.ENUM.addField(field);
+		
+		/*
+		 * /**
+	 * @not generated
+	 *
+	public DBrowserUI createFieldEnumType() {
+		return new DBrowserUI(CadseGCST.ENUM_lt_ENUM_TYPE.getName(),
+				"enum type", EPosLabel.left, new LinkModelController(true,
+						null, CadseGCST.ENUM_lt_ENUM_TYPE),
+				new IC_LinkForBrowser_Combo_List("Select a type enum",
+						"Select a type enum", CadseGCST.ENUM_lt_ENUM_TYPE), 0);
+	}
+		 */
 	}
 
 }
