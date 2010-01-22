@@ -55,6 +55,12 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 public class PageInit {
 	public static void init() throws CadseException {
 		// set flag must be initialized...
+		/*
+		 * if HIDDEN_IN_COMPUTED_PAGES is true : hidden in creation page and modification.
+		 * if MUST_BE_INITIALIZED_AT_CREATION_TIME is true : show in creation page, false not
+		 * if MUST_BE_INITIALIZED_AT_CREATION_TIME is false show only in modification page (if HIDDEN_IN_COMPUTED_PAGES is false)
+		 * 
+		 */
 		CadseGCST.CADSE_DEFINITION_lt_BUILD.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION.setFlag(
@@ -158,7 +164,14 @@ public class PageInit {
 		CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 
-		// create name field ( overwrite mc)
+		//*********************************//
+		//*** FIELDS SPECIFIC ***//
+		//*********************************//
+		
+		//********************************//
+		//*** ITEM_at_NAME   ***//
+		//*********************************//// create name field ( overwrite mc)
+		//// create name field ( overwrite mc)
 		CadseGCST.ITEM.addField(new UIFieldImpl(CadseGCST.DTEXT, UUID
 				.randomUUID(), CadseGCST.ITEM_at_NAME_, "name", EPosLabel.left,
 				new MC_Descriptor(CadseGCST.MC_NAME_ATTRIBUTE), null));
@@ -181,6 +194,9 @@ public class PageInit {
 							CadseGCST.MC_LINK), icSupertype));
 		}
 
+		//********************************//
+		//*** ITEM_TYPE_at_ICON_   ***//
+		//*********************************
 		{
 			IC_Descriptor icIcon = new IC_Descriptor(
 					CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST,
@@ -269,8 +285,8 @@ public class PageInit {
 		{
 			// create a validator for attribute package name
 			JavaClassValidator v = new JavaClassValidator(null);
-			v.setClazz(JavaPackageValidator.class);
-			v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
+			v.setClazz(JavaPackageValidator.class); // class d'implementation du validateur
+			v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_); // les champs qu'il ecoute
 			CadseGCST.CADSE_DEFINITION.addValidators(v);
 		}
 
@@ -284,6 +300,7 @@ public class PageInit {
 		}
 		
 		{
+			// group evolution
 			GroupOfAttributesDescriptor gevol = new GroupOfAttributesDescriptor(
 					"evolution", 2);
 			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gevol);
@@ -614,7 +631,7 @@ public class PageInit {
 			//**********************/
 			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
 					CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
-					"Value is shared by all revisions", EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
+					"Each revision can have a different value", EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
 			CadseGCST.ATTRIBUTE.addField(field);
 	
 			//**********************/
