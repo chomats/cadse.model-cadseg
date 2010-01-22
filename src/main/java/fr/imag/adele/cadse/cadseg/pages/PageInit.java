@@ -320,6 +320,7 @@ public class PageInit {
 					"basic properties", 1);
 			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gBasicProps);
 			gBasicProps.add(CadseGCST.ITEM_at_NAME_);
+			gBasicProps.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
 			gBasicProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 			gBasicProps.add(gBasicProps3);
 			gBasicProps.setHasBoxGroup(false);
@@ -364,6 +365,7 @@ public class PageInit {
 			
 			gattkindsLink.setOverWriteGroup(gBasicProps);
 			gattkindsLink.add(CadseGCST.ITEM_at_NAME_);
+			gattkindsLink.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
 			gattkindsLink.add(CadseGCST.LINK_TYPE_lt_DESTINATION);
 			gattkindsLink.add(gattkindsLink3);
 			gattkindsLink.add(gkinds);
@@ -395,6 +397,7 @@ public class PageInit {
 					"basic properties", 1);
 			CadseGCST.ENUM.addGroupOfAttributes(gEnumProps);
 			gEnumProps.add(CadseGCST.ITEM_at_NAME_);
+			gEnumProps.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
 			gEnumProps.add(CadseGCST.ENUM_lt_ENUM_TYPE);
 			gEnumProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 			gEnumProps.add(gBasicProps3);

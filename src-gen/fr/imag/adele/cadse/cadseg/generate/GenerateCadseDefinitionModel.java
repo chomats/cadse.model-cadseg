@@ -19,13 +19,18 @@
 
 package fr.imag.adele.cadse.cadseg.generate;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
@@ -118,7 +123,7 @@ public class GenerateCadseDefinitionModel {
 			cadseref.setIdCadseDefinition(CadseDefinitionManager.getIdDef(item).toString());
 			cadse.getCadseRef().add(cadseref);
 		}
-
+		Properties labelproperties = new Properties();
 		cadse.setCstClass(packageNameCST + "." + classNameCST);
 		// name="" bundle-id="" cst-class="" id=""
 		Item theDataModel = CadseDefinitionManager.getMainDataModel(cadseDefinition);
@@ -136,7 +141,7 @@ public class GenerateCadseDefinitionModel {
 
 			cadse.getItemType().add(cit);
 			setItemType(cxt, (ItemType) itemType, manager, cit);
-			generateCommonInformation(cxt, factory, itemType, cit);
+			generateCommonInformation(cxt, factory, itemType, cit, labelproperties);
 		}
 
 		Item[] extItemTypes = ItemTypeManager.getAllExtItemType(theDataModel);
@@ -161,11 +166,20 @@ public class GenerateCadseDefinitionModel {
 				}
 			}
 
-			generateCommonInformation(cxt, factory, extIt, ceit);
+			generateCommonInformation(cxt, factory, extIt, ceit, labelproperties);
 		}
 
 		for (GenerateCadseDefinitionModelExt g : generatorsExt) {
 			g.generate(cadse);
+		}
+		IProject p = cadseDefinition.getMainMappingContent(IProject.class);
+		;
+		try {
+			labelproperties.store(
+					new FileWriter(p.getFile("model/labels.properties").getLocation().toFile()), new Date().toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return cadse;
@@ -184,11 +198,11 @@ public class GenerateCadseDefinitionModel {
 	 *            the cit
 	 */
 	private static void generateCommonInformation(ContextVariable cxt, ObjectFactory factory, Item abstractItemType,
-			CAbsItemType cit) {
+			CAbsItemType cit, Properties labelproperties) {
 		// creation page
 		//generateCreationDialog(cxt, factory, abstractItemType, cit);
 		//generateModificationDialog(cxt, factory, abstractItemType, cit);
-		generateAttributes(cxt, factory, abstractItemType, cit);
+		generateAttributes(cxt, factory, abstractItemType, cit, labelproperties);
 
 		Item menu = ActionExtItemTypeExt.getActionsModel(abstractItemType);
 		if (menu != null) {
@@ -209,7 +223,7 @@ public class GenerateCadseDefinitionModel {
 	 *            the cit
 	 */
 	private static void generateAttributes(ContextVariable cxt, ObjectFactory factory, Item abstractItemType,
-			CAbsItemType cit) {
+			CAbsItemType cit, Properties labelproperties) {
 		Collection<Item> outgoingItem = abstractItemType.getOutgoingItems(
 				CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, true);
 		Item[] attributeItems = outgoingItem.toArray(new Item[outgoingItem.size()]);
@@ -218,6 +232,7 @@ public class GenerateCadseDefinitionModel {
 			if (!attribute.isResolved()) {
 				continue;
 			}
+			labelproperties.setProperty("label."+abstractItemType.getName()+"."+attribute.getName(), attribute.getDisplayName());
 //			if (AttributeManager.isClassAttributeAttribute(attribute)) {
 //				if (AttributeManager.isLinkAttribute(attribute)) {
 //					continue;
