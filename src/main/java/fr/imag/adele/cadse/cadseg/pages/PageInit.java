@@ -314,31 +314,9 @@ public class PageInit {
 			gname.add(CadseGCST.ITEM_at_NAME_);
 			gname.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
 			gname.add(CadseGCST.ITEM_at_QUALIFIED_NAME_);
-			gname.setHasBoxGroup(true);
+			gname.setHasBoxGroup(false);
 		}
 		
-		// group evolution
-		{
-			GroupOfAttributesDescriptor gevol = new GroupOfAttributesDescriptor(
-					"evolution", 2);
-			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gevol);
-			gevol.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
-			gevol.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
-			gevol.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
-			gevol.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
-
-			GroupOfAttributesDescriptor gevolLink = new GroupOfAttributesDescriptor(
-					"evolution", 2);
-			CadseGCST.LINK_TYPE.addGroupOfAttributes(gevolLink);
-			gevolLink.setOverWriteGroup(gevol);
-			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
-			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
-			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
-			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
-			gevolLink.add(CadseGCST.LINK_TYPE_at_TWCOUPLED_);
-			gevolLink.add(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
-		}
-
 		// basic properties group
 		{
 			GroupOfAttributesDescriptor gBasicProps3 = new GroupOfAttributesDescriptor(
@@ -351,8 +329,6 @@ public class PageInit {
 			GroupOfAttributesDescriptor gBasicProps = new GroupOfAttributesDescriptor(
 					"basic properties", 1);
 			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gBasicProps);
-			gBasicProps.add(CadseGCST.ITEM_at_NAME_);
-			gBasicProps.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
 			gBasicProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 			gBasicProps.add(gBasicProps3);
 			gBasicProps.setHasBoxGroup(false);
@@ -382,8 +358,6 @@ public class PageInit {
 			GroupOfAttributesDescriptor gEnumProps = new GroupOfAttributesDescriptor(
 					"basic properties", 1);
 			CadseGCST.ENUM.addGroupOfAttributes(gEnumProps);
-			gEnumProps.add(CadseGCST.ITEM_at_NAME_);
-			gEnumProps.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
 			gEnumProps.add(CadseGCST.ENUM_lt_ENUM_TYPE);
 			gEnumProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 			gEnumProps.add(gBasicProps3);
@@ -391,7 +365,38 @@ public class PageInit {
 			gEnumProps.setOverWriteGroup(gBasicProps);			
 			
 			
+		}		
+		
+		{
+			GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor(
+					"cardinality", 2);
+			gcard.add(CadseGCST.LINK_TYPE_at_MIN_);
+			gcard.add(CadseGCST.LINK_TYPE_at_MAX_);
 		}
+		
+		// group evolution
+		{
+			GroupOfAttributesDescriptor gevol = new GroupOfAttributesDescriptor(
+					"evolution", 2);
+			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gevol);
+			gevol.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
+			gevol.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
+			gevol.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
+			gevol.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
+
+			GroupOfAttributesDescriptor gevolLink = new GroupOfAttributesDescriptor(
+					"evolution", 2);
+			CadseGCST.LINK_TYPE.addGroupOfAttributes(gevolLink);
+			gevolLink.setOverWriteGroup(gevol);
+			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
+			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
+			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
+			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
+			gevolLink.add(CadseGCST.LINK_TYPE_at_TWCOUPLED_);
+			gevolLink.add(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
+		}
+
+		
 		
 		
 		// advanced properties
@@ -424,13 +429,6 @@ public class PageInit {
 			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
 			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
 			gStringAdvancedProps.add(CadseGCST.STRING_at_NOT_EMPTY_);			
-		}
-		
-		{
-			GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor(
-					"cardinality", 2);
-			gcard.add(CadseGCST.LINK_TYPE_at_MIN_);
-			gcard.add(CadseGCST.LINK_TYPE_at_MAX_);
 		}
 
 		
