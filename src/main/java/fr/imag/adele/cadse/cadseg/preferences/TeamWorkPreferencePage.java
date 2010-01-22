@@ -23,44 +23,41 @@ import java.util.ArrayList;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+import fede.workspace.tool.view.node.AbstractCadseViewNode;
+import fede.workspace.tool.view.node.FilteredItemNode;
+import fede.workspace.tool.view.node.FilteredItemNodeModel;
+import fede.workspace.tool.view.node.FilteredItemNode.Category;
+import fr.imag.adele.cadse.cadseg.teamwork.db.DBConnexionParams;
+import fr.imag.adele.cadse.cadseg.teamwork.db.DBParamNames;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.impl.internal.ui.PagesImpl;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
-import fr.imag.adele.cadse.core.ui.AbstractUIRunningValidator;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
-import fr.imag.adele.cadse.core.ui.UIValidator;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeModel;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeModelUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.FieldsPreferencePage;
-import fede.workspace.tool.view.node.AbstractCadseViewNode;
-import fede.workspace.tool.view.node.FilteredItemNode;
-import fede.workspace.tool.view.node.FilteredItemNodeModel;
-import fede.workspace.tool.view.node.FilteredItemNode.Category;
-import fr.imag.adele.cadse.core.CadseGCST;
 
 public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWorkbenchPreferencePage {
 
 	private IPage		_page;
 
-	protected DGridUI		fieldsCadse;
+	protected DGridUI<?>		fieldsCadse;
 
-	protected DSashFormUI	fieldsShash;
+	protected DSashFormUI<?>	fieldsShash;
 
 	protected DTreeModelUI<?>	fieldExtends;
 
@@ -86,9 +83,9 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		MyMC_AttributesItem defaultMc = new MyMC_AttributesItem();
 
 		
-		DGridUI comp1 = _swtPlatform.createDGridUI(_page, "#tree", "", EPosLabel.none, defaultMc, null, fieldExtends);
+		DGridUI<?> comp1 = _swtPlatform.createDGridUI(_page, "#tree", "", EPosLabel.none, defaultMc, null, fieldExtends);
 		
-		DGridUI comp = _swtPlatform.createDGridUI(_page, "#edit", "", EPosLabel.none, defaultMc, null,
+		DGridUI<?> comp = _swtPlatform.createDGridUI(_page, "#edit", "", EPosLabel.none, defaultMc, null,
 				this.fieldDescription, this.fieldItemRepoURL, this.fieldItemRepoLogin,
 				this.fieldItemRepoPassword, this.fieldDefaultContentRepoURL);
 
@@ -103,36 +100,25 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		setController(_swtPlatform.getPages());
 	}
 
-	public DTextUI createFieldDefaultContentRepoURL() {
+	public DTextUI<?> createFieldDefaultContentRepoURL() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_DEFAULT_CONTENT_REPO_URL_, "Default Content Repository URL",
-				EPosLabel.left, new MyMC_AttributesItem(), null, 1, false, false, false, false, false, null);
+				EPosLabel.left, new DBParamsModelController(DBParamNames.DEFAULT_CONTENT_URL), null, 1, false, false, false, false, false, null);
 	}
 
-	public DTextUI createFieldItemRepoPassword() {
+	public DTextUI<?> createFieldItemRepoPassword() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_PASSWD_, "Item Repository Password", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, false, false, false, false, false, null);
+				new DBParamsModelController(DBParamNames.PASSWORD), null, 1, false, false, false, false, false, null);
 	}
 
-	public DTextUI createFieldItemRepoLogin() {
+	public DTextUI<?> createFieldItemRepoLogin() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_LOGIN_, "Item Repository Login", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, false, false, false, false, false, null);
+				new DBParamsModelController(DBParamNames.LOGIN), null, 1, false, false, false, false, false, null);
 	}
 
-	public DTextUI createFieldItemRepoURL() {
+	public DTextUI<?> createFieldItemRepoURL() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_ITEM_REPO_URL_, "Item Repository URL", EPosLabel.left,
-				new MyMC_AttributesItem(), null, 1, false, false, false, false, false, null);
+				new DBParamsModelController(DBParamNames.URL), null, 1, false, false, false, false, false, null);
 	}
-
-//	public PagesImpl createPages() {
-//		
-//		return _swtPlatform.createPages(newAction(), _page, new AbstractUIRunningValidator() {
-//			@Override
-//			public void initAfterUI() {
-//				// TODO Auto-generated method stub
-//				super.initAfterUI();
-//			}
-//		});
-//	}
 
 	private IActionPage newAction() {
 		return new MyActionPage();
@@ -159,6 +145,63 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 				return "";
 			}
 			return _ret;
+		}
+	}
+	
+	public class DBParamsModelController extends AbstractModelController {
+		
+		private DBParamNames _dbParamName;
+
+		public DBParamsModelController(DBParamNames dbParamName) {
+			_dbParamName = dbParamName;
+		}
+		
+		@Override
+		public Item getItem() {
+			return selectedItem;
+		}
+
+		@Override
+		public Object getValue() {
+			String selectedCadseName = getSelectedCadseName();
+			if (selectedCadseName == null)
+				return "";
+				
+			DBConnexionParams dbParams = DBConnexionParams.getConnectionParams(selectedCadseName);
+			if (_dbParamName == DBParamNames.URL)
+				return dbParams.getUrl();
+			if (_dbParamName == DBParamNames.LOGIN)
+				return dbParams.getLogin();
+			if (_dbParamName == DBParamNames.PASSWORD)
+				return dbParams.getPassword();
+			if (_dbParamName == DBParamNames.DEFAULT_CONTENT_URL)
+				return dbParams.getDefaultContentRepoURL();
+			
+			return null;
+		}
+
+		private String getSelectedCadseName() {
+			Item selectedItem = getItem();
+			if (selectedItem == null)
+				return null;
+			
+			return selectedItem.getName();
+		}
+
+		@Override
+		public void notifieValueChanged(UIField field, Object value) {
+			String selectedCadseName = getSelectedCadseName();
+			if (selectedCadseName == null)
+				return;
+			
+			if (_dbParamName == DBParamNames.URL)
+				DBConnexionParams.setURL(selectedCadseName, (String) value);
+			if (_dbParamName == DBParamNames.LOGIN)
+				DBConnexionParams.setLogin(selectedCadseName, (String) value);
+			if (_dbParamName == DBParamNames.PASSWORD)
+				DBConnexionParams.setPassword(selectedCadseName, (String) value);
+			if (_dbParamName == DBParamNames.DEFAULT_CONTENT_URL)
+				DBConnexionParams.setDefaultContentURL(selectedCadseName, (String) value);
 		}
 	}
 
