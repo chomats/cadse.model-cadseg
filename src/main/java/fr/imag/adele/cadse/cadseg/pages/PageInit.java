@@ -333,23 +333,14 @@ public class PageInit {
 			gSpecificPart1.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 			gBasicProperties.add(gSpecificPart1);
 			
-			// Specific part 2 : Link part
+			// Specific part 2 : check boxes
 			GroupOfAttributesDescriptor gSpecificPart2 = new GroupOfAttributesDescriptor(
 					"Basic properties", 1);
 			gSpecificPart2.setHasBoxGroup(false);
-			gSpecificPart2.add(CadseGCST.LINK_TYPE_lt_SOURCE);
-			gSpecificPart2.add(CadseGCST.LINK_TYPE_lt_DESTINATION);
-			gSpecificPart2.add(CadseGCST.LINK_TYPE_lt_INVERSE_LINK);
+			gSpecificPart2.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
+			gSpecificPart2.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
+			gSpecificPart2.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
 			gBasicProperties.add(gSpecificPart2);
-			
-			// Specific part 3 : check boxes
-			GroupOfAttributesDescriptor gSpecificPart3 = new GroupOfAttributesDescriptor(
-					"Basic properties", 1);
-			gSpecificPart3.setHasBoxGroup(false);
-			gSpecificPart3.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
-			gSpecificPart3.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
-			gSpecificPart3.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
-			gBasicProperties.add(gSpecificPart3);
 			
 			/*
 			GroupOfAttributesDescriptor gEnumProps = new GroupOfAttributesDescriptor(
@@ -370,34 +361,44 @@ public class PageInit {
 			gLinkProperties.setHasBoxGroup(true);
 			CadseGCST.LINK_TYPE.addGroupOfAttributes(gLinkProperties);
 			
-			// Part1 : flags
+			// Part1
 			GroupOfAttributesDescriptor gPart1 = new GroupOfAttributesDescriptor(
-					"Link properties", 4);
+					"Basic properties", 1);
 			gPart1.setHasBoxGroup(false);
-			gPart1.add(CadseGCST.LINK_TYPE_at_ANNOTATION_);
-			gPart1.add(CadseGCST.LINK_TYPE_at_AGGREGATION_);
-			gPart1.add(CadseGCST.LINK_TYPE_at_COMPOSITION_);
-			gPart1.add(CadseGCST.LINK_TYPE_at_PART_);
-			gPart1.add(CadseGCST.LINK_TYPE_at_REQUIRE_);
-			gPart1.add(CadseGCST.LINK_TYPE_at_MAPPING_);
-			gPart1.add(CadseGCST.LINK_TYPE_at_GROUP_);
+			gPart1.add(CadseGCST.LINK_TYPE_lt_SOURCE);
+			gPart1.add(CadseGCST.LINK_TYPE_lt_DESTINATION);
+			gPart1.add(CadseGCST.LINK_TYPE_lt_INVERSE_LINK);
 			gLinkProperties.add(gPart1);
 			
-			// Part2 : selection and link manager
+			// Part2 : flags
 			GroupOfAttributesDescriptor gPart2 = new GroupOfAttributesDescriptor(
-					"Link properties", 1);
+					"Link properties", 4);
 			gPart2.setHasBoxGroup(false);
-			gPart2.add(CadseGCST.LINK_TYPE_at_SELECTION_);
-			gPart2.add(CadseGCST.LINK_TYPE_at_LINK_MANAGER_);
+			gPart2.add(CadseGCST.LINK_TYPE_at_ANNOTATION_);
+			gPart2.add(CadseGCST.LINK_TYPE_at_AGGREGATION_);
+			gPart2.add(CadseGCST.LINK_TYPE_at_COMPOSITION_);
+			gPart2.add(CadseGCST.LINK_TYPE_at_PART_);
+			gPart2.add(CadseGCST.LINK_TYPE_at_REQUIRE_);
+			gPart2.add(CadseGCST.LINK_TYPE_at_MAPPING_);
+			gPart2.add(CadseGCST.LINK_TYPE_at_GROUP_);
+			gPart2.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
 			gLinkProperties.add(gPart2);
 			
-			// Part3 : cardinalities
+			// Part3 : selection and link manager
 			GroupOfAttributesDescriptor gPart3 = new GroupOfAttributesDescriptor(
-					"Cardinalities", 2);
-			gPart2.setHasBoxGroup(false);
-			gPart3.add(CadseGCST.LINK_TYPE_at_MIN_);
-			gPart3.add(CadseGCST.LINK_TYPE_at_MAX_);	
+					"Link properties", 1);
+			gPart3.setHasBoxGroup(false);
+			gPart3.add(CadseGCST.LINK_TYPE_at_SELECTION_);
+			gPart3.add(CadseGCST.LINK_TYPE_at_LINK_MANAGER_);
 			gLinkProperties.add(gPart3);
+			
+			// Part4 : cardinalities
+			GroupOfAttributesDescriptor gPart4 = new GroupOfAttributesDescriptor(
+					"Cardinalities", 2);
+			gPart3.setHasBoxGroup(false);
+			gPart4.add(CadseGCST.LINK_TYPE_at_MIN_);
+			gPart4.add(CadseGCST.LINK_TYPE_at_MAX_);	
+			gLinkProperties.add(gPart4);
 		}
 				
 		// group evolution
@@ -440,7 +441,6 @@ public class PageInit {
 			gLinkAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
 			gLinkAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
 			gLinkAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-			gLinkAdvancedProps.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
 			
 			GroupOfAttributesDescriptor gStringAdvancedProps = new GroupOfAttributesDescriptor(
 					"Advanced properties", 3);
@@ -464,8 +464,12 @@ public class PageInit {
 				"Hidden attributes", "Hidden attributes", "Hidden attributes",
 				false,
 				null);
-		ltHiddenAttributes.addHiddenAttributes(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_,
+		ltHiddenAttributes.addHiddenAttributes(
+				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
 				CadseGCST.ATTRIBUTE_at_FINAL_,
+				CadseGCST.ATTRIBUTE_at_NATIF_,
+				CadseGCST.ATTRIBUTE_at_REQUIRE_,
+				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_,
 				CadseGCST.ATTRIBUTE_at_IS_LIST_);
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
 		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
