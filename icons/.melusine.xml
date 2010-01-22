@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item version-file="1.6" id ="60212e5d-ab67-4179-92d1-627c339b39ec" type ="b9b58723-db90-4b40-a292-99b0b5098ccd" unique-name ="Model.Workspace.Workspace.icons" short-name ="icons" readonly ="false" open ="false" valid ="true" info ="" >
+  <attribute key="ws:private:parent-type:id" type="java.lang.String" value="resources"/>
+  <attribute key="ws:private:parent:id" type="UUID" value="d1c3c9f1-3b1f-4eb3-bbe9-6e3e9aee66b6"/>
+</item>

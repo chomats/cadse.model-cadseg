@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<p:c-views 
+xmlns:p="htt//fr.imag.adele/fede/workspace/model" 
+xmlns:xsi="htt//www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="htt//fr.imag.adele/fede/workspace/model ../../Tool.Workspace.InitModel/schema/WorkspaceModel.xsd ">
+
+<!--  -->
+	<views name="standard"/>
+</p:c-views>
