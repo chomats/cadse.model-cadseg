@@ -54,13 +54,15 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 
 public class PageInit {
 	public static void init() throws CadseException {
-		// set flag must be initialized...
-		/*
-		 * if HIDDEN_IN_COMPUTED_PAGES is true : hidden in creation page and modification.
-		 * if MUST_BE_INITIALIZED_AT_CREATION_TIME is true : show in creation page, false not
-		 * if MUST_BE_INITIALIZED_AT_CREATION_TIME is false show only in modification page (if HIDDEN_IN_COMPUTED_PAGES is false)
-		 * 
-		 */
+		
+		// **************************************************************** //
+		// Displayed attributes in creation pages and in modification pages //  
+		// **************************************************************** //
+		
+		// if HIDDEN_IN_COMPUTED_PAGES is true : hidden in creation page and modification.
+		// if MUST_BE_INITIALIZED_AT_CREATION_TIME is true : show in creation page, false not
+		// if MUST_BE_INITIALIZED_AT_CREATION_TIME is false show only in modification page (if HIDDEN_IN_COMPUTED_PAGES is false)
+		
 		CadseGCST.CADSE_DEFINITION_lt_BUILD.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION.setFlag(
@@ -71,20 +73,16 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
-
 		CadseGCST.ITEM_lt_INSTANCE_OF.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
-
 		CadseGCST.ITEM_at_NAME_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.CADSE_lt_EXTENDS.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-
 		CadseGCST.TYPE_DEFINITION_lt_CADSE.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
-
 		CadseGCST.ITEM_TYPE_lt_SUPER_TYPE.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_.setFlag(
@@ -93,7 +91,6 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-
 		CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_.setFlag(
@@ -106,7 +103,6 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-		
 		CadseGCST.LINK_TYPE_at_AGGREGATION_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_TYPE_at_ANNOTATION_.setFlag(
@@ -145,12 +141,10 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
-		
 		CadseGCST.ENUM_lt_ENUM_TYPE.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ENUM_TYPE_at_VALUES_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-		
 		CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_.setFlag(
@@ -164,18 +158,18 @@ public class PageInit {
 		CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 
-		//*********************************//
-		//*** FIELDS SPECIFIC ***//
-		//*********************************//
 		
-		//********************************//
-		//*** ITEM_at_NAME   ***//
-		//*********************************//// create name field ( overwrite mc)
-		//// create name field ( overwrite mc)
+		// ************************** //
+		// Specific fields definition //
+	 	// ************************** //
+		
+		
+		// create name field ( overwrite mc)
 		CadseGCST.ITEM.addField(new UIFieldImpl(CadseGCST.DTEXT, UUID
 				.randomUUID(), CadseGCST.ITEM_at_NAME_, "name", EPosLabel.left,
 				new MC_Descriptor(CadseGCST.MC_NAME_ATTRIBUTE), null));
 
+		
 		// create super type field (overwrite ic)
 		{
 			IC_Descriptor icSupertype = new IC_Descriptor(
@@ -194,9 +188,7 @@ public class PageInit {
 							CadseGCST.MC_LINK), icSupertype));
 		}
 
-		//********************************//
-		//*** ITEM_TYPE_at_ICON_   ***//
-		//*********************************
+		// ITEM_TYPE_at_ICON_
 		{
 			IC_Descriptor icIcon = new IC_Descriptor(
 					CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST,
@@ -234,7 +226,8 @@ public class PageInit {
 							"You must set the destination"), icDesttype));
 		}
 
-		{// create destination field (overwrite ic)
+		// create inverse link field (overwrite ic)
+		{
 			IC_Descriptor icInverseLink = new IC_Descriptor(
 					CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST,
 					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
@@ -251,6 +244,8 @@ public class PageInit {
 							CadseGCST.MC_LINK), icInverseLink));
 
 		}
+		
+		// min
 		{
 			IC_Descriptor icMin = new IC_Descriptor(
 					CadseGCST.INTERACTION_CONTROLLER);
@@ -268,6 +263,7 @@ public class PageInit {
 									CadseGCST.MC_INTEGER_at_MIN_, 0), icMin));
 		}
 
+		// max
 		{
 			IC_Descriptor icMax = new IC_Descriptor(
 					CadseGCST.INTERACTION_CONTROLLER);
@@ -275,23 +271,29 @@ public class PageInit {
 					IC_Max.class);
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_INTEGER,
 					CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_, 0,
-					CadseGCST.MC_INTEGER_at_ERROR_MSG_MIN_, "max must be > 0",
+					CadseGCST.MC_INTEGER_at_ERROR_MSG_MIN_, "max must greter than 0",
 					CadseGCST.MC_INTEGER_at_MIN_, 0);
 			CreatedObjectManager.register(null, mc, MaxModelController.class);
 			CadseGCST.LINK_TYPE.addField(new UIFieldImpl(CadseGCST.DTEXT, UUID
 					.randomUUID(), CadseGCST.LINK_TYPE_at_MAX_, "max:",
 					EPosLabel.left, mc, icMax));
 		}
+
+		
+		// ********** //
+		// Validators //
+	 	// ********** //
+		
+		// create a validator for attribute package name
 		{
-			// create a validator for attribute package name
 			JavaClassValidator v = new JavaClassValidator(null);
 			v.setClazz(JavaPackageValidator.class); // class d'implementation du validateur
 			v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_); // les champs qu'il ecoute
 			CadseGCST.CADSE_DEFINITION.addValidators(v);
 		}
 
+		// create a validator for attribute min and max value
 		{
-			// create a validator for attribute min and max value
 			JavaClassValidator v2 = new JavaClassValidator(null);
 			v2.setClazz(MinMaxValidator.class);
 			v2.setListenAttributes(CadseGCST.LINK_TYPE_at_MIN_,
@@ -299,8 +301,24 @@ public class PageInit {
 			CadseGCST.LINK_TYPE.addValidators(v2);
 		}
 		
+		
+		// ******************** //
+		// Groups of attributes //
+	 	// ******************** //
+		
+		// Group name
 		{
-			// group evolution
+			GroupOfAttributesDescriptor gname = new GroupOfAttributesDescriptor(
+					"Name", 2);
+			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gname);
+			gname.add(CadseGCST.ITEM_at_NAME_);
+			gname.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
+			gname.add(CadseGCST.ITEM_at_QUALIFIED_NAME_);
+			gname.setHasBoxGroup(true);
+		}
+		
+		// group evolution
+		{
 			GroupOfAttributesDescriptor gevol = new GroupOfAttributesDescriptor(
 					"evolution", 2);
 			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gevol);
@@ -320,12 +338,9 @@ public class PageInit {
 			gevolLink.add(CadseGCST.LINK_TYPE_at_TWCOUPLED_);
 			gevolLink.add(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
 		}
+
+		// basic properties group
 		{
-			//*********************************//
-			//*** BASIC GROUP FOR ATTRIBUTE ***//
-			//*********************************//
-			
-			
 			GroupOfAttributesDescriptor gBasicProps3 = new GroupOfAttributesDescriptor(
 					"basic properties", 3);
 			gBasicProps3.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
@@ -341,26 +356,12 @@ public class PageInit {
 			gBasicProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 			gBasicProps.add(gBasicProps3);
 			gBasicProps.setHasBoxGroup(false);
-			
-			
-			GroupOfAttributesDescriptor gAdvancedProps = new GroupOfAttributesDescriptor(
-					"advanced properties", 3);
-			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gAdvancedProps);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_FINAL_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
 
-			//*********************************//
-			//***   BASIC GROUP FOR LINK    ***//
-			//*********************************//
-			
 			GroupOfAttributesDescriptor gattkindsLink3 = new GroupOfAttributesDescriptor(
 					"basic properties", 3);
 			gattkindsLink3.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
 			gattkindsLink3.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
-			
+
 			GroupOfAttributesDescriptor gkinds = new GroupOfAttributesDescriptor(
 					"link properties", 4);
 			gkinds.add(CadseGCST.LINK_TYPE_at_AGGREGATION_);
@@ -370,39 +371,7 @@ public class PageInit {
 			gkinds.add(CadseGCST.LINK_TYPE_at_MAPPING_);
 			gkinds.add(CadseGCST.LINK_TYPE_at_PART_);
 			gkinds.add(CadseGCST.LINK_TYPE_at_REQUIRE_);
-			
-			GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor(
-					"cardinality", 2);
-			gcard.add(CadseGCST.LINK_TYPE_at_MIN_);
-			gcard.add(CadseGCST.LINK_TYPE_at_MAX_);
-			
-			GroupOfAttributesDescriptor gattkindsLink = new GroupOfAttributesDescriptor(
-					"basic properties", 1);
-			CadseGCST.LINK_TYPE.addGroupOfAttributes(gattkindsLink);
-			
-			gattkindsLink.setOverWriteGroup(gBasicProps);
-			gattkindsLink.add(CadseGCST.ITEM_at_NAME_);
-			gattkindsLink.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
-			gattkindsLink.add(CadseGCST.LINK_TYPE_lt_DESTINATION);
-			gattkindsLink.add(gattkindsLink3);
-			gattkindsLink.add(gkinds);
-			gattkindsLink.add(gcard);
-			gattkindsLink.setHasBoxGroup(false);
-			
-			GroupOfAttributesDescriptor gattkindsLinkA = new GroupOfAttributesDescriptor(
-					"advanced properties", 3);
-			CadseGCST.LINK_TYPE.addGroupOfAttributes(gattkindsLinkA);
-			gattkindsLinkA.setOverWriteGroup(gAdvancedProps);
-			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
-			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_NATIF_);
-			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-			gattkindsLinkA.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
-			
-			
-			//*********************************//
-			//***   BASIC GROUP FOR ENUM    ***//
-			//*********************************//
-			
+
 			GroupOfAttributesDescriptor gEnumProps3 = new GroupOfAttributesDescriptor(
 					"basic properties", 3);
 			gEnumProps3.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
@@ -422,9 +391,28 @@ public class PageInit {
 			gEnumProps.setOverWriteGroup(gBasicProps);			
 			
 			
-			//*********************************//
-			//*** ADVANCED GROUP FOR ENUM   ***//
-			//*********************************//
+		}
+		
+		
+		// advanced properties
+		{
+			GroupOfAttributesDescriptor gAdvancedProps = new GroupOfAttributesDescriptor(
+					"advanced properties", 3);
+			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gAdvancedProps);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_FINAL_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
+			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+
+			GroupOfAttributesDescriptor gattkindsLinkA = new GroupOfAttributesDescriptor(
+					"advanced properties", 3);
+			CadseGCST.LINK_TYPE.addGroupOfAttributes(gattkindsLinkA);
+			gattkindsLinkA.setOverWriteGroup(gAdvancedProps);
+			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_NATIF_);
+			gattkindsLinkA.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+			gattkindsLinkA.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
 			
 			GroupOfAttributesDescriptor gStringAdvancedProps = new GroupOfAttributesDescriptor(
 					"advanced properties", 3);
@@ -435,18 +423,25 @@ public class PageInit {
 			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
 			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
 			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-			gStringAdvancedProps.add(CadseGCST.STRING_at_NOT_EMPTY_);
-			
+			gStringAdvancedProps.add(CadseGCST.STRING_at_NOT_EMPTY_);			
+		}
+		
+		{
+			GroupOfAttributesDescriptor gcard = new GroupOfAttributesDescriptor(
+					"cardinality", 2);
+			gcard.add(CadseGCST.LINK_TYPE_at_MIN_);
+			gcard.add(CadseGCST.LINK_TYPE_at_MAX_);
 		}
 
-		//****************/
-		//** LINK_TYPE ***/
-		//****************/
 		
+		// ***** //
+		// Pages
+	 	// ***** //
+		
+		// Hidden page
 		IPage ltHiddenAttributes = new PageImpl(UUID.randomUUID(), "Hidden attributes",
 				"Hidden attributes", "Hidden attributes", "Hidden attributes",
 				false,
-
 				null);
 		ltHiddenAttributes.addHiddenAttributes(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_,
 				CadseGCST.ATTRIBUTE_at_FINAL_,
@@ -454,9 +449,7 @@ public class PageInit {
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
 		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
 
-		//********************************/
-		//**      EVOLUTION PAGE        **/
-		//********************************/
+		// Evolution control page
 		{
 			IPage evolPage = new PageImpl(UUID.randomUUID(), "Evolution control",
 					"Evolution control", "Evolution control", "Evolution control",
@@ -475,9 +468,7 @@ public class PageInit {
 			CadseGCST.ITEM.addModificationPages(evolPage);
 	
 			// create name field ( overwrite mc)
-			//*****************************/
-			//** MODIFIED_ATTRIBUTES     **/
-			//*****************************/
+			// Modified attributes 
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
 					CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES, "Modified attributes",
 					EPosLabel.top, new MC_Descriptor(CadseGCST.MC_LINK),
@@ -485,18 +476,14 @@ public class PageInit {
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
 	
-			//*****************************/
-			//** REV_MODIFIED **/
-			//*****************************/
+			// Rev modified
 			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
 					CadseGCST.ITEM_at_REV_MODIFIED_, "Is modified", EPosLabel.none,
 					new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
 	
-			//*****************************/
-			//** REQUIRE_NEW_REV **/
-			//*****************************/
+			// Require new rev
 			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
 					CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
 					"Next commit will create a new revision", EPosLabel.none,
@@ -504,36 +491,28 @@ public class PageInit {
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
 	
-			//*****************************/
-			//** TW_VERSION **/
-			//*****************************/
+			// TW version
 			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.ITEM_at_TW_VERSION_, "Revision number",
 					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_INTEGER), null);
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
 	
-			//*****************************/
-			//** COMMITTED_DATE **/
-			//*****************************/
+			// Commited date
 			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.ITEM_at_COMMITTED_DATE_, "Last commit date",
 					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_DATE), null);
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
 	
-			//*****************************/
-			//** COMMITTED_BY **/
-			//*****************************/
+			// commited by
 			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.ITEM_at_COMMITTED_BY_, "Last committer",
 					EPosLabel.left, null, null);
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
 			
-			//*****************************/
-			//** ITEM_at_TWLAST_COMMENT_ **/
-			//*****************************/
+			// last commit comment
 			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.ITEM_at_TWLAST_COMMENT_, "Last commit comment",
 					EPosLabel.left, null, null);
@@ -541,9 +520,7 @@ public class PageInit {
 			CadseGCST.ITEM.addField(field);
 		}
 		
-		//********************************/
-		//** INSTANCE NAME CONTROL PAGE **/
-		//********************************/
+		// Instance name control page
 		{
 			PageImpl nameControl = new PageImpl(UUID.randomUUID(), CADSEG_UICST.INSTANCE_NAME_CONTROL_PAGE_TITLE,
 					CADSEG_UICST.INSTANCE_NAME_CONTROL_PAGE_TITLE, CADSEG_UICST.INSTANCE_NAME_CONTROL_PAGE_TITLE, CADSEG_UICST.INSTANCE_NAME_CONTROL_PAGE_TITLE, true, null,
@@ -558,9 +535,7 @@ public class PageInit {
 			CadseGCST.ITEM_TYPE.addModificationPages(nameControl);
 			CadseGCST.ITEM_TYPE.addCreationPages(nameControl);
 	
-			//*****************************/
-			//** QUALIFIED_NAME_TEMPLATE **/
-			//*****************************/
+			// qualified name template
 			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
 					IC_ItemTypeTemplateForText.class);
@@ -569,9 +544,7 @@ public class PageInit {
 					"Qualified name template", EPosLabel.left, null, ic);
 			CadseGCST.ITEM_TYPE.addField(field);
 	
-			//***************************/
-			//** DISPLAY_NAME_TEMPLATE **/
-			//***************************/
+			// display name template
 			ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
 					IC_ItemTypeTemplateForText.class);
@@ -580,17 +553,13 @@ public class PageInit {
 					"Display name template", EPosLabel.left, null, ic);
 			CadseGCST.ITEM_TYPE.addField(field);
 	
-			//**********************/
-			//** MESSAGE_ERROR_ID **/
-			//**********************/
+			// message error ID
 			field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_,
 					"Error message while invalid name", EPosLabel.left, null, null);
 			CadseGCST.ITEM_TYPE.addField(field);
 	
-			//**********************/
-			//** VALID_PATTERN_ID **/
-			//**********************/
+			// Valid pattern ID
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
 					ValidPattern.class);
@@ -603,66 +572,57 @@ public class PageInit {
 			CadseGCST.ITEM_TYPE.addField(field);
 		}
 		
-		//********************************/
-		//**  EDITOR EVOLUTION FIELDS   **/
-		//********************************/
+		// Editor evolution fields
 		{
-			
-			//*****************************/
-			//** TWEVOL **/
-			//*****************************/
+			// TW Evol
 			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
 					CadseGCST.ATTRIBUTE_at_TWEVOL_,
 					"Change impact", EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
 			CadseGCST.ATTRIBUTE.addField(field);
 	
-			//***************************/
-			//** TWCOMMIT_KIND **/
-			//***************************/
+			// TW commit kind
 			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
 			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
 					CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
 					"Conflict impact on commit", EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
 			CadseGCST.ATTRIBUTE.addField(field);
 	
-			//**********************/
-			//** TWREV_SPECIFIC **/
-			//**********************/
+			// TW rev specific
 			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
 					CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
 					"Each revision can have a different value", EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
 			CadseGCST.ATTRIBUTE.addField(field);
 	
-			//**********************/
-			//** TWUPDATE_KIND **/
-			//**********************/
+			// TW update kind
 			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
 			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
 					CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_, "Conflict impact on update",
 					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
 			CadseGCST.ATTRIBUTE.addField(field);
-
 		
-			//**********************/
-			//** TWCOUPLED **/
-			//**********************/
+			// TW coupled
 			field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
 					CadseGCST.LINK_TYPE_at_TWCOUPLED_, "Propagates evolution actions in both sides",
 					EPosLabel.none, new MC_Descriptor(CadseGCST.MC_BOOLEAN), null);
 			CadseGCST.LINK_TYPE.addField(field);
 
-			
-			//**********************/
-			//** TWDEST_EVOL **/
-			//**********************/
+			// TW dest evol
 			ic = new IC_Descriptor(CadseGCST.IC_ENUM_FOR_BROWSER_COMBO);
 			field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
 					CadseGCST.LINK_TYPE_at_TWDEST_EVOL_, "Change on dest impact",
 					EPosLabel.left, new MC_Descriptor(CadseGCST.MC_ENUM), ic);
 			CadseGCST.LINK_TYPE.addField(field);
-
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		//LABELS ...
 		/**
