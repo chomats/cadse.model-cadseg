@@ -87,8 +87,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 
 		
 		DGridUI comp1 = _swtPlatform.createDGridUI(_page, "#tree", "", EPosLabel.none, defaultMc, null, fieldExtends);
-		fieldsShash.setWeight(60);
-
+		
 		DGridUI comp = _swtPlatform.createDGridUI(_page, "#edit", "", EPosLabel.none, defaultMc, null,
 				this.fieldDescription, this.fieldItemRepoURL, this.fieldItemRepoLogin,
 				this.fieldItemRepoPassword, this.fieldDefaultContentRepoURL);
@@ -96,6 +95,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		this.fieldsShash = _swtPlatform.createDSashFormUI(_page, "#sash", "", EPosLabel.none, defaultMc, null,
 				comp1, comp);
 		fieldsShash.setHorizontal(false);
+		fieldsShash.setWeight(60);
 
 		_page.addLast(fieldsShash.getAttributeDefinition());
 		registerListener();
@@ -218,7 +218,7 @@ public void doFinish(UIPlatform uiPlatform, Object monitor)
 				categoryExtendedBy = new FilteredItemNode.Category();
 				categoryExtendedBy.name = "extended by";
 
-				// on lie les deux category Ã  un instance de ce Cadseruntime
+				// on lie les deux category ˆ un instance de ce Cadseruntime
 				model.addCategories(CadseGCST.CADSE, categoryExtendsTo, categoryExtendedBy);
 				model.addItemFromLinkTypeEntry(categoryExtendsTo, CadseGCST.CADSE_lt_EXTENDS,
 						ItemShortNameComparator.INSTANCE, false, false);
@@ -252,7 +252,13 @@ public void doFinish(UIPlatform uiPlatform, Object monitor)
 			super.initAfterUI();
 			AbstractCadseViewNode[] rootNodes = getOrCreateFilteredNode().getChildren();
 			if ((rootNodes != null) && (rootNodes.length != 0)) {
-				((DTreeModelUI) getUIField()).selectNode(rootNodes[0]);
+				
+				try {
+					((DTreeModelUI) _swtPlatform.getRunningField(getUIField(), null)).selectNode(rootNodes[0]);
+				} catch (Throwable e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
