@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item version-file="1.6" id ="d1c3c9f1-3b1f-4eb3-bbe9-6e3e9aee66b6" type ="e324d840-9058-43c2-af64-ffd4e1654aa9" unique-name ="Model.Workspace.Workspace" short-name ="Workspace" readonly ="false" open ="false" valid ="true" info ="" >
+  <attribute key="#ws:private:parent-type:id" type="java.lang.String" value="models"/>
+  <attribute key="#ws:private:parent:id" type="UUID" value="c0102f93-93db-438d-9163-fa160c649519"/>
+  <link type ="libs" destination-id ="5ca8f623-883f-4a2f-9db0-0b17f5399c63" destination-unique-name ="EclipsePlugin.org.eclipse.core.resources" destination-short-name ="org.eclipse.core.resources" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="04d83e74-dd42-4675-974e-766d22b30102" destination-unique-name ="EclipsePlugin.org.eclipse.core.runtime" destination-short-name ="org.eclipse.core.runtime" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="94407082-3874-4fe2-afb8-f805b2670ac5" destination-unique-name ="EclipsePlugin.org.eclipse.emf.ecore" destination-short-name ="org.eclipse.emf.ecore" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="d7e3e7cb-54bb-40e2-9b9e-f54c90ecf57b" destination-unique-name ="EclipsePlugin.org.eclipse.pde" destination-short-name ="org.eclipse.pde" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="541d35fe-4925-4757-b485-61b927f8bda6" destination-unique-name ="EclipsePlugin.org.eclipse.pde.build" destination-short-name ="org.eclipse.pde.build" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="e3dfc532-0337-4b47-9323-bba50c8840f8" destination-unique-name ="EclipsePlugin.org.eclipse.pde.core" destination-short-name ="org.eclipse.pde.core" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="4d194f0f-5907-4cb0-9775-7ed82cbfd449" destination-unique-name ="EclipsePlugin.org.eclipse.pde.doc.user" destination-short-name ="org.eclipse.pde.doc.user" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="c85105b6-ea46-41ad-8787-8aaa6ee08a13" destination-unique-name ="EclipsePlugin.org.eclipse.pde.junit.runtime" destination-short-name ="org.eclipse.pde.junit.runtime" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="8c8ad8b6-75d1-4e00-b9fa-44e28ccd38b3" destination-unique-name ="EclipsePlugin.org.eclipse.pde.runtime" destination-short-name ="org.eclipse.pde.runtime" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="81b86e65-bdcc-44a7-99cf-ac675e81ace9" destination-unique-name ="EclipsePlugin.org.eclipse.pde.source" destination-short-name ="org.eclipse.pde.source" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="c87a427e-56f1-45ce-9068-eb54707fe06a" destination-unique-name ="EclipsePlugin.org.eclipse.pde.ui" destination-short-name ="org.eclipse.pde.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="d9484fea-1020-4580-bcec-dd37a14a1328" destination-unique-name ="EclipsePlugin.org.eclipse.ui" destination-short-name ="org.eclipse.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="packagesList" destination-id ="b0beabe0-977f-4d9b-a960-8ddd1977ad4c" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadseg.exp" destination-short-name ="fr.imag.adele.cadseg.exp" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="imports" destination-id ="86ace055-37da-4fb9-8cae-402fed5fb30c" destination-unique-name ="Model.Workspace.Workspace.adele.util.io" destination-short-name ="adele.util.io" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="851da9eb-8128-4d72-a4dd-148cee626e5e" destination-unique-name ="Model.Workspace.Workspace.com.sun.xml.bind" destination-short-name ="com.sun.xml.bind" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="01c86c81-7135-41c6-94a7-994aace672a8" destination-unique-name ="Model.Workspace.Workspace.com.sun.xml.bind.annotation" destination-short-name ="com.sun.xml.bind.annotation" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="e17ffc49-9a33-4584-b338-06a2d516cf4f" destination-unique-name ="Model.Workspace.Workspace.com.sun.xml.bind.api" destination-short-name ="com.sun.xml.bind.api" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="a3ee446d-e357-48b8-849e-094414096654" destination-unique-name ="Model.Workspace.Workspace.com.sun.xml.bind.marshaller" destination-short-name ="com.sun.xml.bind.marshaller" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="b0df6c18-90e2-4ff4-8b69-367538a46d9a" destination-unique-name ="Model.Workspace.Workspace.com.sun.xml.bind.unmarshaller" destination-short-name ="com.sun.xml.bind.unmarshaller" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="6965973d-0fc9-4d51-a3fc-463ddd982e11" destination-unique-name ="Model.Workspace.Workspace.com.sun.xml.bind.util" destination-short-name ="com.sun.xml.bind.util" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="ec4b7f44-69f3-4183-aff7-ec1e3b092aea" destination-unique-name ="Model.Workspace.Workspace.com.sun.xml.bind.v2" destination-short-name ="com.sun.xml.bind.v2" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="7dd5f78b-dedd-4473-b887-c281a6c162a8" destination-unique-name ="Model.Workspace.Workspace.fede.plugin.workspace.filters" destination-short-name ="fede.plugin.workspace.filters" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="54b416a6-1e22-41f8-a106-a23d29b238af" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.dependencies.eclipse.java" destination-short-name ="fede.workspace.dependencies.eclipse.java" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="27f3ed9b-d32a-4f69-866e-cd62f4c2c2d8" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.dependencies.eclipse.java.fix" destination-short-name ="fede.workspace.dependencies.eclipse.java.fix" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="4e7a0646-8441-4560-8214-4efea7eb1a37" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.dependencies.eclipse.java.util" destination-short-name ="fede.workspace.dependencies.eclipse.java.util" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="7c89be29-f090-408f-9354-5ff269831f0e" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.dependencies.eclipse.java.view" destination-short-name ="fede.workspace.dependencies.eclipse.java.view" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="b6a6daac-ede3-46ed-bf60-25829a755d9f" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse.composition" destination-short-name ="fede.workspace.eclipse.composition" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="ca74837d-186c-45d7-a8c2-b3c926508c8f" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse.composition.java" destination-short-name ="fede.workspace.eclipse.composition.java" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="684ee07e-4529-4f76-8a43-3b7475abd9fa" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse.content" destination-short-name ="fede.workspace.eclipse.content" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="b72c2d47-6818-48d8-812a-d0a6f10949f4" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse.java" destination-short-name ="fede.workspace.eclipse.java" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="746cf429-7306-47b5-8951-9850a7426c32" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse.java.fields" destination-short-name ="fede.workspace.eclipse.java.fields" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="259530aa-fa9e-49cd-9206-51a3f85d15ef" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse.java.manager" destination-short-name ="fede.workspace.eclipse.java.manager" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="699ae05f-6a6f-4626-9d84-605658c58711" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse.java.osgi" destination-short-name ="fede.workspace.eclipse.java.osgi" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="24f05c05-fc33-4007-a65e-8cddad321cd1" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.model.manager" destination-short-name ="fede.workspace.model.manager" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="d255e147-524d-4d14-8fde-4a025d5c9af8" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.model.manager.properties" destination-short-name ="fede.workspace.model.manager.properties" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="9ad89bd9-0274-420f-8368-ba093bc06d69" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.model.manager.properties.impl.ic" destination-short-name ="fede.workspace.model.manager.properties.impl.ic" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="d970d795-4494-421d-8ed1-7f361a92755b" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.model.manager.properties.impl.mc" destination-short-name ="fede.workspace.model.manager.properties.impl.mc" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="6505e798-2f48-4c74-ae36-3abd93f7eb27" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.model.manager.properties.impl.ui" destination-short-name ="fede.workspace.model.manager.properties.impl.ui" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="7f86f8ff-e368-4ddd-bcd3-bfd25acbe4bb" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.role.eclipse" destination-short-name ="fede.workspace.role.eclipse" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="6bb493e5-0af4-42d6-a3a5-2a14bb446fe9" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.tool.eclipse" destination-short-name ="fede.workspace.tool.eclipse" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="2f422914-6a05-4648-836b-705ec8453979" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.tool.loadmodel.model.jaxb" destination-short-name ="fede.workspace.tool.loadmodel.model.jaxb" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="42263ee7-277a-46e2-aefb-d1da68b471b0" destination-unique-name ="Model.Workspace.Workspace.javax.xml.bind" destination-short-name ="javax.xml.bind" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="1d0121bb-8164-4b1e-9ee4-28231d7bffda" destination-unique-name ="Model.Workspace.Workspace.javax.xml.bind.annotation" destination-short-name ="javax.xml.bind.annotation" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="da49412f-f4b5-457e-b68e-e5702c04ef49" destination-unique-name ="Model.Workspace.Workspace.javax.xml.stream" destination-short-name ="javax.xml.stream" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="8bdd704d-c449-4912-8119-fbbbb9c523fb" destination-unique-name ="Model.Workspace.Workspace.org.apache.log4j" destination-short-name ="org.apache.log4j" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="fc456238-75a4-4057-b9d8-7459bd4124aa" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.core.resources" destination-short-name ="org.eclipse.core.resources" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="e8ee0ab1-ed91-44f0-943c-4770b77ee964" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.core.runtime" destination-short-name ="org.eclipse.core.runtime" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="2e6c00e1-5345-49b6-969d-bb55254c92d6" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.core.runtime.jobs" destination-short-name ="org.eclipse.core.runtime.jobs" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="d16a9aeb-3489-4490-90bd-c5ec43d29822" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.emf.codegen.jet" destination-short-name ="org.eclipse.emf.codegen.jet" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="4b73b713-e018-4842-8efe-443c0c03650a" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.emf.codegen.merge.java" destination-short-name ="org.eclipse.emf.codegen.merge.java" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="ccee990b-b433-4f1a-a388-7e8c590e732b" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.emf.codegen.merge.java.facade" destination-short-name ="org.eclipse.emf.codegen.merge.java.facade" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="c8112947-bfaa-45f3-a77e-65e503ef024f" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.emf.codegen.util" destination-short-name ="org.eclipse.emf.codegen.util" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="0687976c-e6a2-4b7b-87c6-e6c76971d73b" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.emf.common.util" destination-short-name ="org.eclipse.emf.common.util" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="f5b61fff-8988-4642-928c-1d994e4069ec" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.core" destination-short-name ="org.eclipse.jdt.core" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="c9f33e0d-0d6f-4880-a5fc-037f03ae981b" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.core.search" destination-short-name ="org.eclipse.jdt.core.search" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="61202073-1c41-48fc-8935-5e9b8bf3af86" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.internal.corext.refactoring.changes" destination-short-name ="org.eclipse.jdt.internal.corext.refactoring.changes" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="18872015-ae63-4f57-8c77-b6d9455b2a40" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.internal.corext.refactoring.rename" destination-short-name ="org.eclipse.jdt.internal.corext.refactoring.rename" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="ee13c015-e002-4f25-8949-950468a567a8" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.ui" destination-short-name ="org.eclipse.jdt.ui" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="647440a1-c8e4-42b8-91a7-5c2cad9c09e7" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.ui.refactoring" destination-short-name ="org.eclipse.jdt.ui.refactoring" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="1cf62f39-cc45-4551-815e-6543cc738bc9" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.ui.text.java" destination-short-name ="org.eclipse.jdt.ui.text.java" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="a0db4a97-5238-45d0-867c-7bb029c46a73" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.fieldassist" destination-short-name ="org.eclipse.jface.fieldassist" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="fb012e53-bbac-44eb-a5dc-3c0f98fb1029" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.text" destination-short-name ="org.eclipse.jface.text" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="2907c869-4737-4804-8ccb-533a165c9639" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.text.contentassist" destination-short-name ="org.eclipse.jface.text.contentassist" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="4c712da5-2e27-4da6-be22-d3225bbea5a1" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ltk.core.refactoring" destination-short-name ="org.eclipse.ltk.core.refactoring" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="bbc775d3-b8cc-4c95-b342-5ab667bce06c" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ltk.core.refactoring.participants" destination-short-name ="org.eclipse.ltk.core.refactoring.participants" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="e22e087b-1ace-42b4-8a74-4993eb5f18e8" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.swt" destination-short-name ="org.eclipse.swt" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="f88e3f8f-5215-4124-8cf6-d3390330c61f" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ui.actions" destination-short-name ="org.eclipse.ui.actions" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="9708bb72-bf60-4844-8d05-b055208df37a" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ui.dialogs" destination-short-name ="org.eclipse.ui.dialogs" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="0d8efeac-e54d-4495-9ffc-180c488d43d8" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ui.ide" destination-short-name ="org.eclipse.ui.ide" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="175ff800-09e5-4734-a9ee-e7a2772ada79" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ui.texteditor" destination-short-name ="org.eclipse.ui.texteditor" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="b40237e7-127e-4ff6-9d31-c54af5e8442a" destination-unique-name ="Model.Workspace.Workspace.org.osgi.framework" destination-short-name ="org.osgi.framework" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="uses" destination-id ="133abb76-6f34-4056-bd03-f37954fd64ae" destination-unique-name ="SI.Workspace.Java" destination-short-name ="Java" destination-type ="625c8d99-317d-494c-87e5-7b227b351c56" >
+  </link>
+  <link type ="libs" destination-id ="df2fd934-1663-4fca-9ecf-b89216cfa249" destination-unique-name ="fr.imag.adele.packageinfo" destination-short-name ="fr.imag.adele.packageinfo" destination-type ="8e16ec5a-79a6-4c6a-8882-06329ea96ac6" >
+  </link>
+  <link type ="uses" destination-id ="c871108c-2ae6-4d49-806c-6558954377a7" destination-unique-name ="SI.Workspace.View" destination-short-name ="View" destination-type ="625c8d99-317d-494c-87e5-7b227b351c56" >
+  </link>
+  <link type ="libs" destination-id ="1211a451-1406-46d4-b82a-05b988965730" destination-unique-name ="EclipsePlugin.org.eclipse.equinox.common" destination-short-name ="org.eclipse.equinox.common" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="imports" destination-id ="6f680e6e-1fd1-459e-86a0-dbc24f1f582d" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.packageinfo" destination-short-name ="fr.imag.adele.packageinfo" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="libs" destination-id ="c3d28faa-267d-4873-8e38-447033257de1" destination-unique-name ="EclipsePlugin.org.eclipse.jface" destination-short-name ="org.eclipse.jface" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="imports" destination-id ="2512df61-e432-4f43-b1ca-ac8b917578dc" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.viewers" destination-short-name ="org.eclipse.jface.viewers" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="libs" destination-id ="fd18d5d6-c387-4cc2-82d0-8a6c7c13fbc1" destination-unique-name ="com.sun.xml.bind" destination-short-name ="com.sun.xml.bind" destination-type ="8e16ec5a-79a6-4c6a-8882-06329ea96ac6" >
+  </link>
+  <link type ="uses" destination-id ="8dd1aeaf-c16d-428e-9bf1-5dd32b2d6179" destination-unique-name ="SI.Workspace.Migration" destination-short-name ="Migration" destination-type ="7fcd0f80-2400-4c53-91c8-fdf3a2d0583f" >
+  </link>
+  <link type ="libs" destination-id ="a80cb579-7d5b-4be0-b4e5-adc6c43e2e12" destination-unique-name ="javax.xml.bind" destination-short-name ="javax.xml.bind" destination-type ="8e16ec5a-79a6-4c6a-8882-06329ea96ac6" >
+  </link>
+  <link type ="uses" destination-id ="87170129-a117-4a0b-b12e-58c71240e587" destination-unique-name ="AS.Workspace.Eclipse" destination-short-name ="Eclipse" destination-type ="86a39a1f-1472-48ee-92c2-3d04c65f435d" >
+  </link>
+  <link type ="libs" destination-id ="0e71f06e-c6d6-4ad7-8883-e4c9dde35425" destination-unique-name ="EclipsePlugin.org.eclipse.ui.console" destination-short-name ="org.eclipse.ui.console" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="15fe3de2-a2ce-44a2-b9f9-341dee71335c" destination-unique-name ="EclipsePlugin.org.eclipse.jface.text" destination-short-name ="org.eclipse.jface.text" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="ccd609b7-e8df-4a5d-a732-2bdf034e3328" destination-unique-name ="EclipsePlugin.org.eclipse.text" destination-short-name ="org.eclipse.text" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="4ce2e786-e128-4472-a2e3-0ab659562a7f" destination-unique-name ="EclipsePlugin.org.eclipse.core.commands" destination-short-name ="org.eclipse.core.commands" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="1547145d-f665-4a31-841f-15e257629320" destination-unique-name ="EclipsePlugin.org.eclipse.ui.workbench.texteditor" destination-short-name ="org.eclipse.ui.workbench.texteditor" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="d90de84b-5f3b-4ce5-8c7c-7d2b49eb8a65" destination-unique-name ="EclipsePlugin.org.eclipse.core.expressions" destination-short-name ="org.eclipse.core.expressions" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="ea86d9d4-7786-437b-93d4-a0e9426b407e" destination-unique-name ="EclipsePlugin.org.eclipse.core.variables" destination-short-name ="org.eclipse.core.variables" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="5f6f0200-0fef-4625-88bd-125b40d6b2aa" destination-unique-name ="EclipsePlugin.org.eclipse.help" destination-short-name ="org.eclipse.help" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="d7b44a30-ad52-4f39-9749-2eb5cbb88cb6" destination-unique-name ="EclipsePlugin.org.eclipse.core.filesystem" destination-short-name ="org.eclipse.core.filesystem" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="3774d487-9c67-4fe1-9819-ea223185d7b9" destination-unique-name ="EclipsePlugin.org.eclipse.equinox.registry" destination-short-name ="org.eclipse.equinox.registry" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="305a37dc-0e14-4abf-95aa-2fdf17efd96c" destination-unique-name ="EclipsePlugin.org.eclipse.osgi" destination-short-name ="org.eclipse.osgi" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="832e8fdc-8539-4dab-8451-66aa35b8e3ae" destination-unique-name ="EclipsePlugin.org.eclipse.jdt.core" destination-short-name ="org.eclipse.jdt.core" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="aadb278a-8c07-41d9-b7be-635f251ccd52" destination-unique-name ="EclipsePlugin.org.eclipse.team.core" destination-short-name ="org.eclipse.team.core" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="eeb1be1e-a3e9-49eb-b8f7-6f5d69ad0657" destination-unique-name ="EclipsePlugin.org.eclipse.search" destination-short-name ="org.eclipse.search" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="2d1569c9-a897-4bf8-86a2-b75617eed516" destination-unique-name ="EclipsePlugin.org.eclipse.core.filebuffers" destination-short-name ="org.eclipse.core.filebuffers" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="0470fb3b-32a0-42cd-86b7-12280832a412" destination-unique-name ="EclipsePlugin.org.eclipse.ui.forms" destination-short-name ="org.eclipse.ui.forms" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="34b5ffd9-1ca2-4493-82c7-bf44e8e3a4cf" destination-unique-name ="EclipsePlugin.org.eclipse.debug.core" destination-short-name ="org.eclipse.debug.core" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="79365b40-e61f-4f05-8028-2058a0f24377" destination-unique-name ="EclipsePlugin.org.eclipse.ui.editors" destination-short-name ="org.eclipse.ui.editors" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="391ba2dc-a1e0-4faa-a983-ed6dc0660e02" destination-unique-name ="EclipsePlugin.org.eclipse.jdt.launching" destination-short-name ="org.eclipse.jdt.launching" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="633fd565-492b-420c-8423-8676ae70f9b3" destination-unique-name ="EclipsePlugin.org.eclipse.jdt.debug" destination-short-name ="org.eclipse.jdt.debug" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="7db2bea6-5359-4a61-a089-889b9ce9b83c" destination-unique-name ="EclipsePlugin.org.eclipse.compare" destination-short-name ="org.eclipse.compare" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="32dc2209-6844-4e4d-8e49-32ff2e4886a0" destination-unique-name ="EclipsePlugin.org.eclipse.ui.views" destination-short-name ="org.eclipse.ui.views" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="8c96ba8d-8013-4384-ad16-f4d94c3b99f0" destination-unique-name ="EclipsePlugin.org.eclipse.team.ui" destination-short-name ="org.eclipse.team.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="2e26f4da-fef8-4a6a-98a3-5279e5f935ff" destination-unique-name ="EclipsePlugin.org.eclipse.ui.navigator" destination-short-name ="org.eclipse.ui.navigator" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="0650486c-cab6-4527-a816-6f9f1f0f141d" destination-unique-name ="EclipsePlugin.org.eclipse.ui.workbench" destination-short-name ="org.eclipse.ui.workbench" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="cabd14ce-4c4c-47ca-9548-e5bb4fcb6b13" destination-unique-name ="EclipsePlugin.org.eclipse.swt" destination-short-name ="org.eclipse.swt" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="9a93e469-41e4-4ed1-a6d0-f6e4b115e4ce" destination-unique-name ="EclipsePlugin.org.eclipse.jface.databinding" destination-short-name ="org.eclipse.jface.databinding" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="ba50e448-baab-46d9-80ef-d659a50d6ed7" destination-unique-name ="EclipsePlugin.org.eclipse.core.databinding" destination-short-name ="org.eclipse.core.databinding" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="81722d23-0b89-4a9c-a68f-9fd2aaca5aa7" destination-unique-name ="EclipsePlugin.org.eclipse.ui.navigator.resources" destination-short-name ="org.eclipse.ui.navigator.resources" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="b7cfea1b-4708-4679-89ac-b08d26ec9518" destination-unique-name ="EclipsePlugin.org.eclipse.ui.views.properties.tabbed" destination-short-name ="org.eclipse.ui.views.properties.tabbed" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="8ae39633-3250-4d19-a7b6-01ae86566510" destination-unique-name ="EclipsePlugin.org.eclipse.ltk.core.refactoring" destination-short-name ="org.eclipse.ltk.core.refactoring" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="31bafe5c-99d8-4643-9f60-aa3a40bbaf9d" destination-unique-name ="EclipsePlugin.org.eclipse.ltk.ui.refactoring" destination-short-name ="org.eclipse.ltk.ui.refactoring" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="81c11ef0-c415-473f-90d4-0d67401fd9b5" destination-unique-name ="EclipsePlugin.org.eclipse.jdt.core.manipulation" destination-short-name ="org.eclipse.jdt.core.manipulation" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="f4fce809-f681-4810-9788-80083a5aeb43" destination-unique-name ="fr.imag.workspace.custom.filter" destination-short-name ="fr.imag.workspace.custom.filter" destination-type ="8e16ec5a-79a6-4c6a-8882-06329ea96ac6" >
+  </link>
+  <link type ="uses" destination-id ="ff951eb2-85a9-4135-9b8b-5cfdd143ad0c" destination-unique-name ="AS.Melusine.FindModel" destination-short-name ="FindModel" destination-type ="86a39a1f-1472-48ee-92c2-3d04c65f435d" >
+  </link>
+  <link type ="uses" destination-id ="a7e5a687-730d-4433-99a7-d203d8935249" destination-unique-name ="SI.Workspace.InitModel" destination-short-name ="InitModel" destination-type ="7fcd0f80-2400-4c53-91c8-fdf3a2d0583f" >
+  </link>
+  <link type ="imports" destination-id ="f0571acb-11c9-4fdf-b7b3-68abe875ca74" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ui.plugin" destination-short-name ="org.eclipse.ui.plugin" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="26a97ca3-d6be-4edc-a254-3be340611240" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.tool.view" destination-short-name ="fede.workspace.tool.view" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="920f6ea8-a93b-4d64-bd81-e9d64b3ff29d" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ui" destination-short-name ="org.eclipse.ui" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="e5bc0b91-0730-496d-9440-78adc8335131" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.eclipse.view" destination-short-name ="fr.imag.adele.cadse.eclipse.view" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="5573f2ae-da61-4b97-8bbe-b92290594df3" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.osgi.util" destination-short-name ="org.eclipse.osgi.util" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="cc33e0b6-f164-4599-be55-c2e5b133542c" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.tool.view.node" destination-short-name ="fede.workspace.tool.view.node" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="45ed6ddf-25b2-4f37-96ee-689fe1aeae1c" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.emf.ecore" destination-short-name ="org.eclipse.emf.ecore" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="9768708f-a2f9-4d94-8037-941384c20379" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.pde.internal.core.plugin" destination-short-name ="org.eclipse.pde.internal.core.plugin" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="041a1059-1fee-43e6-b4a0-c0fdb4214921" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.emf.ecore.resource" destination-short-name ="org.eclipse.emf.ecore.resource" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="7f72955a-0096-451f-9f70-c682d8d91948" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.emf.ecore.resource.impl" destination-short-name ="org.eclipse.emf.ecore.resource.impl" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="03ac740f-f9a3-41d5-81d1-1ca9b187151b" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.pde.core.plugin" destination-short-name ="org.eclipse.pde.core.plugin" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="uses" destination-id ="b57d6461-9bb6-4b06-95aa-37712304a99c" destination-unique-name ="CU.Workspace.Workspace" destination-short-name ="Workspace" destination-type ="6061e9b4-6d4f-4854-ad95-108ab412e23a" >
+  </link>
+  <link type ="imports" destination-id ="3b40655b-ee58-4be7-8886-0db40bd5b417" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse" destination-short-name ="fede.workspace.eclipse" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="4528e295-dd4e-4191-bd21-7b43108ac482" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.pde.internal.ui" destination-short-name ="org.eclipse.pde.internal.ui" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="721ebad7-7227-4a92-837b-bc1fc51f1289" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.pde.internal.ui.editor" destination-short-name ="org.eclipse.pde.internal.ui.editor" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="35d81681-953a-4c64-a21c-d66e402cced7" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.wizard" destination-short-name ="org.eclipse.jface.wizard" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="3a637506-3f40-46d2-8e30-a03f1addee11" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.action" destination-short-name ="org.eclipse.jface.action" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="7e9bd80a-eaf1-4d30-be9e-7e02b4aa8c07" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.window" destination-short-name ="org.eclipse.jface.window" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="794351e3-331a-416f-b2f5-32da9e6087b8" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.pde.internal.core" destination-short-name ="org.eclipse.pde.internal.core" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="libs" destination-id ="f37b1fe7-498c-44e4-bdc5-32f4ef26a501" destination-unique-name ="Lib.adele.util.io" destination-short-name ="adele.util.io" destination-type ="8e16ec5a-79a6-4c6a-8882-06329ea96ac6" >
+  </link>
+  <link type ="imports" destination-id ="b25aac18-017c-4081-b59f-8d305084f426" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.pde.internal.build.packager" destination-short-name ="org.eclipse.pde.internal.build.packager" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="4ce7fbaa-c456-4141-9b57-12fccf428573" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.pde.internal.ui.correction" destination-short-name ="org.eclipse.pde.internal.ui.correction" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="184de773-471c-4a5f-a388-b66fe893bfac" destination-unique-name ="Model.Workspace.Workspace.javax.xml.bind.attachment" destination-short-name ="javax.xml.bind.attachment" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="9a124a2f-da5a-451c-a5bb-be511f1c9176" destination-unique-name ="Model.Workspace.Workspace.javax.xml.bind.annotation.adapters" destination-short-name ="javax.xml.bind.annotation.adapters" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="libs" destination-id ="26220b0d-a5b4-4245-9297-17e1f61bf8e0" destination-unique-name ="javax.xml.stream" destination-short-name ="javax.xml.stream" destination-type ="8e16ec5a-79a6-4c6a-8882-06329ea96ac6" >
+  </link>
+  <link type ="libs" destination-id ="9c6d9ac7-639f-4ee3-8282-4e3fe7f198f9" destination-unique-name ="EclipsePlugin.org.eclipse.core.runtime.compatibility.auth" destination-short-name ="org.eclipse.core.runtime.compatibility.auth" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="4c608f7d-8320-4a40-aa6a-50fa050859c7" destination-unique-name ="EclipsePlugin.org.eclipse.update.ui" destination-short-name ="org.eclipse.update.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="57808874-1ab1-4728-9c25-e7ccdce216d5" destination-unique-name ="EclipsePlugin.org.eclipse.update.configurator" destination-short-name ="org.eclipse.update.configurator" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="68c686dd-56bb-4872-a67e-4b02c8c1cf93" destination-unique-name ="EclipsePlugin.org.eclipse.help.ui" destination-short-name ="org.eclipse.help.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="93f1e9af-3039-468e-b869-81cee923d72a" destination-unique-name ="EclipsePlugin.org.eclipse.core.contenttype" destination-short-name ="org.eclipse.core.contenttype" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="2fee1b4e-a62c-4311-9aeb-28c45178fa74" destination-unique-name ="EclipsePlugin.org.apache.ant" destination-short-name ="org.apache.ant" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="973e2811-57a9-4b2f-b80a-61d7feb09bc7" destination-unique-name ="EclipsePlugin.org.eclipse.ant.ui" destination-short-name ="org.eclipse.ant.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="3cff1fa4-04c6-42e8-95b2-4652e59dd71d" destination-unique-name ="EclipsePlugin.org.eclipse.equinox.app" destination-short-name ="org.eclipse.equinox.app" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="36f5dbe7-f5ed-42c3-bbcf-bcaa3768bb2f" destination-unique-name ="EclipsePlugin.org.eclipse.team.cvs.ui" destination-short-name ="org.eclipse.team.cvs.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="99bfe0fb-793b-4725-b9c2-200aaece4ec5" destination-unique-name ="EclipsePlugin.org.apache.lucene.analysis" destination-short-name ="org.apache.lucene.analysis" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="5abc51e8-4033-41a6-9d58-8b1eaf3027d4" destination-unique-name ="EclipsePlugin.org.eclipse.jdt.junit.runtime" destination-short-name ="org.eclipse.jdt.junit.runtime" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="473f5348-2683-43db-a660-0c141fa35c83" destination-unique-name ="EclipsePlugin.org.eclipse.core.jobs" destination-short-name ="org.eclipse.core.jobs" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="6579bdd1-ed09-428c-a66b-4357b8200c1d" destination-unique-name ="EclipsePlugin.org.eclipse.jdt.debug.ui" destination-short-name ="org.eclipse.jdt.debug.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="3e164b32-4ec4-4c79-b70e-513529f8229a" destination-unique-name ="EclipsePlugin.org.eclipse.core.runtime.compatibility" destination-short-name ="org.eclipse.core.runtime.compatibility" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="54ea25ad-9cf2-43f3-8f99-1c3ee803cf54" destination-unique-name ="EclipsePlugin.org.eclipse.core.net" destination-short-name ="org.eclipse.core.net" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="4fb739a1-9e2c-4304-af2f-8592305279a4" destination-unique-name ="EclipsePlugin.org.eclipse.help.base" destination-short-name ="org.eclipse.help.base" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="12d5db3e-702f-4e29-b004-12fcb7e30387" destination-unique-name ="EclipsePlugin.org.eclipse.jdt.junit" destination-short-name ="org.eclipse.jdt.junit" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="37bce4e2-d2e0-435d-8832-8ee6b919b552" destination-unique-name ="EclipsePlugin.org.eclipse.ui.externaltools" destination-short-name ="org.eclipse.ui.externaltools" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="e51fa0c5-e4c5-4d49-88f8-b549bc65d465" destination-unique-name ="EclipsePlugin.org.eclipse.ui.cheatsheets" destination-short-name ="org.eclipse.ui.cheatsheets" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="1e0bd11e-eafc-4597-8133-86c7e9814bfe" destination-unique-name ="EclipsePlugin.org.eclipse.update.core" destination-short-name ="org.eclipse.update.core" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="090e5deb-eb1f-4594-a0fa-e7af71ea242f" destination-unique-name ="EclipsePlugin.org.eclipse.equinox.preferences" destination-short-name ="org.eclipse.equinox.preferences" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="cdea1de2-3d97-408e-bb6a-97f215af77c8" destination-unique-name ="EclipsePlugin.org.eclipse.team.cvs.core" destination-short-name ="org.eclipse.team.cvs.core" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="b03c1667-a6b8-44f4-ae69-e8cbc1d20b76" destination-unique-name ="EclipsePlugin.org.eclipse.emf.common" destination-short-name ="org.eclipse.emf.common" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="91f7c0b2-2605-4e90-a884-009e74eaf606" destination-unique-name ="EclipsePlugin.org.apache.lucene" destination-short-name ="org.apache.lucene" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="c70a66a2-10aa-4f6e-b23e-e8603601badf" destination-unique-name ="EclipsePlugin.org.eclipse.emf.codegen" destination-short-name ="org.eclipse.emf.codegen" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="be3f9430-1872-45f1-a1e7-9900dd58c4ff" destination-unique-name ="EclipsePlugin.org.eclipse.ui.intro" destination-short-name ="org.eclipse.ui.intro" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="af030da2-6b70-487b-afae-cd41a3b24086" destination-unique-name ="EclipsePlugin.org.eclipse.ant.core" destination-short-name ="org.eclipse.ant.core" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="f882a3fd-77c0-40fd-98f1-d16319ef9b50" destination-unique-name ="EclipsePlugin.org.eclipse.ui.ide" destination-short-name ="org.eclipse.ui.ide" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="75e6ac90-07d9-4762-9cdd-508a07f43f6a" destination-unique-name ="EclipsePlugin.org.eclipse.sdk" destination-short-name ="org.eclipse.sdk" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="imports" destination-id ="6fc5c9df-b715-4466-a4c1-22ccc98b51b8" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.swt.graphics" destination-short-name ="org.eclipse.swt.graphics" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="c6eca9e2-440e-4b8c-a830-2fdcbb770299" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.pde.internal.core.natures" destination-short-name ="org.eclipse.pde.internal.core.natures" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="54d31401-555e-41b6-bb6d-8692678f03c1" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.resource" destination-short-name ="org.eclipse.jface.resource" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="ed0955d6-dbf9-43e4-a532-8c3df44eccf6" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ui.model" destination-short-name ="org.eclipse.ui.model" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="3260cc35-287e-4623-b6be-db6c0bc92303" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.tool.view.content" destination-short-name ="fede.workspace.tool.view.content" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="8c3484b5-c527-4298-86aa-5d8f28fc44d7" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.core.runtime.content" destination-short-name ="org.eclipse.core.runtime.content" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="542d727b-68f4-409f-985c-9b3c73fbdf64" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.swt.widgets" destination-short-name ="org.eclipse.swt.widgets" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="resources" destination-id ="60212e5d-ab67-4179-92d1-627c339b39ec" destination-unique-name ="Model.Workspace.Workspace.icons" destination-short-name ="icons" destination-type ="b9b58723-db90-4b40-a292-99b0b5098ccd" >
+  </link>
+  <link type ="libs" destination-id ="3481ae39-b956-4638-bc3a-e9b557864340" destination-unique-name ="EclipsePlugin.com.jcraft.jsch" destination-short-name ="com.jcraft.jsch" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="cccf8f89-9146-40cc-9fee-5a3f823ece64" destination-unique-name ="EclipsePlugin.org.eclipse.jsch.core" destination-short-name ="org.eclipse.jsch.core" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="abdafcc5-3ba1-4159-a599-e35e048370dd" destination-unique-name ="EclipsePlugin.org.eclipse.ui.ide.application" destination-short-name ="org.eclipse.ui.ide.application" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="libs" destination-id ="56ca26c2-5ffb-4c88-b99e-2392fd46031f" destination-unique-name ="EclipsePlugin.org.apache.log4j" destination-short-name ="org.apache.log4j" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="uses" destination-id ="c050574b-1f0d-4dd6-a5d3-0ba7a731751d" destination-unique-name ="SI.Workspace.Core" destination-short-name ="Core" destination-type ="625c8d99-317d-494c-87e5-7b227b351c56" >
+  </link>
+  <link type ="libs" destination-id ="9ef90454-7667-450a-ad64-e1345bd4fa73" destination-unique-name ="biz.aQute.bnd" destination-short-name ="biz.aQute.bnd" destination-type ="8e16ec5a-79a6-4c6a-8882-06329ea96ac6" >
+  </link>
+  <link type ="imports" destination-id ="0eb4f8aa-9267-4026-a3f3-cb3348b97362" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.internal.ui.dialogs" destination-short-name ="org.eclipse.jdt.internal.ui.dialogs" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="28d449b0-1f13-45a4-bc00-7d9c8fa6ab85" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.dialogs" destination-short-name ="org.eclipse.jface.dialogs" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="fe52e9e8-86ee-408d-a533-7edbd59bc08d" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.internal.core" destination-short-name ="org.eclipse.jdt.internal.core" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="ab1a8499-0cc3-4976-9ec7-17b9a2859a84" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.core.internal.preferences" destination-short-name ="org.eclipse.core.internal.preferences" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="6d162ece-cd8a-432b-a395-b5b5e02b7f55" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.core.runtime.preferences" destination-short-name ="org.eclipse.core.runtime.preferences" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="c75e756d-a3bf-4bea-8b88-3993497589b9" destination-unique-name ="Model.Workspace.Workspace.org.osgi.service.prefs" destination-short-name ="org.osgi.service.prefs" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="uses" destination-id ="02566876-3d94-4a79-91b7-45909e4e0dcc" destination-unique-name ="AS.Workspace.InitModel" destination-short-name ="InitModel" destination-type ="86a39a1f-1472-48ee-92c2-3d04c65f435d" >
+  </link>
+  <link type ="libs" destination-id ="589e1929-037c-472b-835c-7620f2247d6b" destination-unique-name ="EclipsePlugin.org.eclipse.jdt.ui" destination-short-name ="org.eclipse.jdt.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="imports" destination-id ="662317e1-1fa9-461a-8b1e-61bf27dee4d0" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core" destination-short-name ="fr.imag.adele.cadse.core" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="58d00832-85e6-47c7-99d7-e267ad6d57e3" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.build" destination-short-name ="fr.imag.adele.cadse.core.build" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="3f44085b-6d74-47f6-8c79-02e746c1363e" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.var" destination-short-name ="fr.imag.adele.cadse.core.var" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="10b62be7-e6ce-4bea-a1ff-b88efe17e4ef" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.attribute" destination-short-name ="fr.imag.adele.cadse.core.attribute" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="478bdcdb-803a-47ec-8cf1-849defe1a2a7" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.delta" destination-short-name ="fr.imag.adele.cadse.core.delta" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="8f630cf6-50d2-46b1-96a4-9de3adc4da52" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.impl" destination-short-name ="fr.imag.adele.cadse.core.impl" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="0d069d1a-b5f7-4209-b322-6b22ff53157d" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.key" destination-short-name ="fr.imag.adele.cadse.core.key" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="fd7e8816-6cd8-4808-ac03-c8d7c2bd3d28" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.ui" destination-short-name ="fr.imag.adele.cadse.core.ui" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="d235e378-3291-425d-a62b-d3fdacd78237" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.impl.ui" destination-short-name ="fr.imag.adele.cadse.core.impl.ui" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="054a1306-d1c7-47ce-9498-5d62d62e2b95" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.util" destination-short-name ="fr.imag.adele.cadse.core.util" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="08e3d4fb-9034-4466-aefd-7477da87eab5" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.enumdef" destination-short-name ="fr.imag.adele.cadse.core.enumdef" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="265b3409-7003-43cc-ab43-9322c1a66e8b" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.fede.workspace.as.initmodel" destination-short-name ="fr.imag.adele.fede.workspace.as.initmodel" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="879d0ae2-fb7e-436b-88fb-0ed21392789d" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.ui.view" destination-short-name ="fr.imag.adele.cadse.core.ui.view" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="6d5a9a56-4f17-432d-a195-e908ac89c47f" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.impl.var" destination-short-name ="fr.imag.adele.cadse.core.impl.var" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="6fb71d52-bdf9-45c8-a00f-3b1f68137558" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.impl.internal" destination-short-name ="fr.imag.adele.cadse.core.impl.internal" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="6a3c95f6-a12c-41eb-a4be-a1853111c895" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.fede.workspace.si.view" destination-short-name ="fr.imag.adele.fede.workspace.si.view" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="8202b5cb-c448-483f-9cb2-3e549a8820f2" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.impl.internal.ui" destination-short-name ="fr.imag.adele.cadse.core.impl.internal.ui" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="bfeaa003-ea37-427c-a768-a85674740313" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.path" destination-short-name ="fr.imag.adele.cadse.core.path" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="968cc028-472d-4da8-a9a2-9bcd6af9b6c3" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.impl.attribute" destination-short-name ="fr.imag.adele.cadse.core.impl.attribute" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="fb1e7387-69d3-4a99-8539-4ec06ea05ab1" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.internal" destination-short-name ="fr.imag.adele.cadse.core.internal" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="packagesList" destination-id ="52bcbb58-c00a-422b-8c92-91761ae9df56" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg" destination-short-name ="fr.imag.adele.cadse.cadseg" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="0bd09fae-976e-432d-acc5-8f3a11569fea" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.views.cadseg" destination-short-name ="fr.imag.adele.cadse.cadseg.views.cadseg" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="8b3fa7e8-0149-4441-be00-c124476e8452" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.util" destination-short-name ="fr.imag.adele.cadse.cadseg.util" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="d0cd5d00-68e2-4d00-9a13-c3b9b61568ef" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.type" destination-short-name ="fr.imag.adele.cadse.cadseg.type" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="a51832eb-c041-40eb-9848-f10fdcc0de4f" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.template" destination-short-name ="fr.imag.adele.cadse.cadseg.template" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="73278f2e-aff0-4250-a9fb-90e74f42d7a9" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.path" destination-short-name ="fr.imag.adele.cadse.cadseg.path" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="6cfcbe01-7ca1-417a-88ab-cab8821f1db0" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages" destination-short-name ="fr.imag.adele.cadse.cadseg.pages" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="f5a944f6-99c5-43df-af89-4eddcd9523a8" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.view" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.view" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="2ca9b276-f0da-4848-afa8-867309f7eb5b" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.ui" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.ui" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="750e0cde-2d74-4fe4-9eef-72978606b05e" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.meta" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.meta" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="1d27cb4b-4c81-4814-bc4b-5f86c2c97f88" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.mc" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.mc" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="bcd7084d-cf67-4a2f-9bb1-d7f9735413ec" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.ic" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.ic" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="ee47fc05-5214-4eb7-a142-e0cd536af7b9" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.dataModel" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.dataModel" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="fa34c494-d1e5-4b74-9682-867d9b87e011" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.content" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.content" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="530248b3-9941-4897-afa0-e276b5321341" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.build" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.build" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="0d2bc4db-ab4d-42d8-9af1-8741d69ff1ef" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.build.exporter" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.build.exporter" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="8d95c007-3200-4faf-be62-96d9d6ba1503" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.build.composer" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.build.composer" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="b1f9244c-6cc6-41bd-a9dc-fbbf6aaed5be" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.attributes" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.attributes" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="8f12652a-c880-457c-922e-59a653657581" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.actions" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.actions" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="591ce32b-7643-4004-9616-b3d0ab5364e9" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.pages.actions.dataModel" destination-short-name ="fr.imag.adele.cadse.cadseg.pages.actions.dataModel" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="487911dd-5721-4bdd-be90-1755e14d15fd" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.operation" destination-short-name ="fr.imag.adele.cadse.cadseg.operation" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="0774d0c9-f2a8-4038-9cdb-5cea7ce4e9d4" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.modeltype" destination-short-name ="fr.imag.adele.cadse.cadseg.modeltype" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="aa3da31f-a69a-4dbd-a16c-ec9b2cf335ab" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.model" destination-short-name ="fr.imag.adele.cadse.cadseg.model" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="8882a0f6-6596-4352-bd12-380a3512e4e2" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.migrate" destination-short-name ="fr.imag.adele.cadse.cadseg.migrate" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="2538616c-e5f6-4eb6-83d3-9b256d3538a7" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.menu" destination-short-name ="fr.imag.adele.cadse.cadseg.menu" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="337d22da-1be5-4fa6-9c66-566d93afb5d2" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.menu.dataModel" destination-short-name ="fr.imag.adele.cadse.cadseg.menu.dataModel" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="410efad4-d285-444b-85fc-1756f90ba3a4" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers" destination-short-name ="fr.imag.adele.cadse.cadseg.managers" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="b8d32894-b16c-44e3-a731-21c1a5c2b748" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.view" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.view" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="37427973-43ff-414a-a98d-b17ed69917d3" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.view.model" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.view.model" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="d92d1532-03ce-4573-b941-43b3084d1ea2" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.ui" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.ui" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="60a8c1e1-bec0-4df2-a7bf-9e262e3d778f" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.meta" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.meta" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="69ce01b3-779c-40a5-becc-45e9556ce6dc" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.mc" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.mc" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="4dcd83d1-73b0-47a1-8a61-1c1a92dd3a53" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.ic" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.ic" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="cf9b1589-129c-4833-8638-52616acd39ea" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.dataModel" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.dataModel" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="525d710f-8cc9-45fb-8655-47bc0b646c28" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.content" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.content" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="de174526-e9d7-4baf-a4d3-48265b71a89d" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.build" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.build" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="233373ba-3e7a-41fb-8fb8-b25b38b23ea4" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.build.exporter" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.build.exporter" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="235d969f-e3e9-4121-9761-c9dca815abbc" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.build.composer" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.build.composer" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="ffb5ecd5-64ab-4e64-83a0-c7b44cb3e4ef" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.attributes" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.attributes" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="eb2d7e4e-1bfb-4553-9249-75f00f4b9a59" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.managers.actions" destination-short-name ="fr.imag.adele.cadse.cadseg.managers.actions" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="b56bf655-a47d-4c34-bd19-20d2454353c4" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.linkmanagers.dataModel" destination-short-name ="fr.imag.adele.cadse.cadseg.linkmanagers.dataModel" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="dc7323b6-91ba-49a8-8b4a-6def716e6395" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.java" destination-short-name ="fr.imag.adele.cadse.cadseg.java" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="29e8a0f7-4ee5-4d9d-a934-daf0057ab664" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.generate" destination-short-name ="fr.imag.adele.cadse.cadseg.generate" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="7c5057b1-af7b-423c-aa6c-7620ed590f96" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.fields" destination-short-name ="fr.imag.adele.cadse.cadseg.fields" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="de64cfd6-3f52-455e-b561-f540a8ee3517" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.ext.actions" destination-short-name ="fr.imag.adele.cadse.cadseg.ext.actions" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="4f581569-949f-49cb-b9f6-e19ad989a24a" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.exporter" destination-short-name ="fr.imag.adele.cadse.cadseg.exporter" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="6fc5bc9d-a3a7-47f3-9254-8c0ff15e1e3f" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.exp" destination-short-name ="fr.imag.adele.cadse.cadseg.exp" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="packagesList" destination-id ="80686f7c-bcf5-4907-bdbc-c2fb855ceb7c" destination-unique-name ="Model.Workspace.Workspace.Package.fr.imag.adele.cadse.cadseg.annotation" destination-short-name ="fr.imag.adele.cadse.cadseg.annotation" destination-type ="3f02104b-c0d3-4374-99d7-f7c1311f5b1e" >
+  </link>
+  <link type ="imports" destination-id ="45e27185-055e-4f87-8fe1-3a477470ce18" destination-unique-name ="Model.Workspace.Workspace.fr.imag.adele.cadse.core.transaction" destination-short-name ="fr.imag.adele.cadse.core.transaction" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="3d8e1fa2-e2e2-4c67-b9dc-79ca22498a30" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jface.operation" destination-short-name ="org.eclipse.jface.operation" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="7713a6c5-40ef-4e65-b3c3-b39acc756f74" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.ui.internal" destination-short-name ="org.eclipse.ui.internal" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="4eb3522d-f1a9-4699-aea6-662d609ad15e" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.team.internal.ccvs.ui" destination-short-name ="org.eclipse.team.internal.ccvs.ui" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="0d82b1b1-dd97-4a73-8747-b83e34031fa5" destination-unique-name ="Model.Workspace.Workspace.fede.workspace.eclipse.java.mapping" destination-short-name ="fede.workspace.eclipse.java.mapping" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="1463c849-d5a5-46b9-953a-ab76471396bb" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.core.refactoring" destination-short-name ="org.eclipse.jdt.core.refactoring" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="imports" destination-id ="422d8cf8-0f8a-4518-b8ea-a5626c5112f8" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.jdt.core.refactoring.descriptors" destination-short-name ="org.eclipse.jdt.core.refactoring.descriptors" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+  <link type ="libs" destination-id ="e6cfbccb-e221-4614-8279-19efdc92a895" destination-unique-name ="EclipsePlugin.org.eclipse.team.svn.ui" destination-short-name ="org.eclipse.team.svn.ui" destination-type ="60e08438-344e-43a9-95dc-30961231a8e7" >
+  </link>
+  <link type ="imports" destination-id ="950a8338-66c3-4964-8a31-98e00ca78a2d" destination-unique-name ="Model.Workspace.Workspace.org.eclipse.team.svn.ui.crashrecovery.invalidmeta" destination-short-name ="org.eclipse.team.svn.ui.crashrecovery.invalidmeta" destination-type ="323b5c80-ac2c-485a-8166-d4db94d79115" >
+  </link>
+</item>
