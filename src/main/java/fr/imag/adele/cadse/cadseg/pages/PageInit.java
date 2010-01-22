@@ -3,7 +3,10 @@ package fr.imag.adele.cadse.cadseg.pages;
 
 import java.util.UUID;
 
+import org.eclipse.jdt.ui.IJavaElementSearchConstants;
 
+
+import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.mc.MC_BooleanManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_BooleanDefaultValue;
@@ -798,6 +801,9 @@ public class PageInit {
 		CadseGCST.ENUM.addField(field);
 		
 		
+		//*************************/
+		//**  ENUM_TYPE::VALUES  **/
+		//*************************/
 		mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
 				MC_DefaultForList.class);
@@ -809,6 +815,22 @@ public class PageInit {
 				EPosLabel.top, mc, ic);
 		CadseGCST.ENUM_TYPE.addField(field);
 		
+		//*****************************/
+		//**  ENUM_TYPE::JAVA_CLASS  **/
+		//*****************************/
+		mc = new MC_Descriptor(CadseGCST.MC_STRING_TO_JAVA_ELEMENT);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
+				MC_StringToJavaElement.class);
+		ic = new IC_Descriptor(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
+				"Select an Enum class", CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Select an Enum class",
+				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_, IJavaElementSearchConstants.CONSIDER_ENUMS);
+		field = new UIFieldImpl(CadseGCST.DBROWSER, UUID.randomUUID(),
+				CadseGCST.ENUM_TYPE_at_JAVA_CLASS_, "Enum class",
+				EPosLabel.top, mc, ic);
+		CadseGCST.ENUM_TYPE.addField(field);
+		JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+		v.setClazz(UIEnumValidator.class);
+		CadseGCST.ENUM_TYPE.addValidators(v );
 		/*
 		 * /**
 	 * @not generated
@@ -822,6 +844,5 @@ public class PageInit {
 	}
 		 */
 	}
-
 }
 
