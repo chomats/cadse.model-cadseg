@@ -344,7 +344,7 @@ public class PageInit {
 			
 			// Specific part 3 : check boxes
 			GroupOfAttributesDescriptor gSpecificPart3 = new GroupOfAttributesDescriptor(
-					"Basic properties", 1);
+					"Basic properties", 3);
 			gSpecificPart3.setHasBoxGroup(false);
 			gSpecificPart3.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
 			gSpecificPart3.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
