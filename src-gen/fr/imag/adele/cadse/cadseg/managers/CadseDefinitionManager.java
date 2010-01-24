@@ -393,6 +393,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	 */
 	@Override
 	public void init() {
+		CadseGCST.ITEM_lt_INSTANCE_OF.setIsNatif(true);
 		CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
 		new CadseG_WLWCListener();
 		new CadseG_WorkspaceListener();
