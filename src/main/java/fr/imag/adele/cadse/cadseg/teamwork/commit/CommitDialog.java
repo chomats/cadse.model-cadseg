@@ -525,7 +525,7 @@ public class CommitDialog extends SWTDialog {
 				FilteredItemNode node = getOrCreateFilteredNode();
 				for (IItemNode n : node.getChildren()) {
 					if (isSelected(n) == IItemNode.SELECTED) {
-						((DTreeModelUI) getUIField()).selectNode(n);
+						_treeField.selectNode(n);
 					}
 				}
 			} catch (Throwable e) {
@@ -605,7 +605,8 @@ public class CommitDialog extends SWTDialog {
 			};
 		}
 
-		public int isSelected(Object element) {
+		@Override
+		public int isSelected(IItemNode element) {
 			if (element instanceof ItemNode) {
 				Item item = ((IItemNode) element).getItem();
 				if (item != null) {
@@ -794,6 +795,7 @@ public class CommitDialog extends SWTDialog {
 		/*
 		 * Selection part
 		 */
+		_treeField._field.setHSpan(3);
 		
 		// create selection part containing a tree
 		DGridUI treeGrild = _swtuiPlatforms.createDGridUI(_page, "#tree", "", EPosLabel.none, defaultMc, null, _treeField, _addAllItemsField, _addItemField, _deselectAllItemsField);
@@ -858,7 +860,7 @@ public class CommitDialog extends SWTDialog {
 	}
 
 	private DButtonUI createDeselectAllItemsField() {
-		return _swtuiPlatforms.createDButtonUI(_page, "#deselectAllItemsField", "Deselect All", EPosLabel.defaultpos, null, new ActionController() {
+		return _swtuiPlatforms.createDButtonUI(_page, "#deselectAllItemsField", "Deselect All", EPosLabel.none, null, new ActionController() {
 
 			@Override
 			public void callAction() {
@@ -874,7 +876,7 @@ public class CommitDialog extends SWTDialog {
 	}
 
 	private DButtonUI createAddAllItemsField() {
-		return _swtuiPlatforms.createDButtonUI(_page, "#addAllItemsField", "Commit All Items", EPosLabel.defaultpos, null, new ActionController() {
+		return _swtuiPlatforms.createDButtonUI(_page, "#addAllItemsField", "Commit All Items", EPosLabel.none, null, new ActionController() {
 
 			@Override
 			public void callAction() {
@@ -899,7 +901,7 @@ public class CommitDialog extends SWTDialog {
 	}
 
 	private DButtonUI createAddItemField() {
-		return _swtuiPlatforms.createDButtonUI(_page, "#addItemField", "Add Item To Commit", EPosLabel.defaultpos, null, new ActionController() {
+		return _swtuiPlatforms.createDButtonUI(_page, "#addItemField", "Add Item To Commit", EPosLabel.none, null, new ActionController() {
 
 			@Override
 			public void callAction() {
