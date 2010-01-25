@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 
 /**
  * The Class ImportCadseAction.
@@ -73,21 +74,16 @@ public class ImportCadseAction extends IMenuAction {
 	 */
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
-//		try {
-//
-//			ImportCadsePagesAction myaction = new ImportCadsePagesAction();
-//			myaction.setSelectJar(null);
-//			Pages f = FieldsCore.createWizard(myaction, FieldsCore.createPage("page1", "Import cadse", "Import cadse",
-//					4, myaction.createImportField()));
-//
-//			WizardController wc = new WizardController(f);
-//			WizardDialog wd = new WizardDialog(null, wc);
-//			wd.setPageSize(300, 200);
-//			wd.open();
-//
-//		} catch (Throwable e) {
-//			e.printStackTrace();
-//		}
+		try {
+
+			ImportCadsePagesAction myaction = new ImportCadsePagesAction(new SWTUIPlatform(), "Import cadse",
+					"Import cadse");
+			myaction.setPageSize(300, 200);
+			myaction.open(null);
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 }
