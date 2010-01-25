@@ -54,6 +54,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
+import org.omg.CORBA._PolicyStub;
 
 import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
@@ -1118,11 +1119,7 @@ public class CommitDialogPage extends SWTDialog {
 		 * Create a new display wen call getDefault(). Worksbench is not
 		 * started. This method is called by federation in start level.
 		 * 
-		 */
-		Display d = PlatformUI.getWorkbench().getDisplay();
-
-		d.syncExec(new Runnable() {
-			public void run() {
+		*/
 				try {
 					final CommitDialogPage p = new CommitDialogPage(commitState);
 					p._swtuiPlatforms.setAction(p.getFinishAction());
@@ -1185,9 +1182,8 @@ public class CommitDialogPage extends SWTDialog {
 							return true;
 						}
 					};
-					WizardDialog wd = new WizardDialog(null, wc);
-					wd.setPageSize(800, 500);
-					wd.open();
+					
+					p.open(null, wc);
 
 					// open commit progression dialog only if commit definition
 					// has not been aborted
@@ -1200,9 +1196,10 @@ public class CommitDialogPage extends SWTDialog {
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
-			}
-		});
+		
 	}
+
+	
 
 	/**
 	 * Returns state of the commit operation.

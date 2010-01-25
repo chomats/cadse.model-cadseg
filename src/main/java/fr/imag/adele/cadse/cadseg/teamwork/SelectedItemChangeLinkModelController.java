@@ -72,12 +72,12 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 
 	@Override
 	public void init(UIPlatform uiPlatform) {
-		super.init(uiPlatform);
+		_uiPlatform = uiPlatform;
 		Item item = getItem();
 		if (item == null) {
 			return;
 		}
-
+		super.init(uiPlatform);
 		selectItem(item);
 	}
 
