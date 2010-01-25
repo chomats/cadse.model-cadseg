@@ -21,9 +21,6 @@ package fr.imag.adele.cadse.cadseg.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import fede.workspace.tool.view.actions.AbstractEclipseMenuAction;
-import fr.imag.adele.cadse.cadseg.teamwork.CommitDialogPage;
-import fr.imag.adele.cadse.cadseg.teamwork.CommitState;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
@@ -31,6 +28,13 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
+import fede.workspace.tool.view.actions.AbstractEclipseMenuAction;
+import fr.imag.adele.cadse.cadseg.teamwork.TWCst;
+import fr.imag.adele.cadse.core.impl.internal.TWUtil;
+import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitDialogPage;
+import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitState;
+import fr.imag.adele.cadse.cadseg.teamwork.update.UpdateDialogPage;
+import fr.imag.adele.cadse.cadseg.teamwork.update.UpdateState;
 
 /**
  * @generated
@@ -55,7 +59,10 @@ public class TeamWorkMenuActionContributor implements IActionContributor {
 
 		@Override
 		public void run(IItemNode[] selection) throws CadseException {
+			UpdateState updateState = new UpdateState();
 
+			// show dialog for update
+			UpdateDialogPage.openDialog(updateState);
 		}
 
 	}
@@ -72,16 +79,22 @@ public class TeamWorkMenuActionContributor implements IActionContributor {
 
 		@Override
 		public void run(IItemNode[] selection) throws CadseException {
+			UpdateState updateState = new UpdateState();
 
-		}
+			// compute initial items to update
+			if ((selection != null) && (selection.length != 0)) {
+				for (IItemNode itemNode : selection) {
+					Item item = itemNode.getItem();
+					if (item == null) {
+						continue;
+					}
 
-		@Override
-		public boolean isEnable(IItemNode[] selection) {
-			if ((selection == null) || (selection.length == 0)) {
-				return false;
+					updateState.addItemToUpdate(item.getId(), UpdateState.LAST_REV);
+				}
 			}
 
-			return super.isEnable(selection);
+			// show dialog for update
+			UpdateDialogPage.openDialog(updateState);
 		}
 	}
 
@@ -97,7 +110,22 @@ public class TeamWorkMenuActionContributor implements IActionContributor {
 
 		@Override
 		public void run(IItemNode[] selection) throws CadseException {
+			UpdateState updateState = new UpdateState();
 
+			// compute initial items to update
+			if ((selection != null) && (selection.length != 0)) {
+				for (IItemNode itemNode : selection) {
+					Item item = itemNode.getItem();
+					if (item == null) {
+						continue;
+					}
+
+					updateState.addItemToUpdate(item.getId(), UpdateState.LAST_REV);
+				}
+			}
+
+			// show dialog for update
+			UpdateDialogPage.openDialog(updateState);
 		}
 
 		@Override
@@ -122,7 +150,56 @@ public class TeamWorkMenuActionContributor implements IActionContributor {
 
 		@Override
 		public void run(IItemNode[] selection) throws CadseException {
+			UpdateState updateState = new UpdateState();
 
+			// compute initial items to update
+			if ((selection != null) && (selection.length != 0)) {
+				for (IItemNode itemNode : selection) {
+					Item item = itemNode.getItem();
+					if (item == null) {
+						continue;
+					}
+
+					updateState.addItemToRevert(item.getId());
+				}
+			}
+
+			// show dialog for update
+			UpdateDialogPage.openDialog(updateState);
+		}
+
+		@Override
+		public boolean isEnable(IItemNode[] selection) {
+			if ((selection == null) || (selection.length == 0)) {
+				return false;
+			}
+
+			return super.isEnable(selection);
+		}
+	}
+	
+	public class ResetStateAction extends AbstractEclipseMenuAction {
+
+		public ResetStateAction() {
+		}
+
+		@Override
+		public String getLabel() {
+			return "ResetState";
+		}
+
+		@Override
+		public void run(IItemNode[] selection) throws CadseException {
+			if ((selection != null) && (selection.length != 0)) {
+				for (IItemNode itemNode : selection) {
+					Item item = itemNode.getItem();
+					if (item == null) {
+						continue;
+					}
+
+					TWUtil.resetTWState(item);
+				}
+			}
 		}
 
 		@Override
@@ -182,6 +259,9 @@ public class TeamWorkMenuActionContributor implements IActionContributor {
 		actions.add(new UpdateAction());
 		actions.add(new ImportAction());
 		actions.add(new RevertAction());
+		if (TWCst.DEBUG_MODE) {
+			actions.add(new ResetStateAction());
+		}
 
 		try {
 			Menu teamMenu = new Menu("Team", "Team", null, // new java.net.URL("icons/twMenu.gif"),
