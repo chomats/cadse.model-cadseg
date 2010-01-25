@@ -31,6 +31,8 @@ import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.exportimport.ExportCadseAction;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.exportimport.ImportCadseAction;
 
 /**
  * The Class WorkspaceActionContributor.
