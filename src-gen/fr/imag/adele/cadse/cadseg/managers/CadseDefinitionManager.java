@@ -55,6 +55,8 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.menu.ItemActionGroup;
+import fr.imag.adele.cadse.cadseg.migration.MigrationInit;
+import fr.imag.adele.cadse.cadseg.menu.TeamWorkMenuActionContributor;
 import fr.imag.adele.cadse.cadseg.operation.WorkspaceActionContributor;
 import fr.imag.adele.cadse.cadseg.pages.PageInit;
 import fr.imag.adele.cadse.cadseg.path.ParsePath;
@@ -391,10 +393,12 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	 */
 	@Override
 	public void init() {
+		CadseGCST.ITEM_lt_INSTANCE_OF.setIsNatif(true);
 		CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
 		new CadseG_WLWCListener();
 		new CadseG_WorkspaceListener();
 		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
+		CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
 		try {
 			PageInit.init();
 			CadseGCST.ITEM.addActionContributeur(new ItemActionGroup());
@@ -402,6 +406,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		MigrationInit.init();
 	}
 
 	/*
