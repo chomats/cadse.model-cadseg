@@ -465,13 +465,13 @@ public class PageInit {
 		CadseGCST.ATTRIBUTE.addGroupOfAttributes(general);
 		CadseGCST.LINK_TYPE.addGroupOfAttributes(link);
 		link.setOverWriteGroup(general);		
-		
-	
-		// ***** //
-		// Pages
-		// ***** //
 
-		// Hidden page
+		
+		// ***************** //
+		// Hidden attributes //
+		// ***************** //
+		
+		// Hidden page for LinkType
 		IPage ltHiddenAttributes = new PageImpl(UUID.randomUUID(),
 				"Hidden attributes", "Hidden attributes", "Hidden attributes",
 				"Hidden attributes", false, null);
@@ -484,6 +484,21 @@ public class PageInit {
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
 		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
 
+		// Hidden page for Enum
+		IPage enumHiddenAttributes = new PageImpl(UUID.randomUUID(),
+				"Hidden attributes", "Hidden attributes", "Hidden attributes",
+				"Hidden attributes", false, null);
+		enumHiddenAttributes.addHiddenAttributes(
+				CadseGCST.ENUM_at_ENUM_CLAZZ_,
+				CadseGCST.ENUM_at_VALUES_);
+		CadseGCST.ENUM_TYPE.addCreationPages(enumHiddenAttributes);
+		CadseGCST.ENUM_TYPE.addModificationPages(enumHiddenAttributes);
+		
+	
+		// ***** //
+		// Pages //
+		// ***** //
+		
 		// Evolution control page
 		{
 			IPage evolPage = new PageImpl(UUID.randomUUID(),
