@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 
 /**
  * The Class ExportCadseAction.
@@ -38,7 +39,7 @@ public class ExportCadseAction extends IMenuAction {
 	public static final String	EXPORT_BINARY_CADSE	= "Export cadse";
 
 	/** The cadsedef. */
-	private Item				cadsedef;
+	private Item[]				cadsedef;
 
 	/**
 	 * Instantiates a new export cadse action.
@@ -46,7 +47,7 @@ public class ExportCadseAction extends IMenuAction {
 	 * @param cadsedef
 	 *            the cadsedef
 	 */
-	public ExportCadseAction(Item cadsedef) {
+	public ExportCadseAction(Item... cadsedef) {
 		this.cadsedef = cadsedef;
 	}
 
@@ -87,22 +88,18 @@ public class ExportCadseAction extends IMenuAction {
 	 */
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
-//		try {
-//
-//			ExportCadsePagesAction myaction = new ExportCadsePagesAction();
-//			myaction.setCadsedef(cadsedef);
-//			myaction.setSelectJar(null);
-//			Pages f = FieldsCore.createWizard(myaction, FieldsCore.createPage("page1", "Export cadse", "Export cadse",
-//					4, myaction.createImportField(), myaction.createTimeStampField()));
-//
-//			WizardController wc = new WizardController(f);
-//			WizardDialog wd = new WizardDialog(null, wc);
-//			wd.setPageSize(300, 200);
-//			wd.open();
-//
-//		} catch (Throwable e) {
-//			e.printStackTrace();
-//		}
+		try {
+
+			ExportCadsePagesAction myaction = new ExportCadsePagesAction(new SWTUIPlatform(), "Export cadse",
+					"Export cadse");
+			myaction.setCadsedef(cadsedef);
+			myaction.setSelectJar(null);
+			myaction.setPageSize(300, 200);
+			myaction.open(null);
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 }

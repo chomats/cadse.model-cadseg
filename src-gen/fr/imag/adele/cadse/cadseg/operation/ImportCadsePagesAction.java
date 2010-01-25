@@ -32,6 +32,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -43,10 +44,12 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
 
@@ -55,7 +58,17 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ImportCadsePagesAction extends AbstractActionPage {
+public class ImportCadsePagesAction extends SWTDialog {
+
+	public ImportCadsePagesAction(SWTUIPlatform swtuiPlatforms, String title, String label) {
+		super(swtuiPlatforms, title, label);
+		addLast(createImportField());
+	}
+
+	@Override
+	protected IActionPage getFinishAction() {
+		return new MyAction();
+	}
 
 	/**
 	 * The Class CadseViewerFilter.
@@ -116,6 +129,7 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 		 * 
 		 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
 		 */
+		@Override
 		public Object getValue() {
 			return selectJar;
 		}
@@ -126,6 +140,7 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieValueChanged(fr.imag.adele.cadse.core.ui.UIField,
 		 *      java.lang.Object)
 		 */
+		@Override
 		public void notifieValueChanged(UIField field, Object value) {
 			selectJar = (IPath) value;
 		}
@@ -178,23 +193,23 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 		public boolean validValueChanged(UIField field, Object value) {
 			file = getFile((IPath) value);
 			if (file == null || !file.exists() || file.isDirectory()) {
-				_uiPlatform.setMessageError("Select a valid cadse zip file");
+				_swtuiPlatforms.setMessageError("Select a valid cadse zip file");
 				return true;
 			}
 			try {
-				cadse = ImportCadseUtil.readCadse(file);
+				cadse = ExportImportCadseFunction.readCadse(file);
 				if (cadse == null) {
-					_uiPlatform.setMessageError("Select a valid cadse zip file");
+					_swtuiPlatforms.setMessageError("Select a valid cadse zip file");
 					return true;
 				}
 
 			} catch (IOException e) {
 				WSPlugin.logException(e);
-				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_swtuiPlatforms.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			} catch (JAXBException e) {
 				WSPlugin.logException(e);
-				_uiPlatform.setMessageError("Select a valid cadse jar : " + e.getMessage());
+				_swtuiPlatforms.setMessageError("Select a valid cadse jar : " + e.getMessage());
 				return true;
 			}
 			return false;
@@ -248,10 +263,9 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 	 * 
 	 * @return the d choose file ui
 	 */
-	public DChooseFileUI createImportField(IPage page, SWTUIPlatform swtuiPlatform) {
-		
-		return swtuiPlatform.createDChooseFileUI(page, "#selectJar", "Select cadse deployed zip", EPosLabel.left, new MC_Import(),
-				new IC_Import(), "Select cadse deployed zip");
+	public DChooseFileUI<IC_Import> createImportField() {
+		return _swtuiPlatforms.createDChooseFileUI(_page, "#selectJar", "Select cadse deployed zip", EPosLabel.left,
+				new MC_Import(), new IC_Import(), "Select cadse deployed zip");
 	}
 
 	
@@ -278,18 +292,20 @@ public class ImportCadsePagesAction extends AbstractActionPage {
 	}
 
 	/** The its. */
-	HashMap<String, Item>		its;
+	HashMap<String, Item>	its;
 
-	/** The its_c. */
-	HashMap<String, CItemType>	its_c;
+	class MyAction extends AbstractActionPage {
+		@Override
+		public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
+			super.doFinish(uiPlatform, monitor);
 
-	@Override
-	public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
-		super.doFinish(uiPlatform, monitor);
-		ImportCadseUtil.importCadse(cadse, new FileInputStream(file));	
+			IProgressMonitor pmo = (IProgressMonitor) monitor;
+			ExportImportCadseFunction i = new ExportImportCadseFunction();
+			i.importCadseItems(pmo, file);
+			//ImportCadseUtil.importCadse(cadse, new FileInputStream(file));	
+		}
 	}
 
-	
 	/**
 	 * Gets the file.
 	 * 

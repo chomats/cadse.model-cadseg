@@ -55,29 +55,34 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.IActionPage;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
+import fr.imag.adele.cadse.util.Assert;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 
 /**
  * The Class ExportCadsePagesAction.
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ExportCadsePagesAction extends AbstractActionPage {
+public class ExportCadsePagesAction extends SWTDialog {
 
-	/** The Constant MELUSINE_DIR. */
-	public static final String	MELUSINE_DIR				= ".melusine-dir/";
+	public ExportCadsePagesAction(SWTUIPlatform swtuiPlatforms, String title, String label) {
+		super(swtuiPlatforms, title, label);
+		addLast(createNameField(), createImportField(), createTimeStampField());
+	}
 
-	/** The Constant MELUSINE_DIR_CADSENAME. */
-	public static final String	MELUSINE_DIR_CADSENAME		= ".melusine-dir/cadsename";
-
-	/** The Constant MELUSINE_DIR_CADSENAME_ID. */
-	public static final String	MELUSINE_DIR_CADSENAME_ID	= ".melusine-dir/cadsename.id";
+	@Override
+	protected IActionPage getFinishAction() {
+		return new MyAction();
+	}
 
 	/**
 	 * The Class CadseViewerFilter.
@@ -109,12 +114,11 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	/** The tstamp. */
 	boolean				tstamp				= true;
 
+	String				name				= "";
+
 	/** The cadse viewer filter. */
 	public ViewerFilter	cadseViewerFilter	= new CadseViewerFilter();
 
-	SWTUIPlatform _swtuiPlatform;
-
-	private IPage	_page;
 	/**
 	 * The Class MC_TSTamp.
 	 */
@@ -125,6 +129,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		 * 
 		 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
 		 */
+		@Override
 		public Object getValue() {
 			return tstamp;
 		}
@@ -135,6 +140,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieValueChanged(fr.imag.adele.cadse.core.ui.UIField,
 		 *      java.lang.Object)
 		 */
+		@Override
 		public void notifieValueChanged(UIField field, Object value) {
 			tstamp = (Boolean) value;
 		}
@@ -163,19 +169,69 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	}
 
 	/**
+	 * The Class MC_TSTamp.
+	 */
+	class MC_name extends AbstractModelController {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
+		 */
+		@Override
+		public Object getValue() {
+			return name;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fr.imag.adele.cadse.core.ui.IEventListener#notifieValueChanged(fr
+		 * .imag.adele.cadse.core.ui.UIField, java.lang.Object)
+		 */
+		@Override
+		public void notifieValueChanged(UIField field, Object value) {
+			name = (String) value;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fr.imag.adele.cadse.core.ui.AbstractModelController#notifieValueDeleted
+		 * (fr.imag.adele.cadse.core.ui.UIField, java.lang.Object)
+		 */
+		@Override
+		public void notifieValueDeleted(UIField field, Object oldvalue) {
+		}
+
+		public ItemType getType() {
+			return null;
+		}
+
+		@Override
+		public Object defaultValue() {
+			return "";
+		}
+
+	}
+
+	/**
 	 * The Class MC_Import.
 	 */
 	class MC_Import extends AbstractModelController {
 		IEclipsePreferences	node;
 
-		public void init(fr.imag.adele.cadse.core.ui.UIPlatform uiPlatform) {
+		@Override
+		public void init(UIPlatform uiPlatform) {
+			super.init(uiPlatform);
 			// 1. get config pref node
 			node = new ConfigurationScope().getNode("fr.imag.adele.cadse.export-cadse");
 			String path = node.get("export-path", "");
 			if (path != null) {
 				selectJar = new org.eclipse.core.runtime.Path(path);
 			}
-			super.init(uiPlatform);
 		}
 
 		/*
@@ -183,6 +239,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		 * 
 		 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
 		 */
+		@Override
 		public Object getValue() {
 			return selectJar;
 		}
@@ -193,6 +250,7 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieValueChanged(fr.imag.adele.cadse.core.ui.UIField,
 		 *      java.lang.Object)
 		 */
+		@Override
 		public void notifieValueChanged(UIField field, Object value) {
 			selectJar = (IPath) value;
 			node.put("export-path", selectJar.toPortableString());
@@ -233,11 +291,6 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 			return false;
 		}
 
-		public ItemType getType() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
 	}
 
 	/**
@@ -248,7 +301,9 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile#getViewerFilter()
+		 * @see
+		 * fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile#
+		 * getViewerFilter()
 		 */
 		@Override
 		protected ViewerFilter getViewerFilter() {
@@ -258,7 +313,9 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile#getKind()
+		 * @see
+		 * fede.workspace.model.manager.properties.impl.ic.IC_ForChooseFile#
+		 * getKind()
 		 */
 		@Override
 		public int getKind() {
@@ -271,9 +328,19 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	 * 
 	 * @return the d choose file ui
 	 */
-	public DChooseFileUI createImportField() {
-		return _swtuiPlatform.createDChooseFileUI(_page, "selectJar", "Select folder", EPosLabel.left, new MC_Import(), new IC_Import(),
-				"Select folder");
+	public DTextUI createNameField() {
+		return _swtuiPlatforms.createTextUI(_page, "name", "name:", EPosLabel.left, new MC_name(), null, 1, false,
+				false, false, false, false);
+	}
+
+	/**
+	 * Creates the import field.
+	 * 
+	 * @return the d choose file ui
+	 */
+	public DChooseFileUI<IC_Import> createImportField() {
+		return _swtuiPlatforms.createDChooseFileUI(_page, "selectJar", "Select folder", EPosLabel.left, 
+				new MC_Import(), new IC_Import(), "Select folder");
 	}
 
 	/**
@@ -282,11 +349,11 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	 * @return the uI field
 	 */
 	public DCheckBoxUI<ICRunningField> createTimeStampField() {
-		return _swtuiPlatform.createCheckBoxUI(_page, "tstamp", "add time stamp", EPosLabel.none, new MC_TSTamp(), null);
+		return _swtuiPlatforms.createCheckBoxUI(_page, "tstamp", "add time stamp", EPosLabel.none, new MC_TSTamp(), null);
 	}
 
 	/** The cadsedef. */
-	Item	cadsedef;
+	Item[]	cadsedef;
 
 	/**
 	 * Sets the cadsedef.
@@ -294,8 +361,10 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	 * @param cadsedef
 	 *            the new cadsedef
 	 */
-	public void setCadsedef(Item cadsedef) {
+	public void setCadsedef(Item[] cadsedef) {
+		Assert.isTrue(cadsedef != null && cadsedef.length > 0);
 		this.cadsedef = cadsedef;
+		this.name = cadsedef[0].getQualifiedName();
 	}
 
 	/**
@@ -318,97 +387,15 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	}
 
 	/** The its. */
-	private HashMap<Item, File>			its;
-
-	/** The its_c. */
-	private HashMap<String, CItemType>	its_c;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
-	 */
-	@Override
-	public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
-		super.doFinish(uiPlatform, monitor);
-		IProgressMonitor pmo = (IProgressMonitor) monitor;
-		CadseCore.getCadseDomain().beginOperation("Import cadse");
-		try {
-			EclipsePluginContentManger project = (EclipsePluginContentManger) cadsedef.getContentItem();
-
-			String qname = cadsedef.getQualifiedName();
-			File pf = new File(file, qname + "-src.zip");
-			if (tstamp) {
-				Date d = new Date(System.currentTimeMillis());
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HHmm");
-				System.out.println(formatter.format(d));
-				pf = new File(file, qname + "-src-" + formatter.format(d) + ".zip");
-			}
-			ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(pf));
-			HashMap<File, String> files = new HashMap<File, String>();
-			IProject eclipseProject = project.getProject();
-			File eclipseProjectFile = eclipseProject.getLocation().toFile();
-			FileUtil.deleteDir(new File(eclipseProjectFile, MELUSINE_DIR));
-			files.put(eclipseProjectFile, "");
-			File wsFile = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile();
-			File melusineDir = new File(wsFile, ".cadse");
-			pmo.beginTask("export cadse " + cadsedef.getName(), 3);
-			getPersistanceFileAll(melusineDir, cadsedef, files, new HashSet<Item>());
-			pmo.worked(1);
-			ZipUtil.zip(files, outputStream);
-			pmo.worked(2);
-			ZipUtil.addEntryZip(outputStream, new StringBufferInputStream(qname), MELUSINE_DIR_CADSENAME, -1);
-			ZipUtil.addEntryZip(outputStream, new StringBufferInputStream(cadsedef.getId().toString()),
-					MELUSINE_DIR_CADSENAME_ID, -1);
-			pmo.worked(3);
-			outputStream.close();
-		} catch (RuntimeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			CadseCore.getCadseDomain().endOperation();
-		}
-	}
-
-	/**
-	 * Gets the persistance file all.
-	 * 
-	 * @param melusineDir
-	 *            the melusine dir
-	 * @param item
-	 *            the item
-	 * @param files
-	 *            the files
-	 * @param items
-	 *            the items
-	 * 
-	 * @return the persistance file all
-	 */
-	public static void getPersistanceFileAll(File melusineDir, Item item, HashMap<File, String> files, Set<Item> items) {
-
-		if (items.contains(item)) {
-			System.err.println("entry duplicate " + item.getId() + " " + item.getQualifiedName());
-			return;
-		}
-
-		items.add(item);
-
-		File xmlfile = new File(melusineDir, item.getId().toString() + ".ser");
-		files.put(xmlfile, MELUSINE_DIR);
-		xmlfile = new File(melusineDir, item.getId().toString() + ".xml");
-		if (xmlfile.exists()) {
-			files.put(xmlfile, MELUSINE_DIR);
-		}
-
-		List<? extends Link> links = item.getOutgoingLinks();
-		for (Link link : links) {
-			if (!link.getLinkType().isPart()) {
-				continue;
-			}
-			if (!link.isLinkResolved()) {
-				continue;
-			}
-			getPersistanceFileAll(melusineDir, link.getDestination(), files, items);
+	private HashMap<Item, File>	its;
+	
+	class MyAction extends AbstractActionPage {
+		@Override
+		public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
+			super.doFinish(uiPlatform, monitor);
+			IProgressMonitor pmo = (IProgressMonitor) monitor;
+			ExportImportCadseFunction e = new ExportImportCadseFunction();
+			e.exportItems(pmo, file, name, tstamp, cadsedef);
 		}
 	}
 
@@ -429,3 +416,97 @@ public class ExportCadsePagesAction extends AbstractActionPage {
 	}
 
 }
+
+///*
+///** The its_c. */
+//	private HashMap<String, CItemType>	its_c;
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fr.imag.adele.cadse.core.impl.ui.AbstractActionPage#doFinish(java.lang.Object)
+//	 */
+//	@Override
+//	public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
+//		super.doFinish(uiPlatform, monitor);
+//		IProgressMonitor pmo = (IProgressMonitor) monitor;
+//		CadseCore.getCadseDomain().beginOperation("Import cadse");
+//		try {
+//			EclipsePluginContentManger project = (EclipsePluginContentManger) cadsedef.getContentItem();
+//
+//			String qname = cadsedef.getQualifiedName();
+//			File pf = new File(file, qname + "-src.zip");
+//			if (tstamp) {
+//				Date d = new Date(System.currentTimeMillis());
+//				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HHmm");
+//				System.out.println(formatter.format(d));
+//				pf = new File(file, qname + "-src-" + formatter.format(d) + ".zip");
+//			}
+//			ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(pf));
+//			HashMap<File, String> files = new HashMap<File, String>();
+//			IProject eclipseProject = project.getProject();
+//			File eclipseProjectFile = eclipseProject.getLocation().toFile();
+//			FileUtil.deleteDir(new File(eclipseProjectFile, MELUSINE_DIR));
+//			files.put(eclipseProjectFile, "");
+//			File wsFile = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile();
+//			File melusineDir = new File(wsFile, ".cadse");
+//			pmo.beginTask("export cadse " + cadsedef.getName(), 3);
+//			getPersistanceFileAll(melusineDir, cadsedef, files, new HashSet<Item>());
+//			pmo.worked(1);
+//			ZipUtil.zip(files, outputStream);
+//			pmo.worked(2);
+//			ZipUtil.addEntryZip(outputStream, new StringBufferInputStream(qname), MELUSINE_DIR_CADSENAME, -1);
+//			ZipUtil.addEntryZip(outputStream, new StringBufferInputStream(cadsedef.getId().toString()),
+//					MELUSINE_DIR_CADSENAME_ID, -1);
+//			pmo.worked(3);
+//			outputStream.close();
+//		} catch (RuntimeException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			CadseCore.getCadseDomain().endOperation();
+//		}
+//	}
+//
+//	/**
+//	 * Gets the persistance file all.
+//	 * 
+//	 * @param melusineDir
+//	 *            the melusine dir
+//	 * @param item
+//	 *            the item
+//	 * @param files
+//	 *            the files
+//	 * @param items
+//	 *            the items
+//	 * 
+//	 * @return the persistance file all
+//	 */
+//	public static void getPersistanceFileAll(File melusineDir, Item item, HashMap<File, String> files, Set<Item> items) {
+//
+//		if (items.contains(item)) {
+//			System.err.println("entry duplicate " + item.getId() + " " + item.getQualifiedName());
+//			return;
+//		}
+//
+//		items.add(item);
+//
+//		File xmlfile = new File(melusineDir, item.getId().toString() + ".ser");
+//		files.put(xmlfile, MELUSINE_DIR);
+//		xmlfile = new File(melusineDir, item.getId().toString() + ".xml");
+//		if (xmlfile.exists()) {
+//			files.put(xmlfile, MELUSINE_DIR);
+//		}
+//
+//		List<? extends Link> links = item.getOutgoingLinks();
+//		for (Link link : links) {
+//			if (!link.getLinkType().isPart()) {
+//				continue;
+//			}
+//			if (!link.isLinkResolved()) {
+//				continue;
+//			}
+//			getPersistanceFileAll(melusineDir, link.getDestination(), files, items);
+//		}
+//	}
+//*/
