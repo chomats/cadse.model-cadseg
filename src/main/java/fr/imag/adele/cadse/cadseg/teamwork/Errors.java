@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import fr.imag.adele.cadse.cadseg.teamwork.ui.MsgError;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 
 /**
  * Represents a validation state of a set of items.
@@ -37,7 +37,7 @@ import fr.imag.adele.cadse.core.CompactUUID;
  */
 public class Errors {
 
-	private Map<CompactUUID, List<Error>> _errors = new HashMap<CompactUUID, List<Error>>();
+	private Map<UUID, List<Error>> _errors = new HashMap<UUID, List<Error>>();
 	
 	/**
 	 * Attach a simple error to specified item.
@@ -45,7 +45,7 @@ public class Errors {
 	 * @param itemId       id of item in error
 	 * @param errorMessage error message
 	 */
-	public void addError(CompactUUID itemId, String errorMessage) {
+	public void addError(UUID itemId, String errorMessage) {
 		addError(itemId, new MsgError(itemId, errorMessage));
 	}
 	
@@ -55,7 +55,7 @@ public class Errors {
 	 * @param itemId id of item in error
 	 * @param error  the error
 	 */
-	public void addError(CompactUUID itemId, Error error) {
+	public void addError(UUID itemId, Error error) {
 		List<Error> errors = _errors.get(itemId);
 		if (errors == null) {
 			errors = new ArrayList<Error>();
@@ -70,7 +70,7 @@ public class Errors {
 	 * @param itemId item id
 	 * @param error  error to remove
 	 */
-	public void removeError(CompactUUID itemId, Error error) {
+	public void removeError(UUID itemId, Error error) {
 		List<Error> errors = _errors.get(itemId);
 		if (errors == null) 
 			return;
@@ -87,7 +87,7 @@ public class Errors {
 	 * @param itemId     item id
 	 * @param errorClass class of error (should implements or extends Error)
 	 */
-	public void removeError(CompactUUID itemId, Class errorClass) {
+	public void removeError(UUID itemId, Class errorClass) {
 		List<Error> errors = _errors.get(itemId);
 		if (errors == null) 
 			return;
@@ -111,7 +111,7 @@ public class Errors {
 	 * 
 	 * @param itemId item id
 	 */
-	public void removeErrors(CompactUUID itemId) {
+	public void removeErrors(UUID itemId) {
 		_errors.remove(itemId);
 	}
 	
@@ -122,7 +122,7 @@ public class Errors {
 	 * @param itemId item id
 	 * @return first error attached to this item.
 	 */
-	public Error getError(CompactUUID itemId) {
+	public Error getError(UUID itemId) {
 		List<Error> errors = _errors.get(itemId);
 		if ((errors == null) || (errors.isEmpty()))
 			return null;
@@ -137,7 +137,7 @@ public class Errors {
 	 * @param itemId item id
 	 * @return all errors attached to this item.
 	 */
-	public List<Error> getErrors(CompactUUID itemId) {
+	public List<Error> getErrors(UUID itemId) {
 		List<Error> errors = _errors.get(itemId);
 		if ((errors == null) || (errors.isEmpty()))
 			return new ArrayList<Error>();
@@ -151,7 +151,7 @@ public class Errors {
 	 * @param itemId item id
 	 * @return true if at least one error is attached to this item.
 	 */
-	public boolean isInError(CompactUUID itemId) {
+	public boolean isInError(UUID itemId) {
 		return _errors.containsKey(itemId);
 	}
 	
