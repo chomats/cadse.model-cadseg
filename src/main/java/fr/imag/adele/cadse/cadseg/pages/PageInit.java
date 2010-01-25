@@ -466,16 +466,6 @@ public class PageInit {
 		CadseGCST.LINK_TYPE.addGroupOfAttributes(link);
 		link.setOverWriteGroup(general);		
 		
-		/*
-		 * GroupOfAttributesDescriptor gEnumProps = new
-		 * GroupOfAttributesDescriptor( "basic properties", 1);
-		 * CadseGCST.ENUM.addGroupOfAttributes(gEnumProps);
-		 * gEnumProps.add(CadseGCST.ENUM_lt_ENUM_TYPE);
-		 * gEnumProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
-		 * gEnumProps.add(gGeneralBasicProperties);
-		 * gEnumProps.setHasBoxGroup(false);
-		 * gEnumProps.setOverWriteGroup(gDefaultValue);
-		 */
 	
 		// ***** //
 		// Pages
