@@ -20,6 +20,7 @@ package fr.imag.adele.cadse.cadseg.teamwork.commit;
 
 import java.util.UUID;
 
+
 /**
  * Listener interrested in commit operation status information.
  * 

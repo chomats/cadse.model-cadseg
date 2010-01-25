@@ -20,16 +20,17 @@ package fr.imag.adele.cadse.cadseg.teamwork.ui;
 
 import java.text.MessageFormat;
 
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ChangeID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.WorkspaceListener;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
-import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
+
 
 public class SelectedItemChangeLinkModelController extends LinkModelController implements ItemSelectionListener {
 
@@ -40,10 +41,11 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 		@Override
 		public void workspaceChanged(ImmutableWorkspaceDelta delta) {
 			ImmutableItemDelta itemDelta = delta.getItem(getItem());
-			LinkType lt = (LinkType) getAttributeDefinition();
 			if (itemDelta == null) {
 				return;
 			}
+			IAttributeType<?> lt = getUIField().getAttributeDefinition();
+			
 			if (itemDelta.hasAddedOutgoingLink()) {
 				for (Link l : itemDelta.getLinksAdded()) {
 					if (l.getLinkType().equals(lt)) {
@@ -62,6 +64,7 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 			}
 			if (itemDelta.hasOrderOutgoingLinkChanged()) {
 				_uiPlatform.broadcastThisFieldHasChanged(getUIField());
+				
 			}
 		}
 	}
@@ -83,8 +86,7 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 
 	@Override
 	public Object getValue() {
-		Item item = getItem();
-		if (item != null) {
+		if (getItem() != null) {
 			return super.getValue();
 		}
 
@@ -92,20 +94,19 @@ public class SelectedItemChangeLinkModelController extends LinkModelController i
 	}
 
 	public void selectItem(Item newItem) {
-		Item item = getItem();
-		if (item != null) {
-			deselectItem(item);
+		if (getItem() != null) {
+			deselectItem(getItem());
 		}
-		item = newItem;
-
-		LinkType lt = (LinkType) getAttributeDefinition();
-		if (!item.isInstanceOf(lt.getSource())) {
+		_uiPlatform.setItem(newItem);
+		
+		LinkType lt = (LinkType) getUIField().getAttributeDefinition();
+		if (!newItem.isInstanceOf(lt.getSource())) {
 			throw new AssertionError(MessageFormat.format("The link type {0} in the item type {1} is bad.",
-					lt.getName(), item.getType().getName()));
+					lt.getName(), newItem.getType().getName()));
 		}
 
 		_Listener = new MyListener();
-		item.addListener(_Listener, ChangeID.CREATE_OUTGOING_LINK.ordinal() + ChangeID.ORDER_OUTGOING_LINK.ordinal()
+		newItem.addListener(_Listener, ChangeID.CREATE_OUTGOING_LINK.ordinal() + ChangeID.ORDER_OUTGOING_LINK.ordinal()
 				+ ChangeID.DELETE_OUTGOING_LINK.ordinal());
 	}
 

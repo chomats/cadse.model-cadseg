@@ -18,9 +18,8 @@
  */
 package fr.imag.adele.cadse.cadseg.teamwork.commit;
 
-import java.util.UUID;
-
 import fr.imag.adele.cadse.cadseg.teamwork.ui.MsgError;
+import java.util.UUID;
 
 /**
  * Represents an error where an item must be committed.

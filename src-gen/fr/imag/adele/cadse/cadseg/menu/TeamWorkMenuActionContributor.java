@@ -31,7 +31,7 @@ import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fede.workspace.tool.view.actions.AbstractEclipseMenuAction;
 import fr.imag.adele.cadse.cadseg.teamwork.TWCst;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
-import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitDialogPage;
+import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitDialog;
 import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitState;
 import fr.imag.adele.cadse.cadseg.teamwork.update.UpdateDialogPage;
 import fr.imag.adele.cadse.cadseg.teamwork.update.UpdateState;
@@ -239,7 +239,7 @@ public class TeamWorkMenuActionContributor implements IActionContributor {
 			}
 
 			// show dialog for commiting
-			CommitDialogPage.openDialog(commitState);
+			CommitDialog.openDialog(commitState);
 		}
 
 		@Override

@@ -20,7 +20,6 @@ package fr.imag.adele.cadse.cadseg.teamwork.commit;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.teamwork.Errors;
