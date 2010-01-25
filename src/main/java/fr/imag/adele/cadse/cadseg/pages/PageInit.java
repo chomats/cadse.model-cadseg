@@ -29,6 +29,7 @@ import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.ui.GroupOfAttributesDescriptor;
 import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
@@ -53,6 +54,32 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 
 public class PageInit {
+	
+	
+	/**
+	 * Helper method used to create a group of attributes.
+	 * 
+	 * @param name     The name and label of this group
+	 * @param column   The number of columns
+	 * @param border   Visible border
+	 * @param attr     The list of attributes displayed by this group
+	 * 
+	 * @return   the group
+	 */
+	private static GroupOfAttributesDescriptor createGroup(String name, int column, boolean border, IAttributeType<?>... attr) {
+	
+		GroupOfAttributesDescriptor goad = new GroupOfAttributesDescriptor(name, column);
+		goad.setHasBoxGroup(border);
+		
+		for (IAttributeType<?> a : attr)
+			goad.add(a);
+		
+		return goad;
+	}
+	
+	
+	
+	
 	public static void init() throws CadseException {
 		
 		// **************************************************************** //
@@ -307,152 +334,117 @@ public class PageInit {
 	 	// ******************** //
 		
 		// Group name
-		{
-			GroupOfAttributesDescriptor gname = new GroupOfAttributesDescriptor(
-					"Name", 1);
-			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gname);
-			gname.add(CadseGCST.ITEM_at_NAME_);
-			gname.add(CadseGCST.ITEM_at_DISPLAY_NAME_);
-			gname.add(CadseGCST.ITEM_at_QUALIFIED_NAME_);
-			gname.setHasBoxGroup(false);
-		}
-		
+		GroupOfAttributesDescriptor gname = createGroup("Name", 1, false,
+			CadseGCST.ITEM_at_NAME_, 
+			CadseGCST.ITEM_at_DISPLAY_NAME_,
+			CadseGCST.ITEM_at_QUALIFIED_NAME_);
+		CadseGCST.ATTRIBUTE.addGroupOfAttributes(gname);
+			
 		// basic properties group
-		{
-			// Basic Properties container
-			GroupOfAttributesDescriptor gBasicProperties = new GroupOfAttributesDescriptor(
-					"Basic properties", 1);
-			gBasicProperties.setHasBoxGroup(true);
-			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gBasicProperties);
-			
-			// Specific part 1 : Default value
-			GroupOfAttributesDescriptor gSpecificPart1 = new GroupOfAttributesDescriptor(
-					"Basic properties", 1);
-			gSpecificPart1.setHasBoxGroup(false);
-			gSpecificPart1.add(CadseGCST.ENUM_lt_ENUM_TYPE);
-			gSpecificPart1.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
-			gBasicProperties.add(gSpecificPart1);
-			
-			// Specific part 2 : check boxes
-			GroupOfAttributesDescriptor gSpecificPart2 = new GroupOfAttributesDescriptor(
-					"Basic properties", 1);
-			gSpecificPart2.setHasBoxGroup(false);
-			gSpecificPart2.add(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_);
-			gSpecificPart2.add(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_);
-			gSpecificPart2.add(CadseGCST.ATTRIBUTE_at_IS_LIST_);
-			gBasicProperties.add(gSpecificPart2);
-			
-			/*
-			GroupOfAttributesDescriptor gEnumProps = new GroupOfAttributesDescriptor(
-					"basic properties", 1);
-			CadseGCST.ENUM.addGroupOfAttributes(gEnumProps);
-			gEnumProps.add(CadseGCST.ENUM_lt_ENUM_TYPE);
-			gEnumProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
-			gEnumProps.add(gGeneralBasicProperties);
-			gEnumProps.setHasBoxGroup(false);
-			gEnumProps.setOverWriteGroup(gDefaultValue);*/			
-		}
+		GroupOfAttributesDescriptor gBasicProperties = createGroup("Basic properties", 1, true);
+		CadseGCST.ATTRIBUTE.addGroupOfAttributes(gBasicProperties);
 		
-		// link properties
-		{
-			// Link properties container
-			GroupOfAttributesDescriptor gLinkProperties = new GroupOfAttributesDescriptor(
-					"Link properties", 1);
-			gLinkProperties.setHasBoxGroup(true);
-			CadseGCST.LINK_TYPE.addGroupOfAttributes(gLinkProperties);
+		// Specific part 1 : Default value
+		GroupOfAttributesDescriptor gSpecificPart1 = createGroup("Basic properties", 1, false,
+			CadseGCST.ENUM_lt_ENUM_TYPE,
+			CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
+		gBasicProperties.add(gSpecificPart1);
 			
-			// Part1
-			GroupOfAttributesDescriptor gPart1 = new GroupOfAttributesDescriptor(
-					"Basic properties", 1);
-			gPart1.setHasBoxGroup(false);
-			gPart1.add(CadseGCST.LINK_TYPE_lt_SOURCE);
-			gPart1.add(CadseGCST.LINK_TYPE_lt_DESTINATION);
-			gPart1.add(CadseGCST.LINK_TYPE_lt_INVERSE_LINK);
-			gLinkProperties.add(gPart1);
+		// Specific part 2 : check boxes
+		GroupOfAttributesDescriptor gSpecificPart2 = createGroup("Basic properties", 1, false,
+			CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_,
+			CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_,
+			CadseGCST.ATTRIBUTE_at_IS_LIST_);
+		gBasicProperties.add(gSpecificPart2);
 			
-			// Part2 : flags
-			GroupOfAttributesDescriptor gPart2 = new GroupOfAttributesDescriptor(
-					"Link properties", 4);
-			gPart2.setHasBoxGroup(false);
-			gPart2.add(CadseGCST.LINK_TYPE_at_ANNOTATION_);
-			gPart2.add(CadseGCST.LINK_TYPE_at_AGGREGATION_);
-			gPart2.add(CadseGCST.LINK_TYPE_at_COMPOSITION_);
-			gPart2.add(CadseGCST.LINK_TYPE_at_PART_);
-			gPart2.add(CadseGCST.LINK_TYPE_at_REQUIRE_);
-			gPart2.add(CadseGCST.LINK_TYPE_at_MAPPING_);
-			gPart2.add(CadseGCST.LINK_TYPE_at_GROUP_);
-			gPart2.add(CadseGCST.LINK_TYPE_at_HIDDEN_);
-			gLinkProperties.add(gPart2);
+		/*
+		GroupOfAttributesDescriptor gEnumProps = new GroupOfAttributesDescriptor(
+				"basic properties", 1);
+		CadseGCST.ENUM.addGroupOfAttributes(gEnumProps);
+		gEnumProps.add(CadseGCST.ENUM_lt_ENUM_TYPE);
+		gEnumProps.add(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
+		gEnumProps.add(gGeneralBasicProperties);
+		gEnumProps.setHasBoxGroup(false);
+		gEnumProps.setOverWriteGroup(gDefaultValue);*/			
+		
+		// Link properties container
+		GroupOfAttributesDescriptor gLinkProperties = createGroup("Link properties", 1, true);
+		CadseGCST.LINK_TYPE.addGroupOfAttributes(gLinkProperties);
+		
+		// Part1
+		GroupOfAttributesDescriptor gPart1 = createGroup("Link properties", 1, false,
+			CadseGCST.LINK_TYPE_lt_SOURCE,
+			CadseGCST.LINK_TYPE_lt_DESTINATION,
+			CadseGCST.LINK_TYPE_lt_INVERSE_LINK);
+		gLinkProperties.add(gPart1);
 			
-			// Part3 : selection and link manager
-			GroupOfAttributesDescriptor gPart3 = new GroupOfAttributesDescriptor(
-					"Link properties", 1);
-			gPart3.setHasBoxGroup(false);
-			gPart3.add(CadseGCST.LINK_TYPE_at_SELECTION_);
-			gPart3.add(CadseGCST.LINK_TYPE_at_LINK_MANAGER_);
-			gLinkProperties.add(gPart3);
+		// Part2 : flags
+		GroupOfAttributesDescriptor gPart2 = createGroup("Link properties", 4, false,
+			CadseGCST.LINK_TYPE_at_ANNOTATION_,
+			CadseGCST.LINK_TYPE_at_AGGREGATION_,
+			CadseGCST.LINK_TYPE_at_COMPOSITION_,
+			CadseGCST.LINK_TYPE_at_PART_,
+			CadseGCST.LINK_TYPE_at_REQUIRE_,
+			CadseGCST.LINK_TYPE_at_MAPPING_,
+			CadseGCST.LINK_TYPE_at_GROUP_,
+			CadseGCST.LINK_TYPE_at_HIDDEN_);
+		gLinkProperties.add(gPart2);
 			
-			// Part4 : cardinalities
-			GroupOfAttributesDescriptor gPart4 = new GroupOfAttributesDescriptor(
-					"Cardinalities", 2);
-			gPart3.setHasBoxGroup(false);
-			gPart4.add(CadseGCST.LINK_TYPE_at_MIN_);
-			gPart4.add(CadseGCST.LINK_TYPE_at_MAX_);	
-			gLinkProperties.add(gPart4);
-		}
-				
+		// Part3 : selection and link manager
+		GroupOfAttributesDescriptor gPart3 = createGroup("Link properties", 1, false,
+			CadseGCST.LINK_TYPE_at_SELECTION_,
+			CadseGCST.LINK_TYPE_at_LINK_MANAGER_);
+		gLinkProperties.add(gPart3);
+			
+		// Part4 : cardinalities
+		GroupOfAttributesDescriptor gPart4 = createGroup("Cardinalities", 2, false,
+			CadseGCST.LINK_TYPE_at_MIN_,
+			CadseGCST.LINK_TYPE_at_MAX_);	
+		gLinkProperties.add(gPart4);
+		
 		// group evolution
-		{
-			GroupOfAttributesDescriptor gevol = new GroupOfAttributesDescriptor(
-					"evolution", 2);
-			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gevol);
-			gevol.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
-			gevol.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
-			gevol.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
-			gevol.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
-
-			GroupOfAttributesDescriptor gevolLink = new GroupOfAttributesDescriptor(
-					"evolution", 2);
-			CadseGCST.LINK_TYPE.addGroupOfAttributes(gevolLink);
-			gevolLink.setOverWriteGroup(gevol);
-			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWEVOL_);
-			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
-			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_);
-			gevolLink.add(CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
-			gevolLink.add(CadseGCST.LINK_TYPE_at_TWCOUPLED_);
-			gevolLink.add(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
-		}
-		
-		// advanced properties
-		{
-			GroupOfAttributesDescriptor gAdvancedProps = new GroupOfAttributesDescriptor(
-					"Advanced properties", 3);
-			CadseGCST.ATTRIBUTE.addGroupOfAttributes(gAdvancedProps);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_FINAL_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
-			gAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-
-			GroupOfAttributesDescriptor gLinkAdvancedProps = new GroupOfAttributesDescriptor(
-					"Advanced properties", 3);
-			CadseGCST.LINK_TYPE.addGroupOfAttributes(gLinkAdvancedProps);
-			gLinkAdvancedProps.setOverWriteGroup(gAdvancedProps);
-			gLinkAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
-			gLinkAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
-			gLinkAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+		GroupOfAttributesDescriptor gevol = createGroup("Evolution", 2, true,
+			CadseGCST.ATTRIBUTE_at_TWEVOL_,
+			CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
+			CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
+			CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
+		CadseGCST.ATTRIBUTE.addGroupOfAttributes(gevol);
 			
-			GroupOfAttributesDescriptor gStringAdvancedProps = new GroupOfAttributesDescriptor(
-					"Advanced properties", 3);
-			CadseGCST.STRING.addGroupOfAttributes(gStringAdvancedProps);
-			gStringAdvancedProps.setOverWriteGroup(gAdvancedProps);
-			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
-			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_FINAL_);
-			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_NATIF_);
-			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_REQUIRE_);
-			gStringAdvancedProps.add(CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-			gStringAdvancedProps.add(CadseGCST.STRING_at_NOT_EMPTY_);			
-		}
+		GroupOfAttributesDescriptor gevolLink = createGroup("Evolution", 2, true,
+			CadseGCST.ATTRIBUTE_at_TWEVOL_,
+			CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
+			CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
+			CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_,
+			CadseGCST.LINK_TYPE_at_TWCOUPLED_,
+			CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
+		CadseGCST.LINK_TYPE.addGroupOfAttributes(gevolLink);
+		gevolLink.setOverWriteGroup(gevol);
+
+		// advanced properties
+		GroupOfAttributesDescriptor gAdvancedProps = createGroup("Advanced properties", 3, true,
+			CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
+			CadseGCST.ATTRIBUTE_at_FINAL_,
+			CadseGCST.ATTRIBUTE_at_NATIF_,
+			CadseGCST.ATTRIBUTE_at_REQUIRE_,
+			CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+		CadseGCST.ATTRIBUTE.addGroupOfAttributes(gAdvancedProps);
+			
+		GroupOfAttributesDescriptor gLinkAdvancedProps = createGroup("Advanced properties", 3, true,
+			CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
+			CadseGCST.ATTRIBUTE_at_NATIF_,
+			CadseGCST.ATTRIBUTE_at_TRANSIENT_);
+		CadseGCST.LINK_TYPE.addGroupOfAttributes(gLinkAdvancedProps);
+		gLinkAdvancedProps.setOverWriteGroup(gAdvancedProps);			
+			
+		GroupOfAttributesDescriptor gStringAdvancedProps = createGroup("Advanced properties", 3, true,
+			CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
+			CadseGCST.ATTRIBUTE_at_FINAL_,
+			CadseGCST.ATTRIBUTE_at_NATIF_,
+			CadseGCST.ATTRIBUTE_at_REQUIRE_,
+			CadseGCST.ATTRIBUTE_at_TRANSIENT_,
+			CadseGCST.STRING_at_NOT_EMPTY_);
+		CadseGCST.STRING.addGroupOfAttributes(gStringAdvancedProps);
+		gStringAdvancedProps.setOverWriteGroup(gAdvancedProps);
 
 		
 		// ***** //
