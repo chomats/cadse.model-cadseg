@@ -116,7 +116,7 @@ public class PageInit {
 	 * 
 	 * @return this specific group.
 	 */
-	private static GroupOfAttributesDescriptor createLinkProperties() {
+	private static GroupOfAttributesDescriptor createGroupLinkProperties() {
 
 		// Link properties container
 		GroupOfAttributesDescriptor gLinkProperties = createGroup(
@@ -153,7 +153,7 @@ public class PageInit {
 		return gLinkProperties;
 	}
 
-	private static GroupOfAttributesDescriptor createEvolutionGeneral() {
+	private static GroupOfAttributesDescriptor createGroupEvolutionGeneral() {
 		return createGroup("Evolution", 2, true,
 				CadseGCST.ATTRIBUTE_at_TWEVOL_,
 				CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
@@ -162,7 +162,7 @@ public class PageInit {
 	}
 
 	
-	private static GroupOfAttributesDescriptor createEvolutionLink() {
+	private static GroupOfAttributesDescriptor createGroupEvolutionLink() {
 		return createGroup("Evolution", 2,
 				true, CadseGCST.ATTRIBUTE_at_TWEVOL_,
 				CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
@@ -172,24 +172,7 @@ public class PageInit {
 				CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
 	}
 	
-	private static GroupOfAttributesDescriptor createAdvancedPropertiesGeneral() {
-		return createGroup(
-				"Advanced properties", 3, true,
-				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
-				CadseGCST.ATTRIBUTE_at_FINAL_, CadseGCST.ATTRIBUTE_at_NATIF_,
-				CadseGCST.ATTRIBUTE_at_REQUIRE_,
-				CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-	}
-	
-	private static GroupOfAttributesDescriptor createAdvancedPropertiesLink() {
-		return createGroup(
-				"Advanced properties", 3, true,
-				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
-				CadseGCST.ATTRIBUTE_at_NATIF_,
-				CadseGCST.ATTRIBUTE_at_TRANSIENT_);
-	}
-	
-	private static GroupOfAttributesDescriptor createAdvancedPropertiesString() {
+	private static GroupOfAttributesDescriptor createGroupAdvancedPropertiesGeneral() {
 		return createGroup(
 				"Advanced properties", 3, true,
 				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
@@ -197,6 +180,14 @@ public class PageInit {
 				CadseGCST.ATTRIBUTE_at_REQUIRE_,
 				CadseGCST.ATTRIBUTE_at_TRANSIENT_,
 				CadseGCST.STRING_at_NOT_EMPTY_);
+	}
+	
+	private static GroupOfAttributesDescriptor createGroupAdvancedPropertiesLink() {
+		return createGroup(
+				"Advanced properties", 3, true,
+				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
+				CadseGCST.ATTRIBUTE_at_NATIF_,
+				CadseGCST.ATTRIBUTE_at_TRANSIENT_);
 	}
 
 	public static void init() throws CadseException {
@@ -451,30 +442,29 @@ public class PageInit {
 			CadseGCST.LINK_TYPE.addValidators(v2);
 		}
 
-		// ******************** //
-		// Groups of attributes //
-		// ******************** //
+		// ************************************** //
+		// Pages layout with Groups of attributes //
+		// ************************************** //
 
-		CadseGCST.ATTRIBUTE.addGroupOfAttributes(createGroupName());
-		CadseGCST.ATTRIBUTE.addGroupOfAttributes(createGroupBasicProperties());
-		CadseGCST.LINK_TYPE.addGroupOfAttributes(createLinkProperties());
+		// For general attributes pages 
+		GroupOfAttributesDescriptor general = createGroup("Attribute", 1, false,
+				createGroupName(),
+				createGroupBasicProperties(),
+				createGroupEvolutionGeneral(),
+				createGroupAdvancedPropertiesGeneral());
 		
-		GroupOfAttributesDescriptor gen_evol = createEvolutionGeneral();
-		GroupOfAttributesDescriptor link_evol = createEvolutionLink();
-		CadseGCST.ATTRIBUTE.addGroupOfAttributes(gen_evol);
-		CadseGCST.LINK_TYPE.addGroupOfAttributes(link_evol);
-		link_evol.setOverWriteGroup(gen_evol);
-	
-		GroupOfAttributesDescriptor gen_advanced_prop = createAdvancedPropertiesGeneral();
-		GroupOfAttributesDescriptor link_advanced_prop = createAdvancedPropertiesLink();
-		GroupOfAttributesDescriptor string_advanced_prop = createAdvancedPropertiesString();
+		// Link special page
+		GroupOfAttributesDescriptor link = createGroup("Link", 1, false,
+				createGroupName(),
+				createGroupLinkProperties(),
+				createGroupBasicProperties(),
+				createGroupEvolutionLink(),
+				createGroupAdvancedPropertiesLink());
 		
-		CadseGCST.ATTRIBUTE.addGroupOfAttributes(gen_advanced_prop);
-		CadseGCST.LINK_TYPE.addGroupOfAttributes(link_advanced_prop);
-		CadseGCST.STRING.addGroupOfAttributes(string_advanced_prop);
-		link_advanced_prop.setOverWriteGroup(gen_advanced_prop);
-		string_advanced_prop.setOverWriteGroup(gen_advanced_prop);
-
+		// Overwrite rules
+		CadseGCST.ATTRIBUTE.addGroupOfAttributes(general);
+		CadseGCST.LINK_TYPE.addGroupOfAttributes(link);
+		link.setOverWriteGroup(general);		
 		
 		/*
 		 * GroupOfAttributesDescriptor gEnumProps = new
@@ -486,8 +476,7 @@ public class PageInit {
 		 * gEnumProps.setHasBoxGroup(false);
 		 * gEnumProps.setOverWriteGroup(gDefaultValue);
 		 */
-
-			
+	
 		// ***** //
 		// Pages
 		// ***** //
