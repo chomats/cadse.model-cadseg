@@ -19,7 +19,6 @@
 package fr.imag.adele.cadse.cadseg.menu;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +32,6 @@ import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.ui.IWorkbenchWindow;
 
@@ -58,7 +56,6 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Menu;
-import fr.imag.adele.cadse.core.MenuGroup;
 import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.impl.internal.Accessor;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
@@ -114,84 +111,6 @@ public class ItemActionGroup implements IActionContributor {
 			return findUsingPath(manager, rest);
 		}
 		return findMenuManager;
-	}
-
-	
-	protected void fillContextMenu(IMenuManager manager, IWorkbenchWindow workbenchWindow, IStructuredSelection ssel, ViewDescription viewUIController) {
-		View viewComponent = View.getInstance();
-		if (viewComponent == null) {
-			return;
-		}
-
-		Item cxtItem;
-
-		Menu principalMenu = new Menu();
-
-		// create les different context.
-		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_1_MENU), true);
-		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_2_MENU), true);
-		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_3_MENU), true);
-		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_4_MENU), true);
-		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_5_MENU), true);
-		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_6_MENU), true);
-
-		List<Object> objects = Arrays.asList(ssel.toArray());
-		IItemNode[] selection = objects.toArray(new IItemNode[objects.size()]);
-		HashSet<ItemType> types = new HashSet<ItemType>();
-		for (IItemNode in : selection) {
-			Item i = in.getItem();
-			if (i != null) {
-				types.add(i.getType());
-			}
-			Link l = in.getLink();
-			if (l != null) {
-				types.add(l.getSource().getType());
-				types.add(l.getDestination().getType());
-			}
-		}
-
-		
-
-		
-		
-
-//		
-
-//		if (viewComponent.getTestService() != null && viewComponent.getTestService().isEnableTests()) {
-//			Menu testMenu = new Menu("test", "Test", null);
-//			if (viewComponent.getTestService().isRecordedTests()) {
-//				testMenu.insert(null, new StopTestAction(), true);
-//				testMenu.insert(null, new CancelTestAction(getShellProvider()), true);
-////				if (selection.length == 1) {
-////					IItemNode node = selection[0];
-////					Menu testCheckMenu = new Menu("check", "check", null);
-////					testCheckMenu.insert(null, new CheckItemInviewer(node, this.viewUIController.getViewPart()), true);
-////					Item item = node.getItem();
-////					if (item != null) {
-////						testCheckMenu.insert(null, new CheckItemInModel(item, viewComponent), true);
-////						testCheckMenu.insert(null, new CheckContentInModel(item, viewComponent), true);
-////
-////						String[] keys = item.getType().getAttributeTypeIds();
-////						ArrayList<String> allKeys = new ArrayList<String>(Arrays.asList(item.getAttributeKeys()));
-////						allKeys.addAll(Arrays.asList(keys));
-////						keys = allKeys.toArray(new String[allKeys.size()]);
-////						if (keys.length != 0) {
-////							Arrays.sort(keys);
-////							testCheckMenu.insert(null, IMenuAction.SEPARATOR, true);
-////							for (String k : keys) {
-////								testCheckMenu.insert(null, new CheckAttributeInModel(item, k, viewComponent), true);
-////							}
-////						}
-////					}
-////					testMenu.insert(null, testCheckMenu, true);
-////				}
-//			} else {
-//				//testMenu.insert(null, new StartTestAction(getShellProvider()), true);
-//			}
-//			//testMenu.insert(null, new RunTestAction(getShellProvider()), true);
-//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, testMenu, true);
-//		}
-
 	}
 
 	protected Set<IItemNode> getLinksToDelete(IItemNode[]  ssel) {
@@ -539,21 +458,8 @@ public class ItemActionGroup implements IActionContributor {
 	 * @return <code>true</code> if any items were added, <code>false</code> if
 	 *         none were added
 	 */
-	protected static boolean addShortcuts(List<IMenuAction> list) {
+	private static boolean addShortcuts(List<IMenuAction> list) {
 		boolean added = false;
-		// IWorkbenchPage page = workbenchWindow.getActivePage();
-		// if (page != null) {
-		// String[] wizardIds = page.getNewWizardShortcuts();
-		// for (int i = 0; i < wizardIds.length; i++) {
-		// IAction action = getAction(wizardIds[i]);
-		// if (action != null) {
-		// if (!WorkbenchActivityHelper.filterItem(action)) {
-		// list.add(new ActionContributionItem(action));
-		// added = true;
-		// }
-		// }
-		// }
-		// }
 		return added;
 	}
 
