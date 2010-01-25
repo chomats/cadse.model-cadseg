@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Fede.TeamWork.Feature" default="deploy-all" basedir=".">
+	
+	<target name="init">
+			<property name="model-id" value="$$model-id$$"></property>
+			<property name="feature.temp.folder" value="${basedir}/feature.temp.folder"/>
+			<property name="dest" value="${basedir}"/>
+			<property name="feature.destination" value="${dest}/eclipse/features"/>
+			<property name="plugin.destination" value="${dest}/eclipse/plugins"/>
+			<property name="fede.client" value="${dest}/fede/client"/>
+						
+			<property name="plugin_source_id" value="EclipsePlugin.TeamWork.Source_1.0.0"/>
+			<mkdir dir="${dest}" />
+			<mkdir dir="${dest}/eclipse" />
+			<mkdir dir="${dest}/eclipse/features" />
+			<mkdir dir="${dest}/eclipse/plugins" />
+			<mkdir dir="${dest}/fede"/>
+			<mkdir dir="${dest}/fede/client"/>
+			<property name="destination.temp.folder" value="${basedir}/temp.folder"/>
+			<property name="dist.dir" value="${basedir}/dist"/>
+		
+			<tstamp>
+			    <format property="TODAY" pattern="dd-MM-yy" locale="fr"/>
+			</tstamp>
+			<property name="deploy-jar" value="${dist.dir}/${model-id}-${TODAY}.jar"/>
+	</target>
+	
+	<target name="deploy-all" depends="init">
+		
+		<antcall target="deploy.plugin">
+			<param name="plugin" value="${model-id}"/>
+			<param name="item_name" value="${model-id}"/>
+			<param name="plugin_version" value="1.0.0"/>
+		</antcall>
+		
+		
+		<antcall target="deploy-sources">
+			<param name="plugin" value="Model.Workspace.Workspace"/>
+			<param name="item_name" value="Model.Workspace.Workspace"/>
+			<param name="plugin_version" value="1.0.0"/>
+		</antcall>
+		
+		<antcall target="deploy-sources">
+			<param name="plugin" value="Config.Workspace.All"/>
+			<param name="item_name" value="Config.Workspace.All"/>
+			<param name="plugin_version" value="1.0.2"/>
+			<param name="copy-extra-target" value="config-src"/>
+		</antcall>		
+		<antcall target="deploy-sources">
+			<param name="plugin" value="fede.tool.workspace.view"/>
+			<param name="item_name" value="Tool.Workspace.View"/>
+			<param name="plugin_version" value="1.0.4"/>
+			<param name="copy-extra-target" value="workspace-antsrc.zip"/>
+		</antcall>
+		<antcall target="deploy-fede"/>
+		<antcall target="make-installateur"/>
+		
+		<delete dir="${destination.temp.folder}"/>
+
+		<available file="auto-install" property="auto-install-file" value="auto-install"/>
+		<antcall target="install-noauto"/>
+		<antcall target="install-auto"/>
+	</target>
+	
+	<target name="deploy-fede" depends="" description="--> description">
+	     	<fede.workspace.composite-jar outfile="${fede.client}/Config.Workspace.All.jar" item="Config.Workspace.All"/>
+	     	<fede.workspace.composite-jar srcfile="${fede.client}/Config.Workspace.Allsrc.zip" item="Config.Workspace.All"/>
+	     	
+	     	<fede.workspace.copy-item item="Application.Workspace.All" dest="${fede.client}"/>
+	     	<fede.workspace.copy-item item="Model.Workspace.EnvMelusine" dest="${fede.client}"/>
+			<fede.workspace.copy-item item="Model.Workspace.Workspace" dest="${fede.client}"/>
+	</target>
+	
+	<target name="deploy-sources" depends="init">
+		<property name="plugin_vers" value="${plugin}_${plugin_version}"/>
+				
+		<mkdir dir="${plugin.destination}/${plugin_source_id}//src/${plugin_vers}"/>
+		<mkdir dir="${destination.temp.folder}/${plugin_vers}-src"/>
+		<antcall target="copy-extra" inheritall="true"></antcall>
+		
+		<zip destfile="${plugin.destination}/${plugin_source_id}/src/${plugin_vers}/src.zip" filesonly="false" whenempty="skip" update="false" >
+			<fileset dir= "${destination.temp.folder}/${plugin_vers}-src" includes="**/*.java"/>
+			<fileset dir="../${item_name}/sources" includes="**/*.java"/>
+		</zip>
+		
+		<copy todir="${plugin.destination}/${plugin_source_id}/src/${plugin_vers}">
+			<fileset dir="../${item_name}" includes="plugin.properties,plugin.xml,META-INF/,doc/,icons/,schema/,CHANGES,lib/,.project,.classpath" />
+		</copy>
+	</target>
+	
+	<target name ="make-installateur">
+		
+		<property name="izPackDir" value="${basedir}/../Lib.IzPack"/>
+		<taskdef name="izpack" classpath=".:${izPackDir}/lib/compiler.jar" classname="com.izforge.izpack.ant.IzPackTask"/>           
+		
+		<mkdir dir="${dist.dir}"/>
+        <izpack input="${basedir}/install-workspace-runtime.xml"
+              output="${deploy-jar}"
+              installerType="standard"
+              basedir="${basedir}"
+              izPackDir="${izPackDir}"/>
+	</target>
+	
+	<target name ="install-noauto" unless="auto-install-file">
+		<java fork="true" 
+			classname="com.izforge.izpack.installer.Installer"
+			classpath="${deploy-jar}">
+		</java>
+	</target>
+		
+	<target name ="install-auto" if="auto-install-file">
+		<java fork="true" 
+			classname="com.izforge.izpack.installer.Installer"
+			classpath="${deploy-jar}">
+			<arg value="${auto-install-file}"/>
+		</java>
+	</target>
+	
+	<target name="deploy.plugin">
+		<property name="plugin_vers" value="${plugin}_${plugin_version}"/>
+		
+		<delete dir="${destination.temp.folder}/${plugin_vers}"/>
+		<mkdir dir="${destination.temp.folder}"/>
+		<mkdir dir="${destination.temp.folder}/${plugin_vers}"/>
+		
+		<copy todir="${destination.temp.folder}/${plugin_vers}" failonerror="true" overwrite="false">
+				<fileset dir="../${item_name}/classes" excludes="**/*.java, **/package.htm*,null, **/.svn"			/>
+		</copy>
+		<copy todir="${destination.temp.folder}/${plugin_vers}" failonerror="true" overwrite="false">
+			<fileset dir="../${item_name}/sources/" excludes="**/*.java, **/package.htm*,null"			/>
+		</copy>
+		
+		<copy todir="${destination.temp.folder}/${plugin_vers}" failonerror="true" overwrite="false">
+			<fileset dir="../${item_name}" includes="plugin.properties,plugin.xml,META-INF/,icons/,schema/,resources/"	excludes=".svn/"	/>
+		</copy>
+		
+		<antcall target="copy-extra" inheritall="true"></antcall>
+		<zip destfile="${plugin.destination}/${plugin_vers}.jar" 
+			basedir="${destination.temp.folder}/${plugin_vers}" filesonly="false" whenempty="skip" update="false"/>
+		<!-- delete dir="${destination.temp.folder}/${plugin_vers}"/ -->
+	</target>
+	
+	 <target name="copy-extra" if="copy-extra-target">
+	 	<antcall target="${copy-extra-target}" inheritall="true" />
+	 </target>
+	
+	
+	
+	<target name="extra-copy-Tool.Workspace.View" description="Create jar: fede.tool.workspace.view workspace-ant.jar.">
+		<delete dir="${basedir}/workspace-ant.jar.bin"/>
+		<mkdir dir="${basedir}/workspace-ant.jar.bin"/>
+		<!-- compile the source code -->
+		
+		<!-- Copy necessary resources -->
+		<copy todir="${basedir}/workspace-ant.jar.bin" failonerror="true" overwrite="false">
+			<fileset dir="../${item_name}/antClasses" excludes="**/*.java, **/package.htm*,null,**/.svn/"			/>
+		</copy>
+		<copy todir="${basedir}/workspace-ant.jar.bin" failonerror="true" overwrite="false">
+			<fileset dir="../${item_name}/antSources/" excludes="**/*.java, **/package.htm*,null,**/.svn/"			/>
+		</copy>
+		
+		<jar destfile="${destination.temp.folder}/${plugin_vers}/workspace-ant.jar" 
+			basedir="${basedir}/workspace-ant.jar.bin"/>
+		<delete dir="${basedir}/workspace-ant.jar.bin"/>
+	</target>
+	
+	<target name="workspace-antsrc.zip" depends="init" unless="workspace-antsrc.zip">
+		<zip destfile="${plugin.destination}/${plugin_source_id}/src/${plugin_vers}/workspace-antsrc.zip" filesonly="false" whenempty="skip" update="false">
+			<fileset dir="../${item_name}/antSources/" includes="**/*.java"			/>
+		</zip>
+	</target>
+	
+	
+	<target name="extra-copy-config-worksapce">
+	
+		<copy todir="${destination.temp.folder}/${plugin_vers}" overwrite="true">
+					
+			<fileset dir="../${item_name}/components/CU.Workspace.Workspace/classes/" excludes="**/*.svn"			/>
+						
+			
+			<fileset dir="../${item_name}/components/Role.Workspace.Eclipse/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/Role.Workspace.InitModel/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/Role.Workspace.Persistance/classes/" excludes="**/*.svn"			/>
+						
+			<fileset dir="../${item_name}/components/CU.Melusine.Melusine/classes/" excludes="**/*.svn"			/>
+			
+			<fileset dir="../${item_name}/components/Feature.Melusine.CoreFede/classes/" excludes="**/*.svn"			/>
+									
+			<fileset dir="../${item_name}/components/Role.Melusine.ClientFrame/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/Role.Melusine.CoreFede/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/Role.Melusine.Properties/classes/" excludes="**/*.svn"			/>
+			
+			
+			<fileset dir="../${item_name}/components/Tool.Melusine.ClientFrame/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/Tool.Melusine.Common/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/ToolLocal.Melusine.ComponentMel/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/ToolLocal.Melusine.ComponentMel/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/ToolLocal.Melusine.MachineMel/classes/" excludes="**/*.svn"			/>
+	
+			<fileset dir="../${item_name}/components/Tool.Workspace.Persistance/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/Tool.Workspace.InitModel/classes/" excludes="**/*.svn"			/>
+			<fileset dir="../${item_name}/components/Tool.Workspace.Eclipse/classes/" excludes="**/*.svn"			/>
+			
+		</copy>
+		<copy todir="${destination.temp.folder}/${plugin_vers}" overwrite="true">
+			
+		  <fileset dir="../Lib.adele/classes/" excludes="**/*.svn"			/>
+						
+		  <fileset dir="../${item_name}/components/CU.Workspace.Workspace/aspects/" excludes="**/*.svn"			/>
+								
+		  <fileset dir="../${item_name}/components/Feature.Workspace.Eclipse/aspects/" excludes="**/*.svn"			/>
+		  <fileset dir="../${item_name}/components/Feature.Workspace.Persistance/aspects/" excludes="**/*.svn"			/>
+					
+		  <fileset dir="../${item_name}/components/CU.Melusine.Melusine/aspects/" excludes="**/*.svn"			/>
+		  <fileset dir="../${item_name}/components/Feature.Melusine.CoreFede/aspects/" excludes="**/*.svn"			/>
+		  <fileset dir="../${item_name}/components/Config.Melusine.All/aspects/" excludes="**/*.svn"			/>
+					
+		  <fileset dir="../${item_name}/components/Tool.Workspace.Persistance/aspects/" excludes="**/*.svn"			/>
+		   
+			<fileset dir="../${item_name}/classes" includes="**" excludes="**/*.svn"/>
+		</copy>
+		<copy todir="${destination.temp.folder}/${plugin_vers}/libs" failonerror="true" overwrite="true">
+			<fileset dir="../${item_name}/libs" includes="*.jar" excludes="**/*.svn"			/>
+		</copy>		
+	</target>
+<!--  add a comment  to force a commit ... -->
+	
+	
+
+	
+	<target name="config-src" >
+		<copy todir="${destination.temp.folder}/${plugin_vers}-src" failonerror="true" overwrite="true">
+			<fileset dir="../CU.Workspace.Workspace/sources/" excludes="**/*.svn"			/>
+			
+			<fileset dir="../Feature.Workspace.Eclipse/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Feature.Workspace.Persistance/sources/" excludes="**/*.svn"			/>
+			
+			<fileset dir="../Role.Workspace.Eclipse/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Role.Workspace.InitModel/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Role.Workspace.Persistance/sources/" excludes="**/*.svn"			/>
+						
+			<fileset dir="../CU.Melusine.Melusine/sources/" excludes="**/*.svn"			/>
+			
+			<fileset dir="../Feature.Melusine.CoreFede/sources/" excludes="**/*.svn"			/>
+									
+			<fileset dir="../Role.Melusine.ClientFrame/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Role.Melusine.CoreFede/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Role.Melusine.Properties/sources/" excludes="**/*.svn"			/>
+			
+			
+			<fileset dir="../Lib.adele/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Tool.Melusine.ClientFrame/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Tool.Melusine.Common/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Tool.Melusine.CoreFede/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Tool.Melusine.LoadModel/sources/" excludes="**/*.svn"			/>
+
+			<fileset dir="../Tool.Workspace.Persistance/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Tool.Workspace.InitModel/sources/" excludes="**/*.svn"			/>
+			<fileset dir="../Tool.Workspace.Eclipse/sources/" excludes="**/*.svn"			/>
+			
+		</copy>
+	</target>
+	
+
+</project>
