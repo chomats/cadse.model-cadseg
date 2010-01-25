@@ -16,39 +16,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork;
+package fr.imag.adele.cadse.cadseg.teamwork.ui;
 
-import java.util.UUID;
+import fr.imag.adele.cadse.core.Item;
+import fede.workspace.tool.view.node.AbstractCadseViewNode;
+import fede.workspace.tool.view.node.CadseViewModelController;
+import fede.workspace.tool.view.node.ItemNode;
 
 /**
- * Simple error containing only a message.
+ * A tree node representing an item.
+ * A flag is used to decide if children are shown or not.
  * 
  * @author Thomas
  *
  */
-public class MsgError implements Error {
-	
-	private UUID _itemId;
-	
-	private String _errorMsg;
-	
-	/**
-	 * Create a new error with a message.
-	 * 
-	 * @param itemId   item id
-	 * @param errorMsg error message
-	 */
-	public MsgError(UUID itemId, String errorMsg) {
-		_itemId = itemId;
-		_errorMsg = errorMsg;
+public class ItemNodeWithoutChildren extends ItemNode {
+
+	private boolean _showChildren;
+
+	public ItemNodeWithoutChildren(CadseViewModelController viewer,
+			AbstractCadseViewNode parent, Item item, boolean showChildren) {
+		super(viewer, parent, item);
+		_showChildren = showChildren;
 	}
 
-	public UUID getItem() {
-		return _itemId;
+	@Override
+	public AbstractCadseViewNode[] getChildren() {
+		if (!_showChildren)
+			return new AbstractCadseViewNode[0];
+			
+		return super.getChildren();
 	}
-
-	public String getMessage() {
-		return _errorMsg;
-	}
-
 }

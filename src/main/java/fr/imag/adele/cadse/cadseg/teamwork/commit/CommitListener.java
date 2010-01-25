@@ -16,33 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork;
+package fr.imag.adele.cadse.cadseg.teamwork.commit;
 
-import fr.imag.adele.cadse.core.Item;
+import java.util.UUID;
 
 /**
- * Listener which is interested in item selection informations.
+ * Listener interrested in commit operation status information.
+ * 
  * @author Thomas
  *
  */
-public interface ItemSelectionListener {
+public interface CommitListener {
 
-	/**
-	 * Called each time a new item is selected.
-	 * 
-	 * @param newItem new selected item
-	 */
-	public void selectItem(Item newItem);
+	public void beginCommit();
 	
-	/**
-	 * Called each time a selected item becomes deselected.
-	 * 
-	 * @param oldItem item which has been deselected
-	 */
-	public void deselectItem(Item oldItem);
+	public void endCommit();
 	
-	/**
-	 * Called when there is no more selected item. 
-	 */
-	public void noMoreSelectedItem();
+	public void commitFail();
+	
+	public void beginCommitItem(UUID itemId);
+	
+	public void endCommitItem(UUID itemId);
 }

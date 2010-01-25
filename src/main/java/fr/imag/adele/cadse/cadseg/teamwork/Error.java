@@ -20,6 +20,7 @@ package fr.imag.adele.cadse.cadseg.teamwork;
 
 import java.util.UUID;
 
+
 /**
  * Represents one error attached to one item.
  * 

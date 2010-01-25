@@ -16,35 +16,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork;
+package fr.imag.adele.cadse.cadseg.teamwork.ui;
 
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.CadseViewModelController;
 import fede.workspace.tool.view.node.ItemNode;
 
 /**
- * A tree node representing an item.
- * A flag is used to decide if children are shown or not.
+ * Node representing an item.
+ * Can retrieve from it all item informations :
+ * - item type
+ * ...
  * 
  * @author Thomas
  *
  */
-public class ItemNodeWithoutChildren extends ItemNode {
+public class CompleteItemNode extends ItemNode {
 
-	private boolean _showChildren;
-
-	public ItemNodeWithoutChildren(CadseViewModelController viewer,
-			AbstractCadseViewNode parent, Item item, boolean showChildren) {
+	public CompleteItemNode(CadseViewModelController viewer,
+			AbstractCadseViewNode parent, Item item) {
 		super(viewer, parent, item);
-		_showChildren = showChildren;
 	}
-
+	
 	@Override
-	public AbstractCadseViewNode[] getChildren() {
-		if (!_showChildren)
-			return new AbstractCadseViewNode[0];
-			
-		return super.getChildren();
+	public ItemType getItemType() {
+		return getItem().getType();
 	}
 }

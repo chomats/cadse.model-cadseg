@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork;
+package fr.imag.adele.cadse.cadseg.teamwork.commit;
 
 import java.util.Map;
 import java.util.TreeMap;

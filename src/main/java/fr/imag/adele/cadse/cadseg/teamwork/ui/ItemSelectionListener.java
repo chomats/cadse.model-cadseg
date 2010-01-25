@@ -16,32 +16,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork;
+package fr.imag.adele.cadse.cadseg.teamwork.ui;
 
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
-import fede.workspace.tool.view.node.AbstractCadseViewNode;
-import fede.workspace.tool.view.node.CadseViewModelController;
-import fede.workspace.tool.view.node.ItemNode;
 
 /**
- * Node representing an item.
- * Can retrieve from it all item informations :
- * - item type
- * ...
- * 
+ * Listener which is interested in item selection informations.
  * @author Thomas
  *
  */
-public class CompleteItemNode extends ItemNode {
+public interface ItemSelectionListener {
 
-	public CompleteItemNode(CadseViewModelController viewer,
-			AbstractCadseViewNode parent, Item item) {
-		super(viewer, parent, item);
-	}
+	/**
+	 * Called each time a new item is selected.
+	 * 
+	 * @param newItem new selected item
+	 */
+	public void selectItem(Item newItem);
 	
-	@Override
-	public ItemType getItemType() {
-		return getItem().getType();
-	}
+	/**
+	 * Called each time a selected item becomes deselected.
+	 * 
+	 * @param oldItem item which has been deselected
+	 */
+	public void deselectItem(Item oldItem);
+	
+	/**
+	 * Called when there is no more selected item. 
+	 */
+	public void noMoreSelectedItem();
 }

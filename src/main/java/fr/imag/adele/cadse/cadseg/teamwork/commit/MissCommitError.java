@@ -16,26 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork;
+package fr.imag.adele.cadse.cadseg.teamwork.commit;
 
-import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.CadseGCST;
+import java.util.UUID;
 
-public class TWUtil {
+import fr.imag.adele.cadse.cadseg.teamwork.ui.MsgError;
 
-	public static boolean isRequireNewRev(Item modifiedItem) {
-		//TODO change to default value....
-		Object ret = modifiedItem.getAttribute(CadseGCST.ITEM_at_REQUIRE_NEW_REV_);
-		if (ret == null)
-			return true;
-		return (Boolean) ret;
-	}
+/**
+ * Represents an error where an item must be committed.
+ * 
+ * @author Thomas
+ *
+ */
+public class MissCommitError extends MsgError {
 	
-	public static boolean isModified(Item modifiedItem) {
-		//TODO change to default value....
-		Object ret = modifiedItem.getAttribute(CadseGCST.ITEM_at_REV_MODIFIED_);
-		if (ret == null)
-			return true;
-		return (Boolean) ret;
+	private UUID _missingItemId;
+
+	public MissCommitError(UUID itemId, String errorMsg, UUID missingItemId) {
+		super(itemId, errorMsg);
+		_missingItemId = missingItemId;
 	}
+
+	/**
+	 * Returns the missing item id.
+	 * 
+	 * @return the missing item id.
+	 */
+	public UUID getMissingItemId() {
+		return _missingItemId;
+	}
+
 }

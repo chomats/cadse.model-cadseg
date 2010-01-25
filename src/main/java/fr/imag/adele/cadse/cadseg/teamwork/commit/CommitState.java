@@ -16,12 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork;
+package fr.imag.adele.cadse.cadseg.teamwork.commit;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import java.util.UUID;
+
+import fr.imag.adele.cadse.cadseg.teamwork.Errors;
 
 /**
  * Represents state of a commit operation :

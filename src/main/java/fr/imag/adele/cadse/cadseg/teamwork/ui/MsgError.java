@@ -16,32 +16,41 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork;
+package fr.imag.adele.cadse.cadseg.teamwork.ui;
 
 import java.util.UUID;
 
+import fr.imag.adele.cadse.cadseg.teamwork.Error;
+
 /**
- * Represents an error where an item must be committed.
+ * Simple error containing only a message.
  * 
  * @author Thomas
  *
  */
-public class MissCommitError extends MsgError {
+public class MsgError implements Error {
 	
-	private UUID _missingItemId;
-
-	public MissCommitError(UUID itemId, String errorMsg, UUID missingItemId) {
-		super(itemId, errorMsg);
-		_missingItemId = missingItemId;
+	private UUID _itemId;
+	
+	private String _errorMsg;
+	
+	/**
+	 * Create a new error with a message.
+	 * 
+	 * @param itemId   item id
+	 * @param errorMsg error message
+	 */
+	public MsgError(UUID itemId, String errorMsg) {
+		_itemId = itemId;
+		_errorMsg = errorMsg;
 	}
 
-	/**
-	 * Returns the missing item id.
-	 * 
-	 * @return the missing item id.
-	 */
-	public UUID getMissingItemId() {
-		return _missingItemId;
+	public UUID getItem() {
+		return _itemId;
+	}
+
+	public String getMessage() {
+		return _errorMsg;
 	}
 
 }
