@@ -795,7 +795,7 @@ public class CommitStatusDialog extends SWTDialog {
 			@Override
 			public Object getValue() {
 				List<UUID> itemIds = _commitState.getItemsToCommit();
-				return itemIds.toArray(new UUID[itemIds.size()]);
+				return itemIds;
 			}
 
 			public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
@@ -951,10 +951,10 @@ public class CommitStatusDialog extends SWTDialog {
 							return true;
 						}
 					};
-					WizardDialog wd = new WizardDialog(null, wc);
-					wd.setPageSize(800, 500);
-					wd.open();
-
+					
+					p.setPageSize(800, 500);
+					p.open(null, wc);
+				
 					// TODO manage errors
 
 				} catch (Throwable e) {
