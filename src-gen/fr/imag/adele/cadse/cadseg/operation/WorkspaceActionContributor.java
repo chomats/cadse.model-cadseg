@@ -29,6 +29,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.ui.AbstractActionContributor;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.exportimport.ExportCadseAction;
@@ -39,7 +40,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.exportimport.ImportCadseA
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class WorkspaceActionContributor implements IActionContributor {
+public class WorkspaceActionContributor  extends AbstractActionContributor {
 
 	/*
 	 * (non-Javadoc)
