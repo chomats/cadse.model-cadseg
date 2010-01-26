@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.eclipse.jdt.ui.IJavaElementSearchConstants;
 
+import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_BooleanDefaultValue;
@@ -851,8 +852,6 @@ public class PageInit {
 		// ** ENUM_TYPE::JAVA_CLASS **/
 		// *****************************/
 		mc = new MC_Descriptor(CadseGCST.MC_STRING_TO_JAVA_ELEMENT);
-		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc,
-				MC_StringToJavaElement.class);
 		ic = new IC_Descriptor(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO,
 				CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
 				"Select an Enum class",
@@ -867,6 +866,13 @@ public class PageInit {
 		JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
 		v.setClazz(UIEnumValidator.class);
 		CadseGCST.ENUM_TYPE.addValidators(v);
+		
+		// register java implementation 
+		// TODO move this code in an eclipse extension (implement it)
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), CadseGCST.MC_STRING_TO_JAVA_ELEMENT,
+				MC_StringToJavaElement.class);
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO,
+				IC_JavaClassForBrowser_Combo.class);
 		/*
 		 * /**
 		 * 
