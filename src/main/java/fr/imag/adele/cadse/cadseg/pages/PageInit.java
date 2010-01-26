@@ -874,10 +874,10 @@ public class PageInit {
 				CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_,
 				"Select an Enum class",
 				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_,
-				IJavaElementSearchConstants.CONSIDER_ENUMS);
+				"ENUMS");
 		field = new UIFieldImpl(CadseGCST.DBROWSER, UUID.randomUUID(),
 				CadseGCST.ENUM_TYPE_at_JAVA_CLASS_, "Enum class",
-				EPosLabel.top, mc, ic);
+				EPosLabel.left, mc, ic);
 		CadseGCST.ENUM_TYPE.addField(field);
 		JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
 		v.setClazz(UIEnumValidator.class);
@@ -889,17 +889,41 @@ public class PageInit {
 				MC_StringToJavaElement.class);
 		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO,
 				IC_JavaClassForBrowser_Combo.class);
-		/*
-		 * /**
-		 * 
-		 * @not generated
-		 * 
-		 * public DBrowserUI createFieldEnumType() { return new
-		 * DBrowserUI(CadseGCST.ENUM_lt_ENUM_TYPE.getName(), "enum type",
-		 * EPosLabel.left, new LinkModelController(true, null,
-		 * CadseGCST.ENUM_lt_ENUM_TYPE), new
-		 * IC_LinkForBrowser_Combo_List("Select a type enum",
-		 * "Select a type enum", CadseGCST.ENUM_lt_ENUM_TYPE), 0); }
-		 */
+		
+		
+		//***********************************/
+		//* IC_JAVA_CLASS_FOR_BROWSER_COMBO */
+		//***********************************/
+		
+		
+		//*********/
+		//* STYLE */
+		//*********/
+		
+		ic = new IC_Descriptor(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO,
+				CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_,
+				IC_JavaClassForBrowser_Combo.style_values);
+		field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_, "Style",
+				EPosLabel.left, null, ic);
+		CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO.addField(field);
+		
+		
+		//*********/
+		//* FILTER */
+		//*********/
+		
+		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_, "Filter",
+				EPosLabel.left, null, null,
+				CadseGCST.DTEXT_at_TOOL_TIP_,
+				"The initial pattern to filter the set of types.\n"
+				+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
+				+ "The meta character '?' representing any character and\n"
+				+ "'*' representing any string are supported.\n"
+				+ "You can pass an empty string if no filtering is required");
+		CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO.addField(field);
+		
+		
 	}
 }

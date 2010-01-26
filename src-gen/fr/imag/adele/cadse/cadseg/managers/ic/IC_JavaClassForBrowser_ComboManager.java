@@ -21,6 +21,7 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
 
+import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -53,9 +54,7 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	/** The Constant FILTER_ATTRIBUTE. */
 	public static final String		FILTER_ATTRIBUTE			= "FILTER";
 
-	/** The Constant style_values. */
-	public static final String[]	style_values				= { "CLASSES", "INTERFACES", "ANNOTATIONS", "ENUMS",
-			"ALL TYPES", "CLASSES AND INTERFACES", "CLASSES AND ENUMS" };
+	
 
 	/** The Constant style_values_cst. */
 	public static final String[]	style_values_cst			= { "CONSIDER_CLASSES", "CONSIDER_INTERFACES",
@@ -96,8 +95,8 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 			String style = getOwnerItem().getAttribute(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_);
 			String stylecst = style_values_cst[0];
 			if (style != null) {
-				for (int i = 0; i < style_values.length; i++) {
-					if (style.equals(style_values[i])) {
+				for (int i = 0; i < IC_JavaClassForBrowser_Combo.style_values.length; i++) {
+					if (style.equals(IC_JavaClassForBrowser_Combo.style_values[i])) {
 						stylecst = style_values_cst[i];
 						break;
 					}
