@@ -31,7 +31,7 @@ public class UIEnumValidator extends AbstractUIRunningValidator {
 		try {
 			IField[] fields = type.getFields();
 			for (IField field : fields) {
-				if (field.getElementName().equals("ENUM$VALUES")) {
+				if (field.getElementName().equals("ENUM$VALUES") || field.getElementName().equals("$VALUES")) {
 					continue;
 				}
 				values.add(field.getElementName());
@@ -49,9 +49,11 @@ public class UIEnumValidator extends AbstractUIRunningValidator {
 		if (field.getAttributeDefinition() == CadseGCST.ENUM_TYPE_at_JAVA_CLASS_) {
 			IType javaClass = value instanceof IType ? (IType) value : null;
 			if (javaClass != null) {
-				Object values = getEnumTypeValues(javaClass);
+				List<String> values = getEnumTypeValues(javaClass);
 				_uiPlatform.setVisualValue(CadseGCST.ENUM_TYPE_at_VALUES_,
 						values, false);
+				EnumTypeManager.setValuesAttribute(_uiPlatform
+						.getItem(), values);
 				EnumTypeManager.setMustBeGeneratedAttribute(_uiPlatform
 						.getItem(), false);
 				_uiPlatform.setEnabled(CadseGCST.ENUM_TYPE_at_VALUES_, false);

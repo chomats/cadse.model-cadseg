@@ -893,6 +893,7 @@ public class PageInit {
 		CadseGCST.ENUM_TYPE.addField(field);
 		JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
 		v.setClazz(UIEnumValidator.class);
+		v.setListenAttributes(CadseGCST.ENUM_TYPE_at_JAVA_CLASS_);
 		CadseGCST.ENUM_TYPE.addValidators(v);
 		
 		// register java implementation 
