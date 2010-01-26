@@ -139,32 +139,32 @@ public class DCheckBoxManager extends DisplayManager implements IItemManager {
 		return DEFAUL_CLASS_NAME;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
-		Item attribute = FieldManager.getAttribute(field);
-		if (attribute == null) {
-			return "You must add a link to an attribute link";
-		}
-		if (AttributeManager.isIsListAttribute(attribute)) {
-			return "CheckBox is not for a list";
-		}
-		ItemType it = attribute.getType();
-
-		if (CadseGCST.BOOLEAN == it) {
-			return null;
-		}
-
-		if (CadseGCST.LINK_TYPE == it && LinkTypeManager.getMin(attribute) == 0) {
-			return null;
-		}
-
-		return "CheckBox is for Boolean";
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
+//		Item attribute = FieldManager.getAttribute(field);
+//		if (attribute == null) {
+//			return "You must add a link to an attribute link";
+//		}
+//		if (AttributeManager.isIsListAttribute(attribute)) {
+//			return "CheckBox is not for a list";
+//		}
+//		ItemType it = attribute.getType();
+//
+//		if (CadseGCST.BOOLEAN == it) {
+//			return null;
+//		}
+//
+//		if (CadseGCST.LINK_TYPE == it && LinkTypeManager.getMin(attribute) == 0) {
+//			return null;
+//		}
+//
+//		return "CheckBox is for Boolean";
+//	}
 }

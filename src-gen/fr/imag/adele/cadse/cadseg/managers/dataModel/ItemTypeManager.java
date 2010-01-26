@@ -77,34 +77,6 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	}
 
 
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse
-	 * .core.ItemType)
-	 */
-	@Override
-	public void init() {
-		CadseGCST.ITEM_TYPE.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.ITEM_TYPE, CadseGCST.CADSE) {
-			@Override
-			protected String convertName(String name) {
-				if (name == null) return null;
-				return name.toUpperCase();
-			}
-			
-			@Override
-			protected String getName(Item item) {
-				return convertName(super.getName(item));
-			}
-		});
-		CadseGCST.ITEM_TYPE.setHasNameAttribute(true);
-		CadseGCST.ITEM_TYPE.setHasQualifiedNameAttribute(true);
-		CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES.setIsNatif(true);
-		CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES.setIsNatif(true);
-	}
-
 	/**
 	 * Instantiates a new item type manager.
 	 */

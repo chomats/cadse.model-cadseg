@@ -76,14 +76,6 @@ public class DataModelManager extends DefaultWorkspaceManager {
 		}
 	}
 
-	@Override
-	public void init() {
-		CadseGCST.DATA_MODEL
-				.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.DATA_MODEL, CadseGCST.CADSE_DEFINITION));
-		CadseGCST.DATA_MODEL.setHasNameAttribute(true);
-		CadseGCST.DATA_MODEL.setHasQualifiedNameAttribute(false);
-	}
-
 	/**
 	 * Gets the display name.
 	 * 

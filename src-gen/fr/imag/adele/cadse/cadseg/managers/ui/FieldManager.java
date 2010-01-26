@@ -105,39 +105,6 @@ public class FieldManager extends DefaultItemManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public void init() {
-		CadseGCST.FIELD.setHasQualifiedNameAttribute(false);
-		CadseGCST.FIELD.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.FIELD, CadseGCST.PAGE,
-				CadseGCST.ITEM_at_NAME_, CadseGCST.FIELD_lt_ATTRIBUTE));
-
-		CadseGCST.FIELD_lt_ATTRIBUTE.setManager(new AbstractLinkTypeManager() {
-			@Override
-			public Collection<Item> getSelectingDestination(Item field) {
-				Item container = field.getPartParent().getPartParent().getPartParent();
-				Item itemType = null;
-				Collection<Item> allAttributes = new ArrayList<Item>();
-
-				if (container.getType() == CadseGCST.EXT_ITEM_TYPE) {
-					itemType = ExtItemTypeManager.getRefType(container);
-					allAttributes.addAll(ExtItemTypeManager.getAttributes(container));
-				} else if (container.getType() == CadseGCST.ITEM_TYPE) {
-					itemType = container;
-				}
-				if (itemType != null) {
-					Item[] ret = ItemTypeManager.getAllAttributes(null, itemType, null, true);
-					allAttributes.addAll(Arrays.asList(ret));
-				}
-				return allAttributes;
-			}
-		});
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see fede.workspace.model.manager.DefaultItemManager#canRenameItem(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override

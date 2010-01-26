@@ -73,16 +73,6 @@ public class MenuActionManager extends MenuAbstractManager {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public void init() {
-		CadseGCST.MENU_ACTION.setHasQualifiedNameAttribute(false);
-	}
-
 	@Override
 	public IContentItemFactory getContentItemFactory() {
 		return new MenuActionCIF();

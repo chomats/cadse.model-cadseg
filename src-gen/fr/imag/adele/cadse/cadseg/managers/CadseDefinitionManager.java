@@ -52,6 +52,7 @@ import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionCIF;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
 import fr.imag.adele.cadse.cadseg.fields.RegExContentProposalProvider;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
+import fr.imag.adele.cadse.cadseg.init.CadsegInit;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.menu.ItemActionGroup;
@@ -68,6 +69,7 @@ import fr.imag.adele.cadse.core.CadseRuntime;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IGenerateContent;
+import fr.imag.adele.cadse.core.InitAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -89,7 +91,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.Proposal;
 /**
  * The Class CadseDefinitionManager.
  */
-public class CadseDefinitionManager extends CadseManager implements IModelWorkspaceManager, IFixManager {
+public class CadseDefinitionManager extends CadseManager implements IModelWorkspaceManager, IFixManager, InitAction {
 	public static final String	MAPPING				= "mapping";
 
 	public static final String	BUILD_MODEL			= "build-model";
@@ -129,6 +131,11 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			return uuid;
 		}
 		return UUID.fromString(uuid_str);
+	}
+	
+	@Override
+	public void init() {
+		new CadsegInit().init();
 	}
 	
 	/**
@@ -379,42 +386,6 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	 * Instantiates a new cadse definition manager.
 	 */
 	public CadseDefinitionManager() {
-	}
-
-	
-
-	
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse
-	 * .core.ItemType)
-	 */
-	@Override
-	public void init() {
-		CadseGCST.ITEM_lt_INSTANCE_OF.setIsNatif(true);
-		CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
-		new CadseG_WLWCListener();
-		new CadseG_WorkspaceListener();
-		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
-		CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
-		CadseCore.theItem.setIsAbstract(true);
-		CadseGCST.CADSE.setIsAbstract(true);
-		CadseGCST.CONTENT_ITEM.setIsAbstract(true);
-		CadseGCST.LINK_TYPE_TYPE.setIsAbstract(true);
-		CadseGCST.VIEW_DESCRIPTION.setIsAbstract(true);
-		CadseGCST.UILISTENER.setIsAbstract(true);
-		CadseGCST.RUNTIME_ITEM.setIsAbstract(true);
-		try {
-			PageInit.init();
-			CadseGCST.ITEM.addActionContributeur(new ItemActionGroup());
-		} catch (CadseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		MigrationInit.init();
 	}
 
 	/*

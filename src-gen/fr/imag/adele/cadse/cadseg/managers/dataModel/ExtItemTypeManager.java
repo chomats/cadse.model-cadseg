@@ -194,19 +194,6 @@ public class ExtItemTypeManager extends ItemTypeManager {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse
-	 * .core.ItemType)
-	 */
-	@Override
-	public void init() {
-		CadseGCST.EXT_ITEM_TYPE.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.EXT_ITEM_TYPE, null));
-		CadseGCST.EXT_ITEM_TYPE.setHasNameAttribute(true);
-		CadseGCST.EXT_ITEM_TYPE.setHasQualifiedNameAttribute(false);
-	}
 
 	/**
 	 * Gets the display name.

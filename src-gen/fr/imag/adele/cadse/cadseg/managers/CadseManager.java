@@ -56,12 +56,6 @@ public class CadseManager extends ItemManager {
 			return "error";
 		}
 	}
-	
-	@Override
-	public void init() {
-		getItemType().setHasQualifiedNameAttribute(false);
-		CadseGCST.CADSE.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE, null));
-	}
 
 	/**
 		@generated

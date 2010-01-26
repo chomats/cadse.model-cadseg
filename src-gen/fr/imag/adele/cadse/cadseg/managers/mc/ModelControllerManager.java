@@ -248,16 +248,6 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public void init() {
-		getItemType().setHasQualifiedNameAttribute(false);
-	}
-
 	/**
 	 * Checks if is user controller.
 	 * 

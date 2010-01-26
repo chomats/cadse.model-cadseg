@@ -454,39 +454,7 @@ public class ViewManager extends DefaultItemManager {
 		return new ViewJavaFileContentManager(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public void init() {
-		CadseGCST.VIEW.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
-
-		WorkspaceListener listener = new WorkspaceListener() {
-
-			@Override
-			public void workspaceChanged(ImmutableWorkspaceDelta wd) {
-				HashSet<Item> views = new HashSet<Item>();
-				for (ImmutableItemDelta itemDelta : wd.getItems()) {
-					if (itemDelta.isDeleted()) {
-						continue;
-					}
-					Item item = itemDelta.getItem();
-					Item view = item.getPartParent(CadseGCST.VIEW);
-					if (view != null) {
-						views.add(view);
-					}
-				}
-
-				for (Item item : views) {
-					((IGenerateContent) item.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-				}
-			}
-
-		};
-		CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
-	}
+	
 
 //	/**
 //	 * Creates the field data model.

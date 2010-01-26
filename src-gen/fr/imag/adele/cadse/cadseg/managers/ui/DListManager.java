@@ -354,23 +354,23 @@ public class DListManager extends DisplayManager {
 		return DEFAUL_CLASS_NAME;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
-		Item attribute = FieldManager.getAttribute(field);
-		if (attribute == null) {
-			return "You must add a link to an attribute link";
-		}
-		if (!AttributeManager.isIsListAttribute(attribute)) {
-			return "List is for a list";
-		}
-		return null;
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
+//		Item attribute = FieldManager.getAttribute(field);
+//		if (attribute == null) {
+//			return "You must add a link to an attribute link";
+//		}
+//		if (!AttributeManager.isIsListAttribute(attribute)) {
+//			return "List is for a list";
+//		}
+//		return null;
+//	}
 
 }
