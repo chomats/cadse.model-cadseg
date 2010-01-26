@@ -388,18 +388,6 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 		}
 	}
 
-	
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public void init() {
-		getItemType().setHasQualifiedNameAttribute(false);
-	}
-
 	/**
 	 * Gets the item ic.
 	 * 

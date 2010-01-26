@@ -285,16 +285,6 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public void init() {
-		getItemType().setHasQualifiedNameAttribute(false);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getClassName(fr.imag.adele.cadse.core.Item)
 	 */
 	public String getClassName(Item action) {

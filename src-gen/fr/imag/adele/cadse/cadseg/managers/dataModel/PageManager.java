@@ -22,8 +22,6 @@ package fr.imag.adele.cadse.cadseg.managers.dataModel;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
@@ -42,12 +40,8 @@ import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
-import fr.imag.adele.cadse.core.key.DefaultKeyImpl;
-import fr.imag.adele.cadse.core.key.Key;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
@@ -81,78 +75,6 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			return uuid;
 		}
 		return UUID.fromString(uuid_str);
-
-	}
-
-	static private final class PageSpaceKeyType extends DefaultKeyDefinitionImpl {
-		private PageSpaceKeyType(ItemType type, ItemType type2) {
-			super(type, type2);
-		}
-
-		@Override
-		public Key computeKey(Item item) {
-			Key parentKey = null;
-			if (_parentKeyDefinition != null) {
-				parentKey = getParentSpaceKeyFromItem(item);
-			}
-			if (parentKey == DefaultKeyImpl.INVALID) {
-				Logger.getLogger("fr.imag.adele.cadse.key").log(Level.SEVERE, 
-						"Parent key is invalide for item "+item.getType().getName() + "::"+item.getDisplayName());				
-				return DefaultKeyImpl.INVALID;
-			}
-			return new PageSpaceKey(item, this, item.getName(), parentKey);
-		}
-
-		@Override
-		public Key computeKey(Key parentKey, Object... values)
-				throws CadseException {
-			if (parentKey == DefaultKeyImpl.INVALID)
-				return DefaultKeyImpl.INVALID;
-			
-			return new PageSpaceKey(null, this, (String) values[0], parentKey, ((Boolean) values[1]).booleanValue()
-					);
-			//parentItem.getPartParentLinkType() == CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES
-		}
-		
-		@Override
-		public void getQualifiedString(Key key, StringBuilder sb) {
-			if (((PageSpaceKey) key).modificationPage) {
-				sb.append("Modification ");
-			} else {
-				sb.append("Creation ");
-			}
-			sb.append(getItemType().getName()).append(" ");
-			super.getQualifiedString(key, sb);
-		}
-
-
-	}
-
-	static private final class PageSpaceKey extends DefaultKeyImpl {
-		final boolean	modificationPage;
-
-		PageSpaceKey(Item source, PageSpaceKeyType type, String name, Key parentKey) {
-			super(type, parentKey, name);
-			modificationPage = PageManager.isModificationPage(source);
-		}
-
-		PageSpaceKey(Item source, PageSpaceKeyType type, String name, Key parentKey, boolean b) {
-			super(type, parentKey, name);
-			modificationPage = b;
-		}
-
-		@Override
-		protected int computeHashCode() {
-			return super.computeHashCode() ^ Boolean.valueOf(modificationPage).hashCode();
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (obj instanceof PageSpaceKey) {
-				return super.equals((PageSpaceKey) obj) && ((PageSpaceKey) obj).modificationPage == modificationPage;
-			}
-			return false;
-		}
 
 	}
 
@@ -384,18 +306,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 //		return false;
 //	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse
-	 * .core.ItemType)
-	 */
-	@Override
-	public void init() {
-		CadseGCST.PAGE.setHasQualifiedNameAttribute(false);
-		CadseGCST.PAGE.setKeyDefinition(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.TYPE_DEFINITION));
-	}
+	
 
 	
 

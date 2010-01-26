@@ -332,30 +332,30 @@ public class DTextManager extends DisplayManager implements IItemManager {
 		return DEFAUL_CLASS_NAME;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.LinkType,
-	 *      fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
-		Item attribute = FieldManager.getAttribute(field);
-		if (attribute == null) {
-			return "You must add a link to an attribute link";
-		}
-		if (AttributeManager.isIsListAttribute(attribute)) {
-			return "Text is not for a list";
-		}
-		ItemType it = attribute.getType();
-
-		if (CadseGCST.BOOLEAN != it && CadseGCST.DOUBLE != it && CadseGCST.INTEGER != it
-				&& CadseGCST.STRING != it & CadseGCST.DATE != it) {
-			return "Text is for Boolean, Double, Integer, String or Date";
-		}
-
-		return null;
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
+//		Item attribute = FieldManager.getAttribute(field);
+//		if (attribute == null) {
+//			return "You must add a link to an attribute link";
+//		}
+//		if (AttributeManager.isIsListAttribute(attribute)) {
+//			return "Text is not for a list";
+//		}
+//		ItemType it = attribute.getType();
+//
+//		if (CadseGCST.BOOLEAN != it && CadseGCST.DOUBLE != it && CadseGCST.INTEGER != it
+//				&& CadseGCST.STRING != it & CadseGCST.DATE != it) {
+//			return "Text is for Boolean, Double, Integer, String or Date";
+//		}
+//
+//		return null;
+//	}
 
 }

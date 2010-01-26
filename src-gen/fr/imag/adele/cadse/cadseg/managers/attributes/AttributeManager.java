@@ -30,7 +30,6 @@ import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.attributes.AttributeCIF;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
@@ -50,10 +49,6 @@ import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.internal.ItemImpl;
-import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
-import fr.imag.adele.cadse.core.key.DefaultKeyImpl;
-import fr.imag.adele.cadse.core.key.Key;
-import fr.imag.adele.cadse.util.Assert;
 import fr.imag.adele.cadse.core.util.Convert;
 import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -81,48 +76,6 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	public static boolean isLinkAttribute(Item item) {
 		return item.getType() == CadseGCST.LINK_TYPE;
 	}
-
-	private final class AttributeSpaceKeyType extends DefaultKeyDefinitionImpl {
-		private AttributeSpaceKeyType(ItemType itemType, ItemType spaceKeyType) {
-			super(itemType, spaceKeyType);
-		}
-
-		@Override
-		protected Key getParentSpaceKeyFromItem(Item item) {
-			Item it = null;
-			it = item.getPartParent(false);
-			if (it == null) {
-				it = ((Item) item).getPartParent(true);
-			}
-			if (it == null)
-				return DefaultKeyImpl.INVALID;
-			
-			if (it.getType() == CadseGCST.EXT_ITEM_TYPE) {
-				Item it2 = ExtItemTypeManager.getRefType(it);
-				Assert
-						.isNotNull(it2, "Cannot found ref itemtype form " + it.getQualifiedName() + "::"
-								+ item.getName());
-
-				it = it2;
-			}
-			Key key = it.getKey();
-			assert key != null;
-			return key;
-		}
-		
-		@Override
-		protected String convertName(String name) {
-			if (name == null) return null;
-			return name.toUpperCase();
-		}
-		
-		@Override
-		protected String getName(Item item) {
-			return convertName(super.getName(item));
-		}
-	}
-
-	
 
 	/**
 	 * Instantiates a new attribute manager.
@@ -169,23 +122,6 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	@Override
 	public IContentItemFactory getContentItemFactory() {
 		return new AttributeCIF(this);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#init(fr.imag.adele.cadse.core.ItemType)
-	 */
-	@Override
-	public void init() {
-		getItemType().setHasNameAttribute(true);
-		getItemType().setHasQualifiedNameAttribute(false);
-		if (getItemType() == CadseGCST.ATTRIBUTE) {
-			CadseGCST.ATTRIBUTE.setKeyDefinition(new AttributeSpaceKeyType(CadseGCST.ATTRIBUTE,
-					CadseGCST.ITEM_TYPE));
-			// new AttributeWLWC();
-		}
-
 	}
 
 	/*
