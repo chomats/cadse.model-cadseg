@@ -80,26 +80,39 @@ public class PageInit {
 	 * 
 	 * @return the group name.
 	 */
-	private static GroupOfAttributesDescriptor createGroupName() {
-		return createGroup("Name", 1, false,
-				CadseGCST.ITEM_at_NAME_, CadseGCST.ITEM_at_DISPLAY_NAME_,
+	private static GroupOfAttributesDescriptor createGroupNameItem() {
+		return createGroup("Name", 1, false, CadseGCST.ITEM_at_NAME_,
+				CadseGCST.ITEM_at_DISPLAY_NAME_,
 				CadseGCST.ITEM_at_QUALIFIED_NAME_);
 	}
 
 	/**
+	 * Helper method which creates the group Flags
+	 * 
+	 * @return the group flags
+	 */
+	private static GroupOfAttributesDescriptor createGroupFlagsItemType() {
+		return createGroup("Flags", 4, true,
+				CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_,
+				CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_,
+				CadseGCST.ITEM_TYPE_at_IS_META_ITEM_TYPE_,
+				CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_,
+				CadseGCST.ITEM_TYPE_at_HAS_CONTENT_);
+	}
+	
+	/**
 	 * Helper method which creates the group properties.
-	 *  
+	 * 
 	 * @return the group properties.
 	 */
-	private static GroupOfAttributesDescriptor createGroupBasicProperties() {
+	private static GroupOfAttributesDescriptor createGroupBasicPropertiesAttributes() {
 
 		GroupOfAttributesDescriptor gBasicProperties = createGroup(
 				"Basic properties", 1, true);
-		
+
 		// Specific part 1 : Default value
 		GroupOfAttributesDescriptor gSpecificPart1 = createGroup(
-				"Basic properties", 1, false, 
-				CadseGCST.ENUM_lt_ENUM_TYPE,
+				"Basic properties", 1, false, CadseGCST.ENUM_lt_ENUM_TYPE,
 				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 		gBasicProperties.add(gSpecificPart1);
 
@@ -110,21 +123,21 @@ public class PageInit {
 				CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_,
 				CadseGCST.ATTRIBUTE_at_IS_LIST_);
 		gBasicProperties.add(gSpecificPart2);
-		
+
 		return gBasicProperties;
 	}
 
 	/**
-	 * Helper method which creates the group for editing link properties. 
+	 * Helper method which creates the group for editing link properties.
 	 * 
 	 * @return this specific group.
 	 */
-	private static GroupOfAttributesDescriptor createGroupLinkProperties() {
+	private static GroupOfAttributesDescriptor createGroupPropertiesLink() {
 
 		// Link properties container
 		GroupOfAttributesDescriptor gLinkProperties = createGroup(
 				"Link properties", 1, true);
-		
+
 		// Part1
 		GroupOfAttributesDescriptor gPart1 = createGroup("Link properties", 1,
 				false, CadseGCST.LINK_TYPE_lt_SOURCE,
@@ -156,7 +169,7 @@ public class PageInit {
 		return gLinkProperties;
 	}
 
-	private static GroupOfAttributesDescriptor createGroupEvolutionGeneral() {
+	private static GroupOfAttributesDescriptor createGroupEvolutionAttributes() {
 		return createGroup("Evolution", 2, true,
 				CadseGCST.ATTRIBUTE_at_TWEVOL_,
 				CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
@@ -164,30 +177,27 @@ public class PageInit {
 				CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_);
 	}
 
-	
 	private static GroupOfAttributesDescriptor createGroupEvolutionLink() {
-		return createGroup("Evolution", 2,
-				true, CadseGCST.ATTRIBUTE_at_TWEVOL_,
+		return createGroup("Evolution", 2, true,
+				CadseGCST.ATTRIBUTE_at_TWEVOL_,
 				CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
 				CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
 				CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_,
 				CadseGCST.LINK_TYPE_at_TWCOUPLED_,
 				CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
 	}
-	
-	private static GroupOfAttributesDescriptor createGroupAdvancedPropertiesGeneral() {
-		return createGroup(
-				"Advanced properties", 3, true,
+
+	private static GroupOfAttributesDescriptor createGroupAdvancedPropertiesAttributes() {
+		return createGroup("Advanced properties", 3, true,
 				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
 				CadseGCST.ATTRIBUTE_at_FINAL_, CadseGCST.ATTRIBUTE_at_NATIF_,
 				CadseGCST.ATTRIBUTE_at_REQUIRE_,
 				CadseGCST.ATTRIBUTE_at_TRANSIENT_,
 				CadseGCST.STRING_at_NOT_EMPTY_);
 	}
-	
+
 	private static GroupOfAttributesDescriptor createGroupAdvancedPropertiesLink() {
-		return createGroup(
-				"Advanced properties", 3, true,
+		return createGroup("Advanced properties", 3, true,
 				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
 				CadseGCST.ATTRIBUTE_at_NATIF_,
 				CadseGCST.ATTRIBUTE_at_TRANSIENT_);
@@ -206,7 +216,6 @@ public class PageInit {
 		// if MUST_BE_INITIALIZED_AT_CREATION_TIME is false show only in
 		// modification page (if HIDDEN_IN_COMPUTED_PAGES is false)
 
-		
 		CadseGCST.CADSE_DEFINITION_lt_BUILD.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION.setFlag(
@@ -217,16 +226,12 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
-		CadseGCST.ITEM_lt_INSTANCE_OF.setFlag(
-				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.ITEM_at_NAME_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.CADSE_lt_EXTENDS.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-		CadseGCST.TYPE_DEFINITION_lt_CADSE.setFlag(
-				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.ITEM_TYPE_lt_SUPER_TYPE.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_.setFlag(
@@ -277,11 +282,9 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.LINK_TYPE_lt_INVERSE_LINK.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
-		CadseGCST.LINK_TYPE_lt_INVERSE_LINK
-				.setFlag(Item.CAN_BE_UNDEFINED, true);
+		CadseGCST.LINK_TYPE_lt_INVERSE_LINK.setFlag(
+				Item.CAN_BE_UNDEFINED, true);
 		CadseGCST.LINK_TYPE_lt_SOURCE.setFlag(
-				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
-		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
@@ -324,6 +327,48 @@ public class PageInit {
 		CadseGCST.ITEM_lt_INSTANCE_OF.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		CadseGCST.ITEM_lt_PARENT.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_lt_LINK_TYPE.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_CUSTOM_MANAGER_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_DISPLAY_NAME_TEMPLATE_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_HAS_SHORT_NAME_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_HAS_UNIQUE_NAME_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_MESSAGE_ERROR_ID_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_OVERWRITE_DEFAULT_PAGES_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_QUALIFIED_NAME_TEMPLATE_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_at_VALIDATE_NAME_RE_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_lt_SUB_TYPES.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_TYPE_lt_WC_LISTENERS.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.TYPE_DEFINITION_lt_CADSE.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.TYPE_DEFINITION_lt_FIELDS.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.TYPE_DEFINITION_lt_GOUPS_OF_ATTRIBUTES.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.TYPE_DEFINITION_lt_VALIDATORS.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		
 		
@@ -454,11 +499,11 @@ public class PageInit {
 		{
 			JavaClassValidator v = new JavaClassValidator(null);
 			v.setClazz(JavaPackageValidator.class); // class d'implementation du
-													// validateur
+			// validateur
 			v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_); // les
-																				// champs
-																				// qu'il
-																				// ecoute
+			// champs
+			// qu'il
+			// ecoute
 			CadseGCST.CADSE_DEFINITION.addValidators(v);
 		}
 
@@ -474,35 +519,50 @@ public class PageInit {
 		// ************************************** //
 		// Pages layout with Groups of attributes //
 		// ************************************** //
-
-		ITEM_GROUP_NAME = createGroupName();
+				
+		// Item pages
 		CadseGCST.ITEM.addGroupOfAttributes(ITEM_GROUP_NAME);
+		ITEM_GROUP_NAME = createGroupNameItem();
+
 		
-		// For general attributes pages 
-		GroupOfAttributesDescriptor general = createGroup("Attribute", 1, false,
-				createGroupName(),
-				createGroupBasicProperties(),
-				createGroupEvolutionGeneral(),
-				createGroupAdvancedPropertiesGeneral());
-		general.setOverWriteGroup(ITEM_GROUP_NAME);
-		// Link special page
-		GroupOfAttributesDescriptor link = createGroup("Link", 1, false,
-				createGroupName(),
-				createGroupLinkProperties(),
-				createGroupBasicProperties(),
+		// Item Type pages
+		GroupOfAttributesDescriptor itemTypeGroup = createGroup("ItemType", 1,
+				false,
+				createGroupNameItem(),
+				CadseGCST.ITEM_TYPE_lt_SUPER_TYPE,
+				createGroupFlagsItemType());
+		CadseGCST.ITEM_TYPE.addGroupOfAttributes(itemTypeGroup);
+		itemTypeGroup.setOverWriteGroup(ITEM_GROUP_NAME);
+		// CadseGCST.ITEM_TYPE_at_ICON_
+		// CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_
+		// CadseGCST.ITEM_TYPE_at_PACKAGE_NAME_
+		
+		
+		// Attributes pages
+		GroupOfAttributesDescriptor attributeGroup = createGroup("Attribute", 1,
+				false,
+				createGroupNameItem(),
+				createGroupBasicPropertiesAttributes(),
+				createGroupEvolutionAttributes(),
+				createGroupAdvancedPropertiesAttributes());
+		CadseGCST.ATTRIBUTE.addGroupOfAttributes(attributeGroup);
+		attributeGroup.setOverWriteGroup(itemTypeGroup);
+		
+		// Link pages
+		GroupOfAttributesDescriptor linkGroup = createGroup("Link", 1, false,
+				createGroupNameItem(),
+				createGroupPropertiesLink(),
+				createGroupBasicPropertiesAttributes(),
 				createGroupEvolutionLink(),
 				createGroupAdvancedPropertiesLink());
-		
-		// Overwrite rules
-		CadseGCST.ATTRIBUTE.addGroupOfAttributes(general);
-		CadseGCST.LINK_TYPE.addGroupOfAttributes(link);
-		link.setOverWriteGroup(general);		
+		CadseGCST.LINK_TYPE.addGroupOfAttributes(linkGroup);
+		linkGroup.setOverWriteGroup(attributeGroup);
 
 		
 		// ***************** //
 		// Hidden attributes //
 		// ***************** //
-		
+
 		// Hidden page for LinkType
 		IPage ltHiddenAttributes = new PageImpl(UUID.randomUUID(),
 				"Hidden attributes", "Hidden attributes", "Hidden attributes",
@@ -516,11 +576,10 @@ public class PageInit {
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
 		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
 
-		
 		// ***** //
 		// Pages //
 		// ***** //
-		
+
 		// Evolution control page
 		{
 			IPage evolPage = new PageImpl(UUID.randomUUID(),
@@ -878,8 +937,7 @@ public class PageInit {
 				"Select an Enum class",
 				CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_,
 				"Select an Enum class",
-				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_,
-				"ENUMS");
+				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_, "ENUMS");
 		field = new UIFieldImpl(CadseGCST.DBROWSER, UUID.randomUUID(),
 				CadseGCST.ENUM_TYPE_at_JAVA_CLASS_, "Enum class",
 				EPosLabel.left, mc, ic);
@@ -887,48 +945,52 @@ public class PageInit {
 		JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
 		v.setClazz(UIEnumValidator.class);
 		CadseGCST.ENUM_TYPE.addValidators(v);
-		
-		// register java implementation 
+
+		// register java implementation
 		// TODO move this code in an eclipse extension (implement it)
-		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), CadseGCST.MC_STRING_TO_JAVA_ELEMENT,
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(),
+				CadseGCST.MC_STRING_TO_JAVA_ELEMENT,
 				MC_StringToJavaElement.class);
-		CreatedObjectManager.register(SWTUIPlatform.getPlatform(), CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO,
+		CreatedObjectManager.register(SWTUIPlatform.getPlatform(),
+				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO,
 				IC_JavaClassForBrowser_Combo.class);
-		
-		
-		//***********************************/
-		//* IC_JAVA_CLASS_FOR_BROWSER_COMBO */
-		//***********************************/
-		
-		
-		//*********/
-		//* STYLE */
-		//*********/
-		
-		ic = new IC_Descriptor(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO,
+
+		// ***********************************/
+		// * IC_JAVA_CLASS_FOR_BROWSER_COMBO */
+		// ***********************************/
+
+		// *********/
+		// * STYLE */
+		// *********/
+
+		ic = new IC_Descriptor(
+				CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO,
 				CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_,
 				IC_JavaClassForBrowser_Combo.style_values);
 		field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
 				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_, "Style",
 				EPosLabel.left, null, ic);
 		CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO.addField(field);
-		
-		
-		//*********/
-		//* FILTER */
-		//*********/
-		
-		field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_, "Filter",
-				EPosLabel.left, null, null,
+
+		// *********/
+		// * FILTER */
+		// *********/
+
+		field = new UIFieldImpl(
+				CadseGCST.DTEXT,
+				UUID.randomUUID(),
+				CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_,
+				"Filter",
+				EPosLabel.left,
+				null,
+				null,
 				CadseGCST.DTEXT_at_TOOL_TIP_,
 				"The initial pattern to filter the set of types.\n"
-				+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
-				+ "The meta character '?' representing any character and\n"
-				+ "'*' representing any string are supported.\n"
-				+ "You can pass an empty string if no filtering is required");
+						+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
+						+ "The meta character '?' representing any character and\n"
+						+ "'*' representing any string are supported.\n"
+						+ "You can pass an empty string if no filtering is required");
 		CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO.addField(field);
-		
-		
+
 	}
 }
