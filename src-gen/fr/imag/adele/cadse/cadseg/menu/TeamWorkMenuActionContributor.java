@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Menu;
+import fr.imag.adele.cadse.core.ui.AbstractActionContributor;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fede.workspace.tool.view.actions.AbstractEclipseMenuAction;
@@ -39,7 +40,7 @@ import fr.imag.adele.cadse.cadseg.teamwork.update.UpdateState;
 /**
  * @generated
  */
-public class TeamWorkMenuActionContributor implements IActionContributor {
+public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 
 	/**
 	 * @generated

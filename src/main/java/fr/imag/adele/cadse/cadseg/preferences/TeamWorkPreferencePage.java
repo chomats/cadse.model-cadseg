@@ -297,7 +297,7 @@ public void doFinish(UIPlatform uiPlatform, Object monitor)
 			if ((rootNodes != null) && (rootNodes.length != 0)) {
 				
 				try {
-					((DTreeModelUI) _swtPlatform.getRunningField(getUIField(), null)).selectNode(rootNodes[0]);
+					fieldExtends.selectNode(rootNodes[0]);
 				} catch (Throwable e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
