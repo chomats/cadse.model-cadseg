@@ -558,6 +558,14 @@ public class PageInit {
 		CadseGCST.LINK_TYPE.addGroupOfAttributes(linkGroup);
 		linkGroup.setOverWriteGroup(attributeGroup);
 
+		// Field group select before attribute
+		GroupOfAttributesDescriptor fieldGroupName = createGroup("Field", 1, false,
+				CadseGCST.FIELD_lt_ATTRIBUTE,
+				CadseGCST.ITEM_at_NAME_
+				);
+		fieldGroupName.setOverWriteGroup(ITEM_GROUP_NAME);
+		CadseGCST.FIELD.addGroupOfAttributes(fieldGroupName);
+
 		
 		// ***************** //
 		// Hidden attributes //
@@ -944,6 +952,7 @@ public class PageInit {
 		CadseGCST.ENUM_TYPE.addField(field);
 		JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
 		v.setClazz(UIEnumValidator.class);
+		v.setListenAttributes(CadseGCST.ENUM_TYPE_at_JAVA_CLASS_);
 		CadseGCST.ENUM_TYPE.addValidators(v);
 
 		// register java implementation
