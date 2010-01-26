@@ -60,6 +60,7 @@ import fr.imag.adele.cadse.cadseg.menu.TeamWorkMenuActionContributor;
 import fr.imag.adele.cadse.cadseg.operation.WorkspaceActionContributor;
 import fr.imag.adele.cadse.cadseg.pages.PageInit;
 import fr.imag.adele.cadse.cadseg.path.ParsePath;
+import fr.imag.adele.cadse.cadseg.views.cadseg.CadsegView;
 import fr.imag.adele.cadse.core.CadseDomain;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -399,6 +400,13 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 		new CadseG_WorkspaceListener();
 		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
 		CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
+		CadseCore.theItem.setIsAbstract(true);
+		CadseGCST.CADSE.setIsAbstract(true);
+		CadseGCST.CONTENT_ITEM.setIsAbstract(true);
+		CadseGCST.LINK_TYPE_TYPE.setIsAbstract(true);
+		CadseGCST.VIEW_DESCRIPTION.setIsAbstract(true);
+		CadseGCST.UILISTENER.setIsAbstract(true);
+		CadseGCST.RUNTIME_ITEM.setIsAbstract(true);
 		try {
 			PageInit.init();
 			CadseGCST.ITEM.addActionContributeur(new ItemActionGroup());
