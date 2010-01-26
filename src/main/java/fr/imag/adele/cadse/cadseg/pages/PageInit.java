@@ -561,7 +561,10 @@ public class PageInit {
 		// Field group select before attribute
 		GroupOfAttributesDescriptor fieldGroupName = createGroup("Field", 1, false,
 				CadseGCST.FIELD_lt_ATTRIBUTE,
-				CadseGCST.ITEM_at_NAME_
+				CadseGCST.ITEM_at_NAME_,
+				CadseGCST.FIELD_at_LABEL_,
+				CadseGCST.ITEM_at_DISPLAY_NAME_,
+				CadseGCST.ITEM_at_QUALIFIED_NAME_
 				);
 		fieldGroupName.setOverWriteGroup(ITEM_GROUP_NAME);
 		CadseGCST.FIELD.addGroupOfAttributes(fieldGroupName);
@@ -1000,6 +1003,6 @@ public class PageInit {
 						+ "'*' representing any string are supported.\n"
 						+ "You can pass an empty string if no filtering is required");
 		CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO.addField(field);
-
+		
 	}
 }
