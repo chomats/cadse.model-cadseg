@@ -203,6 +203,7 @@ public class PageInit {
 		// if MUST_BE_INITIALIZED_AT_CREATION_TIME is false show only in
 		// modification page (if HIDDEN_IN_COMPUTED_PAGES is false)
 
+		
 		CadseGCST.CADSE_DEFINITION_lt_BUILD.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION.setFlag(
@@ -232,7 +233,7 @@ public class PageInit {
 		CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_.setFlag(
-				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_.setFlag(
@@ -279,8 +280,8 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
-		CadseGCST.LINK_TYPE_at_KIND_.setFlag(Item.HIDDEN_IN_COMPUTED_PAGES,
-				true);
+		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		CadseGCST.ENUM_lt_ENUM_TYPE.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ENUM_TYPE_at_VALUES_.setFlag(
@@ -297,7 +298,32 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-
+		CadseGCST.ENUM_at_ENUM_CLAZZ_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ENUM_at_VALUES_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ATTRIBUTE_at_DEV_GENERATED_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ATTRIBUTE_at_ID_RUNTIME_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ATTRIBUTE_lt_WC_LISTENS.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_at_ID_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_at_ISVALID_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_at_ITEM_HIDDEN_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_at_ITEM_READONLY_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_lt_CONTENTS.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_lt_INSTANCE_OF.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ITEM_lt_PARENT.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		
+		
 		// ************************** //
 		// Specific fields definition //
 		// ************************** //
@@ -484,17 +510,7 @@ public class PageInit {
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
 		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
 
-		// Hidden page for Enum
-		IPage enumHiddenAttributes = new PageImpl(UUID.randomUUID(),
-				"Hidden attributes", "Hidden attributes", "Hidden attributes",
-				"Hidden attributes", false, null);
-		enumHiddenAttributes.addHiddenAttributes(
-				CadseGCST.ENUM_at_ENUM_CLAZZ_,
-				CadseGCST.ENUM_at_VALUES_);
-		CadseGCST.ENUM_TYPE.addCreationPages(enumHiddenAttributes);
-		CadseGCST.ENUM_TYPE.addModificationPages(enumHiddenAttributes);
 		
-	
 		// ***** //
 		// Pages //
 		// ***** //
