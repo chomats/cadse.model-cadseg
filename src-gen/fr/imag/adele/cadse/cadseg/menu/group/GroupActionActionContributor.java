@@ -35,6 +35,7 @@ import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.Accessor;
+import fr.imag.adele.cadse.core.ui.AbstractActionContributor;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
@@ -46,7 +47,7 @@ import fr.imag.adele.cadse.eclipse.view.IViewLinkManager;
 /**
     @generated
 */
-public class GroupActionActionContributor implements  IActionContributor {
+public class GroupActionActionContributor  extends AbstractActionContributor {
 	boolean init;
 	
 	/**
