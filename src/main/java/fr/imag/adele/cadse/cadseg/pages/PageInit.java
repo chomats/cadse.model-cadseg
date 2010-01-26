@@ -497,7 +497,14 @@ public class PageInit {
 		CadseGCST.ATTRIBUTE.addGroupOfAttributes(general);
 		CadseGCST.LINK_TYPE.addGroupOfAttributes(link);
 		link.setOverWriteGroup(general);		
-
+		
+		// Field group select before attribute
+		GroupOfAttributesDescriptor fieldGroupName = createGroup("Field", 1, false,
+				CadseGCST.FIELD_lt_ATTRIBUTE,
+				CadseGCST.ITEM_at_NAME_
+				);
+		fieldGroupName.setOverWriteGroup(ITEM_GROUP_NAME);
+		CadseGCST.FIELD.addGroupOfAttributes(fieldGroupName);
 		
 		// ***************** //
 		// Hidden attributes //
