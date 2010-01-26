@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- DChooseFile::is-root-element="false"
-IC_WithTitleForDialog::is-root-element="false"
+<!-- 
 CadseCore.theItem.setIsAbstract(true);
-		CadseGCST.CADSE.setIsAbstract(true);
-		CadseGCST.CONTENT_ITEM.setIsAbstract(true);
-		CadseGCST.LINK_TYPE_TYPE.setIsAbstract(true);
-		CadseGCST.VIEW_DESCRIPTION.setIsAbstract(true);
-		CadseGCST.UILISTENER.setIsAbstract(true);
-		CadseGCST.RUNTIME_ITEM.setIsAbstract(true);
-		CadseGCST.IC_WITH_TITLE_FOR_DIALOG.setIsAbstract(true);
-DATA_MODEL::ITEM_TYPES : change destination : b0a278a3-481c-47af-bbbb-6ec983e4a0c8 instead of (itemType)
- -->
+		 -->
 <ns2:c-cadse display-name="CADSEg (Editor and generator of CADSEs)" description="CADSEg specializes the IDE to provide functionalities to edit and create CADSEs" cst-class="fr.imag.adele.cadse.core.CadseGCST" version="0" id_cadse_definition="0dc9a0d0-73ff-4e82-a181-1b6792d49e75" id="2b50360d-d835-4e98-80a8-bc55fe5421e7" name="Model.Workspace.CadseG" xmlns:ns2="http://fr.imag.adele/fede/workspace/model">
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/composer.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.build.composer.AJProjectComposerManager" display-name="AJProjectComposer" is-abstract="true" is-root-element="false" has-content="true" package-name="build.composer" super-type-name="1b4f69bd-25a3-445e-b7d4-d106a72e3596" name="AJProjectComposer" qualified-name="CadseG.build.composer.AJProjectComposer" cst-name="AJPROJECT_COMPOSER" intID="0" id="d2942fa2-260e-4697-aa6b-c74d5384cf47">
         <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="75284f57-d01a-40a8-9a8a-52e016d55245" cst-name="AJPROJECT_COMPOSER_lt_COMPOSER_LINKS" intID="1" destination="7e00694b-3fab-4e05-977c-62d61294c0d1" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="-1" min="0" name="composer-links"/>
@@ -1097,7 +1088,7 @@ DATA_MODEL::ITEM_TYPES : change destination : b0a278a3-481c-47af-bbbb-6ec983e4a0
             <page titre="ResourceContentModel" uuid="224669dc-a950-4b21-96cb-1751f71529ef" cas="3" class-name="fr.imag.adele.cadse.cadseg.pages.content.ResourceContentModelModificationPage1_ModificationPage" id="modification-page1"/>
         </modification-pages>
     </item-type>
-    <item-type hidden="false" pattern-id="${#parent.qualified-name}{.}${#name}" icon="" manager-class="fr.imag.adele.cadse.cadseg.managers.dataModel.RuntimeItemManager" display-name="RuntimeItem" is-abstract="false" is-root-element="false" has-content="false" package-name="dataModel" super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="RuntimeItem" qualified-name="CadseG.dataModel.RuntimeItem" cst-name="RUNTIME_ITEM" intID="0" id="e9693504-4378-4535-8611-bbb05411557e">
+    <item-type hidden="false" pattern-id="${#parent.qualified-name}{.}${#name}" icon="" manager-class="fr.imag.adele.cadse.cadseg.managers.dataModel.RuntimeItemManager" display-name="RuntimeItem" is-abstract="true" is-root-element="false" has-content="false" package-name="dataModel" super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="RuntimeItem" qualified-name="CadseG.dataModel.RuntimeItem" cst-name="RUNTIME_ITEM" intID="0" id="e9693504-4378-4535-8611-bbb05411557e">
         <attribute-type intID="317" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="1" id="20ecfa3e-203c-4e5d-aec9-e318c83a6899" cst-name="RUNTIME_ITEM_at_CLASS_NAME_" min="0" type="string" value="" key="class-name" type-name="b510d24e-a9d5-4a3a-b851-16c209276867"/>
         <attribute-type intID="318" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" flag="1" id="17bb61c9-fe3d-449d-b03b-63d7d9610099" cst-name="RUNTIME_ITEM_at_EXTENDS_CLASS_" min="0" type="boolean" value="false" key="extends-class" type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a"/>
         <creation-pages>
