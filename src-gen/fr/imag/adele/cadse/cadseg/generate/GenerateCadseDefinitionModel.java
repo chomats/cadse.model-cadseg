@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.generate;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
@@ -175,9 +177,17 @@ public class GenerateCadseDefinitionModel {
 		IProject p = cadseDefinition.getMainMappingContent(IProject.class);
 		;
 		try {
+			File labelPropertiesFile = p.getFile("model/labels.properties").getLocation().toFile();
+			if (!labelPropertiesFile.exists()) {
+				labelPropertiesFile.createNewFile();
+			}
 			labelproperties.store(
-					new FileWriter(p.getFile("model/labels.properties").getLocation().toFile()), new Date().toString());
+					new FileWriter(labelPropertiesFile), new Date().toString());
+			 p.getFile("model/labels.properties").refreshLocal(0, null);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
