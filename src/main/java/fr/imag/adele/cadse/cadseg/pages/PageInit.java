@@ -46,6 +46,8 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
 
 public class PageInit {
 
+	public static GroupOfAttributesDescriptor ITEM_GROUP_NAME;
+
 	/**
 	 * Helper method used to create a group of attributes.
 	 * 
@@ -473,13 +475,16 @@ public class PageInit {
 		// Pages layout with Groups of attributes //
 		// ************************************** //
 
+		ITEM_GROUP_NAME = createGroupName();
+		CadseGCST.ITEM.addGroupOfAttributes(ITEM_GROUP_NAME);
+		
 		// For general attributes pages 
 		GroupOfAttributesDescriptor general = createGroup("Attribute", 1, false,
 				createGroupName(),
 				createGroupBasicProperties(),
 				createGroupEvolutionGeneral(),
 				createGroupAdvancedPropertiesGeneral());
-		
+		general.setOverWriteGroup(ITEM_GROUP_NAME);
 		// Link special page
 		GroupOfAttributesDescriptor link = createGroup("Link", 1, false,
 				createGroupName(),
