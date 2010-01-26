@@ -251,7 +251,7 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 			return error;
 		}
 
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribute = FieldManager.getAttribute(field);
 		if (attribute.getType() != CadseGCST.LINK_TYPE) {
 			return "It's not a link attribute";

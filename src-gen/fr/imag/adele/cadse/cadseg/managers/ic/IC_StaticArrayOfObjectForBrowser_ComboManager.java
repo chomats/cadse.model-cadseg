@@ -235,7 +235,7 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		if (error != null) {
 			return error;
 		}
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribute = FieldManager.getAttribute(field);
 
 		if (attribute.getType() != CadseGCST.STRING) {

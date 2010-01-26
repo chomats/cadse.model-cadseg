@@ -231,7 +231,7 @@ public class IC_EnumForBrowser_ComboManager extends IC_AbstractForBrowser_ComboM
 	 */
 	@Override
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribute = FieldManager.getAttribute(field);
 		if (attribute == null) {
 			return "select an attribute before";

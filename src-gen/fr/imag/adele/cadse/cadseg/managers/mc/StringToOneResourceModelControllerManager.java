@@ -148,7 +148,7 @@ public class StringToOneResourceModelControllerManager extends ModelControllerMa
 	 */
 	@Override
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribut = FieldManager.getAttribute(field);
 		if (attribut == null)
 			return "Must set the attribut link for the item " + itemParent.getId();

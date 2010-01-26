@@ -196,7 +196,7 @@ public class IC_LinkForBrowser_Combo_ListManager extends IC_AbstractTreeDialogFo
 			return error;
 		}
 
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribute = FieldManager.getAttribute(field);
 		if (attribute.getType() != CadseGCST.LINK_TYPE) {
 			return "It's not a link attribute";

@@ -202,7 +202,7 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 		if (error != null) {
 			return error;
 		}
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribute = FieldManager.getAttribute(field);
 		if (attribute == null) {
 			return "select an attribute before";

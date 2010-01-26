@@ -246,7 +246,7 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 			return error;
 		}
 
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribute = FieldManager.getAttribute(field);
 
 		if (attribute.getType() != CadseGCST.STRING) {

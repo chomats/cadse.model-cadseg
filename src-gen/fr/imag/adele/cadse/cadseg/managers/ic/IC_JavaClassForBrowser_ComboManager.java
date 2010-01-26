@@ -278,7 +278,7 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	 */
 	@Override
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribute = FieldManager.getAttribute(field);
 		if (attribute == null) {
 			return "select an attribute before";

@@ -238,7 +238,7 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 	 */
 	@Override
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
-		Item field = itemParent.getPartParent();
+		Item field = itemParent;
 		Item attribut = FieldManager.getAttribute(field);
 		if (attribut == null)
 			return "Must set the attribut link for the item " + itemParent.getId();
