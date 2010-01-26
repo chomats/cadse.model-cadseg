@@ -426,7 +426,7 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 					try {
 						IField[] fields = type.getFields();
 						for (IField field : fields) {
-							if (field.getElementName().equals("ENUM$VALUES")) {
+							if (field.getElementName().equals("ENUM$VALUES") || field.getElementName().equals("$VALUES")) {
 								continue;
 							}
 							values.add(field.getElementName());
