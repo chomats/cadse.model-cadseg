@@ -9,6 +9,7 @@ CadseCore.theItem.setIsAbstract(true);
 		CadseGCST.UILISTENER.setIsAbstract(true);
 		CadseGCST.RUNTIME_ITEM.setIsAbstract(true);
 		CadseGCST.IC_WITH_TITLE_FOR_DIALOG.setIsAbstract(true);
+DATA_MODEL::ITEM_TYPES : change destination : b0a278a3-481c-47af-bbbb-6ec983e4a0c8 instead of (itemType)
  -->
 <ns2:c-cadse display-name="CADSEg (Editor and generator of CADSEs)" description="CADSEg specializes the IDE to provide functionalities to edit and create CADSEs" cst-class="fr.imag.adele.cadse.core.CadseGCST" version="0" id_cadse_definition="0dc9a0d0-73ff-4e82-a181-1b6792d49e75" id="2b50360d-d835-4e98-80a8-bc55fe5421e7" name="Model.Workspace.CadseG" xmlns:ns2="http://fr.imag.adele/fede/workspace/model">
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/composer.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.build.composer.AJProjectComposerManager" display-name="AJProjectComposer" is-abstract="true" is-root-element="false" has-content="true" package-name="build.composer" super-type-name="1b4f69bd-25a3-445e-b7d4-d106a72e3596" name="AJProjectComposer" qualified-name="CadseG.build.composer.AJProjectComposer" cst-name="AJPROJECT_COMPOSER" intID="0" id="d2942fa2-260e-4697-aa6b-c74d5384cf47">
@@ -243,7 +244,7 @@ CadseCore.theItem.setIsAbstract(true);
         </modification-pages>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/attribute-wizard.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.ui.DCheckedListManager" display-name="Checked list" is-abstract="false" is-root-element="false" has-content="true" package-name="ui" super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DCheckedList" qualified-name="CadseG.ui.DCheckedList" cst-name="DCHECKED_LIST" intID="0" id="bfae706c-7d0d-418e-ac35-1ec2e5b0d37d">
-        <creation-pages default-short-name="ui">
+        <creation-pages>
             <page titre="Create DCheckedList" uuid="52598da9-9756-4b2d-88f3-928a91b5410a" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.ui.DCheckedListCreationPage1_CreationPage" id="creation-page1"/>
         </creation-pages>
         <modification-pages>
@@ -267,7 +268,7 @@ CadseCore.theItem.setIsAbstract(true);
         </modification-pages>
     </item-type>
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/attribute-wizard.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.ui.DComboManager" display-name="Combo" is-abstract="false" is-root-element="false" has-content="true" package-name="ui" super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DCombo" qualified-name="CadseG.ui.DCombo" cst-name="DCOMBO" intID="0" id="8e03a5d2-c032-400f-9e0a-dd9642229b96">
-        <creation-pages default-short-name="ui">
+        <creation-pages>
             <page titre="Create DCombo" uuid="668f0186-73d3-407e-a272-071d427b63c2" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.ui.DComboCreationPage1_CreationPage" id="creation-page1"/>
         </creation-pages>
         <modification-pages>
@@ -340,7 +341,7 @@ CadseCore.theItem.setIsAbstract(true);
     <item-type hidden="false" pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" pattern-id="${#parent-unique-name}{.}${#short-name}" error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*" icon="icons/s4all-16x16-data.gif" manager-class="fr.imag.adele.cadse.cadseg.managers.dataModel.DataModelManager" display-name="Data Model" is-abstract="false" is-root-element="false" has-content="false" package-name="dataModel" super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="DataModel" qualified-name="CadseG.dataModel.DataModel" cst-name="DATA_MODEL" intID="0" id="07e3ac34-f382-4816-9050-6494d5cda54d">
         <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="none" tw-update="none" tw-evolution="immutable" isNatif="false" id="91bc763b-567b-44c4-a502-97c3f405918f" cst-name="DATA_MODEL_lt_CATEGORIES" intID="100" destination="07e3ac34-f382-4816-9050-6494d5cda54d" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="-1" min="0" name="categories"/>
         <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="06af9b26-fc1e-4745-b1f0-2ca11d2b18bb" cst-name="DATA_MODEL_lt_ENUMS" intID="101" destination="9a2c8cc6-bc6d-44dc-90de-06d1e8417efc" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="-1" min="0" name="enums"/>
-        <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="8876aeb0-633a-4d95-b403-12d8a2a35c6b" cst-name="DATA_MODEL_lt_TYPES" intID="102" destination="43808065-4f70-4290-adba-cca999431ba1" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="-1" min="0" name="types"/>
+        <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="8876aeb0-633a-4d95-b403-12d8a2a35c6b" cst-name="DATA_MODEL_lt_TYPES" intID="102" destination="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" isPart="true" isRequire="true" isComposition="false" isAnnotation="false" isAggregation="true" max="-1" min="0" name="types"/>
         <creation-pages>
             <page titre="Create DataModel" uuid="4bca3a55-e2a2-45fc-b00a-58dbfa66b53c" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.dataModel.DataModelCreationPage1_CreationPage" id="creation-page1"/>
         </creation-pages>
@@ -1311,7 +1312,7 @@ CadseCore.theItem.setIsAbstract(true);
     </item-type>
     <ext-item-type item-type-source="148dcee3-8512-49eb-abe7-9f8d25502778" package-name="group" name="GroupExtItem" qualified-name="group.GroupExtItem" cst-name="GROUP_EXT_ITEM" intID="371" id="3dde5cb3-f7f0-4b02-ae7f-7f927ddb3e13">
         <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="484e82d0-230e-4b67-8fb0-5fe6e2c46a76" cst-name="GROUP_EXT_ITEM_lt_MEMBER_OF" intID="372" destination="148dcee3-8512-49eb-abe7-9f8d25502778" isPart="false" isRequire="false" isComposition="false" isAnnotation="false" isAggregation="false" max="1" min="0" name="memberOf"/>
-        <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="04a3372d-9010-43c4-adf6-81435f092efc" cst-name="GROUP_EXT_ITEM_lt_MEMBERS" intID="373" destination="148dcee3-8512-49eb-abe7-9f8d25502778" isPart="false" isRequire="false" isComposition="false" isAnnotation="false" isAggregation="true" max="-1" min="0" name="members"/>
+        <outgoing-link hidden="false" tw-coupled="false" tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict" tw-update="merge" tw-evolution="immutable" isNatif="false" id="04a3372d-9010-43c4-adf6-81435f092efc" cst-name="GROUP_EXT_ITEM_lt_MEMBERS" intID="373" destination="148dcee3-8512-49eb-abe7-9f8d25502778" isPart="false" isRequire="false" isComposition="false" isAnnotation="false" isAggregation="false" max="-1" min="0" name="members"/>
         <creation-pages>
             <page titre="Create GroupExtItem" uuid="1d36f318-d730-4f35-8c48-79c948ae4acf" cas="1" class-name="fr.imag.adele.cadse.cadseg.pages.group.GroupExtItemCreationPageGroupExtItem_CreationPage" id="creation-page-GroupExtItem"/>
         </creation-pages>
