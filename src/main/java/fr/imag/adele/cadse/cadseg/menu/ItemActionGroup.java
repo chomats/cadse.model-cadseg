@@ -58,6 +58,7 @@ import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.impl.internal.Accessor;
+import fr.imag.adele.cadse.core.ui.AbstractActionContributor;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI;
@@ -66,7 +67,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.DeleteItemAction;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.RenameAction;
 import fr.imag.adele.fede.workspace.si.view.View;
 
-public class ItemActionGroup implements IActionContributor {
+public class ItemActionGroup  extends AbstractActionContributor {
 	
 
 	public ItemActionGroup() {
