@@ -250,6 +250,8 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	@Override
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
 		Item field = itemParent.getPartParent();
+		if (field == null)
+			return "cannot find the parent of "+itemParent;
 		Item attribute = FieldManager.getAttribute(field);
 		if (attribute == null) {
 			return "select an attribute before";
