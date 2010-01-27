@@ -2,8 +2,6 @@ package fr.imag.adele.cadse.cadseg.pages;
 
 import java.util.UUID;
 
-import org.eclipse.jdt.ui.IJavaElementSearchConstants;
-
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
@@ -521,8 +519,8 @@ public class PageInit {
 		// ************************************** //
 				
 		// Item pages
-		CadseGCST.ITEM.addGroupOfAttributes(ITEM_GROUP_NAME);
 		ITEM_GROUP_NAME = createGroupNameItem();
+		CadseGCST.ITEM.addGroupOfAttributes(ITEM_GROUP_NAME);
 
 		
 		// Item Type pages
@@ -530,12 +528,12 @@ public class PageInit {
 				false,
 				createGroupNameItem(),
 				CadseGCST.ITEM_TYPE_lt_SUPER_TYPE,
+				CadseGCST.ITEM_TYPE_at_ICON_,
+				CadseGCST.ITEM_TYPE_at_PACKAGE_NAME_,
+				CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_,
 				createGroupFlagsItemType());
 		CadseGCST.ITEM_TYPE.addGroupOfAttributes(itemTypeGroup);
 		itemTypeGroup.setOverWriteGroup(ITEM_GROUP_NAME);
-		// CadseGCST.ITEM_TYPE_at_ICON_
-		// CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_
-		// CadseGCST.ITEM_TYPE_at_PACKAGE_NAME_
 		
 		
 		// Attributes pages
