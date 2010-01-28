@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ExtendedType;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -33,11 +34,14 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						continue;
 					}
 					if (it.isGroupType()) {
+						boolean addGroupHead = true;
 						for (LinkType groupLT : it.getIncomingLinkTypes()) {
 							if (groupLT.isGroup()) {
+								addGroupHead = false;
 								for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
 									NewContext newContext = new NewContext(cxt);
 									newContext.setDestinationType(it);
+									newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
 									newContext.setGroupHead(groupHead, groupLT);
 									newContext.setGroupType(groupHead
 											.getGroupType());
@@ -47,14 +51,15 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 								}
 							}
 						}
+						if (addGroupHead) {
+							NewContext newContext = new NewContext(cxt);
+							newContext.setDestinationType(it);
+							newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
+							newContext.setLabel(it.getDisplayName());
+							result.add(newContext);
+						}
 
-					} else if (it.isGroupType()) {
-						NewContext newContext = new NewContext(cxt);
-						newContext.setDestinationType(it);
-						newContext.setLabel(it.getDisplayName());
-						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
-						result.add(newContext);
-					} else {
+					}  else {
 						NewContext newContext = new NewContext(cxt);
 						newContext.setDestinationType(it);
 						newContext.setLabel(it.getDisplayName());
