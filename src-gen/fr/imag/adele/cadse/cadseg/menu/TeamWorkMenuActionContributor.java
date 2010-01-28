@@ -90,7 +90,7 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 						continue;
 					}
 
-					updateState.addItemToUpdate(item.getId(), UpdateState.LAST_REV);
+					updateState.getDefinition().addItemToUpdate(item.getId(), UpdateState.LAST_REV);
 				}
 			}
 
@@ -121,7 +121,7 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 						continue;
 					}
 
-					updateState.addItemToUpdate(item.getId(), UpdateState.LAST_REV);
+					updateState.getDefinition().addItemToUpdate(item.getId(), UpdateState.LAST_REV);
 				}
 			}
 
@@ -161,7 +161,7 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 						continue;
 					}
 
-					updateState.addItemToRevert(item.getId());
+					updateState.getDefinition().addItemToRevert(item.getId());
 				}
 			}
 
