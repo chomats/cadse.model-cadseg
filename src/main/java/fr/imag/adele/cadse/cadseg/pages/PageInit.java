@@ -544,7 +544,7 @@ public class PageInit {
 				createGroupEvolutionAttributes(),
 				createGroupAdvancedPropertiesAttributes());
 		CadseGCST.ATTRIBUTE.addGroupOfAttributes(attributeGroup);
-		attributeGroup.setOverWriteGroup(itemTypeGroup);
+		attributeGroup.setOverWriteGroup(ITEM_GROUP_NAME);
 		
 		// Link pages
 		GroupOfAttributesDescriptor linkGroup = createGroup("Link", 1, false,
