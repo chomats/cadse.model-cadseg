@@ -55,7 +55,8 @@ public class CadsegInit implements InitAction {
 		CadseGCST.TYPE_DEFINITION.setHasQualifiedNameAttribute(true);
 		CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES.setIsNatif(true);
 		CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES.setIsNatif(true);
-
+		CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_.setIsNatif(true);
+		
 		CadseGCST.PAGE.setHasQualifiedNameAttribute(false);
 		CadseGCST.ATTRIBUTE.setHasNameAttribute(true);
 		CadseGCST.ATTRIBUTE.setHasQualifiedNameAttribute(false);

@@ -16,12 +16,14 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.window.IShellProvider;
+import org.eclipse.ui.IWorkbenchWindow;
 
 import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.actions.CreateLinkAction;
 import fede.workspace.tool.view.actions.DeleteLinkAction;
 import fede.workspace.tool.view.actions.GenerateAction;
 import fede.workspace.tool.view.addlink.LinkRootNode;
+import fede.workspace.tool.view.menu.MenuNewAction;
 import fede.workspace.tool.view.menu.RecreatePartLinkAction;
 import fede.workspace.tool.view.node.RootNode;
 import fr.imag.adele.cadse.core.CadseRuntime;
@@ -40,6 +42,7 @@ import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
+import fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI;
 import fr.imag.adele.cadse.eclipse.view.IViewLinkManager;
 
 
@@ -60,6 +63,12 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 	public void contributeMenuAction(ViewDescription viewDescription, Menu principalMenu, IItemNode[] selection) {
 		LogicalWorkspace logicalWorkspace = CadseCore.getLogicalWorkspace();
 		CadseRuntime[] cr;
+		AbstractCadseTreeViewUI	viewUIController = (AbstractCadseTreeViewUI) viewDescription;
+		IShellProvider			shellprovider;
+		IWorkbenchWindow			workbenchWindow;
+		shellprovider = viewUIController.getShellProvider();
+		workbenchWindow = viewUIController.getWorkbenchWindow();
+		
 		if (!init && ((cr = logicalWorkspace.getCadseRuntime()) != null) && cr.length > 0) {
 			cr[0].addDefineNewContext(new RuntimeDefinieNewContext());
 			init = true;
@@ -103,7 +112,7 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 		if (selection.length <= 1) {
 			FilterContext context = new FilterContext(viewDescription, selection.length == 1 ? selection[0] : null);
 			NewContext[] newActions = logicalWorkspace.getNewContextFrom(context );
-			Menu newmenu = computeNewMenu(newActions);
+			Menu newmenu = computeNewMenu(newActions, workbenchWindow);
 			if (newmenu != null) {
 				principalMenu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, true);
 			}
@@ -122,30 +131,30 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 	//		}
 	//	}
 
-		Set<IItemNode> linksToDelete = getLinksToDelete(selection);
-		if (linksToDelete.size() != 0) {
-			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new DeleteLinkAction(linksToDelete,
-					(IShellProvider) viewDescription.getWindowProvider()), true);
-		}
-		
-		List<Item> generateContent = getGenerateObject(selection);
-		if (generateContent.size() != 0) {
-			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new GenerateAction(generateContent), true);
-		}
+//		Set<IItemNode> linksToDelete = getLinksToDelete(selection);
+//		if (linksToDelete.size() != 0) {
+//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new DeleteLinkAction(linksToDelete,
+//					(IShellProvider) viewDescription.getWindowProvider()), true);
+//		}
+//		
+//		List<Item> generateContent = getGenerateObject(selection);
+//		if (generateContent.size() != 0) {
+//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new GenerateAction(generateContent), true);
+//		}
 
-		if (selection.length == 1) {
-			IItemNode node = selection[0];
-			Item item = node.getItem();
-
-			if (item != null
-					&& item.isResolved()
-					&& LinkRootNode.getLinkTypeNodeAndItemTypeNode(new LinkRootNode(), item.getType(), item,
-							(IViewLinkManager) viewDescription).length != 0) {
-				principalMenu
-						.insert(IMenuAction.CONTEXT_2_MENU, new CreateLinkAction(item, (IShellProvider) viewDescription
-								.getWindowProvider(), (IViewLinkManager) viewDescription), true);
-			}
-		}
+//		if (selection.length == 1) {
+//			IItemNode node = selection[0];
+//			Item item = node.getItem();
+//
+//			if (item != null
+//					&& item.isResolved()
+//					&& LinkRootNode.getLinkTypeNodeAndItemTypeNode(new LinkRootNode(), item.getType(), item,
+//							(IViewLinkManager) viewDescription).length != 0) {
+//				principalMenu
+//						.insert(IMenuAction.CONTEXT_2_MENU, new CreateLinkAction(item, (IShellProvider) viewDescription
+//								.getWindowProvider(), (IViewLinkManager) viewDescription), true);
+//			}
+//		}
 
 		//principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
 	}
@@ -296,29 +305,29 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 	/**
 	 * Adds the items to show to the given list.
 	 * @param newActions 
+	 * @param windows 
 	 * 
 	 * @param list
 	 *            the list to add items to
 	 */
-	protected Menu computeNewMenu(NewContext[] newActions) {
+	protected Menu computeNewMenu(NewContext[] newActions, IWorkbenchWindow windows) {
 		if (newActions == null || newActions.length == 0) return null;
 		
 		Comparator<IMenuAction> comparator = new Comparator<IMenuAction>() {
 			public int compare(IMenuAction o1, IMenuAction o2) {
 				return o1.getLabel().compareTo(o2.getLabel());
 			}
-
 		};
 		SortedSet<IMenuAction> list = new TreeSet<IMenuAction>(comparator);
 		for (NewContext nc : newActions) {
 			if (nc == null) continue;
 			try {
-				list.add(new MenuNewAction(nc));
+				list.add(new MenuNewAction(windows, nc, nc.getLabel()));
 			} catch (Throwable e) {
 				e.printStackTrace();
 			}
 		}
-		return new Menu(IMenuAction.NEW_MENU_ID+2, "New2", null, new ArrayList(list));
+		return new Menu(IMenuAction.NEW_MENU_ID+2, "New group", null, new ArrayList(list));
 
 	}
 

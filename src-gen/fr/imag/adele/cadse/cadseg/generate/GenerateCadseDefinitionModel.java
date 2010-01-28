@@ -187,6 +187,7 @@ public class GenerateCadseDefinitionModel {
 		try {
 			File labelPropertiesFile = p.getFile("model/labels.properties").getLocation().toFile();
 			if (!labelPropertiesFile.exists()) {
+				labelPropertiesFile.getParentFile().mkdirs();
 				labelPropertiesFile.createNewFile();
 			}
 			labelproperties.store(
