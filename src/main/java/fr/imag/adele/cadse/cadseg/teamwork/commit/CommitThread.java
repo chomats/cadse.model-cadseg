@@ -74,9 +74,9 @@ public class CommitThread extends Thread {
 
 		// commit new state of items without outgoing links
 		int i = 0;
-		int itemNb = _commitState.getCommittedItems().size();
-		while ((i < itemNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
-			UUID itemId = _commitState.getCommittedItems().get(i);
+		int itemToCommitNb = _commitState.getItemsToCommit().size();
+		while ((i < itemToCommitNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
+			UUID itemId = _commitState.getItemsToCommit().get(i);
 			_commitState.beginCommittingItem(itemId);
 
 			try {
@@ -92,8 +92,8 @@ public class CommitThread extends Thread {
 
 		// commit outgoing links
 		i = 0;
-		while ((i < itemNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
-			UUID itemId = _commitState.getCommittedItems().get(i);
+		while ((i < itemToCommitNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
+			UUID itemId = _commitState.getItemsToCommit().get(i);
 
 			try {
 				commitItemLinks(itemId, db);
@@ -110,8 +110,8 @@ public class CommitThread extends Thread {
 		
 		// reset modified state
 		i = 0;
-		while ((i < itemNb) && !_commitState.isFailed()) {
-			UUID itemId = _commitState.getCommittedItems().get(i);
+		while ((i < itemToCommitNb) && !_commitState.isFailed()) {
+			UUID itemId = _commitState.getItemsToCommit().get(i);
 
 			try {
 				TWUtil.resetTWState(_wl.getItem(itemId));
@@ -133,9 +133,11 @@ public class CommitThread extends Thread {
 				db.rollbackTransaction();
 			} else {
 				db.commitTransaction();
+				_commitState.endCommit();
 			}
 		} catch (TransactionException e) {
 			e.printStackTrace();
+			_commitState.abortCommit();
 		}
 	}
 
@@ -189,14 +191,14 @@ public class CommitThread extends Thread {
 		} else {
 			// an item revision already exists in db
 			int lastRev = db.getLastObjectRevNb(itemUUID);
-			rev = db.createNewObjectRevision(itemUUID, rev); 
+			rev = db.createNewObjectRevision(itemUUID, rev);
 			
 			//TODO update attributes
 		}
 		try {
 			item.setAttribute(CadseGCST.ITEM_at_TW_VERSION_, rev);
-			//item.setAttribute(CadseGCST.ITEM_at_TW_LAST_COMMENT, _commitState.getComment()); //TODO add comment
-			String user = ""; //TODO get user
+			item.setAttribute(CadseGCST.ITEM_at_TWLAST_COMMENT_, _commitState.getComment());
+			String user = System.getenv("user.name");
 			item.setAttribute(CadseGCST.ITEM_at_COMMITTED_BY_, user);
 			item.setAttribute(CadseGCST.ITEM_at_COMMITTED_DATE_, new Date(System.currentTimeMillis()));
 			

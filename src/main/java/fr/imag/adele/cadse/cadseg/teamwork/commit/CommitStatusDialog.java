@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
+import java.util.UUID;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -44,7 +45,6 @@ import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
@@ -61,7 +61,6 @@ import fede.workspace.tool.view.node.ItemNode;
 import fede.workspace.tool.view.node.LinkTypeCategoryNode;
 import fede.workspace.tool.view.node.Rule;
 import fede.workspace.tool.view.node.FilteredItemNode.Category;
-import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.teamwork.Error;
 import fr.imag.adele.cadse.cadseg.teamwork.VisitedItems;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.CompleteItemNode;
@@ -70,32 +69,27 @@ import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemNodeWithoutChildren;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ChangeID;
-import java.util.UUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.impl.internal.ui.PagesImpl;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
-import fr.imag.adele.cadse.core.ui.RunningModelController;
-import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.eclipse.view.SelfViewContentProvider;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForList;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeModel;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
@@ -104,9 +98,6 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeModelUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
-
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
 /**
  * Dialog used for providing informations about commit operation to user. Status
  * informations provided to the user are : - order of items to commit - commit
@@ -503,6 +494,12 @@ public class CommitStatusDialog extends SWTDialog {
 				e.printStackTrace();
 			}
 		}
+		
+		@Override
+		public ILabelProvider getLabelProvider() {
+			return new DecoratingLabelProvider(super.getLabelProvider(),
+					new ErrorDecorator());
+		}
 
 		@Override
 		public String canObjectDeselected(Object object) {
@@ -619,12 +616,8 @@ public class CommitStatusDialog extends SWTDialog {
 			return _commitState.getItemsToCommit();
 		}
 
-		public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
+		public void notifieValueChanged(UIField field, Object value) {
 
-		}
-
-		public ItemType getType() {
-			return null;
 		}
 
 		@Override
@@ -798,19 +791,15 @@ public class CommitStatusDialog extends SWTDialog {
 				return itemIds;
 			}
 
-			public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
+			public void notifieValueChanged(UIField field, Object value) {
 				// do nothing
-			}
-
-			public ItemType getType() {
-				return null;
 			}
 		};
 
 		// retrieve list of items to commit
 		List<UUID> idsToCommit = _commitState.getItemsToCommit();
-		IC_DynamicArrayOfObjectForList ic = new IC_DynamicArrayOfObjectForList("Last Used Comment",
-				"Last Used Comment", idsToCommit.toArray(new UUID[idsToCommit.size()]), _workspaceCopy);
+		IC_DynamicArrayOfObjectForList ic = new IC_DynamicArrayOfObjectForList(
+				idsToCommit.toArray(new UUID[idsToCommit.size()]), _workspaceCopy);
 
 		DListUI<IC_DynamicArrayOfObjectForList> listField =
 			_swtuiPlatforms.createDListUI(_page, "#listOfCommittedItemsField",
@@ -833,13 +822,10 @@ public class CommitStatusDialog extends SWTDialog {
 				return _commitState.isCommitted(_selectedItem.getId());
 			}
 
-			public void notifieValueChanged(UIPlatform uiPlatform, UIField field, Object value) {
+			public void notifieValueChanged(UIField field, Object value) {
 				// do nothing
 			}
 
-			public ItemType getType() {
-				return null;
-			}
 		};
 		DCheckBoxUI checkBoxField = _swtuiPlatforms.createCheckBoxUI(_page, "#committedField", "Commited without Errors", EPosLabel.none, mc,
 				null);

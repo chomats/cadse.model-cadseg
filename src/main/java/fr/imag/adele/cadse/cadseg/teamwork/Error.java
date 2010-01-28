@@ -42,4 +42,11 @@ public interface Error {
 	 * @return the message describing the error.
 	 */
 	public String getMessage();
+	
+	/**
+	 * Returns true if this error has been resolved or accepted by the user.
+	 * 
+	 * @return true if this error has been resolved or accepted by the user.
+	 */
+	public boolean isResolved();
 }

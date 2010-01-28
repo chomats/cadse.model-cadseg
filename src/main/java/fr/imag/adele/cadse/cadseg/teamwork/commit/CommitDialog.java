@@ -69,6 +69,7 @@ import fede.workspace.tool.view.node.Rule;
 import fede.workspace.tool.view.node.FilteredItemNode.Category;
 import fr.imag.adele.cadse.cadseg.teamwork.Error;
 import fr.imag.adele.cadse.cadseg.teamwork.VisitedItems;
+import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitStatusDialog.ErrorDecorator;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.CompleteItemNode;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemNodeWithoutChildren;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemSelectionListener;
@@ -426,9 +427,6 @@ public class CommitDialog extends SWTDialog {
 			_commitState.setComment((String) value);
 		}
 
-		public ItemType getType() {
-			return null;
-		}
 	}
 
 	public class DefaultMC_AttributesItem extends MC_AttributesItem {
@@ -489,13 +487,6 @@ public class CommitDialog extends SWTDialog {
 	}
 
 	public class CommitActionPage extends AbstractActionPage {
-
-		@Override
-		public void initAfterUI(UIPlatform uiPlatform) {
-			CheckboxTreeViewer treeViewer = _treeField.getTreeViewer();
-			treeViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
-					new ErrorDecorator()));
-		}
 		
 		@Override
 		public void doFinish(UIPlatform uiPlatform, Object monitor)
@@ -504,8 +495,6 @@ public class CommitDialog extends SWTDialog {
 
 			// save comment
 			LastCommitMsg.addLastCommitMsg((String) _commentField.getVisualValue());
-
-			// TODO implement it
 		}
 	}
 
@@ -532,6 +521,12 @@ public class CommitDialog extends SWTDialog {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		
+		@Override
+		public ILabelProvider getLabelProvider() {
+			return new DecoratingLabelProvider(super.getLabelProvider(),
+					new ErrorDecorator());
 		}
 
 		@Override
@@ -652,10 +647,6 @@ public class CommitDialog extends SWTDialog {
 
 		public void notifieValueChanged(UIField field, Object value) {
 
-		}
-
-		public ItemType getType() {
-			return null;
 		}
 
 		@Override
@@ -851,10 +842,6 @@ public class CommitDialog extends SWTDialog {
 				_commentField.setValue(msg);
 			}
 
-			public ItemType getType() {
-				return null;
-			}
-
 		}, new IC_StaticArrayOfObjectForBrowser_Combo("Last Used Comment", "Last Used Comment", LastCommitMsg
 				.getLastCommitMsgTab()), false);
 	}
@@ -915,7 +902,7 @@ public class CommitDialog extends SWTDialog {
 				lsd.setValidator(new ISelectionStatusValidator() {
 					public IStatus validate(Object[] selection) {
 						if ((selection == null) || (selection.length == 0)) {
-							return Status.CANCEL_STATUS;
+							return new Status(IStatus.ERROR, "Model.Workspace.Workspace", "You must select at least one item.");
 						}
 
 						for (Object select : selection) {
@@ -1101,7 +1088,7 @@ public class CommitDialog extends SWTDialog {
 	 */
 	public DCheckBoxUI createReqNewRevField() {
 		MC_StringToBoolean mc = new MC_StringToBoolean();
-		DCheckBoxUI checkBoxField = _swtuiPlatforms.createCheckBoxUI(_page, CadseGCST.ITEM_at_REQUIRE_NEW_REV,
+		DCheckBoxUI checkBoxField = _swtuiPlatforms.createCheckBoxUI(_page, CadseGCST.ITEM_at_REQUIRE_NEW_REV_,
 				"Commit will create a new revision", EPosLabel.none, mc, null);
 		checkBoxField._field.setEditable(false);
 		return checkBoxField;
@@ -1491,7 +1478,7 @@ public class CommitDialog extends SWTDialog {
 			}
 
 			// ignore static items
-			if (destItem.isStatic()) {
+			if (TWUtil.cannotCommit(destItem)) {
 				continue;
 			}
 

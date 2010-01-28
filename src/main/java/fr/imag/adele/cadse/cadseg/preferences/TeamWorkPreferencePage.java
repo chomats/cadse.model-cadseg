@@ -38,6 +38,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
+import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IActionPage;
@@ -95,6 +96,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		fieldsShash.setWeight(60);
 
 		_page.addLast(fieldsShash.getAttributeDefinition());
+		((PageImpl) _page).setActionPage(getActionPage());
 		registerListener();
 
 		setController(_swtPlatform.getPages());
@@ -120,7 +122,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 				new DBParamsModelController(DBParamNames.URL), null, 1, false, false, false, false, false, null);
 	}
 
-	private IActionPage newAction() {
+	private IActionPage getActionPage() {
 		return new MyActionPage();
 	}
 
@@ -231,12 +233,12 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 	}
 
 	public class MyActionPage extends AbstractActionPage {
- @Override
-public void doFinish(UIPlatform uiPlatform, Object monitor)
-		throws Exception {
-	// TODO Auto-generated method stub
-	super.doFinish(uiPlatform, monitor);
-}
+		@Override
+		public void doFinish(UIPlatform uiPlatform, Object monitor)
+				throws Exception {
+			// TODO Auto-generated method stub
+			super.doFinish(uiPlatform, monitor);
+		}
 	}
 
 	public class IC_ItemTypeForTreeUI extends IC_TreeModel {
