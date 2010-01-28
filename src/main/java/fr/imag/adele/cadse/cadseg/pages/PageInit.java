@@ -107,11 +107,10 @@ public class PageInit {
 	private static GroupOfAttributesDescriptor createGroupBasicPropertiesCadseDefinition() {
 		return createGroup("Basic properties", 1, true,
 				CadseGCST.CADSE_DEFINITION_at_CADSE_NAME_,
+				CadseGCST.CADSE_at_DESCRIPTION_,
 				CadseGCST.CADSE_DEFINITION_at_COMMENTARY_,
-				CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_,
 				CadseGCST.CADSE_DEFINITION_at_VENDOR_NAME_,
-				CadseGCST.CADSE_DEFINITION_at_VERSION_CADSE_,
-				CadseGCST.CADSE_at_DESCRIPTION_);
+				CadseGCST.CADSE_DEFINITION_at_VERSION_CADSE_);
 	}
 	
 	/**
@@ -577,6 +576,7 @@ public class PageInit {
 		GroupOfAttributesDescriptor cadseDefinitionGroup = createGroup("CadseDefinition", 1,
 				false,
 				createGroupNameItem(),
+				CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_,
 				createGroupBasicPropertiesCadseDefinition(),
 				createGroupRepositoryConfigurationCadse(),
 				CadseGCST.CADSE_DEFINITION_at_IMPORTS_,
