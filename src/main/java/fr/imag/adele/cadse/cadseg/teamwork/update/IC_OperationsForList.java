@@ -16,42 +16,45 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fr.imag.adele.cadse.cadseg.teamwork.ui;
+package fr.imag.adele.cadse.cadseg.teamwork.update;
+
+import java.util.List;
 
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
-import java.util.UUID;
-import fr.imag.adele.cadse.core.LogicalWorkspace;
-import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForList;
 
 /**
- * Interaction controller used to represent a dynamic array of objects.
+ * Interaction controller used to represent a list of operations related to an update.
  * 
  * @author Thomas
  * 
  */
-public class IC_DynamicArrayOfObjectForList extends IC_AbstractForList implements ILabelProvider {
-
-	private UUID[]		_itemIds;
-	private LogicalWorkspace	_wl;
-
-	public IC_DynamicArrayOfObjectForList(UUID[] itemIds, LogicalWorkspace wl) {
+public class IC_OperationsForList extends IC_AbstractForList implements ILabelProvider {
+	
+	private UpdateState	_updateState;
+	private OperationCategory _opCateg;
+	
+	public IC_OperationsForList(UpdateState updateState, OperationCategory opCateg) {
 		super("", "");
-		this._itemIds = itemIds;
-		_wl = wl;
+		_updateState = updateState;
+		_opCateg = opCateg;
 	}
 
 	@Override
 	public Object[] getValues() {
-		return _itemIds;
-	}
-
-	public void setValues(Object[] values) {
-		this._itemIds = (UUID[]) values;
+		List<Operation> operations = null;
+		if (OperationCategory.REQUIREMENTS.equals(_opCateg))
+			operations = _updateState.getDefinition().getRequirements();
+		else if (OperationCategory.IMPACTS.equals(_opCateg))
+			operations = _updateState.getDefinition().getImpacts();
+		else if (OperationCategory.TO_PERFORM.equals(_opCateg))
+			operations = _updateState.getOperationsToPerform();
+		
+		return operations.toArray(new Operation[operations.size()]);
 	}
 
 	public ItemType getType() {
@@ -67,13 +70,12 @@ public class IC_DynamicArrayOfObjectForList extends IC_AbstractForList implement
 	}
 
 	public String getText(Object element) {
-		if ((element == null) || !(element instanceof UUID)) {
+		if ((element == null) || !(element instanceof Operation)) {
 			return "";
 		}
 
-		UUID itemId = (UUID) element;
-		Item item = _wl.getItem(itemId);
-		return item.getQualifiedName();
+		Operation op = (Operation) element;
+		return op.getRequirementDisplay(_updateState.getTransaction());
 	}
 
 	public void addListener(ILabelProviderListener listener) {

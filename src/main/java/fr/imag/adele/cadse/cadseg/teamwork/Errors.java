@@ -146,6 +146,24 @@ public class Errors {
 	}
 	
 	/**
+	 * Return all errors.
+	 * Return an empty list if there is no error.
+	 * 
+	 * @return all errors.
+	 */
+	public List<Error> getErrors() {
+		List<Error> errors = new ArrayList<Error>();
+		for (List<Error> curErrors : _errors.values()) {
+			if ((errors == null) || (errors.isEmpty()))
+				continue;
+		
+			errors.addAll(curErrors);
+		}
+		
+		return errors;
+	}
+	
+	/**
 	 * Return true if at least one error is attached to this item.
 	 * 
 	 * @param itemId item id
@@ -169,5 +187,24 @@ public class Errors {
 	 */
 	public void clear() {
 		_errors.clear();
+	}
+
+	/**
+	 * Return true if there is at least one error which is considered as not resolved.
+	 * 
+	 * @return true if there is at least one error which is considered as not resolved.
+	 */
+	public boolean hasNotResolvedError() {
+		for (List<Error> errors : _errors.values()) {
+			if (errors == null)
+				continue;
+			
+			for (Error error : errors) {
+				if (!error.isResolved())
+					return true;
+			}
+		}
+		
+		return false;
 	}
 }

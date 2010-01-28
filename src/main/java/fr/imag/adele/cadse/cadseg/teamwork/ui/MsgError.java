@@ -53,4 +53,9 @@ public class MsgError implements Error {
 		return _errorMsg;
 	}
 
+	@Override
+	public boolean isResolved() {
+		return false;
+	}
+
 }
