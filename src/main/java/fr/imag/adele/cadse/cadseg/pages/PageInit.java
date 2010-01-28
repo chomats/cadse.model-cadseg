@@ -84,6 +84,36 @@ public class PageInit {
 				CadseGCST.ITEM_at_QUALIFIED_NAME_);
 	}
 
+	
+	/**
+	 * Helper method which creates the group basic properties for a CADSE definition
+	 * 
+	 * @return the group.
+	 */
+	private static GroupOfAttributesDescriptor createGroupRepositoryConfigurationCadse() {
+		return createGroup("Repository configuration", 2,
+			true,
+			CadseGCST.CADSE_at_ITEM_REPO_LOGIN_,
+			CadseGCST.CADSE_at_ITEM_REPO_PASSWD_,
+			CadseGCST.CADSE_at_ITEM_REPO_URL_,
+			CadseGCST.CADSE_at_DEFAULT_CONTENT_REPO_URL_);
+	}
+	
+	/**
+	 * Helper method which creates the group basic properties for a CADSE definition
+	 * 
+	 * @return the group.
+	 */
+	private static GroupOfAttributesDescriptor createGroupBasicPropertiesCadseDefinition() {
+		return createGroup("Basic properties", 1, true,
+				CadseGCST.CADSE_DEFINITION_at_CADSE_NAME_,
+				CadseGCST.CADSE_DEFINITION_at_COMMENTARY_,
+				CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_,
+				CadseGCST.CADSE_DEFINITION_at_VENDOR_NAME_,
+				CadseGCST.CADSE_DEFINITION_at_VERSION_CADSE_,
+				CadseGCST.CADSE_at_DESCRIPTION_);
+	}
+	
 	/**
 	 * Helper method which creates the group Flags
 	 * 
@@ -368,6 +398,26 @@ public class PageInit {
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		CadseGCST.TYPE_DEFINITION_lt_VALIDATORS.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_DEFINITION_lt_BUILD.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_DEFINITION_lt_MAPPING.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_at_ID_DEFINITION_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_lt_ITEM_TYPES.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.CADSE_at_EXECUTED_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		
+		
 		
 		
 		// ************************** //
@@ -523,6 +573,17 @@ public class PageInit {
 		CadseGCST.ITEM.addGroupOfAttributes(ITEM_GROUP_NAME);
 
 		
+		// CADSE definition pages
+		GroupOfAttributesDescriptor cadseDefinitionGroup = createGroup("CadseDefinition", 1,
+				false,
+				createGroupNameItem(),
+				createGroupBasicPropertiesCadseDefinition(),
+				createGroupRepositoryConfigurationCadse(),
+				CadseGCST.CADSE_DEFINITION_at_IMPORTS_,
+				CadseGCST.CADSE_lt_EXTENDS);
+		CadseGCST.CADSE_DEFINITION.addGroupOfAttributes(cadseDefinitionGroup);
+		cadseDefinitionGroup.setOverWriteGroup(ITEM_GROUP_NAME);
+
 		// Item Type pages
 		GroupOfAttributesDescriptor itemTypeGroup = createGroup("ItemType", 1,
 				false,
