@@ -21,54 +21,8 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 	public void computeNew(FilterContext cxt, List<NewContext> result) {
 		ViewDescription view = cxt.getView();
 		Item source = cxt.getItemNode() == null ? null : cxt.getItemNode().getItem();
-
-		if (source == null) {
-			ItemType[] types = view.getCreatableItemType();
-			for (ItemType sit : types) {
-				for (ItemType it : getAllDestType(sit)) {
-					if (it == null || it.isAbstract()) {
-						continue;
-					}
-					if (it.hasIncomingParts()) {
-						computePartNew(view, it, cxt, result);
-						continue;
-					}
-					if (it.isGroupType()) {
-						boolean addGroupHead = true;
-						for (LinkType groupLT : it.getIncomingLinkTypes()) {
-							if (groupLT.isGroup()) {
-								addGroupHead = false;
-								for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
-									NewContext newContext = new NewContext(cxt);
-									newContext.setDestinationType(it);
-									newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
-									newContext.setGroupHead(groupHead, groupLT);
-									newContext.setGroupType(groupHead
-											.getGroupType());
-									newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
-									if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
-									result.add(newContext);
-								}
-							}
-						}
-						if (addGroupHead) {
-							NewContext newContext = new NewContext(cxt);
-							newContext.setDestinationType(it);
-							newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
-							newContext.setLabel(it.getDisplayName());
-							result.add(newContext);
-						}
-
-					}  else {
-						NewContext newContext = new NewContext(cxt);
-						newContext.setDestinationType(it);
-						newContext.setLabel(it.getDisplayName());
-						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
-						result.add(newContext);
-					}
-				}
-			}
-		} else {
+		formIt(cxt, result, view, view.getFirstItemType());
+		if (source != null) {
 			for (LinkType lt : source.getInstanceOutgoingLinkTypes()) {
 				if (!view.canCreateDestination(lt))
 					continue;
@@ -90,32 +44,32 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						result.add(newContext);
 					}
 				} else if (lt.isPart()) {
-					for (ItemType it : getAllDestType(lt.getDestination())) {
-						if (it.isAbstract()) {
-							continue;
-						}
-						NewContext newContext = new NewContext(cxt);
-						newContext.setDestinationType(it);
-						newContext.setPartParent(source, lt);
-						if (it.isMemberType()) {
-							for (LinkType groupLT : it.getIncomingLinkTypes()) {
-								if (groupLT.isGroup()) {
-									for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
-										NewContext newContext2 = new NewContext(newContext);
-										newContext2.setGroupHead(groupHead, groupLT);
-										newContext2.setGroupType(groupHead.getGroupType());
-										newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
-										if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
-										result.add(newContext2);
-									}
-								}
-							}
-						} else {
-							newContext.setLabel(it.getDisplayName());
-							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
-							result.add(newContext);
-						}
-					}
+//					for (ItemType it : getAllDestType(lt.getDestination())) {
+//						if (it.isAbstract()) {
+//							continue;
+//						}
+//						NewContext newContext = new NewContext(cxt);
+//						newContext.setDestinationType(it);
+//						newContext.setPartParent(source, lt);
+//						if (it.isMemberType()) {
+//							for (LinkType groupLT : it.getIncomingLinkTypes()) {
+//								if (groupLT.isGroup()) {
+//									for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
+//										NewContext newContext2 = new NewContext(newContext);
+//										newContext2.setGroupHead(groupHead, groupLT);
+//										newContext2.setGroupType(groupHead.getGroupType());
+//										newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
+//										if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
+//										result.add(newContext2);
+//									}
+//								}
+//							}
+//						} else {
+//							newContext.setLabel(it.getDisplayName());
+//							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
+//							result.add(newContext);
+//						}
+//					}
 				} else if (lt.isGroup()) {
 					for (ItemType it : getAllDestType(lt.getDestination())) {
 						if (it.isAbstract()) {
@@ -179,6 +133,71 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 							result.add(newContext);
 						}
 					}
+				}
+			}
+		}
+	}
+
+	private void formIt(FilterContext cxt, List<NewContext> result,
+			ViewDescription view, ItemType[] types) {
+		for (ItemType sit : types) {
+			for (ItemType it : getAllDestType(sit)) {
+				if (it == null || it.isAbstract()) {
+					continue;
+				}
+				if (it.hasIncomingParts()) {
+				//	computePartNew(view, it, cxt, result);
+					continue;
+				}
+				if (it.isGroupType()) {
+					boolean addGroupHead = true;
+					for (LinkType groupLT : it.getIncomingLinkTypes()) {
+						if (groupLT.isGroup()) {
+							addGroupHead = false;
+							for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
+								NewContext newContext = new NewContext(cxt);
+								newContext.setDestinationType(it);
+								newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
+								newContext.setGroupHead(groupHead, groupLT);
+								newContext.setGroupType(groupHead
+										.getGroupType());
+								newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
+								if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
+								result.add(newContext);
+							}
+						}
+					}
+					if (addGroupHead) {
+						NewContext newContext = new NewContext(cxt);
+						newContext.setDestinationType(it);
+						newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
+						newContext.setLabel("Group Head "+it.getDisplayName());
+						result.add(newContext);
+					}
+
+				}  else if (it.isMemberType()) {
+					for (LinkType groupLT : it.getIncomingLinkTypes()) {
+						if (groupLT.isGroup()) {
+							for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
+								NewContext newContext = new NewContext(cxt);
+								newContext.setDestinationType(it);
+								newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
+								newContext.setGroupHead(groupHead, groupLT);
+								newContext.setGroupType(groupHead
+										.getGroupType());
+								newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
+								if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
+								result.add(newContext);
+							}
+						}
+					}
+				}
+				{
+//					NewContext newContext = new NewContext(cxt);
+//					newContext.setDestinationType(it);
+//					newContext.setLabel(it.getDisplayName());
+//					if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
+//					result.add(newContext);
 				}
 			}
 		}
