@@ -31,6 +31,7 @@ import java.util.UUID;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -75,6 +76,7 @@ import fr.imag.adele.cadse.core.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
@@ -133,7 +135,7 @@ public class CommitStatusDialog extends SWTDialog {
 	 */
 	protected final CommitState						_commitState;
 
-	protected final LogicalWorkspaceTransaction	_workspaceCopy;
+	protected final LogicalWorkspace   				_workspaceCopy;
 
 	/*
 	 * State of this dialog.
@@ -637,11 +639,11 @@ public class CommitStatusDialog extends SWTDialog {
 	 * _errorsField _commitedField _revField DGrillUI (selection independent
 	 * part) _listOfCommitedItemsField
 	 */
-	public CommitStatusDialog(CommitState commitState) {
+	public CommitStatusDialog(CommitState commitState, LogicalWorkspace lw) {
 		super(new SWTUIPlatform(), "Commit Status", "Commit Status");
 
 		// create a transaction to perform commit operation
-		_workspaceCopy = CadseCore.getLogicalWorkspace().createTransaction();
+		_workspaceCopy = lw;
 
 		// set manipulated data
 		_commitState = commitState;
@@ -701,10 +703,6 @@ public class CommitStatusDialog extends SWTDialog {
 
 		// add listeners
 		registerListener();
-
-		// begin effective commit operation
-		_commitThread = new CommitThread(_commitState, _workspaceCopy);
-		_commitThread.start();
 	}
 
 	/**
@@ -860,10 +858,13 @@ public class CommitStatusDialog extends SWTDialog {
 		d.syncExec(new Runnable() {
 			public void run() {
 				try {
-					final CommitStatusDialog p = new CommitStatusDialog(commitState);
+					// create a new transaction for commit
+					final LogicalWorkspaceTransaction transaction = CadseCore.getLogicalWorkspace().createTransaction();
+					
+					final CommitStatusDialog p = new CommitStatusDialog(commitState, transaction);
 					p._swtuiPlatforms.setAction(p.getFinishAction());
 					final Pages f = p._swtuiPlatforms.getPages();
-					WizardController wc = new WizardController(p._swtuiPlatforms) {
+					final WizardController wc = new WizardController(p._swtuiPlatforms) {
 
 						@Override
 						public boolean canFinish() {
@@ -871,29 +872,16 @@ public class CommitStatusDialog extends SWTDialog {
 								return false;
 							}
 
-							CommitState commitState = p.getCommitState();
 							return !commitState.isPerformingCommit();
 						}
 
 						@Override
 						public boolean performFinish() {
-							// if commit is ok, commit workspace logique copy
-							if (p._commitState.isCommitPerformed()) {
-								try {
-									p._workspaceCopy.commit();
-								} catch (CadseException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							} else {
-								p._workspaceCopy.rollback();
-							}
-
 							IRunnableWithProgress op = new IRunnableWithProgress() {
 								public void run(IProgressMonitor monitor) throws InvocationTargetException,
 										InterruptedException {
 									try {
-										f.getAction().doFinish(p._swtuiPlatforms, monitor);
+										f.getAction().doFinish(p.getSWTUIPlatform(), monitor);
 									} catch (CoreException e) {
 										throw new InvocationTargetException(e);
 									} catch (Throwable e) {
@@ -903,51 +891,113 @@ public class CommitStatusDialog extends SWTDialog {
 									}
 								}
 							};
-							try {
-								getContainer().run(false, false, op);
-							} catch (InterruptedException e) {
-								return false;
-							} catch (InvocationTargetException e) {
-								Throwable realException = e.getTargetException();
-								if (realException instanceof NullPointerException) {
-									MessageDialog.openError(getShell(), "Error", "Null pointeur exception");
-									realException.printStackTrace();
-									return false;
-								}
-								MessageDialog.openError(getShell(), "Error", realException.getMessage());
-								return false;
-							}
+							return executeRunnable(op, this);
+						}
+					};
+					
+					// begin effective commit operation
+					commitState.addListener(new CommitListener() {
 
-							return true;
+						@Override
+						public void beginCommit() {
+							// do nothing
 						}
 
 						@Override
-						public boolean performCancel() {
-							super.performCancel();
-
-							p._commitState.abortCommit();
-							try {
-								// wait current item is committed for 10 seconds
-								p._commitThread.join(10000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							p._workspaceCopy.rollback();
-
-							return true;
+						public void beginCommitItem(UUID itemId) {
+							// TODO Auto-generated method stub
 						}
-					};
+
+						@Override
+						public void commitFail() {
+							executeRunnable(new Runnable() {
+								public void run() {
+									p._swtuiPlatforms.setMessageError("Commit failed !");
+								}
+							}, wc);
+						}
+
+						@Override
+						public void endCommit() {
+							
+							// if commit is ok, commit workspace logique copy
+							if (commitState.isCommitPerformed()) {
+								try {
+									transaction.commit();
+								} catch (CadseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								executeRunnable(new Runnable() {
+									public void run() {
+										p._swtuiPlatforms.setMessage("Commit succeed !", IMessageProvider.INFORMATION);
+									}
+								}, wc);
+							} else {
+								transaction.rollback();
+								executeRunnable(new Runnable() {
+									public void run() {
+										p._swtuiPlatforms.setMessageError("Commit failed !");
+									}
+								}, wc);
+							}
+						}
+
+						@Override
+						public void endCommitItem(UUID itemId) {
+							// TODO Auto-generated method stub
+						}
+						
+					});
+					CommitThread commitThread = new CommitThread(commitState, transaction);
+					commitThread.start();
 					
 					p.setPageSize(800, 500);
 					p.open(null, wc);
 				
-					// TODO manage errors
-
+					
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	public static  boolean executeRunnable(final Runnable runnable,
+			final WizardController wizardController) {
+		IRunnableWithProgress op = new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) throws InvocationTargetException,
+					InterruptedException {
+				try {
+					runnable.run();
+				} catch (Throwable e) {
+					throw new InvocationTargetException(e);
+				} finally {
+					monitor.done();
+				}
+			}
+		};
+		return executeRunnable(op, wizardController);
+	}
+	
+	public static boolean executeRunnable(IRunnableWithProgress op,
+			final WizardController wizardController) {
+		try {
+			wizardController.getContainer().run(false, false, op);
+		} catch (InterruptedException e) {
+			return false;
+		} catch (InvocationTargetException e) {
+			Throwable realException = e.getTargetException();
+			if (realException instanceof NullPointerException) {
+				MessageDialog.openError(wizardController.getShell(), "Error", "Null pointeur exception");
+				realException.printStackTrace();
+				return false;
+			}
+			MessageDialog.openError(wizardController.getShell(), "Error", realException.getMessage());
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
