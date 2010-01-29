@@ -501,7 +501,6 @@ public class PageInit {
 					UUID.randomUUID(), CadseGCST.LINK_TYPE_lt_INVERSE_LINK,
 					"inverse link:", EPosLabel.left, new MC_Descriptor(
 							CadseGCST.MC_LINK), icInverseLink));
-
 		}
 
 		// min
@@ -780,6 +779,19 @@ public class PageInit {
 					CadseGCST.MANAGER_at_VALID_PATTERN_ID_,
 					"Valid name pattern", EPosLabel.left, mc, ic);
 			CadseGCST.ITEM_TYPE.addField(field);
+		}
+		
+		// Imports field
+		{
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_LIST_OF_STRING);
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_STRING_LIST_FOR_LIST,
+					CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, false,
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "",
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Enter an import package");
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
+					CadseGCST.CADSE_DEFINITION_at_IMPORTS_,
+					"Import", EPosLabel.left, mc, ic);
+			CadseGCST.CADSE_DEFINITION.addField(field);
 		}
 
 		// Editor evolution fields
