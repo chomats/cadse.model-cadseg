@@ -321,7 +321,7 @@ public class ItemActionGroup  extends AbstractActionContributor {
 		}
 
 		int addsep = 0;
-		for (LinkType lt : parent.getType().getOutgoingLinkTypes()) {
+		for (LinkType lt : parent.getLocalOutgoingLinkTypes()) {
 			if (lt.isDerived()) {
 				continue;
 			}
