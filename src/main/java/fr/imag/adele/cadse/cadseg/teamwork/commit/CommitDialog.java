@@ -75,6 +75,7 @@ import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemNodeWithoutChildren;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemSelectionListener;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.SelectedItemChangeLinkModelController;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWSelfViewContentProvider;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.TWUIUtil;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ChangeID;
@@ -491,7 +492,7 @@ public class CommitDialog extends SWTDialog {
 		@Override
 		public void doFinish(UIPlatform uiPlatform, Object monitor)
 				throws Exception {
-			Object[] array = _treeField.getSelectedObjects();
+//			Object[] array = _treeField.getSelectedObjects();
 
 			// save comment
 			LastCommitMsg.addLastCommitMsg((String) _commentField.getVisualValue());
@@ -902,18 +903,18 @@ public class CommitDialog extends SWTDialog {
 				lsd.setValidator(new ISelectionStatusValidator() {
 					public IStatus validate(Object[] selection) {
 						if ((selection == null) || (selection.length == 0)) {
-							return new Status(IStatus.ERROR, "Model.Workspace.Workspace", "You must select at least one item.");
+							return TWUIUtil.createErrorStatus("You must select at least one item.");
 						}
 
 						for (Object select : selection) {
 							if (!(select instanceof IItemNode)) {
-								return Status.CANCEL_STATUS;
+								return TWUIUtil.createErrorStatus("You must select an item.");
 							}
 
 							IItemNode itemNode = (IItemNode) select;
 							Item item = itemNode.getItem();
-							if (!TWUtil.isModified(item) || item.isStatic()) {
-								return Status.CANCEL_STATUS;
+							if (TWUtil.cannotCommit(item)) {
+								return TWUIUtil.createErrorStatus("Selected item cannot be commited.");
 							}
 						}
 
@@ -1017,7 +1018,7 @@ public class CommitDialog extends SWTDialog {
 	 * Register listener or validator if need
 	 */
 	protected void registerListener() {
-		// fieldExtends.addValidateContributor(this);
+//		 _treeField.addValidateContributor(this);
 	}
 
 	/**

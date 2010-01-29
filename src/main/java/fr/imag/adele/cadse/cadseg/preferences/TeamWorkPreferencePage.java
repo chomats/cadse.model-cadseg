@@ -27,6 +27,7 @@ import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.FilteredItemNode;
 import fede.workspace.tool.view.node.FilteredItemNodeModel;
 import fede.workspace.tool.view.node.FilteredItemNode.Category;
+import fr.imag.adele.cadse.cadseg.teamwork.TeamWorkPreferences;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBConnexionParams;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBParamNames;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -61,6 +62,8 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 	protected DSashFormUI<?>	fieldsShash;
 
 	protected DTreeModelUI<?>	fieldExtends;
+	
+	protected DTextUI<?>		_userField;
 
 	protected DTextUI<?>		fieldDescription;
 
@@ -74,6 +77,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 
 	public TeamWorkPreferencePage() {
 		this._page = _swtPlatform.createPageDescription("Cadse Repository Definition", "Cadse Repository Definition");
+		this._userField = createUserField();
 		this.fieldExtends = createFieldExtends();
 		this.fieldDescription = createFieldDescription();
 		this.fieldItemRepoURL = createFieldItemRepoURL();
@@ -100,6 +104,11 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		registerListener();
 
 		setController(_swtPlatform.getPages());
+	}
+	
+	public DTextUI<?> createUserField() {
+		return _swtPlatform.createTextUI(_page, "#TeamWork user name", "User name",
+				EPosLabel.left, new UserNameModelController(), null, 1, false, false, false, false, false, null);
 	}
 
 	public DTextUI<?> createFieldDefaultContentRepoURL() {
@@ -147,6 +156,28 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 				return "";
 			}
 			return _ret;
+		}
+	}
+	
+	public class UserNameModelController extends AbstractModelController {
+		
+		@Override
+		public Item getItem() {
+			return null;
+		}
+
+		@Override
+		public Object getValue() {
+			return TeamWorkPreferences.getUserName();
+		}
+
+		@Override
+		public void notifieValueChanged(UIField field, Object value) {
+			String userName = "";
+			if (value != null)
+				userName = (String) value;
+			
+			TeamWorkPreferences.setUserName(userName);
 		}
 	}
 	
