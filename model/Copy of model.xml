@@ -1,0 +1,1124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:c-cadse
+	cst-class="Model.Workspace.Workspace/model.workspace.workspace.CadsegCst"
+	version="1" id="de63c119-05e2-4764-be36-8a42d1da0c61"
+	name="Model.Workspace.Workspace"
+	xmlns:ns2="http://fr.imag.adele/fede/workspace/model"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://fr.imag.adele/fede/workspace/model /home/chomats/ws-cadseg1/Tool.Workspace.InitModel/schema/WorkspaceModel.xsd ">
+	<item-type id="4bdcd072-573b-4e8d-848c-df543f455cbe"
+		is-root-element="false" intID="0" has-content="false"
+		name="MappingModel" cst-name="MAPPING_MODEL">
+		<outgoing-link cst-name="MAPPING_MODEL_MANAGERS" intID="0"
+			destination="bd8049fc-bcf9-4f5e-ad94-ee6c898a6722" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="1" name="managers" />
+	</item-type>
+	<item-type id="07461b19-b1c4-4f45-a86b-db96ca524030"
+		is-root-element="true" intID="0" has-content="true"
+		name="WorkspaceModel" cst-name="WORKSPACE_MODEL">
+		<outgoing-link cst-name="WORKSPACE_MODEL_DATA_MODEL" intID="0"
+			destination="07e3ac34-f382-4816-9050-6494d5cda54d" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="data-model" />
+		<outgoing-link cst-name="WORKSPACE_MODEL_MERGE_EXTENDS"
+			intID="0" destination="07461b19-b1c4-4f45-a86b-db96ca524030"
+			isPart="false" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="false" max="-1" min="0"
+			name="merge-extends" />
+		<outgoing-link cst-name="WORKSPACE_MODEL__EXTENDS_" intID="0"
+			destination="07461b19-b1c4-4f45-a86b-db96ca524030" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="-1" min="0" name="extends" />
+		<outgoing-link cst-name="WORKSPACE_MODEL_EVOLUTION" intID="0"
+			destination="1fec3644-b1cc-477d-b10e-33259f622e8f" isPart="true"
+			isRequire="false" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="evolution" />
+		<outgoing-link cst-name="WORKSPACE_MODEL_CONFIGURATION"
+			intID="0" destination="ed1337e5-bb47-46ce-acb1-3bc418d1cc9c"
+			isPart="true" isRequire="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="1"
+			name="configuration" />
+		<outgoing-link cst-name="WORKSPACE_MODEL_BUILD" intID="0"
+			destination="4fb5450d-76a8-4fb8-a647-18b8907ce568" isPart="true"
+			isRequire="false" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="build" />
+		<outgoing-link cst-name="WORKSPACE_MODEL_MAPPING" intID="0"
+			destination="4bdcd072-573b-4e8d-848c-df543f455cbe" isPart="true"
+			isRequire="false" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="mapping" />
+		<outgoing-link cst-name="WORKSPACE_MODEL_VIEW_MODEL" intID="0"
+			destination="ba68cae0-c148-4efb-86c2-48101fb6e28e" isPart="true"
+			isRequire="false" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="view-model" />
+	</item-type>
+	<item-type id="1fec3644-b1cc-477d-b10e-33259f622e8f"
+		is-root-element="false" intID="12" has-content="true"
+		name="EvolutionModel" cst-name="EVOLUTION_MODEL">
+		<outgoing-link cst-name="EVOLUTION_MODEL_ITEM_TYPES" intID="1"
+			inverse-link="" selection-expression=""
+			destination="2f2538b2-1f03-484c-aa78-0751dc14ddc5" isPart="true"
+			isRequire="false" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="item-types" />
+	</item-type>
+	<item-type id="2f2538b2-1f03-484c-aa78-0751dc14ddc5"
+		is-root-element="false" intID="6" has-content="false"
+		name="EvolutionItemType" cst-name="EVOLUTION_ITEM_TYPE">
+		<outgoing-link cst-name="EVOLUTION_ITEM_TYPE_ITEM_TYPE"
+			intID="1" inverse-link="" selection-expression=""
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="item-type" />
+		<outgoing-link cst-name="EVOLUTION_ITEM_TYPE_ATTRIBUTES"
+			intID="2" inverse-link="" selection-expression=""
+			destination="e12491aa-8482-4d69-93a3-a0739a05a5ca" isPart="true"
+			isRequire="false" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="attributes" />
+	</item-type>
+	<item-type id="e12491aa-8482-4d69-93a3-a0739a05a5ca"
+		is-root-element="false" intID="8" has-content="false"
+		name="EvolutionAttribute" cst-name="EVOLUTION_ATTRIBUTE">
+		<outgoing-link cst-name="EVOLUTION_ATTRIBUTE_ATTRIBUTE"
+			intID="1" inverse-link="" selection-expression=""
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="attribute" />
+	</item-type>
+	<item-type id="b82c5c92-932e-4480-bc56-ef9f968a5e93"
+		is-root-element="false" intID="13" has-content="false"
+		super-type-name="e12491aa-8482-4d69-93a3-a0739a05a5ca"
+		name="EvolutionLink" cst-name="EVOLUTION_LINK">
+		<outgoing-link cst-name="EVOLUTION_LINK_ATTRIBUTE" intID="1"
+			inverse-link="" selection-expression=""
+			destination="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="attribute" />
+	</item-type>
+	<item-type id="4fb5450d-76a8-4fb8-a647-18b8907ce568"
+		is-root-element="false" intID="0" has-content="false"
+		name="BuildModel" cst-name="BUILD_MODEL">
+		<outgoing-link cst-name="BUILD_MODEL_COMPOSITE_TYPES" intID="0"
+			destination="34e05bd6-6feb-4c49-9c79-60f7f79754ea" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="composite-types" />
+	</item-type>
+	<item-type id="34e05bd6-6feb-4c49-9c79-60f7f79754ea"
+		is-root-element="false" intID="0" has-content="false"
+		name="CompositeItemType" cst-name="COMPOSITE_ITEM_TYPE">
+		<outgoing-link cst-name="COMPOSITE_ITEM_TYPE_COMPOSERS"
+			intID="0" destination="4920489a-4022-4607-8867-6427abb0599f"
+			isPart="true" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="-1" min="0"
+			name="composers" />
+		<outgoing-link cst-name="COMPOSITE_ITEM_TYPE_BUILDERS" intID="0"
+			destination="d1f9afde-ddec-475c-8245-f104edf9a6e5" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="builders" />
+		<outgoing-link cst-name="COMPOSITE_ITEM_TYPE_ITEM_TYPE"
+			intID="0" destination="43808065-4f70-4290-adba-cca999431ba1"
+			isPart="false" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="false" max="1" min="1"
+			name="item-type" />
+	</item-type>
+	<item-type id="935eab0e-c3db-43dc-9620-91d08400d418"
+		is-root-element="false" intID="0" has-content="false" name="Bean"
+		cst-name="BEAN">
+		<outgoing-link cst-name="BEAN_ATTRIBUTES" intID="0"
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="attributes" />
+		<outgoing-link cst-name="BEAN_SUPER_TYPE" intID="0"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="1" min="0" name="super-type" />
+		<attribute-type max="1" min="1" type="string" key="ItemType" />
+	</item-type>
+	<item-type id="c525ee44-e384-488c-87db-2aa5a50c26c5"
+		is-root-element="false" intID="0" has-content="false"
+		super-type-name="935eab0e-c3db-43dc-9620-91d08400d418" name="BeanExporter" cst-name="BEAN_EXPORTER">
+		<outgoing-link cst-name="BEAN_EXPORTER_ATTRIBUTES" intID="0"
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="attributes" />
+		<outgoing-link cst-name="BEAN_EXPORTER_SUPER_TYPE" intID="0"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="1" min="0" name="super-type" />
+		<attribute-type max="1" min="1" type="string" key="ItemType" />
+	</item-type>
+	<item-type id="65cf5e2b-e94e-4cf0-9834-fc0c1be03454"
+		is-root-element="false" intID="0" has-content="false"
+		super-type-name="935eab0e-c3db-43dc-9620-91d08400d418" name="BeanComposer" cst-name="BEAN_COMPOSER">
+		<outgoing-link cst-name="BEAN_COMPOSER_ATTRIBUTES" intID="0"
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="attributes" />
+		<outgoing-link cst-name="BEAN_COMPOSER_SUPER_TYPE" intID="0"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="1" min="0" name="super-type" />
+		<attribute-type max="1" min="1" type="string" key="ItemType" />
+	</item-type>
+	<item-type id="0a41ee81-ced8-4256-a11c-bc0bcd94b0bf"
+		is-root-element="false" intID="0" has-content="false"
+		super-type-name="935eab0e-c3db-43dc-9620-91d08400d418" name="BeanFieldController"
+		cst-name="BEAN_FIELD_CONTROLLER">
+		<outgoing-link cst-name="BEAN_FIELD_CONTROLLER_ATTRIBUTES"
+			intID="0" destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb"
+			isPart="true" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="-1" min="0"
+			name="attributes" />
+		<outgoing-link cst-name="BEAN_FIELD_CONTROLLER_SUPER_TYPE"
+			intID="0" destination="43808065-4f70-4290-adba-cca999431ba1"
+			isPart="false" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="false" max="1" min="0"
+			name="super-type" />
+		<attribute-type max="1" min="1" type="string" key="ItemType" />
+	</item-type>
+	<item-type id="d1f9afde-ddec-475c-8245-f104edf9a6e5"
+		is-root-element="false" intID="0" has-content="false" name="Builder"
+		cst-name="BUILDER">
+		<outgoing-link cst-name="BUILDER_REQUIRES" intID="0"
+			destination="d1f9afde-ddec-475c-8245-f104edf9a6e5" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="-1" min="0" name="requires" />
+	</item-type>
+	<item-type id="4920489a-4022-4607-8867-6427abb0599f"
+		is-root-element="false" intID="0" has-content="true" name="Composer"
+		cst-name="COMPOSER">
+		<outgoing-link cst-name="COMPOSER_COMPOSER_LINKS" intID="0"
+			destination="7e00694b-3fab-4e05-977c-62d61294c0d1" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="composer-links" />
+	</item-type>
+	<item-type id="7e00694b-3fab-4e05-977c-62d61294c0d1"
+		is-root-element="false" intID="0" has-content="false"
+		name="ComposerLink" cst-name="COMPOSER_LINK">
+		<outgoing-link cst-name="COMPOSER_LINK_EXPORTERS" intID="0"
+			destination="a0263259-0019-4cb8-ab39-411998f4dc98" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="-1" min="0" name="exporters" />
+		<outgoing-link cst-name="COMPOSER_LINK_LINK" intID="0"
+			destination="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="1" min="1" name="link" />
+	</item-type>
+	<item-type id="a0263259-0019-4cb8-ab39-411998f4dc98"
+		is-root-element="false" intID="0" has-content="true" name="Exporter"
+		cst-name="EXPORTER" />
+	<item-type id="9d6fa77a-0035-4234-a7ee-56842163621f"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="a0263259-0019-4cb8-ab39-411998f4dc98" name="EclipseExporter"
+		cst-name="ECLIPSE_EXPORTER" />
+	<item-type id="5541dc6e-7398-4df3-8359-3a7e190ea3a5"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="9d6fa77a-0035-4234-a7ee-56842163621f" name="FolderExporter"
+		cst-name="FOLDER_EXPORTER" />
+	<item-type id="be07a26c-e1e0-461a-9799-4a2c1a5ed841"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="a0263259-0019-4cb8-ab39-411998f4dc98" name="EclipseReExporter"
+		cst-name="ECLIPSE_RE_EXPORTER" />
+	<item-type id="ce3b1bf5-20d3-4d46-9750-f51dd400f405"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="be07a26c-e1e0-461a-9799-4a2c1a5ed841" name="JavaReExporter"
+		cst-name="JAVA_RE_EXPORTER" />
+	<item-type id="3a51c3c4-2e5a-4e52-932e-0a611be6815e"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="ce3b1bf5-20d3-4d46-9750-f51dd400f405" name="AspectJReExporter"
+		cst-name="ASPECT_JRE_EXPORTER" />
+	<item-type id="dda186a6-8b3d-4f6e-8886-48134d254661"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="9d6fa77a-0035-4234-a7ee-56842163621f" name="JavaExporter"
+		cst-name="JAVA_EXPORTER" />
+	<item-type id="5cc18918-426b-4538-ab4b-70039dfb07b3"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="9d6fa77a-0035-4234-a7ee-56842163621f" name="AspectJExporter"
+		cst-name="ASPECT_JEXPORTER" />
+	<item-type id="07e3ac34-f382-4816-9050-6494d5cda54d"
+		is-root-element="false" intID="0" has-content="false" name="DataModel"
+		cst-name="DATA_MODEL">
+		<outgoing-link cst-name="DATA_MODEL_CATEGORIES" intID="0"
+			inverse-link="" selection-expression=""
+			destination="07e3ac34-f382-4816-9050-6494d5cda54d" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="categories" />
+		<outgoing-link cst-name="DATA_MODEL_TYPES" intID="0"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="types" />
+		<outgoing-link cst-name="DATA_MODEL_ENUMS" intID="0"
+			destination="9a2c8cc6-bc6d-44dc-90de-06d1e8417efc" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="enums" />
+	</item-type>
+	<!-- item-type id="89435992-72fa-4363-8637-378aa20f29b9"
+		is-root-element="false" intID="0" has-content="false" name="EClass"
+		cst-name="ECLASS">
+		<outgoing-link cst-name="ECLASS_ATTRIBUTES" intID="0"
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="attributes" />
+		<outgoing-link cst-name="ECLASS_SUPER_TYPE" intID="0"
+			destination="89435992-72fa-4363-8637-378aa20f29b9" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="1" min="0" name="super-type" />
+	</item-type -->
+	<item-type id="43808065-4f70-4290-adba-cca999431ba1"
+		is-root-element="false" intID="0" has-content="false"
+		name="ItemType" cst-name="ITEM_TYPE">
+		<outgoing-link cst-name="ITEM_TYPE_ATTRIBUTES" intID="0"
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="attributes" />
+		<outgoing-link cst-name="ITEM_TYPE_SUPER_TYPE" intID="0"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="1" min="0" name="super-type" />
+		<outgoing-link cst-name="ITEM_TYPE_CREATION_DIALOG" intID="0"
+			destination="599cd2f8-d9c8-4cb7-885e-a88a04b809ba" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="creation-dialog" />
+		<outgoing-link cst-name="ITEM_TYPE_MODIFICATION_DIALOG" intID="0"
+			destination="c21fc39d-2dce-4821-bfc0-853890763c55" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="modification-dialog" />
+	</item-type>
+	<item-type id="d7a27040-27c6-45a3-9ef7-5a81574f52f4"
+		is-root-element="false" intID="0" has-content="false"
+		name="ContentType" cst-name="CONTENT_TYPE">
+		<outgoing-link cst-name="CONTENT_TYPE_ATTRIBUTES" intID="0"
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="attributes" />
+		<outgoing-link cst-name="CONTENT_TYPE_SUPER_TYPE" intID="0"
+			destination="d7a27040-27c6-45a3-9ef7-5a81574f52f4" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="1" min="0" name="super-type" />
+	</item-type>
+	<item-type id="9a2c8cc6-bc6d-44dc-90de-06d1e8417efc"
+		is-root-element="false" intID="0" has-content="true" name="EnumType"
+		cst-name="ENUM_TYPE" />
+	<item-type id="ba68cae0-c148-4efb-86c2-48101fb6e28e"
+		is-root-element="false" intID="0" has-content="false" name="ViewModel"
+		cst-name="VIEW_MODEL">
+		<outgoing-link cst-name="VIEW_MODEL_VIEWS" intID="0"
+			destination="3ca0bb23-d4f7-4816-af03-5e926d93bdaf" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="views" />
+	</item-type>
+	<item-type id="3ca0bb23-d4f7-4816-af03-5e926d93bdaf"
+		is-root-element="false" intID="0" has-content="true" name="View"
+		cst-name="VIEW">
+		<outgoing-link cst-name="VIEW_VIEW_ITEM_TYPES" intID="0"
+			destination="b2332082-a3f2-4920-a350-ccb1ad5d56b9" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="view-item-types" />
+	</item-type>
+	<item-type id="b2332082-a3f2-4920-a350-ccb1ad5d56b9"
+		is-root-element="false" intID="0" has-content="true"
+		name="ViewItemType" cst-name="VIEW_ITEM_TYPE">
+		<outgoing-link cst-name="VIEW_ITEM_TYPE_ITEM_TYPE" intID="1"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="item-type" />
+		<outgoing-link cst-name="VIEW_ITEM_TYPE_VIEW_LINK_TYPES"
+			intID="2" inverse-link="" selection-expression=""
+			destination="848d1718-4322-4a5c-91bf-579d04eb9b41" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="view-link-types" />
+	</item-type>
+	<item-type id="848d1718-4322-4a5c-91bf-579d04eb9b41"
+		is-root-element="false" intID="3" has-content="true"
+		name="ViewLinkType" cst-name="VIEW_LINK_TYPE">
+		<outgoing-link cst-name="VIEW_LINK_TYPE_LINK_TYPE" intID="0"
+			destination="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="link-type" />
+	</item-type>
+	<item-type id="bd8049fc-bcf9-4f5e-ad94-ee6c898a6722"
+		is-root-element="false" intID="0" has-content="true" name="Manager"
+		cst-name="MANAGER">
+		
+		<outgoing-link cst-name="MANAGER_ITEM_TYPE" intID="0"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="item-type" />
+		<outgoing-link cst-name="MANAGER_EVENTS" intID="0"
+			destination="9f433e85-8892-4507-814c-f0e92f58a851" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="events" />
+		<outgoing-link cst-name="MANAGER_CONTENT_MODEL" intID="0"
+			destination="7b68d97c-9665-458f-acf8-14d41665d25a" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="content-model" />
+		<outgoing-link cst-name="MANAGER_EXPORTERS" intID="0"
+			destination="a0263259-0019-4cb8-ab39-411998f4dc98" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="exporters" />
+	</item-type>
+	<item-type id="a1922398-35c7-4711-90e9-8ec54331c003"
+		is-root-element="false" intID="0" has-content="true" name="Field"
+		cst-name="FIELD">
+		<outgoing-link cst-name="FIELD_DISPLAY" intID="0"
+			destination="d688060b-2228-4790-aae4-083f6874148f" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="display" />
+		<outgoing-link cst-name="FIELD_ATTRIBUTE" intID="0"
+			selection-expression="self.&lt;-parent:Manager.item-type.super-type*.attributes"
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="attribute" />
+		<modification-pages>
+			<page cas="0"
+				class-name="fr.imag.adele.cadseg.model.managers.manager.FieldModificationMainPage"
+				id="main" />
+		</modification-pages>
+	</item-type>
+	<item-type id="b1b807a6-835f-457c-9bf5-d8dd5b0f34c2"
+		is-root-element="false" intID="0" has-content="true" name="Page"
+		cst-name="PAGE">
+		<outgoing-link cst-name="PAGE_FIELDS" intID="0"
+			destination="a1922398-35c7-4711-90e9-8ec54331c003" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="-1" min="0" name="fields" />
+	</item-type>
+	<item-type id="1b4f69bd-25a3-445e-b7d4-d106a72e3596"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="4920489a-4022-4607-8867-6427abb0599f" name="EclipseComposer"
+		cst-name="ECLIPSE_COMPOSER">
+		<outgoing-link cst-name="ECLIPSE_COMPOSER_COMPOSER_LINKS"
+			intID="0" destination="7e00694b-3fab-4e05-977c-62d61294c0d1"
+			isPart="true" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="-1" min="0"
+			name="composer-links" />
+		<meta-attribute key="title-create">
+			<value type="string" value="a eclipse composer" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.composer.EclipseComposer" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="c62003aa-2b2d-4d1e-8dd2-da786421b208"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="1b4f69bd-25a3-445e-b7d4-d106a72e3596" name="JavaProjectComposer"
+		cst-name="JAVA_PROJECT_COMPOSER">
+		<outgoing-link cst-name="JAVA_PROJECT_COMPOSER_COMPOSER_LINKS"
+			intID="0" destination="7e00694b-3fab-4e05-977c-62d61294c0d1"
+			isPart="true" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="-1" min="0"
+			name="composer-links" />
+		<meta-attribute key="title-create">
+			<value type="string" value="a java project composer" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.composition.java.JavaProjectComposer" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="d2942fa2-260e-4697-aa6b-c74d5384cf47"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="1b4f69bd-25a3-445e-b7d4-d106a72e3596" name="AJProjectComposer"
+		cst-name="AJPROJECT_COMPOSER">
+		<outgoing-link cst-name="AJPROJECT_COMPOSER_COMPOSER_LINKS"
+			intID="0" destination="7e00694b-3fab-4e05-977c-62d61294c0d1"
+			isPart="true" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="-1" min="0"
+			name="composer-links" />
+		<meta-attribute key="title-create">
+			<value type="string" value="a aspectj project composer" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.composition.java.AspectJProjectComposer" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="7b68d97c-9665-458f-acf8-14d41665d25a"
+		is-root-element="false" intID="0" has-content="true"
+		name="ContentModel" cst-name="CONTENT_MODEL">
+		<meta-attribute key="title-create">
+			<value type="string" value="Extended Content manager" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.domain.ContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="4febac20-31fb-420e-9dd7-5f3e86dd48cc"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="7b68d97c-9665-458f-acf8-14d41665d25a" name="ResourceContentModel"
+		cst-name="RESOURCE_CONTENT_MODEL">
+		<meta-attribute key="title-create">
+			<value type="string" value="Extended Content manager" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.domain.ContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="61f4e737-ccdb-476d-af2e-619155047b89"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="7b68d97c-9665-458f-acf8-14d41665d25a" name="SubContentModel"
+		cst-name="SUB_CONTENT_MODEL">
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a part of file" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.content.SubFileContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="9b9e9c64-284a-4895-a1f6-98614b1b2a19"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="4febac20-31fb-420e-9dd7-5f3e86dd48cc" name="FileContentModel"
+		cst-name="FILE_CONTENT_MODEL">
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a file" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.content.FileContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="d1bb4358-6ec4-40c5-b09b-d6b29223e74c"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="9b9e9c64-284a-4895-a1f6-98614b1b2a19" name="JavaFileContentModel"
+		cst-name="JAVA_FILE_CONTENT_MODEL">
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a java file" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.java.manager.JavaFileContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="4889ac90-06b8-4188-9eaf-1a0e4d52bd22"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="7b68d97c-9665-458f-acf8-14d41665d25a" name="JavaJarFileContentModel"
+		cst-name="JAVA_JAR_FILE_CONTENT_MODEL">
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a jar file" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.java.manager.JarContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="ef8e57f7-18fa-402a-b8df-613a485b387d"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="4febac20-31fb-420e-9dd7-5f3e86dd48cc" name="FolderContentModel"
+		cst-name="FOLDER_CONTENT_MODEL">
+		<outgoing-link cst-name="FOLDER_CONTENT_MODEL_CONTENT_MODEL"
+			intID="0" destination="4febac20-31fb-420e-9dd7-5f3e86dd48cc"
+			isPart="true" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="-1" min="0"
+			name="content-model" />
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a folder" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.content.FolderContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="598eec82-7963-4df8-b763-3c68d40e6ca8"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="ef8e57f7-18fa-402a-b8df-613a485b387d" name="SourceFolderContentModel"
+		cst-name="SOURCE_FOLDER_CONTENT_MODEL">
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a source folder" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.java.manager.JavaSourceFolderContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="ac58027e-c956-400f-939c-797420123d20"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="ef8e57f7-18fa-402a-b8df-613a485b387d" name="PackageContentModel"
+		cst-name="PACKAGE_CONTENT_MODEL">
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a package" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.java.manager.JavaPackageFolderContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="21dde338-243d-4c3c-a3d2-a982cc93fce7"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="7b68d97c-9665-458f-acf8-14d41665d25a" name="ProjectContentModel"
+		cst-name="PROJECT_CONTENT_MODEL">
+		<outgoing-link cst-name="PROJECT_CONTENT_MODEL_CONTENT_MODEL"
+			intID="0" destination="4febac20-31fb-420e-9dd7-5f3e86dd48cc"
+			isPart="true" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="-1" min="0"
+			name="content-model" />
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="has-composer">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a project" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.content.ProjectContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="2f77364d-7c51-4b6a-bcd9-35d99a6e7c74"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="21dde338-243d-4c3c-a3d2-a982cc93fce7" name="JavaProjectContentModel"
+		cst-name="JAVA_PROJECT_CONTENT_MODEL">
+		<outgoing-link
+			cst-name="JAVA_PROJECT_CONTENT_MODEL_CONTENT_MODEL" intID="0"
+			destination="4febac20-31fb-420e-9dd7-5f3e86dd48cc" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="content-model" />
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="has-composer">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a java project" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.java.manager.JavaProjectContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="cc880779-714b-4c58-a41d-d938d79eff8b"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="2f77364d-7c51-4b6a-bcd9-35d99a6e7c74"
+		name="AspectJProjectContentModel"
+		cst-name="ASPECT_JPROJECT_CONTENT_MODEL">
+		<outgoing-link
+			cst-name="ASPECT_JPROJECT_CONTENT_MODEL_CONTENT_MODEL" intID="0"
+			destination="4febac20-31fb-420e-9dd7-5f3e86dd48cc" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="content-model" />
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="has-composer">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a aspectj project" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.java.manager.AJProjectContentManager" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="418a3e84-edf0-4aeb-9510-a14792838b4f"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="2f77364d-7c51-4b6a-bcd9-35d99a6e7c74"
+		name="PDEProjectContentModel" cst-name="PDEPROJECT_CONTENT_MODEL">
+		<outgoing-link cst-name="PDEPROJECT_CONTENT_MODEL_CONTENT_MODEL"
+			intID="0" destination="4febac20-31fb-420e-9dd7-5f3e86dd48cc"
+			isPart="true" isRequire="true" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="-1" min="0"
+			name="content-model" />
+		<meta-attribute key="has-parent">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="has-composer">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="title-create">
+			<value type="string" value="a pde project" />
+		</meta-attribute>
+		<meta-attribute key="must-be-extended">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="class-name">
+			<value type="string"
+				value="fede.workspace.eclipse.composition.java.EclipsePluginContentManger" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="9f433e85-8892-4507-814c-f0e92f58a851"
+		is-root-element="false" intID="0" has-content="false"
+		name="Event" cst-name="EVENT" />
+	<item-type id="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Link" cst-name="LINK">
+		<outgoing-link cst-name="LINK_DESTINATION" intID="0"
+			selection-expression="self.&lt;-parent:WorkspaceModel*.data-model.categories*.types"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="destination" />
+		<outgoing-link cst-name="LINK_INVERSE_LINK" intID="0"
+			destination="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="false" max="1" min="0" name="inverse-link" />
+	</item-type>
+	<item-type id="a807eb31-575e-4fbb-822c-c0e4c6095339"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Enum" cst-name="ENUM">
+		<outgoing-link cst-name="ENUM_ENUM_TYPE" intID="0"
+			selection-expression="self.&lt;-parent:WorkspaceModel*.data-model.categories*.enums"
+			destination="9a2c8cc6-bc6d-44dc-90de-06d1e8417efc" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="true"
+			isAggregation="false" max="1" min="1" name="enum-type" />
+	</item-type>
+	<item-type id="b510d24e-a9d5-4a3a-b851-16c209276867"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="String" cst-name="STRING">
+		<meta-attribute key="defaultValue">
+			<value type="string" value="&quot;&quot;" />
+		</meta-attribute>
+		<meta-attribute key="exp_from_string">
+			<value type="string" value="(String) value" />
+		</meta-attribute>
+		<meta-attribute key="exp_to_string">
+			<value type="string" value="value" />
+		</meta-attribute>
+		<meta-attribute key="isPrimitive">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="is-list">
+			<value type="boolean" value="false" />
+		</meta-attribute>
+		<meta-attribute key="typeJava">
+			<value type="string" value="String" />
+		</meta-attribute>
+		<meta-attribute key="import-java">
+			<value type="list" value="String" />
+		</meta-attribute>
+		<meta-attribute key="import-manifest">
+			<value type="list" value="String" />
+		</meta-attribute>
+		<meta-attribute key="type">
+			<value type="string" value="string" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="96b56223-b777-4d43-a4fd-d44afc9d50aa"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Integer" cst-name="INTEGER">
+		<meta-attribute key="defaultValue">
+			<value type="string" value="-1" />
+		</meta-attribute>
+		<meta-attribute key="exp_from_string">
+			<value type="string"
+				value="Integer.parseInt((String)value)" />
+		</meta-attribute>
+		<meta-attribute key="exp_to_string">
+			<value type="string" value="Integer.toString(value)" />
+		</meta-attribute>
+		<meta-attribute key="isPrimitive">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="typeJava">
+			<value type="string" value="int" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="c1a53869-ea0c-4c3c-a550-f14a08fecf8a"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Boolean" cst-name="BOOLEAN">
+		<meta-attribute key="defaultValue">
+			<value type="string" value="false" />
+		</meta-attribute>
+		<meta-attribute key="exp_from_string">
+			<value type="string"
+				value="Boolean.parseBoolean((String) value)" />
+		</meta-attribute>
+		<meta-attribute key="exp_to_string">
+			<value type="string" value="Boolean.toString(value)" />
+		</meta-attribute>
+		<meta-attribute key="isPrimitive">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="typeJava">
+			<value type="string" value="boolean" />
+		</meta-attribute>
+		<meta-attribute key="import-java">
+			<value type="list" value="String" />
+		</meta-attribute>
+		<meta-attribute key="import-manifest">
+			<value type="list" value="String" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="9f4468ff-9d6d-4f40-905f-a2d8ea30d184"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Double" cst-name="DOUBLE">
+		<meta-attribute key="defaultValue">
+			<value type="string" value="-1" />
+		</meta-attribute>
+		<meta-attribute key="exp_from_string">
+			<value type="string"
+				value="Double.parseDouble((String)value)" />
+		</meta-attribute>
+		<meta-attribute key="exp_to_string">
+			<value type="string" value="Double.toString(value)" />
+		</meta-attribute>
+		<meta-attribute key="isPrimitive">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="typeJava">
+			<value type="string" value="double" />
+		</meta-attribute>
+		<meta-attribute key="import-java">
+			<value type="list" value="String" />
+		</meta-attribute>
+		<meta-attribute key="import-manifest">
+			<value type="list" value="String" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="3ad51308-ff3a-452f-a6ba-13439aa33bf4"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Struct" cst-name="STRUCT">
+		<outgoing-link cst-name="STRUCT_ATTRIBUTES" intID="0"
+			destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="attributes" />
+	</item-type>
+	<item-type id="ed1337e5-bb47-46ce-acb1-3bc418d1cc9c"
+		is-root-element="false" intID="0" has-content="false"
+		name="ConfigurationModel" cst-name="CONFIGURATION_MODEL">
+		<outgoing-link cst-name="CONFIGURATION_MODEL_BUILD" intID="0"
+			destination="4fb5450d-76a8-4fb8-a647-18b8907ce568" isPart="false"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="build" />
+	</item-type>
+	<item-type id="c21fc39d-2dce-4821-bfc0-853890763c55"
+		is-root-element="false" intID="0" has-content="true"
+		name="ModificationDialog" cst-name="MODIFICATION_DIALOG">
+		<outgoing-link cst-name="MODIFICATION_DIALOG_PAGES" intID="0"
+			destination="b1b807a6-835f-457c-9bf5-d8dd5b0f34c2" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="pages" />
+	</item-type>
+	<item-type id="599cd2f8-d9c8-4cb7-885e-a88a04b809ba"
+		is-root-element="false" intID="0" has-content="true"
+		name="CreationDialog" cst-name="CREATION_DIALOG">
+		<outgoing-link cst-name="CREATION_DIALOG_PAGES" intID="0"
+			destination="b1b807a6-835f-457c-9bf5-d8dd5b0f34c2" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="1" name="pages" />
+	</item-type>
+	<item-type id="31db54ef-d925-4ac4-964c-0e10dbbd30bb"
+		is-root-element="false" intID="0" has-content="true" name="Attribute"
+		cst-name="ATTRIBUTE" />
+	<item-type id="d688060b-2228-4790-aae4-083f6874148f"
+		is-root-element="false" intID="0" has-content="true" name="Display"
+		cst-name="DISPLAY" />
+	<item-type id="647d3ac4-ca5c-40c2-b675-cf116e7a6147"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DText" cst-name="DTEXT">
+		<outgoing-link cst-name="DTEXT_IC" intID="0"
+			destination="16565b78-c948-478e-aadb-0452dc4d8397" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="ic" />
+		<outgoing-link cst-name="DTEXT_MC" intID="0"
+			destination="c3a59782-3064-44d8-ade6-dbbe5cf46a70" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="mc" />
+	</item-type>
+	<item-type id="28653ee4-6348-43d9-8799-d645213c9725"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DCheckBox" cst-name="DCHECK_BOX">
+		<outgoing-link cst-name="DCHECK_BOX_IC" intID="0"
+			destination="16565b78-c948-478e-aadb-0452dc4d8397" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="ic" />
+		<outgoing-link cst-name="DCHECK_BOX_MC" intID="0"
+			destination="c3a59782-3064-44d8-ade6-dbbe5cf46a70" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="mc" />
+	</item-type>
+	<item-type id="4374594f-f98b-42d2-8d73-074c4e15d8e3"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DBrowser" cst-name="DBROWSER">
+		<outgoing-link cst-name="DBROWSER_IC" intID="0"
+			destination="16565b78-c948-478e-aadb-0452dc4d8397" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="ic" />
+		<outgoing-link cst-name="DBROWSER_MC" intID="0"
+			destination="c3a59782-3064-44d8-ade6-dbbe5cf46a70" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="mc" />
+	</item-type>
+	<item-type id="bfae706c-7d0d-418e-ac35-1ec2e5b0d37d"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DCheckedList"
+		cst-name="DCHECKED_LIST">
+		<outgoing-link cst-name="DCHECKED_LIST_IC" intID="0"
+			destination="16565b78-c948-478e-aadb-0452dc4d8397" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="ic" />
+		<outgoing-link cst-name="DCHECKED_LIST_MC" intID="0"
+			destination="c3a59782-3064-44d8-ade6-dbbe5cf46a70" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="mc" />
+	</item-type>
+	<item-type id="2c75a7cb-d5f3-4d3c-8a1c-5f0983796a07"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DTree" cst-name="DTREE">
+		<outgoing-link cst-name="DTREE_IC" intID="0"
+			destination="16565b78-c948-478e-aadb-0452dc4d8397" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="ic" />
+		<outgoing-link cst-name="DTREE_MC" intID="0"
+			destination="c3a59782-3064-44d8-ade6-dbbe5cf46a70" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="mc" />
+	</item-type>
+	<item-type id="8e03a5d2-c032-400f-9e0a-dd9642229b96"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DCombo" cst-name="DCOMBO">
+		<outgoing-link cst-name="DCOMBO_IC" intID="0"
+			destination="16565b78-c948-478e-aadb-0452dc4d8397" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="ic" />
+		<outgoing-link cst-name="DCOMBO_MC" intID="0"
+			destination="c3a59782-3064-44d8-ade6-dbbe5cf46a70" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="mc" />
+	</item-type>
+	<item-type id="1c2a361d-5c31-4f66-88ff-fdbae6e27ec2"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="d688060b-2228-4790-aae4-083f6874148f" name="DList" cst-name="DLIST">
+		<outgoing-link cst-name="DLIST_IC" intID="0"
+			destination="16565b78-c948-478e-aadb-0452dc4d8397" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="1" name="ic" />
+		<outgoing-link cst-name="DLIST_MC" intID="0"
+			destination="c3a59782-3064-44d8-ade6-dbbe5cf46a70" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="1" min="0" name="mc" />
+	</item-type>
+	<item-type id="16565b78-c948-478e-aadb-0452dc4d8397"
+		is-root-element="false" intID="0" has-content="true"
+		name="InteractionController" cst-name="INTERACTION_CONTROLLER" />
+	<item-type id="2b717226-22b2-40c1-aad3-00a4bed93d55"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_JavaClassForBrowser_Combo"
+		cst-name="IC_JAVA_CLASS_FOR_BROWSER_COMBO" />
+	<item-type id="92d56324-14f7-41be-831a-e8f2350724fd"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_AbstractForBrowser_Combo"
+		cst-name="IC_ABSTRACT_FOR_BROWSER_COMBO" />
+	<item-type id="695d9c75-d5bf-4c60-b541-67d54d1dbf50"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_EnumForBrowser_Combo" cst-name="IC_ENUM_FOR_BROWSER_COMBO" />
+	<item-type id="3ca3bdb9-1b53-43dd-8d6e-08c9f88be8fe"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_AbstractForList" cst-name="IC_ABSTRACT_FOR_LIST" />
+	<item-type id="4c6a1780-38ab-43d9-9341-92305882f336"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_AbstractTreeDialogForList_Browser_Combo"
+		cst-name="IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO" />
+	<item-type id="8597354b-61d8-4df8-a298-a4bccfbb096e"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_EnumForList" cst-name="IC_ENUM_FOR_LIST" />
+	<item-type id="265dd958-81c5-43fc-9180-f5173d9ec2d4"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_FileResourceForBrowser_Combo_List"
+		cst-name="IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST" />
+	<item-type id="71b453ea-1972-49be-9660-316987f66582"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_FolderResource_ForBrowser_Combo_List"
+		cst-name="IC_FOLDER_RESOURCE_FOR_BROWSER_COMBO_LIST" />
+	<item-type id="08fcca26-7bb7-454e-bbd3-da34b8e12680"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_LinkForBrowser_Combo_List"
+		cst-name="IC_LINK_FOR_BROWSER_COMBO_LIST" />
+	<item-type id="a2e400e7-6bf8-4c4e-aee0-3631a6a8aae2"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="08fcca26-7bb7-454e-bbd3-da34b8e12680"
+		name="IC_PartLinkForBrowser_Combo_List"
+		cst-name="IC_PART_LINK_FOR_BROWSER_COMBO_LIST" />
+	<item-type id="47051385-a9bb-4f2b-8955-ffb4aff19c55"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_ResourceTreeDialogForBrowser_Combo_List"
+		cst-name="IC_RESOURCE_TREE_DIALOG_FOR_BROWSER_COMBO_LIST" />
+	<item-type id="aa1b5744-5c86-4e67-aea1-f55683804939"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="47051385-a9bb-4f2b-8955-ffb4aff19c55"
+		name="IC_JarResourceForBrowser_Combo_List"
+		cst-name="IC_JAR_RESOURCE_FOR_BROWSER_COMBO_LIST" />
+	<item-type id="dcbf035c-dc8c-4ed3-8bad-0829a9ccb74e"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_StaticArrayOfObjectForBrowser_Combo"
+		cst-name="IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO" />
+	<item-type id="2d04316c-5216-4852-97f3-1a1ea4288622"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="IC_StringListForList" cst-name="IC_STRING_LIST_FOR_LIST" />
+	<item-type id="16da6dcd-0b4e-46fa-ba1b-15b3a1365f45"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="JavaElementTreeController"
+		cst-name="JAVA_ELEMENT_TREE_CONTROLLER" />
+	<item-type id="304fe86b-9b8e-4270-9822-102dc4d83dc9"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="16565b78-c948-478e-aadb-0452dc4d8397"
+		name="PackageListController" cst-name="PACKAGE_LIST_CONTROLLER" />
+	<item-type id="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		is-root-element="false" intID="0" has-content="true"
+		name="ModelController" cst-name="MODEL_CONTROLLER" />
+	<item-type id="64dd5edc-e192-4b34-9043-6bbde15d187f"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="MC_StringListToEnumList" cst-name="MC_STRING_LIST_TO_ENUM_LIST" />
+	<item-type id="dbc436c2-665c-4ef8-a389-bfb790209128"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="MC_StringToJavaElement" cst-name="MC_STRING_TO_JAVA_ELEMENT" />
+	<item-type id="204bc831-2b99-4ee0-a9d6-9577b2e2eac9"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="StringToBooleanModelController"
+		cst-name="STRING_TO_BOOLEAN_MODEL_CONTROLLER" />
+	<item-type id="49cc32e4-5ee3-452f-9ecc-49b8599e63d5"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="StringToEnumModelController"
+		cst-name="STRING_TO_ENUM_MODEL_CONTROLLER" />
+	<item-type id="838a2527-0d27-4ed6-b1d2-edf4dbf039ac"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="StringToPackageModelController"
+		cst-name="STRING_TO_PACKAGE_MODEL_CONTROLLER" />
+	<item-type id="8e1640cc-ef94-4fd3-a930-78eb977142f6"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="StringToResourceSimpleModelController"
+		cst-name="STRING_TO_RESOURCE_SIMPLE_MODEL_CONTROLLER" />
+	<item-type id="e7d3c591-6bc4-4413-bfbb-ee5f4220ad43"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="StringToResourceListModelController"
+		cst-name="STRING_TO_RESOURCE_LIST_MODEL_CONTROLLER" />
+	<item-type id="9b761f84-7935-4a60-8753-25e74fd414e6"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="StringToOneResourceModelController"
+		cst-name="STRING_TO_ONE_RESOURCE_MODEL_CONTROLLER" />
+	<item-type id="1d99ebf6-620f-4251-ba9a-82a876580923"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="ListOfStringModelController"
+		cst-name="LIST_OF_STRING_MODEL_CONTROLLER">
+		<meta-attribute key="list">
+			<value type="boolean" value="true" />
+		</meta-attribute>
+		<meta-attribute key="type">
+			<value type="string" value="string" />
+		</meta-attribute>
+	</item-type>
+	<item-type id="74840058-24ec-4533-8733-f1f0dcce595b"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="IntModelController" cst-name="INT_MODEL_CONTROLLER" />
+	<item-type id="8b02bffe-8011-45e3-b7bd-afbcec04a5cb"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="LinkModelController" cst-name="LINK_MODEL_CONTROLLER" />
+	<item-type id="dc046f30-2dc1-47f6-aae4-736762b10c6f"
+		is-root-element="false" intID="0" has-content="true"
+		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70"
+		name="MC_LinkToBoolean" cst-name="MC_LINK_TO_BOOLEAN" />
+	<item-type id="76c1532b-ce3a-4ab1-8e37-1b91d29699e4"
+		is-root-element="false" intID="0" has-content="false" name="standard"
+		cst-name="STANDARD">
+		<outgoing-link cst-name="STANDARD_WORKSPACE_MODEL" intID="0"
+			destination="07461b19-b1c4-4f45-a86b-db96ca524030" isPart="false"
+			isRequire="false" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="workspace-model" />
+		<outgoing-link cst-name="STANDARD_PRODUCT_MODEL" intID="0"
+			destination="b9e5ce35-57b1-4cbf-af45-92845376d33a" isPart="false"
+			isRequire="false" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="0" name="product-model" />
+	</item-type>
+	<item-type id="b9e5ce35-57b1-4cbf-af45-92845376d33a"
+		is-root-element="false" intID="0" has-content="true"
+		name="ProductModel" cst-name="PRODUCT_MODEL">
+		<outgoing-link cst-name="PRODUCT_MODEL_TYPES" intID="0"
+			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="true"
+			isRequire="true" isComposition="false" isAnnotation="false"
+			isAggregation="true" max="-1" min="1" name="types" />
+	</item-type>
+</ns2:c-cadse>
