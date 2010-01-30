@@ -23,7 +23,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 		Item source = cxt.getItemNode() == null ? null : cxt.getItemNode().getItem();
 		formIt(cxt, result, view, view.getFirstItemType());
 		if (source != null) {
-			for (LinkType lt : source.getInstanceOutgoingLinkTypes()) {
+			for (LinkType lt : source.getLocalOutgoingLinkTypes()) {
 				if (!view.canCreateDestination(lt))
 					continue;
 				
@@ -39,7 +39,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						newContext.setPartParent(source, lt);
 						newContext.setGroupHead((ItemType) source, lt);
 						newContext.setGroupType(groupType);
-						newContext.setLabel(source.getDisplayName()+" "+it.getDisplayName());
+						newContext.setLabel("Member "+source.getDisplayName()+" "+it.getDisplayName());
 						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 						result.add(newContext);
 					}
