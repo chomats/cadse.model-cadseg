@@ -963,6 +963,10 @@ public class CommitStatusDialog extends SWTDialog {
 		});
 	}
 	
+	protected UIPlatform getSWTUIPlatform() {
+		return _swtuiPlatforms;
+	}
+
 	public static  boolean executeRunnable(final Runnable runnable,
 			final WizardController wizardController) {
 		IRunnableWithProgress op = new IRunnableWithProgress() {
