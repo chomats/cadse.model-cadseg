@@ -19,6 +19,8 @@
 
 package fr.imag.adele.cadse.cadseg.managers.dataModel;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,6 +38,7 @@ import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -604,11 +607,24 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 *            the manager
 	 * 
 	 * @return the icon path
+	 * {@link MC_ResourceToURL}
 	 */
 	public static String getIconPath(Item manager) {
 		String pStr = getIconAttribute(manager);
 		if (pStr == null) {
 			return null;
+		}
+		if (pStr.startsWith(MC_ResourceToURL.RESOURCE_URL_STRING)) {
+			URL iconURL;
+			try {
+				iconURL = new URL(pStr);
+			} catch (MalformedURLException e) {
+				IPath p = new Path(pStr);
+				return p.removeFirstSegments(1).makeRelative().toPortableString();
+			}
+			IPath p = new Path(iconURL.getPath());
+			return p.removeFirstSegments(2).makeRelative().toPortableString();
+			
 		}
 		IPath p = new Path(pStr);
 		return p.removeFirstSegments(1).makeRelative().toPortableString();
