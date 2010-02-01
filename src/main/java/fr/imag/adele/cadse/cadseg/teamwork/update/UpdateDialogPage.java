@@ -43,6 +43,7 @@ import fede.workspace.tool.view.node.FilteredItemNodeModel;
 import fede.workspace.tool.view.node.ItemsFromLinkOfLinkTypeRule;
 import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitDialog.ItemsFromItemTypeWithFilterRule;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWSelfViewContentProvider;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.TWUIUtil;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -394,18 +395,18 @@ public class UpdateDialogPage extends SWTDialog {
 							public IStatus validate(Object[] selection) {
 								if ((selection == null)
 										|| (selection.length == 0)) {
-									return Status.CANCEL_STATUS;
+									return TWUIUtil.createErrorStatus("You must select at least one item.");
 								}
 
 								for (Object select : selection) {
 									if (!(select instanceof IItemNode)) {
-										return Status.CANCEL_STATUS;
+										return TWUIUtil.createErrorStatus("You must select an item.");
 									}
 
 									IItemNode itemNode = (IItemNode) select;
 									Item item = itemNode.getItem();
 									if (TWUtil.cannotRevert(item)) {
-										return Status.CANCEL_STATUS;
+										return TWUIUtil.createErrorStatus("Selected item cannot be reverted.");
 									}
 								}
 
@@ -523,18 +524,18 @@ public class UpdateDialogPage extends SWTDialog {
 					public IStatus validate(Object[] selection) {
 						if ((selection == null)
 								|| (selection.length != 1)) {
-							return Status.CANCEL_STATUS;
+							return TWUIUtil.createErrorStatus("You must select at least one item.");
 						}
 
 						for (Object select : selection) {
 							if (!(select instanceof IItemNode)) {
-								return Status.CANCEL_STATUS;
+								return TWUIUtil.createErrorStatus("You must select an item.");
 							}
 
 							IItemNode itemNode = (IItemNode) select;
 							Item item = itemNode.getItem();
 							if (TWUtil.cannotUpdate(item)) {
-								return Status.CANCEL_STATUS;
+								return TWUIUtil.createErrorStatus("Selected item cannot be updated.");
 							}
 						}
 
