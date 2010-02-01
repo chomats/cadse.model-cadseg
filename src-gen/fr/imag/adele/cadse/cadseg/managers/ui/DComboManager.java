@@ -105,7 +105,7 @@ public class DComboManager extends DisplayManager implements IItemManager {
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ui.DComboUI";
+	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DComboUI";
 
 	/**
 	 * Instantiates a new d combo manager.

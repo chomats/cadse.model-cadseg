@@ -36,7 +36,7 @@ import fr.imag.adele.cadse.core.ui.EPosLabel;
 public class DCheckBoxManager extends DisplayManager implements IItemManager {
 
 	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ui.DCheckBoxUI";
+	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI";
 
 	/**
 	 * Instantiates a new d check box manager.

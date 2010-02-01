@@ -28,6 +28,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
 
 /**
  * The Class DBrowserManager.
@@ -88,7 +89,7 @@ public class DBrowserManager extends DisplayManager implements IItemManager {
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ui.DBrowserUI";
+	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI";
 
 	/**
 	 * Instantiates a new d browser manager.

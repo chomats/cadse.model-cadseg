@@ -63,7 +63,6 @@ public class DTreeManager extends DisplayManager implements IItemManager {
 		public void computeImportsPackage(Set<String> imports) {
 			imports.add("fr.imag.adele.cadse.core");
 			imports.add("fede.workspace.model.manager.properties");
-			imports.add("fede.workspace.model.manager.properties.impl.ui");
 		}
 
 		/*
@@ -100,7 +99,7 @@ public class DTreeManager extends DisplayManager implements IItemManager {
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ui.DTreeUI";
+	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeUI";
 
 	/**
 	 * Instantiates a new d tree manager.
