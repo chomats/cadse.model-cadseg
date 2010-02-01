@@ -168,7 +168,15 @@ public class ItemActionGroup  extends AbstractActionContributor {
 			}
 			if (it.isPartType() && !lt.isPart())
 				return false;
-
+			if (it.isGroupType())
+				return false;
+			if (it.isMemberType())
+				return false;
+			if (it.isGroupHead())
+				return false;
+			if (it.isMember())
+				return false;
+			
 			if (im.isAbstract(itemParent, lt)) {
 				return false;
 			}
