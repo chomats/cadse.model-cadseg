@@ -156,17 +156,17 @@ public class ItemActionGroup  extends AbstractActionContributor {
 		return l != null && !l.isReadOnly() && l.getSource().getType().getItemManager().canDeleteLink(l) == null;
 	}
 
-	protected boolean canCreate(Item itemParent, LinkType lt, ItemType it, AbstractCadseTreeViewUI viewUIController) {
+	protected boolean canCreate(Item itemParent, LinkType lt, ItemType it, AbstractCadseTreeViewUI viewUIController, boolean needLT) {
 		try {
 			IItemManager im = it.getItemManager();
 
-			if (lt == null) {
+			if (needLT && lt == null) {
 				return false;
 			}
 			if (it.isAbstract()) {
 				return false;
 			}
-			if (it.isPartType() && !lt.isPart())
+			if (it.isPartType() && (lt == null || !lt.isPart()))
 				return false;
 			if (it.isGroupType())
 				return false;
@@ -183,7 +183,7 @@ public class ItemActionGroup  extends AbstractActionContributor {
 			if (im.canCreateMeItem(itemParent, lt, it) != null) {
 				return false;
 			}
-			if (lt.getSource().isMainType() && lt.getSource().getItemManager().canCreateChildItem(itemParent, lt, it) != null) {
+			if (lt != null && lt.getSource().isMainType() && lt.getSource().getItemManager().canCreateChildItem(itemParent, lt, it) != null) {
 				return false;
 			}
 			LogicalWorkspace cadseModel = viewUIController.getCadseModel();
@@ -290,6 +290,8 @@ public class ItemActionGroup  extends AbstractActionContributor {
 				SortedSet<IMenuAction> list = new TreeSet<IMenuAction>(comparator);
 				ItemType[] types = viewUIController.getFirstItemType(cadseModel);
 				for (ItemType it : types) {
+					boolean canCreate = canCreate(null, null, it, viewUIController,false);
+					if (!canCreate) continue;
 					if (it == null) {
 						continue;
 					}
@@ -382,6 +384,8 @@ public class ItemActionGroup  extends AbstractActionContributor {
 		if (viewUIController != null) {
 			ItemType[] types = viewUIController.getFirstItemType(cadseModel);
 			for (ItemType it : types) {
+				boolean canCreate = canCreate(null, null, it, viewUIController, false);
+				if( !canCreate) continue;
 				if (viewUIController.isRefItemType(it, cadseModel)) {
 					continue;
 				}
@@ -419,7 +423,7 @@ public class ItemActionGroup  extends AbstractActionContributor {
 			AbstractCadseTreeViewUI viewUIController, IWorkbenchWindow workbenchWindow){
 		ItemType[] subType = it.getSubTypes();
 
-		boolean canCreate = canCreate(parent, lt, it, viewUIController);
+		boolean canCreate = canCreate(parent, lt, it, viewUIController, true);
 
 		if (canCreate) {
 			list.add(new MenuNewAction(workbenchWindow, parent, lt, it, viewUIController.getDislplayCreate(lt,
@@ -445,7 +449,7 @@ public class ItemActionGroup  extends AbstractActionContributor {
 
 			ItemType[] _subType = it.getSubTypes();
 
-			boolean canCreate = canCreate(parent, lt, it, viewUIController);
+			boolean canCreate = canCreate(parent, lt, it, viewUIController, true);
 
 			if (canCreate) {
 				list
