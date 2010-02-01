@@ -161,7 +161,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 								newContext.setGroupHead(groupHead, groupLT);
 								newContext.setGroupType(groupHead
 										.getGroupType());
-								newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
+								newContext.setLabel("Head/Member "+ groupHead.getDisplayName()+" "+it.getDisplayName());
 								if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 								result.add(newContext);
 							}
@@ -171,7 +171,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						NewContext newContext = new NewContext(cxt);
 						newContext.setDestinationType(it);
 						newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
-						newContext.setLabel("Group Head "+it.getDisplayName());
+						newContext.setLabel("Head "+it.getDisplayName());
 						result.add(newContext);
 					}
 
