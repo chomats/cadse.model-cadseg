@@ -496,7 +496,6 @@ public class FieldManager extends DefaultItemManager {
 		sb.end();
 		sb.newline().append("}");
 		imports.add("fr.imag.adele.cadse.core.ui.UIField");
-		imports.add("fr.imag.adele.cadse.ui.field.core.FieldsCore");
 	}
 
 }
