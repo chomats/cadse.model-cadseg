@@ -663,7 +663,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	}
 
 	public int getCadseRootFlag(Item attribute) {
-		return (AttributeManager.isRequireAttribute(attribute) ? Item.MUST_BE_INITIALIZED_AT_CREATION_TIME : 0)
+		return (AttributeManager.isMustBeInitializedAttribute(attribute) ? Item.MUST_BE_INITIALIZED_AT_CREATION_TIME : 0)
 				+ (AttributeManager.isTransientAttribute(attribute) ? Item.TRANSIENT : 0)
 				+ (!AttributeManager.isCannotBeUndefinedAttribute(attribute) ? Item.CAN_BE_UNDEFINED : 0);
 	}
