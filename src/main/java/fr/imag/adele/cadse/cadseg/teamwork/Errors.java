@@ -39,6 +39,27 @@ public class Errors {
 
 	private Map<UUID, List<Error>> _errors = new HashMap<UUID, List<Error>>();
 	
+	private List<UnexpectedError> _unexpectedErrors = new ArrayList<UnexpectedError>();
+	
+	/**
+	 * Attach an unexpected error.
+	 * 
+	 * @param errorMessage   error message
+	 * @param errorException a throwable
+	 */
+	public void addError(String errorMessage, Throwable errorException) {
+		_unexpectedErrors.add(new UnexpectedError(errorMessage, errorException));
+	}
+	
+	/**
+	 * Returns list of unexpected errors.
+	 * 
+	 * @return list of unexpected errors.
+	 */
+	public List<UnexpectedError> getUnexpectedErrors() {
+		return _unexpectedErrors;
+	}
+	
 	/**
 	 * Attach a simple error to specified item.
 	 * 

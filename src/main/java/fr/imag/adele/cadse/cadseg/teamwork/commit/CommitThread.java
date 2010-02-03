@@ -19,24 +19,31 @@
 package fr.imag.adele.cadse.cadseg.teamwork.commit;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.teamwork.TeamWorkPreferences;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBConnexionParams;
-import fr.imag.adele.cadse.cadseg.type.TWEvol;
+import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.ModelVersionDBService;
+import fr.imag.adele.teamwork.db.Revision;
 import fr.imag.adele.teamwork.db.TransactionException;
 
 /**
@@ -47,6 +54,9 @@ import fr.imag.adele.teamwork.db.TransactionException;
  */
 public class CommitThread extends Thread {
 
+	public static final String TW_COMMIT_DATE_ATTR_NAME = "TW_COMMIT_DATE";
+	public static final String TW_COMMITER_ATTR_NAME = "TW_COMMITER";
+	public static final String TW_COMMENT_ATTR_NAME = "TW_COMMENT";
 	private CommitState			_commitState;
 	private LogicalWorkspace	_wl;
 	private Map<ItemType, Boolean> evolPoliticsSetIndDB = new HashMap<ItemType, Boolean>(); 
@@ -161,7 +171,7 @@ public class CommitThread extends Thread {
 		if ((isAlreadySet != null) && isAlreadySet)
 			return;
 		
-		connectToDB(db, itemType);
+		DBUtil.connectToDB(db, itemType);
 		for (IAttributeType<?> attrType : itemType.getAllAttributeTypes()) {
 			
 			if (TWUtil.isTWAttribute(attrType))
@@ -186,8 +196,103 @@ public class CommitThread extends Thread {
 		return attrType.getName();
 	}
 
-	private void commitItemLinks(UUID itemId, ModelVersionDBService db) {
-		// TODO implement it
+	private void commitItemLinks(UUID itemId, ModelVersionDBService db) throws TransactionException {
+		
+		// commit item model database
+		Item item = _wl.getItem(itemId);
+		ItemType itemType = item.getType();
+
+		// set repository for this item
+		DBUtil.connectToDB(db, itemType);
+		
+		for (IAttributeType<?> attrType : item.getLocalAllAttributeTypes()) {
+			
+			// only links are updated in this step
+			if (!isLinkType(attrType))
+				continue;
+			
+			LinkType linkType = (LinkType) attrType;
+			
+			// ignore internal attributes
+			if (TWUtil.isToIgnoreForCommit(attrType))
+				continue;
+			
+			// ignore transient attributes
+			if (TWUtil.isTransient(attrType))
+				continue;
+			
+			try {
+				if (item.isRequireNewRev()) {
+					commitItemLinksWhenNewRev(item, linkType, db);
+				} else if (item.isTWAttributeModified(attrType)) {
+					// link type has been modified and current revision should be updated
+					//TODO
+				}
+			} catch (ModelVersionDBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void commitItemLinksWhenNewRev(Item item, LinkType linkType, ModelVersionDBService db) throws ModelVersionDBException {
+		UUID itemId = item.getId();
+		int rev = item.getVersion();
+		UUID linkTypeId = linkType.getId();
+		
+		if (TWUtil.hasReplaceCommitPolitic(linkType)) {
+			// delete links in base which no more exist
+			Set<UUID> destIdsOfLinksToRemove = new HashSet<UUID>();
+			for (Revision destRevision : db.getLinkDestRev(linkTypeId, itemId, rev)) {
+				UUID destId = destRevision.getId();
+				if (!TWUtil.isPresentInWorkspace(destId, _wl))
+					destIdsOfLinksToRemove.add(destId);
+			}
+			for (UUID destId : destIdsOfLinksToRemove) {
+				db.deleteLink(linkTypeId, itemId, rev, destId);
+			}
+			
+			// update links : 
+			// - update compatible revisions
+			// - add new links
+			for (Link link : item.getOutgoingLinks(linkType)) {
+				Item destItem = link.getDestination(false);
+				UUID destId = destItem.getId();
+				
+				//TODO
+				
+				int destRev = 0;
+				if (link.isLinkResolved())
+					destRev = destItem.getVersion();
+				else
+					destRev = link.getVersion();
+				Map<String, Object> stateMap = new HashMap<String, Object>();
+				stateMap.put(CadseGCST.ITEM_at_NAME, destItem.getName());
+				stateMap.put(CadseGCST.ITEM_at_QUALIFIED_NAME, destItem.getQualifiedName());
+				
+				db.addLink(linkTypeId, itemId, rev, destId, destRev, stateMap);
+			}
+			return;
+		}
+		
+		if (TWUtil.hasReconcileCommitPolitic(linkType)) {
+//			Object reconciledValue = TWUtil.mergeLists(oldValue, newValue);
+//			try {
+//				item.setAttribute(attrType, reconciledValue);
+//			} catch (CadseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			db.setObjectValue(itemId, rev, attrName, reconciledValue);
+		} else if (TWUtil.hasConflictCommitPolitic(linkType)) {
+//			if (attrType.isTWValueModified(oldValue, newValue)) {
+//				// TODO throw an error
+//				throw new IllegalStateException("Conflict values " + 
+//					oldValue + " and " + newValue + " of attribute " + 
+//					attrName + " of item " + item.getName());
+//			} else
+//				db.setObjectValue(itemId, rev, attrName, newValue);
+		}
 	}
 
 	private void commitItemState(UUID itemId, ModelVersionDBService db) throws ModelVersionDBException,
@@ -198,12 +303,19 @@ public class CommitThread extends Thread {
 		ItemType itemType = item.getType();
 
 		// set repository for this item
-		connectToDB(db, itemType);
+		DBUtil.connectToDB(db, itemType);
 
-		// compute modified attributes
+		// compute initial state
 		Map<String, Object> stateMap = new TreeMap<String, Object>();
-		Map<String, IAttributeType> attrTypeMap = new TreeMap<String, IAttributeType>();
-		for (IAttributeType attrType : item.getLocalAllAttributeTypes()) {
+		String comment = _commitState.getComment();
+		stateMap.put(TW_COMMENT_ATTR_NAME, comment);
+		String user = TeamWorkPreferences.getUserName();
+		stateMap.put(TW_COMMITER_ATTR_NAME, user);
+		Date commitDate = new Date(System.currentTimeMillis());
+		stateMap.put(TW_COMMIT_DATE_ATTR_NAME, commitDate);
+		
+		List<IAttributeType<?>> modifiedAttrTypes = new ArrayList<IAttributeType<?>>();
+		for (IAttributeType<?> attrType : item.getLocalAllAttributeTypes()) {
 			
 			// links are updated in a second step
 			if (isLinkType(attrType))
@@ -219,9 +331,8 @@ public class CommitThread extends Thread {
 			
 			stateMap.put(attrType.getName(), item.getAttribute(attrType));
 
-			if (item.isTWAttributeModified(attrType)) {
-				attrTypeMap.put(attrType.getName(), attrType);
-			}
+			if (item.isTWAttributeModified(attrType))
+				modifiedAttrTypes.add(attrType);
 		}
 		int rev = item.getVersion();
 		if (rev == 0) {
@@ -231,22 +342,52 @@ public class CommitThread extends Thread {
 					stateMap, isItemType(item));
 		} else {
 			// an item revision already exists in db
+			int oldRev = rev;
 			int lastRev = db.getLastObjectRevNb(itemId);
 			
 			if (item.isRequireNewRev()) {
-				rev = db.createNewObjectRevision(itemId, lastRev);
-				//TODO
-			} else {
+				// TODO check that lastRev must be used in place of current revision
+				rev = db.createNewObjectRevision(itemId, lastRev); 
+			} 
+			for (IAttributeType<?> attrType : modifiedAttrTypes) {
+				String attrName = attrType.getName();
 				
-				//TODO
+				Object newValue = stateMap.get(attrName);
+				if (TWUtil.hasReplaceCommitPolitic(attrType)) {
+					db.setObjectValue(itemId, rev, attrName, newValue);
+					continue;
+				}
+				
+				Object oldValue = db.getObjectValue(itemId, oldRev, attrName);
+				Object lastValue = db.getObjectValue(itemId, lastRev, attrName);
+				if (TWUtil.hasReconcileCommitPolitic(attrType)) {
+					Object reconciledValue = TWUtil.mergeLists(oldValue, lastValue, newValue);
+					try {
+						item.setAttribute(attrType, reconciledValue);
+					} catch (CadseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					db.setObjectValue(itemId, rev, attrName, reconciledValue);
+				} else if (TWUtil.hasConflictCommitPolitic(attrType)) {
+					if (attrType.isTWValueModified(oldValue, newValue)) {
+						// TODO throw an error
+						throw new IllegalStateException("Conflict values " + 
+							oldValue + " and " + newValue + " of attribute " + 
+							attrName + " of item " + item.getName());
+					} else
+						db.setObjectValue(itemId, rev, attrName, newValue);
+				}
 			}
+			db.setObjectValue(itemId, rev, TW_COMMENT_ATTR_NAME, comment);
+			db.setObjectValue(itemId, rev, TW_COMMITER_ATTR_NAME, user);
+			db.setObjectValue(itemId, rev, TW_COMMIT_DATE_ATTR_NAME, commitDate);
 		}
 		try {
-			item.setAttribute(CadseGCST.ITEM_at_TW_VERSION_, rev);
-			item.setAttribute(CadseGCST.ITEM_at_TWLAST_COMMENT_, _commitState.getComment());
-			String user = TeamWorkPreferences.getUserName();
+			item.setVersion(rev);
+			item.setAttribute(CadseGCST.ITEM_at_TWLAST_COMMENT_, comment);
 			item.setAttribute(CadseGCST.ITEM_at_COMMITTED_BY_, user);
-			item.setAttribute(CadseGCST.ITEM_at_COMMITTED_DATE_, new Date(System.currentTimeMillis()));
+			item.setAttribute(CadseGCST.ITEM_at_COMMITTED_DATE_, commitDate);
 			
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
@@ -254,22 +395,7 @@ public class CommitThread extends Thread {
 		}
 	}
 
-	private void connectToDB(ModelVersionDBService db, ItemType itemType)
-			throws TransactionException {
-		Item cadseRuntime = itemType.getOutgoingItem(CadseGCST.TYPE_DEFINITION_lt_CADSE, true);
-		String cadseName = cadseRuntime.getName();
-		DBConnexionParams dbParams = DBConnexionParams.getConnectionParams(cadseName);
-		String url = dbParams.getUrl();
-		String login = dbParams.getLogin();
-		String pwd = dbParams.getPassword();
-		if ((login == null) || (login.trim().length() == 0)) {
-			db.setConnectionURL(url);
-		} else {
-			db.setConnectionURL(url, login, pwd);
-		}
-	}
-
-	private boolean isLinkType(IAttributeType attrType) {
+	private boolean isLinkType(IAttributeType<?> attrType) {
 		return attrType.isInstanceOf(CadseGCST.LINK_TYPE);
 	}
 

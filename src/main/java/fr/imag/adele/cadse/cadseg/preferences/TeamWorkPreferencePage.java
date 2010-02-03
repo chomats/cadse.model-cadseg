@@ -88,7 +88,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		MyMC_AttributesItem defaultMc = new MyMC_AttributesItem();
 
 		
-		DGridUI<?> comp1 = _swtPlatform.createDGridUI(_page, "#tree", "", EPosLabel.none, defaultMc, null, fieldExtends);
+		DGridUI<?> comp1 = _swtPlatform.createDGridUI(_page, "#tree", "", EPosLabel.none, defaultMc, null, _userField, fieldExtends);
 		
 		DGridUI<?> comp = _swtPlatform.createDGridUI(_page, "#edit", "", EPosLabel.none, defaultMc, null,
 				this.fieldDescription, this.fieldItemRepoURL, this.fieldItemRepoLogin,
@@ -100,10 +100,10 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 		fieldsShash.setWeight(60);
 
 		_page.addLast(fieldsShash.getAttributeDefinition());
-		((PageImpl) _page).setActionPage(getActionPage());
 		registerListener();
 
 		setController(_swtPlatform.getPages());
+		_swtPlatform.getPages().setAction(getActionPage());
 	}
 	
 	public DTextUI<?> createUserField() {
@@ -387,7 +387,7 @@ public class TeamWorkPreferencePage extends FieldsPreferencePage implements IWor
 	 */
 	public DTextUI createFieldDescription() {
 		return _swtPlatform.createTextUI(_page, CadseGCST.CADSE_at_DESCRIPTION, "description", EPosLabel.left,
-				new ReadOnlyMC_AttributesItem(), null, 20, true, false, false, true, false);
+				new ReadOnlyMC_AttributesItem(), null, 5, true, false, false, true, false);
 	}
 
 	public void init(IWorkbench workbench) {
