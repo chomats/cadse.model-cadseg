@@ -29,9 +29,21 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
@@ -42,6 +54,7 @@ import fede.workspace.tool.view.node.FilteredItemNode;
 import fede.workspace.tool.view.node.FilteredItemNodeModel;
 import fede.workspace.tool.view.node.ItemsFromLinkOfLinkTypeRule;
 import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitDialog.ItemsFromItemTypeWithFilterRule;
+import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWSelfViewContentProvider;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWUIUtil;
 import fr.imag.adele.cadse.core.CadseException;
@@ -69,6 +82,8 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
+import fr.imag.adele.teamwork.db.ModelVersionDBException;
+import fr.imag.adele.teamwork.db.TransactionException;
 
 /**
  * Dialog used for defining update operations to perform. 
@@ -231,15 +246,15 @@ public class UpdateDialogPage extends SWTDialog {
 
 		_separateImpactsAndAnalysisSash = _swtuiPlatforms.createDSashFormUI(_page, "#selectSash", "", EPosLabel.none, defaultMc, null, 
 				impactsGrid, analysisGrid);
-		_separateImpactsAndAnalysisSash.setWeight(60); // 60% , 40%
+		_separateImpactsAndAnalysisSash.setWeight(50); // 50% , 50%
 		
 
 		_separateRequirementsAndImpactsSashField = _swtuiPlatforms.createDSashFormUI(_page, "#separateRequirementsAndImpactsSash", "", EPosLabel.none, defaultMc, null, 
 				requirementsGrid, _separateImpactsAndAnalysisSash);
 		_separateRequirementsAndImpactsSashField.setHorizontal(false);
-		// 60%
 		// 40%
-		_separateRequirementsAndImpactsSashField.setWeight(60);
+		// 60%
+		_separateRequirementsAndImpactsSashField.setWeight(40);
 
 		// add main field
 		addLast(_separateRequirementsAndImpactsSashField);
@@ -515,7 +530,76 @@ public class UpdateDialogPage extends SWTDialog {
 				Shell parentShell = _swtuiPlatforms.getShell();
 				ElementTreeSelectionDialog lsd = new ElementTreeSelectionDialog(
 						parentShell, getLabelProvider(),
-						getTreeContentProvider());
+						getTreeContentProvider()) {
+					
+					private Item _selectedItem;
+					private CCombo _combo;
+					
+					@Override
+					protected TreeViewer createTreeViewer(Composite parent) {
+						TreeViewer treeViewer = super.createTreeViewer(parent);
+						treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+							
+							@Override
+							public void selectionChanged(SelectionChangedEvent event) {
+								IItemNode selectedNode = (IItemNode) ((TreeSelection) event.getSelection()).getFirstElement();
+								if (selectedNode != null)
+									_selectedItem = selectedNode.getItem();
+								else
+									_selectedItem = null;
+								selectedItemHasChanged();
+							}
+						});
+						
+						return treeViewer;
+					}
+					
+					@Override
+					protected Control createDialogArea(Composite parent) {
+						Composite dialog = (Composite) super.createDialogArea(parent);
+						
+						GridData gd;
+						
+						// label of combo box
+						Label label = new Label(dialog, SWT.SINGLE);
+						label.setText("Revision");
+						
+						gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+						gd.horizontalSpan = 1;
+						label.setLayoutData(gd);
+						
+						_combo = new CCombo(dialog, SWT.BORDER | SWT.SINGLE);
+
+						gd = new GridData(GridData.FILL_HORIZONTAL);
+						gd.horizontalSpan = 1;
+						_combo.setLayoutData(gd);
+						_combo.setEditable(true);
+						
+						return dialog;
+					}
+					
+					private void selectedItemHasChanged() {
+						
+						int[] values = new int[0];
+						if (_selectedItem != null) {
+							try {
+								values = DBUtil
+								.getAllRevisions(_selectedItem);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								values = new int[0];
+							}
+						}
+						
+						String[] valuesString = new String[values.length];
+						for (int i = 0; i < valuesString.length; i++) {
+							valuesString[i] = Integer.toString(values[i]);
+						}
+						_combo.setItems(valuesString);
+					}
+				};
+				
 				ViewerFilter filter = getFilter();
 				if (filter != null) {
 					lsd.addFilter(filter);
@@ -543,10 +627,11 @@ public class UpdateDialogPage extends SWTDialog {
 					}
 				});
 				lsd.setInput(getInputValues());
-				lsd.setAllowMultiple(true);
+				lsd.setAllowMultiple(false);
 				lsd.setTitle("Select Items to update");
 				lsd.setMessage("Select Items to update");
 
+				
 				lsd.open();
 
 				// manage selected items
@@ -625,6 +710,8 @@ public class UpdateDialogPage extends SWTDialog {
 			protected ViewerFilter getFilter() {
 				return null;
 			}
+			
+			
 		});
 	}
 

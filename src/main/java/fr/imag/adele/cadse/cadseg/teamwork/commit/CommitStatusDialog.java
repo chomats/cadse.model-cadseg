@@ -849,7 +849,7 @@ public class CommitStatusDialog extends SWTDialog {
 	static public void openDialog(final CommitState commitState) {
 
 		/**
-		 * Create a new display wen call getDefault(). Worksbench is not
+		 * Create a new display wen call getDefault(). Workbench is not
 		 * started. This method is called by federation in start level.
 		 * 
 		 */
@@ -910,11 +910,11 @@ public class CommitStatusDialog extends SWTDialog {
 
 						@Override
 						public void commitFail() {
-							executeRunnable(new Runnable() {
+							PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 								public void run() {
 									p._swtuiPlatforms.setMessageError("Commit failed !");
 								}
-							}, wc);
+							});
 						}
 
 						@Override
@@ -928,18 +928,18 @@ public class CommitStatusDialog extends SWTDialog {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								executeRunnable(new Runnable() {
+								PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 									public void run() {
 										p._swtuiPlatforms.setMessage("Commit succeed !", IMessageProvider.INFORMATION);
 									}
-								}, wc);
+								});
 							} else {
 								transaction.rollback();
-								executeRunnable(new Runnable() {
+								PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 									public void run() {
 										p._swtuiPlatforms.setMessageError("Commit failed !");
 									}
-								}, wc);
+								});
 							}
 						}
 
@@ -963,7 +963,7 @@ public class CommitStatusDialog extends SWTDialog {
 		});
 	}
 	
-	protected UIPlatform getSWTUIPlatform() {
+	public SWTUIPlatform getSWTUIPlatform() {
 		return _swtuiPlatforms;
 	}
 

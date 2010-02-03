@@ -1473,19 +1473,13 @@ public class CommitDialog extends SWTDialog {
 		 * E1.r.getDestinations().select()) & (E2.getState() = NewRev) =>
 		 * E2.commit(), E1.commit()
 		 */
-		for (Item destItem : item.getOutgoingItems(true)) {
+		Set<Item> itemsToCommit = TWUtil.computeLocalItemsToCommit(item);
+		for (Item destItem : itemsToCommit) {
 			if (visited.hasBeenVisited(destItem)) {
 				continue;
 			}
 
-			// ignore static items
-			if (TWUtil.cannotCommit(destItem)) {
-				continue;
-			}
-
-			if (TWUtil.isRequireNewRev(destItem)) {
-				addItemToCommit(destItem, visited);
-			}
+			addItemToCommit(destItem, visited);
 		}
 
 		return true; // TODO should compute if refresh UI is necessary
