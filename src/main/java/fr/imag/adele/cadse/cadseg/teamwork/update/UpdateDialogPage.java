@@ -528,77 +528,27 @@ public class UpdateDialogPage extends SWTDialog {
 			public void callAction() {
 
 				Shell parentShell = _swtuiPlatforms.getShell();
-				ElementTreeSelectionDialog lsd = new ElementTreeSelectionDialog(
-						parentShell, getLabelProvider(),
-						getTreeContentProvider()) {
-					
-					private Item _selectedItem;
-					private CCombo _combo;
-					
-					@Override
-					protected TreeViewer createTreeViewer(Composite parent) {
-						TreeViewer treeViewer = super.createTreeViewer(parent);
-						treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-							
-							@Override
-							public void selectionChanged(SelectionChangedEvent event) {
-								IItemNode selectedNode = (IItemNode) ((TreeSelection) event.getSelection()).getFirstElement();
-								if (selectedNode != null)
-									_selectedItem = selectedNode.getItem();
-								else
-									_selectedItem = null;
-								selectedItemHasChanged();
-							}
-						});
-						
-						return treeViewer;
-					}
-					
-					@Override
-					protected Control createDialogArea(Composite parent) {
-						Composite dialog = (Composite) super.createDialogArea(parent);
-						
-						GridData gd;
-						
-						// label of combo box
-						Label label = new Label(dialog, SWT.SINGLE);
-						label.setText("Revision");
-						
-						gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-						gd.horizontalSpan = 1;
-						label.setLayoutData(gd);
-						
-						_combo = new CCombo(dialog, SWT.BORDER | SWT.SINGLE);
+				AddItemToUpdateDialog lsd = createAddItemToUpdateDialog(parentShell);
 
-						gd = new GridData(GridData.FILL_HORIZONTAL);
-						gd.horizontalSpan = 1;
-						_combo.setLayoutData(gd);
-						_combo.setEditable(true);
-						
-						return dialog;
-					}
-					
-					private void selectedItemHasChanged() {
-						
-						int[] values = new int[0];
-						if (_selectedItem != null) {
-							try {
-								values = DBUtil
-								.getAllRevisions(_selectedItem);
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								values = new int[0];
-							}
-						}
-						
-						String[] valuesString = new String[values.length];
-						for (int i = 0; i < valuesString.length; i++) {
-							valuesString[i] = Integer.toString(values[i]);
-						}
-						_combo.setItems(valuesString);
-					}
-				};
+				lsd.open();
+
+				// manage selected items
+				Object[] results = lsd.getResult();
+				if (results == null) {
+					return;
+				}
+				for (Object selectObj : results) {
+					IItemNode itemNode = (IItemNode) selectObj;
+					_updateState.getDefinition().addItemToUpdate(itemNode.getItem().getId(), lsd.getSelectedRev());
+				}
+
+				// refresh UI
+				refreshRequirements();
+			}
+
+			private AddItemToUpdateDialog createAddItemToUpdateDialog(Shell shell) {
+				
+				AddItemToUpdateDialog lsd = new AddItemToUpdateDialog(shell, getLabelProvider(), getTreeContentProvider());
 				
 				ViewerFilter filter = getFilter();
 				if (filter != null) {
@@ -630,23 +580,7 @@ public class UpdateDialogPage extends SWTDialog {
 				lsd.setAllowMultiple(false);
 				lsd.setTitle("Select Items to update");
 				lsd.setMessage("Select Items to update");
-
-				
-				lsd.open();
-
-				// manage selected items
-				Object[] results = lsd.getResult();
-				if (results == null) {
-					return;
-				}
-				for (Object selectObj : results) {
-					IItemNode itemNode = (IItemNode) selectObj;
-					// TODO add selection of revision
-					_updateState.getDefinition().addItemToUpdate(itemNode.getItem().getId(), UpdateState.LAST_REV); 
-				}
-
-				// refresh UI
-				refreshRequirements();
+				return lsd;
 			}
 
 			protected TWSelfViewContentProvider getTreeContentProvider() {

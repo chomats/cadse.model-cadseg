@@ -78,9 +78,8 @@ public class CommitThread extends Thread {
 			db.beginTransaction();
 		} catch (TransactionException e1) {
 			e1.printStackTrace();
-			// TODO should add a global error message
-			_commitState.abortCommit(); 
-			return;
+			_commitState.getErrors().addError("Cannot open a transaction.", e1);
+			_commitState.abortCommit();
 		}
 
 		// commit new state of items without outgoing links
@@ -95,9 +94,11 @@ public class CommitThread extends Thread {
 				checkEvolPoliticsSetInDB(itemId, db);
 			} catch (TransactionException e1) {
 				e1.printStackTrace();
-				// TODO should add a global error message
+				Item item = _wl.getItem(itemId);
+				ItemType itemType = item.getType();
+				_commitState.getErrors().addError("Cannot set evolution politics for item type " + itemType.getName(), e1);
 				_commitState.abortCommit();
-				return;
+				break;
 			}
 
 			try {
@@ -370,7 +371,8 @@ public class CommitThread extends Thread {
 					}
 					db.setObjectValue(itemId, rev, attrName, reconciledValue);
 				} else if (TWUtil.hasConflictCommitPolitic(attrType)) {
-					if (attrType.isTWValueModified(oldValue, newValue)) {
+					if (attrType.isTWValueModified(oldValue, newValue) &&
+							attrType.isTWValueModified(oldValue, lastValue)) {
 						// TODO throw an error
 						throw new IllegalStateException("Conflict values " + 
 							oldValue + " and " + newValue + " of attribute " + 
