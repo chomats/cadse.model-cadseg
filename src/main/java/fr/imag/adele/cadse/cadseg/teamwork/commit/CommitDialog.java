@@ -421,9 +421,9 @@ public class CommitDialog extends SWTDialog {
 		}
 
 		public void notifieValueChanged(UIField field, Object value) {
-			if (!field.equals(_commentField)) {
-				return;
-			}
+//			if (!field.equals(_commentField)) {
+//				return;
+//			}
 
 			_commitState.setComment((String) value);
 		}

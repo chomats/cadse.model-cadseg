@@ -97,6 +97,24 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 			// show dialog for update
 			UpdateDialogPage.openDialog(updateState);
 		}
+		
+		@Override
+		public boolean isEnable(IItemNode[] selection) {
+			if ((selection == null) || (selection.length == 0)) {
+				return true;
+			}
+			for (IItemNode itemNode : selection) {
+				Item item = itemNode.getItem();
+				if (item == null) {
+					continue;
+				}
+				
+				if (TWUtil.cannotUpdate(item))
+					return false;
+			}
+
+			return super.isEnable(selection);
+		}
 	}
 
 	public class UpdateToLastAction extends AbstractEclipseMenuAction {
@@ -133,6 +151,15 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 		public boolean isEnable(IItemNode[] selection) {
 			if ((selection == null) || (selection.length == 0)) {
 				return false;
+			}
+			for (IItemNode itemNode : selection) {
+				Item item = itemNode.getItem();
+				if (item == null) {
+					continue;
+				}
+				
+				if (TWUtil.cannotUpdate(item))
+					return false;
 			}
 
 			return super.isEnable(selection);
@@ -173,6 +200,15 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 		public boolean isEnable(IItemNode[] selection) {
 			if ((selection == null) || (selection.length == 0)) {
 				return false;
+			}
+			for (IItemNode itemNode : selection) {
+				Item item = itemNode.getItem();
+				if (item == null) {
+					continue;
+				}
+				
+				if (TWUtil.cannotRevert(item))
+					return false;
 			}
 
 			return super.isEnable(selection);
@@ -234,8 +270,9 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 					if (item == null) {
 						continue;
 					}
-
-					commitState.addItemToCommit(item.getId());
+					
+					if (!TWUtil.cannotCommit(item))
+						commitState.addItemToCommit(item.getId());
 				}
 			}
 
@@ -247,6 +284,15 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 		public boolean isEnable(IItemNode[] selection) {
 			if ((selection == null) || (selection.length == 0)) {
 				return false;
+			}
+			for (IItemNode itemNode : selection) {
+				Item item = itemNode.getItem();
+				if (item == null) {
+					continue;
+				}
+				
+				if (TWUtil.cannotCommit(item))
+					return false;
 			}
 
 			return super.isEnable(selection);

@@ -78,6 +78,8 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.impl.internal.LogicalWorkspaceTransactionImpl;
+import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
@@ -859,7 +861,7 @@ public class CommitStatusDialog extends SWTDialog {
 			public void run() {
 				try {
 					// create a new transaction for commit
-					final LogicalWorkspaceTransaction transaction = CadseCore.getLogicalWorkspace().createTransaction();
+					final LogicalWorkspaceTransaction transaction = TWUtil.createWorkspaceTransactionForTWoperation();
 					
 					final CommitStatusDialog p = new CommitStatusDialog(commitState, transaction);
 					p._swtuiPlatforms.setAction(p.getFinishAction());
@@ -920,7 +922,7 @@ public class CommitStatusDialog extends SWTDialog {
 						@Override
 						public void endCommit() {
 							
-							// if commit is ok, commit workspace logique copy
+							// if commit is OK, commit workspace logical copy
 							if (commitState.isCommitPerformed()) {
 								try {
 									transaction.commit();
