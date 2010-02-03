@@ -416,7 +416,23 @@ public class PageInit {
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		CadseGCST.CADSE_at_EXECUTED_.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
-		
+		CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.MANAGER_at_ICON_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.MANAGER_at_MESSAGE_ERROR_ID_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.MANAGER_at_VALID_PATTERN_ID_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.MANAGER_lt_CONTENT_MODEL.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.MANAGER_lt_EXPORTERS.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.MANAGER_lt_ITEM_TYPE.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+	
 		
 		
 		
