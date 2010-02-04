@@ -29,7 +29,6 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.teamwork.TeamWorkPreferences;
-import fr.imag.adele.cadse.cadseg.teamwork.db.DBConnexionParams;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -54,9 +53,6 @@ import fr.imag.adele.teamwork.db.TransactionException;
  */
 public class CommitThread extends Thread {
 
-	public static final String TW_COMMIT_DATE_ATTR_NAME = "TW_COMMIT_DATE";
-	public static final String TW_COMMITER_ATTR_NAME = "TW_COMMITER";
-	public static final String TW_COMMENT_ATTR_NAME = "TW_COMMENT";
 	private CommitState			_commitState;
 	private LogicalWorkspace	_wl;
 	private Map<ItemType, Boolean> evolPoliticsSetIndDB = new HashMap<ItemType, Boolean>(); 
@@ -104,6 +100,7 @@ public class CommitThread extends Thread {
 			try {
 				commitItemState(itemId, db);
 			} catch (Exception e) {
+				_commitState.getErrors().addError(itemId, "Cannot commit Item State.");
 				_commitState.abortCommit();
 				e.printStackTrace();
 				break;
@@ -120,6 +117,7 @@ public class CommitThread extends Thread {
 			try {
 				commitItemLinks(itemId, db);
 			} catch (Exception e) {
+				_commitState.getErrors().addError(itemId, "Cannot commit Item ougoing links.");
 				_commitState.abortCommit();
 				e.printStackTrace();
 			}
@@ -128,7 +126,20 @@ public class CommitThread extends Thread {
 		}
 
 		// commit contents
-		// TODO implement it
+		i = 0;
+		while ((i < itemToCommitNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
+			UUID itemId = _commitState.getItemsToCommit().get(i);
+
+			try {
+				//TODO implement it
+			} catch (Exception e) {
+				_commitState.getErrors().addError(itemId, "Cannot commit Item content.");
+				_commitState.abortCommit();
+				e.printStackTrace();
+			}
+			
+			i++;
+		}
 		
 		// reset modified state
 		i = 0;
@@ -181,7 +192,7 @@ public class CommitThread extends Thread {
 				continue;
 			
 			try {
-				if (isLinkType(attrType)) {
+				if (TWUtil.isLinkType(attrType)) {
 					db.setLinkSrcVersionSpecific(attrType.getId(), attrType.isTWRevSpecific());
 					db.setLinkDestVersionSpecific(attrType.getId(), !TWUtil.isBranchDestination(attrType));
 				} else
@@ -209,7 +220,7 @@ public class CommitThread extends Thread {
 		for (IAttributeType<?> attrType : item.getLocalAllAttributeTypes()) {
 			
 			// only links are updated in this step
-			if (!isLinkType(attrType))
+			if (!TWUtil.isLinkType(attrType))
 				continue;
 			
 			LinkType linkType = (LinkType) attrType;
@@ -309,17 +320,17 @@ public class CommitThread extends Thread {
 		// compute initial state
 		Map<String, Object> stateMap = new TreeMap<String, Object>();
 		String comment = _commitState.getComment();
-		stateMap.put(TW_COMMENT_ATTR_NAME, comment);
+		stateMap.put(DBUtil.TW_COMMENT_ATTR_NAME, comment);
 		String user = TeamWorkPreferences.getUserName();
-		stateMap.put(TW_COMMITER_ATTR_NAME, user);
+		stateMap.put(DBUtil.TW_COMMITER_ATTR_NAME, user);
 		Date commitDate = new Date(System.currentTimeMillis());
-		stateMap.put(TW_COMMIT_DATE_ATTR_NAME, commitDate);
+		stateMap.put(DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
 		
 		List<IAttributeType<?>> modifiedAttrTypes = new ArrayList<IAttributeType<?>>();
 		for (IAttributeType<?> attrType : item.getLocalAllAttributeTypes()) {
 			
 			// links are updated in a second step
-			if (isLinkType(attrType))
+			if (TWUtil.isLinkType(attrType))
 				continue;
 			
 			// ignore transient attributes
@@ -340,7 +351,7 @@ public class CommitThread extends Thread {
 			// item not already in db
 			UUID itemTypeId = itemType.getId();
 			rev = db.createObject(itemId, itemTypeId,
-					stateMap, isItemType(item));
+					stateMap, TWUtil.isItemType(item));
 		} else {
 			// an item revision already exists in db
 			int oldRev = rev;
@@ -381,9 +392,9 @@ public class CommitThread extends Thread {
 						db.setObjectValue(itemId, rev, attrName, newValue);
 				}
 			}
-			db.setObjectValue(itemId, rev, TW_COMMENT_ATTR_NAME, comment);
-			db.setObjectValue(itemId, rev, TW_COMMITER_ATTR_NAME, user);
-			db.setObjectValue(itemId, rev, TW_COMMIT_DATE_ATTR_NAME, commitDate);
+			db.setObjectValue(itemId, rev, DBUtil.TW_COMMENT_ATTR_NAME, comment);
+			db.setObjectValue(itemId, rev, DBUtil.TW_COMMITER_ATTR_NAME, user);
+			db.setObjectValue(itemId, rev, DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
 		}
 		try {
 			item.setVersion(rev);
@@ -395,20 +406,5 @@ public class CommitThread extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private boolean isLinkType(IAttributeType<?> attrType) {
-		return attrType.isInstanceOf(CadseGCST.LINK_TYPE);
-	}
-
-	/**
-	 * Returns true if this item is an item type.
-	 * 
-	 * @param item
-	 *            an item
-	 * @return true if this item is an item type.
-	 */
-	private boolean isItemType(Item item) {
-		return item.isInstanceOf(CadseGCST.ITEM_TYPE);
 	}
 }
