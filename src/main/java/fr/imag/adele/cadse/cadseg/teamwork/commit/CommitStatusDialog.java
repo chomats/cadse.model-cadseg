@@ -876,9 +876,19 @@ public class CommitStatusDialog extends SWTDialog {
 
 							return !commitState.isPerformingCommit();
 						}
+						
+						@Override
+						public boolean performCancel() {
+							return false;
+						}
 
 						@Override
 						public boolean performFinish() {
+							return doFinish(p, f);
+						}
+
+						private boolean doFinish(final CommitStatusDialog p,
+								final Pages f) {
 							IRunnableWithProgress op = new IRunnableWithProgress() {
 								public void run(IProgressMonitor monitor) throws InvocationTargetException,
 										InterruptedException {

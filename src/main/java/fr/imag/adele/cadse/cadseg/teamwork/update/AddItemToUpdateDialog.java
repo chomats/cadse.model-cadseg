@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -16,17 +17,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.teamwork.db.ModelVersionDBException;
+import fr.imag.adele.teamwork.db.TransactionException;
 
 public class AddItemToUpdateDialog extends ElementTreeSelectionDialog {
 
 	private Item _selectedItem;
 	private int _selectedRev;
 	private CCombo _combo;
+	private Text _stateText;
 	
 	public AddItemToUpdateDialog(Shell parent, ILabelProvider labelProvider,
 			ITreeContentProvider contentProvider) {
@@ -55,17 +60,21 @@ public class AddItemToUpdateDialog extends ElementTreeSelectionDialog {
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		Composite dialog = (Composite) super.createDialogArea(parent);
-
-		Composite composite = new Composite(dialog, SWT.NONE);
-		GridLayout layout = new GridLayout(2, false);
-		composite.setLayout(layout);
+		SashForm sash = new SashForm(parent, SWT.BORDER | SWT.VERTICAL);
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		sash.setLayoutData(gd);
 		
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		composite.setLayoutData(gd);
+		Composite dialogArea = (Composite) super.createDialogArea(sash);
+		
+		Composite selectDependentComposite = new Composite(sash, SWT.NONE);
+		GridLayout layout = new GridLayout(2, false);
+		selectDependentComposite.setLayout(layout);
+		
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		selectDependentComposite.setLayoutData(gd);
 
 		// label of combo box
-		Label label = new Label(composite, SWT.SINGLE);
+		Label label = new Label(selectDependentComposite, SWT.SINGLE);
 		label.setText("Revision");
 
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
@@ -73,7 +82,8 @@ public class AddItemToUpdateDialog extends ElementTreeSelectionDialog {
 		label.setLayoutData(gd);
 		label.pack();
 		
-		_combo = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
+		// combo of revisions
+		_combo = new CCombo(selectDependentComposite, SWT.BORDER | SWT.READ_ONLY);
 
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 1;
@@ -88,32 +98,76 @@ public class AddItemToUpdateDialog extends ElementTreeSelectionDialog {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int selectedIdx = _combo.getSelectionIndex();
-				if (selectedIdx < 0) {
-					_selectedRev = 0;
-					return;
-				}
-
-				_selectedRev = Integer.parseInt(_combo.getItem(selectedIdx));
+				computeSelectedRev();
+				selectedRevHasChanged();
 			}
 
 		});
 		_combo.pack();
 		
-		composite.pack();
+		// label of combo box
+		Label statelabel = new Label(selectDependentComposite, SWT.SINGLE);
+		statelabel.setText("Item Revision State");
 
-		return dialog;
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+		gd.horizontalSpan = 2;
+		statelabel.setLayoutData(gd);
+		statelabel.pack();
+		
+		// text area of item revision state
+		_stateText = new Text(selectDependentComposite, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		_stateText.setEnabled(true);
+		_stateText.setEditable(false);
+		
+		gd = new GridData(GridData.FILL_HORIZONTAL | GridData.FILL_VERTICAL);
+		gd.horizontalSpan = 2;
+		gd.verticalSpan = 6;
+		gd.verticalAlignment = SWT.FILL;
+		_stateText.setLayoutData(gd);
+		_stateText.pack();
+		
+		selectDependentComposite.pack();
+		
+		sash.setWeights(new int[] { 50, 50 });
+		sash.pack();
+
+		return sash;
+	}
+	
+	protected void computeSelectedRev() {
+		int selectedIdx = _combo.getSelectionIndex();
+		if (selectedIdx < 0) {
+			_selectedRev = 0;
+		} else {
+			try {
+				_selectedRev = Integer.parseInt(_combo.getItem(selectedIdx));
+			} catch (NumberFormatException e) {
+				_selectedRev = 0;
+			}
+		}
+	}
+
+	protected void selectedRevHasChanged() {
+		String stateStr = "No Selected Revision.";
+		if ((_selectedItem != null) && (_selectedRev > 0)) {
+			
+			try {
+				stateStr = DBUtil.getRevisionStateStr(_selectedItem, _selectedRev);
+			} catch (Exception e) {
+				stateStr = "Unable to retrieve state of selected revision.";
+			}
+		}
+		_stateText.setText(stateStr);
 	}
 
 	private void selectedItemHasChanged() {
+		_selectedRev = 0;
 
 		int[] values = new int[0];
 		if (_selectedItem != null) {
 			try {
 				values = DBUtil.getAllRevisions(_selectedItem);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 				values = new int[0];
 			}
 		}
@@ -123,15 +177,22 @@ public class AddItemToUpdateDialog extends ElementTreeSelectionDialog {
 			valuesString[i] = Integer.toString(values[i]);
 		}
 		_combo.setItems(valuesString);
-		if (values.length != 0)
+		if (values.length != 0) {
 			_combo.select(0);
+		}
 		
 		if (_selectedItem == null) {
 			_combo.setEnabled(false);
 			_combo.setText("No selected item");
+		} else if (values.length == 0) {
+			_combo.setEnabled(false);
+			_combo.setText("No revision found");
 		} else {
 			_combo.setEnabled(true);
 		}
+		
+		computeSelectedRev();
+		selectedRevHasChanged();
 	}
 	
 	/**
