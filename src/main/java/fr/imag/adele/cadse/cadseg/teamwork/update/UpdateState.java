@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.imag.adele.cadse.cadseg.teamwork.Errors;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
 /**
@@ -22,7 +23,7 @@ public class UpdateState {
 	
 	private UpdateDefinition _updateDefinition = new UpdateDefinition();
 	
-	private LogicalWorkspaceTransaction _transaction = CadseCore.getLogicalWorkspace().createTransaction();
+	private LogicalWorkspaceTransaction _transaction; 
 	
 	private Errors _errors = new Errors();
 	
@@ -31,6 +32,10 @@ public class UpdateState {
 	private boolean _updatePerformed = false;
 	
 	private boolean _failed = false;
+	
+	public UpdateState() {
+		_transaction = TWUtil.createWorkspaceTransactionForTWoperation();
+	}
 
 	/**
 	 * Return definition of this global update operation.
