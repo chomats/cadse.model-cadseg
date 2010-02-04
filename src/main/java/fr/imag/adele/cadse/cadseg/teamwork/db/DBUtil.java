@@ -1,6 +1,9 @@
 package fr.imag.adele.cadse.cadseg.teamwork.db;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -30,10 +33,23 @@ public class DBUtil {
 	 * @throws ModelVersionDBException 
 	 */
 	public static int[] getAllRevisions(Item item) throws TransactionException, ModelVersionDBException {
+		return getAllRevisions(item.getId(), item.getType());
+	}
+	
+	/**
+	 * Returns all revisions of specified item.
+	 * 
+	 * @param itemId    id of item to retrieve all revisions
+	 * @param itemType  type of specified item
+	 * @return all revisions of specified item.
+	 * @throws TransactionException 
+	 * @throws ModelVersionDBException 
+	 */
+	public static int[] getAllRevisions(UUID itemId, ItemType itemType) throws TransactionException, ModelVersionDBException {
 		ModelVersionDBService db = CadseCore.getCadseDomain().getModelVersionDBService();
-		connectToDB(db, item.getType());
+		connectToDB(db, itemType);
 		
-		return db.getObjectRevNbs(item.getId());
+		return db.getObjectRevNbs(itemId);
 	}
 	
 	/**
@@ -70,17 +86,43 @@ public class DBUtil {
 	 * @throws ModelVersionDBException 
 	 */
 	public static String getRevisionStateStr(Item item, int itemRev) throws TransactionException, ModelVersionDBException {
+		return getRevisionStateStr(item.getId(), item.getType(), itemRev, item);
+	}
+	
+	/**
+	 * Returns a human readable text representing state (values of attributes) of specified item revision.
+	 * 
+	 * @param itemId    id of item for which we want to get revision state
+	 * @param itemType  type of specified item
+	 * @param itemRev   item revision number  
+	 * @return a human readable text representing state (values of attributes) of specified item revision.
+	 * @throws TransactionException 
+	 * @throws ModelVersionDBException 
+	 */
+	public static String getRevisionStateStr(UUID itemId, ItemType itemType, int itemRev) 
+		throws TransactionException, ModelVersionDBException {
+		return getRevisionStateStr(itemId, itemType, itemRev, null);
+	}
+		
+	private static String getRevisionStateStr(UUID itemId, ItemType itemType, int itemRev, Item item) 
+		throws TransactionException, ModelVersionDBException {
+		
 		ModelVersionDBService db = CadseCore.getCadseDomain().getModelVersionDBService();
-		connectToDB(db, item.getType());
+		connectToDB(db, itemType);
 		
 		StringBuffer sb = new StringBuffer();
-		Map<String, Object> stateMap = db.getObjectState(item.getId(), itemRev);
+		Map<String, Object> stateMap = db.getObjectState(itemId, itemRev);
 		
 		appendTeamWorkAttrVal(sb, "Commit comment ", TW_COMMENT_ATTR_NAME, stateMap);
 		appendTeamWorkAttrVal(sb, "Committer ", TW_COMMITER_ATTR_NAME, stateMap);
 		appendTeamWorkAttrVal(sb, "Commit date ", TW_COMMIT_DATE_ATTR_NAME, stateMap);
 		
-		for (IAttributeType<?> attrType : item.getLocalAllAttributeTypes()) {
+		IAttributeType<?>[] attributeTypes;
+		if (item != null)
+			attributeTypes = item.getLocalAllAttributeTypes();
+		else
+			attributeTypes = itemType.getAllAttributeTypes();
+		for (IAttributeType<?> attrType : attributeTypes) {
 			if (TWUtil.isLinkType(attrType))
 				continue;
 			
@@ -121,5 +163,32 @@ public class DBUtil {
 		else
 			sb.append(NOT_DEFINED_IN_THIS_REVISION);
 		sb.append("\n");
+	}
+
+	/**
+	 * Returns all descriptions of items in teamwork repository of specified type.
+	 * 
+	 * @param typeId item type id
+	 * @return all descriptions of items in teamwork repository of specified type.
+	 * @throws TransactionException 
+	 * @throws ModelVersionDBException 
+	 */
+	public static Collection<ItemInDBDesc> getAllItemInDBDescs(ItemType itemType) throws TransactionException, ModelVersionDBException {
+		ModelVersionDBService db = CadseCore.getCadseDomain().getModelVersionDBService();
+		connectToDB(db, itemType);
+		
+		Set<ItemInDBDesc> itemDescs = new HashSet<ItemInDBDesc>();
+		Set<UUID> itemIds = db.getObjects(itemType.getId());
+		for (UUID itemId : itemIds) {
+			String itemName = itemId.toString();
+			try {
+				itemName = (String) db.getObjectValue(itemId, ModelVersionDBService.LAST, CadseGCST.ITEM_at_NAME);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+			itemDescs.add(new ItemInDBDesc(itemId, itemName));
+		}
+		
+		return itemDescs;
 	}
 }

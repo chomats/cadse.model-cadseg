@@ -13,10 +13,12 @@ import fr.imag.adele.cadse.core.LogicalWorkspace;
 public class ImportOperation extends Operation {
 	
 	private int _rev;
+	private String _itemName;
 
-	public ImportOperation(UUID itemId, int rev) {
+	public ImportOperation(UUID itemId, String itemName, int rev) {
 		super(itemId, OperationType.IMPORT);
 		_rev = rev;
+		_itemName = itemName;
 	}
 
 	/**
@@ -30,6 +32,6 @@ public class ImportOperation extends Operation {
 
 	@Override
 	public String getRequirementDisplay(LogicalWorkspace lw) {
-		return "Import of " + getQualifiedItemName(lw) + "(" + _rev + ")";
+		return "Import of " + _itemName + "(" + _rev + ")";
 	}
 }

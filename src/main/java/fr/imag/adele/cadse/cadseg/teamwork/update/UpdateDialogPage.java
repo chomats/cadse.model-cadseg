@@ -20,7 +20,12 @@ package fr.imag.adele.cadse.cadseg.teamwork.update;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.UUID;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -49,12 +54,18 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 import fede.workspace.tool.view.WSPlugin;
+import fede.workspace.tool.view.node.AbstractCadseViewNode;
+import fede.workspace.tool.view.node.ArrayFilterItem;
 import fede.workspace.tool.view.node.FilterItem;
 import fede.workspace.tool.view.node.FilteredItemNode;
 import fede.workspace.tool.view.node.FilteredItemNodeModel;
+import fede.workspace.tool.view.node.ItemNode;
 import fede.workspace.tool.view.node.ItemsFromLinkOfLinkTypeRule;
+import fede.workspace.tool.view.node.Rule;
 import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitDialog.ItemsFromItemTypeWithFilterRule;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
+import fr.imag.adele.cadse.cadseg.teamwork.db.ItemInDBDesc;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemInDBNode;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWSelfViewContentProvider;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWUIUtil;
 import fr.imag.adele.cadse.core.CadseException;
@@ -63,6 +74,7 @@ import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemShortNameComparator;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
@@ -150,6 +162,44 @@ public class UpdateDialogPage extends SWTDialog {
 	/*
 	 * controller classes.
 	 */
+	
+	static public class ItemsInDBFromItemTypeRule extends Rule {
+		Comparator<ItemInDBDesc>	_sortFct	= null;
+
+		public ItemsInDBFromItemTypeRule(Comparator<ItemInDBDesc> sortFct) {
+			super();
+			_sortFct = sortFct;
+		}
+
+		@Override
+		public void computeChildren(FilteredItemNode root, AbstractCadseViewNode node, List<AbstractCadseViewNode> ret) {
+			Item item = node.getItem();
+			if (!TWUtil.isItemType(item))
+				return;
+			ItemType itemType = (ItemType) item;
+			
+			if (item != null) {
+				Collection<ItemInDBDesc> itemDescs;
+				try {
+					itemDescs = DBUtil.getAllItemInDBDescs(itemType);
+				} catch (Exception e) {
+					itemDescs = new HashSet<ItemInDBDesc>();
+				}
+				
+				if (_sortFct != null) {
+					TreeSet<ItemInDBDesc> itemDescs2 = new TreeSet<ItemInDBDesc>(_sortFct);
+					itemDescs2.addAll(itemDescs);
+					itemDescs = itemDescs2;
+				}
+				for (ItemInDBDesc itemDesc : itemDescs) {
+					if (TWUtil.cannotImport(itemDesc.getId(), itemType.getLogicalWorkspace()))
+						continue;
+						
+					ret.add(new ItemInDBNode(root, node, itemDesc.getId(), itemDesc.getName(), itemType));
+				}
+			}
+		}
+	}
 
 	public class DefaultMC_AttributesItem extends MC_AttributesItem {
 
@@ -654,8 +704,132 @@ public class UpdateDialogPage extends SWTDialog {
 
 			@Override
 			public void callAction() {
-				//TODO implement it
+
+				Shell parentShell = _swtuiPlatforms.getShell();
+				AddItemToImportDialog lsd = createAddItemToImportDialog(parentShell);
+
+				lsd.open();
+
+				// manage selected items
+				Object[] results = lsd.getResult();
+				if (results == null) {
+					return;
+				}
+				for (Object selectObj : results) {
+					ItemInDBNode itemNode = (ItemInDBNode) selectObj;
+					_updateState.getDefinition().addItemToImport(itemNode.getItemId(), itemNode.getName(), lsd.getSelectedRev());
+				}
+
+				// refresh UI
+				refreshRequirements();
 			}
+
+			private AddItemToImportDialog createAddItemToImportDialog(Shell shell) {
+				
+				AddItemToImportDialog lsd = new AddItemToImportDialog(shell, getLabelProvider(), getTreeContentProvider());
+				
+				ViewerFilter filter = getFilter();
+				if (filter != null) {
+					lsd.addFilter(filter);
+				}
+				lsd.setValidator(new ISelectionStatusValidator() {
+					public IStatus validate(Object[] selection) {
+						if ((selection == null)
+								|| (selection.length != 1)) {
+							return TWUIUtil.createErrorStatus("You must select at least one item.");
+						}
+
+						for (Object select : selection) {
+							if (!(select instanceof ItemInDBNode)) {
+								return TWUIUtil.createErrorStatus("You must select an item.");
+							}
+
+							ItemInDBNode itemNode = (ItemInDBNode) select;
+							if (TWUtil.cannotImport(itemNode.getItemId(), _updateState.getTransaction())) {
+								return TWUIUtil.createErrorStatus("Selected item cannot be imported.");
+							}
+						}
+
+						return Status.OK_STATUS;
+					}
+				});
+				lsd.setInput(getInputValues());
+				lsd.setAllowMultiple(false);
+				lsd.setTitle("Select Items to import");
+				lsd.setMessage("Select Items to import");
+				return lsd;
+			}
+
+			protected TWSelfViewContentProvider getTreeContentProvider() {
+				return new TWSelfViewContentProvider();
+			}
+
+			protected ILabelProvider getLabelProvider() {
+				return new LabelProvider() {
+					@Override
+					public String getText(Object element) {
+						if (element == null) {
+							return null;
+						}
+						if (element instanceof ItemInDBNode) {
+							ItemInDBNode itemNode = (ItemInDBNode) element;
+							return itemNode.getItemName();
+						}
+
+						return ((IItemNode) element).getItem()
+								.getDisplayName();
+					}
+
+					@Override
+					public Image getImage(Object element) {
+						if (element instanceof ItemInDBNode) {
+							ItemInDBNode itemNode = (ItemInDBNode) element;
+							return createImage(itemNode.getItemType(), null);
+						}
+						if (element instanceof IItemNode) {
+							Item item = ((IItemNode) element).getItem();
+							return createImage(item.getType(), item);
+						}
+
+						return super.getImage(element);
+					}
+
+					private Image createImage(ItemType it, Item item) {
+						return WSPlugin.getDefault().getImageFrom(it,
+								item);
+					}
+				};
+			}
+
+			protected Object getInputValues() {
+				FilteredItemNodeModel model = new FilteredItemNodeModel();
+
+				// roots are all item types
+				model.addRule(FilteredItemNodeModel.ROOT_ENTRY,
+								new ItemsFromItemTypeWithFilterRule(
+										CadseGCST.ITEM_TYPE,
+										ItemShortNameComparator.INSTANCE,
+										null));
+
+				// children are all items of parent item type
+				model.addRule(CadseGCST.ITEM_TYPE,
+						new ItemsInDBFromItemTypeRule(
+								new Comparator<ItemInDBDesc>() {
+									@Override
+									public int compare(ItemInDBDesc o1,
+											ItemInDBDesc o2) {
+										return o1.getName().compareTo(o2.getName());
+									}
+								}));
+
+				return new FilteredItemNode(null, model);
+			}
+
+			protected ViewerFilter getFilter() {
+				return null;
+			}
+			
+			
 		});
 	}
 

@@ -118,8 +118,8 @@ public class UpdateDefinition {
 	 * @param toRev  destination item revision of the update operation 
 	 * @throws IllegalArgumentException if it already exists an operation for specified item.
 	 */
-	public void addItemToImport(UUID itemId, int rev) {
-		Operation newOp = new ImportOperation(itemId, rev);
+	public void addItemToImport(UUID itemId, String itemName, int rev) {
+		Operation newOp = new ImportOperation(itemId, itemName, rev);
 		checkNoOtherOp(itemId, newOp, false);
 		
 		_requirements.put(itemId, newOp);
