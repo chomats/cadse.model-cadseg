@@ -15,8 +15,8 @@ public class ImportOperation extends Operation {
 	private int _rev;
 	private String _itemName;
 
-	public ImportOperation(UUID itemId, String itemName, int rev) {
-		super(itemId, OperationType.IMPORT);
+	public ImportOperation(UUID itemId, String itemName, int rev, boolean isRequirement) {
+		super(itemId, OperationType.IMPORT, isRequirement);
 		_rev = rev;
 		_itemName = itemName;
 	}
@@ -33,5 +33,19 @@ public class ImportOperation extends Operation {
 	@Override
 	public String getRequirementDisplay(LogicalWorkspace lw) {
 		return "Import of " + _itemName + "(" + _rev + ")";
+	}
+	
+	@Override
+	public Operation clone() {
+		return new ImportOperation(getItemId(), getItemName(), _rev, isRequirement());
+	}
+
+	/**
+	 * Returns name of item to import.
+	 * 
+	 * @return name of item to import.
+	 */
+	public String getItemName() {
+		return _itemName;
 	}
 }
