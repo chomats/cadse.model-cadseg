@@ -67,7 +67,7 @@ public class UpdateDefinition {
 	 * @throws IllegalArgumentException if it already exists an operation for specified item.
 	 */
 	public void addItemToRevert(UUID itemId) {
-		Operation newOp = new RevertOperation(itemId);
+		Operation newOp = new RevertOperation(itemId, true);
 		checkNoOtherOp(itemId, newOp, false);
 		
 		_requirements.put(itemId, newOp);
@@ -104,7 +104,7 @@ public class UpdateDefinition {
 	 * @throws IllegalArgumentException if it already exists an operation for specified item.
 	 */
 	public void addItemToUpdate(UUID itemId, int toRev) {
-		Operation newOp = new UpdateOperation(itemId, toRev);
+		Operation newOp = new UpdateOperation(itemId, toRev, true);
 		checkNoOtherOp(itemId, newOp, false);
 		
 		_requirements.put(itemId, newOp);
@@ -119,7 +119,7 @@ public class UpdateDefinition {
 	 * @throws IllegalArgumentException if it already exists an operation for specified item.
 	 */
 	public void addItemToImport(UUID itemId, String itemName, int rev) {
-		Operation newOp = new ImportOperation(itemId, itemName, rev);
+		Operation newOp = new ImportOperation(itemId, itemName, rev, true);
 		checkNoOtherOp(itemId, newOp, false);
 		
 		_requirements.put(itemId, newOp);

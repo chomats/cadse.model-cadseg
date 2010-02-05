@@ -51,6 +51,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 import fede.workspace.tool.view.WSPlugin;
@@ -138,9 +139,9 @@ public class UpdateDialogPage extends SWTDialog {
 
 	protected DListUI<IC_ErrorsForList>				_errorsField;
 
-	protected DListUI<IC_OperationsForList>			_causesField;
+	protected DListUI<IC_OperationsFromSelectedImpactForList>			_causesField;
 
-	protected DListUI<IC_OperationsForList>			_consequencesField;
+	protected DListUI<IC_OperationsFromSelectedImpactForList>			_consequencesField;
 
 	protected List<UIRunningField<?>>				_selectedImpactDependentFields	= new ArrayList<UIRunningField<?>>();
 
@@ -230,7 +231,13 @@ public class UpdateDialogPage extends SWTDialog {
 
 		@Override
 		public void initAfterUI(UIPlatform uiPlatform) {
-			// do nothing
+			((FilteredTree) _impactsField.getMainControl()).getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+				
+				@Override
+				public void selectionChanged(SelectionChangedEvent event) {
+					event.getSelection();
+				}
+			});
 		}
 		
 		@Override
@@ -311,43 +318,63 @@ public class UpdateDialogPage extends SWTDialog {
 
 		// add listeners
 		registerListener();
+		
+		
 	}
 	
-	private DListUI<IC_OperationsForList> createConsequencesField() {
+	/**
+	 * Called when an impact operation is selected.
+	 * 
+	 * @param selectedItem
+	 *            selected item
+	 */
+	public void setSelectedImpact(Operation selectedImpact) {
+		_selectedImpact = selectedImpact;
+
+		refreshImpactSelectDependentFields();
+	}
+	
+	private DListUI<IC_OperationsFromSelectedImpactForList> createConsequencesField() {
+
+		// retrieve list of update operations
+		final IC_OperationsFromSelectedImpactForList ic = new IC_OperationsFromSelectedImpactForList(_updateState, 
+				OperationAnalysisCategory.CONSEQUENCE);
+		_selectListeners.add(ic);
+		
 		AbstractModelController mc = new AbstractModelController() {
 
 			@Override
 			public Object getValue() {
-				return _updateState.getDefinition().getImpacts();
+				return ic.getListOfValues();
 			}
 
 			public void notifieValueChanged(UIField field, Object value) {
 				// do nothing
 			}
 		};
-
-		// retrieve list of update operations
-		IC_OperationsForList ic = new IC_OperationsForList(_updateState, OperationCategory.IMPACTS);
 		
 		return	_swtuiPlatforms.createDListUI(_page, "#listOfConsequences",
 				"Consequences", EPosLabel.top, mc, ic, false, false, false, false);
 	}
 
-	private DListUI<IC_OperationsForList> createCausesField() {
+	private DListUI<IC_OperationsFromSelectedImpactForList> createCausesField() {
+
+		// retrieve list of update operations
+		final IC_OperationsFromSelectedImpactForList ic = new IC_OperationsFromSelectedImpactForList(_updateState, 
+				OperationAnalysisCategory.CAUSE);
+		_selectListeners.add(ic);
+		
 		AbstractModelController mc = new AbstractModelController() {
 
 			@Override
 			public Object getValue() {
-				return _updateState.getDefinition().getImpacts();
+				return ic.getListOfValues();
 			}
 
 			public void notifieValueChanged(UIField field, Object value) {
 				// do nothing
 			}
 		};
-
-		// retrieve list of update operations
-		IC_OperationsForList ic = new IC_OperationsForList(_updateState, OperationCategory.IMPACTS);
 		
 		return	_swtuiPlatforms.createDListUI(_page, "#listOfCauses",
 				"Causes", EPosLabel.top, mc, ic, false, false, false, false);
@@ -387,10 +414,28 @@ public class UpdateDialogPage extends SWTDialog {
 		};
 
 		// retrieve list of update operations
-		IC_OperationsForList ic = new IC_OperationsForList(_updateState, OperationCategory.IMPACTS);
+		IC_OperationsForList ic = new IC_OperationsForList(_updateState, OperationCategory.IMPACTS) {
+			@Override
+			public void initAfterUI() {
+				super.initAfterUI();
+
+				((FilteredTree) _impactsField.getMainControl()).getViewer()
+						.addSelectionChangedListener(
+								new ISelectionChangedListener() {
+
+									@Override
+									public void selectionChanged(
+											SelectionChangedEvent event) {
+										_selectedImpact = (Operation) ((TreeSelection) event.getSelection()).getFirstElement();
+										refreshImpactSelectDependentFields();
+									}
+								});
+			}
+		};
 		
-		return	_swtuiPlatforms.createDListUI(_page, "#listOfImpacts",
+		DListUI impactsField = _swtuiPlatforms.createDListUI(_page, "#listOfImpacts",
 				"Impacts", EPosLabel.top, mc, ic, false, false, false, false);
+		return impactsField;
 	}
 
 	private DButtonUI createComputeImpactsField() {
@@ -398,16 +443,29 @@ public class UpdateDialogPage extends SWTDialog {
 
 			@Override
 			public void callAction() {
-				_updateState.getDefinition().clearImpacts();
+				UpdateImpactUtil.computeImpacts(_updateState);
 				
-				//TODO implement it
-				for (Operation op : _updateState.getDefinition().getRequirements()) {
-					_updateState.getDefinition().addImpactOperation(op);
-				}
-				
-				_impactsField.resetVisualValue();
+				refreshImpactsFields();
 			}
 		});
+	}
+	
+	private void refreshImpactsFields() {
+		_impactsField.resetVisualValue();
+		
+		refreshImpactSelectDependentFields();
+	}
+
+	private void refreshImpactSelectDependentFields() {
+		for (OpSelectionListener listener : _selectListeners) {
+			if (_selectedImpact == null)
+				listener.noMoreSelectedOperation();
+			else
+				listener.selectOperation(_selectedImpact);
+		}
+		for (UIRunningField<?> field : _selectedImpactDependentFields) {
+			field.resetVisualValue();
+		}
 	}
 
 	private DButtonUI createClearAllOpsField() {

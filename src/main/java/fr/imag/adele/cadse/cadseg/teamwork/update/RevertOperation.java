@@ -12,12 +12,17 @@ import fr.imag.adele.cadse.core.LogicalWorkspace;
  */
 public class RevertOperation extends Operation {
 
-	public RevertOperation(UUID itemId) {
-		super(itemId, OperationType.REVERT);
+	public RevertOperation(UUID itemId, boolean isRequirement) {
+		super(itemId, OperationType.REVERT, isRequirement);
 	}
 
 	@Override
 	public String getRequirementDisplay(LogicalWorkspace lw) {
 		return "Revert of " + getQualifiedItemName(lw);
+	}
+	
+	@Override
+	public Operation clone() {
+		return new RevertOperation(getItemId(), isRequirement());
 	}
 }

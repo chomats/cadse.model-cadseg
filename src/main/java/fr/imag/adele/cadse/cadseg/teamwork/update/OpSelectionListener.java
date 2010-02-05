@@ -14,14 +14,14 @@ public interface OpSelectionListener {
 	 * 
 	 * @param newOp new selected update operation
 	 */
-	public void selectOperation(Item newOp);
+	public void selectOperation(Operation newOp);
 	
 	/**
 	 * Called each time a selected update operation becomes deselected.
 	 * 
 	 * @param oldOp update operation which has been deselected
 	 */
-	public void deselectItem(Item oldOp);
+	public void deselectItem(Operation oldOp);
 	
 	/**
 	 * Called when there is no more selected update operation. 

@@ -14,8 +14,8 @@ public class UpdateOperation extends Operation {
 	
 	private int _toRev;
 
-	public UpdateOperation(UUID itemId, int toRev) {
-		super(itemId, OperationType.UPDATE);
+	public UpdateOperation(UUID itemId, int toRev, boolean isRequirement) {
+		super(itemId, OperationType.UPDATE, isRequirement);
 		_toRev = toRev;
 	}
 	
@@ -32,5 +32,10 @@ public class UpdateOperation extends Operation {
 	public String getRequirementDisplay(LogicalWorkspace lw) {
 		return "Update of " + getQualifiedItemName(lw) + "(" + 
 		getDisplayOfRev(lw.getItem(getItemId()).getVersion()) + " to " + getDisplayOfRev(getDestinationRevNb()) + ")";
+	}
+
+	@Override
+	public Operation clone() {
+		return new UpdateOperation(getItemId(), _toRev, isRequirement());
 	}
 }
