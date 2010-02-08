@@ -3,7 +3,6 @@ package fr.imag.adele.cadse.cadseg.teamwork.update;
 import java.util.List;
 
 import fr.imag.adele.cadse.cadseg.teamwork.Errors;
-import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
