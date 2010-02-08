@@ -65,6 +65,7 @@ import fede.workspace.tool.view.node.FilteredItemNode.Category;
 import fr.imag.adele.cadse.cadseg.teamwork.Error;
 import fr.imag.adele.cadse.cadseg.teamwork.VisitedItems;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.CompleteItemNode;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.DecoratingTableLabelProvider;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.IC_DynamicArrayOfObjectForList;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemNodeWithoutChildren;
 import fr.imag.adele.cadse.core.CadseException;
@@ -91,6 +92,8 @@ import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.eclipse.view.SelfViewContentProvider;
+import fr.imag.adele.cadse.eclipse.view.SelfViewLabelProvider;
+import fr.imag.adele.cadse.eclipse.view.SelfViewTableLabelProvider;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
@@ -128,7 +131,7 @@ public class CommitStatusDialog extends SWTDialog {
 
 	protected DTextUI								_revField;
 
-	protected DListUI<IC_DynamicArrayOfObjectForList>								_listOfCommitedItemsField;
+	protected final DTreeModelUI<ItemToCommitTreeIC>								_listOfCommitedItemsField;
 
 	protected List<UIRunningField<?>>							_selectDependentFields	= new ArrayList<UIRunningField<?>>();
 
@@ -152,6 +155,10 @@ public class CommitStatusDialog extends SWTDialog {
 	protected boolean								_refreshTree			= true;
 
 	protected Object								_refreshTreeLock		= new Object();
+	
+	protected boolean								_refreshListOfCommitedItems	= true;
+
+	protected Object								_refreshListOfCommitedItemsLock		= new Object();
 
 	/**
 	 * Commit operation thread.
@@ -191,6 +198,45 @@ public class CommitStatusDialog extends SWTDialog {
 				}
 
 				if (!type.isRootElement() || type.isHidden()) {
+					continue;
+				}
+
+				if (!_filter.accept(valueItem)) {
+					continue;
+				}
+
+				ret.add(new CompleteItemNode(root, node, valueItem));
+			}
+		}
+	}
+	
+	static public class ItemsToCommitRule extends Rule {
+		Comparator<Item>	sortFct	= null;
+		LogicalWorkspace	_lw;
+		private FilterItem	_filter;
+
+		public ItemsToCommitRule(LogicalWorkspace lw, Comparator<Item> sortFct, FilterItem filter) {
+			super();
+			this._lw = lw;
+			this.sortFct = sortFct;
+			_filter = filter;
+		}
+
+		@Override
+		public void computeChildren(FilteredItemNode root, AbstractCadseViewNode node, List<AbstractCadseViewNode> ret) {
+			Collection<Item> values = _lw.getItems();
+			if (sortFct != null) {
+				TreeSet<Item> values2 = new TreeSet<Item>(sortFct);
+				values2.addAll(values);
+				values = values2;
+			}
+			for (Item valueItem : values) {
+				ItemType type = valueItem.getType();
+				if (valueItem.isStatic()) {
+					continue;
+				}
+
+				if (type.isHidden()) {
 					continue;
 				}
 
@@ -470,7 +516,7 @@ public class CommitStatusDialog extends SWTDialog {
 		public void doFinish(UIPlatform uiPlatform, Object monitor) throws Exception {
 			Object[] array = _treeField.getSelectedObjects();
 
-			// TODO implement it, commit the workspace logique copy
+			
 		}
 	}
 
@@ -613,11 +659,187 @@ public class CommitStatusDialog extends SWTDialog {
 			return _contentProvider;
 		}
 	}
+	
+	public class ItemToCommitTreeIC extends IC_TreeModel {
+
+		private IContentProvider	_contentProvider;
+
+		@Override
+		public ItemType getType() {
+			return null;
+		}
+
+		@Override
+		public void initAfterUI() {
+			super.initAfterUI();
+			try {
+				FilteredItemNode node = getOrCreateFilteredNode();
+				for (IItemNode n : node.getChildren()) {
+					if (isSelected(n) == IItemNode.SELECTED) {
+						((DTreeModelUI) getUIField()).selectNode(n);
+					}
+				}
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		@Override
+		public ILabelProvider getLabelProvider() {
+			return new DecoratingTableLabelProvider(
+					new SelfViewTableLabelProvider() {
+				@Override
+				public Image getColumnImage(Object element, int columnIndex) {
+					Item item = null;
+					if (element instanceof IItemNode) {
+						item = ((IItemNode) element).getItem();
+					}
+					if (item == null)
+						return super.getImage(element);
+					
+					if (columnIndex == 1)
+						return null;
+					if (columnIndex == 2)
+						return null;
+					if (columnIndex == 3)
+						return null;
+					
+					return super.getImage(element);
+				}
+
+				@Override
+				public String getColumnText(Object element, int columnIndex) {
+					Item item = null;
+					if (element instanceof IItemNode) {
+						item = ((IItemNode) element).getItem();
+					}
+					if (item == null)
+						return super.getText(element);
+					UUID itemId = item.getId();
+					
+					if (columnIndex == 1)
+						return _commitState.isStateCommitted(itemId) ? "Done" : "";
+					if (columnIndex == 2)
+						return _commitState.isLinksCommitted(itemId) ? "Done" : "";
+					if (columnIndex == 3)
+						return _commitState.isContentCommitted(itemId) ? "Done" : "";
+					
+					return super.getText(element);
+				}
+			}, new ErrorDecorator());
+		}
+
+		@Override
+		public String canObjectDeselected(Object object) {
+			IItemNode node = (IItemNode) object;
+
+			return null;
+		}
+
+		@Override
+		public String canObjectSelected(Object object) {
+			return null;
+		}
+
+		@Override
+		public void select(Object data) {
+			IItemNode node = (IItemNode) data;
+			if (node.getItem() == null || (node instanceof CategoryNode)) {
+				selectInvalidTreeItem();
+				return;
+			}
+
+			_uiPlatform.setMessage(null, UIPlatform.NONE);
+			setSelectedItem(node.getItem());
+		}
+
+		private void selectInvalidTreeItem() {
+			_uiPlatform.setMessage("This node should not be selected.", UIPlatform.ERROR);
+		}
+
+		/**
+		 * Create the structured model to show.
+		 */
+		@Override
+		protected FilteredItemNodeModel getTreeModel() {
+			if (model == null) {
+				model = new FilteredItemNodeModel();
+
+				// roots are root elements which are root items
+				model.addRule(FilteredItemNodeModel.ROOT_ENTRY, new ItemsToCommitRule(_workspaceCopy,
+						new Comparator<Item>() {
+							public int compare(Item o1, Item o2) {
+								int o1Idx = _commitState.getItemsToCommitRequirements().indexOf(o1.getId());
+								int o2Idx = _commitState.getItemsToCommitRequirements().indexOf(o2.getId());
+								if( o1Idx > o2Idx )
+									return 1;
+								else if( o1Idx < o2Idx )
+									return -1;
+								else
+									return 0;
+							}
+						}, new FilterItem() {
+							public boolean accept(Item item) {
+								return _commitState.getItemsToCommitRequirements().contains(item.getId());
+							}
+						}));
+			}
+			return super.getTreeModel();
+		}
+
+		@Override
+		protected FilteredItemNode createRootNode() {
+			return new FilteredItemNode(null, getTreeModel()) {
+				@Override
+				public int isSelected(IItemNode node) {
+					return ItemToCommitTreeIC.this.isSelected(node);
+				}
+			};
+		}
+
+		public int isSelected(Object element) {
+			if (element instanceof ItemNode) {
+				Item item = ((IItemNode) element).getItem();
+				if (item != null) {
+					return IItemNode.SELECTED;
+				}
+			}
+			if (element instanceof CategoryNode) {
+				return IItemNode.GRAY_SELECTED;
+			}
+
+			return IItemNode.DESELECTED;
+		}
+
+		@Override
+		public IContentProvider getContentProvider() {
+			if (_contentProvider == null) {
+				_contentProvider = new SelfViewContentProvider() {
+					@Override
+					public void notifieChangeEvent(ChangeID id, Object... values) {
+						if ((values != null) && (values.length != 0)) {
+							super.notifieChangeEvent(id, values);
+							return;
+						}
+
+						PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+							public void run() {
+								refreshAll();
+							}
+						});
+					}
+				};
+			}
+
+			return _contentProvider;
+		}
+	}
 
 	public class MC_CommitTree extends AbstractModelController {
 
 		public Object getValue(UIPlatform uiPlatform) {
-			return _commitState.getItemsToCommit();
+			return _commitState.getItemsToCommitRequirements();
 		}
 
 		public void notifieValueChanged(UIField field, Object value) {
@@ -723,6 +945,27 @@ public class CommitStatusDialog extends SWTDialog {
 			_refreshTree = false;
 		}
 	}
+	
+	/**
+	 * Refresh the tree used to list commited items.
+	 */
+	private void refreshListOfCommitedItems(boolean forceRefresh) {
+		if (!forceRefresh && !_refreshListOfCommitedItems) {
+			return;
+		}
+
+		synchronized (_refreshListOfCommitedItemsLock) {
+			SelfViewContentProvider contentProvider = (SelfViewContentProvider) _listOfCommitedItemsField._ic
+					.getContentProvider();
+			contentProvider.notifieChangeEvent(null);
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					_listOfCommitedItemsField.getTreeViewer().refresh();
+				}
+			});
+			_refreshListOfCommitedItems = false;
+		}
+	}
 
 	/**
 	 * Register listener or validator if need
@@ -782,29 +1025,33 @@ public class CommitStatusDialog extends SWTDialog {
 	/**
 	 * Create a list field showing modified attributes.
 	 */
-	protected DListUI<IC_DynamicArrayOfObjectForList> createListOfCommitedItemsField() {
-		AbstractModelController mc = new AbstractModelController() {
-
-			@Override
-			public Object getValue() {
-				List<UUID> itemIds = _commitState.getItemsToCommit();
-				return itemIds;
-			}
-
-			public void notifieValueChanged(UIField field, Object value) {
-				// do nothing
-			}
-		};
+	protected DTreeModelUI<ItemToCommitTreeIC> createListOfCommitedItemsField() {
+//		AbstractModelController mc = new AbstractModelController() {
+//
+//			@Override
+//			public Object getValue() {
+//				List<UUID> itemIds = _commitState.getItemsToCommitRequirements();
+//				return itemIds;
+//			}
+//
+//			public void notifieValueChanged(UIField field, Object value) {
+//				// do nothing
+//			}
+//		};
 
 		// retrieve list of items to commit
-		List<UUID> idsToCommit = _commitState.getItemsToCommit();
-		IC_DynamicArrayOfObjectForList ic = new IC_DynamicArrayOfObjectForList(
-				idsToCommit.toArray(new UUID[idsToCommit.size()]), _workspaceCopy);
+//		List<UUID> idsToCommit = _commitState.getItemsToCommit();
+//		IC_DynamicArrayOfObjectForList ic = new IC_DynamicArrayOfObjectForList(
+//				idsToCommit.toArray(new UUID[idsToCommit.size()]), _workspaceCopy);
 
-		DListUI<IC_DynamicArrayOfObjectForList> listField =
-			_swtuiPlatforms.createDListUI(_page, "#listOfCommittedItemsField",
-				"Commit Order", EPosLabel.top, mc, ic, false, false, false, false);
-		return listField;
+//		DListUI<IC_DynamicArrayOfObjectForList> listField =
+//			_swtuiPlatforms.createDListUI(_page, "#listOfCommittedItemsField",
+//				"Commit Order", EPosLabel.top, mc, ic, false, false, false, false);
+//		return listField;
+		
+		DTreeModelUI<ItemToCommitTreeIC> treeField = _swtuiPlatforms.createTreeModelUI(_page, "#list", "Items which are commiting", EPosLabel.top,
+				new MC_CommitTree(), new ItemToCommitTreeIC(), false, true, new String[] { "Item", "Attributes", "Links", "Content" });
+		return treeField;
 	}
 
 	/**
@@ -957,7 +1204,26 @@ public class CommitStatusDialog extends SWTDialog {
 
 						@Override
 						public void endCommitItem(UUID itemId) {
-							// TODO Auto-generated method stub
+							refreshListOfCommitedItems();
+						}
+
+						@Override
+						public void endCommitItemContent(UUID itemId) {
+							refreshListOfCommitedItems();
+						}
+
+						@Override
+						public void endCommitItemLinks(UUID itemId) {
+							refreshListOfCommitedItems();
+						}
+
+						@Override
+						public void endCommitItemState(UUID itemId) {
+							refreshListOfCommitedItems();
+						}
+
+						private void refreshListOfCommitedItems() {
+							p.refreshListOfCommitedItems(true);
 						}
 						
 					});

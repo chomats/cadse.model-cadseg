@@ -38,4 +38,10 @@ public interface CommitListener {
 	public void beginCommitItem(UUID itemId);
 	
 	public void endCommitItem(UUID itemId);
+
+	public void endCommitItemContent(UUID itemId);
+
+	public void endCommitItemLinks(UUID itemId);
+
+	public void endCommitItemState(UUID itemId);
 }

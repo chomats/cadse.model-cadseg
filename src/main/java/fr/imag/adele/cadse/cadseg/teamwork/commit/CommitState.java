@@ -36,9 +36,17 @@ import fr.imag.adele.cadse.cadseg.teamwork.Errors;
  */
 public class CommitState {
 
+	private List<UUID> _commitedItemStates = new ArrayList<UUID>();
+	
+	private List<UUID> _commitedItemLinks = new ArrayList<UUID>();
+	
+	private List<UUID> _commitedItemContents = new ArrayList<UUID>();
+	
 	private List<UUID> _commitedItems = new ArrayList<UUID>();
 	
 	private List<UUID> _toCommitItems = new ArrayList<UUID>();
+	
+	private List<UUID> _toCommitItemsRequirements = new ArrayList<UUID>();
 
 	private Errors _errors = new Errors();
 	
@@ -62,9 +70,18 @@ public class CommitState {
 	}
 	
 	/**
-	 * Return all items which will be commit.
+	 * Return all items which requires to be committed.
 	 * 
-	 * @return all items which will be commit.
+	 * @return all items which requires to be committed.
+	 */
+	public List<UUID> getItemsToCommitRequirements() {
+		return _toCommitItemsRequirements;
+	}
+	
+	/**
+	 * Return all items which requires to be committed and that it is not already committed.
+	 * 
+	 * @return all items which requires to be committed and that it is not already committed.
 	 */
 	public List<UUID> getItemsToCommit() {
 		return _toCommitItems;
@@ -93,6 +110,72 @@ public class CommitState {
 					listener.beginCommitItem(itemId);
 				} catch (RuntimeException e) {
 					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark item state as committed.
+	 * 
+	 * @param itemId item id
+	 */
+	public void markStateAsCommitted(UUID itemId) {
+		if (!_commitedItemStates.contains(itemId)) {
+			_commitedItemStates.add(itemId);
+			
+			// notify listeners
+			synchronized (_listeners) {
+				for (CommitListener listener : _listeners) {
+					try {
+						listener.endCommitItemState(itemId);
+					} catch (RuntimeException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark item outgoing links as committed.
+	 * 
+	 * @param itemId item id
+	 */
+	public void markLinksAsCommitted(UUID itemId) {
+		if (!_commitedItemLinks.contains(itemId)) {
+			_commitedItemLinks.add(itemId);
+			
+			// notify listeners
+			synchronized (_listeners) {
+				for (CommitListener listener : _listeners) {
+					try {
+						listener.endCommitItemLinks(itemId);
+					} catch (RuntimeException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark item content as committed.
+	 * 
+	 * @param itemId item id
+	 */
+	public void markContentsAsCommitted(UUID itemId) {
+		if (!_commitedItemContents.contains(itemId)) {
+			_commitedItemContents.add(itemId);
+			
+			// notify listeners
+			synchronized (_listeners) {
+				for (CommitListener listener : _listeners) {
+					try {
+						listener.endCommitItemContent(itemId);
+					} catch (RuntimeException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -174,6 +257,8 @@ public class CommitState {
 	 */
 	public void beginCommit() {
 		_performCommit = true;
+		
+		_toCommitItemsRequirements = new ArrayList<UUID>(_toCommitItems);
 		
 		// notify listeners
 		synchronized (_listeners) {
@@ -303,6 +388,45 @@ public class CommitState {
 			return false;
 		
 		return _commitedItems.contains(itemId);
+	}
+	
+	/**
+	 * Return true if specified item content has been committed without errors.
+	 * 
+	 * @param itemId item id
+	 * @return true if specified item content has been committed without errors.
+	 */
+	public boolean isContentCommitted(UUID itemId) {
+		if (itemId == null)
+			return false;
+		
+		return _commitedItemContents.contains(itemId);
+	}
+	
+	/**
+	 * Return true if specified item state has been committed without errors.
+	 * 
+	 * @param itemId item id
+	 * @return true if specified item state has been committed without errors.
+	 */
+	public boolean isStateCommitted(UUID itemId) {
+		if (itemId == null)
+			return false;
+		
+		return _commitedItemStates.contains(itemId);
+	}
+	
+	/**
+	 * Return true if specified item outgoing links have been committed without errors.
+	 * 
+	 * @param itemId item id
+	 * @return true if specified item outgoing links have been committed without errors.
+	 */
+	public boolean isLinksCommitted(UUID itemId) {
+		if (itemId == null)
+			return false;
+		
+		return _commitedItemLinks.contains(itemId);
 	}
 
 	/**

@@ -56,6 +56,8 @@ public class CommitThread extends Thread {
 	private CommitState			_commitState;
 	private LogicalWorkspace	_wl;
 	private Map<ItemType, Boolean> evolPoliticsSetIndDB = new HashMap<ItemType, Boolean>(); 
+	private Map<UUID, Integer> _oldRevs = new HashMap<UUID, Integer>();
+	private Map<UUID, Integer> _lastRevs = new HashMap<UUID, Integer>();
 
 	public CommitThread(CommitState commitState, LogicalWorkspace wl) {
 		super("TWCommit");
@@ -105,6 +107,8 @@ public class CommitThread extends Thread {
 				e.printStackTrace();
 				break;
 			}
+			
+			_commitState.markStateAsCommitted(itemId);
 
 			i++;
 		}
@@ -122,6 +126,8 @@ public class CommitThread extends Thread {
 				e.printStackTrace();
 			}
 			
+			_commitState.markLinksAsCommitted(itemId);
+			
 			i++;
 		}
 
@@ -137,6 +143,8 @@ public class CommitThread extends Thread {
 				_commitState.abortCommit();
 				e.printStackTrace();
 			}
+			
+			_commitState.markContentsAsCommitted(itemId);
 			
 			i++;
 		}
@@ -234,12 +242,8 @@ public class CommitThread extends Thread {
 				continue;
 			
 			try {
-				if (item.isRequireNewRev()) {
-					commitItemLinksWhenNewRev(item, linkType, db);
-				} else if (item.isTWAttributeModified(attrType)) {
-					// link type has been modified and current revision should be updated
-					//TODO
-				}
+				if (item.isTWAttributeModified(attrType))
+					commitItemLinks(item, linkType, db);
 			} catch (ModelVersionDBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -247,64 +251,137 @@ public class CommitThread extends Thread {
 		}
 	}
 	
-	private void commitItemLinksWhenNewRev(Item item, LinkType linkType, ModelVersionDBService db) throws ModelVersionDBException {
+	private void commitItemLinks(Item item, LinkType linkType, ModelVersionDBService db) throws ModelVersionDBException {
 		UUID itemId = item.getId();
 		int rev = item.getVersion();
+		if (!linkType.isTWRevSpecific())
+			rev = ModelVersionDBService.ALL;
 		UUID linkTypeId = linkType.getId();
 		
-		if (TWUtil.hasReplaceCommitPolitic(linkType)) {
-			// delete links in base which no more exist
-			Set<UUID> destIdsOfLinksToRemove = new HashSet<UUID>();
-			for (Revision destRevision : db.getLinkDestRev(linkTypeId, itemId, rev)) {
-				UUID destId = destRevision.getId();
-				if (!TWUtil.isPresentInWorkspace(destId, _wl))
-					destIdsOfLinksToRemove.add(destId);
-			}
-			for (UUID destId : destIdsOfLinksToRemove) {
-				db.deleteLink(linkTypeId, itemId, rev, destId);
-			}
-			
-			// update links : 
-			// - update compatible revisions
-			// - add new links
-			for (Link link : item.getOutgoingLinks(linkType)) {
-				Item destItem = link.getDestination(false);
-				UUID destId = destItem.getId();
-				
-				//TODO
-				
-				int destRev = 0;
-				if (link.isLinkResolved())
-					destRev = destItem.getVersion();
-				else
-					destRev = link.getVersion();
-				Map<String, Object> stateMap = new HashMap<String, Object>();
-				stateMap.put(CadseGCST.ITEM_at_NAME, destItem.getName());
-				stateMap.put(CadseGCST.ITEM_at_QUALIFIED_NAME, destItem.getQualifiedName());
-				
-				db.addLink(linkTypeId, itemId, rev, destId, destRev, stateMap);
-			}
-			return;
+		// test if a concurrent work has been performed
+		int lastRev = item.getVersion(); // before this commit
+		Integer lastRevInt = _lastRevs.get(itemId);
+		if (lastRevInt != null)
+			lastRevInt = lastRevInt.intValue();
+		
+		int oldRev = item.getVersion();
+		Integer oldRevInt = _oldRevs.get(itemId);
+		if (oldRevInt != null)
+			oldRevInt = oldRevInt.intValue();
+		
+		List<UUID> oldDestIds = new ArrayList<UUID>();
+		for (Revision destRevision : db.getLinkDestRev(linkTypeId, itemId, oldRev)) {
+			UUID destId = destRevision.getId();
+			oldDestIds.add(destId);
+		}
+		List<UUID> lastDestIds = new ArrayList<UUID>();
+		for (Revision destRevision : db.getLinkDestRev(linkTypeId, itemId, lastRev)) {
+			UUID destId = destRevision.getId();
+			lastDestIds.add(destId);
+		}
+		List<UUID> newDestIds = new ArrayList<UUID>();
+		for (Item destItem : item.getOutgoingItems(linkType, false)) {
+			UUID destId = destItem.getId();
+			newDestIds.add(destId);
 		}
 		
-		if (TWUtil.hasReconcileCommitPolitic(linkType)) {
-//			Object reconciledValue = TWUtil.mergeLists(oldValue, newValue);
-//			try {
-//				item.setAttribute(attrType, reconciledValue);
-//			} catch (CadseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			db.setObjectValue(itemId, rev, attrName, reconciledValue);
-		} else if (TWUtil.hasConflictCommitPolitic(linkType)) {
-//			if (attrType.isTWValueModified(oldValue, newValue)) {
-//				// TODO throw an error
-//				throw new IllegalStateException("Conflict values " + 
-//					oldValue + " and " + newValue + " of attribute " + 
-//					attrName + " of item " + item.getName());
-//			} else
-//				db.setObjectValue(itemId, rev, attrName, newValue);
+		List<UUID> destIdsToSet = newDestIds;
+		if ((oldRev != 0) && hasConflict(oldDestIds, lastDestIds, newDestIds)) {
+			if (TWUtil.hasConflictCommitPolitic(linkType)) {
+				String errorMsg = "Links " + linkType.getName()
+						+ " have been changed concurently.";
+				_commitState.getErrors().addError(itemId, errorMsg);
+				return;
+			} else if (TWUtil.hasReconcileCommitPolitic(linkType)) {
+				destIdsToSet = TWUtil.mergeLists(oldDestIds, lastDestIds, newDestIds);
+			}
 		}
+		
+		// delete links in base which no more exist
+		Set<UUID> destIdsOfLinksToRemove = new HashSet<UUID>();
+		for (Revision destRevision : db.getLinkDestRev(linkTypeId, itemId, rev)) {
+			UUID destId = destRevision.getId();
+			if (!destIdsToSet.contains(destId))
+				destIdsOfLinksToRemove.add(destId);
+		}
+		for (UUID destId : destIdsOfLinksToRemove) {
+			db.deleteLink(linkTypeId, itemId, rev, destId);
+		}
+
+		// update links :
+		// - update compatible revisions
+		// - add new links
+		for (Link link : item.getOutgoingLinks(linkType)) {
+			Item destItem = link.getDestination(false);
+			UUID destId = destItem.getId();
+
+			int destRev = 0;
+			if (TWUtil.isBranchDestination(linkType))
+				destRev = ModelVersionDBService.ALL;
+			else if (link.isLinkResolved())
+				destRev = destItem.getVersion();
+			else
+				destRev = link.getVersion();
+
+			Map<String, Object> stateMap = new HashMap<String, Object>();
+			stateMap.put(CadseGCST.ITEM_at_NAME, destItem.getName());
+			stateMap.put(CadseGCST.ITEM_at_QUALIFIED_NAME, destItem
+					.getQualifiedName());
+			stateMap.put(CadseGCST.ITEM_at_DISPLAY_NAME, destItem
+					.getDisplayName());
+
+			//TODO manage effectivity
+			
+			boolean isInDB = false;
+			try {
+				isInDB = db
+						.linkExists(linkTypeId, itemId, rev, destId, destRev);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (!isInDB)
+				db.addLink(linkTypeId, itemId, rev, destId, destRev, stateMap);
+			else {
+				// update destination names in base
+				Revision linkRev = db.getLinkRev(linkTypeId, itemId, rev,
+						destId, destRev);
+				db.setLinkState(linkRev.getId(), linkRev.getRev(), stateMap);
+			}
+
+			if (TWUtil.isImmutableDestination(linkType)
+					|| TWUtil.isMutableDestination(linkType)
+					|| TWUtil.isFinalDestination(linkType)) {
+				try {
+					for (Revision destRevision : db.getLinkDestRev(linkTypeId,
+							itemId, rev)) {
+						if (destRevision.getId() != destId)
+							continue;
+						int destRevInBase = destRevision.getRev();
+						if (destRevInBase == destRev)
+							continue;
+
+						if (TWUtil.isFinalDestination(linkType)) {
+							String errorMsg = "Revision of destination "
+									+ destId + " of link " + linkType.getName()
+									+ " has been modified from "
+									+ destRevInBase + " to " + destRev;
+							_commitState.getErrors().addError(itemId, errorMsg);
+
+							throw new IllegalStateException(errorMsg);
+						} else
+							db.deleteLink(linkTypeId, itemId, rev, destId,
+									destRevInBase);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private boolean hasConflict(List<UUID> oldDestIds, List<UUID> lastDestIds,
+			List<UUID> newDestIds) {	
+		return !oldDestIds.equals(newDestIds) && !oldDestIds.equals(lastDestIds);
 	}
 
 	private void commitItemState(UUID itemId, ModelVersionDBService db) throws ModelVersionDBException,
@@ -341,12 +418,23 @@ public class CommitThread extends Thread {
 			if (TWUtil.isTransient(attrType))
 				continue;
 			
-			stateMap.put(attrType.getName(), item.getAttribute(attrType));
+			String attrName = attrType.getName();
+			stateMap.put(attrName, item.getAttribute(attrType));
 
-			if (item.isTWAttributeModified(attrType))
-				modifiedAttrTypes.add(attrType);
+			if (item.isTWAttributeModified(attrType)) {
+				if (TWUtil.isFinal(attrType)) {
+					String errorMsg = "Value of attribute " + 
+					attrName + " of item " + item.getName() + " must not be changed (final politic).";
+					_commitState.getErrors().addError(itemId, errorMsg);
+				
+					return;
+				} else
+					modifiedAttrTypes.add(attrType);
+			}
 		}
 		int rev = item.getVersion();
+		int oldRev = rev;
+		int lastRev = 0;
 		if (rev == 0) {
 			// item not already in db
 			UUID itemTypeId = itemType.getId();
@@ -354,8 +442,7 @@ public class CommitThread extends Thread {
 					stateMap, TWUtil.isItemType(item));
 		} else {
 			// an item revision already exists in db
-			int oldRev = rev;
-			int lastRev = db.getLastObjectRevNb(itemId);
+			lastRev = db.getLastObjectRevNb(itemId);
 			
 			if (item.isRequireNewRev()) {
 				// TODO check that lastRev must be used in place of current revision
@@ -384,10 +471,13 @@ public class CommitThread extends Thread {
 				} else if (TWUtil.hasConflictCommitPolitic(attrType)) {
 					if (attrType.isTWValueModified(oldValue, newValue) &&
 							attrType.isTWValueModified(oldValue, lastValue)) {
-						// TODO throw an error
-						throw new IllegalStateException("Conflict values " + 
+						
+						String errorMsg = "Conflict values " + 
 							oldValue + " and " + newValue + " of attribute " + 
-							attrName + " of item " + item.getName());
+							attrName + " of item " + item.getName();
+						_commitState.getErrors().addError(itemId, errorMsg);
+						
+						throw new IllegalStateException(errorMsg);
 					} else
 						db.setObjectValue(itemId, rev, attrName, newValue);
 				}
@@ -397,6 +487,9 @@ public class CommitThread extends Thread {
 			db.setObjectValue(itemId, rev, DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
 		}
 		try {
+			_oldRevs.put(itemId, oldRev);
+			_lastRevs.put(itemId, lastRev);
+			
 			item.setVersion(rev);
 			item.setAttribute(CadseGCST.ITEM_at_TWLAST_COMMENT_, comment);
 			item.setAttribute(CadseGCST.ITEM_at_COMMITTED_BY_, user);

@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -50,6 +51,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
@@ -454,6 +456,8 @@ public class UpdateDialogPage extends SWTDialog {
 		_impactsField.resetVisualValue();
 		
 		refreshImpactSelectDependentFields();
+		
+		refreshWizardButtons();
 	}
 
 	private void refreshImpactSelectDependentFields() {
@@ -627,6 +631,19 @@ public class UpdateDialogPage extends SWTDialog {
 	 */
 	protected void refreshRequirements() {
 		_requirementsField.resetVisualValue();
+		
+		refreshWizardButtons();
+	}
+
+	private void refreshWizardButtons() {
+		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				if (!_updateState.getDefinition().getErrors().hasNotResolvedError() && !_updateState.hasNoOperationToPerform())
+					_swtuiPlatforms.setMessage("", IMessageProvider.INFORMATION);
+				else
+					_swtuiPlatforms.setMessageError("Cannot perform update");
+			}
+		});
 	}
 
 	private DButtonUI createAddItemToUpdateField() {
@@ -931,7 +948,7 @@ public class UpdateDialogPage extends SWTDialog {
 	static public void openDialog(final UpdateState updateState) {
 
 		/**
-		 * Create a new display wen call getDefault(). Worksbench is not
+		 * Create a new display when call getDefault(). Workbench is not
 		 * started. This method is called by federation in start level.
 		 * 
 		*/
