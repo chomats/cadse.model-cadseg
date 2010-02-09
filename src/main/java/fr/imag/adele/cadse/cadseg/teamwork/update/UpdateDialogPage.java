@@ -445,7 +445,7 @@ public class UpdateDialogPage extends SWTDialog {
 
 			@Override
 			public void callAction() {
-				UpdateImpactUtil.computeImpacts(_updateState);
+				UpdateUtil.computeImpacts(_updateState);
 				
 				refreshImpactsFields();
 			}
