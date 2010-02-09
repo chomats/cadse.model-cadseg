@@ -23,6 +23,7 @@ import java.net.URL;
 
 import org.eclipse.jface.wizard.WizardDialog;
 
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_DataModelView_Creation;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;

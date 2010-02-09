@@ -5,6 +5,7 @@ import java.util.UUID;
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
+import fr.imag.adele.cadse.cadseg.managers.view.ViewManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_BooleanDefaultValue;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_EnumDefaultValue;
@@ -12,6 +13,7 @@ import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForTextFromManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_ViewManager_DataModelView;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_BooleanTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DefaultEnum;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DoubleTextField;
@@ -21,6 +23,7 @@ import fr.imag.adele.cadse.cadseg.pages.mc.MC_IntegerTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_LongTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_PROJECT_NAME;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_ViewItemType;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -41,6 +44,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedTreeUI;
 
 public class PageInit {
 
@@ -969,7 +973,13 @@ public class PageInit {
 			CadseGCST.ENUM_TYPE.addValidators(v);
 		}
 		
-		
+		// ATTRIBUTE_at_TWCOMMIT_KIND_
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(UITWCommitValidator.class);
+			v.setListenAttributes(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
+			CadseGCST.ATTRIBUTE.addValidators(v);
+		}
 		
 		
 		// ************************************** //
@@ -1098,6 +1108,18 @@ public class PageInit {
 			nameControl.setActionPage(action);
 			CadseGCST.ITEM_TYPE.addModificationPages(nameControl);
 			CadseGCST.ITEM_TYPE.addCreationPages(nameControl);
-		}		
+		}
+		
+		
+		{
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc, MC_ViewItemType.class);
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_ABSTRACT_FOR_CHECKED);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ViewManager_DataModelView.class);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECKED_TREE, UUID.randomUUID(),
+					CadseGCST.VIEW_lt_VIEW_ITEM_TYPES, "Item types",
+					EPosLabel.none, mc, ic);
+			CadseGCST.VIEW.addField(field);
+		}
 	}
 }

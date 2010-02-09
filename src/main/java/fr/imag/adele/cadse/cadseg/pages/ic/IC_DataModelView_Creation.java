@@ -17,13 +17,14 @@
  * under the License.
  */
 
-package fr.imag.adele.cadse.cadseg.managers.view;
+package fr.imag.adele.cadse.cadseg.pages.ic;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_ViewItemType;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 
@@ -42,16 +43,16 @@ public class IC_DataModelView_Creation extends IC_DataModelView {
 	Map<Item, Integer>	value		= new HashMap<Item, Integer>();
 
 	/** The Constant AGGREGATION. */
-	static final int	AGGREGATION	= 0x0001;
+	public static final int	AGGREGATION	= 0x0001;
 
 	/** The Constant CAN_LINK. */
-	static final int	CAN_LINK	= 0x0002;
+	public static final int	CAN_LINK	= 0x0002;
 
 	/** The Constant CAN_ITEM. */
-	static final int	CAN_ITEM	= 0x0004;
+	public static final int	CAN_ITEM	= 0x0004;
 
 	/** The Constant ROOT_ITEM. */
-	static final int	ROOT_ITEM	= 0x0008;
+	public static final int	ROOT_ITEM	= 0x0008;
 
 	/**
 	 * Instantiates a new i c_ data model view_ creation.
@@ -62,7 +63,7 @@ public class IC_DataModelView_Creation extends IC_DataModelView {
 	 *            the viewmodel
 	 */
 	public IC_DataModelView_Creation(Item[] datamodel, Item viewmodel) {
-		super(datamodel, viewmodel);
+		super();
 	}
 
 	/*
@@ -191,7 +192,7 @@ public class IC_DataModelView_Creation extends IC_DataModelView {
 	 * 
 	 * @return the int
 	 */
-	int isSet(Item key, int kind) {
+	public int isSet(Item key, int kind) {
 		Integer i = value.get(key);
 		if (i == null) {
 			return -1;
@@ -224,6 +225,6 @@ public class IC_DataModelView_Creation extends IC_DataModelView {
 	}
 
 	public AbstractModelController mc() {
-		return new MC();
+		return new MC_ViewItemType();
 	}
 }

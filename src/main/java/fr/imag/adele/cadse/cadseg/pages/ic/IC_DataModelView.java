@@ -17,16 +17,18 @@
  * under the License.
  */
 
-package fr.imag.adele.cadse.cadseg.managers.view;
+package fr.imag.adele.cadse.cadseg.pages.ic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 
+import fr.imag.adele.cadse.cadseg.managers.view.ViewItemTypeManager;
+import fr.imag.adele.cadse.cadseg.managers.view.ViewLinkTypeManager;
+import fr.imag.adele.cadse.cadseg.managers.view.ViewManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -35,9 +37,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
-import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
-import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForChecked;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ContextMenu;
@@ -52,87 +52,6 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedTreeUI;
 public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCheckedUI, IC_ContextMenu
 		 {
 	
-	class MC extends AbstractModelController {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IModelController#defaultValue()
-		 */
-		public Object defaultValue() {
-			return null;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IModelController#getValue()
-		 */
-		public Object getValue() {
-			ArrayList<Item> viewmodelItems = new ArrayList<Item>();
-			Item view = getViewmodel();
-			Collection<Item> viewitemtypes = ViewManager.getViewItemTypes(view);
-
-			for (Item item : viewitemtypes) {
-				Item itemtype = ViewItemTypeManager.getItemType(item);
-				if (itemtype == null) {
-					continue;
-				}
-				viewmodelItems.add(itemtype);
-				Collection<Item> viewlinktypes = ViewItemTypeManager.getViewLinkTypes(item);
-				for (Item vlt : viewlinktypes) {
-					Item lt = ViewLinkTypeManager.getLinkType(vlt);
-					if (lt == null) {
-						continue;
-					}
-					viewmodelItems.add(lt);
-				}
-			}
-			return viewmodelItems.toArray(new Item[viewmodelItems.size()]);
-		}
-		
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public void notifieSubValueAdded(UIField field, Object added) {
-			try {
-				if (added instanceof Object[]) {
-					Object[] arrayadded = (Object[]) added;
-					for (Object obj : arrayadded) {
-						addItem((Item) obj);
-					}
-				} else {
-					addItem((Item) added);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ui.IEventListener#notifieSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
-		 *      java.lang.Object)
-		 */
-		public void notifieSubValueRemoved(UIField field, Object removed) {
-			try {
-				if (removed instanceof Object[]) {
-					Object[] arrayremoved = (Object[]) removed;
-					for (Object obj : arrayremoved) {
-						removeItem((Item) obj);
-					}
-				} else {
-					removeItem((Item) removed);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	/**
 	 * The Class RootAction.
 	 */
@@ -399,9 +318,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 	 * @param viewmodel
 	 *            the viewmodel
 	 */
-	public IC_DataModelView(Item[] datamodel, Item viewmodel) {
-		this.datamodel = datamodel;
-		this.viewmodel = viewmodel;
+	public IC_DataModelView() {
 	}
 
 	/*
@@ -412,6 +329,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 	@Override
 	public void init() throws CadseException {
 		super.init();
+		viewmodel = getItem();
 		viewmodel.getLogicalWorkspace().addListener(_listener, 0xFFFF);
 	}
 
@@ -691,7 +609,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 	 * @param item
 	 *            the item
 	 */
-	private void removeItem(Item item) {
+	public void removeItem(Item item) {
 		ItemType type = item.getType();
 		if (type == CadseGCST.ITEM_TYPE) {
 			selectAnItemType(item, false);
@@ -793,7 +711,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 	 * @param item
 	 *            the item
 	 */
-	protected void addItem(Item item) {
+	public void addItem(Item item) {
 		try {
 			ItemType type = item.getType();
 			if (type == CadseGCST.ITEM_TYPE) {
