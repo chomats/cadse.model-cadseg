@@ -66,6 +66,9 @@ public class UpdateState {
 	public void beginUpdate() {
 		_performUpdate = true;
 		
+		// compute operation to perform
+		UpdateUtil.computeOperationsToPerform(this);
+		
 		// notify listeners
 		synchronized (_listeners) {
 			for (UpdateListener listener : _listeners) {

@@ -4,19 +4,18 @@ import java.util.List;
 import java.util.UUID;
 
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 
 /**
  * Methods used to compute list of operation to perform 
- * from requirements of an update operation.
+ * from requirements and impacts of an update operation.
  * 
  * @author Thomas
  *
  */
-public class UpdateImpactUtil {
+public class UpdateUtil {
 
 	/**
 	 * Computes impacts of requirements.
@@ -69,6 +68,16 @@ public class UpdateImpactUtil {
 				destImpactOp.addCause(impactOp);
 				updateState.getDefinition().getImpacts().add(destImpactOp);
 			}
+		}
+	}
+
+	public static void computeOperationsToPerform(UpdateState updateState) {
+		UpdateDefinition definition = updateState.getDefinition();
+		
+		//TODO order operations
+		for (Operation impactOp : definition.getImpacts()) {
+			OpToPerform opToPerform = new OpToPerform(impactOp);
+			updateState.addOperationToPerform(opToPerform);
 		}
 	}
 
