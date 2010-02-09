@@ -29,6 +29,15 @@ public abstract class Operation {
 	}
 	
 	/**
+	 * Returns type of this operation.
+	 * 
+	 * @return type of this operation.
+	 */
+	public OperationType getType() {
+		return _opType;
+	}
+	
+	/**
 	 * Returns true if it is a user requirement.
 	 * 
 	 * @return true if it is a user requirement.

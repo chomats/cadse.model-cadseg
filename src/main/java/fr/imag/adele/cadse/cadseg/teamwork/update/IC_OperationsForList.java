@@ -46,7 +46,7 @@ public class IC_OperationsForList extends IC_AbstractForList implements ILabelPr
 
 	@Override
 	public Object[] getValues() {
-		List<Operation> operations = null;
+		List<?> operations = null;
 		if (OperationCategory.REQUIREMENTS.equals(_opCateg))
 			operations = _updateState.getDefinition().getRequirements();
 		else if (OperationCategory.IMPACTS.equals(_opCateg))

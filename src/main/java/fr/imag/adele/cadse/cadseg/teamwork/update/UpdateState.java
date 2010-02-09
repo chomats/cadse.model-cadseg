@@ -1,8 +1,13 @@
 package fr.imag.adele.cadse.cadseg.teamwork.update;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.teamwork.Errors;
+import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitListener;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
@@ -32,6 +37,15 @@ public class UpdateState {
 	
 	private boolean _failed = false;
 	
+	private List<UpdateListener> _listeners = new ArrayList<UpdateListener>();
+	
+	/**
+	 * Used to keep order or operations.
+	 */
+	private List<OpToPerform> _operationsList = new ArrayList<OpToPerform>();
+
+	private Map<UUID, OpToPerform> _operations = new HashMap<UUID, OpToPerform>();
+	
 	public UpdateState() {
 		_transaction = TWUtil.createWorkspaceTransactionForTWoperation();
 	}
@@ -52,7 +66,16 @@ public class UpdateState {
 	public void beginUpdate() {
 		_performUpdate = true;
 		
-		//TODO notify listeners
+		// notify listeners
+		synchronized (_listeners) {
+			for (UpdateListener listener : _listeners) {
+				try {
+					listener.beginUpdate();
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	/**
@@ -77,7 +100,16 @@ public class UpdateState {
 		_performUpdate = false;
 		_updatePerformed = true;
 		
-		//TODO notify listeners
+		// notify listeners
+		synchronized (_listeners) {
+			for (UpdateListener listener : _listeners) {
+				try {
+					listener.updateFail();
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	/**
@@ -88,7 +120,125 @@ public class UpdateState {
 		_performUpdate = false;
 		_updatePerformed = true;
 		
-		//TODO notify listeners
+		// notify listeners
+		synchronized (_listeners) {
+			for (UpdateListener listener : _listeners) {
+				try {
+					listener.endUpdate();
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark an item as in update process.
+	 * 
+	 * @param itemId item id
+	 */
+	public void beginUpdatingItem(UUID itemId) {
+		// notify listeners
+		synchronized (_listeners) {
+			for (UpdateListener listener : _listeners) {
+				try {
+					listener.beginUpdatingItem(itemId);
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark item state as committed.
+	 * 
+	 * @param itemId item id
+	 */
+	public void markStateAsUpdated(UUID itemId) {
+		if (!_operations.containsKey(itemId))
+			throw new IllegalArgumentException("No operation to perform for item " + itemId);
+		
+		OpToPerform op = _operations.get(itemId);
+		op.setStateUpdated();
+			
+		// notify listeners
+		synchronized (_listeners) {
+			for (UpdateListener listener : _listeners) {
+				try {
+					listener.endUpdateItemState(itemId);
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark item outgoing links as committed.
+	 * 
+	 * @param itemId item id
+	 */
+	public void markLinksAsUpdated(UUID itemId) {
+		if (!_operations.containsKey(itemId))
+			throw new IllegalArgumentException("No operation to perform for item " + itemId);
+		
+		OpToPerform op = _operations.get(itemId);
+		op.setLinksUpdated();
+			
+		// notify listeners
+		synchronized (_listeners) {
+			for (UpdateListener listener : _listeners) {
+				try {
+					listener.endUpdateItemLinks(itemId);
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark item content as updated.
+	 * 
+	 * @param itemId item id
+	 */
+	public void markContentsAsUpdated(UUID itemId) {
+		if (!_operations.containsKey(itemId))
+			throw new IllegalArgumentException("No operation to perform for item " + itemId);
+		
+		OpToPerform op = _operations.get(itemId);
+		op.setContentUpdated();
+			
+		// notify listeners
+		synchronized (_listeners) {
+			for (UpdateListener listener : _listeners) {
+				try {
+					listener.endUpdateItemContent(itemId);
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark item as committed.
+	 * 
+	 * @param itemId item id
+	 */
+	public void markAsUpdated(UUID itemId) {
+		checkOpExists(itemId);
+		
+		OpToPerform op = _operations.get(itemId);
+		op.setStateUpdated();
+		op.setLinksUpdated();
+		op.setContentUpdated();
+	}
+	
+	private void checkOpExists(UUID itemId) {
+		if (!_operations.containsKey(itemId))
+			throw new IllegalArgumentException("No operation to perform for item " + itemId);
 	}
 
 	/**
@@ -114,7 +264,7 @@ public class UpdateState {
 	 * 
 	 * @return true if update operation has been performed successfully.
 	 */
-	public boolean isCommitPerformed() {
+	public boolean isUpdatePerformed() {
 		return _updatePerformed && !_failed;
 	}
 
@@ -132,9 +282,8 @@ public class UpdateState {
 	 * 
 	 * @return all operations to perform for this global update operation.
 	 */
-	public List<Operation> getOperationsToPerform() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OpToPerform> getOperationsToPerform() {
+		return _operationsList;
 	}
 
 	/**
@@ -153,4 +302,67 @@ public class UpdateState {
 		_errors.clear();
 	}
 
+	/**
+	 * Return all listeners interested in monitoring this update operation. 
+	 * 
+	 * @return all listeners interested in monitoring this update operation. 
+	 */
+	public List<UpdateListener> getListeners() {
+		return _listeners;
+	}
+
+	/**
+	 * Add a listener interested in monitoring this update operation. 
+	 * 
+	 * @param listener a listener
+	 */
+	public void addListener(UpdateListener listener) {
+		synchronized (_listeners) {
+			_listeners.add(listener);
+		}
+	}
+	
+	/**
+	 * Remove a listener interested in monitoring this update operation. 
+	 * 
+	 * @param listener a listener
+	 */
+	public void removeListener(UpdateListener listener) {
+		synchronized (_listeners) {
+			_listeners.remove(listener);
+		}
+	}
+	
+	/**
+	 * Add specified operation to operation to perform list.
+	 * 
+	 * @param op an operation
+	 * @throws IllegalArgumentException if it already exists an operation for specified item.
+	 */
+	public void addOperationToPerform(OpToPerform op) {
+		UUID itemId = op.getItemId();
+		checkNoOtherOp(itemId);
+		
+		_operations.put(itemId, op);
+		_operationsList.add(op);
+	}
+
+	private void checkNoOtherOp(UUID itemId) {
+		if (_operations.containsKey(itemId))
+			throw new IllegalArgumentException("Another operation to perform for item " + itemId + " already exists.");
+	}
+
+	/**
+	 * Returns true if specified item has been updated without errors.
+	 * 
+	 * @param itemId
+	 * @return true if specified item has been updated without errors.
+	 */
+	public boolean isUpdated(UUID itemId) {
+		checkOpExists(itemId);
+		
+		OpToPerform op = _operations.get(itemId);
+		return !getOperationsToPerformErrors().isInError(itemId) && 
+			op.isStateUpdated() && op.isLinksUpdated() && op.isContentUpdated();
+	}
 }
