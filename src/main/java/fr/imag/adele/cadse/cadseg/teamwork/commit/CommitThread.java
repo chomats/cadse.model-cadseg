@@ -82,9 +82,9 @@ public class CommitThread extends Thread {
 
 		// commit new state of items without outgoing links
 		int i = 0;
-		int itemToCommitNb = _commitState.getItemsToCommit().size();
+		int itemToCommitNb = _commitState.getItemsToCommitRequirements().size();
 		while ((i < itemToCommitNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
-			UUID itemId = _commitState.getItemsToCommit().get(i);
+			UUID itemId = _commitState.getItemsToCommitRequirements().get(i);
 			_commitState.beginCommittingItem(itemId);
 			
 			// check that evolution politics are set in DB
@@ -116,7 +116,7 @@ public class CommitThread extends Thread {
 		// commit outgoing links
 		i = 0;
 		while ((i < itemToCommitNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
-			UUID itemId = _commitState.getItemsToCommit().get(i);
+			UUID itemId = _commitState.getItemsToCommitRequirements().get(i);
 
 			try {
 				commitItemLinks(itemId, db);
@@ -134,7 +134,7 @@ public class CommitThread extends Thread {
 		// commit contents
 		i = 0;
 		while ((i < itemToCommitNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
-			UUID itemId = _commitState.getItemsToCommit().get(i);
+			UUID itemId = _commitState.getItemsToCommitRequirements().get(i);
 
 			try {
 				//TODO implement it
@@ -340,7 +340,7 @@ public class CommitThread extends Thread {
 				e.printStackTrace();
 			}
 			if (!isInDB)
-				db.addLink(linkTypeId, itemId, rev, destId, destRev, stateMap);
+				db.addLink(linkTypeId, itemId, rev, destId, destRev, stateMap, false);
 			else {
 				// update destination names in base
 				Revision linkRev = db.getLinkRev(linkTypeId, itemId, rev,
