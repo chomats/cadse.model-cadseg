@@ -792,7 +792,7 @@ public class UpdateDialogPage extends SWTDialog {
 				}
 				for (Object selectObj : results) {
 					ItemInDBNode itemNode = (ItemInDBNode) selectObj;
-					_updateState.getDefinition().addItemToImport(itemNode.getItemId(), itemNode.getName(), lsd.getSelectedRev());
+					_updateState.getDefinition().addItemToImport(itemNode.getItemId(), itemNode.getName(), lsd.getSelectedRev(), itemNode.getItemType());
 				}
 
 				// refresh UI

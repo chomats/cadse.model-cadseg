@@ -2,6 +2,7 @@ package fr.imag.adele.cadse.cadseg.teamwork.update;
 
 import java.util.UUID;
 
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 
 /**

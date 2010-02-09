@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.teamwork.Errors;
+import fr.imag.adele.cadse.core.ItemType;
 
 /**
  * Represents definition of a global update operation.
@@ -118,8 +119,8 @@ public class UpdateDefinition {
 	 * @param toRev  destination item revision of the update operation 
 	 * @throws IllegalArgumentException if it already exists an operation for specified item.
 	 */
-	public void addItemToImport(UUID itemId, String itemName, int rev) {
-		Operation newOp = new ImportOperation(itemId, itemName, rev, true);
+	public void addItemToImport(UUID itemId, String itemName, int rev, ItemType itemType) {
+		Operation newOp = new ImportOperation(itemId, itemName, rev, itemType, true);
 		checkNoOtherOp(itemId, newOp, false);
 		
 		_requirements.put(itemId, newOp);

@@ -88,4 +88,8 @@ public class OpToPerform extends Operation {
 	public List<Operation> getConsequences() {
 		return _impactOp.getConsequences();
 	}
+	
+	public Operation getOriginalOperation() {
+		return _impactOp;
+	}
 }
