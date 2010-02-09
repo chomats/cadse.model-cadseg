@@ -2,6 +2,7 @@ package fr.imag.adele.cadse.cadseg.teamwork.update;
 
 import java.util.UUID;
 
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 
 /**
@@ -14,11 +15,13 @@ public class ImportOperation extends Operation {
 	
 	private int _rev;
 	private String _itemName;
+	private ItemType _itemType;
 
-	public ImportOperation(UUID itemId, String itemName, int rev, boolean isRequirement) {
+	public ImportOperation(UUID itemId, String itemName, int rev, ItemType itemType, boolean isRequirement) {
 		super(itemId, OperationType.IMPORT, isRequirement);
 		_rev = rev;
 		_itemName = itemName;
+		_itemType = itemType;
 	}
 
 	/**
@@ -29,6 +32,15 @@ public class ImportOperation extends Operation {
 	public int getDestinationRevNb() {
 		return _rev;
 	}
+	
+	/**
+	 * Returns type of item to import.
+	 * 
+	 * @return type of item to import.
+	 */
+	public ItemType getItemType() {
+		return _itemType;
+	}
 
 	@Override
 	public String getRequirementDisplay(LogicalWorkspace lw) {
@@ -37,7 +49,7 @@ public class ImportOperation extends Operation {
 	
 	@Override
 	public Operation clone() {
-		return new ImportOperation(getItemId(), getItemName(), _rev, isRequirement());
+		return new ImportOperation(getItemId(), getItemName(), _rev, _itemType, isRequirement());
 	}
 
 	/**
