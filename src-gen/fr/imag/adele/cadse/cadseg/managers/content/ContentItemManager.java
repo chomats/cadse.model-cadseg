@@ -15,6 +15,8 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
@@ -134,6 +136,42 @@ public class ContentItemManager extends DefaultItemManager implements IItemFacto
     static public void removeChildren(Item contentItem, Item value) throws CadseException {
         contentItem.removeOutgoingItem(CadseGCST.CONTENT_ITEM_lt_CHILDREN,value);
     }
+
+	/**
+		@generated
+	*/
+	public static final String getScmRevisionAttribute(Item contentItem) {
+		return contentItem.getAttributeWithDefaultValue(CadseGCST.CONTENT_ITEM_at_SCM_REVISION_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setScmRevisionAttribute(Item contentItem, String value) {
+		try {
+			contentItem.setAttribute(CadseGCST.CONTENT_ITEM_at_SCM_REVISION_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final boolean isScmModifiedAttribute(Item contentItem) {
+		return contentItem.getAttributeWithDefaultValue(CadseGCST.CONTENT_ITEM_at_SCM_MODIFIED_, false);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setScmModifiedAttribute(Item contentItem, boolean value) {
+		try {
+			contentItem.setAttribute(CadseGCST.CONTENT_ITEM_at_SCM_MODIFIED_, value);
+		} catch (Throwable t) {
+
+		}
+	}
 
 	@Override
 	public Item newForCommitItem(LogicalWorkspace logicalWorkspace,
