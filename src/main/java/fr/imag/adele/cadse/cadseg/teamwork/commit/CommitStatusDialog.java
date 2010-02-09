@@ -381,59 +381,6 @@ public class CommitStatusDialog extends SWTDialog {
 		}
 	}
 
-	public class ErrorDecorator extends LabelProvider implements ILabelDecorator {
-
-		private LocalResourceManager	_resourceManager	= new LocalResourceManager(JFaceResources
-																	.getResources(PlatformUI.getWorkbench()
-																			.getDisplay()));
-
-		public ErrorDecorator() {
-		}
-
-		public Image decorateImage(Image image, Object element) {
-			if (image == null) {
-				return null;
-			}
-
-			if (element == null) {
-				return null;
-			}
-
-			if (!(element instanceof IItemNode)) {
-				return null;
-			}
-
-			IItemNode itemNode = (IItemNode) element;
-			Item item = itemNode.getItem();
-			if (item == null) {
-				return null;
-			}
-			UUID itemId = item.getId();
-			if (_commitState.getErrors().isInError(itemId)) {
-				return computeImage(image, "icons/delete_ovr.gif");
-			}
-			if (_commitState.isCommitted(itemId)) {
-				return computeImage(image, "icons/add_ovr.gif");
-			}
-
-			return null;
-		}
-
-		private Image computeImage(Image image, String path) {
-			ImageDescriptor overlay = WSPlugin.getImageDescriptor(path);
-			DecorationOverlayIcon icon = new DecorationOverlayIcon(image, overlay, IDecoration.BOTTOM_RIGHT);
-			return _resourceManager.createImage(icon);
-		}
-
-		public String decorateText(String text, Object element) {
-			if (element == null) {
-				return null;
-			}
-
-			return null;
-		}
-	}
-
 	/*
 	 * Classes for Model controllers and Interaction controllers.
 	 */
@@ -502,12 +449,12 @@ public class CommitStatusDialog extends SWTDialog {
 			super.initAfterUI(uiPlatform);
 			CheckboxTreeViewer treeViewer = _treeField.getTreeViewer();
 			treeViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
-					new ErrorDecorator()));
+					new CommitErrorDecorator(_commitState)));
 
 			FilteredTree treeOfList = (FilteredTree) _listOfCommitedItemsField.getMainControl();
 			TreeViewer listViewer = treeOfList.getViewer();
 			listViewer.setLabelProvider(new DecoratingLabelProvider((ILabelProvider) listViewer.getLabelProvider(),
-					new ErrorDecorator()));
+					new CommitErrorDecorator(_commitState)));
 
 			_listOfCommitedItemsField.setVisualValue(_commitState.getItemsToCommit());
 		}
@@ -548,7 +495,7 @@ public class CommitStatusDialog extends SWTDialog {
 		@Override
 		public ILabelProvider getLabelProvider() {
 			return new DecoratingLabelProvider(super.getLabelProvider(),
-					new ErrorDecorator());
+					new CommitErrorDecorator(_commitState));
 		}
 
 		@Override
@@ -727,7 +674,7 @@ public class CommitStatusDialog extends SWTDialog {
 					
 					return super.getText(element);
 				}
-			}, new ErrorDecorator());
+			}, new CommitErrorDecorator(_commitState));
 		}
 
 		@Override
@@ -1026,28 +973,6 @@ public class CommitStatusDialog extends SWTDialog {
 	 * Create a list field showing modified attributes.
 	 */
 	protected DTreeModelUI<ItemToCommitTreeIC> createListOfCommitedItemsField() {
-//		AbstractModelController mc = new AbstractModelController() {
-//
-//			@Override
-//			public Object getValue() {
-//				List<UUID> itemIds = _commitState.getItemsToCommitRequirements();
-//				return itemIds;
-//			}
-//
-//			public void notifieValueChanged(UIField field, Object value) {
-//				// do nothing
-//			}
-//		};
-
-		// retrieve list of items to commit
-//		List<UUID> idsToCommit = _commitState.getItemsToCommit();
-//		IC_DynamicArrayOfObjectForList ic = new IC_DynamicArrayOfObjectForList(
-//				idsToCommit.toArray(new UUID[idsToCommit.size()]), _workspaceCopy);
-
-//		DListUI<IC_DynamicArrayOfObjectForList> listField =
-//			_swtuiPlatforms.createDListUI(_page, "#listOfCommittedItemsField",
-//				"Commit Order", EPosLabel.top, mc, ic, false, false, false, false);
-//		return listField;
 		
 		DTreeModelUI<ItemToCommitTreeIC> treeField = _swtuiPlatforms.createTreeModelUI(_page, "#list", "Items which are commiting", EPosLabel.top,
 				new MC_CommitTree(), new ItemToCommitTreeIC(), false, true, new String[] { "Item", "Attributes", "Links", "Content" });

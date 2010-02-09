@@ -69,7 +69,6 @@ import fede.workspace.tool.view.node.Rule;
 import fede.workspace.tool.view.node.FilteredItemNode.Category;
 import fr.imag.adele.cadse.cadseg.teamwork.Error;
 import fr.imag.adele.cadse.cadseg.teamwork.VisitedItems;
-import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitStatusDialog.ErrorDecorator;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.CompleteItemNode;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemNodeWithoutChildren;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemSelectionListener;
