@@ -388,6 +388,7 @@ public class ItemTypeViewAction extends IMenuAction {
 	public void run(IItemNode[] selection) throws CadseException {
 		try {
 			DataModelViewWizardController action = new DataModelViewWizardController();
+			_uiPlatform = new SWTUIPlatform();
 			_page = _uiPlatform.createPageDescription("Select Item Type and Link", "Select Item Type and Link for this view");
 			checkedTreeUI = _uiPlatform.createDCheckedTreeUI(_page, "#sel", "", EPosLabel.none, new DataModelMC(), new IC_DataModelView(), true, false);
 			_uiPlatform.open(null, _page, action, false);
