@@ -10,7 +10,6 @@ fr.imag.adele.cadse.cadseg.util.Util
  %>
 package <%=cim.packageName %>;
 
-
 <%for(String i : cim.importsArray) { %>
 import <%=i%>;
 <%}%>
@@ -192,7 +191,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 		@generated
 	*/
 	@Override
-	public boolean isRefItemType(ItemType it, LogicalWorkspace cadseModel) {
+	public boolean isRefItemType(TypeDefinition it, LogicalWorkspace cadseModel) {
 		if (refItemType == null)
 			init();
 		return refItemType.contains(it);
@@ -203,7 +202,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 		@generated
 	*/
 	@Override
-	public boolean isItemType(ItemType it, LogicalWorkspace cadseModel) {
+	public boolean isItemType(TypeDefinition it, LogicalWorkspace cadseModel) {
 		if (allItemType == null)
 			init();
 		return allItemType.contains(it);
