@@ -27,11 +27,11 @@ public class UpdateUtil {
 		definition.clearImpacts();
 		
 		for (Operation op : definition.getRequirements()) {
-			computeImpact(op, updateState);
+			computeImpacts(op, updateState);
 		}
 	}
 
-	private static void computeImpact(Operation requirementOp, UpdateState updateState) {
+	private static void computeImpacts(Operation requirementOp, UpdateState updateState) {
 		UUID itemId = requirementOp.getItemId();
 		List<Operation> impacts = updateState.getDefinition().getImpacts();
 		LogicalWorkspace lw = updateState.getTransaction();
@@ -69,14 +69,17 @@ public class UpdateUtil {
 				updateState.getDefinition().getImpacts().add(destImpactOp);
 			}
 		}
+		
+		//TODO finish compute impacts
 	}
 
 	public static void computeOperationsToPerform(UpdateState updateState) {
 		UpdateDefinition definition = updateState.getDefinition();
 		
-		//TODO order operations
 		for (Operation impactOp : definition.getImpacts()) {
 			OpToPerform opToPerform = new OpToPerform(impactOp);
+			
+			//TODO order operations
 			updateState.addOperationToPerform(opToPerform);
 		}
 	}

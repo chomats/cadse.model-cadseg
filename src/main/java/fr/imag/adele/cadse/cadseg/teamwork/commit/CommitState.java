@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.teamwork.Errors;
+import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.impl.internal.TWUtil;
+import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
 /**
  * Represents state of a commit operation :
@@ -59,6 +62,8 @@ public class CommitState {
 	private boolean _failed = false;
 	
 	private List<CommitListener> _listeners = new ArrayList<CommitListener>();
+	
+	private LogicalWorkspaceTransaction _transaction; 
 	
 	/**
 	 * Return validation state containing all errors.
@@ -258,7 +263,10 @@ public class CommitState {
 	public void beginCommit() {
 		_performCommit = true;
 		
+		_transaction = TWUtil.createWorkspaceTransactionForTWoperation();
+		
 		_toCommitItemsRequirements = new ArrayList<UUID>(_toCommitItems);
+		computeCommitOperationsOrder();
 		
 		// notify listeners
 		synchronized (_listeners) {
@@ -272,6 +280,41 @@ public class CommitState {
 		}
 	}
 	
+	/**
+	 * Returns transaction in which all commit operations will be performed.
+	 * 
+	 * @return transaction in which all commit operations will be performed.
+	 */
+	public LogicalWorkspaceTransaction getTransaction() {
+		return _transaction;
+	}
+	
+	/**
+	 * Compute from requirements order of commit operations.
+	 * 
+	 */
+	private void computeCommitOperationsOrder() {
+		_toCommitItems.clear();
+		
+		for (UUID itemId : _toCommitItemsRequirements) {
+			Item item = _transaction.getItem(itemId);
+			int itemIdx = _toCommitItems.indexOf(itemId);
+			if (itemIdx != -1)
+				continue;
+			
+			Item parent = item.getPartParent();
+			if (parent == null) {
+				_toCommitItems.add(itemId);
+			} else {
+				UUID parentId = parent.getId();
+				int parentIdx = _toCommitItems.indexOf(parentId);
+				if (parentIdx == -1) 
+					_toCommitItems.add(parentId);
+				_toCommitItems.add(itemId);
+			}
+		}
+	}
+
 	/**
 	 * Mark this commit operation as aborted.
 	 * This can happen if an error has been thrown

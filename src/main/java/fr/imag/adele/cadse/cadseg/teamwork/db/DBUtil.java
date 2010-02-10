@@ -23,6 +23,7 @@ public class DBUtil {
 	public static final String TW_COMMIT_DATE_ATTR_NAME = "TW_COMMIT_DATE";
 	public static final String TW_COMMITER_ATTR_NAME = "TW_COMMITER";
 	public static final String TW_COMMENT_ATTR_NAME = "TW_COMMENT";
+	public static final String PARENT_ATTR_NAME = "TW_PARENT_ID";
 
 	/**
 	 * Returns all revisions of specified item.

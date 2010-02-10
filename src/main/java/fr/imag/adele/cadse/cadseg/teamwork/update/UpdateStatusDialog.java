@@ -261,11 +261,12 @@ public class UpdateStatusDialog extends SWTDialog {
 					
 					if (columnIndex == 0) {
 						UUID itemId = op.getItemId();
-						Item item = _updateState.getTransaction().getItem(itemId);
+						LogicalWorkspaceTransaction transaction = _updateState.getTransaction();
+						Item item = transaction.getItem(itemId);
 						if (item == null)
 							return null;
 						else
-							return getColumnText(new ItemNode(opNode.getCtl(), (AbstractCadseViewNode) opNode.getParent(), item), columnIndex);
+							return op.getImpactDisplay(transaction);
 					}
 					if (columnIndex == 1)
 						return op.isStateUpdated() ? "Done" : "";

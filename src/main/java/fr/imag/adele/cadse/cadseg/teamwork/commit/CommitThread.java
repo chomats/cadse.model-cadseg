@@ -210,6 +210,14 @@ public class CommitThread extends Thread {
 				e.printStackTrace();
 			}
 		}
+		
+		// set parent as shared attribute
+		try {
+			db.setObjectAttVersionSpecific(itemTypeId, DBUtil.PARENT_ATTR_NAME, false);
+		} catch (ModelVersionDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private String getAttributeName(IAttributeType<?> attrType) {
@@ -402,6 +410,9 @@ public class CommitThread extends Thread {
 		stateMap.put(DBUtil.TW_COMMITER_ATTR_NAME, user);
 		Date commitDate = new Date(System.currentTimeMillis());
 		stateMap.put(DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
+		Item parentItem = item.getPartParent();
+		if (parentItem != null)
+			stateMap.put(DBUtil.PARENT_ATTR_NAME, parentItem.getId());
 		
 		List<IAttributeType<?>> modifiedAttrTypes = new ArrayList<IAttributeType<?>>();
 		for (IAttributeType<?> attrType : item.getLocalAllAttributeTypes()) {
@@ -485,6 +496,8 @@ public class CommitThread extends Thread {
 			db.setObjectValue(itemId, rev, DBUtil.TW_COMMENT_ATTR_NAME, comment);
 			db.setObjectValue(itemId, rev, DBUtil.TW_COMMITER_ATTR_NAME, user);
 			db.setObjectValue(itemId, rev, DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
+			if (parentItem != null)
+				db.setObjectValue(itemId, rev, DBUtil.PARENT_ATTR_NAME, parentItem.getId());
 		}
 		try {
 			_oldRevs.put(itemId, oldRev);
