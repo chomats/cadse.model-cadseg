@@ -1135,12 +1135,11 @@ public class CommitDialog extends SWTDialog {
 
 						@Override
 						public boolean performFinish() {
-							p._commitState.beginCommit();
-
 							IRunnableWithProgress op = new IRunnableWithProgress() {
 								public void run(IProgressMonitor monitor) throws InvocationTargetException,
 										InterruptedException {
 									try {
+										p._commitState.beginCommit();
 										f.getAction().doFinish(p._swtuiPlatforms, monitor);
 									} catch (CoreException e) {
 										throw new InvocationTargetException(e);

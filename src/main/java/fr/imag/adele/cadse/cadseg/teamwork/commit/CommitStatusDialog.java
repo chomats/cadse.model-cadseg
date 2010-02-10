@@ -1033,7 +1033,7 @@ public class CommitStatusDialog extends SWTDialog {
 			public void run() {
 				try {
 					// create a new transaction for commit
-					final LogicalWorkspaceTransaction transaction = TWUtil.createWorkspaceTransactionForTWoperation();
+					final LogicalWorkspaceTransaction transaction = commitState.getTransaction();
 					
 					final CommitStatusDialog p = new CommitStatusDialog(commitState, transaction);
 					p._swtuiPlatforms.setAction(p.getFinishAction());
