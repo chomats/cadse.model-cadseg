@@ -931,7 +931,6 @@ public class CommitStatusDialog extends SWTDialog {
 	public void setSelectedItem(Item selectedItem) {
 		this._selectedItem = selectedItem;
 
-		_swtuiPlatforms.setItem(selectedItem);
 		refreshSelectDependentFields();
 	}
 
@@ -1047,12 +1046,12 @@ public class CommitStatusDialog extends SWTDialog {
 								return false;
 							}
 
-							return !commitState.isPerformingCommit();
+							return !commitState.isPerformingCommit() && commitState.isCommitPerformed();
 						}
 						
 						@Override
 						public boolean performCancel() {
-							return true;
+							return !commitState.isPerformingCommit() && commitState.isFailed();
 						}
 
 						@Override
