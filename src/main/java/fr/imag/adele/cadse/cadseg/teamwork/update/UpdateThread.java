@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
+import fr.imag.adele.cadse.cadseg.teamwork.db.EvolutionPoliticsInDB;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -19,6 +20,7 @@ import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
+import fr.imag.adele.teamwork.db.DBConnectionException;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.ModelVersionDBService;
 import fr.imag.adele.teamwork.db.TransactionException;
@@ -31,15 +33,17 @@ import fr.imag.adele.teamwork.db.TransactionException;
  */
 public class UpdateThread extends Thread {
 
-	private UpdateState			_updateState;
-	private LogicalWorkspaceTransaction	_wl;
-	private Map<UUID, Integer> _oldRevs = new HashMap<UUID, Integer>();
-	private Map<UUID, Integer> _lastRevs = new HashMap<UUID, Integer>();
+	private UpdateState			        _updateState;
+	private LogicalWorkspaceTransaction	_transaction;
+	private Map<UUID, Integer>          _oldRevs = new HashMap<UUID, Integer>();
+	private Map<UUID, Integer>          _lastRevs = new HashMap<UUID, Integer>();
+	private EvolutionPoliticsInDB       _evolutionPoliticsInDB;
 	
 	public UpdateThread(UpdateState updateState) {
 		super("TWUpdate");
 		_updateState = updateState;
-		_wl = updateState.getTransaction();
+		_transaction = updateState.getTransaction();
+		_evolutionPoliticsInDB = new EvolutionPoliticsInDB(_transaction);
 	}
 	
 	@Override
@@ -56,12 +60,39 @@ public class UpdateThread extends Thread {
 			UUID itemId = op.getItemId();
 			_updateState.beginUpdatingItem(itemId);
 			
+			// check that evolution politics are set in DB
+			try {
+				_evolutionPoliticsInDB.checkEvolPoliticsSetInDB(itemId, db);
+			} catch (TransactionException e1) {
+				e1.printStackTrace();
+				Item item = _transaction.getItem(itemId);
+				ItemType itemType = item.getType();
+				_updateState.getOperationsToPerformErrors().addError("Cannot set evolution politics for item type " + itemType.getName(), e1);
+				_updateState.abortUpdate();
+				break;
+			} catch (DBConnectionException e) {
+				e.printStackTrace();
+				Item item = _transaction.getItem(itemId);
+				ItemType itemType = item.getType();
+				_updateState.getOperationsToPerformErrors().addError("Cannot connect to database " + e.getDBUrl() +
+						" to set evolution politics for item type " + itemType.getName(), e);
+				_updateState.abortUpdate();
+				break;
+			}
+			
+			// update item state
 			try {
 				updateItemState(op, db);
-			} catch (Exception e) {
-				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot update Item State.");
-				_updateState.abortUpdate();
+			} catch (DBConnectionException e) {
 				e.printStackTrace();
+				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot update Item State because connection to database " + 
+						e.getDBUrl() + " failed.", e);
+				_updateState.abortUpdate();
+				break;
+			} catch (Exception e) {
+				e.printStackTrace();
+				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot update Item State.", e);
+				_updateState.abortUpdate();
 				break;
 			}
 			
@@ -78,10 +109,17 @@ public class UpdateThread extends Thread {
 
 			try {
 				updateItemLinks(op, db);
+			} catch (DBConnectionException e) {
+				e.printStackTrace();
+				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot update Item outgoing links because connection to database " + 
+						e.getDBUrl() + " failed.", e);
+				_updateState.abortUpdate();
+				break;
 			} catch (Exception e) {
-				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot update Item ougoing links.");
+				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot update Item ougoing links.", e);
 				_updateState.abortUpdate();
 				e.printStackTrace();
+				break;
 			}
 			
 			_updateState.markLinksAsUpdated(itemId);
@@ -89,7 +127,7 @@ public class UpdateThread extends Thread {
 			i++;
 		}
 
-		// commit contents
+		// update contents
 		i = 0;
 		while ((i < itemToUpdateNb) && !_updateState.isFailed() && !_updateState.isUpdatePerformed()) {
 			OpToPerform op = _updateState.getOperationsToPerform().get(i);
@@ -97,10 +135,21 @@ public class UpdateThread extends Thread {
 
 			try {
 				//TODO implement it
+				if (false) {
+					throw new DBConnectionException("", "", null); // TODO remove when implemented
+				}
+			} catch (DBConnectionException e) {
+				e.printStackTrace();
+				_updateState.getOperationsToPerformErrors().addError(
+						itemId, "Cannot update Item content because connection to database " + 
+						e.getDBUrl() + " failed.", e);
+				_updateState.abortUpdate();
+				break;
 			} catch (Exception e) {
-				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot update Item content.");
+				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot update Item content.", e);
 				_updateState.abortUpdate();
 				e.printStackTrace();
+				break;
 			}
 			
 			_updateState.markContentsAsUpdated(itemId);
@@ -116,10 +165,14 @@ public class UpdateThread extends Thread {
 
 			try {
 				if (!op.isUpdate())
-					TWUtil.resetTWState(_wl.getItem(itemId));
+					TWUtil.resetTWState(_transaction.getItem(itemId));
 			} catch (Exception e) {
+				Item item = _transaction.getItem(itemId);
+				_updateState.getOperationsToPerformErrors().addError(
+						itemId, "Cannot update TeamWork state of item " + item.getName(), e);
 				_updateState.abortUpdate();
 				e.printStackTrace();
+				break;
 			}
 			
 			// notify end of item commit
@@ -139,18 +192,18 @@ public class UpdateThread extends Thread {
 		}
 	}
 
-	private void updateItemLinks(OpToPerform op, ModelVersionDBService db) throws TransactionException, ModelVersionDBException {
+	private void updateItemLinks(OpToPerform op, ModelVersionDBService db) throws TransactionException, ModelVersionDBException, DBConnectionException {
 		UUID itemId = op.getItemId();
 		
 		if (op.isImport()) {
 			//TODO implement it
 			
-			ItemDelta item = _wl.getItem(itemId);
+			ItemDelta item = _transaction.getItem(itemId);
 			item.finishLoad();
 			return;
 		} else {
 
-			Item item = _wl.getItem(itemId);
+			Item item = _transaction.getItem(itemId);
 			int rev = item.getVersion();
 			ItemType itemType = item.getType();
 			UUID itemTypeId = itemType.getId();
@@ -186,7 +239,7 @@ public class UpdateThread extends Thread {
 		}
 	}
 
-	private void updateItemState(OpToPerform op, ModelVersionDBService db) throws TransactionException, ModelVersionDBException {
+	private void updateItemState(OpToPerform op, ModelVersionDBService db) throws TransactionException, ModelVersionDBException, DBConnectionException {
 		UUID itemId = op.getItemId();
 		
 		int rev = 0;
@@ -205,7 +258,7 @@ public class UpdateThread extends Thread {
 			
 			ItemDescriptionRef itemDesc = new ItemDescriptionRef(itemId, itemType, qualifiedName, name);
 			try {
-				item = _wl.loadItem(itemDesc);
+				item = _transaction.loadItem(itemDesc);
 				item.setLoaded(true);
 				for (IAttributeType<?> attrType : itemType.getAllAttributeTypes()) {
 					// links are updated in a second step
@@ -230,7 +283,7 @@ public class UpdateThread extends Thread {
 				item = null;
 			}
 		} else {
-			item = _wl.getItem(itemId);
+			item = _transaction.getItem(itemId);
 			rev = item.getVersion();
 			itemType = item.getType();
 			

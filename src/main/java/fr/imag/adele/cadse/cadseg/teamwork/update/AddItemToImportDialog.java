@@ -8,6 +8,7 @@ import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
 import fr.imag.adele.cadse.cadseg.teamwork.db.ItemInDBDesc;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemInDBNode;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.teamwork.db.DBConnectionException;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.TransactionException;
 
@@ -40,12 +41,12 @@ public class AddItemToImportDialog extends AddItemForOperationDialog {
 	}
 	
 	protected String getRevisionStateStr() throws TransactionException,
-			ModelVersionDBException {
+			ModelVersionDBException, DBConnectionException {
 		return DBUtil.getRevisionStateStr(_selectedItemDesc.getId(), _selectedItemType, _selectedRev);
 	}
 	
 	protected int[] getAllRevisions() throws TransactionException,
-			ModelVersionDBException {
+			ModelVersionDBException, DBConnectionException {
 		return DBUtil.getAllRevisions(_selectedItemDesc.getId(), _selectedItemType);
 	}
 }

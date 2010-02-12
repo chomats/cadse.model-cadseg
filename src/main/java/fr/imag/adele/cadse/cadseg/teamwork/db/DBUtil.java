@@ -12,6 +12,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
+import fr.imag.adele.teamwork.db.DBConnectionException;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.ModelVersionDBService;
 import fr.imag.adele.teamwork.db.TransactionException;
@@ -32,8 +33,9 @@ public class DBUtil {
 	 * @return all revisions of specified item.
 	 * @throws TransactionException 
 	 * @throws ModelVersionDBException 
+	 * @throws DBConnectionException 
 	 */
-	public static int[] getAllRevisions(Item item) throws TransactionException, ModelVersionDBException {
+	public static int[] getAllRevisions(Item item) throws TransactionException, ModelVersionDBException, DBConnectionException {
 		return getAllRevisions(item.getId(), item.getType());
 	}
 	
@@ -45,8 +47,9 @@ public class DBUtil {
 	 * @return all revisions of specified item.
 	 * @throws TransactionException 
 	 * @throws ModelVersionDBException 
+	 * @throws DBConnectionException 
 	 */
-	public static int[] getAllRevisions(UUID itemId, ItemType itemType) throws TransactionException, ModelVersionDBException {
+	public static int[] getAllRevisions(UUID itemId, ItemType itemType) throws TransactionException, ModelVersionDBException, DBConnectionException {
 		ModelVersionDBService db = CadseCore.getCadseDomain().getModelVersionDBService();
 		connectToDB(db, itemType);
 		
@@ -59,9 +62,10 @@ public class DBUtil {
 	 * @param db       a model version database service
 	 * @param itemType an item type
 	 * @throws TransactionException
+	 * @throws DBConnectionException if connection to db has failed
 	 */
 	public static void connectToDB(ModelVersionDBService db, ItemType itemType)
-			throws TransactionException {
+			throws TransactionException, DBConnectionException {
 		Item cadseRuntime = itemType.getOutgoingItem(
 				CadseGCST.TYPE_DEFINITION_lt_CADSE, true);
 		String cadseName = cadseRuntime.getName();
@@ -85,8 +89,9 @@ public class DBUtil {
 	 * @return a human readable text representing state (values of attributes) of specified item revision.
 	 * @throws TransactionException 
 	 * @throws ModelVersionDBException 
+	 * @throws DBConnectionException 
 	 */
-	public static String getRevisionStateStr(Item item, int itemRev) throws TransactionException, ModelVersionDBException {
+	public static String getRevisionStateStr(Item item, int itemRev) throws TransactionException, ModelVersionDBException, DBConnectionException {
 		return getRevisionStateStr(item.getId(), item.getType(), itemRev, item);
 	}
 	
@@ -99,14 +104,15 @@ public class DBUtil {
 	 * @return a human readable text representing state (values of attributes) of specified item revision.
 	 * @throws TransactionException 
 	 * @throws ModelVersionDBException 
+	 * @throws DBConnectionException 
 	 */
 	public static String getRevisionStateStr(UUID itemId, ItemType itemType, int itemRev) 
-		throws TransactionException, ModelVersionDBException {
+		throws TransactionException, ModelVersionDBException, DBConnectionException {
 		return getRevisionStateStr(itemId, itemType, itemRev, null);
 	}
 		
 	private static String getRevisionStateStr(UUID itemId, ItemType itemType, int itemRev, Item item) 
-		throws TransactionException, ModelVersionDBException {
+		throws TransactionException, ModelVersionDBException, DBConnectionException {
 		
 		ModelVersionDBService db = CadseCore.getCadseDomain().getModelVersionDBService();
 		connectToDB(db, itemType);
@@ -173,8 +179,9 @@ public class DBUtil {
 	 * @return all descriptions of items in teamwork repository of specified type.
 	 * @throws TransactionException 
 	 * @throws ModelVersionDBException 
+	 * @throws DBConnectionException 
 	 */
-	public static Collection<ItemInDBDesc> getAllItemInDBDescs(ItemType itemType) throws TransactionException, ModelVersionDBException {
+	public static Collection<ItemInDBDesc> getAllItemInDBDescs(ItemType itemType) throws TransactionException, ModelVersionDBException, DBConnectionException {
 		ModelVersionDBService db = CadseCore.getCadseDomain().getModelVersionDBService();
 		connectToDB(db, itemType);
 		

@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Shell;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.teamwork.db.DBConnectionException;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.TransactionException;
 
@@ -33,12 +34,12 @@ public class AddItemToUpdateDialog extends AddItemForOperationDialog {
 	}
 
 	protected String getRevisionStateStr() throws TransactionException,
-			ModelVersionDBException {
+			ModelVersionDBException, DBConnectionException {
 		return DBUtil.getRevisionStateStr(_selectedItem, _selectedRev);
 	}
 	
 	protected int[] getAllRevisions() throws TransactionException,
-			ModelVersionDBException {
+			ModelVersionDBException, DBConnectionException {
 		return DBUtil.getAllRevisions(_selectedItem);
 	}
 }
