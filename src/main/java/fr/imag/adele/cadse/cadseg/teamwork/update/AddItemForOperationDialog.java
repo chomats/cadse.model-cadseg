@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 
+import fr.imag.adele.teamwork.db.DBConnectionException;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.TransactionException;
 
@@ -131,12 +132,12 @@ public abstract class AddItemForOperationDialog extends ElementTreeSelectionDial
 	protected void computeSelectedRev() {
 		int selectedIdx = _combo.getSelectionIndex();
 		if (selectedIdx < 0) {
-			_selectedRev = 0;
+			_selectedRev = computeLastRevIdx();
 		} else {
 			try {
 				_selectedRev = Integer.parseInt(_combo.getItem(selectedIdx));
 			} catch (NumberFormatException e) {
-				_selectedRev = 0;
+				_selectedRev = computeLastRevIdx();
 			}
 		}
 	}
@@ -147,6 +148,9 @@ public abstract class AddItemForOperationDialog extends ElementTreeSelectionDial
 			
 			try {
 				stateStr = getRevisionStateStr();
+			} catch (DBConnectionException e) {
+				stateStr = "Unable to retrieve state of selected revision \n" +
+				           "because connection to database " + e.getDBUrl() + " has failed.";
 			} catch (Exception e) {
 				stateStr = "Unable to retrieve state of selected revision.";
 			}
@@ -155,15 +159,19 @@ public abstract class AddItemForOperationDialog extends ElementTreeSelectionDial
 	}
 
 	protected abstract String getRevisionStateStr() throws TransactionException,
-			ModelVersionDBException; 
+			ModelVersionDBException, DBConnectionException; 
 
 	private void selectedItemHasChanged() {
 		_selectedRev = 0;
 
 		int[] values = new int[0];
+		boolean connectionToDBFailed = false;
 		if (getSelectedItemObj() != null) {
 			try {
 				values = getAllRevisions();
+			} catch (DBConnectionException e) {
+				connectionToDBFailed = true;
+				values = new int[0];
 			} catch (Exception e) {
 				values = new int[0];
 			}
@@ -176,9 +184,14 @@ public abstract class AddItemForOperationDialog extends ElementTreeSelectionDial
 		_combo.setItems(valuesString);
 		if (values.length != 0) {
 			_combo.select(0);
+		} else {
+			_combo.select(computeLastRevIdx());
 		}
 		
-		if (getSelectedItemObj() == null) {
+		if (connectionToDBFailed) {
+			_combo.setEnabled(false);
+			_combo.setText("Connection to DB failed");
+		} else if (getSelectedItemObj() == null) {
 			_combo.setEnabled(false);
 			_combo.setText("No selected item");
 		} else if (values.length == 0) {
@@ -192,8 +205,13 @@ public abstract class AddItemForOperationDialog extends ElementTreeSelectionDial
 		selectedRevHasChanged();
 	}
 
+	private int computeLastRevIdx() {
+		int itemNb = _combo.getItemCount();
+		return (itemNb == 0) ? 0 : itemNb - 1;
+	}
+
 	protected abstract int[] getAllRevisions() throws TransactionException,
-			ModelVersionDBException;
+			ModelVersionDBException, DBConnectionException;
 	
 	/**
 	 * Returns revision number selected of selected item.

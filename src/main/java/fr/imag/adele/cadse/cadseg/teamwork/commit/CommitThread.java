@@ -30,6 +30,7 @@ import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.teamwork.TeamWorkPreferences;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
+import fr.imag.adele.cadse.cadseg.teamwork.db.EvolutionPoliticsInDB;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -40,6 +41,8 @@ import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
+import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
+import fr.imag.adele.teamwork.db.DBConnectionException;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.ModelVersionDBService;
 import fr.imag.adele.teamwork.db.Revision;
@@ -53,16 +56,17 @@ import fr.imag.adele.teamwork.db.TransactionException;
  */
 public class CommitThread extends Thread {
 
-	private CommitState			_commitState;
-	private LogicalWorkspace	_wl;
-	private Map<ItemType, Boolean> evolPoliticsSetIndDB = new HashMap<ItemType, Boolean>(); 
-	private Map<UUID, Integer> _oldRevs = new HashMap<UUID, Integer>();
-	private Map<UUID, Integer> _lastRevs = new HashMap<UUID, Integer>();
+	private CommitState			        _commitState;
+	private LogicalWorkspaceTransaction	_transaction;
+	private Map<UUID, Integer>          _oldRevs = new HashMap<UUID, Integer>();
+	private Map<UUID, Integer>          _lastRevs = new HashMap<UUID, Integer>();
+	private EvolutionPoliticsInDB       _evolutionPoliticsInDB;
 
-	public CommitThread(CommitState commitState, LogicalWorkspace wl) {
+	public CommitThread(CommitState commitState, LogicalWorkspaceTransaction transaction) {
 		super("TWCommit");
 		_commitState = commitState;
-		_wl = wl;
+		_transaction = transaction;
+		_evolutionPoliticsInDB = new EvolutionPoliticsInDB(transaction);
 	}
 
 	@Override
@@ -89,18 +93,32 @@ public class CommitThread extends Thread {
 			
 			// check that evolution politics are set in DB
 			try {
-				checkEvolPoliticsSetInDB(itemId, db);
+				_evolutionPoliticsInDB.checkEvolPoliticsSetInDB(itemId, db);
 			} catch (TransactionException e1) {
 				e1.printStackTrace();
-				Item item = _wl.getItem(itemId);
+				Item item = _transaction.getItem(itemId);
 				ItemType itemType = item.getType();
 				_commitState.getErrors().addError("Cannot set evolution politics for item type " + itemType.getName(), e1);
+				_commitState.abortCommit();
+				break;
+			} catch (DBConnectionException e) {
+				e.printStackTrace();
+				Item item = _transaction.getItem(itemId);
+				ItemType itemType = item.getType();
+				_commitState.getErrors().addError("Cannot connect to database " + e.getDBUrl() +
+						" to set evolution politics for item type " + itemType.getName(), e);
 				_commitState.abortCommit();
 				break;
 			}
 
 			try {
 				commitItemState(itemId, db);
+			} catch (DBConnectionException e) {
+				e.printStackTrace();
+				_commitState.getErrors().addError(itemId, "Cannot commit Item State because connection to database " + 
+						e.getDBUrl() + " failed.", e);
+				_commitState.abortCommit();
+				break;
 			} catch (Exception e) {
 				_commitState.getErrors().addError(itemId, "Cannot commit Item State.");
 				_commitState.abortCommit();
@@ -120,10 +138,17 @@ public class CommitThread extends Thread {
 
 			try {
 				commitItemLinks(itemId, db);
+			} catch (DBConnectionException e) {
+				e.printStackTrace();
+				_commitState.getErrors().addError(itemId, "Cannot commit Item outgoing links because connection to database " + 
+						e.getDBUrl() + " failed.", e);
+				_commitState.abortCommit();
+				break;
 			} catch (Exception e) {
 				_commitState.getErrors().addError(itemId, "Cannot commit Item ougoing links.");
 				_commitState.abortCommit();
 				e.printStackTrace();
+				break;
 			}
 			
 			_commitState.markLinksAsCommitted(itemId);
@@ -138,10 +163,20 @@ public class CommitThread extends Thread {
 
 			try {
 				//TODO implement it
+				if (false) {
+					throw new DBConnectionException("", "", null); // TODO remove when implemented
+				}
+			} catch (DBConnectionException e) {
+				e.printStackTrace();
+				_commitState.getErrors().addError(itemId, "Cannot commit Item content because connection to database " + 
+						e.getDBUrl() + " failed.", e);
+				_commitState.abortCommit();
+				break;
 			} catch (Exception e) {
 				_commitState.getErrors().addError(itemId, "Cannot commit Item content.");
 				_commitState.abortCommit();
 				e.printStackTrace();
+				break;
 			}
 			
 			_commitState.markContentsAsCommitted(itemId);
@@ -155,10 +190,13 @@ public class CommitThread extends Thread {
 			UUID itemId = _commitState.getItemsToCommit().get(i);
 
 			try {
-				TWUtil.resetTWState(_wl.getItem(itemId));
+				TWUtil.resetTWState(_transaction.getItem(itemId));
 			} catch (Exception e) {
+				Item item = _transaction.getItem(itemId);
+				_commitState.getErrors().addError(itemId, "Cannot update TeamWork state of item " + item.getName(), e);
 				_commitState.abortCommit();
 				e.printStackTrace();
+				break;
 			}
 			
 			// notify end of item commit
@@ -182,52 +220,10 @@ public class CommitThread extends Thread {
 		}
 	}
 
-	private void checkEvolPoliticsSetInDB(UUID itemId, ModelVersionDBService db) throws TransactionException {
-		Item item = _wl.getItem(itemId);
-		ItemType itemType = item.getType();
-		UUID itemTypeId = itemType.getId();
-		
-		Boolean isAlreadySet = evolPoliticsSetIndDB.get(itemType);
-		if ((isAlreadySet != null) && isAlreadySet)
-			return;
-		
-		DBUtil.connectToDB(db, itemType);
-		for (IAttributeType<?> attrType : itemType.getAllAttributeTypes()) {
-			
-			if (TWUtil.isTWAttribute(attrType))
-				continue;
-			if (TWUtil.isInternalCadseAttribute(attrType))
-				continue;
-			
-			try {
-				if (TWUtil.isLinkType(attrType)) {
-					db.setLinkSrcVersionSpecific(attrType.getId(), attrType.isTWRevSpecific());
-					db.setLinkDestVersionSpecific(attrType.getId(), !TWUtil.isBranchDestination(attrType));
-				} else
-					db.setObjectAttVersionSpecific(itemTypeId, getAttributeName(attrType), attrType.isTWRevSpecific());
-			} catch (ModelVersionDBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		// set parent as shared attribute
-		try {
-			db.setObjectAttVersionSpecific(itemTypeId, DBUtil.PARENT_ATTR_NAME, false);
-		} catch (ModelVersionDBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private String getAttributeName(IAttributeType<?> attrType) {
-		return attrType.getName();
-	}
-
-	private void commitItemLinks(UUID itemId, ModelVersionDBService db) throws TransactionException {
+	private void commitItemLinks(UUID itemId, ModelVersionDBService db) throws TransactionException, DBConnectionException {
 		
 		// commit item model database
-		Item item = _wl.getItem(itemId);
+		Item item = _transaction.getItem(itemId);
 		ItemType itemType = item.getType();
 
 		// set repository for this item
@@ -393,10 +389,10 @@ public class CommitThread extends Thread {
 	}
 
 	private void commitItemState(UUID itemId, ModelVersionDBService db) throws ModelVersionDBException,
-			TransactionException {
+			TransactionException, DBConnectionException {
 
 		// commit item model database
-		Item item = _wl.getItem(itemId);
+		Item item = _transaction.getItem(itemId);
 		ItemType itemType = item.getType();
 
 		// set repository for this item

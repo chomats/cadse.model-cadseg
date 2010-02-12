@@ -67,7 +67,18 @@ public class Errors {
 	 * @param errorMessage error message
 	 */
 	public void addError(UUID itemId, String errorMessage) {
-		addError(itemId, new MsgError(itemId, errorMessage));
+		addError(itemId, new MsgError(itemId, errorMessage, null));
+	}
+	
+	/**
+	 * Attach a simple error to specified item.
+	 * 
+	 * @param itemId       id of item in error
+	 * @param errorMessage error message
+	 * àparam exception    exception related to this error
+	 */
+	public void addError(UUID itemId, String errorMessage, Throwable exception) {
+		addError(itemId, new MsgError(itemId, errorMessage, exception));
 	}
 	
 	/**

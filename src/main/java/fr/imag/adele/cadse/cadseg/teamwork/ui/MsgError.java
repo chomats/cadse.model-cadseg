@@ -34,15 +34,18 @@ public class MsgError implements Error {
 	
 	private String _errorMsg;
 	
+	private Throwable _error;
+	
 	/**
 	 * Create a new error with a message.
 	 * 
 	 * @param itemId   item id
 	 * @param errorMsg error message
 	 */
-	public MsgError(UUID itemId, String errorMsg) {
+	public MsgError(UUID itemId, String errorMsg, Throwable error) {
 		_itemId = itemId;
 		_errorMsg = errorMsg;
+		_error = error;
 	}
 
 	public UUID getItem() {
@@ -56,6 +59,10 @@ public class MsgError implements Error {
 	@Override
 	public boolean isResolved() {
 		return false;
+	}
+	
+	public Throwable getException() {
+		return _error;
 	}
 
 }

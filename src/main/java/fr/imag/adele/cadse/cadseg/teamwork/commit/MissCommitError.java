@@ -32,7 +32,7 @@ public class MissCommitError extends MsgError {
 	private UUID _missingItemId;
 
 	public MissCommitError(UUID itemId, String errorMsg, UUID missingItemId) {
-		super(itemId, errorMsg);
+		super(itemId, errorMsg, null);
 		_missingItemId = missingItemId;
 	}
 
