@@ -29,6 +29,7 @@ import java.util.Stack;
 import java.util.TreeSet;
 import java.util.UUID;
 
+import org.eclipse.core.internal.databinding.property.value.SetSimpleValueObservableMap;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.IMessageProvider;
@@ -810,11 +811,11 @@ public class CommitStatusDialog extends SWTDialog {
 	 * _errorsField _commitedField _revField DGrillUI (selection independent
 	 * part) _listOfCommitedItemsField
 	 */
-	public CommitStatusDialog(CommitState commitState, LogicalWorkspace lw) {
+	public CommitStatusDialog(CommitState commitState) {
 		super(new SWTUIPlatform(), "Commit Status", "Commit Status");
 
 		// create a transaction to perform commit operation
-		_workspaceCopy = lw;
+		_workspaceCopy = commitState.getTransaction();
 
 		// set manipulated data
 		_commitState = commitState;
@@ -1035,7 +1036,7 @@ public class CommitStatusDialog extends SWTDialog {
 					// create a new transaction for commit
 					final LogicalWorkspaceTransaction transaction = commitState.getTransaction();
 					
-					final CommitStatusDialog p = new CommitStatusDialog(commitState, transaction);
+					final CommitStatusDialog p = new CommitStatusDialog(commitState);
 					p._swtuiPlatforms.setAction(p.getFinishAction());
 					final Pages f = p._swtuiPlatforms.getPages();
 					final WizardController wc = new WizardController(p._swtuiPlatforms) {
@@ -1089,11 +1090,15 @@ public class CommitStatusDialog extends SWTDialog {
 
 						@Override
 						public void beginCommitItem(UUID itemId) {
-							// TODO Auto-generated method stub
+							// do nothing
 						}
 
 						@Override
 						public void commitFail() {
+							refreshListOfCommitedItems();
+							p.refreshTree(true);
+							p.refreshSelectDependentFields();
+							
 							PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 								public void run() {
 									p._swtuiPlatforms.setMessageError("Commit failed !");
@@ -1106,19 +1111,12 @@ public class CommitStatusDialog extends SWTDialog {
 							
 							// if commit is OK, commit workspace logical copy
 							if (commitState.isCommitPerformed()) {
-								try {
-									transaction.commit();
-								} catch (CadseException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
 								PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 									public void run() {
 										p._swtuiPlatforms.setMessage("Commit succeed !", IMessageProvider.INFORMATION);
 									}
 								});
 							} else {
-								transaction.rollback();
 								PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 									public void run() {
 										p._swtuiPlatforms.setMessageError("Commit failed !");

@@ -98,14 +98,14 @@ public class CommitThread extends Thread {
 				e1.printStackTrace();
 				Item item = _transaction.getItem(itemId);
 				ItemType itemType = item.getType();
-				_commitState.getErrors().addError("Cannot set evolution politics for item type " + itemType.getName(), e1);
+				_commitState.getErrors().addError(itemId, "Cannot set evolution politics for item type " + itemType.getName(), e1);
 				_commitState.abortCommit();
 				break;
 			} catch (DBConnectionException e) {
 				e.printStackTrace();
 				Item item = _transaction.getItem(itemId);
 				ItemType itemType = item.getType();
-				_commitState.getErrors().addError("Cannot connect to database " + e.getDBUrl() +
+				_commitState.getErrors().addError(itemId, "Cannot connect to database " + e.getDBUrl() +
 						" to set evolution politics for item type " + itemType.getName(), e);
 				_commitState.abortCommit();
 				break;

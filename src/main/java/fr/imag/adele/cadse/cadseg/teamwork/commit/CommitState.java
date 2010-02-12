@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.teamwork.Errors;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
@@ -335,6 +336,8 @@ public class CommitState {
 				}
 			}
 		}
+		
+		_transaction.rollback();
 	}
 	
 	/**
@@ -355,6 +358,13 @@ public class CommitState {
 					e.printStackTrace();
 				}
 			}
+		}
+		
+		try {
+			_transaction.commit();
+		} catch (CadseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
