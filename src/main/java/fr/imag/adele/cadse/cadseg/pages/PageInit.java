@@ -330,8 +330,6 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
-		CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_.setFlag(
-				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_.setFlag(
@@ -785,18 +783,6 @@ public class PageInit {
 			CadseGCST.PROJECT_CONTENT_MODEL.addField(field);
 		}
 		
-		// FILE_CONTENT_MODEL_at_FILE_NAME_
-		{
-			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
-			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc, MC_FILE_NAME.class);
-			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
-			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ItemTypeTemplateForTextFromManager.class);
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-					CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_, "File name",
-					EPosLabel.left, mc, ic);
-			CadseGCST.FILE_CONTENT_MODEL.addField(field);
-		}
-
 		// FILE_CONTENT_MODEL_at_FILE_PATH_
 		{
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
