@@ -1066,7 +1066,14 @@ public class PageInit {
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
 		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
 
-		
+		// Hidden attributes for content model
+		IPage cmHiddenAttributes = new PageImpl(UUID.randomUUID(),
+				"Hidden attributes", "Hidden attributes", "Hidden attributes",
+				"Hidden attributes", false, null);
+		cmHiddenAttributes.addHiddenAttributes(
+				CadseGCST.ITEM_at_NAME_);
+		CadseGCST.CONTENT_ITEM_TYPE.addCreationPages(cmHiddenAttributes);
+		CadseGCST.CONTENT_ITEM_TYPE.addModificationPages(cmHiddenAttributes);
 		
 		
 		// ***** //
