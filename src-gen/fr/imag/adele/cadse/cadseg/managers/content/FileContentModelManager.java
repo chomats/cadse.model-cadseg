@@ -59,8 +59,7 @@ public class FileContentModelManager extends ResourceContentModelManager {
 		 */
 		@Override
 		protected StringAttributeType[] getResourceKindsName() {
-			return new StringAttributeType[] { CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_,
-					CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_ };
+			return new StringAttributeType[] { CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_ };
 		}
 
 	}
@@ -126,24 +125,6 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	public static final void setFilePathAttribute(Item fileContentModel, String value) {
 		try {
 			fileContentModel.setAttribute(CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final String getFileNameAttribute(Item fileContentModel) {
-		return fileContentModel.getAttributeWithDefaultValue(CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_, null);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final void setFileNameAttribute(Item fileContentModel, String value) {
-		try {
-			fileContentModel.setAttribute(CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_, value);
 		} catch (Throwable t) {
 
 		}
