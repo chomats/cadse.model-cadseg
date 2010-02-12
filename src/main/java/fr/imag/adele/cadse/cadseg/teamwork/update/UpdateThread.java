@@ -67,14 +67,14 @@ public class UpdateThread extends Thread {
 				e1.printStackTrace();
 				Item item = _transaction.getItem(itemId);
 				ItemType itemType = item.getType();
-				_updateState.getOperationsToPerformErrors().addError("Cannot set evolution politics for item type " + itemType.getName(), e1);
+				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot set evolution politics for item type " + itemType.getName(), e1);
 				_updateState.abortUpdate();
 				break;
 			} catch (DBConnectionException e) {
 				e.printStackTrace();
 				Item item = _transaction.getItem(itemId);
 				ItemType itemType = item.getType();
-				_updateState.getOperationsToPerformErrors().addError("Cannot connect to database " + e.getDBUrl() +
+				_updateState.getOperationsToPerformErrors().addError(itemId, "Cannot connect to database " + e.getDBUrl() +
 						" to set evolution politics for item type " + itemType.getName(), e);
 				_updateState.abortUpdate();
 				break;
