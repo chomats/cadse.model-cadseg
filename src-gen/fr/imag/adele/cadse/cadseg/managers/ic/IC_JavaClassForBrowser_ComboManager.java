@@ -33,6 +33,8 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_WithDialogAction;
 
 /**
@@ -185,7 +187,43 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		}
 	}
 
-//	/*
+/**
+		@generated
+	*/
+	public static final String getStyleAttribute(Item iC_JavaClassForBrowser_Combo) {
+		return iC_JavaClassForBrowser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setStyleAttribute(Item iC_JavaClassForBrowser_Combo, String value) {
+		try {
+			iC_JavaClassForBrowser_Combo.setAttribute(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getFilterAttribute(Item iC_JavaClassForBrowser_Combo) {
+		return iC_JavaClassForBrowser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setFilterAttribute(Item iC_JavaClassForBrowser_Combo, String value) {
+		try {
+			iC_JavaClassForBrowser_Combo.setAttribute(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	//	/*
 //	 * (non-Javadoc)
 //	 * 
 //	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
