@@ -26,8 +26,11 @@ import java.util.UUID;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 
 /**
  * The Class AbstractItemTypeManager.
@@ -54,6 +57,7 @@ public class TypeDefinitionManager extends ItemManager {
 		try {
 			Object value;
 			Item currentItem;
+			sb.append(parent.getQualifiedName());
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
