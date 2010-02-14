@@ -452,7 +452,7 @@ public class ImportPagesAction extends AbstractActionPage {
 		// create the manager
 		Item managerItem = copy.createItem(CadseGCST.MANAGER, mappingModel, CadseGCST.MAPPING_MODEL_lt_MANAGERS);
 
-		ItemTypeManager.setIsAbstractAttribute(theitemtype, false);
+		ItemTypeManager.setIsInstanceAbstractAttribute(theitemtype, false);
 
 		// set the short name and compute the unique name from parent and
 		// parent link type setting before
