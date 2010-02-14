@@ -577,7 +577,7 @@ public class GenerateCadseDefinitionModel {
 		cit.setHasContent(ItemTypeManager.isHasContentAttribute(itemType));
 		cit.setQualifiedName(ItemTypeManager.getQualifiedName(itemType));
 
-		cit.setHidden(ItemTypeManager.isIsHiddenAttribute(itemType));
+		cit.setHidden(ItemTypeManager.isIsInstanceHiddenAttribute(itemType));
 		cit.setType(ItemTypeManager.getMetaType(itemType));
 		cit.setMetaType(ItemTypeManager.getMetaType(itemType));
 		IJavaElement je = JavaCore.create(ItemTypeManager.getItemFactoryClass(itemType));
@@ -601,7 +601,7 @@ public class GenerateCadseDefinitionModel {
 		}
 
 		cit.setIcon(ItemTypeManager.getIconPath(itemType));
-		cit.setIsAbstract(ItemTypeManager.isIsAbstractAttribute(itemType));
+		cit.setIsAbstract(ItemTypeManager.isIsInstanceAbstractAttribute(itemType));
 		cit.setPatternId(ManagerManager.getUniqueNameTemplate(manager));
 		String error_valid_id = notempty(ManagerManager.getMessageErrorIdAttribute(manager));
 		cit.setErrorValidId(error_valid_id);
