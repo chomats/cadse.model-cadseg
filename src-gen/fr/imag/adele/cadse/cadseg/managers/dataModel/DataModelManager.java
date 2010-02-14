@@ -540,7 +540,7 @@ public class DataModelManager extends DefaultWorkspaceManager {
 			theitemtype.createLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, superItem);
 		}
 
-		ItemTypeManager.setIsAbstractAttribute(theitemtype, false);
+		ItemTypeManager.setIsInstanceAbstractAttribute(theitemtype, false);
 
 		createManager(copy, theitemtype, superItem);
 

@@ -46,6 +46,8 @@ import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.util.ArraysUtil;
 import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -242,7 +244,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	}
 
 	/**
-	 * Returne toutes les extensions d'un item type qui appartiennent � la list
+	 * Returne toutes les extensions d'un item type qui appartiennent ? la list
 	 * des cadse definition contenu dans fromCadse.
 	 * 
 	 * @param itemtype
@@ -394,21 +396,22 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	}
 
 	/**
-	 * Checks if is is abstract attribute.
+		* Checks if is is abstract attribute.
 	 * 
 	 * @param itemType
 	 *            the item type
 	 * 
 	 * @return true, if checks if is is abstract attribute
 	 * 
-	 * @generated
-	 */
-	public static final boolean isIsAbstractAttribute(Item itemType) {
+		@generated
+	*/
+	public static final boolean isIsInstanceAbstractAttribute(Item itemType) {
 		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_, false);
 	}
 
+
 	/**
-	 * Sets the is abstract attribute.
+		Sets the is abstract attribute.
 	 * 
 	 * @param itemType
 	 *            the item type
@@ -416,8 +419,8 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 *            the value
 	 * 
 	 * @generated
-	 */
-	public static final void setIsAbstractAttribute(Item itemType, boolean value) {
+	*/
+	public static final void setIsInstanceAbstractAttribute(Item itemType, boolean value) {
 		try {
 			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_, value);
 		} catch (Throwable t) {
@@ -558,22 +561,24 @@ public class ItemTypeManager extends TypeDefinitionManager {
     }
 
 	/**
-	 * @generated
-	 */
-	public static final boolean isIsHiddenAttribute(Item itemType) {
+		@generated
+	*/
+	public static final boolean isIsInstanceHiddenAttribute(Item itemType) {
 		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_, false);
 	}
 
+
 	/**
-	 * @generated
-	 */
-	public static final void setIsHiddenAttribute(Item itemType, boolean value) {
+		@generated
+	*/
+	public static final void setIsInstanceHiddenAttribute(Item itemType, boolean value) {
 		try {
 			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_, value);
 		} catch (Throwable t) {
 
 		}
 	}
+
 
 	/**
 	 * @generated
@@ -609,10 +614,15 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 * @return the icon path
 	 * {@link MC_ResourceToURL}
 	 */
-	public static String getIconPath(Item manager) {
-		String pStr = getIconAttribute(manager);
+	public static String getIconPath(Item itemType) {
+		String pStr = getIconAttribute(itemType);
 		if (pStr == null) {
-			return null;
+			Item manager = ManagerManager.getManagerFromItemType(itemType);
+			if (manager == null)
+				return null;
+			pStr = manager.getAttribute(CadseGCST.MANAGER_at_ICON_);
+			if (pStr == null)
+				return null;
 		}
 		if (pStr.startsWith(MC_ResourceToURL.RESOURCE_URL_STRING)) {
 			URL iconURL;
@@ -1253,6 +1263,106 @@ public class ItemTypeManager extends TypeDefinitionManager {
 
 
 	/**
+		@generated
+	*/
+	public static final String getDisplayNameTemplateAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_DISPLAY_NAME_TEMPLATE_, null);
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final void setDisplayNameTemplateAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_DISPLAY_NAME_TEMPLATE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final String getQualifiedNameTemplateAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_QUALIFIED_NAME_TEMPLATE_, null);
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final void setQualifiedNameTemplateAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_QUALIFIED_NAME_TEMPLATE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final String getMessageErrorIdAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_MESSAGE_ERROR_ID_, null);
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final void setMessageErrorIdAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_MESSAGE_ERROR_ID_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final String getValidateNameReAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_VALIDATE_NAME_RE_, null);
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final void setValidateNameReAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_VALIDATE_NAME_RE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final String getDefaultInstanceNameAttribute(Item itemType) {
+		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_, null);
+	}
+
+
+	/**
+		@generated
+	*/
+	public static final void setDefaultInstanceNameAttribute(Item itemType, String value) {
+		try {
+			itemType.setAttribute(CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+
+	/**
 	 * Retourne tous les sous types y compris lui - m�me de toutes la
 	 * hierarchie.
 	 * 
@@ -1268,7 +1378,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	}
 
 	/**
-	 * Retourne tous les sous types y compris lui - m�me de toutes la
+	 * Retourne tous les sous types y compris lui - m?me de toutes la
 	 * hierarchie.
 	 * 
 	 * @param itemtype
@@ -1296,7 +1406,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	}
 
 	/**
-	 * Retourne tous les sous types y compris lui - m�me de toutes la
+	 * Retourne tous les sous types y compris lui - m?me de toutes la
 	 * hierarchie.
 	 * 
 	 * @param itemtype
@@ -1314,7 +1424,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	}
 
 	/**
-	 * Retourne tous les sous types y compris lui - m�me de toutes la
+	 * Retourne tous les sous types y compris lui - m?me de toutes la
 	 * hierarchie.
 	 * 
 	 * @param itemtype
