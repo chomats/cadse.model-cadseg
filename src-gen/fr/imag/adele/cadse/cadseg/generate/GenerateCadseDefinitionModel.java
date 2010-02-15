@@ -663,6 +663,7 @@ public class GenerateCadseDefinitionModel {
 		clt.setCstName(GenerateJavaIdentifier.cstAttribute(cxt, linkType, itemType));
 		clt.setInverseLink(notempty(LinkTypeManager.getInverseLinkName(linkType)));
 		clt.setHidden(LinkTypeManager.isHiddenAttribute(linkType));
+		clt.setType(linkType.getType().getId().toString());
 		return clt;
 	}
 
