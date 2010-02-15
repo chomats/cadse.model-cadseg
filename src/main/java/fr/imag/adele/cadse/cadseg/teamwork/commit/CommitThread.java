@@ -44,6 +44,8 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
+import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.CadseDomainImpl;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
@@ -242,6 +244,7 @@ public class CommitThread extends Thread {
 
 	private void commitItemContent(Item item, ContentItem contentItem,
 			SCMService scmService, ModelVersionDBService db) throws SCMException, DBConnectionException, TransactionException, ModelVersionDBException {
+		UUID itemId = item.getId();
 		ItemType itemType = item.getType();
 		String cadseName = TWUtil.getCadse(itemType);
 		
@@ -272,21 +275,51 @@ public class CommitThread extends Thread {
 		Date commitDate = new Date(System.currentTimeMillis());
 		stateMap.put(DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
 		stateMap.put(DBUtil.SCM_REPO_URL_ATTR_NAME, scmRepoUrl);
-		stateMap.put(DBUtil.SCM_REV_ATTR_NAME, scmRev.getRevision());
+		String scmRevAttrName = DBUtil.SCM_REV_ATTR_NAME;
+		stateMap.put(scmRevAttrName, scmRev.getRevision());
 		
 		int contentRev = contentItem.getVersion();
+		int oldContentRev = contentRev;
 		UUID contentItemTypeId = CadseGCST.CONTENT_ITEM.getId();
 		if (contentRev == 0) {
 			// item not already in db
 			contentRev = db.createObject(contentId, contentItemTypeId,
 					stateMap, false);
 		} else {
-			contentRev = db.createNewObjectRevision(contentId, ModelVersionDBService.LAST);
-			db.setObjectState(contentId, contentRev, stateMap);
+			// an item revision already exists in db
+			int lastRev = db.getLastObjectRevNb(contentId);
+			
+			if (item.isRequireNewRev()) {
+				// TODO check that lastRev must be used in place of current revision
+				contentRev = db.createNewObjectRevision(contentId, lastRev); 
+			}
+			
+			Object newValue = stateMap.get(scmRevAttrName);
+			TWEvol contentEvol = TWUtil.getContentEvol(item);
+			if (TWCommitKind.none.equals(contentEvol)) {
+				db.setObjectState(contentId, contentRev, stateMap);
+			} else if (TWCommitKind.conflict.equals(contentEvol)) {
+				Object oldValue = db.getObjectValue(itemId, oldContentRev, scmRevAttrName);
+				Object lastValue = db.getObjectValue(itemId, lastRev, scmRevAttrName);
+				
+				if (CadseGCST.CONTENT_ITEM_at_SCM_REVISION_.isTWValueModified(
+						oldValue, newValue)
+						&& CadseGCST.CONTENT_ITEM_at_SCM_REVISION_
+								.isTWValueModified(oldValue, lastValue)) {
+
+					String errorMsg = "Conflict values " + oldValue + " and "
+							+ newValue + " of attribute "
+							+ CadseGCST.CONTENT_ITEM_at_SCM_REVISION
+							+ " of item " + item.getName();
+					_commitState.getErrors().addError(itemId, errorMsg);
+
+					throw new IllegalStateException(errorMsg);
+				} else
+					db.setObjectState(contentId, contentRev, stateMap);
+			}
 		}
 		
 		int rev = item.getVersion();
-		UUID itemId = item.getId();
 		db.deleteOutgoingLinks(CadseGCST.ITEM_lt_CONTENTS.getId(), itemId, rev);
 		db.addLink(CadseGCST.ITEM_lt_CONTENTS.getId(), itemId, rev, contentId, contentRev, null, true);
 		

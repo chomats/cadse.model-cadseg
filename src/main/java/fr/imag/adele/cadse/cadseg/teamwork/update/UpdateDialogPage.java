@@ -656,7 +656,7 @@ public class UpdateDialogPage extends SWTDialog {
 										ItemShortNameComparator.INSTANCE, true,
 										true, new FilterItem() {
 											public boolean accept(Item item) {
-												return TWUtil.isModified(item)
+												return !TWUtil.cannotRevert(item)
 														&& !_updateState
 																.getDefinition()
 																.hasRequirementOn(item.getId());
@@ -803,7 +803,7 @@ public class UpdateDialogPage extends SWTDialog {
 								ItemShortNameComparator.INSTANCE, true,
 								true, new FilterItem() {
 									public boolean accept(Item item) {
-										return !_updateState
+										return !TWUtil.cannotUpdate(item) && !_updateState
 														.getDefinition()
 														.hasRequirementOn(item.getId());
 									}
