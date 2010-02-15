@@ -202,6 +202,10 @@ public class GenerateJavaIdentifier {
 		if (cadseDefinition == null) {
 			cadseDefinition = ItemTypeManager.getCadseDefinition(itemtype);
 		}
+		if (cadseDefinition == null) {
+			
+			return "<>";
+		}
 		String packageName = CadseDefinitionManager.getDefaultPackage(cxt, cadseDefinition);
 		if (prefix != null) {
 			packageName += prefix;
