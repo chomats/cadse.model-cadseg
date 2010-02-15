@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.internal.boot.PlatformURLHandler;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
@@ -616,28 +617,33 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 */
 	public static String getIconPath(Item itemType) {
 		String pStr = getIconAttribute(itemType);
-		if (pStr == null) {
+		if (pStr == null || pStr.length() == 0) {
 			Item manager = ManagerManager.getManagerFromItemType(itemType);
 			if (manager == null)
 				return null;
 			pStr = manager.getAttribute(CadseGCST.MANAGER_at_ICON_);
-			if (pStr == null)
+			if (pStr == null || pStr.length() == 0)
 				return null;
+			IPath p = new Path(pStr);
+			pStr = MC_ResourceToURL.RESOURCE_URL_STRING+p.makeRelative().toPortableString();
+			setIconAttribute(itemType, pStr);
 		}
+		Item cadseDefinition = ItemTypeManager.getCadseDefinition(itemType);
+		String ret = B_UNDLE_URL + cadseDefinition.getQualifiedName() + '/';
 		if (pStr.startsWith(MC_ResourceToURL.RESOURCE_URL_STRING)) {
 			URL iconURL;
 			try {
 				iconURL = new URL(pStr);
 			} catch (MalformedURLException e) {
 				IPath p = new Path(pStr);
-				return p.removeFirstSegments(1).makeRelative().toPortableString();
+				return ret+p.removeFirstSegments(1).makeRelative().toPortableString();
 			}
 			IPath p = new Path(iconURL.getPath());
-			return p.removeFirstSegments(2).makeRelative().toPortableString();
+			return ret+p.removeFirstSegments(2).makeRelative().toPortableString();
 			
 		}
 		IPath p = new Path(pStr);
-		return p.removeFirstSegments(1).makeRelative().toPortableString();
+		return ret+p.removeFirstSegments(1).makeRelative().toPortableString();
 	}
 
 	/**
@@ -772,6 +778,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 
 	/** The _default. */
 	private static ItemTypeManager	_default;
+	public static final String B_UNDLE_URL = PlatformURLHandler.PROTOCOL + PlatformURLHandler.PROTOCOL_SEPARATOR + '/' + PlatformURLHandler.BUNDLE + '/';
 
 	
 
