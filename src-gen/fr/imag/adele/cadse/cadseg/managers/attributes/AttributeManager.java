@@ -74,7 +74,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @return true, if is link attribute
 	 */
 	public static boolean isLinkAttribute(Item item) {
-		return item.getType() == CadseGCST.LINK_TYPE;
+		return item.getType() == CadseGCST.LINK_TYPE || item.getType() == CadseGCST.CONTENT_LINK_TYPE;
 	}
 
 	/**
