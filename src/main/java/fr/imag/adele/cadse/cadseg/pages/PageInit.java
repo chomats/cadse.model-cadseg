@@ -24,6 +24,8 @@ import fr.imag.adele.cadse.cadseg.pages.mc.MC_LongTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_PROJECT_NAME;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_ViewItemType;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.IC_ModifiedAttr_List;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.ModifiedAttr_ModelController;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -556,10 +558,13 @@ public class PageInit {
 		// ITEM_lt_MODIFIED_ATTRIBUTES
 		{
 			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic,
+					IC_ModifiedAttr_List.class);
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_LINK);
+			CreatedObjectManager.register(null, mc, ModifiedAttr_ModelController.class);
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, 
 					UUID.randomUUID(),
-					CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES, "Modified attributes",
+					CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES, "Modified attributes and content",
 					EPosLabel.top, mc, ic);
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);

@@ -62,7 +62,11 @@ public class UpdateThread extends Thread {
 			
 			// check that evolution politics are set in DB
 			try {
-				_evolutionPoliticsInDB.checkEvolPoliticsSetInDB(itemId, db);
+				if (op.isImport()) {
+					ImportOperation importOp = (ImportOperation) op.getOriginalOperation();
+					_evolutionPoliticsInDB.checkEvolPoliticsSetInDB(importOp.getItemType(), db);
+				} else
+					_evolutionPoliticsInDB.checkEvolPoliticsSetInDB(itemId, db);
 			} catch (TransactionException e1) {
 				e1.printStackTrace();
 				Item item = _transaction.getItem(itemId);
@@ -203,11 +207,11 @@ public class UpdateThread extends Thread {
 			return;
 		} else {
 
-			Item item = _transaction.getItem(itemId);
+			ItemDelta item = _transaction.getItem(itemId);
 			int rev = item.getVersion();
 			ItemType itemType = item.getType();
 			UUID itemTypeId = itemType.getId();
-
+			
 			// set repository for this item
 			DBUtil.connectToDB(db, itemType);
 

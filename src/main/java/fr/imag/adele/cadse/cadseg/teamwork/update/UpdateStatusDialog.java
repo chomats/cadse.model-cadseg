@@ -92,7 +92,7 @@ public class UpdateStatusDialog extends SWTDialog {
 	/*
 	 * UI fields.
 	 */
-	protected DSashFormUI<RuningInteractionController>					_separateRequirementsAndOpsSashField;
+	protected DSashFormUI<RuningInteractionController>					_separateErrorsAndOthersSash;
 
 	protected DSashFormUI<RuningInteractionController>					_separateOpsAndAnalysisSash;
 
@@ -452,25 +452,37 @@ public class UpdateStatusDialog extends SWTDialog {
 		 * Operation Performed part
 		 */
 		DGridUI operationsGrid = _swtuiPlatforms.createDGridUI(_page, "#opsPart", "", EPosLabel.none, defaultMc, null, 
-				_operationsField, _errorsField);
+				_operationsField);
 		
-		DGridUI analysisGrid = _swtuiPlatforms.createDGridUI(_page, "#analysisPart", "", EPosLabel.none, defaultMc, null, 
-				_causesField, _consequencesField);
+		DGridUI causesGrid = _swtuiPlatforms.createDGridUI(_page, "#causesPart", "", EPosLabel.none, defaultMc, null, 
+				_causesField);
+		DGridUI consequencesGrid = _swtuiPlatforms.createDGridUI(_page, "#consequencesPart", "", EPosLabel.none, defaultMc, null, 
+				_consequencesField);
+		DSashFormUI<RuningInteractionController> analysisSash = _swtuiPlatforms.createDSashFormUI(_page, "#analysisSash", "", EPosLabel.none, defaultMc, null, 
+				causesGrid, consequencesGrid);
+		analysisSash.setWeight(50); 
+		analysisSash.setHorizontal(true);
 
 		_selectedOpDependentFields.add(_causesField);
 		_selectedOpDependentFields.add(_consequencesField);
 
 		_separateOpsAndAnalysisSash = _swtuiPlatforms.createDSashFormUI(_page, "#selectSash", "", EPosLabel.none, defaultMc, null, 
-				operationsGrid, analysisGrid);
-		_separateOpsAndAnalysisSash.setWeight(50); // 50% , 50%
+				operationsGrid, analysisSash);
+		_separateOpsAndAnalysisSash.setWeight(50); 
+		_separateOpsAndAnalysisSash.setHorizontal(false);
+		
+		DGridUI errorsGrid = _swtuiPlatforms.createDGridUI(_page, "#errorsPart", "", EPosLabel.none, defaultMc, null, 
+				_errorsField);
+		_separateErrorsAndOthersSash = _swtuiPlatforms.createDSashFormUI(_page, "#errorAndOthersSash", "", EPosLabel.none, defaultMc, null, 
+				_separateOpsAndAnalysisSash, errorsGrid);
+		_separateErrorsAndOthersSash.setWeight(60);
+		_separateErrorsAndOthersSash.setHorizontal(false);
 		
 		// add main field
-		addLast(_separateOpsAndAnalysisSash);
+		addLast(_separateErrorsAndOthersSash);
 
 		// add listeners
 		registerListener();
-		
-		
 	}
 	
 	/**

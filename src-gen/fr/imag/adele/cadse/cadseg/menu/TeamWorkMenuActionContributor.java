@@ -298,15 +298,85 @@ public class TeamWorkMenuActionContributor  extends AbstractActionContributor {
 			return super.isEnable(selection);
 		}
 	}
+	
+	public class RefreshContentStatusAction extends AbstractEclipseMenuAction {
+
+		public RefreshContentStatusAction() {
+		}
+
+		@Override
+		public String getLabel() {
+			return "RefreshContentStatus";
+		}
+
+		@Override
+		public void run(IItemNode[] selection) throws CadseException {
+			if ((selection != null) && (selection.length != 0)) {
+				for (IItemNode itemNode : selection) {
+					Item item = itemNode.getItem();
+					if (item == null) {
+						continue;
+					}
+
+					TWUtil.refreshContentStatus(item);
+				}
+			}
+		}
+
+		@Override
+		public boolean isEnable(IItemNode[] selection) {
+			if ((selection == null) || (selection.length == 0)) {
+				return false;
+			}
+
+			return super.isEnable(selection);
+		}
+	}
+	
+	public class SetContentAsModifiedAction extends AbstractEclipseMenuAction {
+
+		public SetContentAsModifiedAction() {
+		}
+
+		@Override
+		public String getLabel() {
+			return "SetContentAsModified";
+		}
+
+		@Override
+		public void run(IItemNode[] selection) throws CadseException {
+			if ((selection != null) && (selection.length != 0)) {
+				for (IItemNode itemNode : selection) {
+					Item item = itemNode.getItem();
+					if (item == null) {
+						continue;
+					}
+
+					TWUtil.setContentAsModified(item);
+				}
+			}
+		}
+
+		@Override
+		public boolean isEnable(IItemNode[] selection) {
+			if ((selection == null) || (selection.length == 0)) {
+				return false;
+			}
+
+			return super.isEnable(selection);
+		}
+	}
 
 	public void contributeMenuAction(ViewDescription viewDescription, Menu menu, IItemNode[] selection) {
 		List<IMenuAction> actions = new ArrayList<IMenuAction>();
 		actions.add(new CommitAction());
-		actions.add(new UpdateToLastAction());
+		//actions.add(new UpdateToLastAction());
 		actions.add(new UpdateAction());
 		actions.add(new ImportAction());
 		actions.add(new RevertAction());
+		actions.add(new RefreshContentStatusAction());
 		if (TWCst.DEBUG_MODE) {
+			actions.add(new SetContentAsModifiedAction());
 			actions.add(new ResetStateAction());
 		}
 

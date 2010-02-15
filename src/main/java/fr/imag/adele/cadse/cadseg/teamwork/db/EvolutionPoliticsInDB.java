@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
@@ -26,6 +27,11 @@ public class EvolutionPoliticsInDB {
 	public void checkEvolPoliticsSetInDB(UUID itemId, ModelVersionDBService db) throws TransactionException, DBConnectionException {
 		Item item = _transaction.getItem(itemId);
 		ItemType itemType = item.getType();
+		
+		checkEvolPoliticsSetInDB(itemType, db);
+	}
+		
+	public void checkEvolPoliticsSetInDB(ItemType itemType, ModelVersionDBService db) throws TransactionException, DBConnectionException {
 		UUID itemTypeId = itemType.getId();
 		
 		Boolean isAlreadySet = _evolPoliticsSetIndDB.get(itemType);
@@ -52,9 +58,16 @@ public class EvolutionPoliticsInDB {
 			}
 		}
 		
-		// set parent as shared attribute
+		// set internal attributes evolution politics
 		try {
 			db.setObjectAttVersionSpecific(itemTypeId, DBUtil.PARENT_ATTR_NAME, false);
+			db.setObjectAttVersionSpecific(CadseGCST.CONTENT_ITEM.getId(), DBUtil.SCM_REPO_URL_ATTR_NAME, true);
+			db.setObjectAttVersionSpecific(CadseGCST.CONTENT_ITEM.getId(), DBUtil.SCM_REV_ATTR_NAME, true);
+			db.setObjectAttVersionSpecific(CadseGCST.CONTENT_ITEM.getId(), DBUtil.TW_COMMENT_ATTR_NAME, true);
+			db.setLinkSrcVersionSpecific(CadseGCST.ITEM_lt_CONTENTS.getId(),
+					true);
+			db.setLinkDestVersionSpecific(CadseGCST.ITEM_lt_CONTENTS.getId(),
+					true);
 		} catch (ModelVersionDBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
