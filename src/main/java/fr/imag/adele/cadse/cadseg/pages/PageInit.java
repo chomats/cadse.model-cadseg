@@ -5,7 +5,6 @@ import java.util.UUID;
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.view.ViewManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_BooleanDefaultValue;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_EnumDefaultValue;
@@ -17,7 +16,6 @@ import fr.imag.adele.cadse.cadseg.pages.ic.IC_ViewManager_DataModelView;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_BooleanTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DefaultEnum;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DoubleTextField;
-import fr.imag.adele.cadse.cadseg.pages.mc.MC_FILE_NAME;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_FILE_PATH;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_IntegerTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_LongTextField;
@@ -46,7 +44,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedTreeUI;
+
 
 public class PageInit {
 
@@ -236,6 +234,16 @@ public class PageInit {
 				CadseGCST.ATTRIBUTE_at_TRANSIENT_);
 	}
 
+	private static GroupOfAttributesDescriptor createGroupContentModel() {
+		return createGroup("Java Project Content Model", 1, false,
+				CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_,
+				CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_,
+				CadseGCST.JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_,
+				CadseGCST.JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_,
+				CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_,
+				CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_,
+				CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_);
+	}
 	
 	public static void init() throws CadseException {
 
@@ -436,8 +444,18 @@ public class PageInit {
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		CadseGCST.MANAGER_lt_ITEM_TYPE.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
-	
-		
+		CadseGCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, false);
+		CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		
 		
 		// ***************** //
@@ -1037,7 +1055,10 @@ public class PageInit {
 		fieldGroupName.setOverWriteGroup(ITEM_GROUP_NAME);
 		CadseGCST.FIELD.addGroupOfAttributes(fieldGroupName);
 
-		
+		// Content model
+		GroupOfAttributesDescriptor fieldCM = createGroupContentModel();
+		fieldCM.setOverWriteGroup(ITEM_GROUP_NAME);
+		CadseGCST.CONTENT_ITEM_TYPE.addGroupOfAttributes(fieldCM);
 		
 		
 		// ***************** //
@@ -1056,16 +1077,26 @@ public class PageInit {
 				CadseGCST.ATTRIBUTE_at_IS_LIST_);
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
 		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
-
+		
 		// Hidden attributes for content model
 		IPage cmHiddenAttributes = new PageImpl(UUID.randomUUID(),
 				"Hidden attributes", "Hidden attributes", "Hidden attributes",
 				"Hidden attributes", false, null);
 		cmHiddenAttributes.addHiddenAttributes(
-				CadseGCST.ITEM_at_NAME_);
+				CadseGCST.ITEM_at_NAME_,
+				CadseGCST.ITEM_at_DISPLAY_NAME_,
+				CadseGCST.ITEM_at_QUALIFIED_NAME_);
 		CadseGCST.CONTENT_ITEM_TYPE.addCreationPages(cmHiddenAttributes);
 		CadseGCST.CONTENT_ITEM_TYPE.addModificationPages(cmHiddenAttributes);
 		
+		// Hidden attribute for JavaFile
+		IPage jfHiddenAttributes = new PageImpl(UUID.randomUUID(),
+				"Hidden attributes", "Hidden attributes", "Hidden attributes",
+				"Hidden attributes", false, null);
+		jfHiddenAttributes.addHiddenAttributes(
+				CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_);
+		CadseGCST.JAVA_FILE_CONTENT_MODEL.addCreationPages(jfHiddenAttributes);
+		CadseGCST.JAVA_FILE_CONTENT_MODEL.addModificationPages(jfHiddenAttributes);
 		
 		// ***** //
 		// Pages //
