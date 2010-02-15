@@ -1,5 +1,6 @@
 package fr.imag.adele.cadse.cadseg.teamwork.update;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,23 +28,28 @@ public class UpdateUtil {
 		definition.clearImpacts();
 		
 		for (Operation op : definition.getRequirements()) {
-			computeImpacts(op, updateState);
+			computeDirectImpacts(op, updateState);
+		}
+		List<Operation> directImpacts = new ArrayList<Operation>();
+		directImpacts.addAll(updateState.getDefinition().getImpacts());
+		for (Operation op : directImpacts) {
+			computePropagatedImpacts(op, updateState);
 		}
 	}
 
-	private static void computeImpacts(Operation requirementOp, UpdateState updateState) {
-		UUID itemId = requirementOp.getItemId();
-		List<Operation> impacts = updateState.getDefinition().getImpacts();
-		LogicalWorkspace lw = updateState.getTransaction();
+	private static void computeDirectImpacts(Operation requirementOp, UpdateState updateState) {
 		
 		// add this operation
 		Operation impactOp = requirementOp.clone();
 		impactOp.addCause(requirementOp);
 		updateState.getDefinition().getImpacts().add(impactOp);
+	}	
 		
+	private static void computePropagatedImpacts(Operation impactOp, UpdateState updateState) {
+		LogicalWorkspace transaction = updateState.getTransaction();
 		Item item = null;
 		if (!impactOp.isImport()) {
-			item = lw.getItem(impactOp.getItemId());
+			item = transaction.getItem(impactOp.getItemId());
 		}
 		
 		// manage coupled propagation
