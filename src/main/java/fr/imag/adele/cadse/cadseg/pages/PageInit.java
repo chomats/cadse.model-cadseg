@@ -24,6 +24,7 @@ import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_ViewItemType;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.IC_ModifiedAttr_List;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ModifiedAttr_ModelController;
+import fr.imag.adele.cadse.cadseg.validators.ExtendsClassValidator;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -988,6 +989,14 @@ public class PageInit {
 			v.setClazz(UITWCommitValidator.class);
 			v.setListenAttributes(CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_);
 			CadseGCST.ATTRIBUTE.addValidators(v);
+		}
+		
+		// CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(ExtendsClassValidator.class);
+			v.setListenAttributes(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_);
+			CadseGCST.FILE_CONTENT_MODEL.addValidators(v);
 		}
 		
 		
