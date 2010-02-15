@@ -271,7 +271,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 					if (contextVariable) {
 						sb.append("context.getValue(").append(fCurrentItemVar).append(",").append(
 								GenerateJavaIdentifier.cstQualifiedAttribute(cxt, _currentAttr, null, null, imports))
-								.append(")");
+								.append("_)");
 					} else {
 						sb.newline().append("String.valueOf(value)");
 					}
