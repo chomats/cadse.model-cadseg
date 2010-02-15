@@ -28,7 +28,11 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import fr.imag.adele.cadse.as.scm.SCMException;
+import fr.imag.adele.cadse.as.scm.SCMRevision;
+import fr.imag.adele.cadse.as.scm.SCMService;
 import fr.imag.adele.cadse.cadseg.teamwork.TeamWorkPreferences;
+import fr.imag.adele.cadse.cadseg.teamwork.db.DBConnexionParams;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
 import fr.imag.adele.cadse.cadseg.teamwork.db.EvolutionPoliticsInDB;
 import fr.imag.adele.cadse.core.CadseException;
@@ -39,7 +43,9 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.impl.internal.CadseDomainImpl;
 import fr.imag.adele.cadse.core.impl.internal.TWUtil;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.teamwork.db.DBConnectionException;
@@ -157,26 +163,40 @@ public class CommitThread extends Thread {
 		}
 
 		// commit contents
+		SCMService scmService = ((CadseDomainImpl) CadseCore.getCadseDomain()).getSCMService();
 		i = 0;
 		while ((i < itemToCommitNb) && !_commitState.isFailed() && !_commitState.isCommitPerformed()) {
 			UUID itemId = _commitState.getItemsToCommitRequirements().get(i);
-
-			try {
-				//TODO implement it
-				if (false) {
-					throw new DBConnectionException("", "", null); // TODO remove when implemented
+			
+			Item item = _transaction.getItem(itemId);
+			ContentItem contentItem = item.getContentItem();
+			if (contentItem != null) {
+				
+				// TODO compute content to commit, take into account commit propagation
+				try {
+					commitItemContent(item, contentItem, scmService, db);
+				} catch (DBConnectionException e) {
+					e.printStackTrace();
+					_commitState.getErrors().addError(
+							itemId,
+							"Cannot commit Item content because connection to database "
+									+ e.getDBUrl() + " failed.", e);
+					_commitState.abortCommit();
+					break;
+				} catch (SCMException e) {
+					e.printStackTrace();
+					_commitState.getErrors().addError(
+							itemId,
+							"Cannot commit Item content because commit command failed.", e);
+					_commitState.abortCommit();
+					break;
+				} catch (Exception e) {
+					_commitState.getErrors().addError(itemId,
+							"Cannot commit Item content.");
+					_commitState.abortCommit();
+					e.printStackTrace();
+					break;
 				}
-			} catch (DBConnectionException e) {
-				e.printStackTrace();
-				_commitState.getErrors().addError(itemId, "Cannot commit Item content because connection to database " + 
-						e.getDBUrl() + " failed.", e);
-				_commitState.abortCommit();
-				break;
-			} catch (Exception e) {
-				_commitState.getErrors().addError(itemId, "Cannot commit Item content.");
-				_commitState.abortCommit();
-				e.printStackTrace();
-				break;
 			}
 			
 			_commitState.markContentsAsCommitted(itemId);
@@ -218,6 +238,62 @@ public class CommitThread extends Thread {
 			e.printStackTrace();
 			_commitState.abortCommit();
 		}
+	}
+
+	private void commitItemContent(Item item, ContentItem contentItem,
+			SCMService scmService, ModelVersionDBService db) throws SCMException, DBConnectionException, TransactionException, ModelVersionDBException {
+		ItemType itemType = item.getType();
+		String cadseName = TWUtil.getCadse(itemType);
+		
+		String scmRepoUrl = contentItem.getSCMRepoUrl();
+		if (scmRepoUrl == null) {
+			scmRepoUrl = scmService.getSCMRepositoryURL(contentItem);
+			if (scmRepoUrl == null)  {
+				DBConnexionParams dbParams = DBConnexionParams.getConnectionParams(cadseName);
+				scmRepoUrl = dbParams.getDefaultContentRepoURL();
+			}
+			contentItem.setSCMRepoUrl(scmRepoUrl);
+		}
+
+		String comment = _commitState.getComment();
+		SCMRevision scmRev = scmService.commitContent(contentItem, comment);
+		
+		// set repository for this item
+		DBUtil.connectToDB(db, itemType);
+		
+		// save content meta information
+		UUID contentId = contentItem.getId();
+		
+		// compute initial state
+		Map<String, Object> stateMap = new TreeMap<String, Object>();
+		stateMap.put(DBUtil.TW_COMMENT_ATTR_NAME, comment);
+		String user = TeamWorkPreferences.getUserName();
+		stateMap.put(DBUtil.TW_COMMITER_ATTR_NAME, user);
+		Date commitDate = new Date(System.currentTimeMillis());
+		stateMap.put(DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
+		stateMap.put(DBUtil.SCM_REPO_URL_ATTR_NAME, scmRepoUrl);
+		stateMap.put(DBUtil.SCM_REV_ATTR_NAME, scmRev.getRevision());
+		
+		int contentRev = contentItem.getVersion();
+		UUID contentItemTypeId = CadseGCST.CONTENT_ITEM.getId();
+		if (contentRev == 0) {
+			// item not already in db
+			contentRev = db.createObject(contentId, contentItemTypeId,
+					stateMap, false);
+		} else {
+			contentRev = db.createNewObjectRevision(contentId, ModelVersionDBService.LAST);
+			db.setObjectState(contentId, contentRev, stateMap);
+		}
+		
+		int rev = item.getVersion();
+		UUID itemId = item.getId();
+		db.deleteOutgoingLinks(CadseGCST.ITEM_lt_CONTENTS.getId(), itemId, rev);
+		db.addLink(CadseGCST.ITEM_lt_CONTENTS.getId(), itemId, rev, contentId, contentRev, null, true);
+		
+		contentItem.setVersion(contentRev);
+		db.setObjectValue(contentId, contentRev, DBUtil.TW_COMMENT_ATTR_NAME, comment);
+		db.setObjectValue(contentId, contentRev, DBUtil.TW_COMMITER_ATTR_NAME, user);
+		db.setObjectValue(contentId, contentRev, DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
 	}
 
 	private void commitItemLinks(UUID itemId, ModelVersionDBService db) throws TransactionException, DBConnectionException {

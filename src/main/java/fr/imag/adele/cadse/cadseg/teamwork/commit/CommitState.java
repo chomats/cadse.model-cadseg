@@ -337,7 +337,8 @@ public class CommitState {
 			}
 		}
 		
-		_transaction.rollback();
+		if (_transaction != null)
+			_transaction.rollback();
 	}
 	
 	/**

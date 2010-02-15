@@ -68,6 +68,7 @@ import fede.workspace.tool.view.node.Rule;
 import fr.imag.adele.cadse.cadseg.teamwork.commit.CommitDialog.ItemsFromItemTypeWithFilterRule;
 import fr.imag.adele.cadse.cadseg.teamwork.db.DBUtil;
 import fr.imag.adele.cadse.cadseg.teamwork.db.ItemInDBDesc;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.ErrorNode;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemInDBNode;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWSelfViewContentProvider;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWUIUtil;
@@ -97,6 +98,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DSashFormUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
+import fr.imag.adele.teamwork.db.DBConnectionException;
 import fr.imag.adele.teamwork.db.ModelVersionDBException;
 import fr.imag.adele.teamwork.db.TransactionException;
 
@@ -129,7 +131,7 @@ public class UpdateDialogPage extends SWTDialog {
 
 	protected DButtonUI						_updateAllItemsField;
 	
-	protected DButtonUI						_clearAllOpsField;
+	protected DButtonUI						_clearOpsField;
 	
 	protected DButtonUI						_computeImpactsField;
 
@@ -146,6 +148,8 @@ public class UpdateDialogPage extends SWTDialog {
 	protected DListUI<IC_OperationsFromSelectedImpactForList>			_consequencesField;
 
 	protected List<UIRunningField<?>>				_selectedImpactDependentFields	= new ArrayList<UIRunningField<?>>();
+	
+	protected List<UIRunningField<?>>				_selectedRequirementDependentFields	= new ArrayList<UIRunningField<?>>();
 
 	/**
 	 * Status and definition of update operation.
@@ -155,12 +159,16 @@ public class UpdateDialogPage extends SWTDialog {
 	/**
 	 * Listeners interested in selection informations.
 	 */
-	protected List<OpSelectionListener>	    _selectListeners		= new ArrayList<OpSelectionListener>();
+	protected List<OpSelectionListener>	    _selectImpactListeners		= new ArrayList<OpSelectionListener>();
+	
+	protected List<OpSelectionListener>	    _selectRequirementListeners		= new ArrayList<OpSelectionListener>();
 
 	/*
 	 * State of this dialog.
 	 */
 	protected Operation					    _selectedImpact			= null;
+	
+	protected Operation 					_selectedRequirement = null;
 
 	/*
 	 * controller classes.
@@ -185,6 +193,9 @@ public class UpdateDialogPage extends SWTDialog {
 				Collection<ItemInDBDesc> itemDescs;
 				try {
 					itemDescs = DBUtil.getAllItemInDBDescs(itemType);
+				} catch (DBConnectionException e) {
+					ret.add(new ErrorNode(root, node,"Cannot connect to database " + e.getDBUrl()));
+					return;
 				} catch (Exception e) {
 					itemDescs = new HashSet<ItemInDBDesc>();
 				}
@@ -264,7 +275,7 @@ public class UpdateDialogPage extends SWTDialog {
 		_addItemToUpdateField = createAddItemToUpdateField();
 		_addItemToRevertField = createAddItemToRevertField();
 		_updateAllItemsField = createUpdateAllItemsField();
-		_clearAllOpsField = createClearAllOpsField();
+		_clearOpsField = createClearOpsField();
 		_computeImpactsField = createComputeImpactsField();
 		_impactsField = createImpactsField();
 		_errorsField = createErrorsField();
@@ -284,7 +295,7 @@ public class UpdateDialogPage extends SWTDialog {
 		
 		DGridUI requirementsButtonsGrid = _swtuiPlatforms.createDGridUI(_page, "#requirementsButtonPart", "", EPosLabel.none, defaultMc, null, 
 				_addItemToImportField, _addItemToUpdateField, _addItemToRevertField, 
-				_updateAllItemsField, _clearAllOpsField);
+				_updateAllItemsField, _clearOpsField);
 		requirementsButtonsGrid._field.setFlag(Item.UI_NO_BORDER, true);
 		
 		DGridUI requirementsGrid = _swtuiPlatforms.createDGridUI(_page, "#requirementsPart", "", EPosLabel.none, defaultMc, null, 
@@ -325,6 +336,18 @@ public class UpdateDialogPage extends SWTDialog {
 	}
 	
 	/**
+	 * Called when a requirement operation is selected.
+	 * 
+	 * @param selectedItem
+	 *            selected item
+	 */
+	public void setSelectedRequirement(Operation selectedRequirement) {
+		_selectedRequirement = selectedRequirement;
+		
+		refreshRequirementSelectDependentFields();
+	}
+	
+	/**
 	 * Called when an impact operation is selected.
 	 * 
 	 * @param selectedItem
@@ -341,7 +364,7 @@ public class UpdateDialogPage extends SWTDialog {
 		// retrieve list of update operations
 		final IC_OperationsFromSelectedImpactForList ic = new IC_OperationsFromSelectedImpactForList(_updateState, 
 				OperationAnalysisCategory.CONSEQUENCE);
-		_selectListeners.add(ic);
+		_selectImpactListeners.add(ic);
 		
 		AbstractModelController mc = new AbstractModelController() {
 
@@ -364,7 +387,7 @@ public class UpdateDialogPage extends SWTDialog {
 		// retrieve list of update operations
 		final IC_OperationsFromSelectedImpactForList ic = new IC_OperationsFromSelectedImpactForList(_updateState, 
 				OperationAnalysisCategory.CAUSE);
-		_selectListeners.add(ic);
+		_selectImpactListeners.add(ic);
 		
 		AbstractModelController mc = new AbstractModelController() {
 
@@ -459,9 +482,17 @@ public class UpdateDialogPage extends SWTDialog {
 		
 		refreshWizardButtons();
 	}
+	
+	private void refreshRequirementsFields() {
+		_requirementsField.resetVisualValue();
+		
+		refreshRequirementSelectDependentFields();
+		
+		refreshWizardButtons();
+	}
 
 	private void refreshImpactSelectDependentFields() {
-		for (OpSelectionListener listener : _selectListeners) {
+		for (OpSelectionListener listener : _selectImpactListeners) {
 			if (_selectedImpact == null)
 				listener.noMoreSelectedOperation();
 			else
@@ -471,13 +502,28 @@ public class UpdateDialogPage extends SWTDialog {
 			field.resetVisualValue();
 		}
 	}
+	
+	private void refreshRequirementSelectDependentFields() {
+		for (OpSelectionListener listener : _selectRequirementListeners) {
+			if (_selectedRequirement == null)
+				listener.noMoreSelectedOperation();
+			else
+				listener.selectOperation(_selectedRequirement);
+		}
+		for (UIRunningField<?> field : _selectedRequirementDependentFields) {
+			field.resetVisualValue();
+		}
+	}
 
-	private DButtonUI createClearAllOpsField() {
-		return _swtuiPlatforms.createDButtonUI(_page, "#clearAlloperationsField", "Clear all operations", EPosLabel.none, null, new ActionController() {
+	private DButtonUI createClearOpsField() {
+		return _swtuiPlatforms.createDButtonUI(_page, "#clearoperationsField", "Clear selected operations", EPosLabel.none, null, new ActionController() {
 
 			@Override
 			public void callAction() {
-				_updateState.getDefinition().clearRequirements();
+				if (_selectedRequirement == null)
+					return;
+				
+				_updateState.getDefinition().removeRequirementFor(_selectedRequirement.getItemId());
 				refreshRequirements();
 			}
 		});
@@ -846,6 +892,10 @@ public class UpdateDialogPage extends SWTDialog {
 						if (element == null) {
 							return null;
 						}
+						if (element instanceof ErrorNode) {
+							ErrorNode errorNode = (ErrorNode) element;
+							return errorNode.getErrorMsg();
+						}
 						if (element instanceof ItemInDBNode) {
 							ItemInDBNode itemNode = (ItemInDBNode) element;
 							return itemNode.getItemName();
@@ -857,6 +907,10 @@ public class UpdateDialogPage extends SWTDialog {
 
 					@Override
 					public Image getImage(Object element) {
+						if (element instanceof ErrorNode) {
+							ErrorNode errorNode = (ErrorNode) element;
+							return null;
+						}
 						if (element instanceof ItemInDBNode) {
 							ItemInDBNode itemNode = (ItemInDBNode) element;
 							return createImage(itemNode.getItemType(), null);
@@ -932,7 +986,24 @@ public class UpdateDialogPage extends SWTDialog {
 		};
 
 		// retrieve list of update operations
-		IC_OperationsForList ic = new IC_OperationsForList(_updateState, OperationCategory.REQUIREMENTS);
+		IC_OperationsForList ic = new IC_OperationsForList(_updateState, OperationCategory.REQUIREMENTS) {
+			@Override
+			public void initAfterUI() {
+				super.initAfterUI();
+
+				((FilteredTree) _requirementsField.getMainControl()).getViewer()
+						.addSelectionChangedListener(
+								new ISelectionChangedListener() {
+
+									@Override
+									public void selectionChanged(
+											SelectionChangedEvent event) {
+										_selectedRequirement = (Operation) ((TreeSelection) event.getSelection()).getFirstElement();
+										refreshRequirementsFields();
+									}
+								});
+			}
+		};
 		
 		return	_swtuiPlatforms.createDListUI(_page, "#listOfRequirements",
 				"Requirements", EPosLabel.top, mc, ic, false, false, false, false);

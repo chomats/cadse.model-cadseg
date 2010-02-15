@@ -889,7 +889,9 @@ public class CommitStatusDialog extends SWTDialog {
 			SelfViewContentProvider contentProvider = (SelfViewContentProvider) _treeField._ic
 					.getContentProvider();
 			contentProvider.notifieChangeEvent(null);
-			_treeField.getTreeViewer().refresh();
+			CheckboxTreeViewer treeViewer = _treeField.getTreeViewer();
+			if (treeViewer != null)
+				treeViewer.refresh();
 			_refreshTree = false;
 		}
 	}
@@ -1095,12 +1097,11 @@ public class CommitStatusDialog extends SWTDialog {
 
 						@Override
 						public void commitFail() {
-							refreshListOfCommitedItems();
-							p.refreshTree(true);
-							p.refreshSelectDependentFields();
-							
 							PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 								public void run() {
+									refreshListOfCommitedItems();
+									p.refreshTree(true);
+									p.refreshSelectDependentFields();
 									p._swtuiPlatforms.setMessageError("Commit failed !");
 								}
 							});

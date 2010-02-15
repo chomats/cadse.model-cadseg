@@ -212,4 +212,17 @@ public class UpdateDefinition {
 	public boolean hasRequirementOn(UUID itemId) {
 		return (_requirements.get(itemId) != null);
 	}
+
+	/**
+	 * Remove requirement related to specified item.
+	 * 
+	 * @param itemId id of item on which a requirement operation will be performed
+	 */
+	public void removeRequirementFor(UUID itemId) {
+		if (!_requirements.containsKey(itemId))
+			return;
+		
+		Operation op = _requirements.remove(itemId);
+		_requirementsList.remove(op);
+	}
 }

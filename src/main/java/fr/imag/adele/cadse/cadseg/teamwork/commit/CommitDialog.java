@@ -70,9 +70,11 @@ import fede.workspace.tool.view.node.FilteredItemNode.Category;
 import fr.imag.adele.cadse.cadseg.teamwork.Error;
 import fr.imag.adele.cadse.cadseg.teamwork.VisitedItems;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.CompleteItemNode;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.IC_ModifiedAttr_List;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemNodeWithoutChildren;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ItemSelectionListener;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.SelectedItemChangeLinkModelController;
+import fr.imag.adele.cadse.cadseg.teamwork.ui.SelectedItemChange_ModifiedAttr_ModelController;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWSelfViewContentProvider;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.TWUIUtil;
 import fr.imag.adele.cadse.core.CadseException;
@@ -1067,12 +1069,12 @@ public class CommitDialog extends SWTDialog {
 	 * Create a list field showing modified attributes.
 	 */
 	protected DListUI createModifiedAttrsField() {
-		SelectedItemChangeLinkModelController mc = new SelectedItemChangeLinkModelController(false, null);
+		SelectedItemChange_ModifiedAttr_ModelController mc = new SelectedItemChange_ModifiedAttr_ModelController(false, null);
 		_selectListeners.add(mc);
 
-		IC_LinkForBrowser_Combo_List ic = new IC_LinkForBrowser_Combo_List("Select a value.", "Select a value.");
+		IC_LinkForBrowser_Combo_List ic = new IC_ModifiedAttr_List("Select a value.", "Select a value.");
 		return _swtuiPlatforms.createDListUI(_page, CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,
-				"Modified Attributes and Links", EPosLabel.top, mc, ic, false, false, false, false);
+				"Modified Attributes, Links and Content", EPosLabel.top, mc, ic, false, false, false, false);
 	}
 
 	/**
@@ -1132,7 +1134,7 @@ public class CommitDialog extends SWTDialog {
 							CommitState commitState = p.getCommitState();
 							return !commitState.getErrors().hasError() && !commitState.hasNoItemToCommit();
 						}
-
+						
 						@Override
 						public boolean performFinish() {
 							IRunnableWithProgress op = new IRunnableWithProgress() {
@@ -1171,8 +1173,33 @@ public class CommitDialog extends SWTDialog {
 						@Override
 						public boolean performCancel() {
 							super.performCancel();
-
-							p._commitState.abortCommit();
+							
+							IRunnableWithProgress op = new IRunnableWithProgress() {
+								public void run(IProgressMonitor monitor) throws InvocationTargetException,
+										InterruptedException {
+									try {
+										p._commitState.abortCommit();
+									} catch (Throwable e) {
+										throw new InvocationTargetException(e);
+									} finally {
+										monitor.done();
+									}
+								}
+							};
+							try {
+								getContainer().run(false, false, op);
+							} catch (InterruptedException e) {
+								return false;
+							} catch (InvocationTargetException e) {
+								Throwable realException = e.getTargetException();
+								if (realException instanceof NullPointerException) {
+									MessageDialog.openError(getShell(), "Error", "Null pointeur exception");
+									realException.printStackTrace();
+									return false;
+								}
+								MessageDialog.openError(getShell(), "Error", realException.getMessage());
+								return false;
+							}
 
 							return true;
 						}

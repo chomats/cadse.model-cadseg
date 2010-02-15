@@ -25,6 +25,8 @@ public class DBUtil {
 	public static final String TW_COMMITER_ATTR_NAME = "TW_COMMITER";
 	public static final String TW_COMMENT_ATTR_NAME = "TW_COMMENT";
 	public static final String PARENT_ATTR_NAME = "TW_PARENT_ID";
+	public static final String SCM_REPO_URL_ATTR_NAME = "TW_SCM_REPO_URL";
+	public static final String SCM_REV_ATTR_NAME = "TW_SCM_REPO_REV";
 
 	/**
 	 * Returns all revisions of specified item.
@@ -66,9 +68,7 @@ public class DBUtil {
 	 */
 	public static void connectToDB(ModelVersionDBService db, ItemType itemType)
 			throws TransactionException, DBConnectionException {
-		Item cadseRuntime = itemType.getOutgoingItem(
-				CadseGCST.TYPE_DEFINITION_lt_CADSE, true);
-		String cadseName = cadseRuntime.getName();
+		String cadseName = TWUtil.getCadse(itemType);
 		DBConnexionParams dbParams = DBConnexionParams
 				.getConnectionParams(cadseName);
 		String url = dbParams.getUrl();
@@ -199,4 +199,6 @@ public class DBUtil {
 		
 		return itemDescs;
 	}
+	
+	
 }
