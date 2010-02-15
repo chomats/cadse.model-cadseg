@@ -778,7 +778,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 
 	/** The _default. */
 	private static ItemTypeManager	_default;
-	public static final String B_UNDLE_URL = PlatformURLHandler.PROTOCOL + PlatformURLHandler.PROTOCOL_SEPARATOR + '/' + PlatformURLHandler.BUNDLE + '/';
+	public static final String B_UNDLE_URL = PlatformURLHandler.PROTOCOL + PlatformURLHandler.PROTOCOL_SEPARATOR + '/' + "plugin" + '/';
 
 	
 
