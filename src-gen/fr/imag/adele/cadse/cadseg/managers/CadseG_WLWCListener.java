@@ -306,12 +306,29 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		CadseGCST.ATTRIBUTE.addLogicalWorkspaceTransactionListener(this);
 		CadseGCST.FIELD.addLogicalWorkspaceTransactionListener(this);
 		CadseGCST.MENU_ACTION.addLogicalWorkspaceTransactionListener(this);
+		CadseGCST.CONTENT_ITEM_TYPE.addLogicalWorkspaceTransactionListener(this);
 	}
 
 	@Override
 	public void notifyCreatedItem(LogicalWorkspaceTransaction wc, ItemDelta item) throws CadseException {
 		if (!isInCadseDefinition(item))
 			return;
+		if (item.isInstanceOf(CadseGCST.CONTENT_ITEM_TYPE)) {
+			Item linkType = item.getIncomingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION);
+			if (linkType == null) {
+				Item itemType = item.getPartParent();
+				if (itemType.isInstanceOf(CadseGCST.MANAGER)) {
+					itemType = ManagerManager.getItemType(itemType);
+				}
+				linkType = wc.createItem(CadseGCST.CONTENT_LINK_TYPE, itemType , CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES);
+				linkType.setName("contents");
+			}
+			LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
+			LinkTypeManager.setMaxAttribute(linkType, 1);
+			LinkTypeManager.setMinAttribute(linkType, 0);
+			linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, item);
+		}
+		
 		/*
 		 * Create dialog item and first page
 		 */
@@ -890,6 +907,14 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	public void notifyDeletedItem(LogicalWorkspaceTransaction wc, ItemDelta item) throws CadseException {
 		if (!isInCadseDefinition(item))
 			return;
+		
+		if (item.isInstanceOf(CadseGCST.CONTENT_ITEM_TYPE)) {
+			Item linkType = item.getIncomingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION);
+			if (linkType != null) {
+				linkType.delete(false);
+			}
+		}
+		
 		if (item.isInstanceOf(CadseGCST.TYPE_DEFINITION)) {
 			ItemDelta manager = (ItemDelta) ManagerManager.getManagerFromItemType(item);
 			if (manager != null && !manager.isDeleted()) {
