@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.cadseg.teamwork.ui.IC_ModifiedAttr_List;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ModifiedAttr_ModelController;
 import fr.imag.adele.cadse.cadseg.validators.ExtendsClassValidator;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
+import fr.imag.adele.cadse.cadseg.validators.NotEmptyValidator;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -84,9 +85,11 @@ public class PageInit {
 	 * @return the group name.
 	 */
 	private static GroupOfAttributesDescriptor createGroupNameItem() {
-		return createGroup("Name", 1, false, CadseGCST.ITEM_at_NAME_,
+		return createGroup("Name", 1, false,
+				CadseGCST.ITEM_at_NAME_,
 				CadseGCST.ITEM_at_DISPLAY_NAME_,
-				CadseGCST.ITEM_at_QUALIFIED_NAME_);
+				CadseGCST.ITEM_at_QUALIFIED_NAME_,
+				CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_);
 	}
 
 	
@@ -457,6 +460,12 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
+		CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, false);
+		CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_.setFlag(
+				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
+		
+		
 		
 		
 		// ***************** //
@@ -819,6 +828,39 @@ public class PageInit {
 			CadseGCST.FILE_CONTENT_MODEL.addField(field);
 		}
 
+		// FOLDER_CONTENT_MODEL_at_FOLDER_PATH_
+		{
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ItemTypeTemplateForTextFromManager.class);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_, "Folder path",
+					EPosLabel.left, mc, ic);
+			CadseGCST.FOLDER_CONTENT_MODEL.addField(field);
+		}
+		
+		// JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_
+		{
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ItemTypeTemplateForTextFromManager.class);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_, "Class name",
+					EPosLabel.left, mc, ic);
+			CadseGCST.JAVA_FILE_CONTENT_MODEL.addField(field);
+		}
+		
+		// JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_
+		{
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ItemTypeTemplateForTextFromManager.class);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_, "Package name",
+					EPosLabel.left, mc, ic);
+			CadseGCST.JAVA_FILE_CONTENT_MODEL.addField(field);
+		}
+		
 		// BOOLEAN - ATTRIBUTE_at_DEFAULT_VALUE_
 		{
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
@@ -953,6 +995,8 @@ public class PageInit {
 		
 		
 		
+		
+		
 		// ********** //
 		// Validators //
 		// ********** //
@@ -997,6 +1041,46 @@ public class PageInit {
 			v.setClazz(ExtendsClassValidator.class);
 			v.setListenAttributes(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_);
 			CadseGCST.FILE_CONTENT_MODEL.addValidators(v);
+		}
+		
+		// FILE_CONTENT_MODEL_at_FILE_PATH_
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(NotEmptyValidator.class);
+			v.setListenAttributes(CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_);
+			CadseGCST.FILE_CONTENT_MODEL.addValidators(v);
+		}
+		
+		// JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(NotEmptyValidator.class);
+			v.setListenAttributes(CadseGCST.JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_);
+			CadseGCST.JAVA_FILE_CONTENT_MODEL.addValidators(v);
+		}
+		
+		// JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(NotEmptyValidator.class);
+			v.setListenAttributes(CadseGCST.JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_);
+			CadseGCST.JAVA_FILE_CONTENT_MODEL.addValidators(v);
+		}
+		
+		// FOLDER_CONTENT_MODEL_at_FOLDER_PATH_
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(NotEmptyValidator.class);
+			v.setListenAttributes(CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_);
+			CadseGCST.FOLDER_CONTENT_MODEL.addValidators(v);
+		}
+		
+		// PROJECT_CONTENT_MODEL_at_PROJECT_NAME_
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(NotEmptyValidator.class);
+			v.setListenAttributes(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_);
+			CadseGCST.PROJECT_CONTENT_MODEL.addValidators(v);
 		}
 		
 		
