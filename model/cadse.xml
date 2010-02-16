@@ -2426,8 +2426,8 @@
 		error-valid-id="Name must match pattern [a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		icon="platform:/plugin/Model.Workspace.CadseG/icons/ProjectContentModel.gif"
 		manager-class="fr.imag.adele.cadse.cadseg.managers.content.ProjectContentModelManager"
-		display-name="ProjectContentModel" is-abstract="true" is-root-element="false"
-		intID="0" has-content="true" package-name="content"
+		display-name="ProjectContentModel" is-abstract="false"
+		is-root-element="false" intID="0" has-content="true" package-name="content"
 		super-type-name="7b68d97c-9665-458f-acf8-14d41665d25a" name="ProjectContentModel"
 		qualified-name="CadseG.content.ProjectContentModel" cst-name="PROJECT_CONTENT_MODEL"
 		id="21dde338-243d-4c3c-a3d2-a982cc93fce7">
