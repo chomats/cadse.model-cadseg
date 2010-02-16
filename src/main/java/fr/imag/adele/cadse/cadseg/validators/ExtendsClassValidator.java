@@ -7,14 +7,6 @@ import fr.imag.adele.cadse.core.ui.UIPlatform;
 
 public class ExtendsClassValidator extends AbstractUIRunningValidator {
 
-
-	@Override
-	public void initAfterUI() {
-		// TODO Auto-generated method stub
-		super.initAfterUI();
-	}
-	
-	
 	@Override
  	public void init(UIPlatform uiPlatform) {
  		super.init(uiPlatform);
