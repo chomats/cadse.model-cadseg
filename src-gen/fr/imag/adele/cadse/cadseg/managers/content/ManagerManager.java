@@ -168,6 +168,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 			}
 			cm.itemtype = getItemType(manager);
+			if (cm.itemtype == null) {
+				return;
+			}
 			cm.manager = manager;
 			cm.itemName = cm.itemtype.getName();
 			cm.className = getClassName(cxt);

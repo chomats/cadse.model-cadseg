@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.actions;
 
+import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseException;
 
@@ -84,11 +85,13 @@ public class MenuAbstractManager extends DefaultItemManager {
 	 */
 	public static String getIconPath(Item manager) {
 		String pStr = getIconAttribute(manager);
-		if (pStr == null)
+		if (pStr == null || pStr.length() == 0)
 			return null;
-		IPath p = new Path(pStr);
-		return p.removeFirstSegments(1).makeRelative().toPortableString();
+		Item cadseDefinition = manager.getPartParent(CadseGCST.CADSE_DEFINITION);
+		return ItemTypeManager.getIconURLFromCadse(pStr, cadseDefinition );
 	}
+	
+	
 
 	/**
 	 * Gets the path attribute.
