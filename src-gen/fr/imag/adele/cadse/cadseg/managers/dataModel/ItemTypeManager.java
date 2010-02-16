@@ -629,6 +629,11 @@ public class ItemTypeManager extends TypeDefinitionManager {
 			setIconAttribute(itemType, pStr);
 		}
 		Item cadseDefinition = ItemTypeManager.getCadseDefinition(itemType);
+		return getIconURLFromCadse(pStr, cadseDefinition);
+	}
+
+
+	public static String getIconURLFromCadse(String pStr, Item cadseDefinition) {
 		String ret = B_UNDLE_URL + cadseDefinition.getQualifiedName() + '/';
 		if (pStr.startsWith(MC_ResourceToURL.RESOURCE_URL_STRING)) {
 			URL iconURL;

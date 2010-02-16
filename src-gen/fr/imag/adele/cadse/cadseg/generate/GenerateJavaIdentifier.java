@@ -36,6 +36,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
@@ -590,7 +591,15 @@ public class GenerateJavaIdentifier {
 	 * @return the string
 	 */
 	public static String javaClassNamePageFactoryFromPage(ContextVariable cxt, Item page) {
-		Item itemtype = page.getPartParent(CadseGCST.ITEM_TYPE);
+		Item itemtype = null;
+		if (page instanceof IPage) {
+			itemtype = ((IPage) page).getParentItemType();
+		}
+		else
+			itemtype = page.getPartParent(CadseGCST.ITEM_TYPE);
+		if (itemtype == null)
+			return "<?>";
+		
 		if (PageManager.isModificationPage(page)) {
 			return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemtype) + "-" + cxt.getName(page), true,
 					false, "_ModificationPage");

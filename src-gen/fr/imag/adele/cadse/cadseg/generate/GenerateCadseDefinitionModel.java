@@ -746,32 +746,32 @@ public class GenerateCadseDefinitionModel {
 //		return modificationDialog;
 //	}
 
-	/**
-	 * Generate pages.
-	 * 
-	 * @param cxt
-	 *            the cxt
-	 * @param factory
-	 *            the factory
-	 * @param pages
-	 *            the pages
-	 * @param pagesItems
-	 *            the pages items
-	 */
-	private static void generatePages(ContextVariable cxt, ObjectFactory factory, CPages pages,
-			Collection<Item> pagesItems) {
-		for (Item aPageItem : pagesItems) {
-			CPage aPage = factory.createCPage();
-			pages.getPage().add(aPage);
-			aPage.setCas(PageManager.isModificationPage(aPageItem) ? ConfigurablePageFactory.PAGE_PROPERTY_ITEM
-					: ConfigurablePageFactory.PAGE_CREATION_ITEM);
-
-			aPage.setClassName(GenerateJavaIdentifier.qualifiedPageFactoryFromPage(cxt, aPageItem));
-			aPage.setId(aPageItem.getName());
-			aPage.setUuid(PageManager.getIdRuntime(aPageItem).toString());
-			aPage.setTitre(PageManager.getTitle(aPageItem));
-		}
-	}
+//	/**
+//	 * Generate pages.
+//	 * 
+//	 * @param cxt
+//	 *            the cxt
+//	 * @param factory
+//	 *            the factory
+//	 * @param pages
+//	 *            the pages
+//	 * @param pagesItems
+//	 *            the pages items
+//	 */
+//	private static void generatePages(ContextVariable cxt, ObjectFactory factory, CPages pages,
+//			Collection<Item> pagesItems) {
+//		for (Item aPageItem : pagesItems) {
+//			CPage aPage = factory.createCPage();
+//			pages.getPage().add(aPage);
+//			aPage.setCas(PageManager.isModificationPage(aPageItem) ? ConfigurablePageFactory.PAGE_PROPERTY_ITEM
+//					: ConfigurablePageFactory.PAGE_CREATION_ITEM);
+//
+//			aPage.setClassName(GenerateJavaIdentifier.qualifiedPageFactoryFromPage(cxt, aPageItem));
+//			aPage.setId(aPageItem.getName());
+//			aPage.setUuid(PageManager.getIdRuntime(aPageItem).toString());
+//			aPage.setTitre(PageManager.getTitle(aPageItem));
+//		}
+//	}
 
 	public static void addGenerateCadseDefinitionModelExt(GenerateCadseDefinitionModelExt g) {
 		if (!generatorsExt.contains(g)) {
