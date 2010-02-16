@@ -613,7 +613,7 @@ public class GenerateCadseDefinitionModel {
 		cit.setPatternValidId(pattern_valid_id);
 		cit.setManagerClass(ItemTypeManager.getManagerClass(itemType,null, null));
 		cit.setCstName(GenerateJavaIdentifier.cstItemType(cxt, itemType));
-		cit.setDefaultShortName(ItemTypeManager.getDefaultInstanceNameAttribute(itemType));
+		cit.setDefaultShortName(notempty(ItemTypeManager.getDefaultInstanceNameAttribute(itemType)));
 	}
 
 	/**

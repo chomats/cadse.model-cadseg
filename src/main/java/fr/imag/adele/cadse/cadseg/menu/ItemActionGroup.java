@@ -45,6 +45,7 @@ import fede.workspace.tool.view.menu.MenuNewAction;
 import fede.workspace.tool.view.menu.RecreatePartLinkAction;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.RootNode;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ExtendedType;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -578,6 +579,11 @@ public class ItemActionGroup  extends AbstractActionContributor {
 							viewUIController).length != 0) {
 				menu.insert(IMenuAction.CONTEXT_2_MENU, new CreateLinkAction(item, shellprovider,
 						viewUIController), true);
+			}
+			
+			
+			if (item != null && item.isResolved() && item.isInstanceOf(CadseGCST.CADSE_DEFINITION)) {
+				menu.insert(IMenuAction.CONTEXT_2_MENU, new SyncCadseXml(), true);
 			}
 		}
 	}
