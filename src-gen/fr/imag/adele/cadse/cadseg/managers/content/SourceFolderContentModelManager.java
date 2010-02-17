@@ -26,7 +26,10 @@ import java.util.UUID;
 import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 
 /**
  * The Class SourceFolderContentModelManager.
@@ -112,6 +115,24 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getOutputPathAttribute(Item sourceFolderContentModel) {
+		return sourceFolderContentModel.getAttributeWithDefaultValue(CadseGCST.SOURCE_FOLDER_CONTENT_MODEL_at_OUTPUT_PATH_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setOutputPathAttribute(Item sourceFolderContentModel, String value) {
+		try {
+			sourceFolderContentModel.setAttribute(CadseGCST.SOURCE_FOLDER_CONTENT_MODEL_at_OUTPUT_PATH_, value);
+		} catch (Throwable t) {
+
 		}
 	}
 
