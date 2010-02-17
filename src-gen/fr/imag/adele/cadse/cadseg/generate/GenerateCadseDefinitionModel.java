@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.eclipse.core.internal.content.ContentTypeManager;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaElement;
@@ -47,6 +48,7 @@ import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
+import fr.imag.adele.cadse.cadseg.managers.content.ContentItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ContentLinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
@@ -279,6 +281,14 @@ public class GenerateCadseDefinitionModel {
 					l.setKey(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION.getName());
 					clt.getLink().add(l);
 					
+					l = factory.createCLink();
+					l.setDestinationId(c.getId());
+					l.setType(CadseGCST.ITEM_TYPE_lt_CONTENT_MODEL.getId().toString());
+					l.setIsReadonly(true);
+					l.setIsHidden(true);
+					l.setKey(CadseGCST.ITEM_TYPE_lt_CONTENT_MODEL.getName());
+					cit.getLink().add(l);
+					
 				}
 			} else {
 				CValuesType cvt;
@@ -384,10 +394,13 @@ public class GenerateCadseDefinitionModel {
 	private static CItem addItem(ObjectFactory factory, Item attribute) {
 		CItem c = factory.createCItem();
 		Item cItem = ContentLinkTypeManager.getContentDefinition(attribute);
-		c.setId(cItem.getId().toString());
+		
+		c.setId(ContentItemTypeManager.getIdRuntime(cItem).toString());
 		c.setType(cItem.getType().getId().toString());
 		IAttributeType<?>[] attributesItem = cItem.getLocalAllAttributeTypes();
 		for (IAttributeType<?> attType : attributesItem) {
+			if (attType == CadseGCST.ITEM_at_ID_) continue;
+			
 			if (attType instanceof LinkType) continue;
 			Object v = cItem.getAttributeOwner(attType);
 			if (v == null || isEmpty(v)) continue;

@@ -619,6 +619,30 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		return true;
 	}
 
-	
+	/**
+	 * Gets the uUID.
+	 * 
+	 * @param itemtype
+	 *            the itemtype
+	 * 
+	 * @return the uUID
+	 */
+	public static UUID getIdRuntime(Item contentIT) {
+		
+		String uuid_str = contentIT.getAttributeOwner(CadseGCST.CONTENT_ITEM_TYPE_at_ID_RUNTIME_);
+		if (uuid_str == null || uuid_str.length() == 0) {
+			UUID uuid = UUID.randomUUID();
+			uuid_str = uuid.toString();
+			try {
+				contentIT.setAttribute(CadseGCST.CONTENT_ITEM_TYPE_at_ID_RUNTIME_, uuid_str);
+			} catch (CadseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return uuid;
+		}
+		return UUID.fromString(uuid_str);
+
+	}
 
 }
