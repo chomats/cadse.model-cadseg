@@ -1375,6 +1375,42 @@ public class ItemTypeManager extends TypeDefinitionManager {
 
 
 	/**
+		get a link 'Create new revision' from 'ItemType' to 'ContentItemType'.
+		@generated
+	*/
+	static public Link getCreateNewRevisionLink(Item itemType) {
+		return itemType.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_CREATE_NEW_REVISION);
+	}
+
+
+	/**
+		get all link destination 'Create new revision' from 'ItemType' to 'ContentItemType'.
+		@generated
+	*/
+	static public Item getCreateNewRevisionAll(Item itemType) {
+		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATE_NEW_REVISION, false);
+	}
+
+
+	/**
+		get resolved link destination 'Create new revision' from 'ItemType' to 'ContentItemType'.
+		@generated
+	*/
+	static public Item getCreateNewRevision(Item itemType) {
+		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATE_NEW_REVISION, true);
+	}
+
+
+	/**
+		set a link 'Create new revision' from 'ItemType' to 'ContentItemType'.
+		@generated
+	*/
+	static public void setCreateNewRevision(Item itemType, Item value) throws CadseException {
+		itemType.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATE_NEW_REVISION,value);
+	}
+
+
+	/**
 	 * Retourne tous les sous types y compris lui - m�me de toutes la
 	 * hierarchie.
 	 * 
