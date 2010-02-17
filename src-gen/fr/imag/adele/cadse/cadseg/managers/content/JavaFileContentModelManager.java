@@ -28,7 +28,10 @@ import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 
 /**
  * The Class JavaFileContentModelManager.
@@ -127,7 +130,43 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 		}
 	}
 
-//	/**
+/**
+		@generated
+	*/
+	public static final String getPackageNameAttribute(Item javaFileContentModel) {
+		return javaFileContentModel.getAttributeWithDefaultValue(CadseGCST.JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setPackageNameAttribute(Item javaFileContentModel, String value) {
+		try {
+			javaFileContentModel.setAttribute(CadseGCST.JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getClassNameAttribute(Item javaFileContentModel) {
+		return javaFileContentModel.getAttributeWithDefaultValue(CadseGCST.JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setClassNameAttribute(Item javaFileContentModel, String value) {
+		try {
+			javaFileContentModel.setAttribute(CadseGCST.JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	//	/**
 //	 * Creates the class name field.
 //	 * 
 //	 * @return the uI field
