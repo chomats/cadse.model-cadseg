@@ -210,7 +210,7 @@ public class CommitDialog extends SWTDialog {
 			}
 			for (Item valueItem : values) {
 				ItemType type = valueItem.getType();
-				if (valueItem.isStatic()) {
+				if (valueItem.isRuntime()) {
 					continue;
 				}
 
@@ -585,7 +585,7 @@ public class CommitDialog extends SWTDialog {
 				model.addRule(CadseGCST.LINK_TYPE, new ItemsFromLinkFromLinkTypeRule(
 						ItemShortNameComparator.INSTANCE, false, false, new FilterItem() {
 							public boolean accept(Item item) {
-								return !item.isStatic() && _itemsToShow.contains(item.getId());
+								return !item.isRuntime() && _itemsToShow.contains(item.getId());
 							}
 						}));
 			}
@@ -870,7 +870,7 @@ public class CommitDialog extends SWTDialog {
 			@Override
 			public void callAction() {
 				for (Item item : CadseCore.getLogicalWorkspace().getItems()) {
-					if (item.isStatic() || !TWUtil.isModified(item)) {
+					if (item.isRuntime() || !TWUtil.isModified(item)) {
 						continue;
 					}
 
