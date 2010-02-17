@@ -704,6 +704,9 @@ public class GenerateCadseDefinitionModel {
 		clt.setInverseLink(notempty(LinkTypeManager.getInverseLinkName(linkType)));
 		clt.setHidden(LinkTypeManager.isHiddenAttribute(linkType));
 		clt.setType(linkType.getType().getId().toString());
+		
+		AttributeManager managerLT = (AttributeManager) linkType.getType().getItemManager();
+		clt.setFlag(managerLT.getCadseRootFlag(linkType));
 		return clt;
 	}
 
