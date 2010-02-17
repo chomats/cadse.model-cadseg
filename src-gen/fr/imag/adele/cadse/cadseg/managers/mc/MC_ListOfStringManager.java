@@ -32,6 +32,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
 
 /**
  * The Class ListOfStringModelControllerManager.
@@ -135,6 +136,42 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final int getMinAttribute(Item mC_ListOfString) {
+		return mC_ListOfString.getAttributeWithDefaultValue(CadseGCST.MC_LIST_OF_STRING_at_MIN_, -1);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setMinAttribute(Item mC_ListOfString, int value) {
+		try {
+			mC_ListOfString.setAttribute(CadseGCST.MC_LIST_OF_STRING_at_MIN_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final int getMaxAttribute(Item mC_ListOfString) {
+		return mC_ListOfString.getAttributeWithDefaultValue(CadseGCST.MC_LIST_OF_STRING_at_MAX_, -1);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setMaxAttribute(Item mC_ListOfString, int value) {
+		try {
+			mC_ListOfString.setAttribute(CadseGCST.MC_LIST_OF_STRING_at_MAX_, value);
+		} catch (Throwable t) {
+
 		}
 	}
 
