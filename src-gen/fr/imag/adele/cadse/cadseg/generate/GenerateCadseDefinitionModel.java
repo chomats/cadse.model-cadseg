@@ -47,16 +47,20 @@ import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
+import fr.imag.adele.cadse.cadseg.managers.content.ContentLinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
+import fr.imag.adele.cadse.core.LinkType;
+
 import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.transaction.delta.WLWCOperation;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWDestEvol;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
@@ -144,7 +148,7 @@ public class GenerateCadseDefinitionModel {
 			cit.setIntID(intID++);
 			cadse.getItemType().add(cit);
 			setItemType(cxt, (ItemType) itemType, manager, cit);
-			generateCommonInformation(cxt, factory, itemType, cit, labelproperties);
+			generateCommonInformation(cxt, factory, cadse, itemType, cit, labelproperties);
 		}
 
 		Item[] extItemTypes = ItemTypeManager.getAllExtItemType(theDataModel);
@@ -176,7 +180,7 @@ public class GenerateCadseDefinitionModel {
 				}
 			}
 
-			generateCommonInformation(cxt, factory, extIt, ceit, labelproperties);
+			generateCommonInformation(cxt, factory, cadse, extIt, ceit, labelproperties);
 		}
 
 		for (GenerateCadseDefinitionModelExt g : generatorsExt) {
@@ -216,12 +220,12 @@ public class GenerateCadseDefinitionModel {
 	 * @param cit
 	 *            the cit
 	 */
-	private static void generateCommonInformation(ContextVariable cxt, ObjectFactory factory, Item abstractItemType,
+	private static void generateCommonInformation(ContextVariable cxt, ObjectFactory factory, CCadse cadse, Item abstractItemType,
 			CTypeDefinition cit, Properties labelproperties) {
 		// creation page
 		//generateCreationDialog(cxt, factory, abstractItemType, cit);
 		//generateModificationDialog(cxt, factory, abstractItemType, cit);
-		generateAttributes(cxt, factory, abstractItemType, cit, labelproperties);
+		generateAttributes(cxt, factory, cadse, abstractItemType, cit, labelproperties);
 
 		Item menu = ActionExtItemTypeExt.getActionsModel(abstractItemType);
 		if (menu != null) {
@@ -241,7 +245,8 @@ public class GenerateCadseDefinitionModel {
 	 * @param cit
 	 *            the cit
 	 */
-	private static void generateAttributes(ContextVariable cxt, ObjectFactory factory, Item abstractItemType,
+	private static void generateAttributes(ContextVariable cxt, ObjectFactory factory, CCadse cadse, 
+			Item abstractItemType,
 			CTypeDefinition cit, Properties labelproperties) {
 		Collection<Item> outgoingItem = abstractItemType.getOutgoingItems(
 				CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, true);
@@ -263,6 +268,18 @@ public class GenerateCadseDefinitionModel {
 				CLinkType clt = generateOutgoingLink(cxt, factory, abstractItemType, cit, attribute, itemTypeDest);
 				clt.setIntID(intID++);
 				setLinkEvolutionInfo(clt, attribute);
+				if (attribute.isInstanceOf(CadseGCST.CONTENT_LINK_TYPE)) {
+					CItem c = addItem(factory, attribute);
+					cadse.getItem().add(c);
+					CLink l = factory.createCLink();
+					l.setDestinationId(c.getId());
+					l.setType(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION.getId().toString());
+					l.setIsReadonly(true);
+					l.setIsHidden(true);
+					l.setKey(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION.getName());
+					clt.getLink().add(l);
+					
+				}
 			} else {
 				CValuesType cvt;
 				AttributeManager manager = (AttributeManager) attribute.getType().getItemManager();
@@ -362,6 +379,29 @@ public class GenerateCadseDefinitionModel {
 				}
 			}
 		}
+	}
+
+	private static CItem addItem(ObjectFactory factory, Item attribute) {
+		CItem c = factory.createCItem();
+		Item cItem = ContentLinkTypeManager.getContentDefinition(attribute);
+		c.setId(cItem.getId().toString());
+		c.setType(cItem.getType().getId().toString());
+		IAttributeType<?>[] attributesItem = cItem.getLocalAllAttributeTypes();
+		for (IAttributeType<?> attType : attributesItem) {
+			if (attType instanceof LinkType) continue;
+			Object v = cItem.getAttributeOwner(attType);
+			if (v == null || isEmpty(v)) continue;
+			CValuesType value = factory.createCValuesType();
+			value.setId(attType.getId().toString());
+			value.setValue(v.toString());
+			value.setKey(attType.getName());
+			c.getAttributesValue().add(value);
+		}
+		return c;
+	}
+
+	private static boolean isEmpty(Object v) {
+		return v instanceof String && ((String)v).length() == 0;
 	}
 
 	private static void setLinkEvolutionInfo(CLinkType clt, Item attribute) {
