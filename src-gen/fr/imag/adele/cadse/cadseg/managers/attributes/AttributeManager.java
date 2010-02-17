@@ -533,7 +533,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	 * @return the uUID
 	 */
 	public static UUID getIdRuntime(Item attribute) {
-		if (attribute.isStatic())
+		if (attribute.isRuntime())
 			return attribute.getId();
 		
 		String uuid_str = getIdRuntimeAttribute(attribute);
