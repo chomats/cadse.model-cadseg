@@ -1375,38 +1375,38 @@ public class ItemTypeManager extends TypeDefinitionManager {
 
 
 	/**
-		get a link 'Create new revision' from 'ItemType' to 'ContentItemType'.
+		get a link 'content-model' from 'ItemType' to 'ContentItemType'.
 		@generated
 	*/
-	static public Link getCreateNewRevisionLink(Item itemType) {
-		return itemType.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_CREATE_NEW_REVISION);
+	static public Link getContentModelLink(Item itemType) {
+		return itemType.getOutgoingLink(CadseGCST.ITEM_TYPE_lt_CONTENT_MODEL);
 	}
 
 
 	/**
-		get all link destination 'Create new revision' from 'ItemType' to 'ContentItemType'.
+		get all link destination 'content-model' from 'ItemType' to 'ContentItemType'.
 		@generated
 	*/
-	static public Item getCreateNewRevisionAll(Item itemType) {
-		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATE_NEW_REVISION, false);
+	static public Item getContentModelAll(Item itemType) {
+		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CONTENT_MODEL, false);
 	}
 
 
 	/**
-		get resolved link destination 'Create new revision' from 'ItemType' to 'ContentItemType'.
+		get resolved link destination 'content-model' from 'ItemType' to 'ContentItemType'.
 		@generated
 	*/
-	static public Item getCreateNewRevision(Item itemType) {
-		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATE_NEW_REVISION, true);
+	static public Item getContentModel(Item itemType) {
+		return itemType.getOutgoingItem(CadseGCST.ITEM_TYPE_lt_CONTENT_MODEL, true);
 	}
 
 
 	/**
-		set a link 'Create new revision' from 'ItemType' to 'ContentItemType'.
+		set a link 'content-model' from 'ItemType' to 'ContentItemType'.
 		@generated
 	*/
-	static public void setCreateNewRevision(Item itemType, Item value) throws CadseException {
-		itemType.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_CREATE_NEW_REVISION,value);
+	static public void setContentModel(Item itemType, Item value) throws CadseException {
+		itemType.setOutgoingItem(CadseGCST.ITEM_TYPE_lt_CONTENT_MODEL,value);
 	}
 
 
