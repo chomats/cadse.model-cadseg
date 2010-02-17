@@ -47,6 +47,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
@@ -576,6 +577,24 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 	public static final void setExtendsClassAttribute(Item contentItemType, boolean value) {
 		try {
 			contentItemType.setAttribute(CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getIdRuntimeAttribute(Item contentItemType) {
+		return contentItemType.getAttributeWithDefaultValue(CadseGCST.CONTENT_ITEM_TYPE_at_ID_RUNTIME_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setIdRuntimeAttribute(Item contentItemType, String value) {
+		try {
+			contentItemType.setAttribute(CadseGCST.CONTENT_ITEM_TYPE_at_ID_RUNTIME_, value);
 		} catch (Throwable t) {
 
 		}
