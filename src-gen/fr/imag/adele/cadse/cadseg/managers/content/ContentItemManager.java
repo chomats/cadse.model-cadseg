@@ -173,6 +173,24 @@ public class ContentItemManager extends DefaultItemManager implements IItemFacto
 		}
 	}
 
+	/**
+		@generated
+	*/
+	public static final String getScmRepoURLAttribute(Item contentItem) {
+		return contentItem.getAttributeWithDefaultValue(CadseGCST.CONTENT_ITEM_at_SCM_REPO_URL_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setScmRepoURLAttribute(Item contentItem, String value) {
+		try {
+			contentItem.setAttribute(CadseGCST.CONTENT_ITEM_at_SCM_REPO_URL_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
 	@Override
 	public Item newForCommitItem(LogicalWorkspace logicalWorkspace,
 			ItemType itemType, ItemDelta itemOp) {
