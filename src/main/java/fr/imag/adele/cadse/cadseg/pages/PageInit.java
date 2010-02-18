@@ -992,10 +992,34 @@ public class PageInit {
 					IC_JavaClassForBrowser_Combo.class);
 		}
 		
+		// CadseGCST.CONTENT_ITEM_at_SCM_MODIFIED_
+		{
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+					CadseGCST.CONTENT_ITEM_at_SCM_MODIFIED_, "Content is considered modified by the SCM",
+					EPosLabel.none, mc,	null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+		}
 		
+		// CadseGCST.CONTENT_ITEM_at_SCM_REPO_URL_
+		{
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.CONTENT_ITEM_at_SCM_REPO_URL_, "Maven SCM repository URL",
+					EPosLabel.left, null, null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+		}
 		
-		
-		
+		// CadseGCST.CONTENT_ITEM_at_SCM_REVISION_
+		{
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.CONTENT_ITEM_at_SCM_REVISION_, "Revision",
+					EPosLabel.left, null, null);
+			field.setEditable(false);
+			CadseGCST.ITEM.addField(field);
+		}
+				
 		
 		// ********** //
 		// Validators //
@@ -1210,6 +1234,18 @@ public class PageInit {
 
 			);
 
+			CadseGCST.ITEM.addModificationPages(evolPage);
+		}
+		
+		// SCM page
+		{
+			IPage evolPage = new PageImpl(UUID.randomUUID(),
+					"SCM parameters", "SCM parameters",
+					"SCM parameters", "SCM parameters", false,
+					null, CadseGCST.CONTENT_ITEM_at_SCM_MODIFIED_,
+					CadseGCST.CONTENT_ITEM_at_SCM_REPO_URL_,
+					CadseGCST.CONTENT_ITEM_at_SCM_REVISION_
+			);
 			CadseGCST.ITEM.addModificationPages(evolPage);
 		}
 
