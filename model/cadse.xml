@@ -413,6 +413,8 @@
 		super-type-name="e9693504-4378-4535-8611-bbb05411557e" name="Composer"
 		qualified-name="CadseG.build.Composer" cst-name="COMPOSER"
 		id="4920489a-4022-4607-8867-6427abb0599f">
+		<link destinationId="52101069-da17-4b0e-9a51-7226ca032bff" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
 		<outgoing-link flag="0" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
@@ -421,6 +423,17 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="composer-links" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="75bc13d0-0143-4cf7-964c-d354b3427da5" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="COMPOSER_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="1f6e6fd5-9e1a-4d21-a2d6-309ab71d71a3">
+			<link destinationId="52101069-da17-4b0e-9a51-7226ca032bff" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="1"
 			id="54ce12f3-c0c9-4435-8ee3-eb2e9b3fc5bd" cst-name="COMPOSER_at_TYPES_"
@@ -852,6 +865,19 @@
 		super-type-name="a1922398-35c7-4711-90e9-8ec54331c003" name="Display"
 		qualified-name="CadseG.ui.Display" cst-name="DISPLAY"
 		id="d688060b-2228-4790-aae4-083f6874148f">
+		<link destinationId="7820f88a-9ebc-45d3-b767-86af8dc95a05" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="DISPLAY_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="4357f7b8-3bf4-48ac-8632-6c2d81b8da6b">
+			<link destinationId="7820f88a-9ebc-45d3-b767-86af8dc95a05" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="1"
 			id="90d2969d-b38e-4d7e-aab8-9ea8b2ba4ed8" cst-name="DISPLAY_at_EXTENDS_IC_"
@@ -888,7 +914,21 @@
 		intID="0" has-content="true" package-name="actions"
 		super-type-name="d0b2439f-6f2c-4eb5-a370-9a179d8e3bff" name="DynamicActions"
 		qualified-name="CadseG.actions.DynamicActions" cst-name="DYNAMIC_ACTIONS"
-		id="2838e7f5-7ec2-4b73-b99e-7978a6c661fe" />
+		id="2838e7f5-7ec2-4b73-b99e-7978a6c661fe">
+		<link destinationId="bdc9c7ec-2e95-42e5-9b2a-f28051e3bae6" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="DYNAMIC_ACTIONS_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="92f70a27-f873-4dd2-b501-e4bfffab00d8">
+			<link destinationId="bdc9c7ec-2e95-42e5-9b2a-f28051e3bae6" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
+	</item-type>
 	<item-type hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -919,7 +959,21 @@
 		intID="0" has-content="true" package-name="build.exporter"
 		super-type-name="a0263259-0019-4cb8-ab39-411998f4dc98" name="EclipseExporter"
 		qualified-name="CadseG.build.exporter.EclipseExporter" cst-name="ECLIPSE_EXPORTER"
-		id="9d6fa77a-0035-4234-a7ee-56842163621f" />
+		id="9d6fa77a-0035-4234-a7ee-56842163621f">
+		<link destinationId="a88299ea-79c1-4f3b-9651-9c986c7a3378" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="ECLIPSE_EXPORTER_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="87748d1b-3b69-4624-8dfb-674ea9ee2ff9">
+			<link destinationId="a88299ea-79c1-4f3b-9651-9c986c7a3378" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
+	</item-type>
 	<item-type hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -1004,6 +1058,19 @@
 		super-type-name="e9693504-4378-4535-8611-bbb05411557e" name="Exporter"
 		qualified-name="CadseG.build.exporter.Exporter" cst-name="EXPORTER"
 		id="a0263259-0019-4cb8-ab39-411998f4dc98">
+		<link destinationId="03c44811-3c91-4f72-98c1-e451c15d189d" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="EXPORTER_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="4ac206fe-c212-404f-8d43-05f90dd7e9c8">
+			<link destinationId="03c44811-3c91-4f72-98c1-e451c15d189d" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="0"
 			id="1f5bf97e-8f13-4f4d-96c8-1cd17ee2d64a" cst-name="EXPORTER_at_TYPES_"
@@ -1031,6 +1098,19 @@
 		super-type-name="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" name="ExtItemType"
 		qualified-name="CadseG.dataModel.ExtItemType" cst-name="EXT_ITEM_TYPE"
 		id="36c8f1c2-3972-40e7-b687-b23f3e46f37b">
+		<link destinationId="578d6b9b-7350-4de6-bdc5-464c51b9de2a" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="EXT_ITEM_TYPE_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="8a36b1cd-c217-42df-abd5-58dbd584bfd0">
+			<link destinationId="578d6b9b-7350-4de6-bdc5-464c51b9de2a" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
 		<outgoing-link flag="0" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
@@ -1447,7 +1527,21 @@
 		is-root-element="false" intID="0" has-content="true" package-name="ic"
 		super-type-name="e9693504-4378-4535-8611-bbb05411557e" name="InteractionController"
 		qualified-name="CadseG.ic.InteractionController" cst-name="INTERACTION_CONTROLLER"
-		id="16565b78-c948-478e-aadb-0452dc4d8397" />
+		id="16565b78-c948-478e-aadb-0452dc4d8397">
+		<link destinationId="1799f68b-2d7b-4d26-817e-043d0054cf48" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="INTERACTION_CONTROLLER_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="9126b0af-b6fc-4b6d-b6db-efec6e9f253f">
+			<link destinationId="1799f68b-2d7b-4d26-817e-043d0054cf48" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
+	</item-type>
 	<item-type hidden="false" pattern-id="${#parent.qualified-name}{.}${#name}"
 		manager-class="fr.imag.adele.cadse.cadseg.managers.dataModel.ItemManager"
 		display-name="Item" is-abstract="false" is-root-element="false" intID="0"
@@ -1562,7 +1656,7 @@
 		super-type-name="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" name="ItemType"
 		qualified-name="CadseG.dataModel.ItemType" cst-name="ITEM_TYPE"
 		id="43808065-4f70-4290-adba-cca999431ba1">
-		<outgoing-link flag="3" hidden="false" tw-coupled="false"
+		<outgoing-link flag="11" hidden="true" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ITEM_TYPE_lt_CONTENT_MODEL" intID="0"
@@ -2039,7 +2133,21 @@
 		intID="0" has-content="true" package-name="mc"
 		super-type-name="8b02bffe-8011-45e3-b7bd-afbcec04a5cb" name="MC_DestLink"
 		qualified-name="CadseG.mc.MC_DestLink" cst-name="MC_DEST_LINK"
-		id="b50e1287-85cd-42b4-ad77-803ea45f623c" />
+		id="b50e1287-85cd-42b4-ad77-803ea45f623c">
+		<link destinationId="43259b27-b50f-4dac-93c8-29deac257f5c" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="MC_DEST_LINK_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="f2d83ec6-da09-4803-b0d3-468bf9ad5c19">
+			<link destinationId="43259b27-b50f-4dac-93c8-29deac257f5c" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
+	</item-type>
 	<item-type default-short-name="mc" hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -2099,6 +2207,19 @@
 		super-type-name="c3a59782-3064-44d8-ade6-dbbe5cf46a70" name="MC_Link"
 		qualified-name="CadseG.mc.MC_Link" cst-name="MC_LINK"
 		id="8b02bffe-8011-45e3-b7bd-afbcec04a5cb">
+		<link destinationId="6f52a5b4-47bd-4a06-b6d5-3ef3bc6185b5" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="MC_LINK_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="f2082cc9-b6c0-40ab-bf2f-181409748d86">
+			<link destinationId="6f52a5b4-47bd-4a06-b6d5-3ef3bc6185b5" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="0"
 			id="a0a010de-17cd-4464-a8a3-f0b0fb5adaf0" cst-name="MC_LINK_at_ERROR_MESSAGE_"
@@ -2310,7 +2431,21 @@
 		intID="0" has-content="true" package-name="actions"
 		super-type-name="d0b2439f-6f2c-4eb5-a370-9a179d8e3bff" name="MenuAction"
 		qualified-name="CadseG.actions.MenuAction" cst-name="MENU_ACTION"
-		id="6562419e-f53b-4b19-8740-74e356103309" />
+		id="6562419e-f53b-4b19-8740-74e356103309">
+		<link destinationId="d7484ccc-9a99-4377-9e29-ce3dd710fc23" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="MENU_ACTION_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="25b7389f-ccb7-4ed7-b111-4e415c1bed07">
+			<link destinationId="d7484ccc-9a99-4377-9e29-ce3dd710fc23" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
+	</item-type>
 	<item-type hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id=""
@@ -2331,7 +2466,21 @@
 		intID="0" has-content="true" package-name="mc"
 		super-type-name="e9693504-4378-4535-8611-bbb05411557e" name="ModelController"
 		qualified-name="CadseG.mc.ModelController" cst-name="MODEL_CONTROLLER"
-		id="c3a59782-3064-44d8-ade6-dbbe5cf46a70" />
+		id="c3a59782-3064-44d8-ade6-dbbe5cf46a70">
+		<link destinationId="11df9bd6-8791-4d85-92e2-49ef307d95ac" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="MODEL_CONTROLLER_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="54753bc9-c52b-4ea0-8c89-f5ab7140d82b">
+			<link destinationId="11df9bd6-8791-4d85-92e2-49ef307d95ac" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
+	</item-type>
 	<item-type default-short-name="content-item" hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -2706,6 +2855,19 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="UIListener"
 		qualified-name="CadseG.ui.UIListener" cst-name="UILISTENER"
 		id="3726fca9-4983-491b-9dd1-08d977ac11df">
+		<link destinationId="e9ffc8e1-6dd9-4227-aaa5-1b3b454d3fd0" key="content-model"
+			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" isNatif="false"
+			cst-name="UILISTENER_lt_CONTENTS" intID="0"
+			destination="d1410142-ce9a-4ac8-b733-284378daaeb5" isPart="false"
+			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
+			isAnnotation="false" isAggregation="true" max="1" min="0" name="contents"
+			type="bc20e834-0814-4422-a373-5f4b01f7732e" id="3635366d-02e4-4ee7-aa97-dc54b6e0ae6b">
+			<link destinationId="e9ffc8e1-6dd9-4227-aaa5-1b3b454d3fd0" key="content-definition"
+				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
+		</outgoing-link>
 		<outgoing-link flag="0" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
@@ -2958,15 +3120,6 @@
 		<action-contributor
 			class="fr.imag.adele.cadse.cadseg.menu.group.GroupActionActionContributor" />
 	</ext-item-type>
-	<ext-item-type package-name="dataModel" name="GenerateInformation"
-		qualified-name="dataModel.GenerateInformation" cst-name="GENERATE_INFORMATION"
-		id="237a7ae9-90c8-4f07-ad99-8455a10f9bdc">
-		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
-			id="6fb40e51-92e8-486a-8abe-2e0b037be8b8" cst-name="GENERATE_INFORMATION_at_CSTNAME_"
-			min="0" type="string" value="" key="CSTName"
-			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
-	</ext-item-type>
 	<ext-item-type package-name="actions" name="ActionExtItemType"
 		qualified-name="actions.ActionExtItemType" cst-name="ACTION_EXT_ITEM_TYPE"
 		id="616d7bd7-7bee-46c0-8ef5-9513ef18cae6">
@@ -2979,10 +3132,387 @@
 			isAnnotation="false" isAggregation="true" max="1" min="0" name="actions-model"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="d6b173d1-c467-4f5a-bd9a-3578e9b01832" />
 	</ext-item-type>
-	<ext-binding uuid_ext="237a7ae9-90c8-4f07-ad99-8455a10f9bdc"
+	<ext-item-type package-name="dataModel" name="GenerateInformation"
+		qualified-name="dataModel.GenerateInformation" cst-name="GENERATE_INFORMATION"
+		id="237a7ae9-90c8-4f07-ad99-8455a10f9bdc">
+		<attribute-type tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" flag="1"
+			id="6fb40e51-92e8-486a-8abe-2e0b037be8b8" cst-name="GENERATE_INFORMATION_at_CSTNAME_"
+			min="0" type="string" value="" key="CSTName"
+			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
+	</ext-item-type>
+	<item type="61f4e737-ccdb-476d-af2e-619155047b89" id="52101069-da17-4b0e-9a51-7226ca032bff">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="SubContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="SubContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797" value="Model.Workspace.CadseG.mapping.Composer-manager.SubContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="52101069-da17-4b0e-9a51-7226ca032bff"
+			key="id-runtime" />
+	</item>
+	<item type="61f4e737-ccdb-476d-af2e-619155047b89" id="7820f88a-9ebc-45d3-b767-86af8dc95a05">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="SubContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="SubContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797" value="Model.Workspace.CadseG.mapping.Display-manager.SubContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="7820f88a-9ebc-45d3-b767-86af8dc95a05"
+			key="id-runtime" />
+	</item>
+	<item type="d1bb4358-6ec4-40c5-b09b-d6b29223e74c" id="bdc9c7ec-2e95-42e5-9b2a-f28051e3bae6">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="JavaFileContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="JavaFileContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797"
+			value="Model.Workspace.CadseG.mapping.DynamicActions-manager.JavaFileContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="bdc9c7ec-2e95-42e5-9b2a-f28051e3bae6"
+			key="id-runtime" />
+	</item>
+	<item type="61f4e737-ccdb-476d-af2e-619155047b89" id="a88299ea-79c1-4f3b-9651-9c986c7a3378">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="SubContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="SubContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797"
+			value="Model.Workspace.CadseG.mapping.EclipseExporter-manager.SubContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="a88299ea-79c1-4f3b-9651-9c986c7a3378"
+			key="id-runtime" />
+	</item>
+	<item type="61f4e737-ccdb-476d-af2e-619155047b89" id="03c44811-3c91-4f72-98c1-e451c15d189d">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="SubContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="SubContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797" value="Model.Workspace.CadseG.mapping.Exporter-manager.SubContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="03c44811-3c91-4f72-98c1-e451c15d189d"
+			key="id-runtime" />
+	</item>
+	<item type="d1bb4358-6ec4-40c5-b09b-d6b29223e74c" id="578d6b9b-7350-4de6-bdc5-464c51b9de2a">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="JavaFileContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="JavaFileContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797"
+			value="Model.Workspace.CadseG.mapping.ExtItemType-manager.JavaFileContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="578d6b9b-7350-4de6-bdc5-464c51b9de2a"
+			key="id-runtime" />
+	</item>
+	<item type="61f4e737-ccdb-476d-af2e-619155047b89" id="1799f68b-2d7b-4d26-817e-043d0054cf48">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="SubContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="SubContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797"
+			value="Model.Workspace.CadseG.mapping.InteractionController-manager.SubContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="1799f68b-2d7b-4d26-817e-043d0054cf48"
+			key="id-runtime" />
+	</item>
+	<item type="61f4e737-ccdb-476d-af2e-619155047b89" id="43259b27-b50f-4dac-93c8-29deac257f5c">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="SubContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="SubContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797"
+			value="Model.Workspace.CadseG.mapping.MC_DestLink-manager.SubContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="43259b27-b50f-4dac-93c8-29deac257f5c"
+			key="id-runtime" />
+	</item>
+	<item type="61f4e737-ccdb-476d-af2e-619155047b89" id="6f52a5b4-47bd-4a06-b6d5-3ef3bc6185b5">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="SubContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="SubContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797" value="Model.Workspace.CadseG.mapping.MC_Link-manager.SubContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="6f52a5b4-47bd-4a06-b6d5-3ef3bc6185b5"
+			key="id-runtime" />
+	</item>
+	<item type="d1bb4358-6ec4-40c5-b09b-d6b29223e74c" id="d7484ccc-9a99-4377-9e29-ce3dd710fc23">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="JavaFileContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="JavaFileContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797"
+			value="Model.Workspace.CadseG.mapping.MenuAction-manager.JavaFileContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="d7484ccc-9a99-4377-9e29-ce3dd710fc23"
+			key="id-runtime" />
+	</item>
+	<item type="61f4e737-ccdb-476d-af2e-619155047b89" id="11df9bd6-8791-4d85-92e2-49ef307d95ac">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="SubContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="SubContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797"
+			value="Model.Workspace.CadseG.mapping.ModelController-manager.SubContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="11df9bd6-8791-4d85-92e2-49ef307d95ac"
+			key="id-runtime" />
+	</item>
+	<item type="d1bb4358-6ec4-40c5-b09b-d6b29223e74c" id="e9ffc8e1-6dd9-4227-aaa5-1b3b454d3fd0">
+		<attributes-value tw-rev-specific="false"
+			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" value="0" key="TW-version" />
+		<attributes-value tw-rev-specific="false"
+			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" value="0" key="committedDate" />
+		<attributes-value tw-rev-specific="false"
+			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" value="JavaFileContentModel"
+			key="display-name" />
+		<attributes-value tw-rev-specific="false"
+			id="c4422d27-4833-4920-acc9-9cd33738e6bb" value="true" key="isvalid" />
+		<attributes-value tw-rev-specific="false"
+			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" value="false" key="item-hidden" />
+		<attributes-value tw-rev-specific="false"
+			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" value="false" key="item-readonly" />
+		<attributes-value tw-rev-specific="false"
+			id="ae262046-3821-4b01-b6ce-0e533692a40b" value="JavaFileContentModel"
+			key="name" />
+		<attributes-value tw-rev-specific="false"
+			id="c84eb0f9-305d-440a-a295-32ffa683e797"
+			value="Model.Workspace.CadseG.mapping.UIListener-manager.JavaFileContentModel"
+			key="qualified-name" />
+		<attributes-value tw-rev-specific="false"
+			id="20e185b9-5f65-4def-9e22-6df614090aa5" value="true" key="requireNewRev" />
+		<attributes-value tw-rev-specific="false"
+			id="d674931c-a818-41b3-8dda-62cce15c4ef5" value="false" key="revModified" />
+		<attributes-value tw-rev-specific="false"
+			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" value="true" key="extends-class" />
+		<attributes-value tw-rev-specific="false"
+			id="06746286-74c3-4edf-895d-197c8c9e05dd" value="e9ffc8e1-6dd9-4227-aaa5-1b3b454d3fd0"
+			key="id-runtime" />
+	</item>
+	<ext-binding uuid_ext="3dde5cb3-f7f0-4b02-ae7f-7f927ddb3e13"
 		uuid_it="148dcee3-8512-49eb-abe7-9f8d25502778" />
 	<ext-binding uuid_ext="616d7bd7-7bee-46c0-8ef5-9513ef18cae6"
 		uuid_it="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" />
-	<ext-binding uuid_ext="3dde5cb3-f7f0-4b02-ae7f-7f927ddb3e13"
+	<ext-binding uuid_ext="237a7ae9-90c8-4f07-ad99-8455a10f9bdc"
 		uuid_it="148dcee3-8512-49eb-abe7-9f8d25502778" />
 </ns2:c-cadse>
