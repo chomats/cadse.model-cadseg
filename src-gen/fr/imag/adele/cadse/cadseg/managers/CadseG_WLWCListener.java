@@ -326,6 +326,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
 			LinkTypeManager.setMaxAttribute(linkType, 1);
 			LinkTypeManager.setMinAttribute(linkType, 0);
+			AttributeManager.setHiddenInComputedPagesAttribute(linkType, true);
 			linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, item);
 		}
 		
@@ -1625,8 +1626,31 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			}
 			tryToRecreateAttributeLink(oper);
 		}
+		
+		
 
 		for (ItemDelta oper : loadedItems) {
+			if (oper.isInstanceOf(CadseGCST.CONTENT_ITEM_TYPE)) {
+				try {
+					Item linkType = oper.getIncomingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION);
+					if (linkType == null) {
+						Item itemType = oper.getPartParent();
+						if (itemType.isInstanceOf(CadseGCST.MANAGER)) {
+							itemType = ManagerManager.getItemType(itemType);
+						}
+						linkType = workspaceLogiqueWorkingCopy.createItem(CadseGCST.CONTENT_LINK_TYPE, itemType , CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES);
+						linkType.setName("contents");
+						LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
+						LinkTypeManager.setMaxAttribute(linkType, 1);
+						LinkTypeManager.setMinAttribute(linkType, 0);
+						AttributeManager.setHiddenInComputedPagesAttribute(linkType, true);
+						linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, oper);
+					}
+				} catch (Throwable e) {
+					e.printStackTrace();
+				}
+				continue;
+			}
 		// remove this code (present in import code)
 //			if (oper.isInstanceOf(CadseGCST.ATTRIBUTE)) {
 //				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
