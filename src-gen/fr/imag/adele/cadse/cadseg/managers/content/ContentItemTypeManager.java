@@ -260,7 +260,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 					String value = getOwnerItem().getAttribute(strKinds);
 
 					value = getDefaultValue(strKinds, value);
-					if (value == null) {
+					if (value == null || value.length() ==0) {
 						continue;
 					}
 					GenerateVariable.generateClassVariable(getOwnerItem(),
@@ -383,7 +383,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 					StringAttributeType strKinds = kinds[i];
 					String value = getOwnerItem().getAttribute(strKinds);
 					value = getDefaultValue(strKinds, value);
-					if (value == null) {
+					if (value == null || value.length() == 0) {
 						sb.append(" ").append("NullVariable.INSTANCE,");
 						imports.add("fr.imag.adele.cadse.core.impl.var.NullVariable");
 					} else {
