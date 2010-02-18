@@ -1680,7 +1680,12 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			if (oper.getType() == CadseGCST.CADSE_DEFINITION) {
 				String qname = oper.getQualifiedName();
 				if (qname == null || !qname.contains("."))
-					oper.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX + oper.getName());
+					try {
+						oper.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX + oper.getName());
+					} catch (CadseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					// remove this code (present in import code)
 //				String uuid = oper.getAttribute("UUID_ATTRIBUTE");
 //				if (uuid != null && uuid.length() != 0)
@@ -1807,7 +1812,12 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		if (compositeitem != null && iscomposition) {
 			// set name
 			if (att != null) {
-				compositeitem.setName(itemType.getName() + "-composite");
+				try {
+					compositeitem.setName(itemType.getName() + "-composite");
+				} catch (CadseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			return;
 		}

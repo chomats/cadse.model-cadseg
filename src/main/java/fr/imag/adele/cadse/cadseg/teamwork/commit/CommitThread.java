@@ -323,7 +323,12 @@ public class CommitThread extends Thread {
 		db.deleteOutgoingLinks(CadseGCST.ITEM_lt_CONTENTS.getId(), itemId, rev);
 		db.addLink(CadseGCST.ITEM_lt_CONTENTS.getId(), itemId, rev, contentId, contentRev, null, true);
 		
-		contentItem.setVersion(contentRev);
+		try {
+			contentItem.setVersion(contentRev);
+		} catch (CadseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		db.setObjectValue(contentId, contentRev, DBUtil.TW_COMMENT_ATTR_NAME, comment);
 		db.setObjectValue(contentId, contentRev, DBUtil.TW_COMMITER_ATTR_NAME, user);
 		db.setObjectValue(contentId, contentRev, DBUtil.TW_COMMIT_DATE_ATTR_NAME, commitDate);
