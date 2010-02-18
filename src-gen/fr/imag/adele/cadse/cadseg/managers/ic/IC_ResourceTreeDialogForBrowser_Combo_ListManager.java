@@ -20,18 +20,18 @@
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
+import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class IC_ResourceTreeDialogForBrowser_Combo_ListManager.
@@ -152,6 +152,24 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final int getSelectTypeRootAttribute(Item iC_ResourceTreeDialogForBrowser_Combo_List) {
+		return iC_ResourceTreeDialogForBrowser_Combo_List.getAttributeWithDefaultValue(CadseGCST.IC_RESOURCE_TREE_DIALOG_FOR_BROWSER_COMBO_LIST_at_SELECT_TYPE_ROOT_, -1);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setSelectTypeRootAttribute(Item iC_ResourceTreeDialogForBrowser_Combo_List, int value) {
+		try {
+			iC_ResourceTreeDialogForBrowser_Combo_List.setAttribute(CadseGCST.IC_RESOURCE_TREE_DIALOG_FOR_BROWSER_COMBO_LIST_at_SELECT_TYPE_ROOT_, value);
+		} catch (Throwable t) {
+
 		}
 	}
 

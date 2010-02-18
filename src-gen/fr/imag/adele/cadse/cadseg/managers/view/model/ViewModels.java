@@ -24,7 +24,6 @@ import java.util.List;
 
 import fr.imag.adele.cadse.cadseg.managers.view.ViewModelManager;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**

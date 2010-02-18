@@ -19,13 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.view;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.wizard.WizardDialog;
-
-import fr.imag.adele.cadse.cadseg.managers.view.DataModelViewAction.DataModelViewWizardController;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -38,14 +34,12 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
-import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForChecked;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeCheckedUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedTreeUI;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 
 /**
  * The Class ItemTypeViewAction.

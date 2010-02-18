@@ -1,6 +1,7 @@
 package fr.imag.adele.cadse.cadseg.contents.ic;
 
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
@@ -9,7 +10,6 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
-import java.util.UUID;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;

@@ -20,17 +20,17 @@
 package fr.imag.adele.cadse.cadseg.managers.content;
 
 import java.util.Set;
+import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.ParseTemplate;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.core.CadseException;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class PackageContentModelManager.
@@ -87,6 +87,24 @@ public class PackageContentModelManager extends FolderContentModelManager {
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final String getPackageNameAttribute(Item packageContentModel) {
+		return packageContentModel.getAttributeWithDefaultValue(CadseGCST.PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setPackageNameAttribute(Item packageContentModel, String value) {
+		try {
+			packageContentModel.setAttribute(CadseGCST.PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_, value);
+		} catch (Throwable t) {
+
 		}
 	}
 

@@ -18,8 +18,6 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CadseGCST;
 import java.net.URL;
 
 import fr.imag.adele.cadse.core.CadseGCST;

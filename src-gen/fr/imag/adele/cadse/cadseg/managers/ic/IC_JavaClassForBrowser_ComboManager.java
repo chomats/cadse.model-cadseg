@@ -20,22 +20,19 @@
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
+import java.util.UUID;
 
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_WithDialogAction;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class IC_JavaClassForBrowser_ComboManager.

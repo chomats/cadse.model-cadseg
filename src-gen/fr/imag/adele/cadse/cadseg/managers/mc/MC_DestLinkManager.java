@@ -18,11 +18,12 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import fr.imag.adele.cadse.core.CadseException;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
+
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * @generated
@@ -32,7 +33,7 @@ public class MC_DestLinkManager extends MC_LinkManager {
 	/**
 		@generated
 	*/
-	public class MC_DestLinkContent extends MC_LinkManager.LinkModelControllerContent {
+	public class MC_DestLinkContent extends MC_LinkManager.MC_LinkContent {
 
 		/**
 			@generated
@@ -93,9 +94,9 @@ public class MC_DestLinkManager extends MC_LinkManager {
 		MC_DestLinkContent cm = new MC_DestLinkContent(
 			id
 			);
-		cm.setComposers(
+		owerItem.setComposers(
 		);
-		cm.setExporters(
+		owerItem.setExporters(
 		);
 		return cm;
 	}

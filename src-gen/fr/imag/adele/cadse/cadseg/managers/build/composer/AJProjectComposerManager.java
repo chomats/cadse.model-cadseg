@@ -22,12 +22,12 @@ package fr.imag.adele.cadse.cadseg.managers.build.composer;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.contents.ic.InteractionControllerContent;
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
@@ -185,6 +185,24 @@ public class AJProjectComposerManager extends EclipseComposerManager {
     }
 
 	
+	/**
+		@generated
+	*/
+	public static final boolean isSkipWeavingAttribute(Item aJProjectComposer) {
+		return aJProjectComposer.getAttributeWithDefaultValue(CadseGCST.AJPROJECT_COMPOSER_at_SKIP_WEAVING_, false);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setSkipWeavingAttribute(Item aJProjectComposer, boolean value) {
+		try {
+			aJProjectComposer.setAttribute(CadseGCST.AJPROJECT_COMPOSER_at_SKIP_WEAVING_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

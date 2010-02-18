@@ -19,13 +19,10 @@
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.attribute.TimeAttributeType;
-import fr.imag.adele.cadse.core.util.Convert;
-import fr.imag.adele.cadse.core.CadseGCST;
 
 /**
  * @generated

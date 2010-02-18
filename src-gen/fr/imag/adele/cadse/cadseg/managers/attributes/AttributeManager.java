@@ -22,17 +22,16 @@ package fr.imag.adele.cadse.cadseg.managers.attributes;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.jdt.core.IType;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.attributes.AttributeCIF;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -48,14 +47,14 @@ import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
-import fr.imag.adele.cadse.core.impl.internal.ItemImpl;
 import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.*;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CAttType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
 
 /**
  * The Class AttributeManager.

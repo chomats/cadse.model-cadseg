@@ -1,6 +1,7 @@
 package fr.imag.adele.cadse.cadseg.contents.actions;
 
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -14,16 +15,14 @@ import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateClass;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
-import fr.imag.adele.cadse.core.var.Variable;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 public class MenuActionCIF implements IContentItemFactory {

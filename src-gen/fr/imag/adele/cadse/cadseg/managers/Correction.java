@@ -31,7 +31,11 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.*;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLinkType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CPages;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
 
 public class Correction {
 	static final public String notnull(String v) {

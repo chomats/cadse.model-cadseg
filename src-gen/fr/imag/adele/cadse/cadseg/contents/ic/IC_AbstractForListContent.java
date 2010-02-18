@@ -1,12 +1,10 @@
 package fr.imag.adele.cadse.cadseg.contents.ic;
 
 import java.util.Set;
-
-import fr.imag.adele.cadse.cadseg.managers.ic.IC_AbstractForListManager;
-import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
-import fr.imag.adele.cadse.core.CadseException;
 import java.util.UUID;
 
+import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;

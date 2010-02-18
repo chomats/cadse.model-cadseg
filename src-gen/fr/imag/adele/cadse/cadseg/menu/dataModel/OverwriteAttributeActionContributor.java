@@ -21,7 +21,6 @@ package fr.imag.adele.cadse.cadseg.menu.dataModel;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.ui.AbstractActionContributor;
-import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 
 /**

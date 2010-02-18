@@ -40,10 +40,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLink;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLinkType;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
@@ -64,6 +60,10 @@ import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLink;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLinkType;
 
 /**
  * The Class ImportPagesAction.

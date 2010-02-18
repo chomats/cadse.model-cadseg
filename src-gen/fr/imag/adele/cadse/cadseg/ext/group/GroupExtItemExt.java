@@ -1,12 +1,13 @@
 package fr.imag.adele.cadse.cadseg.ext.group;
 
 
+import java.util.Collection;
+import java.util.List;
+
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
-import java.util.Collection;
-import java.util.List;
 
 
 

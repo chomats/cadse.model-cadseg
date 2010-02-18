@@ -19,11 +19,12 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
-import fr.imag.adele.cadse.core.CadseException;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
+
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class EclipseExporterManager.
@@ -103,9 +104,13 @@ public class EclipseExporterManager extends ExporterManager {
 	 */
 	@Override
 	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		EclipseExporterContent cm = new EclipseExporterContent(id);
-		cm.setComposers();
-		cm.setExporters();
+		EclipseExporterContent cm = new EclipseExporterContent(
+			id
+			);
+		owerItem.setComposers(
+		);
+		owerItem.setExporters(
+		);
 		return cm;
 	}
 

@@ -88,4 +88,22 @@ public class AttributeItemTypeManager extends ItemTypeManager {
 		}
 	}
 
+	/**
+		@generated
+	*/
+	public static final String getDefaultValueAttribute(Item attributeItemType) {
+		return attributeItemType.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_ITEM_TYPE_at_DEFAULT_VALUE_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setDefaultValueAttribute(Item attributeItemType, String value) {
+		try {
+			attributeItemType.setAttribute(CadseGCST.ATTRIBUTE_ITEM_TYPE_at_DEFAULT_VALUE_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
 }

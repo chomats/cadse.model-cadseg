@@ -1,27 +1,18 @@
 package fr.imag.adele.cadse.cadseg.managers;
 
 
-import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemManager;
-import fede.workspace.tool.view.WSPlugin;
-import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.core.CadseDomain;
-import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.DefaultItemManager;
-import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.Link;
-import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
-import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.URI;
+import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemManager;
+import fr.imag.adele.cadse.core.CadseDomain;
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseRuntime;
+import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.LinkType;
 
 
 

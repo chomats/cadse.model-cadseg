@@ -1,16 +1,15 @@
 package fr.imag.adele.cadse.cadseg.contents.ic;
 
 import java.util.Set;
+import java.util.UUID;
 
-import fr.imag.adele.cadse.cadseg.managers.ic.IC_AbstractForBrowser_ComboManager;
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 public class IC_AbstractForBrowser_ComboCIF extends InteractionControllerCIF {
 	/**

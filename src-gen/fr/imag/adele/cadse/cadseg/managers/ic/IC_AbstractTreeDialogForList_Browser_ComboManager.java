@@ -20,17 +20,17 @@
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
+import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class IC_AbstractTreeDialogForList_Browser_ComboManager.
@@ -148,78 +148,6 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
-		}
-	}
-
-	/**
-		@generated
-	*/
-	public static final String getMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
-		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, null);
-	}
-
-	/**
-		@generated
-	*/
-	public static final void setMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
-		try {
-			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-		@generated
-	*/
-	public static final String getTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
-		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, null);
-	}
-
-	/**
-		@generated
-	*/
-	public static final void setTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
-		try {
-			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-		@generated
-	*/
-	public static final String getSelectMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
-		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Select a value.");
-	}
-
-	/**
-		@generated
-	*/
-	public static final void setSelectMessageAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
-		try {
-			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-		@generated
-	*/
-	public static final String getSelectTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo) {
-		return iC_AbstractTreeDialogForList_Browser_Combo.getAttributeWithDefaultValue(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select a value.");
-	}
-
-	/**
-		@generated
-	*/
-	public static final void setSelectTitleAttribute(Item iC_AbstractTreeDialogForList_Browser_Combo, String value) {
-		try {
-			iC_AbstractTreeDialogForList_Browser_Combo.setAttribute(CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, value);
-		} catch (Throwable t) {
-
 		}
 	}
 

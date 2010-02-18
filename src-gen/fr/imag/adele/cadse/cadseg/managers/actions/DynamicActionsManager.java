@@ -18,12 +18,8 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.actions;
 
-import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -31,13 +27,14 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.contents.actions.DynamicActionsCIF;
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.var.NullVariable;
-import fr.imag.adele.cadse.core.impl.var.VariableImpl;
-import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
 
 /**

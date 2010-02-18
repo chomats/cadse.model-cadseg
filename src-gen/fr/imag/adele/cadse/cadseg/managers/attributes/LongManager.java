@@ -18,8 +18,6 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -32,6 +30,8 @@ import fr.imag.adele.cadse.core.attribute.LongAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
 
 /**
  * @generated

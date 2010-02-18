@@ -22,17 +22,17 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class IC_StaticArrayOfObjectForBrowser_ComboManager.
@@ -152,7 +152,75 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		}
 	}
 
-//	/*
+/**
+		@generated
+	*/
+	@SuppressWarnings("unchecked")
+	public static final List<String> getValuesAttribute(Item iC_StaticArrayOfObjectForBrowser_Combo) {
+		try {
+			List<String> list = iC_StaticArrayOfObjectForBrowser_Combo.getAttribute(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_);
+
+			if (list == null)
+				return null;
+
+			return new ArrayList<String>(list);
+		} catch (Throwable t) {
+			return new ArrayList<String>();
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@SuppressWarnings("unchecked")
+	public static final void setValuesAttribute(Item iC_StaticArrayOfObjectForBrowser_Combo, List<String> valueList) {
+		try {
+			List<String> list = new ArrayList<String>(valueList);
+			iC_StaticArrayOfObjectForBrowser_Combo.setAttribute(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_, list);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@SuppressWarnings("unchecked")
+	public static final void addValuesAttribute(Item iC_StaticArrayOfObjectForBrowser_Combo, String value) {
+		try {
+			List<String> list = iC_StaticArrayOfObjectForBrowser_Combo.getAttribute(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_);
+			if (list == null) {
+				list = new ArrayList<String>();
+			}
+			list.add(value);
+			iC_StaticArrayOfObjectForBrowser_Combo.setAttribute(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_, list);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	@SuppressWarnings("unchecked")
+	public static final void removeValuesAttribute(Item iC_StaticArrayOfObjectForBrowser_Combo, String value) {
+		try {
+
+			List<String> list = iC_StaticArrayOfObjectForBrowser_Combo.getAttribute(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_);
+			if (list == null) {
+				return;
+			}
+			list.remove(value);
+			if (list.size() == 0)
+				iC_StaticArrayOfObjectForBrowser_Combo.setAttribute(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_, null);
+			else
+				iC_StaticArrayOfObjectForBrowser_Combo.setAttribute(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_, list);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	//	/*
 //	 * (non-Javadoc)
 //	 * 
 //	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createCreationPages(fr.imag.adele.cadse.core.Item,

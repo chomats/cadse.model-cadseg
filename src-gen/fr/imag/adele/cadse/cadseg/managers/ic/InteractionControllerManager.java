@@ -20,6 +20,7 @@
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
@@ -31,8 +32,6 @@ import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.core.CadseException;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -42,8 +41,9 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
-import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.ItemFactory;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 
 /**
  * The Class InteractionControllerManager.
@@ -275,9 +275,9 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 		InteractionControllerContent cm = new InteractionControllerContent(
 			id
 			);
-		cm.setComposers(
+		owerItem.setComposers(
 		);
-		cm.setExporters(
+		owerItem.setExporters(
 		);
 		return cm;
 	}

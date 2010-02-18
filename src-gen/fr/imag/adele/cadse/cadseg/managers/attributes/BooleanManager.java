@@ -32,7 +32,9 @@ import fr.imag.adele.cadse.core.impl.attribute.BooleanAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.*;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ValueTypeType;
 
 /**
  * The Class BooleanManager.

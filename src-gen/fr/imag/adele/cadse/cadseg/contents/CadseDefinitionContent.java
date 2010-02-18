@@ -3,6 +3,7 @@ package fr.imag.adele.cadse.cadseg.contents;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -39,7 +40,6 @@ import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModels;
 import fr.imag.adele.cadse.cadseg.template.LaunchApplicationTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.impl.var.StringVariable;

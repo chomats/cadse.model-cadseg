@@ -27,7 +27,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.contents.attributes.LinkCIF;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -39,7 +38,6 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.enumdef.TWDestEvol;
 import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
 
 /**
  * The Class LinkTypeManager.
@@ -151,9 +149,9 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	public static final void setMinAttribute(Item link, int value) {
+	public static final void setMinAttribute(Item linkType, int value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_MIN_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_MIN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -163,8 +161,8 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 		@generated
 	*/
-	public static final int getMaxAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_MAX_, -1);
+	public static final int getMaxAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_MAX_, -1);
 	}
 
 	/**
@@ -177,9 +175,9 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	public static final void setMaxAttribute(Item link, int value) {
+	public static final void setMaxAttribute(Item linkType, int value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_MAX_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_MAX_, value);
 		} catch (Throwable t) {
 
 		}
@@ -188,16 +186,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 		@generated
 	*/
-	public static final int getKindAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_KIND_, -1);
+	public static final int getKindAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_KIND_, -1);
 	}
 
 	/**
 		@generated
 	*/
-	public static final void setKindAttribute(Item link, int value) {
+	public static final void setKindAttribute(Item linkType, int value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_KIND_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_KIND_, value);
 		} catch (Throwable t) {
 
 		}
@@ -207,16 +205,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 		get a link 'source' from 'Link' to 'ItemType'.
 		@generated
 	*/
-	static public Link getSourceLink(Item link) {
-		return link.getOutgoingLink(CadseGCST.LINK_TYPE_lt_SOURCE);
+	static public Link getSourceLink(Item linkType) {
+		return linkType.getOutgoingLink(CadseGCST.LINK_TYPE_lt_SOURCE);
 	}
 
 	/**
 		get all link destination 'source' from 'Link' to 'ItemType'.
 		@generated
 	*/
-	static public Item getSourceAll(Item link) {
-		return link.getOutgoingItem(CadseGCST.LINK_TYPE_lt_SOURCE, false);
+	static public Item getSourceAll(Item linkType) {
+		return linkType.getOutgoingItem(CadseGCST.LINK_TYPE_lt_SOURCE, false);
 	}
 
 	/**
@@ -229,8 +227,8 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	static public Link getDestinationLink(Item link) {
-		return link.getOutgoingLink(CadseGCST.LINK_TYPE_lt_DESTINATION);
+	static public Link getDestinationLink(Item linkType) {
+		return linkType.getOutgoingLink(CadseGCST.LINK_TYPE_lt_DESTINATION);
 	}
 
 	/**
@@ -243,8 +241,8 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	static public Item getDestinationAll(Item link) {
-		return link.getOutgoingItem(CadseGCST.LINK_TYPE_lt_DESTINATION, false);
+	static public Item getDestinationAll(Item linkType) {
+		return linkType.getOutgoingItem(CadseGCST.LINK_TYPE_lt_DESTINATION, false);
 	}
 
 	/**
@@ -257,8 +255,8 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	static public Link getInverseLinkLink(Item link) {
-		return link.getOutgoingLink(CadseGCST.LINK_TYPE_lt_INVERSE_LINK);
+	static public Link getInverseLinkLink(Item linkType) {
+		return linkType.getOutgoingLink(CadseGCST.LINK_TYPE_lt_INVERSE_LINK);
 	}
 
 	/**
@@ -271,8 +269,8 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	static public Item getInverseLinkAll(Item link) {
-		return link.getOutgoingItem(CadseGCST.LINK_TYPE_lt_INVERSE_LINK, false);
+	static public Item getInverseLinkAll(Item linkType) {
+		return linkType.getOutgoingItem(CadseGCST.LINK_TYPE_lt_INVERSE_LINK, false);
 	}
 
 	/**
@@ -285,8 +283,8 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	static public Item getInverseLink(Item link) {
-		return link.getOutgoingItem(CadseGCST.LINK_TYPE_lt_INVERSE_LINK, true);
+	static public Item getInverseLink(Item linkType) {
+		return linkType.getOutgoingItem(CadseGCST.LINK_TYPE_lt_INVERSE_LINK, true);
 	}
 
 	/**
@@ -294,23 +292,23 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	static public void setInverseLink(Item link, Item value) throws CadseException {
-		link.setOutgoingItem(CadseGCST.LINK_TYPE_lt_INVERSE_LINK,value);
+	static public void setInverseLink(Item linkType, Item value) throws CadseException {
+		linkType.setOutgoingItem(CadseGCST.LINK_TYPE_lt_INVERSE_LINK,value);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final boolean isAnnotationAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_ANNOTATION_, false);
+	public static final boolean isAnnotationAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_ANNOTATION_, false);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setAnnotationAttribute(Item link, boolean value) {
+	public static final void setAnnotationAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_ANNOTATION_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_ANNOTATION_, value);
 		} catch (Throwable t) {
 
 		}
@@ -319,16 +317,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final boolean isPartAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_PART_, false);
+	public static final boolean isPartAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_PART_, false);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setPartAttribute(Item link, boolean value) {
+	public static final void setPartAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_PART_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_PART_, value);
 		} catch (Throwable t) {
 
 		}
@@ -337,16 +335,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final boolean isAggregationAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_AGGREGATION_, true);
+	public static final boolean isAggregationAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_AGGREGATION_, true);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setAggregationAttribute(Item link, boolean value) {
+	public static final void setAggregationAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_AGGREGATION_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_AGGREGATION_, value);
 		} catch (Throwable t) {
 
 		}
@@ -355,16 +353,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final boolean isCompositionAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_COMPOSITION_, false);
+	public static final boolean isCompositionAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_COMPOSITION_, false);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setCompositionAttribute(Item link, boolean value) {
+	public static final void setCompositionAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_COMPOSITION_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_COMPOSITION_, value);
 		} catch (Throwable t) {
 
 		}
@@ -373,16 +371,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final String getSelectionAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_SELECTION_, null);
+	public static final String getSelectionAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_SELECTION_, null);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setSelectionAttribute(Item link, String value) {
+	public static final void setSelectionAttribute(Item linkType, String value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_SELECTION_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_SELECTION_, value);
 		} catch (Throwable t) {
 
 		}
@@ -391,16 +389,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final boolean isRequireAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_REQUIRE_, false);
+	public static final boolean isRequireAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_REQUIRE_, false);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setRequireAttribute(Item link, boolean value) {
+	public static final void setRequireAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_REQUIRE_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_REQUIRE_, value);
 		} catch (Throwable t) {
 
 		}
@@ -409,30 +407,41 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final boolean isMappingAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_MAPPING_, false);
+	public static final boolean isMappingAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_MAPPING_, false);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setMappingAttribute(Item link, boolean value) {
+	public static final void setMappingAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_MAPPING_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_MAPPING_, value);
 		} catch (Throwable t) {
 
 		}
 	}
 
 	/**
-	 * @generated
-	 */
-	public static final String getLinkTypeManagerAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_LINK_MANAGER_, "");
+		@generated
+	*/
+	public static final String getLinkManagerAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_LINK_MANAGER_, "");
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setLinkManagerAttribute(Item linkType, String value) {
+		try {
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_LINK_MANAGER_, value);
+		} catch (Throwable t) {
+
+		}
 	}
 
 	public static final IType getLinkTypeManagerType(Item link) {
-		String LinkTypeManager = getLinkTypeManagerAttribute(link);
+		String LinkTypeManager = getLinkManagerAttribute(link);
 		if (LinkTypeManager == null || LinkTypeManager.length() == 0) {
 			return null;
 		}
@@ -446,28 +455,17 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final void setLinkTypeManagerAttribute(Item link, String value) {
-		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_LINK_MANAGER_, value);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final TWDestEvol getTWDestEvolAttribute(Item link) {
-		Object value = link.getAttribute(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
+	public static final TWDestEvol getTWDestEvolAttribute(Item linkType) {
+		Object value = linkType.getAttribute(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
 		return Convert.toEnum(value,CadseGCST.LINK_TYPE_at_TWDEST_EVOL_,TWDestEvol.immutable);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setTWDestEvolAttribute(Item link, TWDestEvol value) {
+	public static final void setTWDestEvolAttribute(Item linkType, TWDestEvol value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_TWDEST_EVOL_, value);
 		} catch (Throwable t) {
 		}
 	}
@@ -475,16 +473,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final boolean isTWCoupledAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_TWCOUPLED_, false);
+	public static final boolean isTWCoupledAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_TWCOUPLED_, false);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setTWCoupledAttribute(Item link, boolean value) {
+	public static final void setTWCoupledAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_TWCOUPLED_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_TWCOUPLED_, value);
 		} catch (Throwable t) {
 
 		}
@@ -493,16 +491,16 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 	 * @generated
 	 */
-	public static final boolean isHiddenAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_HIDDEN_, false);
+	public static final boolean isHiddenAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_HIDDEN_, false);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final void setHiddenAttribute(Item link, boolean value) {
+	public static final void setHiddenAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_HIDDEN_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_HIDDEN_, value);
 		} catch (Throwable t) {
 
 		}
@@ -511,8 +509,8 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	/**
 		@generated
 	*/
-	public static final int getMinAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_MIN_, 0);
+	public static final int getMinAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_MIN_, 0);
 	}
 
 	/**
@@ -536,8 +534,8 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 * 
 	 * @generated
 	 */
-	static public void setDestination(Item link, Item value) throws CadseException {
-		link.setOutgoingItem(CadseGCST.LINK_TYPE_lt_DESTINATION,value);
+	static public void setDestination(Item linkType, Item value) throws CadseException {
+		linkType.setOutgoingItem(CadseGCST.LINK_TYPE_lt_DESTINATION,value);
 	}
 
 	/**
@@ -617,23 +615,23 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 		set a link 'source' from 'Link' to 'ItemType'.
 		@generated
 	*/
-	static public void setSource(Item link, Item value) throws CadseException {
-		link.setOutgoingItem(CadseGCST.LINK_TYPE_lt_SOURCE,value);
+	static public void setSource(Item linkType, Item value) throws CadseException {
+		linkType.setOutgoingItem(CadseGCST.LINK_TYPE_lt_SOURCE,value);
 	}
 
 	/**
 		@generated
 	*/
-	public static final boolean isGroupAttribute(Item link) {
-		return link.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_GROUP_, false);
+	public static final boolean isGroupAttribute(Item linkType) {
+		return linkType.getAttributeWithDefaultValue(CadseGCST.LINK_TYPE_at_GROUP_, false);
 	}
 
 	/**
 		@generated
 	*/
-	public static final void setGroupAttribute(Item link, boolean value) {
+	public static final void setGroupAttribute(Item linkType, boolean value) {
 		try {
-			link.setAttribute(CadseGCST.LINK_TYPE_at_GROUP_, value);
+			linkType.setAttribute(CadseGCST.LINK_TYPE_at_GROUP_, value);
 		} catch (Throwable t) {
 
 		}

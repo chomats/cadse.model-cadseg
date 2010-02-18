@@ -21,15 +21,15 @@ package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class FolderExporterManager.
@@ -184,8 +184,7 @@ public class FolderExporterManager extends EclipseExporterManager {
 	 * @generated
 	 */
 	public static final String getPathAttribute(Item folderExporter) {
-		return folderExporter.getAttributeWithDefaultValue(
-				CadseGCST.FOLDER_EXPORTER_at_PATH_, null);
+		return folderExporter.getAttributeWithDefaultValue(CadseGCST.FOLDER_EXPORTER_at_PATH_, null);
 	}
 
 	/**
@@ -200,8 +199,7 @@ public class FolderExporterManager extends EclipseExporterManager {
 	 */
 	public static final void setPathAttribute(Item folderExporter, String value) {
 		try {
-			folderExporter.setAttribute(CadseGCST.FOLDER_EXPORTER_at_PATH_,
-					value);
+			folderExporter.setAttribute(CadseGCST.FOLDER_EXPORTER_at_PATH_, value);
 		} catch (Throwable t) {
 
 		}

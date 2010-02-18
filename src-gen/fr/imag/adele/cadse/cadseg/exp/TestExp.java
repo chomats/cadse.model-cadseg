@@ -1,6 +1,5 @@
 package fr.imag.adele.cadse.cadseg.exp;
 
-import java.io.InputStream;
 import java.io.StringReader;
 
 public class TestExp extends ExpressionParse {

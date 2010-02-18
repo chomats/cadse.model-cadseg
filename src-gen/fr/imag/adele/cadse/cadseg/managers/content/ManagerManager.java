@@ -19,16 +19,14 @@
 
 package fr.imag.adele.cadse.cadseg.managers.content;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
@@ -50,8 +48,6 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
@@ -59,6 +55,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
@@ -454,7 +451,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 *            the value
 	 */
 	public static final void setUniqueNameTemplate(Item manager, String value) {
-		setLongNameTemplateAttribute(manager, value);
+		setQualifiedNameTemplateAttribute(manager, value);
 	}
 
 	/**
@@ -489,7 +486,25 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		}
 	}
 
-//	/**
+/**
+		@generated
+	*/
+	public static final String getIconAttribute(Item manager) {
+		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_ICON_, null);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setIconAttribute(Item manager, String value) {
+		try {
+			manager.setAttribute(CadseGCST.MANAGER_at_ICON_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	//	/**
 //	 * Gets the icon attribute.
 //	 * 
 //	 * @param manager
@@ -567,30 +582,16 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	}
 
 	/**
-	 * Gets the long name template attribute.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * 
-	 * @return the long name template attribute
-	 * 
-	 * @generated
-	 */
-	public static final String getLongNameTemplateAttribute(Item manager) {
+		@generated
+	*/
+	public static final String getQualifiedNameTemplateAttribute(Item manager) {
 		return manager.getAttributeWithDefaultValue(CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_, null);
 	}
 
 	/**
-	 * Sets the long name template attribute.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * @param value
-	 *            the value
-	 * 
-	 * @generated
-	 */
-	public static final void setLongNameTemplateAttribute(Item manager, String value) {
+		@generated
+	*/
+	public static final void setQualifiedNameTemplateAttribute(Item manager, String value) {
 		try {
 			manager.setAttribute(CadseGCST.MANAGER_at_QUALIFIED_NAME_TEMPLATE_, value);
 		} catch (Throwable t) {
@@ -829,7 +830,7 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 * @return the unique name template
 	 */
 	public static String getUniqueNameTemplate(Item manager) {
-		return getLongNameTemplateAttribute(manager);
+		return getQualifiedNameTemplateAttribute(manager);
 	}
 
 	/**

@@ -54,13 +54,8 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.refactoring.RenameSupport;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.jface.wizard.WizardDialog;
 
 import fede.workspace.eclipse.java.JMergeUtil;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLink;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLinkType;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ItemType;
@@ -69,13 +64,15 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
-import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ForChooseFile;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DChooseFileUI;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLink;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CLinkType;
 
 /**
  * The Class MigrateCodePagesAction.
