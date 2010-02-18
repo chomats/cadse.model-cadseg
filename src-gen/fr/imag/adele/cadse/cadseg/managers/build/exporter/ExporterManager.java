@@ -22,6 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
@@ -35,14 +36,13 @@ import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -326,8 +326,7 @@ public class ExporterManager extends DefaultItemManager implements
 	@SuppressWarnings("unchecked")
 	public static final List<String> getTypesAttribute(Item exporter) {
 		try {
-			List<String> list = exporter
-					.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
+			List<String> list = exporter.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
 
 			if (list == null)
 				return null;
@@ -372,8 +371,7 @@ public class ExporterManager extends DefaultItemManager implements
 	@SuppressWarnings("unchecked")
 	public static final void addTypesAttribute(Item exporter, String value) {
 		try {
-			List<String> list = exporter
-					.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
+			List<String> list = exporter.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
 			if (list == null) {
 				list = new ArrayList<String>();
 			}
@@ -398,8 +396,7 @@ public class ExporterManager extends DefaultItemManager implements
 	public static final void removeTypesAttribute(Item exporter, String value) {
 		try {
 
-			List<String> list = exporter
-					.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
+			List<String> list = exporter.getAttribute(CadseGCST.EXPORTER_at_TYPES_);
 			if (list == null) {
 				return;
 			}
@@ -461,9 +458,13 @@ public class ExporterManager extends DefaultItemManager implements
 	 */
 	@Override
 	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		ExporterContent cm = new ExporterContent(id);
-		cm.setComposers();
-		cm.setExporters();
+		ExporterContent cm = new ExporterContent(
+			id
+			);
+		owerItem.setComposers(
+		);
+		owerItem.setExporters(
+		);
 		return cm;
 	}
 

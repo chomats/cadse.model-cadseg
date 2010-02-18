@@ -19,11 +19,11 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
@@ -31,11 +31,9 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.content.SubFileContentManager;
 import fede.workspace.eclipse.java.JavaIdentifier;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseException;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
@@ -43,14 +41,12 @@ import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Menu;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.util.Convert;
-import fr.imag.adele.cadse.core.var.Variable;
-import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
@@ -421,9 +417,9 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 		ComposerContent cm = new ComposerContent(
 			id
 			);
-		cm.setComposers(
+		owerItem.setComposers(
 		);
-		cm.setExporters(
+		owerItem.setExporters(
 		);
 		return cm;
 	}
@@ -676,24 +672,6 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 				composer.setAttribute(CadseGCST.COMPOSER_at_TYPES_, null);
 			else
 				composer.setAttribute(CadseGCST.COMPOSER_at_TYPES_, list);
-		} catch (Throwable t) {
-
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final boolean isExtendsClassAttribute(Item composer) {
-		return composer.getAttributeWithDefaultValue(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final void setExtendsClassAttribute(Item composer, boolean value) {
-		try {
-			composer.setAttribute(CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_, value);
 		} catch (Throwable t) {
 
 		}

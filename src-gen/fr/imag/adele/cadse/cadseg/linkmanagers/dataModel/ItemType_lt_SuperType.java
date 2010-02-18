@@ -28,14 +28,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.TreeViewer;
 
-import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
-import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
-import fr.imag.adele.cadse.core.CadseUtil;
-import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.LinkType;
 import fede.workspace.model.manager.DefaultLinkTypeManager;
 import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.node.FilterItem;
@@ -43,6 +35,14 @@ import fede.workspace.tool.view.node.FilteredItemNode;
 import fede.workspace.tool.view.node.FilteredItemNodeModel;
 import fede.workspace.tool.view.node.ItemsFromLinkOfLinkTypeRule;
 import fede.workspace.tool.view.node.ItemsRule;
+import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
+import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
+import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseUtil;
+import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.LinkType;
 
 /**
  * The Class ItemType_lt_SuperType.

@@ -23,11 +23,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IType;
 
-import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
-import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager.PageContentManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldGenerateInfo;
@@ -38,7 +35,6 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 import fr.imag.adele.cadse.core.impl.ui.ConfigurablePageFactory;
 import fr.imag.adele.cadse.core.var.ContextVariable;
-import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
  * The Class GeneratePageClass.

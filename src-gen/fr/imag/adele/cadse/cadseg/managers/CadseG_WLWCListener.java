@@ -46,34 +46,28 @@ import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.DataModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DListManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.transaction.AbstractLogicalWorkspaceTransactionListener;
+import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.LinkDelta;
 import fr.imag.adele.cadse.core.transaction.delta.MappingOperation;
 import fr.imag.adele.cadse.core.transaction.delta.SetAttributeOperation;
-import fr.imag.adele.cadse.core.transaction.AbstractLogicalWorkspaceTransactionListener;
-import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
-import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.si.view.View;
-import org.eclipse.jdt.core.refactoring.IJavaRefactorings;
-import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import org.eclipse.jdt.core.refactoring.IJavaRefactorings;
 
 class RenameJavaClassMappingOperartion extends RenameMappingOperation {
 
@@ -326,7 +320,6 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
 			LinkTypeManager.setMaxAttribute(linkType, 1);
 			LinkTypeManager.setMinAttribute(linkType, 0);
-			AttributeManager.setHiddenInComputedPagesAttribute(linkType, true);
 			linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, item);
 		}
 		
@@ -1626,8 +1619,6 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			}
 			tryToRecreateAttributeLink(oper);
 		}
-		
-		
 
 		for (ItemDelta oper : loadedItems) {
 			if (oper.isInstanceOf(CadseGCST.CONTENT_ITEM_TYPE)) {

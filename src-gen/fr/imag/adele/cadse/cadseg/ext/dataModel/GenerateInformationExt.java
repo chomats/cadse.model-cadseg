@@ -1,11 +1,8 @@
 package fr.imag.adele.cadse.cadseg.ext.dataModel;
 
 
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
 
 
 

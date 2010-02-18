@@ -19,7 +19,6 @@
 
 package fr.imag.adele.cadse.cadseg.managers.view;
 
-import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 

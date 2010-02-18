@@ -1,10 +1,11 @@
 package fr.imag.adele.cadse.cadseg.contents.ic;
 
+import java.util.UUID;
+
 import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.core.CadseException;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 public class IC_AbstractForCheckedCIF extends InteractionControllerCIF {
 

@@ -25,8 +25,8 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 
-import fr.imag.adele.cadse.core.Item;
 import fede.workspace.tool.view.WSPlugin;
+import fr.imag.adele.cadse.core.Item;
 
 /**
  * The Class CadseDefinitionJavaCompletionProposal.

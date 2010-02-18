@@ -19,10 +19,6 @@ import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.ui.IWorkbenchWindow;
 
 import fede.workspace.tool.view.WSPlugin;
-import fede.workspace.tool.view.actions.CreateLinkAction;
-import fede.workspace.tool.view.actions.DeleteLinkAction;
-import fede.workspace.tool.view.actions.GenerateAction;
-import fede.workspace.tool.view.addlink.LinkRootNode;
 import fede.workspace.tool.view.menu.MenuNewAction;
 import fede.workspace.tool.view.menu.RecreatePartLinkAction;
 import fede.workspace.tool.view.node.RootNode;
@@ -38,12 +34,10 @@ import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.Accessor;
 import fr.imag.adele.cadse.core.ui.AbstractActionContributor;
-import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI;
-import fr.imag.adele.cadse.eclipse.view.IViewLinkManager;
 
 
 

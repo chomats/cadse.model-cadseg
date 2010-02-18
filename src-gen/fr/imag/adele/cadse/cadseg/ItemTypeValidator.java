@@ -23,9 +23,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
+import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
-import fede.workspace.tool.view.WSPlugin;
 
 /**
  * The Class ItemTypeValidator.

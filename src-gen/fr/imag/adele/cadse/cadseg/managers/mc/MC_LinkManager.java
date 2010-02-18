@@ -19,8 +19,8 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import fede.workspace.eclipse.content.SubFileContentManager;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
@@ -28,17 +28,12 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
-import fr.imag.adele.cadse.core.var.Variable;
-import java.lang.String;
-import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
  * The Class LinkModelControllerManager.
@@ -61,6 +56,40 @@ public class MC_LinkManager extends ModelControllerManager {
 			super(id);
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
+		 *      java.util.Set, java.lang.Object)
+		 */
+		@Override
+		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
+
+			Item a = ModelControllerManager.getAttribute(getOwnerItem());
+			sb.append(Boolean.toString(LinkTypeManager.getMin(a) != 0)).append(", null,");
+			sb.append(GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, a, null, null, imports))
+					.append(",");
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
+		 */
+		@Override
+		protected void generateConstrustorArguments(GenStringBuilder sb) {
+			sb.append("mandatory, msg, lt,");
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
+		 */
+		@Override
+		protected void generateConstructorParameter(GenStringBuilder sb) {
+			sb.append("boolean mandatory, String msg, LinkType lt,");
+		}
 	}
 
 	/**
@@ -105,61 +134,6 @@ public class MC_LinkManager extends ModelControllerManager {
 		}
 	}
 
-
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	public class LinkModelControllerContent extends ModelControllerManager.ModelControllerContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		public LinkModelControllerContent(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-
-			Item a = ModelControllerManager.getAttribute(getOwnerItem());
-			sb.append(Boolean.toString(LinkTypeManager.getMin(a) != 0)).append(", null,");
-			sb.append(GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, a, null, null, imports))
-					.append(",");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("mandatory, msg, lt,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append("boolean mandatory, String msg, LinkType lt,");
-		}
-
-	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
@@ -259,7 +233,7 @@ public class MC_LinkManager extends ModelControllerManager {
 	 */
 	@Override
 	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new LinkModelControllerContent(id);
+		return new MC_LinkContent(id);
 	}
 
 	/**

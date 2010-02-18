@@ -1,9 +1,7 @@
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
 
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 
 
