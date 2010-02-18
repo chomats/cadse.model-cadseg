@@ -225,8 +225,7 @@ public class PageInit {
 	private static GroupOfAttributesDescriptor createGroupAdvancedPropertiesAttributes() {
 		return createGroup("Advanced properties", 3, true,
 				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
-				CadseGCST.ATTRIBUTE_at_FINAL_, CadseGCST.ATTRIBUTE_at_NATIF_,
-				CadseGCST.ATTRIBUTE_at_REQUIRE_,
+				CadseGCST.ATTRIBUTE_at_NATIF_,
 				CadseGCST.ATTRIBUTE_at_TRANSIENT_,
 				CadseGCST.STRING_at_NOT_EMPTY_);
 	}
@@ -464,7 +463,10 @@ public class PageInit {
 				Item.HIDDEN_IN_COMPUTED_PAGES, false);
 		CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
-		
+		CadseGCST.ATTRIBUTE_at_FINAL_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.ATTRIBUTE_at_REQUIRE_.setFlag(
+				Item.HIDDEN_IN_COMPUTED_PAGES, true);
 		
 		
 		
@@ -1188,8 +1190,7 @@ public class PageInit {
 				"Hidden attributes", false, null);
 		ltHiddenAttributes.addHiddenAttributes(
 				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_,
-				CadseGCST.ATTRIBUTE_at_FINAL_, CadseGCST.ATTRIBUTE_at_NATIF_,
-				CadseGCST.ATTRIBUTE_at_REQUIRE_,
+				CadseGCST.ATTRIBUTE_at_NATIF_,
 				CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_,
 				CadseGCST.ATTRIBUTE_at_IS_LIST_);
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
