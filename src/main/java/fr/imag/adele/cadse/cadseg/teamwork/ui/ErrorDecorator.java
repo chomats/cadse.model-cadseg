@@ -1,22 +1,14 @@
 package fr.imag.adele.cadse.cadseg.teamwork.ui;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelDecorator;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.PlatformUI;
 
 import fede.workspace.tool.view.WSPlugin;
 
-public abstract class ErrorDecorator extends LabelProvider implements ILabelDecorator {
-
-	private LocalResourceManager	_resourceManager	= new LocalResourceManager(JFaceResources
-																.getResources(PlatformUI.getWorkbench()
-																		.getDisplay()));
+public abstract class ErrorDecorator extends CadseLabelProvider implements ILabelDecorator {
 
 	public ErrorDecorator() {
 	}
