@@ -1000,8 +1000,8 @@ public class PageInit {
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
 					CadseGCST.CONTENT_ITEM_at_SCM_MODIFIED_, "Content is considered modified by the SCM",
 					EPosLabel.none, mc,	null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
+			field.setEditable(true);
+			CadseGCST.CONTENT_ITEM.addField(field);
 		}
 		
 		// CadseGCST.CONTENT_ITEM_at_SCM_REPO_URL_
@@ -1009,8 +1009,8 @@ public class PageInit {
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.CONTENT_ITEM_at_SCM_REPO_URL_, "Maven SCM repository URL",
 					EPosLabel.left, null, null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
+			field.setEditable(true);
+			CadseGCST.CONTENT_ITEM.addField(field);
 		}
 		
 		// CadseGCST.CONTENT_ITEM_at_SCM_REVISION_
@@ -1018,8 +1018,8 @@ public class PageInit {
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.CONTENT_ITEM_at_SCM_REVISION_, "Revision",
 					EPosLabel.left, null, null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
+			field.setEditable(true);
+			CadseGCST.CONTENT_ITEM.addField(field);
 		}
 				
 		
