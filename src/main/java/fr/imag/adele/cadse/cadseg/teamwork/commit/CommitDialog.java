@@ -764,7 +764,7 @@ public class CommitDialog extends SWTDialog {
 	 * independent part) _commentField
 	 */
 	public CommitDialog(CommitState commitState) {
-		super(new SWTUIPlatform(), "Select items to commit", "Commit Operation Definition");
+		super(new SWTUIPlatform(), "Commit Operation Definition", "Select items to commit");
 		
 
 		// set manipulated data

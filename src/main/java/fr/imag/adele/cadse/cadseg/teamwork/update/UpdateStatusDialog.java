@@ -435,7 +435,7 @@ public class UpdateStatusDialog extends SWTDialog {
 	 * Create the dialog structure.
 	 */
 	public UpdateStatusDialog(UpdateState updateState) {
-		super(new SWTUIPlatform(), "Update operations in progress", "Update Operation Status");
+		super(new SWTUIPlatform(), "Update Operation Status", "Update operations in progress");
 
 		// set manipulated data
 		_updateState = updateState;

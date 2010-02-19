@@ -264,7 +264,7 @@ public class UpdateDialogPage extends SWTDialog {
 	 * Create the dialog structure.
 	 */
 	public UpdateDialogPage(UpdateState updateState) {
-		super(new SWTUIPlatform(), "Define update operations to perform", "Update Operation Definition");
+		super(new SWTUIPlatform(), "Update Operation Definition", "Define update operations to perform");
 
 		// set manipulated data
 		_updateState = updateState;
