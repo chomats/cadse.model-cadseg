@@ -1222,7 +1222,7 @@ public class PageInit {
 
 		// Evolution control page
 		{
-			IPage evolPage = new PageImpl(UUID.randomUUID(),
+			IPage itemEvolPage = new PageImpl(UUID.randomUUID(),
 					"Evolution control", "Evolution control",
 					"Evolution control", "Evolution control", false,
 					null, CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES,
@@ -1234,12 +1234,10 @@ public class PageInit {
 					CadseGCST.ITEM_at_TWLAST_COMMENT_
 
 			);
-
-			CadseGCST.ITEM.addModificationPages(evolPage);
-		}
+			CadseGCST.ITEM.addModificationPages(itemEvolPage);
 		
-		// SCM page
-		{
+		
+			// SCM page	
 			IPage evolPage = new PageImpl(UUID.randomUUID(),
 					"SCM parameters", "SCM parameters",
 					"SCM parameters", "SCM parameters", false,
@@ -1247,7 +1245,8 @@ public class PageInit {
 					CadseGCST.CONTENT_ITEM_at_SCM_REPO_URL_,
 					CadseGCST.CONTENT_ITEM_at_SCM_REVISION_
 			);
-			CadseGCST.ITEM.addModificationPages(evolPage);
+			CadseGCST.CONTENT_ITEM.addModificationPages(evolPage);
+			evolPage.addOverridePage(itemEvolPage);
 		}
 
 		// Instance name control page
