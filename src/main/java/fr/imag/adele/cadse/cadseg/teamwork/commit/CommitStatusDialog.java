@@ -933,7 +933,8 @@ public class CommitStatusDialog extends SWTDialog {
 	 */
 	public void setSelectedItem(Item selectedItem) {
 		this._selectedItem = selectedItem;
-
+		
+		getSWTUIPlatform().setItem(_selectedItem);
 		refreshSelectDependentFields();
 	}
 
