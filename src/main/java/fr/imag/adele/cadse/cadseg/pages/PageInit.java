@@ -1216,6 +1216,41 @@ public class PageInit {
 		CadseGCST.JAVA_FILE_CONTENT_MODEL.addCreationPages(jfHiddenAttributes);
 		CadseGCST.JAVA_FILE_CONTENT_MODEL.addModificationPages(jfHiddenAttributes);
 		
+		// Hidden attributes for ContentLT
+		IPage cltHiddenAttributes = new PageImpl(UUID.randomUUID(),
+				"Hidden attributes", "Hidden attributes", "Hidden attributes",
+				"Hidden attributes", false, null);
+		cltHiddenAttributes.addHiddenAttributes(
+				CadseGCST.ITEM_at_NAME_,
+				CadseGCST.ITEM_at_DISPLAY_NAME_,
+				CadseGCST.ITEM_at_QUALIFIED_NAME_,
+				CadseGCST.LINK_TYPE_lt_SOURCE,
+				CadseGCST.LINK_TYPE_lt_DESTINATION,
+				CadseGCST.LINK_TYPE_lt_INVERSE_LINK,
+				CadseGCST.LINK_TYPE_at_ANNOTATION_,
+				CadseGCST.LINK_TYPE_at_AGGREGATION_,
+				CadseGCST.LINK_TYPE_at_COMPOSITION_,
+				CadseGCST.LINK_TYPE_at_PART_,
+				CadseGCST.LINK_TYPE_at_REQUIRE_,
+				CadseGCST.LINK_TYPE_at_MAPPING_,
+				CadseGCST.LINK_TYPE_at_GROUP_,
+				CadseGCST.LINK_TYPE_at_HIDDEN_,
+				CadseGCST.LINK_TYPE_at_SELECTION_,
+				CadseGCST.LINK_TYPE_at_LINK_MANAGER_,
+				CadseGCST.LINK_TYPE_at_MIN_,
+				CadseGCST.LINK_TYPE_at_MAX_,
+				CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_,
+				CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_,
+				CadseGCST.ATTRIBUTE_at_TRANSIENT_,
+				CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION,
+				CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
+				CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_,
+				CadseGCST.LINK_TYPE_at_TWCOUPLED_,
+				CadseGCST.LINK_TYPE_at_TWDEST_EVOL_
+		);
+		CadseGCST.CONTENT_LINK_TYPE.addModificationPages(cltHiddenAttributes);
+		
+				
 		// ***** //
 		// Pages //
 		// ***** //
