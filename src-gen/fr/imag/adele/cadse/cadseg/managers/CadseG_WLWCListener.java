@@ -320,6 +320,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
 			LinkTypeManager.setMaxAttribute(linkType, 1);
 			LinkTypeManager.setMinAttribute(linkType, 0);
+			LinkTypeManager.setHiddenInComputedPagesAttribute(linkType, true);
 			linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, item);
 		}
 		

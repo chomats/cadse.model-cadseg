@@ -2124,6 +2124,17 @@ public class ItemTypeManager extends TypeDefinitionManager {
 			return null;
 		}
 		return findAttribute(superItemtype, name);
-
+	}
+	
+	@Override
+	public String canCreateChildItem(Item itemParent, LinkType lt,
+			ItemType destType) {
+		if (lt ==CadseGCST.ITEM_TYPE_lt_CONTENT_MODEL)
+			return "contents in managers";
+		if (lt == CadseGCST.TYPE_DEFINITION_lt_FIELDS)
+			return "no fiels in this version";
+		if (destType == CadseGCST.CONTENT_LINK_TYPE)
+			return "content link type is for api";
+		return super.canCreateChildItem(itemParent, lt, destType);
 	}
 }
