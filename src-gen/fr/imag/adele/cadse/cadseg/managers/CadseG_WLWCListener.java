@@ -593,6 +593,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 				} else {
 					item.setQualifiedName(CadseRuntime.CADSE_NAME_SUFFIX + attOperation.getCurrentValue());
 				}
+				
 			} else {
 				String name = item.getAttribute(CadseGCST.ITEM_at_QUALIFIED_NAME_);
 
@@ -607,6 +608,14 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			ContextVariable oldContext = wc.getOldContext();
 			ContextVariable newContext = wc.getNewContext();
 			addRenameCadseDefinitionMappingOperartion(item, oldContext, newContext);
+			if (item.isAdded()) {
+				String newCadseName = "Cadse "+attOperation.getCurrentValue();
+				String oldCadseName = "Cadse "+attOperation.getPrecCurrentValue();
+				String currentCadseName = item.getAttribute(CadseGCST.CADSE_DEFINITION_at_CADSE_NAME_);
+				if (currentCadseName == null || currentCadseName.length() == 0 || currentCadseName.equals(oldCadseName)) {
+					item.setAttribute(CadseGCST.CADSE_DEFINITION_at_CADSE_NAME_, newCadseName);
+				}
+			}
 		}
 
 		if (item.isInstanceOf(CadseGCST.TYPE_DEFINITION)
