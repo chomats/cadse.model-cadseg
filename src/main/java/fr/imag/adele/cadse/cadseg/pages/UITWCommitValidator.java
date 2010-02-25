@@ -28,7 +28,8 @@ public class UITWCommitValidator extends AbstractUIRunningValidator {
 	}
 
 	private boolean validValue() {
-		AttributeType attr = (AttributeType) _uiPlatform.getItem();
+		//FIXME: Class cast exception (test create a link type)
+		AttributeType attr = (AttributeType) _uiPlatform.getItem(); 
 		
 		TWCommitKind commitKind = AttributeManager.getTWCommitKindAttribute(attr);
 		boolean hasReconcile = TWCommitKind.reconcile.equals(commitKind);
