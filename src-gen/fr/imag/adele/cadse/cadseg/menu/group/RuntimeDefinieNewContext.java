@@ -43,15 +43,21 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 						result.add(newContext);
 					}
-				} else if (lt.isPart()) {
+				} 
+//				else  {
+//					if (lt.getDestination().hasIncomingParts() && !lt.isGroup())
+//						continue;
+//					
 //					for (ItemType it : getAllDestType(lt.getDestination())) {
 //						if (it.isAbstract()) {
 //							continue;
 //						}
+//						if (it.hasIncomingParts() && !lt.isGroup())
+//							continue;
 //						NewContext newContext = new NewContext(cxt);
 //						newContext.setDestinationType(it);
 //						newContext.setPartParent(source, lt);
-//						if (it.isMemberType()) {
+//						if (it.isGroupType()) {
 //							for (LinkType groupLT : it.getIncomingLinkTypes()) {
 //								if (groupLT.isGroup()) {
 //									for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
@@ -59,81 +65,19 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 //										newContext2.setGroupHead(groupHead, groupLT);
 //										newContext2.setGroupType(groupHead.getGroupType());
 //										newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
+//										
 //										if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
 //										result.add(newContext2);
 //									}
 //								}
 //							}
 //						} else {
-//							newContext.setLabel(it.getDisplayName());
 //							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
+//							newContext.setLabel(it.getDisplayName());
 //							result.add(newContext);
 //						}
 //					}
-				} else if (lt.isGroup()) {
-					for (ItemType it : getAllDestType(lt.getDestination())) {
-						if (it.isAbstract()) {
-							continue;
-						}
-						ItemType groupType = ((ItemType) source).getGroupType();
-						NewContext newContext = new NewContext(cxt);
-						newContext.setDestinationType(it);
-						newContext.setGroupHead((ItemType) source, lt);
-						newContext.setGroupType(groupType);
-						if (it.hasIncomingParts()) {
-							for (LinkType partLt : it.getIncomingLinkTypes()) {
-								if (partLt.isPart()) {
-									for (Item parent : getAllSourcePart(partLt)) {
-										NewContext newContext2 = new NewContext(newContext);
-										newContext2.setPartParent(parent, partLt);
-										newContext.setLabel(source.getDisplayName()+" "+it.getDisplayName()+ " of "+parent.getDisplayName());
-										if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
-										result.add(newContext2);
-									}
-								}
-							}
-							
-						} else {
-							newContext.setLabel(source.getDisplayName()+" "+it.getDisplayName());
-							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
-							result.add(newContext);
-						}
-							
-					}
-				} else  {
-					if (lt.getDestination().hasIncomingParts() && !lt.isGroup())
-						continue;
-					
-					for (ItemType it : getAllDestType(lt.getDestination())) {
-						if (it.isAbstract()) {
-							continue;
-						}
-						if (it.hasIncomingParts() && !lt.isGroup())
-							continue;
-						NewContext newContext = new NewContext(cxt);
-						newContext.setDestinationType(it);
-						newContext.setPartParent(source, lt);
-						if (it.isGroupType()) {
-							for (LinkType groupLT : it.getIncomingLinkTypes()) {
-								if (groupLT.isGroup()) {
-									for (ItemType groupHead : getAllSourceGroupHead(groupLT)) {
-										NewContext newContext2 = new NewContext(newContext);
-										newContext2.setGroupHead(groupHead, groupLT);
-										newContext2.setGroupType(groupHead.getGroupType());
-										newContext.setLabel(groupHead.getDisplayName()+" "+it.getDisplayName());
-										
-										if (view.filterNew(newContext2) || !it.canCreateItem(newContext2)) continue;
-										result.add(newContext2);
-									}
-								}
-							}
-						} else {
-							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
-							newContext.setLabel(it.getDisplayName());
-							result.add(newContext);
-						}
-					}
-				}
+//				}
 			}
 		}
 	}
@@ -146,10 +90,9 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 					continue;
 				}
 				if (it.hasIncomingParts()) {
-				//	computePartNew(view, it, cxt, result);
 					continue;
 				}
-				if (it.isGroupType()) {
+				if (it.isGroupType() && it.getGroupType() == null) {
 					boolean addGroupHead = true;
 					for (LinkType groupLT : it.getIncomingLinkTypes()) {
 						if (groupLT.isGroup()) {
@@ -191,13 +134,6 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 							}
 						}
 					}
-				}
-				{
-//					NewContext newContext = new NewContext(cxt);
-//					newContext.setDestinationType(it);
-//					newContext.setLabel(it.getDisplayName());
-//					if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
-//					result.add(newContext);
 				}
 			}
 		}
