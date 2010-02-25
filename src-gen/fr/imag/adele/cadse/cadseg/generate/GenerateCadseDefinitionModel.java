@@ -121,7 +121,7 @@ public class GenerateCadseDefinitionModel {
 		String displayNameAttribute = CadseDefinitionManager.getCadseNameAttribute(cadseDefinition);
 		if (displayNameAttribute != null && displayNameAttribute.length() > 0) {
 			cadse.setDisplayName(displayNameAttribute);
-		}
+		}			
 		String classNameCST = GenerateJavaIdentifier.javaClassNameFileCST_FromCadseDefinition(cxt, cadseDefinition);
 		String packageNameCST = GenerateJavaIdentifier.javaPackageNameFileCST_FromCadseDefinition(cxt, cadseDefinition);
 
