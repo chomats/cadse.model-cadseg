@@ -89,7 +89,8 @@ public class PageInit {
 				CadseGCST.ITEM_at_NAME_,
 				CadseGCST.ITEM_at_DISPLAY_NAME_,
 				CadseGCST.ITEM_at_QUALIFIED_NAME_,
-				CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_);
+				CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_,
+				CadseGCST.MANAGER_at_HUMAN_NAME_);
 	}
 
 	
