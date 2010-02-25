@@ -1,0 +1,144 @@
+/**
+ * JavaCC file
+ */
+
+options {
+  JDK_VERSION = "1.5";
+  STATIC= false;
+}
+PARSER_BEGIN(ExpressionParse)
+package fr.imag.adele.cadse.cadseg.exp;
+
+import java.util.Collections;
+import java.util.List;
+
+public abstract class ExpressionParse {
+	protected ExpToken exp = null;
+
+	abstract protected void parseBEGIN();
+
+    abstract protected void parseEND(ExpToken e);
+
+    protected void setExp(ExpToken t) { exp = t; }
+
+    protected String removeAntiSlash(String v) {
+    	v = v.replaceAll("\\\\(.)", "$1");
+    	return v;
+    }
+
+	public List<Token> tokens() {
+		if (exp == null) {
+			return Collections.emptyList();
+		}
+		return exp.tokens();
+	}
+
+}
+PARSER_END(ExpressionParse)
+
+// for constance
+<S2> TOKEN: {
+	< ATTR_QUALIFIED	: "ATTR_QUALIFIED">
+|	< ATTR_LINK			: "ATTR_LINK">
+|   < ATTR_EXP			: "EXP">
+}
+
+<ATR> TOKEN : {
+    < ATTR_POINT				: "."												 >
+|	< ATTR_END   				: "}"											 	 > : DEFAULT
+|	< PARENT			 		: "#parent" 										 >
+|	< ATTR_PARENT_ID 			: "#parent-id" 										 >
+|	< ATTR_PARENT_UNIQUE_NAME 	: "#parent-unique-name" 							 >
+|	< ATTR_PARENT_SHORT_NAME	: "#parent-short-name" 								 >
+|	< ATTR_PARENT_DISPLAY_NAME 	: "#parent-display-name" 							 >
+|	< ATTR_PARENT_TYPE_NAME 	: "#parent-type-name" 								 >
+|	< ATTR_ID 					: "#id" 											 >
+|	< ATTR_QUALIFIED_NAME 		: "#qualified-name" 								 >
+|	< ATTR_NAME					: "#name" 									         >
+|	< ATTR_UNIQUE_NAME 			: "#unique-name" 									 >
+|	< ATTR_SHORT_NAME			: "#short-name" 									 >
+|	< ATTR_DISPLAY_NAME 		: "#display-name" 									 >
+|	< ATTR_TYPE_NAME 			: "#type-name" 										 >
+|	< ATTR_LINK_TYPE_NAME 		: "#link-type-name" 								 >
+|	< ATTR						: (~["}", "]", "[","}","$",".","="])+				 >
+|	< OPTION_BEGIN		 		: "[" 								 				 > : OPT
+
+}
+<OPT> TOKEN:{	< OPTION_KEY				: (~["}", "]", "[","}","$",".","="])+				 >
+|	< OPTION_END		 		: "]" 								 				 > : DEFAULT
+| 	< OPTION_SEP				: "=" 												 >
+
+
+}
+
+< DEFAULT> TOKEN : {
+
+	< ATTR_BEGIN 				: "${" > : ATR
+|	< CST						: (~["$","{", "}", "\""] | "\\$" | "\\{" | "\\}" | "\\\"")+ 		 >
+|	< CST_SEP					: "{" (~["$","{", "}", "\""] | "\\$" | "\\{" | "\\}" | "\\\"")+ "}" >
+}
+
+void main() :{ExpToken ret;
+}
+{	{ parseBEGIN(); }
+	ret = exp()
+	{ setExp(ret);
+	parseEND(ret);}
+}
+
+ExpToken exp() : {
+	Token t;
+	ExpToken ret = new ExpToken();
+}
+{	{ parseBEGIN(); }
+	(
+	   t=attributequalified() { ret.add(t); }
+	|  t=<CST_SEP> { t.image = removeAntiSlash(t.image.substring(1,t.image.length()-1)); ret.add(t); }
+	|  t=<CST> { t.image = removeAntiSlash(t.image);ret.add(t); }
+
+    )+
+
+	{
+	parseEND(ret);
+	return ret; }
+}
+
+AttributeToken attributequalified() : {
+	Token t;Token t2;
+	AttributeToken ret = new AttributeToken();
+}
+{ <ATTR_BEGIN>
+	( LOOKAHEAD(3) ( t= <ATTR> | t= <PARENT> )  <ATTR_POINT> { ret.addAttribute(t); })* t = attribute() { ret.addAttribute(t); }
+  <ATTR_END>
+  { return ret; }
+}
+
+Token attribute() : {
+	Token t;
+
+
+}
+{
+	(LOOKAHEAD(2)
+	t=<PARENT>
+| 	t=<ATTR_PARENT_ID>
+|	t=<ATTR_PARENT_UNIQUE_NAME>
+|	t=<ATTR_PARENT_SHORT_NAME>
+|	t=<ATTR_PARENT_DISPLAY_NAME>
+|	t=<ATTR_PARENT_TYPE_NAME>
+|	t=<ATTR_ID>
+|	t=<ATTR_UNIQUE_NAME>
+|	t=<ATTR_SHORT_NAME>
+|	t=<ATTR_QUALIFIED_NAME>
+|	t=<ATTR_NAME>
+|	t=<ATTR_DISPLAY_NAME>
+|	t=<ATTR_TYPE_NAME>
+|	t=<ATTR_LINK_TYPE_NAME>
+|	t=<ATTR>)
+	{ return(t); }
+
+}
+
+
+
+

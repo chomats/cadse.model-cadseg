@@ -1,0 +1,122 @@
+Index: sources/fr/imag/adele/cadse/cadseg/managers/CadseG_WLWCListener.java
+===================================================================
+--- sources/fr/imag/adele/cadse/cadseg/managers/CadseG_WLWCListener.java	(revision 13835)
++++ sources/fr/imag/adele/cadse/cadseg/managers/CadseG_WLWCListener.java	(revision 13841)
+@@ -142,7 +142,7 @@
+ 							.getName(), _desc, _desc, arguments, 0);
+ 			javaElementDescriptor.setJavaElement(oldElement);
+ 			javaElementDescriptor.setNewName(newElement.getElementName());
+-			
++
+ 			int type = oldElement.getElementType();
+ 			switch (type) {
+ 				case IJavaElement.PACKAGE_FRAGMENT:
+@@ -151,8 +151,9 @@
+ 					break;
+ 				default:
+ 			}
+-			if (oldElement.getElementType() != IJavaElement.PACKAGE_FRAGMENT_ROOT)
++			if (oldElement.getElementType() != IJavaElement.PACKAGE_FRAGMENT_ROOT) {
+ 				javaElementDescriptor.setUpdateReferences(true);
++			}
+ 
+ 			RenameSupport renameSupport = RenameSupport.create(javaElementDescriptor);
+ 			Shell parent = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+@@ -753,7 +754,8 @@
+ 				LinkManager.setMinAttribute(linkParentPart, 0);
+ 				LinkManager.setMaxAttribute(linkParentPart, 1);
+ 
+-				if (linkParentPart.getName().startsWith(PARENT_NAME)) {
++				if (linkParentPart != null && linkParentPart.getName() != null
++						&& linkParentPart.getName().startsWith(PARENT_NAME)) {
+ 					LinkManager.setDevGeneratedAttribute(linkParentPart, true);
+ 					linkParentPart.setAttribute(CadseRootCST.ITEM_TYPE_at_ITEM_HIDDEN_, true);
+ 					linkParentPart.setAttribute(CadseRootCST.ITEM_TYPE_at_ITEM_READONLY_, true);
+@@ -778,7 +780,8 @@
+ 				linkParentPart.setAttribute(CadseRootCST.ITEM_TYPE_at_ITEM_READONLY_, true);
+ 			}
+ 		} else {
+-			if (linkParentPart != null && linkParentPart.getName().startsWith(PARENT_NAME)) {
++			if (linkParentPart != null && linkParentPart.getName() != null
++					&& linkParentPart.getName().startsWith(PARENT_NAME)) {
+ 				linkParentPart.delete(true);
+ 			}
+ 		}
+@@ -1108,9 +1111,8 @@
+ 	/*
+ 	 * (non-Javadoc)
+ 	 * 
+-	 * @see
+-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
+-	 * .cadse.core.Item)
++	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
++	 *      .cadse.core.Item)
+ 	 */
+ 	private void sync_IC_and_MC(LogicalWorkspaceTransaction wc, Item dbrowser, ItemType mcType, LinkType display_mc,
+ 			ItemType icType, LinkType display_ic) throws CadseException {
+@@ -1124,9 +1126,8 @@
+ 	/*
+ 	 * (non-Javadoc)
+ 	 * 
+-	 * @see
+-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
+-	 * .cadse.core.Item)
++	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
++	 *      .cadse.core.Item)
+ 	 */
+ 	private void sync_IC_and_MC(LogicalWorkspaceTransaction wc, Item displayItem, String shortName,
+ 			Item ic_or_mc_foundItem, ItemType mc_or_ic_ItemType, LinkType display_lt_ic_or_mc) throws CadseException {
+@@ -1147,9 +1148,8 @@
+ 	/*
+ 	 * (non-Javadoc)
+ 	 * 
+-	 * @see
+-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
+-	 * .cadse.core.Item)
++	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
++	 *      .cadse.core.Item)
+ 	 */
+ 	private ItemType getMCType(Item displayItem) throws CadseException {
+ 
+@@ -1260,9 +1260,8 @@
+ 	/*
+ 	 * (non-Javadoc)
+ 	 * 
+-	 * @see
+-	 * fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
+-	 * .cadse.core.Item)
++	 * @see fede.workspace.model.manager.DefaultItemManager#createdItem(fr.imag.adele
++	 *      .cadse.core.Item)
+ 	 */
+ 	private ItemType getICTypeForDCombo(Item item) throws CadseException {
+ 		// TODO:
+@@ -1458,7 +1457,7 @@
+ 				}
+ 			}
+ 		}
+-		
++
+ 		for (ItemDelta oper : loadedItems) {
+ 			if (oper.getType() != CadseGCST.CREATION_DIALOG) {
+ 				continue;
+@@ -1467,14 +1466,15 @@
+ 			if (dv != null && dv.length() != 0) {
+ 				String gv = oper.getAttribute(CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_);
+ 				if (gv != null && gv.length() != 0) {
+-					_logger.log(Level.SEVERE, "Cannot set generated value to "+dv+" for item "+oper.getDisplayName()," : gv exists : "+gv);
+-				}
+-				else {
++					_logger.log(Level.SEVERE, "Cannot set generated value to " + dv + " for item "
++							+ oper.getDisplayName(), " : gv exists : " + gv);
++				} else {
+ 					try {
+ 						oper.setAttribute(CadseGCST.CREATION_DIALOG_at_GENERATE_AUTOMATIC_SHORT_NAME_, dv);
+-						
++
+ 					} catch (CadseException e) {
+-						_logger.log(Level.SEVERE, "Cannot set generated value to "+dv+" for item "+oper.getDisplayName(),e);
++						_logger.log(Level.SEVERE, "Cannot set generated value to " + dv + " for item "
++								+ oper.getDisplayName(), e);
+ 					}
+ 				}
+ 			}
