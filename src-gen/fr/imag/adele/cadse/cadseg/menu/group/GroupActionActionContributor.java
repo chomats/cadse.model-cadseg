@@ -111,46 +111,6 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 				principalMenu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, true);
 			}
 		}
-
-		//Set<IItemNode> itemsToDelete = getItemsToDelete(selection);
-	//	if (itemsToDelete.size() != 0) {
-	//		principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new DeleteItemAction(itemsToDelete), true);
-	//	}
-
-	//	if (Platform.inDevelopmentMode()) {
-	//		Set<IItemNode> itemsToRename = getItemsToRename(selection);
-	//		if (itemsToRename.size() != 0) {
-	//			principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new RenameAction(itemsToRename,
-	//					(IShellProvider) viewDescription.getWindowProvider()), true);
-	//		}
-	//	}
-
-//		Set<IItemNode> linksToDelete = getLinksToDelete(selection);
-//		if (linksToDelete.size() != 0) {
-//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new DeleteLinkAction(linksToDelete,
-//					(IShellProvider) viewDescription.getWindowProvider()), true);
-//		}
-//		
-//		List<Item> generateContent = getGenerateObject(selection);
-//		if (generateContent.size() != 0) {
-//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new GenerateAction(generateContent), true);
-//		}
-
-//		if (selection.length == 1) {
-//			IItemNode node = selection[0];
-//			Item item = node.getItem();
-//
-//			if (item != null
-//					&& item.isResolved()
-//					&& LinkRootNode.getLinkTypeNodeAndItemTypeNode(new LinkRootNode(), item.getType(), item,
-//							(IViewLinkManager) viewDescription).length != 0) {
-//				principalMenu
-//						.insert(IMenuAction.CONTEXT_2_MENU, new CreateLinkAction(item, (IShellProvider) viewDescription
-//								.getWindowProvider(), (IViewLinkManager) viewDescription), true);
-//			}
-//		}
-
-		//principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
 	}
 	
 	public IContributionItem findUsingPath(IContributionManager manager, String path) {
@@ -194,9 +154,6 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 	}
 
 	protected void computeMenu(ViewDescription viewDescription, Menu principalMenu, IItemNode[] selection) {
-
-		
-
 	}
 
 	protected Set<IItemNode> getLinksToDelete(IItemNode[] selection) {
