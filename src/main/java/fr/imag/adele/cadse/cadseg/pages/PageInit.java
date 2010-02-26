@@ -334,6 +334,8 @@ public class PageInit {
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, false);
 		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
 				Item.HIDDEN_IN_COMPUTED_PAGES, true);
+		CadseGCST.LINK_TYPE_at_KIND_.setFlag(
+				Item.CAN_BE_UNDEFINED, true);
 		CadseGCST.ENUM_lt_ENUM_TYPE.setFlag(
 				Item.MUST_BE_INITIALIZED_AT_CREATION_TIME, true);
 		CadseGCST.ENUM_TYPE_at_VALUES_.setFlag(
