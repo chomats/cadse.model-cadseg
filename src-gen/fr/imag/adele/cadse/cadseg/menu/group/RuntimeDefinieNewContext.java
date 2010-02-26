@@ -23,7 +23,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 		Item source = cxt.getItemNode() == null ? null : cxt.getItemNode().getItem();
 		formIt(cxt, result, view, view.getFirstItemType());
 		if (source != null) {
-			for (LinkType lt : source.getLocalOutgoingLinkTypes()) {
+			for (LinkType lt : source.getType().getOutgoingLinkTypes()) {
 				if (!view.canCreateDestination(lt))
 					continue;
 				
