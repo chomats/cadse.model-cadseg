@@ -25,7 +25,7 @@ public class CannotBeUndefinedValidator extends AbstractUIRunningValidator {
 				CheckStatus error = att.check(item, v);
 				if (error != null) {
 					if (error.getType() == UIPlatform.ERROR) {
-						_uiPlatform.setMessageError("Cached attribute "+att.getName()+": "+error.getFormatedMessage());
+						_uiPlatform.setMessageError("Hidden attribute "+att.getName()+": "+error.getFormatedMessage());
 						return true;
 					}
 					_uiPlatform.setMessage("Cached attribute "+att.getName()+": "+error.getFormatedMessage(), error.getType());
