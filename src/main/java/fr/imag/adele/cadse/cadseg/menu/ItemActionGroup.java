@@ -288,39 +288,9 @@ public class ItemActionGroup  extends AbstractActionContributor {
 		if (parent == null || !parent.isResolved()) {
 			if (viewUIController != null) {
 
-				SortedSet<IMenuAction> list = new TreeSet<IMenuAction>(comparator);
-				ItemType[] types = viewUIController.getFirstItemType(cadseModel);
-				for (ItemType it : types) {
-					boolean canCreate = canCreate(null, null, it, viewUIController,false);
-					if (!canCreate) continue;
-					if (it == null) {
-						continue;
-					}
-
-					if (it.hasIncomingParts()) {
-						WSPlugin.logErrorMessage(
-								"ItemType {0} is a root element in a cadse view but it has incoming part link", it
-										.getName());
-					}
-
-					// test si le manager indique qu'il est impossible de creer
-					// l'�l�ment.
-					if (it.isAbstract() || it.getItemManager().isAbstract(null, null)) {
-						continue;
-					}
-
-					if (!viewUIController.canCreateItem(it)) {
-						continue;
-					}
-
-					IItemManager manager = it.getItemManager();
-					if (manager.canCreateMeItem(null, null, it) != null) {
-						continue;
-					}
-
-					list.add(new MenuNewAction(workbenchWindow, null, null, it, viewUIController.getDislplayCreate(
-							null, it)));
-				}
+				SortedSet<IMenuAction> list = getFistItemTypeEntries(
+						workbenchWindow, viewUIController, comparator,
+						cadseModel);
 				return new Menu(IMenuAction.NEW_MENU_ID, "New", null, new ArrayList(list));
 			}
 			return null;
@@ -383,41 +353,58 @@ public class ItemActionGroup  extends AbstractActionContributor {
 		}
 
 		if (viewUIController != null) {
-			ItemType[] types = viewUIController.getFirstItemType(cadseModel);
-			for (ItemType it : types) {
-				boolean canCreate = canCreate(null, null, it, viewUIController, false);
-				if( !canCreate) continue;
-				if (viewUIController.isRefItemType(it, cadseModel)) {
-					continue;
-				}
-
-				if (it.isAbstract() || it.getItemManager().isAbstract(null, null)) {
-					continue;
-				}
-
-				if (!it.hasIncomingParts()) {
-					if (addsep > 0) {
-						retlist.add(IMenuAction.SEPARATOR);
-					}
-					addsep = 0;
-					retlist.add(new MenuNewAction(workbenchWindow, null, null, it, viewUIController.getDislplayCreate(
-							null, it)));
-				}
+			SortedSet<IMenuAction> list = getFistItemTypeEntries(
+					workbenchWindow, viewUIController, comparator, cadseModel);
+			if (addsep > 0) {
+				retlist.add(IMenuAction.SEPARATOR);
 			}
+			retlist.addAll(list);
 		}
 
 		Menu menu = new Menu(IMenuAction.NEW_MENU_ID, "New", null, retlist);
 		parent.getType().getItemManager().contributeMenuNewAction(menu, parent);
-
-		// IMenuAction[] dy =
-		// parent.getType().getItemManager().getMenuNewAction(parent);
-		// if (dy != null && dy.length != 0) {
-		// for (IMenuAction dynamic : dy) {
-		// retlist.add(dynamic);
-		// }
-		// retlist.add(IMenuAction.SEPARATOR);
-		// }
 		return menu;
+	}
+
+
+	private SortedSet<IMenuAction> getFistItemTypeEntries(
+			IWorkbenchWindow workbenchWindow,
+			AbstractCadseTreeViewUI viewUIController,
+			Comparator<IMenuAction> comparator, LogicalWorkspace cadseModel) {
+		SortedSet<IMenuAction> list = new TreeSet<IMenuAction>(comparator);
+		ItemType[] types = viewUIController.getFirstItemType(cadseModel);
+		for (ItemType it : types) {
+			boolean canCreate = canCreate(null, null, it, viewUIController,false);
+			if (!canCreate) continue;
+			if (it == null) {
+				continue;
+			}
+
+			if (it.hasIncomingParts()) {
+				WSPlugin.logErrorMessage(
+						"ItemType {0} is a root element in a cadse view but it has incoming part link", it
+								.getName());
+			}
+
+			// test si le manager indique qu'il est impossible de creer
+			// l'�l�ment.
+			if (it.isAbstract() || it.getItemManager().isAbstract(null, null)) {
+				continue;
+			}
+
+			if (!viewUIController.canCreateItem(it)) {
+				continue;
+			}
+
+			IItemManager manager = it.getItemManager();
+			if (manager.canCreateMeItem(null, null, it) != null) {
+				continue;
+			}
+
+			list.add(new MenuNewAction(workbenchWindow, null, null, it, viewUIController.getDislplayCreate(
+					null, it)));
+		}
+		return list;
 	}
 	
 	private void addSubType(ItemType it, LinkType lt, Item parent, SortedSet<IMenuAction> list, 
