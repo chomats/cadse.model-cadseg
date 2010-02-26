@@ -13,6 +13,8 @@ public class CannotBeUndefinedValidator extends AbstractUIRunningValidator {
 	
 	@Override
 	public boolean validValue(UIField field, Object value) {
+		if (_uiPlatform.isModification()) return false;
+		
 		Item item = _uiPlatform.getItem();
 		IAttributeType<?>[] attribute = item.getLocalAllAttributeTypes();
 		for (IAttributeType<?> att : attribute) {
