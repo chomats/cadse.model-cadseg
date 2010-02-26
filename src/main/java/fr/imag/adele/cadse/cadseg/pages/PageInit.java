@@ -1027,7 +1027,12 @@ public class PageInit {
 		// ********** //
 		// Validators //
 		// ********** //
-
+		{
+			JavaClassValidator v = new JavaClassValidator(null);
+			v.setClazz(CannotBeUndefinedValidator.class);
+			CadseGCST.ITEM.addValidators(v);
+		}
+		
 		// CADSE_DEFINITION_at_PACKAGENAME_
 		{
 			JavaClassValidator v = new JavaClassValidator(null);
