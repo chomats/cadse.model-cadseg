@@ -720,7 +720,8 @@ public class PageInit {
 					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Enter an import package");
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
 					CadseGCST.CADSE_DEFINITION_at_IMPORTS_, "Import",
-					EPosLabel.left, mc, ic);
+					EPosLabel.left, mc, ic,
+					CadseGCST.DLIST_at_EDITABLE_BUTTON_, Boolean.TRUE);
 			CadseGCST.CADSE_DEFINITION.addField(field);
 		}
 
@@ -943,7 +944,8 @@ public class PageInit {
 					CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, false);
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
 					CadseGCST.ENUM_TYPE_at_VALUES_, "Values",
-					EPosLabel.top, mc, ic);
+					EPosLabel.top, mc, ic,
+					CadseGCST.DLIST_at_EDITABLE_BUTTON_, Boolean.TRUE);
 			CadseGCST.ENUM_TYPE.addField(field);
 		}
 		
