@@ -30,8 +30,6 @@ public class UITWCommitValidator extends AbstractUIRunningValidator {
 	}
 
 	private boolean validValue() {
-		//FIXME: Class cast exception (test create a link type)
-		//fr.imag.adele.cadse.core.impl.internal.delta.ItemDeltaImpl cannot be cast to fr.imag.adele.cadse.core.impl.attribute.AttributeType
 		Item attrItem = _uiPlatform.getItem();
 		if (attrItem instanceof ItemDelta) {
 			attrItem = ((ItemDelta)attrItem).getBaseItem();
