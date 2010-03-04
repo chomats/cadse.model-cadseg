@@ -35,22 +35,24 @@ public class CadsegInit implements InitAction {
 	public void init() {
 		CadseGCST.CADSE.setHasQualifiedNameAttribute(false);
 		CadseGCST.CADSE.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE, null));
-		
+
 		CadseGCST.ITEM_lt_INSTANCE_OF.setIsNatif(true);
-		//CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
+		CadseGCST.ITEM_at_COMMITTED_DATE_.setFlag(Item.CAN_BE_UNDEFINED, true);
+
+		// CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
 		new CadseG_WLWCListener();
 		new CadseG_WorkspaceListener();
 		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
 		CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
 		CadseCore.theItem.setIsAbstract(true);
-		
+
 		CadseGCST.CADSE.setIsAbstract(true);
 		CadseGCST.CONTENT_ITEM.setIsAbstract(true);
 		CadseGCST.LINK_TYPE_TYPE.setIsAbstract(true);
 		CadseGCST.VIEW_DESCRIPTION.setIsAbstract(true);
 		CadseGCST.UILISTENER.setIsAbstract(true);
 		CadseGCST.RUNTIME_ITEM.setIsAbstract(true);
-		
+
 		CadseGCST.TYPE_DEFINITION.setHasNameAttribute(true);
 		CadseGCST.TYPE_DEFINITION.setHasQualifiedNameAttribute(true);
 		CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES.setIsNatif(true);
@@ -58,7 +60,7 @@ public class CadsegInit implements InitAction {
 		CadseGCST.TYPE_DEFINITION_lt_CADSE.setIsNatif(true);
 		CadseGCST.ITEM_TYPE_at_IS_ROOT_ELEMENT_.setIsNatif(true);
 		CadseGCST.GROUP_EXT_ITEM_lt_MEMBER_OF.setIsNatif(true);
-		
+
 		CadseGCST.PAGE.setHasQualifiedNameAttribute(false);
 		CadseGCST.ATTRIBUTE.setHasNameAttribute(true);
 		CadseGCST.ATTRIBUTE.setHasQualifiedNameAttribute(false);
@@ -70,7 +72,6 @@ public class CadsegInit implements InitAction {
 		CadseGCST.MENU.setHasQualifiedNameAttribute(false);
 		CadseGCST.FIELD.setHasQualifiedNameAttribute(false);
 
-		
 		CadseGCST.ITEM_at_COMMITTED_BY_.setFlag(Item.ATTRIBUTE_HEAD, true);
 		CadseGCST.ITEM_at_COMMITTED_DATE_.setFlag(Item.ATTRIBUTE_HEAD, true);
 		CadseGCST.ITEM_at_DISPLAY_NAME_.setFlag(Item.ATTRIBUTE_HEAD, true);
@@ -122,36 +123,32 @@ public class CadsegInit implements InitAction {
 		CadseGCST.ITEM_TYPE_lt_SUB_TYPES.setFlag(Item.ATTRIBUTE_HEAD, true);
 		CadseGCST.ITEM_TYPE_lt_SUB_TYPES.setFlag(Item.ATTRIBUTE_HEAD, true);
 		CadseGCST.ITEM_TYPE_lt_WC_LISTENERS.setFlag(Item.ATTRIBUTE_HEAD, true);
-		
-		
-		
-		CadseGCST.DATA_MODEL.setKeyDefinition(new DefaultKeyDefinitionImpl(
-				CadseGCST.DATA_MODEL, CadseGCST.CADSE_DEFINITION));
 
-		CadseGCST.TYPE_DEFINITION
-				.setKeyDefinition(new DefaultKeyDefinitionImpl(
-						CadseGCST.TYPE_DEFINITION, CadseGCST.CADSE) {
-					@Override
-					protected String convertName(String name) {
-						if (name == null)
-							return null;
-						return name.toUpperCase();
-					}
+		CadseGCST.DATA_MODEL.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.DATA_MODEL,
+				CadseGCST.CADSE_DEFINITION));
 
-					@Override
-					protected String getName(Item item) {
-						return convertName(super.getName(item));
-					}
-				});
+		CadseGCST.TYPE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.TYPE_DEFINITION,
+				CadseGCST.CADSE) {
+			@Override
+			protected String convertName(String name) {
+				if (name == null) {
+					return null;
+				}
+				return name.toUpperCase();
+			}
 
-		//CadseGCST.EXT_ITEM_TYPE.setKeyDefinition(new DefaultKeyDefinitionImpl(
-		//		CadseGCST.EXT_ITEM_TYPE, null));
-		CadseGCST.PAGE.setKeyDefinition(new PageSpaceKeyType(CadseGCST.PAGE,
-				CadseGCST.TYPE_DEFINITION));
-		
-		CadseGCST.ATTRIBUTE.setKeyDefinition(new AttributeSpaceKeyType(CadseGCST.ATTRIBUTE,
-					CadseGCST.TYPE_DEFINITION));
-		
+			@Override
+			protected String getName(Item item) {
+				return convertName(super.getName(item));
+			}
+		});
+
+		// CadseGCST.EXT_ITEM_TYPE.setKeyDefinition(new DefaultKeyDefinitionImpl(
+		// CadseGCST.EXT_ITEM_TYPE, null));
+		CadseGCST.PAGE.setKeyDefinition(new PageSpaceKeyType(CadseGCST.PAGE, CadseGCST.TYPE_DEFINITION));
+
+		CadseGCST.ATTRIBUTE.setKeyDefinition(new AttributeSpaceKeyType(CadseGCST.ATTRIBUTE, CadseGCST.TYPE_DEFINITION));
+
 		CadseGCST.FIELD.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.FIELD, CadseGCST.TYPE_DEFINITION,
 				CadseGCST.ITEM_at_NAME_, CadseGCST.FIELD_lt_ATTRIBUTE));
 
@@ -165,7 +162,8 @@ public class CadsegInit implements InitAction {
 				if (container.getType() == CadseGCST.EXT_ITEM_TYPE) {
 					itemType = ExtItemTypeManager.getRefType(container);
 					allAttributes.addAll(ExtItemTypeManager.getAttributes(container));
-				} else if (container.getType() == CadseGCST.ITEM_TYPE) {
+				}
+				else if (container.getType() == CadseGCST.ITEM_TYPE) {
 					itemType = container;
 				}
 				if (itemType != null) {
@@ -175,19 +173,20 @@ public class CadsegInit implements InitAction {
 				return allAttributes;
 			}
 		});
-		
+
 		CadseGCST.VIEW.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
 
 		try {
 			PageInit.init();
 			CadseGCST.ITEM.addActionContributeur(new ItemActionGroup());
-		} catch (CadseException e) {
+		}
+		catch (CadseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		MigrationInit.init();
-		
-		//*****/
+
+		// *****/
 		WorkspaceListener listener = new WorkspaceListener() {
 
 			@Override
