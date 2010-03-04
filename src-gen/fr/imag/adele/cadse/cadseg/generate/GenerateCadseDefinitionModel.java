@@ -646,7 +646,7 @@ public class GenerateCadseDefinitionModel {
 		cit.setHidden(ItemTypeManager.isIsInstanceHiddenAttribute(itemType));
 		cit.setType(ItemTypeManager.getMetaType(itemType));
 		cit.setMetaType(ItemTypeManager.getMetaType(itemType));
-		IJavaElement je = JavaCore.create(ItemTypeManager.getItemFactoryClass(itemType));
+		IJavaElement je = getItemFactoryType(itemType);
 		cit.setFactoryClass((je != null && je instanceof IType) ? ((IType) je).getFullyQualifiedName() : null);
 		cit.setPackageName(ItemTypeManager.getSubPackageFromCategory(itemType));
 
@@ -680,6 +680,12 @@ public class GenerateCadseDefinitionModel {
 		cit.setManagerClass(ItemTypeManager.getManagerClass(itemType,null, null));
 		cit.setCstName(GenerateJavaIdentifier.cstItemType(cxt, itemType));
 		cit.setDefaultShortName(notempty(ItemTypeManager.getDefaultInstanceNameAttribute(itemType)));
+	}
+
+	private static IJavaElement getItemFactoryType(ItemType itemType) {
+		final String itemFactoryClass = ItemTypeManager.getItemFactoryClass(itemType);
+		final IJavaElement ret = JavaCore.create(itemFactoryClass);
+		return ret;
 	}
 
 	/**
