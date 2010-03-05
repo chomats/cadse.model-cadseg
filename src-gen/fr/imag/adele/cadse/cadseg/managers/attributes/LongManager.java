@@ -115,8 +115,9 @@ public class LongManager extends AttributeManager {
 	@Override
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
 			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
-		LongAttributeType ret = new fr.imag.adele.cadse.core.impl.attribute.LongAttributeType(initModel.getUUID(type.getId()), type.getKey(), initModel
-				.getFlag(type));
+		LongAttributeType ret = new fr.imag.adele.cadse.core.impl.attribute.LongAttributeType(
+				initModel.getUUID(type.getId()), type.getKey(), initModel
+				.getFlag(type), type.getValue());
 		return ret;
 	}
 
