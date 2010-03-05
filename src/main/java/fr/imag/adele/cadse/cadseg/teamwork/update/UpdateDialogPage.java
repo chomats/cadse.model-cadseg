@@ -93,6 +93,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ActionController;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DButtonUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
@@ -135,9 +136,9 @@ public class UpdateDialogPage extends SWTDialog {
 	
 	protected DButtonUI						_computeImpactsField;
 
-	protected DSashFormUI<RuningInteractionController>	_separateRequirementsAndImpactsSashField;
+	protected DSashFormUI<ICRunningField>	_separateRequirementsAndImpactsSashField;
 
-	protected DSashFormUI<RuningInteractionController>	_separateImpactsAndAnalysisSash;
+	protected DSashFormUI<ICRunningField>	_separateImpactsAndAnalysisSash;
 
 	protected DListUI<IC_OperationsForList>			_impactsField;
 
