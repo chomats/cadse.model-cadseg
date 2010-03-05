@@ -67,6 +67,7 @@ import fr.imag.adele.cadse.eclipse.view.SelfViewTableLabelProvider;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.UIRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_TreeModel;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DGridUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
@@ -92,9 +93,9 @@ public class UpdateStatusDialog extends SWTDialog {
 	/*
 	 * UI fields.
 	 */
-	protected DSashFormUI<RuningInteractionController>					_separateErrorsAndOthersSash;
+	protected DSashFormUI<ICRunningField>           			_separateErrorsAndOthersSash;
 
-	protected DSashFormUI<RuningInteractionController>					_separateOpsAndAnalysisSash;
+	protected DSashFormUI<ICRunningField>               		_separateOpsAndAnalysisSash;
 
 	protected DTreeModelUI<ItemToUpdateTreeIC>						_operationsField;
 
@@ -458,7 +459,7 @@ public class UpdateStatusDialog extends SWTDialog {
 				_causesField);
 		DGridUI consequencesGrid = _swtuiPlatforms.createDGridUI(_page, "#consequencesPart", "", EPosLabel.none, defaultMc, null, 
 				_consequencesField);
-		DSashFormUI<RuningInteractionController> analysisSash = _swtuiPlatforms.createDSashFormUI(_page, "#analysisSash", "", EPosLabel.none, defaultMc, null, 
+		DSashFormUI<ICRunningField> analysisSash = _swtuiPlatforms.createDSashFormUI(_page, "#analysisSash", "", EPosLabel.none, defaultMc, null,
 				causesGrid, consequencesGrid);
 		analysisSash.setWeight(50); 
 		analysisSash.setHorizontal(true);

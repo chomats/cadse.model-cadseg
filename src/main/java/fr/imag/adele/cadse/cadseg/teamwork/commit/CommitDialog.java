@@ -120,6 +120,7 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeModelUI;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.WizardController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.dialog.SWTDialog;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
 
 /**
  * Dialog used for asking confirmation of items to commit. Informations provided
@@ -142,9 +143,9 @@ public class CommitDialog extends SWTDialog {
 
 	protected DButtonUI						_deselectAllItemsField;
 
-	protected DSashFormUI<RuningInteractionController>					_selectSashField;
+	protected DSashFormUI<ICRunningField>					_selectSashField;
 
-	protected DSashFormUI<RuningInteractionController>					_rootSashField;
+	protected DSashFormUI<ICRunningField>					_rootSashField;
 
 	protected DTreeModelUI<IC_TreeModel>					_treeField;
 
