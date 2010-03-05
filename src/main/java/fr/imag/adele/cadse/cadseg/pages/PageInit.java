@@ -947,6 +947,13 @@ public class PageInit {
 		CadseGCST.LINK_TYPE.addCreationPages(ltHiddenAttributes);
 		CadseGCST.LINK_TYPE.addModificationPages(ltHiddenAttributes);
 
+		// Hidden page for Enum
+		IPage enumHiddenAttributes = new PageImpl(UUID.randomUUID(), "Hidden attributes", "Hidden attributes",
+				"Hidden attributes", "Hidden attributes", false, null);
+		enumHiddenAttributes.addHiddenAttributes(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+		CadseGCST.ENUM.addCreationPages(enumHiddenAttributes);
+		CadseGCST.ENUM.addModificationPages(enumHiddenAttributes);
+
 		// Hidden attributes for content model
 		IPage cmHiddenAttributes = new PageImpl(UUID.randomUUID(), "Hidden attributes", "Hidden attributes",
 				"Hidden attributes", "Hidden attributes", false, null);
