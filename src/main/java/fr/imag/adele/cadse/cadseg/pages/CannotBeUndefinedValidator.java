@@ -19,6 +19,7 @@ public class CannotBeUndefinedValidator extends AbstractUIRunningValidator {
 		IAttributeType<?>[] attribute = item.getLocalAllAttributeTypes();
 		for (IAttributeType<?> att : attribute) {
 			if (att.canBeUndefined()) continue;
+			if (_uiPlatform.contains(att)) continue;
 			if (item.isDelegatedValue(att)) continue;
 			if (att instanceof LinkType) {
 				
