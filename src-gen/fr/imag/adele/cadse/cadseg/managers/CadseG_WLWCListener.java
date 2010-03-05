@@ -404,10 +404,6 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 //			syncFieldFromAttribute(wc, itemType, item, false);
 //		}
 
-		if (item.getType() == CadseGCST.INTEGER) {
-			item.setAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "0");
-		}
-
 		if (item.getType() == CadseGCST.LINK_TYPE) {
 			Item parent = item.getPartParent();
 			if (parent != null) {
