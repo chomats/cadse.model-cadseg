@@ -172,10 +172,10 @@ public class PackageContentModelManager extends FolderContentModelManager {
 //
 //		}
 		
-//		@Override
-//		protected StringAttributeType[] getResourceKindsName() {
-//			return new StringAttributeType[]{ CadseGCST.PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_ };
-//		}
+		@Override
+		protected StringAttributeType[] getResourceKindsName() {
+			return new StringAttributeType[]{ CadseGCST.PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_ };
+		}
 
 //		/*
 //		 * (non-Javadoc)
