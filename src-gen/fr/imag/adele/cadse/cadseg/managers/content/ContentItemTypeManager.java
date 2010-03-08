@@ -515,7 +515,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 	 * @return
 	 */
 	public Class<? extends ContentItem> getRuntimeClassName() {
-		return null;
+		return fr.imag.adele.cadse.core.impl.ContentItemImpl.class;
 	}
 
 	/**

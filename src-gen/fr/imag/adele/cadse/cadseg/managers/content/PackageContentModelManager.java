@@ -30,6 +30,7 @@ import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
@@ -125,62 +126,67 @@ public class PackageContentModelManager extends FolderContentModelManager {
 			super(id);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			super.generateConstructorParameter(sb);
-			sb.append(" String packageName,");
-		}
+//		/*
+//		 * (non-Javadoc)
+//		 * 
+//		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
+//		 */
+//		@Override
+//		protected void generateConstructorParameter(GenStringBuilder sb) {
+//			super.generateConstructorParameter(sb);
+//			sb.append(" String packageName,");
+//		}
+//
+//		/*
+//		 * (non-Javadoc)
+//		 * 
+//		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
+//		 */
+//		@Override
+//		protected void generateConstrustorArguments(GenStringBuilder sb) {
+//			super.generateConstrustorArguments(sb);
+//			sb.append(" packageName,");
+//		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			super.generateConstrustorArguments(sb);
-			sb.append(" packageName,");
-		}
+//		/*
+//		 * (non-Javadoc)
+//		 * 
+//		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateCallInit(fr.imag.adele.cadse.core.GenStringBuilder,
+//		 *      java.util.Set, fr.imag.adele.cadse.core.GenContext)
+//		 */
+//		@Override
+//		protected void generateCallInit(GenStringBuilder sb, Set<String> imports, GenContext newcontext) {
+//			String itemVar = newcontext.getAttribute("itemVar");
+//			String value = getOwnerItem().getAttribute(CadseGCST.PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_);
+//			if (value == null || value.length() == 0) {
+//				value = "${#short-name}";
+//			}
+//			Item itemtype = ManagerManager.getItemType(getOwnerItem().getPartParent());
+//
+//			ParseTemplate pt = new ParseTemplate(itemtype, value, null);
+//			try {
+//				pt.main();
+//				pt.build(itemVar, "sbPackage", sb, imports, null);
+//			} catch (ParseException e) {
+//			}
+//
+//		}
+		
+//		@Override
+//		protected StringAttributeType[] getResourceKindsName() {
+//			return new StringAttributeType[]{ CadseGCST.PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_ };
+//		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateCallInit(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		protected void generateCallInit(GenStringBuilder sb, Set<String> imports, GenContext newcontext) {
-			String itemVar = newcontext.getAttribute("itemVar");
-			String value = getOwnerItem().getAttribute(CadseGCST.PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_);
-			if (value == null || value.length() == 0) {
-				value = "${#short-name}";
-			}
-			Item itemtype = ManagerManager.getItemType(getOwnerItem().getPartParent());
-
-			ParseTemplate pt = new ParseTemplate(itemtype, value, null);
-			try {
-				pt.main();
-				pt.build(itemVar, "sbPackage", sb, imports, null);
-			} catch (ParseException e) {
-			}
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
-			sb.append("sbPackage.toString(),");
-		}
+//		/*
+//		 * (non-Javadoc)
+//		 * 
+//		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
+//		 *      java.util.Set, fr.imag.adele.cadse.core.GenContext)
+//		 */
+//		@Override
+//		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
+//			sb.append("sbPackage.toString(),");
+//		}
 
 		/*
 		 * (non-Javadoc)
