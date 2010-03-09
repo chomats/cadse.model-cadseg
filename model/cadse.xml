@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- ATTRIBUTE_at_MUST_BE_INITIALIZED_ changed default value to false -->
 <ns2:c-cadse display-name="CADSEg (Editor and generator of CADSEs)"
 	description="CADSEg specializes the IDE to provide functionalities to edit and create CADSEs"
 	cst-class="fr.imag.adele.cadse.core.CadseGCST" version="0"
@@ -157,7 +158,7 @@
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="1"
 			id="a76dc735-0d84-463f-b6d7-0ba34e7649fc" cst-name="ATTRIBUTE_at_MUST_BE_INITIALIZED_"
-			min="0" type="boolean" value="true" key="must-be-initialized"
+			min="0" type="boolean" value="false" key="must-be-initialized"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="1"
