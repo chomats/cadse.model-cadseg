@@ -38,14 +38,17 @@ public class CadsegInit implements InitAction {
 
 		CadseGCST.ITEM_lt_INSTANCE_OF.setIsNatif(true);
 		CadseGCST.ITEM_at_COMMITTED_DATE_.setFlag(Item.CAN_BE_UNDEFINED, true);
-
+		CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM.setFlag(Item.TRANSIENT, true);
+		
 		// CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
 		new CadseG_WLWCListener();
 		new CadseG_WorkspaceListener();
 		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
 		CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
+		
+		
+		
 		CadseCore.theItem.setIsAbstract(true);
-
 		CadseGCST.CADSE.setIsAbstract(true);
 		CadseGCST.CONTENT_ITEM.setIsAbstract(true);
 		CadseGCST.LINK_TYPE_TYPE.setIsAbstract(true);
@@ -72,6 +75,7 @@ public class CadsegInit implements InitAction {
 		CadseGCST.MENU.setHasQualifiedNameAttribute(false);
 		CadseGCST.FIELD.setHasQualifiedNameAttribute(false);
 
+		
 		CadseGCST.ITEM_at_COMMITTED_BY_.setFlag(Item.ATTRIBUTE_HEAD, true);
 		CadseGCST.ITEM_at_COMMITTED_DATE_.setFlag(Item.ATTRIBUTE_HEAD, true);
 		CadseGCST.ITEM_at_DISPLAY_NAME_.setFlag(Item.ATTRIBUTE_HEAD, true);
