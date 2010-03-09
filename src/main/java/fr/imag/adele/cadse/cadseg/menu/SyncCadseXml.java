@@ -25,10 +25,8 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.TypeDefinition;
-import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CAttType;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CExtensionItemType;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
@@ -37,7 +35,6 @@ import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
 /**
  * @see fr.imag.adele.cadse.advancedcadseg.menu.AdvancedMenuActionContributor.SyncCadseXML
  * @author chomats
- *
  */
 public class SyncCadseXml extends IMenuAction {
 
@@ -55,14 +52,14 @@ public class SyncCadseXml extends IMenuAction {
 	public void run(IItemNode[] selection) throws CadseException {
 		Item cadse = selection[0].getItem();
 		Item[] its = ItemTypeManager.getAllAllItemType(cadse, null);
-		
+
 		LogicalWorkspace lw = cadse.getLogicalWorkspace();
 		File cadseFile = new File(cadse.getMainMappingContent(File.class), "model/cadse.xml");
 		LogicalWorkspaceTransaction t = lw.createTransaction();
 		Item mapping = CadseDefinitionManager.getMapping(cadse);
 		try {
 			CCadse ccadse = read(new FileInputStream(cadseFile));
-			for(CItemType cit : ccadse.getItemType()) {
+			for (CItemType cit : ccadse.getItemType()) {
 				UUID id = uuid(cit.getId());
 				ItemType it = (ItemType) find(its, cadse, cit.getName(), cit.getPackageName(), cit.getId());
 				if (it == null) {
@@ -76,72 +73,82 @@ public class SyncCadseXml extends IMenuAction {
 				}
 				ItemTypeManager.setDefaultInstanceNameAttribute(itDelta, cit.getDefaultShortName());
 				ItemTypeManager.setIdRuntimeAttribute(itDelta, cit.getId());
-				
-				for (CValuesType attType :cit.getAttributeType()) {
-					Item att = find(it,attType.getKey());
-					if (att == null) continue;
+
+				for (CValuesType attType : cit.getAttributeType()) {
+					Item att = find(it, attType.getKey());
+					if (att == null) {
+						continue;
+					}
 					ItemDelta attDelta = t.getItem(att);
 					AttributeManager.setIdRuntimeAttribute(attDelta, attType.getId());
 					AttributeManager.setDefaultValueAttribute(attDelta, attType.getValue());
 					int f = attType.getFlag();
-					
+
 					//
-					AttributeManager.setCannotBeUndefinedAttribute(attDelta, (f & Item.CAN_BE_UNDEFINED) ==0);
-					AttributeManager.setTransientAttribute(attDelta, (f & Item.TRANSIENT) !=0);
-					AttributeManager.setMustBeInitializedAttribute(attDelta, (f & Item.MUST_BE_INITIALIZED_AT_CREATION_TIME) !=0);
-					
+					AttributeManager.setCannotBeUndefinedAttribute(attDelta, (f & Item.CAN_BE_UNDEFINED) == 0);
+					AttributeManager.setTransientAttribute(attDelta, (f & Item.TRANSIENT) != 0);
+					AttributeManager.setShowInDefaultCPAttribute(attDelta, (f & Item.SHOW_IN_DEFAULT_CP) != 0);
+
 					if (att.isInstanceOf(CadseGCST.STRING)) {
-						StringManager.setNotEmptyAttribute(attDelta, (f & Item.NOT_EMPTY) !=0);
+						StringManager.setNotEmptyAttribute(attDelta, (f & Item.NOT_EMPTY) != 0);
 					}
 				}
 			}
 			for (CExtensionItemType eit : ccadse.getExtItemType()) {
-				for (CValuesType attType :eit.getAttributeType()) {
-					TypeDefinition it = (TypeDefinition) find(its, cadse, eit.getName(), eit.getPackageName(), eit.getId());
+				for (CValuesType attType : eit.getAttributeType()) {
+					TypeDefinition it = (TypeDefinition) find(its, cadse, eit.getName(), eit.getPackageName(), eit
+							.getId());
 					if (it == null) {
 						// create it
 						continue;
-					}Item att = find(it,attType.getKey());
-					if (att == null) continue;
+					}
+					Item att = find(it, attType.getKey());
+					if (att == null) {
+						continue;
+					}
 					ItemDelta attDelta = t.getItem(att);
 					AttributeManager.setIdRuntimeAttribute(attDelta, attType.getId());
 					AttributeManager.setDefaultValueAttribute(attDelta, attType.getValue());
 					int f = attType.getFlag();
-					
+
 					//
-					AttributeManager.setCannotBeUndefinedAttribute(attDelta, (f & Item.CAN_BE_UNDEFINED) ==0);
-					AttributeManager.setTransientAttribute(attDelta, (f & Item.TRANSIENT) !=0);
-					AttributeManager.setMustBeInitializedAttribute(attDelta, (f & Item.MUST_BE_INITIALIZED_AT_CREATION_TIME) !=0);
-					
+					AttributeManager.setCannotBeUndefinedAttribute(attDelta, (f & Item.CAN_BE_UNDEFINED) == 0);
+					AttributeManager.setTransientAttribute(attDelta, (f & Item.TRANSIENT) != 0);
+					AttributeManager.setShowInDefaultCPAttribute(attDelta, (f & Item.SHOW_IN_DEFAULT_CP) != 0);
+
 					if (att.isInstanceOf(CadseGCST.STRING)) {
-						StringManager.setNotEmptyAttribute(attDelta, (f & Item.NOT_EMPTY) !=0);
+						StringManager.setNotEmptyAttribute(attDelta, (f & Item.NOT_EMPTY) != 0);
 					}
 				}
 			}
 			t.commit();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JAXBException e) {
+		}
+		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	private Item find(Item it, String key) {
 		Collection<Item> attr = it.getOutgoingItems(CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, true);
 		for (Item a : attr) {
-			if (a.getName().equals(key))
+			if (a.getName().equals(key)) {
 				return a;
+			}
 		}
 		return null;
 	}
 
 	private Item find(Item[] its, Item cadse, String name, String packageName, String id) {
 		for (Item it : its) {
-			if (it.getName().equals(name))
+			if (it.getName().equals(name)) {
 				return it;
+			}
 		}
 		return null;
 	}
@@ -151,7 +158,8 @@ public class SyncCadseXml extends IMenuAction {
 	}
 
 	public CCadse read(InputStream s) throws JAXBException {
-		JAXBContext jc = JAXBContext.newInstance("fr.imag.adele.fede.workspace.as.initmodel.jaxb", this.getClass().getClassLoader());
+		JAXBContext jc = JAXBContext.newInstance("fr.imag.adele.fede.workspace.as.initmodel.jaxb", this.getClass()
+				.getClassLoader());
 		Unmarshaller m = jc.createUnmarshaller();
 		return (CCadse) m.unmarshal(s);
 	}
