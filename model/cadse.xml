@@ -5,6 +5,7 @@
 <!-- Removed attributes from creation page -->
 <!-- ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_ - flag de 11 à 9 -->
 <!-- ITEM_TYPE_lt_CONTENT_MODEL - flag de 3 à 1 -->
+<!-- LINK_TYPE_at_KIND_ flag de  8 à 1 -->
 
 <ns2:c-cadse display-name="CADSEg (Editor and generator of CADSEs)"
 	description="CADSEg specializes the IDE to provide functionalities to edit and create CADSEs"
@@ -1995,7 +1996,7 @@
 			min="0" type="boolean" value="false" key="hidden"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="8"
+			tw-update="merge" tw-evolution="immutable" flag="1"
 			id="904b87fb-da10-462c-bb2b-4e4737652e42" cst-name="LINK_TYPE_at_KIND_"
 			min="0" type="integer" value="" key="kind"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
