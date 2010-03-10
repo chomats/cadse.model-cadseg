@@ -291,7 +291,6 @@ public class PageInit {
 		CadseGCST.ITEM_TYPE_lt_SUB_TYPES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ITEM_TYPE_lt_WC_LISTENERS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
-		CadseGCST.LINK_TYPE_at_HIDDEN_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.LINK_TYPE_at_KIND_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.MANAGER_at_DISPLAY_NAME_TEMPLATE_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.MANAGER_at_ICON_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
