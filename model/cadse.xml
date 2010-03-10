@@ -16,7 +16,7 @@
 		super-type-name="1b4f69bd-25a3-445e-b7d4-d106a72e3596" name="AJProjectComposer"
 		qualified-name="CadseG.build.composer.AJProjectComposer" cst-name="AJPROJECT_COMPOSER"
 		id="d2942fa2-260e-4697-aa6b-c74d5384cf47">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="AJPROJECT_COMPOSER_lt_COMPOSER_LINKS" intID="0"
@@ -25,7 +25,7 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="composer-links" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="75284f57-d01a-40a8-9a8a-52e016d55245" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="694d75d5-6223-47b4-8bbf-e1308a11139a" cst-name="AJPROJECT_COMPOSER_at_SKIP_WEAVING_"
 			min="0" type="boolean" value="false" key="skip-weaving"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -52,7 +52,7 @@
 		super-type-name="2f77364d-7c51-4b6a-bcd9-35d99a6e7c74" name="AspectJProjectContentModel"
 		qualified-name="CadseG.content.AspectJProjectContentModel" cst-name="ASPECT_JPROJECT_CONTENT_MODEL"
 		id="cc880779-714b-4c58-a41d-d938d79eff8b">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ASPECT_JPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL" intID="0"
@@ -83,7 +83,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="Attribute"
 		qualified-name="CadseG.attributes.Attribute" cst-name="ATTRIBUTE"
 		id="31db54ef-d925-4ac4-964c-0e10dbbd30bb">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="none"
 			tw-update="none" tw-evolution="immutable" isNatif="false"
 			cst-name="ATTRIBUTE_lt_WC_LISTENS" intID="0"
@@ -92,7 +92,7 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="wcListens"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="e1c0ba12-1240-45d3-a29c-89d7e7acf589" />
 		<attribute-type tw-rev-specific="true" tw-commit="none"
-			tw-update="none" tw-evolution="immutable" flag="3"
+			tw-update="none" tw-evolution="immutable" flag="11"
 			id="4c251c4b-c9cd-45b8-9502-ae74db5953e3" cst-name="ATTRIBUTE_at_TWCOMMIT_KIND_"
 			min="1" type="enumeration" value="conflict" key="TWCommitKind"
 			type-name="a807eb31-575e-4fbb-822c-c0e4c6095339">
@@ -100,7 +100,7 @@
 				value="fr.imag.adele.cadse.core.enumdef.TWCommitKind" key="enum-clazz" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="none"
-			tw-update="none" tw-evolution="immutable" flag="3"
+			tw-update="none" tw-evolution="immutable" flag="11"
 			id="a503fea4-8d66-4084-8704-ed545c7ade82" cst-name="ATTRIBUTE_at_TWEVOL_"
 			min="1" type="enumeration" value="twImmutable" key="TWEvol"
 			type-name="a807eb31-575e-4fbb-822c-c0e4c6095339">
@@ -108,12 +108,12 @@
 				value="fr.imag.adele.cadse.core.enumdef.TWEvol" key="enum-clazz" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="none"
-			tw-update="none" tw-evolution="immutable" flag="1"
+			tw-update="none" tw-evolution="immutable" flag="9"
 			id="cf3f31f5-7b25-423e-b59b-e3005b54c9a8" cst-name="ATTRIBUTE_at_TWREV_SPECIFIC_"
 			min="0" type="boolean" value="true" key="TWRevSpecific"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="none"
-			tw-update="none" tw-evolution="immutable" flag="3"
+			tw-update="none" tw-evolution="immutable" flag="11"
 			id="0b647418-94bd-41c2-9803-9543564017e0" cst-name="ATTRIBUTE_at_TWUPDATE_KIND_"
 			min="1" type="enumeration" value="merge" key="TWUpdateKind"
 			type-name="a807eb31-575e-4fbb-822c-c0e4c6095339">
@@ -121,57 +121,57 @@
 				value="fr.imag.adele.cadse.core.enumdef.TWUpdateKind" key="enum-clazz" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="d07e68e8-7b69-4eeb-90e4-c8816daf38cf" cst-name="ATTRIBUTE_at_CANNOT_BE_UNDEFINED_"
 			min="0" type="boolean" value="false" key="cannot-be-undefined"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="ba2f8b5e-da31-429b-bdda-da9fe90e27aa" cst-name="ATTRIBUTE_at_DEFAULT_VALUE_"
 			min="0" type="string" value="" key="default-value"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="80098a8a-027e-47b3-845c-684beaebd0eb" cst-name="ATTRIBUTE_at_DEV_GENERATED_"
 			min="0" type="boolean" value="false" key="dev-generated"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="cbe2d1ec-d3cb-4bba-b424-55bf5c855334" cst-name="ATTRIBUTE_at_FINAL_"
 			min="0" type="boolean" value="false" key="final"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="13eee9fe-aa0e-42dd-8655-a2e12cc453f8" cst-name="ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_"
 			min="0" type="boolean" value="false" key="hidden-in-computed-pages"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="f5e94a1a-8e41-4852-b189-906c5734d628" cst-name="ATTRIBUTE_at_ID_RUNTIME_"
 			min="0" type="string" value="" key="id-runtime"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="dcb673ab-3b2b-482e-ab81-9ce20a463bea" cst-name="ATTRIBUTE_at_IS_LIST_"
 			min="0" type="boolean" value="false" key="is-list"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="a76dc735-0d84-463f-b6d7-0ba34e7649fc" cst-name="ATTRIBUTE_at_MUST_BE_INITIALIZED_"
 			min="0" type="boolean" value="false" key="must-be-initialized"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="cfd391d3-e7d4-4555-b3d6-35d7651e4d5d" cst-name="ATTRIBUTE_at_NATIF_"
 			min="0" type="boolean" value="false" key="natif"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="2469d62d-f260-4359-8058-afdc65e0c893" cst-name="ATTRIBUTE_at_REQUIRE_"
 			min="0" type="boolean" value="false" key="require"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="5bffb945-3636-4376-a40d-e7b9eaa1fda1" cst-name="ATTRIBUTE_at_TRANSIENT_"
 			min="0" type="boolean" value="false" key="transient"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -188,12 +188,12 @@
 		qualified-name="CadseG.meta.AttributeItemType" cst-name="ATTRIBUTE_ITEM_TYPE"
 		id="ff74a648-5a20-42c0-bd1d-ebee453b7701">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="7810e43b-e5e4-4a96-a821-83b455e8e2a4" cst-name="ATTRIBUTE_ITEM_TYPE_at_DEFAULT_VALUE_"
 			min="0" type="string" value="" key="default-value"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="256"
+			tw-update="merge" tw-evolution="immutable" flag="264"
 			id="7db61c78-928d-43d3-afc3-a05a9f31e210" cst-name="ATTRIBUTE_ITEM_TYPE_at_RUNTIME_QUALIFIED_CLASS_"
 			min="0" type="string" value="" key="runtime-qualified-class"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -220,7 +220,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="BuildModel"
 		qualified-name="CadseG.build.BuildModel" cst-name="BUILD_MODEL"
 		id="4fb5450d-76a8-4fb8-a647-18b8907ce568">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="BUILD_MODEL_lt_COMPOSITE_TYPES" intID="0"
@@ -241,7 +241,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="Builder"
 		qualified-name="CadseG.build.Builder" cst-name="BUILDER"
 		id="d1f9afde-ddec-475c-8245-f104edf9a6e5">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="BUILDER_lt_REQUIRES" intID="0"
@@ -258,14 +258,14 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="Cadse"
 		qualified-name="CadseG..Cadse" cst-name="CADSE"
 		id="b81c6546-c321-4590-b0eb-7b13929cb1dd">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false" cst-name="CADSE_lt_EXTENDS"
 			intID="0" destination="b81c6546-c321-4590-b0eb-7b13929cb1dd" isPart="false"
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="-1" min="0" name="extends"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="b6483395-93bc-44ad-abee-eeb5bf9b241a" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CADSE_lt_ITEM_TYPES" intID="0"
@@ -274,37 +274,37 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="itemTypes"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="60d83c2a-51ec-44ec-b8d4-988e48f45d17" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="b653c949-740c-4af6-9198-286ff049bc94" cst-name="CADSE_at_DEFAULT_CONTENT_REPO_URL_"
 			min="0" type="string" value="" key="defaultContentRepoURL"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="5f32f81c-0eee-4074-adf5-8f36f0d63b79" cst-name="CADSE_at_DESCRIPTION_"
 			min="0" type="string" value="" key="description"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="c4b7f492-b0b3-4b11-a2f3-f95a4ed7d2d2" cst-name="CADSE_at_EXECUTED_"
 			min="0" type="boolean" value="false" key="executed"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="ae379672-4190-4294-8654-fb3cf19f13a9" cst-name="CADSE_at_ID_DEFINITION_"
 			min="0" type="string" value="" key="id-definition"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="dd99fecc-bc20-40df-aa21-b1a0700ed54f" cst-name="CADSE_at_ITEM_REPO_LOGIN_"
 			min="0" type="string" value="" key="itemRepoLogin"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="5d901ef5-f74b-4256-9bd1-a7355eacd738" cst-name="CADSE_at_ITEM_REPO_PASSWD_"
 			min="0" type="string" value="" key="itemRepoPasswd"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="9305f0f1-551a-49f9-9e19-d7d666059251" cst-name="CADSE_at_ITEM_REPO_URL_"
 			min="0" type="string" value="" key="itemRepoURL"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -320,7 +320,7 @@
 		super-type-name="b81c6546-c321-4590-b0eb-7b13929cb1dd" name="CadseDefinition"
 		qualified-name="CadseG..CadseDefinition" cst-name="CADSE_DEFINITION"
 		id="07461b19-b1c4-4f45-a86b-db96ca524030">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CADSE_DEFINITION_lt_BUILD" intID="0"
@@ -328,7 +328,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="1" min="1" name="build"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="e52c6ea0-0612-4706-92c0-1d521e472bd1" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CADSE_DEFINITION_lt_CONFIGURATION" intID="0"
@@ -336,7 +336,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="1" min="0" name="configuration"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="85e6c2a8-dec9-4ae4-9928-b0991c278ca2" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CADSE_DEFINITION_lt_DATA_MODEL" intID="0"
@@ -344,7 +344,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="1" min="1" name="data-model"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="9f495f63-f260-4169-9006-6263e224fa15" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CADSE_DEFINITION_lt_MAPPING" intID="0"
@@ -352,7 +352,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="1" min="1" name="mapping"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="667f62da-cdbe-468f-be55-ee72e0eb3056" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="none"
 			tw-update="none" tw-evolution="immutable" isNatif="false"
 			cst-name="CADSE_DEFINITION_lt_VIEW_MODEL" intID="0"
@@ -361,40 +361,40 @@
 			isAnnotation="false" isAggregation="true" max="1" min="1" name="view-model"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="5aea3b2d-0e5b-4370-ba5a-88012b56c80e" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="9b933366-767c-4e3c-947d-2dbb679aad51" cst-name="CADSE_DEFINITION_at_CADSE_NAME_"
 			min="0" type="string" value="" key="cadse-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="none"
-			tw-update="none" tw-evolution="immutable" flag="1"
+			tw-update="none" tw-evolution="immutable" flag="9"
 			id="6b6d1d48-530f-402c-adbb-e8a1d97ebe98" cst-name="CADSE_DEFINITION_at_COMMENTARY_"
 			min="0" type="string" value="" key="commentary"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="fe586565-ec11-4d90-a232-9ab76c7c8a3b" cst-name="CADSE_DEFINITION_at_ID_RUNTIME_"
 			min="0" type="string" value="" key="id-runtime"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="e46dcaa2-7925-4ab7-bfe9-e97e2142b0e2" cst-name="CADSE_DEFINITION_at_IMPORTS_"
 			max="-1" min="0" type="list" value="" key="imports"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="1" min="0" type="string"
+			<element tw-rev-specific="false" flag="9" min="0" type="string"
 				type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="0fab31b0-40eb-456c-bd57-cdc26789a838" cst-name="CADSE_DEFINITION_at_PACKAGENAME_"
 			min="0" type="string" value="" key="packagename"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="136b82d1-b642-4e54-82e9-1040618a5dc4" cst-name="CADSE_DEFINITION_at_VENDOR_NAME_"
 			min="0" type="string" value="" key="vendor-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="none"
-			tw-update="none" tw-evolution="immutable" flag="1"
+			tw-update="none" tw-evolution="immutable" flag="9"
 			id="6098d610-3df5-4de0-a741-a35483d29a82" cst-name="CADSE_DEFINITION_at_VERSION_CADSE_"
 			min="0" type="string" value="" key="version-cadse"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -416,7 +416,7 @@
 		id="4920489a-4022-4607-8867-6427abb0599f">
 		<link destinationId="52101069-da17-4b0e-9a51-7226ca032bff" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="COMPOSER_lt_COMPOSER_LINKS" intID="0"
@@ -424,7 +424,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="composer-links" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="75bc13d0-0143-4cf7-964c-d354b3427da5" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="COMPOSER_lt_CONTENTS" intID="0"
@@ -436,11 +436,11 @@
 				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
 		</outgoing-link>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="54ce12f3-c0c9-4435-8ee3-eb2e9b3fc5bd" cst-name="COMPOSER_at_TYPES_"
 			max="-1" min="0" type="list" value="" key="types"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="1" min="0" type="string"
+			<element tw-rev-specific="false" flag="9" min="0" type="string"
 				type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 	</item-type>
@@ -455,7 +455,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="ComposerLink"
 		qualified-name="CadseG.build.ComposerLink" cst-name="COMPOSER_LINK"
 		id="7e00694b-3fab-4e05-977c-62d61294c0d1">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="COMPOSER_LINK_lt_EXPORTERS" intID="0"
@@ -463,7 +463,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="-1" min="0" name="exporters"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="04901eff-415b-4484-8e02-48932755d948" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="COMPOSER_LINK_lt_LINK" intID="0"
@@ -483,7 +483,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="CompositeItemType"
 		qualified-name="CadseG.build.CompositeItemType" cst-name="COMPOSITE_ITEM_TYPE"
 		id="34e05bd6-6feb-4c49-9c79-60f7f79754ea">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="COMPOSITE_ITEM_TYPE_lt_BUILDERS" intID="0"
@@ -491,7 +491,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="builders"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="9dc5f15f-e6b4-4745-8fba-6a07b9ddbcc3" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="COMPOSITE_ITEM_TYPE_lt_COMPOSERS" intID="0"
@@ -499,7 +499,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="composers"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="490dbe41-e1c5-4f05-9f27-c68b563218b9" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE" intID="0"
@@ -520,7 +520,7 @@
 		qualified-name="CadseG.attributes.ComputedString" cst-name="COMPUTED_STRING"
 		id="396894cc-f55a-4428-b7dd-1d4e5251a9ca">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="2"
+			tw-update="merge" tw-evolution="immutable" flag="10"
 			id="1ccec15a-bd6c-4eb7-bad9-7884bd5f17e4" cst-name="COMPUTED_STRING_at_EXPRESSION_"
 			min="1" type="string" value="" key="expression"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -536,7 +536,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="ConfigurationModel"
 		qualified-name="CadseG..ConfigurationModel" cst-name="CONFIGURATION_MODEL"
 		id="ed1337e5-bb47-46ce-acb1-3bc418d1cc9c">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CONFIGURATION_MODEL_lt_BUILD" intID="0"
@@ -552,7 +552,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="ContentItem"
 		qualified-name="CadseG.content.ContentItem" cst-name="CONTENT_ITEM"
 		id="d1410142-ce9a-4ac8-b733-284378daaeb5">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CONTENT_ITEM_lt_CHILDREN" intID="0"
@@ -560,7 +560,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="children"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="d90fa94a-b220-4f34-8f32-fd45307b56ce" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CONTENT_ITEM_lt_OWNER_ITEM" intID="0"
@@ -569,17 +569,17 @@
 			isAnnotation="false" isAggregation="false" max="1" min="0" name="owner-item"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="c6b3557a-318c-45e1-90bb-10dfc2260ec2" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="31414047-93b6-48da-94ec-0e49cc0b29a6" cst-name="CONTENT_ITEM_at_SCM_MODIFIED_"
 			min="0" type="boolean" value="false" key="scmModified"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="3befe079-23bf-4c25-8f5f-0322588ae35e" cst-name="CONTENT_ITEM_at_SCM_REPO_URL_"
 			min="0" type="string" value="" key="scmRepoURL"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="790ea2b6-9d0c-4697-9fc7-183f45cd06dc" cst-name="CONTENT_ITEM_at_SCM_REVISION_"
 			min="0" type="string" value="" key="scmRevision"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -596,12 +596,12 @@
 		qualified-name="CadseG.content.ContentItemType" cst-name="CONTENT_ITEM_TYPE"
 		id="7b68d97c-9665-458f-acf8-14d41665d25a">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" cst-name="CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_"
 			min="0" type="boolean" value="false" key="extends-class"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="1"
 			id="06746286-74c3-4edf-895d-197c8c9e05dd" cst-name="CONTENT_ITEM_TYPE_at_ID_RUNTIME_"
 			min="0" type="string" value="" key="id-runtime"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -614,7 +614,7 @@
 		super-type-name="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" name="ContentLinkType"
 		qualified-name="CadseG.content.ContentLinkType" cst-name="CONTENT_LINK_TYPE"
 		id="bc20e834-0814-4422-a373-5f4b01f7732e">
-		<outgoing-link flag="3" hidden="false" tw-coupled="false"
+		<outgoing-link flag="11" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION" intID="0"
@@ -687,12 +687,12 @@
 		qualified-name="CadseG.ui.DGroup" cst-name="DGROUP"
 		id="d31c0460-7805-4899-9fb2-52f46036f13b">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="71e92d10-1ca3-41e9-8472-e0525ba09705" cst-name="DGROUP_at_COLUMN_"
 			min="0" type="integer" value="" key="column"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="f54d6114-8391-41b5-8224-28ba0506619c" cst-name="DGROUP_at_MAKE_COLUMNS_EQUAL_WIDTH_"
 			min="0" type="boolean" value="false" key="makeColumnsEqualWidth"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -709,22 +709,22 @@
 		qualified-name="CadseG.ui.DList" cst-name="DLIST"
 		id="1c2a361d-5c31-4f66-88ff-fdbae6e27ec2">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="e5c86831-4f23-4b68-8b0a-458916b9818b" cst-name="DLIST_at_EDITABLE_BUTTON_"
 			min="0" type="boolean" value="true" key="editable-button"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="10efdd32-94af-4c0a-941a-c6fc55550ab3" cst-name="DLIST_at_ORDER_BUTTON_"
 			min="0" type="boolean" value="false" key="order-button"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="ca69e644-02ae-4c54-a0c4-1eac0ccdffd0" cst-name="DLIST_at_SHOW_FILTER_"
 			min="0" type="boolean" value="false" key="show-filter"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="5e061621-8973-4418-94e0-bb4334e50433" cst-name="DLIST_at_UPDATE_BUTTON_"
 			min="0" type="boolean" value="false" key="update-button"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -750,15 +750,15 @@
 		qualified-name="CadseG.ui.DSymbolicBitMapUI" cst-name="DSYMBOLIC_BIT_MAP_UI"
 		id="889870e4-26ba-4357-ad6a-2d7c8e1f68c1">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="cef85833-7df8-473c-a978-5bd1345789f8" cst-name="DSYMBOLIC_BIT_MAP_UI_at_LABELS_"
 			max="-1" min="0" type="list" value="" key="labels"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="1" min="0" type="string"
+			<element tw-rev-specific="false" flag="9" min="0" type="string"
 				type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="3"
+			tw-update="merge" tw-evolution="immutable" flag="11"
 			id="3eed350a-1e4d-4719-b72d-36c489820e25" cst-name="DSYMBOLIC_BIT_MAP_UI_at_NUMBER_COLUMN_"
 			min="1" type="integer" value="" key="number-column"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
@@ -774,27 +774,27 @@
 		name="DText" qualified-name="CadseG.ui.DText" cst-name="DTEXT"
 		id="647d3ac4-ca5c-40c2-b675-cf116e7a6147">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="0dfe2712-63a8-487e-a106-44a157dedc7e" cst-name="DTEXT_at_MULTI_LINE_"
 			min="0" type="boolean" value="false" key="multi-line"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="63ed8e51-6266-4927-8b3a-e363af51e4c2" cst-name="DTEXT_at_NO_BORDER_"
 			min="0" type="boolean" value="false" key="no-border"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="1ee90d9e-9246-4b3f-8b44-c1976b91571c" cst-name="DTEXT_at_TOOL_TIP_"
 			min="0" type="string" value="" key="tool-tip"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="b6b03fa1-038b-4787-9bc5-4ba873b617e5" cst-name="DTEXT_at_VERTICAL_SPAN_"
 			min="0" type="integer" value="1" key="vertical-span"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="51a96f68-399a-484c-bff9-80855b703f85" cst-name="DTEXT_at_WRAP_LINE_"
 			min="0" type="boolean" value="false" key="wrap-line"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -820,7 +820,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="DataModel"
 		qualified-name="CadseG.dataModel.DataModel" cst-name="DATA_MODEL"
 		id="07e3ac34-f382-4816-9050-6494d5cda54d">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="none"
 			tw-update="none" tw-evolution="immutable" isNatif="false"
 			cst-name="DATA_MODEL_lt_CATEGORIES" intID="0"
@@ -828,7 +828,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="categories"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="91bc763b-567b-44c4-a502-97c3f405918f" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="DATA_MODEL_lt_ENUMS" intID="0"
@@ -836,7 +836,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="enums"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="06af9b26-fc1e-4745-b1f0-2ca11d2b18bb" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="DATA_MODEL_lt_TYPES" intID="0"
@@ -868,7 +868,7 @@
 		id="d688060b-2228-4790-aae4-083f6874148f">
 		<link destinationId="7820f88a-9ebc-45d3-b767-86af8dc95a05" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="DISPLAY_lt_CONTENTS" intID="0"
@@ -880,17 +880,17 @@
 				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
 		</outgoing-link>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="90d2969d-b38e-4d7e-aab8-9ea8b2ba4ed8" cst-name="DISPLAY_at_EXTENDS_IC_"
 			min="0" type="boolean" value="false" key="extendsIC"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="3dd43452-8199-4d3a-9030-d3bce90670f3" cst-name="DISPLAY_at_EXTENDS_MC_"
 			min="0" type="boolean" value="false" key="extendsMC"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="99ffa861-57e5-426b-9b97-9b87814a410c" cst-name="DISPLAY_at_EXTENDS_UI_"
 			min="0" type="boolean" value="false" key="extendsUI"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -918,7 +918,7 @@
 		id="2838e7f5-7ec2-4b73-b99e-7978a6c661fe">
 		<link destinationId="bdc9c7ec-2e95-42e5-9b2a-f28051e3bae6" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="DYNAMIC_ACTIONS_lt_CONTENTS" intID="0"
@@ -941,7 +941,7 @@
 		super-type-name="4920489a-4022-4607-8867-6427abb0599f" name="EclipseComposer"
 		qualified-name="CadseG.build.composer.EclipseComposer" cst-name="ECLIPSE_COMPOSER"
 		id="1b4f69bd-25a3-445e-b7d4-d106a72e3596">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ECLIPSE_COMPOSER_lt_COMPOSER_LINKS" intID="0"
@@ -963,7 +963,7 @@
 		id="9d6fa77a-0035-4234-a7ee-56842163621f">
 		<link destinationId="a88299ea-79c1-4f3b-9651-9c986c7a3378" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ECLIPSE_EXPORTER_lt_CONTENTS" intID="0"
@@ -996,7 +996,7 @@
 		has-content="true" package-name="attributes" super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb"
 		name="Enum" qualified-name="CadseG.attributes.Enum" cst-name="ENUM"
 		id="a807eb31-575e-4fbb-822c-c0e4c6095339">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ENUM_lt_ENUM_TYPE" intID="0"
@@ -1005,16 +1005,16 @@
 			isAnnotation="true" isAggregation="false" max="1" min="0" name="enum-type"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="7c20bd8f-22c4-47b9-85f8-0fe77132f443" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="fcc9a687-eaf6-4f1c-b05c-1419538fa92b" cst-name="ENUM_at_ENUM_CLAZZ_"
 			min="0" type="string" value="" key="enum-clazz"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="43f1b77e-fc74-4642-b79a-7d45ff914aea" cst-name="ENUM_at_VALUES_"
 			max="-1" min="0" type="list" value="" key="values"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="0" min="0" type="string"
+			<element tw-rev-specific="false" flag="8" min="0" type="string"
 				type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 	</item-type>
@@ -1030,21 +1030,21 @@
 		qualified-name="CadseG.dataModel.EnumType" cst-name="ENUM_TYPE"
 		id="9a2c8cc6-bc6d-44dc-90de-06d1e8417efc">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="8748e021-0605-4701-90a6-66d592f45ff5" cst-name="ENUM_TYPE_at_JAVA_CLASS_"
 			min="0" type="string" value="" key="java-class"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="40af65f6-f9e0-4fcc-8e67-9009fe32df41" cst-name="ENUM_TYPE_at_MUST_BE_GENERATED_"
 			min="0" type="boolean" value="true" key="must-be-generated"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="d863043c-c122-4a92-97c2-1396b1e5a767" cst-name="ENUM_TYPE_at_VALUES_"
 			max="-1" min="0" type="list" value="" key="values"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="1" min="0" type="string"
+			<element tw-rev-specific="false" flag="9" min="0" type="string"
 				type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 	</item-type>
@@ -1061,7 +1061,7 @@
 		id="a0263259-0019-4cb8-ab39-411998f4dc98">
 		<link destinationId="03c44811-3c91-4f72-98c1-e451c15d189d" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="EXPORTER_lt_CONTENTS" intID="0"
@@ -1073,11 +1073,11 @@
 				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
 		</outgoing-link>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="1f5bf97e-8f13-4f4d-96c8-1cd17ee2d64a" cst-name="EXPORTER_at_TYPES_"
 			max="-1" min="0" type="list" value="" key="types"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="0" min="0" type="string"
+			<element tw-rev-specific="false" flag="8" min="0" type="string"
 				type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 	</item-type>
@@ -1101,7 +1101,7 @@
 		id="36c8f1c2-3972-40e7-b687-b23f3e46f37b">
 		<link destinationId="578d6b9b-7350-4de6-bdc5-464c51b9de2a" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="EXT_ITEM_TYPE_lt_CONTENTS" intID="0"
@@ -1112,7 +1112,7 @@
 			<link destinationId="578d6b9b-7350-4de6-bdc5-464c51b9de2a" key="content-definition"
 				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
 		</outgoing-link>
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="EXT_ITEM_TYPE_lt_REF_TYPE" intID="0"
@@ -1132,7 +1132,7 @@
 		super-type-name="e9693504-4378-4535-8611-bbb05411557e" name="Field"
 		qualified-name="CadseG.ui.Field" cst-name="FIELD"
 		id="a1922398-35c7-4711-90e9-8ec54331c003">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="FIELD_lt_ATTRIBUTE" intID="0"
@@ -1141,21 +1141,21 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="true" isAggregation="false" max="1" min="1" name="attribute"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="0acb5f5e-30d3-4597-82fe-3835b925acf2" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false" cst-name="FIELD_lt_IC"
 			intID="0" destination="16565b78-c948-478e-aadb-0452dc4d8397" isPart="true"
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="1" min="0" name="ic"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="e0c6d5a9-18e6-45b8-a305-4e70cfd59b0e" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false" cst-name="FIELD_lt_MC"
 			intID="0" destination="c3a59782-3064-44d8-ade6-dbbe5cf46a70" isPart="true"
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="1" min="0" name="mc"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="3c0918c9-b979-4478-ad68-083262b81196" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="FIELD_lt_OVERWRITEFIELD" intID="0"
@@ -1164,17 +1164,17 @@
 			isAnnotation="false" isAggregation="false" max="1" min="0"
 			name="overwritefield" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="eed2edce-cc55-4d7f-a1a6-40306a4d9393" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="1481510e-59e2-49ca-b2e8-031fee0a5feb" cst-name="FIELD_at_EDITABLE_"
 			min="0" type="boolean" value="false" key="editable"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="3cc3fa25-7b0e-4742-b04d-118e6526b0c7" cst-name="FIELD_at_LABEL_"
 			min="0" type="string" value="&quot;&quot;" key="label"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="9d81a553-3450-4124-8c22-db1fba145964" cst-name="FIELD_at_POSITION_"
 			min="0" type="enumeration" value="defaultpos" key="position"
 			type-name="a807eb31-575e-4fbb-822c-c0e4c6095339">
@@ -1194,7 +1194,7 @@
 		qualified-name="CadseG.content.FileContentModel" cst-name="FILE_CONTENT_MODEL"
 		id="9b9e9c64-284a-4895-a1f6-98614b1b2a19">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="725605f2-63c1-4948-9db3-c25d2e9773dd" cst-name="FILE_CONTENT_MODEL_at_FILE_PATH_"
 			min="0" type="string" value="" key="file-path"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -1210,7 +1210,7 @@
 		super-type-name="4febac20-31fb-420e-9dd7-5f3e86dd48cc" name="FolderContentModel"
 		qualified-name="CadseG.content.FolderContentModel" cst-name="FOLDER_CONTENT_MODEL"
 		id="ef8e57f7-18fa-402a-b8df-613a485b387d">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="FOLDER_CONTENT_MODEL_lt_CONTENT_MODEL" intID="0"
@@ -1219,7 +1219,7 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="content-model" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="1353fb7c-9c15-4bb5-955f-865fdfc7713a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="c43be5c9-3bde-4bbd-9a43-af804b1fcac0" cst-name="FOLDER_CONTENT_MODEL_at_FOLDER_PATH_"
 			min="0" type="string" value="" key="folder-path"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -1236,7 +1236,7 @@
 		qualified-name="CadseG.build.exporter.FolderExporter" cst-name="FOLDER_EXPORTER"
 		id="5541dc6e-7398-4df3-8359-3a7e190ea3a5">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="37e43bc2-d451-4c73-aeff-bf123c8b1cad" cst-name="FOLDER_EXPORTER_at_PATH_"
 			min="0" type="string" value="" key="path"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -1249,7 +1249,7 @@
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="GroupOfAttributes"
 		qualified-name="CadseG.attributes.GroupOfAttributes" cst-name="GROUP_OF_ATTRIBUTES"
 		id="6ac3a4e8-df0f-46ef-8696-50a7ac890616">
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="GROUP_OF_ATTRIBUTES_lt_ATTRIBUTES" intID="0"
@@ -1257,7 +1257,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="-1" min="1" name="attributes"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="61413059-605d-49b6-9985-66c759ae0146" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="GROUP_OF_ATTRIBUTES_lt_SUPER_GROUP" intID="0"
@@ -1266,7 +1266,7 @@
 			isAnnotation="false" isAggregation="false" max="1" min="0" name="superGroup"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="fd5c1bde-ee1c-4b83-9bbb-6cebbcd6905f" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="e40f6691-4829-4774-9b2d-3f26ea22c715" cst-name="GROUP_OF_ATTRIBUTES_at_COLUMN_"
 			min="0" type="integer" value="" key="column"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
@@ -1357,12 +1357,12 @@
 		name="IC_FileResourceForBrowser_Combo_List" qualified-name="CadseG.ic.IC_FileResourceForBrowser_Combo_List"
 		cst-name="IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST" id="265dd958-81c5-43fc-9180-f5173d9ec2d4">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="334f35b3-1680-4144-9b7f-55f4c95bd885" cst-name="IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_PATTERN_SELECT_FILE_"
 			min="0" type="string" value="" key="pattern-select-file"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="031c3821-8316-49a7-9c56-863bb61084e3" cst-name="IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST_at_SELECT_FOLDER_"
 			min="0" type="string" value="" key="select-folder"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -1401,12 +1401,12 @@
 		qualified-name="CadseG.ic.IC_JavaClassForBrowser_Combo" cst-name="IC_JAVA_CLASS_FOR_BROWSER_COMBO"
 		id="2b717226-22b2-40c1-aad3-00a4bed93d55">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="c5f82eb4-1e17-4755-8874-55d605b6d006" cst-name="IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_"
 			min="0" type="string" value="" key="filter"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="1ed380e2-1b96-48ea-831f-b4ed8abaaf64" cst-name="IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_"
 			min="0" type="string" value="" key="style"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -1445,7 +1445,7 @@
 		name="IC_ResourceTreeDialogForBrowser_Combo_List" qualified-name="CadseG.ic.IC_ResourceTreeDialogForBrowser_Combo_List"
 		cst-name="IC_RESOURCE_TREE_DIALOG_FOR_BROWSER_COMBO_LIST" id="47051385-a9bb-4f2b-8955-ffb4aff19c55">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="0234c8c5-cc4b-4bef-aa05-0f4a159dda05"
 			cst-name="IC_RESOURCE_TREE_DIALOG_FOR_BROWSER_COMBO_LIST_at_SELECT_TYPE_ROOT_"
 			min="0" type="integer" value="" key="select-type-root"
@@ -1463,11 +1463,11 @@
 		name="IC_StaticArrayOfObjectForBrowser_Combo" qualified-name="CadseG.ic.IC_StaticArrayOfObjectForBrowser_Combo"
 		cst-name="IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO" id="dcbf035c-dc8c-4ed3-8bad-0829a9ccb74e">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="e28cfcee-1fc4-470a-9bd4-aad507fa192d" cst-name="IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_"
 			max="-1" min="0" type="list" value="" key="values"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="1" min="0" type="string"
+			<element tw-rev-specific="false" flag="9" min="0" type="string"
 				type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 	</item-type>
@@ -1483,7 +1483,7 @@
 		qualified-name="CadseG.ic.IC_StringListForList" cst-name="IC_STRING_LIST_FOR_LIST"
 		id="2d04316c-5216-4852-97f3-1a1ea4288622">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="21749aff-3e0d-45e0-9e51-acacca4d03e7" cst-name="IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_"
 			min="0" type="boolean" value="true" key="allowDuplicate"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -1497,12 +1497,12 @@
 		qualified-name="CadseG.ic.IC_WithTitleForDialog" cst-name="IC_WITH_TITLE_FOR_DIALOG"
 		id="dde088bb-69a5-42ab-9b0a-5f56ec623610">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="abd3c258-b331-435e-a309-f6b783b05514" cst-name="IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_"
 			min="0" type="string" value="" key="select-message"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="b627b6e3-f8b2-43b3-9d74-1f398199b5d3" cst-name="IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_"
 			min="0" type="string" value="" key="select-title"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -1531,7 +1531,7 @@
 		id="16565b78-c948-478e-aadb-0452dc4d8397">
 		<link destinationId="1799f68b-2d7b-4d26-817e-043d0054cf48" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="INTERACTION_CONTROLLER_lt_CONTENTS" intID="0"
@@ -1550,7 +1550,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="Item"
 		qualified-name="CadseG.dataModel.Item" cst-name="ITEM"
 		id="148dcee3-8512-49eb-abe7-9f8d25502778">
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="transient" isNatif="false" cst-name="ITEM_lt_CONTENTS"
 			intID="0" destination="7b68d97c-9665-458f-acf8-14d41665d25a"
@@ -1558,7 +1558,7 @@
 			isComposition="false" isAnnotation="false" isAggregation="false" max="1"
 			min="0" name="contents" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
 			id="6f7e153f-9ff6-45b7-8e3e-23ef05a1e085" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="transient" isNatif="false"
 			cst-name="ITEM_lt_INSTANCE_OF" intID="0"
@@ -1566,7 +1566,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="1" name="instance-of"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="ba217437-eeb5-47c7-a6cd-151cdfd969b1" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="transient" isNatif="false"
 			cst-name="ITEM_lt_MODIFIED_ATTRIBUTES" intID="0"
@@ -1575,7 +1575,7 @@
 			isAnnotation="false" isAggregation="false" max="-1" min="0"
 			name="modified-attributes" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
 			id="5f3550db-76f2-4d2a-b525-05a7410f629f" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="transient" isNatif="false" cst-name="ITEM_lt_PARENT"
 			intID="0" destination="148dcee3-8512-49eb-abe7-9f8d25502778"
@@ -1583,65 +1583,65 @@
 			isComposition="false" isAnnotation="false" isAggregation="false" max="1"
 			min="0" name="parent" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="802e4449-eb95-4ebc-b804-6256babb5cb0" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="4edf0fd3-7f01-4369-aa3d-160dbb146253" cst-name="ITEM_at_TW_VERSION_"
 			min="0" type="integer" value="" key="TW-version"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="65f11c75-ad65-4d18-88ee-4f034a5788f4" cst-name="ITEM_at_TWLAST_COMMENT_"
 			min="0" type="string" value="" key="TWLastComment"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="transient" flag="0"
+			tw-update="merge" tw-evolution="transient" flag="8"
 			id="0dda36c0-fcf7-4011-a09c-78c44a5dcec4" cst-name="ITEM_at_COMMITTED_BY_"
 			min="0" type="string" value="" key="committedBy"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="transient" flag="0"
+			tw-update="merge" tw-evolution="transient" flag="8"
 			id="bf1e2cee-0b3c-4e0f-9ca2-0187120d4670" cst-name="ITEM_at_COMMITTED_DATE_"
 			min="0" value="0" key="committedDate" type-name="d06fc1c0-450d-46c3-8168-1dd2ff99fd1b" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="19e28d40-fd2b-4f20-a05a-10f85281bdfb" cst-name="ITEM_at_DISPLAY_NAME_"
 			min="0" type="string" value="" key="display-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="transient" flag="0"
+			tw-update="merge" tw-evolution="transient" flag="8"
 			id="f6a0e56a-d0c2-43f1-a3e0-02e50f7b905b" cst-name="ITEM_at_ID_" min="0"
 			type="string" value="" key="id" type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="c4422d27-4833-4920-acc9-9cd33738e6bb" cst-name="ITEM_at_ISVALID_"
 			min="0" type="boolean" value="true" key="isvalid"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="b2a2bf63-0c55-4e33-84c7-6eb222ba8dd2" cst-name="ITEM_at_ITEM_HIDDEN_"
 			min="0" type="boolean" value="false" key="item-hidden"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="f8dd1f73-f672-4277-b68b-c56d9aebc504" cst-name="ITEM_at_ITEM_READONLY_"
 			min="0" type="boolean" value="false" key="item-readonly"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="ae262046-3821-4b01-b6ce-0e533692a40b" cst-name="ITEM_at_NAME_"
 			min="0" type="string" value="" key="name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="c84eb0f9-305d-440a-a295-32ffa683e797" cst-name="ITEM_at_QUALIFIED_NAME_"
 			min="0" type="string" value="" key="qualified-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="transient" flag="0"
+			tw-update="merge" tw-evolution="transient" flag="8"
 			id="20e185b9-5f65-4def-9e22-6df614090aa5" cst-name="ITEM_at_REQUIRE_NEW_REV_"
 			min="0" type="boolean" value="false" key="requireNewRev"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="transient" flag="0"
+			tw-update="merge" tw-evolution="transient" flag="8"
 			id="d674931c-a818-41b3-8dda-62cce15c4ef5" cst-name="ITEM_at_REV_MODIFIED_"
 			min="0" type="boolean" value="false" key="revModified"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -1657,7 +1657,7 @@
 		super-type-name="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" name="ItemType"
 		qualified-name="CadseG.dataModel.ItemType" cst-name="ITEM_TYPE"
 		id="43808065-4f70-4290-adba-cca999431ba1">
-		<outgoing-link flag="11" hidden="true" tw-coupled="false"
+		<outgoing-link flag="3" hidden="true" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ITEM_TYPE_lt_CONTENT_MODEL" intID="0"
@@ -1665,7 +1665,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="1" min="0" name="content-model"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ITEM_TYPE_lt_LINK_TYPE" intID="0"
@@ -1673,7 +1673,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="-1" min="0" name="link-type"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="6871a2a8-5558-4607-a28c-1154a8482497" />
-		<outgoing-link flag="32" hidden="false" tw-coupled="false"
+		<outgoing-link flag="40" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ITEM_TYPE_lt_SUB_TYPES" intID="0" inverse-link="super-type"
@@ -1681,7 +1681,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="-1" min="0" name="sub-types"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="1facce49-4d42-4e8e-aa24-7cbaa24024bc" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ITEM_TYPE_lt_SUPER_TYPE" intID="0" inverse-link="sub-types"
@@ -1689,7 +1689,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="1" min="0" name="super-type"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="ad55a28c-7654-4e0e-96a7-5ca04acee9d6" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="none"
 			tw-update="none" tw-evolution="immutable" isNatif="false"
 			cst-name="ITEM_TYPE_lt_WC_LISTENERS" intID="0"
@@ -1698,97 +1698,97 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="wcListeners"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="025bcd5b-7a02-45b5-9e91-0e0cbeac62cb" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="899b6921-1857-43bb-8a95-c6b1479f610b" cst-name="ITEM_TYPE_at_CUSTOM_MANAGER_"
 			min="0" type="boolean" value="false" key="custom-manager"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="3"
+			tw-update="merge" tw-evolution="immutable" flag="11"
 			id="877296d9-d39c-471f-adb2-818712bf1a6e" cst-name="ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_"
 			min="0" type="string" value="" key="defaultInstanceName"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="451a3efa-4d36-48a8-9f4d-f86517532580" cst-name="ITEM_TYPE_at_DISPLAY_NAME_TEMPLATE_"
 			min="0" type="string" value="" key="display-name-template"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="48d12dfc-e32c-4746-a566-8690d7a6ce35" cst-name="ITEM_TYPE_at_HAS_CONTENT_"
 			min="0" type="boolean" value="true" key="has-content"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="b4458ba6-4934-466c-99ca-81401cc561b3" cst-name="ITEM_TYPE_at_HAS_SHORT_NAME_"
 			min="0" type="boolean" value="false" key="has-short-name"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="ffbd43ae-7e84-401d-b633-66e19dfb06b9" cst-name="ITEM_TYPE_at_HAS_UNIQUE_NAME_"
 			min="0" type="boolean" value="false" key="has-unique-name"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="f01ca2ee-cffb-40d7-b9da-003ec3857031" cst-name="ITEM_TYPE_at_ICON_"
 			min="0" type="string" value="" key="icon"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="4c6e2813-ec75-4924-9f13-f7cf2d5d237c" cst-name="ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_"
 			min="0" type="boolean" value="false" key="is-instance-abstract"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="18f8a774-588b-4d89-9947-3955efe03523" cst-name="ITEM_TYPE_at_IS_INSTANCE_HIDDEN_"
 			min="0" type="boolean" value="false" key="is-instance-hidden"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="79c83dbd-426a-4080-bae0-a3d1c30fb012" cst-name="ITEM_TYPE_at_IS_META_ITEM_TYPE_"
 			min="0" type="boolean" value="false" key="is-meta-item-type"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="195c6dd5-e410-4f12-92c1-23d16c81342d" cst-name="ITEM_TYPE_at_IS_ROOT_ELEMENT_"
 			min="0" type="boolean" value="true" key="is-root-element"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="0ce46414-f370-45a0-99aa-2552e2390825" cst-name="ITEM_TYPE_at_ITEM_FACTORY_"
 			min="0" type="string" value="" key="item-factory"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="c158ac87-ce15-46cb-95fc-33830bef3f53" cst-name="ITEM_TYPE_at_ITEM_MANAGER_"
 			min="0" type="string" value="" key="item-manager"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="584955ce-5c4f-44ea-9e99-f8035ef6b1ea" cst-name="ITEM_TYPE_at_MANAGER_CLASS_"
 			min="0" type="string" value="" key="manager-class"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="3e9e2586-14e9-45f6-a7c5-fe3353ea0848" cst-name="ITEM_TYPE_at_MESSAGE_ERROR_ID_"
 			min="0" type="string" value="" key="message-error-id"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="ec80ec45-52b1-419c-b40c-9f59a1e54244" cst-name="ITEM_TYPE_at_OVERWRITE_DEFAULT_PAGES_"
 			min="0" type="boolean" value="true" key="overwrite-default-pages"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="a3434800-1759-4710-b124-c03ba1dc9165" cst-name="ITEM_TYPE_at_PACKAGE_NAME_"
 			min="0" type="string" value="" key="package-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="30c70a6e-5d97-4f9d-952a-403ac179f0bc" cst-name="ITEM_TYPE_at_QUALIFIED_NAME_TEMPLATE_"
 			min="0" type="string" value="" key="qualified-name-template"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="c8d060c0-b2c8-4f0a-a514-f1ab2216ca71" cst-name="ITEM_TYPE_at_VALIDATE_NAME_RE_"
 			min="0" type="string" value="" key="validate-name-re"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -1827,12 +1827,12 @@
 		qualified-name="CadseG.content.JavaFileContentModel" cst-name="JAVA_FILE_CONTENT_MODEL"
 		id="d1bb4358-6ec4-40c5-b09b-d6b29223e74c">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="134894c5-2979-4c71-a4c8-8ecf26579dea" cst-name="JAVA_FILE_CONTENT_MODEL_at_CLASS_NAME_"
 			min="0" type="string" value="" key="class-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="5072d136-6a9e-47bb-b82c-ee6604cb8618" cst-name="JAVA_FILE_CONTENT_MODEL_at_PACKAGE_NAME_"
 			min="0" type="string" value="" key="package-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -1859,7 +1859,7 @@
 		super-type-name="1b4f69bd-25a3-445e-b7d4-d106a72e3596" name="JavaProjectComposer"
 		qualified-name="CadseG.build.composer.JavaProjectComposer" cst-name="JAVA_PROJECT_COMPOSER"
 		id="c62003aa-2b2d-4d1e-8dd2-da786421b208">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="JAVA_PROJECT_COMPOSER_lt_COMPOSER_LINKS" intID="0"
@@ -1879,7 +1879,7 @@
 		super-type-name="21dde338-243d-4c3c-a3d2-a982cc93fce7" name="JavaProjectContentModel"
 		qualified-name="CadseG.content.JavaProjectContentModel" cst-name="JAVA_PROJECT_CONTENT_MODEL"
 		id="2f77364d-7c51-4b6a-bcd9-35d99a6e7c74">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="JAVA_PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL" intID="0"
@@ -1888,7 +1888,7 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="content-model" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="7e4322d9-0b23-4d7b-bc88-7c6c06b94074" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="8d2e520b-285b-44ab-acaa-179e88e7ed21" cst-name="JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_"
 			min="0" type="boolean" value="true" key="has-source-folder"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -1925,7 +1925,7 @@
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="LinkType"
 		qualified-name="CadseG.attributes.LinkType" cst-name="LINK_TYPE"
 		id="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="LINK_TYPE_lt_DESTINATION" intID="0"
@@ -1933,7 +1933,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="1" min="1" name="destination"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="1129cc23-6daa-40e2-a6cc-df8551813ba3" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="LINK_TYPE_lt_INVERSE_LINK" intID="0"
@@ -1941,7 +1941,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="1" min="0" name="inverse-link"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="e25140b3-9a3b-4588-be04-4e1cbaf1f81d" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="LINK_TYPE_lt_SOURCE" intID="0"
@@ -1950,12 +1950,12 @@
 			isAnnotation="false" isAggregation="false" max="1" min="1" name="source"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="9ae43454-447a-4573-95f7-568c592df15e" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="c7dbbb8d-a711-4d78-b291-fdd161ade288" cst-name="LINK_TYPE_at_TWCOUPLED_"
 			min="0" type="boolean" value="false" key="TWCoupled"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="3"
+			tw-update="merge" tw-evolution="immutable" flag="11"
 			id="7a1d2487-609a-44a9-8939-fe3f4d019f1f" cst-name="LINK_TYPE_at_TWDEST_EVOL_"
 			min="1" type="enumeration" value="immutable" key="TWDestEvol"
 			type-name="a807eb31-575e-4fbb-822c-c0e4c6095339">
@@ -1963,67 +1963,67 @@
 				value="fr.imag.adele.cadse.core.enumdef.TWDestEvol" key="enum-clazz" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="dee98c9b-ef77-4844-b9ac-8598684e5072" cst-name="LINK_TYPE_at_AGGREGATION_"
 			min="0" type="boolean" value="true" key="aggregation"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="2e89f2e0-e8f9-4b1c-a989-d5a5bacc2059" cst-name="LINK_TYPE_at_ANNOTATION_"
 			min="0" type="boolean" value="false" key="annotation"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="8f730054-7133-4158-9c0f-563d41ea8933" cst-name="LINK_TYPE_at_COMPOSITION_"
 			min="0" type="boolean" value="false" key="composition"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="745174d1-215f-4f6b-8fb9-786e25a88f7a" cst-name="LINK_TYPE_at_GROUP_"
 			min="0" type="boolean" value="false" key="group"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="2c68a627-31c5-4836-9e6c-7078113ca245" cst-name="LINK_TYPE_at_HIDDEN_"
 			min="0" type="boolean" value="false" key="hidden"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="904b87fb-da10-462c-bb2b-4e4737652e42" cst-name="LINK_TYPE_at_KIND_"
 			min="0" type="integer" value="" key="kind"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="none"
-			tw-update="none" tw-evolution="immutable" flag="1"
+			tw-update="none" tw-evolution="immutable" flag="9"
 			id="ec6cc0d6-1c3c-4876-9666-357902a99fc4" cst-name="LINK_TYPE_at_LINK_MANAGER_"
 			min="0" type="string" value="&quot;&quot;" key="link-manager"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="56bd9ded-6284-41ee-a1e7-93ef34786cd4" cst-name="LINK_TYPE_at_MAPPING_"
 			min="0" type="boolean" value="false" key="mapping"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="7ee6f1d5-8ba6-479a-bc20-5a826e6595c2" cst-name="LINK_TYPE_at_MAX_"
 			min="0" type="integer" value="-1" key="max"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="10a0ed58-de83-437e-a05c-878dd4c37b4f" cst-name="LINK_TYPE_at_MIN_"
 			min="0" type="integer" value="0" key="min"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="4f63a396-120f-43d5-bdec-3813ddb60241" cst-name="LINK_TYPE_at_PART_"
 			min="0" type="boolean" value="false" key="part"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="a4d1fcc7-d517-4af8-923d-2f175e2bf98e" cst-name="LINK_TYPE_at_REQUIRE_"
 			min="0" type="boolean" value="false" key="require"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="96acc007-99f7-4060-b013-3bddaa06ac7a" cst-name="LINK_TYPE_at_SELECTION_"
 			min="0" type="string" value="" key="selection"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2036,35 +2036,35 @@
 		qualified-name="CadseG.meta.LinkTypeType" cst-name="LINK_TYPE_TYPE"
 		id="0b8cb78e-23d3-49d9-8188-11dc3e00df65">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="0b58c830-c3a0-404c-a03b-ac6cb37c150a" cst-name="LINK_TYPE_TYPE_at_COMPATIBLE_VERSIONS_"
 			max="-1" min="0" type="list" value="" key="CompatibleVersions"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="1" min="0" type="integer"
+			<element tw-rev-specific="false" flag="9" min="0" type="integer"
 				type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="e1299a28-c63b-441d-98d1-c5fb60d5024b" cst-name="LINK_TYPE_TYPE_at_HIDDEN_"
 			min="0" type="boolean" value="false" key="Hidden"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="b517ec25-b43c-4ee4-8165-532652032c50" cst-name="LINK_TYPE_TYPE_at_INDEX_OF_"
 			min="0" type="integer" value="" key="IndexOf"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="765e3c0d-491c-494a-aa86-2eee92122526" cst-name="LINK_TYPE_TYPE_at_VERSION_"
 			min="0" type="integer" value="" key="Version"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="81d2d845-4ccc-4847-ba8b-d372c0caa4d9" cst-name="LINK_TYPE_TYPE_at_READ_ONLY_"
 			min="0" type="boolean" value="false" key="readOnly"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="1f39ce93-548c-4de7-9f69-5e6e495b9c95" cst-name="LINK_TYPE_TYPE_at_VALID_"
 			min="0" type="boolean" value="false" key="valid"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -2077,7 +2077,7 @@
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="List"
 		qualified-name="CadseG.attributes.List" cst-name="LIST"
 		id="06b59d1d-b7a7-45df-b133-4b1099207a04">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false" cst-name="LIST_lt_SUB_TYPE"
 			intID="0" destination="31db54ef-d925-4ac4-964c-0e10dbbd30bb"
@@ -2119,7 +2119,7 @@
 		qualified-name="CadseG.mc.MC_Date" cst-name="MC_DATE"
 		id="602f01c6-4721-4ba7-a9ae-5f52f2e590ff">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="257"
+			tw-update="merge" tw-evolution="immutable" flag="265"
 			id="471ef0f5-06fc-4761-80ce-c24293ae7375" cst-name="MC_DATE_at_PATTERN_"
 			min="0" type="string" value="" key="pattern"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2137,7 +2137,7 @@
 		id="b50e1287-85cd-42b4-ad77-803ea45f623c">
 		<link destinationId="43259b27-b50f-4dac-93c8-29deac257f5c" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="MC_DEST_LINK_lt_CONTENTS" intID="0"
@@ -2172,27 +2172,27 @@
 		qualified-name="CadseG.mc.MC_Integer" cst-name="MC_INTEGER"
 		id="74840058-24ec-4533-8733-f1f0dcce595b">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="f630baa8-b7e4-4bc0-a2eb-91d7f65a61a8" cst-name="MC_INTEGER_at_DEFAULT_VALUE_"
 			min="0" type="integer" value="" key="default-value"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="93ae4e33-ae78-4a0f-94c9-913c2b5f0a42" cst-name="MC_INTEGER_at_ERROR_MSG_MAX_"
 			min="0" type="string" value="" key="error-msg-max"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="c655fd05-fdf5-40bd-92d6-4cfaafc176b2" cst-name="MC_INTEGER_at_ERROR_MSG_MIN_"
 			min="0" type="string" value="" key="error-msg-min"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="5cf0ca98-2095-41b4-bb31-784e1504e619" cst-name="MC_INTEGER_at_MAX_"
 			min="0" type="integer" value="" key="max"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="64a2a26a-bf07-4a47-8c8d-11bde5439e66" cst-name="MC_INTEGER_at_MIN_"
 			min="0" type="integer" value="" key="min"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
@@ -2210,7 +2210,7 @@
 		id="8b02bffe-8011-45e3-b7bd-afbcec04a5cb">
 		<link destinationId="6f52a5b4-47bd-4a06-b6d5-3ef3bc6185b5" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="MC_LINK_lt_CONTENTS" intID="0"
@@ -2222,7 +2222,7 @@
 				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
 		</outgoing-link>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="a0a010de-17cd-4464-a8a3-f0b0fb5adaf0" cst-name="MC_LINK_at_ERROR_MESSAGE_"
 			min="0" type="string" value="" key="error-message"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2250,12 +2250,12 @@
 		qualified-name="CadseG.mc.MC_ListOfString" cst-name="MC_LIST_OF_STRING"
 		id="1d99ebf6-620f-4251-ba9a-82a876580923">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="28b703b7-e42d-4124-a7b7-f949f92c847c" cst-name="MC_LIST_OF_STRING_at_MAX_"
 			min="0" type="integer" value="" key="max"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="05016a74-3909-4101-b532-54ab873c30a9" cst-name="MC_LIST_OF_STRING_at_MIN_"
 			min="0" type="integer" value="" key="min"
 			type-name="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
@@ -2301,7 +2301,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="Manager"
 		qualified-name="CadseG.content.Manager" cst-name="MANAGER"
 		id="bd8049fc-bcf9-4f5e-ad94-ee6c898a6722">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="MANAGER_lt_CONTENT_MODEL" intID="0"
@@ -2309,7 +2309,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="1" min="0" name="content-model"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="954589fd-7567-4475-8b22-bf11c9205e4b" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="MANAGER_lt_EXPORTERS" intID="0"
@@ -2317,7 +2317,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="exporters"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="e51b6b44-ad2b-49a6-9213-c2c5b3c5e120" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="MANAGER_lt_ITEM_TYPE" intID="0"
@@ -2326,32 +2326,32 @@
 			isAnnotation="true" isAggregation="false" max="1" min="1" name="item-type"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="b29077d2-d4fb-45da-b488-4acae3aa4a59" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="9a7a5a95-5cc4-41c9-abc9-78e57e3deb9b" cst-name="MANAGER_at_DISPLAY_NAME_TEMPLATE_"
 			min="0" type="string" value="" key="display-name-template"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="cdc80d32-5d85-4538-b322-1ca76ca4f2b6" cst-name="MANAGER_at_HUMAN_NAME_"
 			min="0" type="string" value="" key="human-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="1607f2e9-37b5-4154-a080-a8c15c41b5cd" cst-name="MANAGER_at_ICON_"
 			min="0" type="string" value="" key="icon"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="423f967c-3ee9-48e8-a702-282b4d725440" cst-name="MANAGER_at_MESSAGE_ERROR_ID_"
 			min="0" type="string" value="" key="message-error-id"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="c8b5ed10-f491-4224-9572-48c293887eb0" cst-name="MANAGER_at_QUALIFIED_NAME_TEMPLATE_"
 			min="0" type="string" value="" key="qualified-name-template"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="a0ab9415-6915-4a51-a474-f3e10a51dcea" cst-name="MANAGER_at_VALID_PATTERN_ID_"
 			min="0" type="string" value="" key="valid-pattern-id"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2367,7 +2367,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="MappingModel"
 		qualified-name="CadseG.content.MappingModel" cst-name="MAPPING_MODEL"
 		id="4bdcd072-573b-4e8d-848c-df543f455cbe">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="MAPPING_MODEL_lt_MANAGERS" intID="0"
@@ -2387,7 +2387,7 @@
 		super-type-name="d0b2439f-6f2c-4eb5-a370-9a179d8e3bff" name="Menu"
 		qualified-name="CadseG.actions.Menu" cst-name="MENU"
 		id="9d0d53b2-b190-4f46-a362-fb1bdb2eb534">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false" cst-name="MENU_lt_CHILDREN"
 			intID="0" destination="d0b2439f-6f2c-4eb5-a370-9a179d8e3bff"
@@ -2407,17 +2407,17 @@
 		qualified-name="CadseG.actions.MenuAbstract" cst-name="MENU_ABSTRACT"
 		id="d0b2439f-6f2c-4eb5-a370-9a179d8e3bff">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="258"
+			tw-update="merge" tw-evolution="immutable" flag="266"
 			id="3d920231-d213-45d7-a098-8c00649739d7" cst-name="MENU_ABSTRACT_at_ICON_"
 			min="1" type="string" value="" key="icon"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="256"
+			tw-update="merge" tw-evolution="immutable" flag="264"
 			id="1a855fc3-05d8-4d4e-87c3-dc71236b120e" cst-name="MENU_ABSTRACT_at_LABEL_"
 			min="0" type="string" value="" key="label"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="256"
+			tw-update="merge" tw-evolution="immutable" flag="264"
 			id="be57c6b5-6256-40f6-938c-406e628eabc5" cst-name="MENU_ABSTRACT_at_PATH_"
 			min="0" type="string" value="" key="path"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2435,7 +2435,7 @@
 		id="6562419e-f53b-4b19-8740-74e356103309">
 		<link destinationId="d7484ccc-9a99-4377-9e29-ce3dd710fc23" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="MENU_ACTION_lt_CONTENTS" intID="0"
@@ -2470,7 +2470,7 @@
 		id="c3a59782-3064-44d8-ade6-dbbe5cf46a70">
 		<link destinationId="11df9bd6-8791-4d85-92e2-49ef307d95ac" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="MODEL_CONTROLLER_lt_CONTENTS" intID="0"
@@ -2493,7 +2493,7 @@
 		super-type-name="2f77364d-7c51-4b6a-bcd9-35d99a6e7c74" name="PDEProjectContentModel"
 		qualified-name="CadseG.content.PDEProjectContentModel" cst-name="PDEPROJECT_CONTENT_MODEL"
 		id="418a3e84-edf0-4aeb-9510-a14792838b4f">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL" intID="0"
@@ -2514,7 +2514,7 @@
 		qualified-name="CadseG.content.PackageContentModel" cst-name="PACKAGE_CONTENT_MODEL"
 		id="ac58027e-c956-400f-939c-797420123d20">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="919d5bc0-5a52-4749-af77-1c35f91d23a6" cst-name="PACKAGE_CONTENT_MODEL_at_PACKAGE_NAME_"
 			min="0" type="string" value="" key="package-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2540,7 +2540,7 @@
 		has-content="true" package-name="dataModel" super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778"
 		name="Page" qualified-name="CadseG.dataModel.Page" cst-name="PAGE"
 		id="b1b807a6-835f-457c-9bf5-d8dd5b0f34c2">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="PAGE_lt_ATTRIBUTES" intID="0"
@@ -2548,7 +2548,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="attributes"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="d580b6f0-4f94-4966-a9ec-bc1bee454efb" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="PAGE_lt_OVERWRITE" intID="0"
@@ -2557,27 +2557,27 @@
 			isAnnotation="false" isAggregation="false" max="-1" min="0" name="overwrite"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="42792501-fb1c-4188-9885-6dbbe727082d" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="7e4d6742-571f-4ea2-971e-d47a7bdc1fbf" cst-name="PAGE_at_DESCRIPTION_"
 			min="0" type="string" value="" key="description"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="f39cac53-146b-4345-a603-008a74ca0c7b" cst-name="PAGE_at_ID_RUNTIME_"
 			min="0" type="string" value="" key="id-runtime"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="ec570635-3511-4354-a11b-22a177f62b57" cst-name="PAGE_at_IS_REMOVED_"
 			min="0" type="boolean" value="false" key="is-removed"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="a33a8cf0-e596-4266-80ec-13263455160b" cst-name="PAGE_at_LABEL_"
 			min="0" type="string" value="" key="label"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="d3da5486-fa01-4b28-82fb-90b22a58b5c0" cst-name="PAGE_at_TITLE_"
 			min="0" type="string" value="" key="title"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2593,7 +2593,7 @@
 		super-type-name="7b68d97c-9665-458f-acf8-14d41665d25a" name="ProjectContentModel"
 		qualified-name="CadseG.content.ProjectContentModel" cst-name="PROJECT_CONTENT_MODEL"
 		id="21dde338-243d-4c3c-a3d2-a982cc93fce7">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="PROJECT_CONTENT_MODEL_lt_CONTENT_MODEL" intID="0"
@@ -2602,7 +2602,7 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="content-model" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="9a947ecc-9ffb-4992-90bd-2c4cb01a6f2a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="c1ca5f69-3e83-4464-ae65-9cc0e7941e97" cst-name="PROJECT_CONTENT_MODEL_at_PROJECT_NAME_"
 			min="0" type="string" value="${#qualified-name}" key="project-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2626,12 +2626,12 @@
 		qualified-name="CadseG.dataModel.RuntimeItem" cst-name="RUNTIME_ITEM"
 		id="e9693504-4378-4535-8611-bbb05411557e">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="20ecfa3e-203c-4e5d-aec9-e318c83a6899" cst-name="RUNTIME_ITEM_at_CLASS_NAME_"
 			min="0" type="string" value="" key="class-name"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="17bb61c9-fe3d-449d-b03b-63d7d9610099" cst-name="RUNTIME_ITEM_at_EXTENDS_CLASS_"
 			min="0" type="boolean" value="false" key="extends-class"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -2648,7 +2648,7 @@
 		qualified-name="CadseG.content.SourceFolderContentModel" cst-name="SOURCE_FOLDER_CONTENT_MODEL"
 		id="598eec82-7963-4df8-b763-3c68d40e6ca8">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="9b7df7bd-a93f-48af-bc18-85291b8b2b6c" cst-name="SOURCE_FOLDER_CONTENT_MODEL_at_OUTPUT_PATH_"
 			min="0" type="string" value="" key="output-path"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2665,7 +2665,7 @@
 		qualified-name="CadseG.attributes.String" cst-name="STRING"
 		id="b510d24e-a9d5-4a3a-b851-16c209276867">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="43cf0f90-0929-458d-8c00-5f01b0dafd5b" cst-name="STRING_at_NOT_EMPTY_"
 			min="0" type="boolean" value="false" key="not-empty"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -2714,7 +2714,7 @@
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Struct"
 		qualified-name="CadseG.attributes.Struct" cst-name="STRUCT"
 		id="3ad51308-ff3a-452f-a6ba-13439aa33bf4">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="STRUCT_lt_ATTRIBUTES" intID="0"
@@ -2746,11 +2746,11 @@
 		qualified-name="CadseG.attributes.SymbolicBitMap" cst-name="SYMBOLIC_BIT_MAP"
 		id="2e177d68-a3bf-40ec-bb76-847969da6c5b">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="130f4904-09b5-4555-a64a-bcd216d42c40" cst-name="SYMBOLIC_BIT_MAP_at_VALUES_"
 			max="-1" min="0" type="list" value="" key="values"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="0" min="0" type="string"
+			<element tw-rev-specific="false" flag="8" min="0" type="string"
 				type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 	</item-type>
@@ -2764,7 +2764,7 @@
 		name="Time" qualified-name="CadseG.attributes.Time" cst-name="TIME"
 		id="d51d242d-b2ea-4e3c-972b-77fe54197e54">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="53e53ca7-4c73-4238-a919-d953053aab95" cst-name="TIME_at_INIT_WITH_THE_CURRENT_TIME_"
 			min="0" type="boolean" value="true" key="init-with-the-current-time"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -2780,7 +2780,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="TypeDefinition"
 		qualified-name="CadseG.dataModel.TypeDefinition" cst-name="TYPE_DEFINITION"
 		id="b0a278a3-481c-47af-bbbb-6ec983e4a0c8">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="TYPE_DEFINITION_lt_ATTRIBUTES" intID="0"
@@ -2788,7 +2788,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="attributes"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="93f0f6f8-bd19-4ab9-935d-70690907000e" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="TYPE_DEFINITION_lt_CADSE" intID="0"
@@ -2796,7 +2796,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="1" min="1" name="cadse"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="7e41dd8d-a67f-4e1a-a5c3-13b97ca78564" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="TYPE_DEFINITION_lt_CREATION_PAGES" intID="0"
@@ -2804,7 +2804,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="creation-pages" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="62b422d1-ab8b-4f83-babb-8c0784bc6389" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="TYPE_DEFINITION_lt_FIELDS" intID="0"
@@ -2812,7 +2812,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="fields"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="8c61e11d-9d98-4d78-a867-5d67fa0509cf" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="TYPE_DEFINITION_lt_GOUPS_OF_ATTRIBUTES" intID="0"
@@ -2821,7 +2821,7 @@
 			isAnnotation="false" isAggregation="false" max="-1" min="0"
 			name="goupsOfAttributes" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
 			id="eeca7bc7-3a3b-48a2-8c29-8b24582900da" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="TYPE_DEFINITION_lt_MODIFICATION_PAGES" intID="0"
@@ -2830,7 +2830,7 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="modification-pages" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
 			id="d030b7eb-5c82-4179-9090-b1a02bc29d16" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="TYPE_DEFINITION_lt_VALIDATORS" intID="0"
@@ -2839,7 +2839,7 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0" name="validators"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="dc066fb7-6855-40a4-b964-34a6c9437a82" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="9891387e-6c27-4f71-aaae-59373664f449" cst-name="TYPE_DEFINITION_at_ID_RUNTIME_"
 			min="0" type="string" value="" key="id-runtime"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2858,7 +2858,7 @@
 		id="3726fca9-4983-491b-9dd1-08d977ac11df">
 		<link destinationId="e9ffc8e1-6dd9-4227-aaa5-1b3b454d3fd0" key="content-model"
 			is-readonly="true" is-hidden="true" type="ce515bf1-2058-4948-8ae4-66abdaafa92e" />
-		<outgoing-link flag="11" hidden="false" tw-coupled="false"
+		<outgoing-link flag="3" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="UILISTENER_lt_CONTENTS" intID="0"
@@ -2869,7 +2869,7 @@
 			<link destinationId="e9ffc8e1-6dd9-4227-aaa5-1b3b454d3fd0" key="content-definition"
 				is-readonly="true" is-hidden="true" type="0d577beb-75f3-4c85-a15f-2cb7fd712caa" />
 		</outgoing-link>
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="UILISTENER_lt_FIELDS" intID="0"
@@ -2885,7 +2885,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="UIValidator"
 		qualified-name="CadseG.dataModel.UIValidator" cst-name="UIVALIDATOR"
 		id="3aeb31b9-ba3a-49b3-96e2-925b36386a15">
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="UIVALIDATOR_lt_LISTEN_ATTRIBUTES" intID="0"
@@ -2894,7 +2894,7 @@
 			isAnnotation="false" isAggregation="false" max="-1" min="0"
 			name="listenAttributes" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
 			id="eb0d4727-75e5-47b2-bfee-f78bba46bd80" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="UIVALIDATOR_lt_OVERWRITE" intID="0"
@@ -2940,7 +2940,7 @@
 		has-content="true" package-name="view" super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778"
 		name="View" qualified-name="CadseG.view.View" cst-name="VIEW"
 		id="3ca0bb23-d4f7-4816-af03-5e926d93bdaf">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="VIEW_lt_VIEW_ITEM_TYPES" intID="0"
@@ -2950,7 +2950,7 @@
 			name="view-item-types" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
 			id="20ca536e-6fa6-43b3-a435-4366d77127f5" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="9507a115-3466-4ac5-b2e0-abb2c42cc4b4" cst-name="VIEW_at_ICON_"
 			min="0" type="string" value="" key="icon"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -2962,7 +2962,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="ViewDescription"
 		qualified-name="CadseG.view.ViewDescription" cst-name="VIEW_DESCRIPTION"
 		id="4eef99f9-b22c-452f-9712-bf1b3b4bedb1">
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="VIEW_DESCRIPTION_lt_ROOT_TYPES" intID="0"
@@ -2982,7 +2982,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="ViewItemType"
 		qualified-name="CadseG.view.ViewItemType" cst-name="VIEW_ITEM_TYPE"
 		id="b2332082-a3f2-4920-a350-ccb1ad5d56b9">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="VIEW_ITEM_TYPE_lt_ITEM_TYPE" intID="0"
@@ -2990,7 +2990,7 @@
 			isMapping="false" isRequire="true" isGroup="false" isComposition="false"
 			isAnnotation="true" isAggregation="false" max="1" min="1" name="item-type"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="b10d0d67-5b62-40dd-b233-7ebd7cab13be" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="VIEW_ITEM_TYPE_lt_VIEW_LINK_TYPES" intID="0"
@@ -3000,12 +3000,12 @@
 			name="view-link-types" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
 			id="0aee9076-cce6-425c-8d02-857d1607d97a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="a44e9d8e-e407-4af4-8140-d43e51c79763" cst-name="VIEW_ITEM_TYPE_at_IS_ROOT_ELEMENT_"
 			min="0" type="boolean" value="false" key="is-root-element"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="88905fd4-d6a9-435d-be0b-b167ab6db272" cst-name="VIEW_ITEM_TYPE_at_REF_"
 			min="0" type="boolean" value="false" key="ref"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -3021,7 +3021,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="ViewLinkType"
 		qualified-name="CadseG.view.ViewLinkType" cst-name="VIEW_LINK_TYPE"
 		id="848d1718-4322-4a5c-91bf-579d04eb9b41">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="VIEW_LINK_TYPE_lt_LINK_TYPE" intID="0"
@@ -3030,22 +3030,22 @@
 			isAnnotation="true" isAggregation="false" max="1" min="1" name="link-type"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="b9da3f92-3bea-4ff1-bb2e-5be57d1d886d" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="6aac3672-94ec-464e-be65-1953c5af2805" cst-name="VIEW_LINK_TYPE_at_AGGREGATION_"
 			min="0" type="boolean" value="true" key="aggregation"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="a3d6dcf6-6450-4aee-a32d-eb75b39e8a9c" cst-name="VIEW_LINK_TYPE_at_CAN_CREATE_ITEM_"
 			min="0" type="boolean" value="true" key="can-create-item"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="8a6115d6-7b05-4578-ba74-92d32254eb1c" cst-name="VIEW_LINK_TYPE_at_CAN_CREATE_LINK_"
 			min="0" type="boolean" value="true" key="can-create-link"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="0"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="9525e01a-7657-4c41-b6e6-5c0bb7400e5a" cst-name="VIEW_LINK_TYPE_at_DISPLAY_CREATE_"
 			min="0" type="string" value="" key="display-create"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
@@ -3061,7 +3061,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="ViewModel"
 		qualified-name="CadseG.view.ViewModel" cst-name="VIEW_MODEL"
 		id="ba68cae0-c148-4efb-86c2-48101fb6e28e">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="VIEW_MODEL_lt_VIEWS" intID="0"
@@ -3080,7 +3080,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="WCListener"
 		qualified-name="CadseG.dataModel.WCListener" cst-name="WCLISTENER"
 		id="2d5d2bc0-8cfc-42a5-9d88-7b1b95f2beab">
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="WCLISTENER_lt_LISTEN_ATTRIBUTE_DEFINITIONS" intID="0"
@@ -3089,7 +3089,7 @@
 			isAnnotation="false" isAggregation="true" max="-1" min="0"
 			name="listenAttributeDefinitions" type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea"
 			id="bffba2db-49d1-476d-bbc9-73bf493a1041" />
-		<outgoing-link flag="0" hidden="false" tw-coupled="false"
+		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="WCLISTENER_lt_LISTEN_ITEM_TYPES" intID="0"
@@ -3102,7 +3102,7 @@
 	<ext-item-type package-name="group" name="GroupExtItem"
 		qualified-name="group.GroupExtItem" cst-name="GROUP_EXT_ITEM"
 		id="3dde5cb3-f7f0-4b02-ae7f-7f927ddb3e13">
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="transient" isNatif="false"
 			cst-name="GROUP_EXT_ITEM_lt_MEMBER_OF" intID="0"
@@ -3110,7 +3110,7 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="1" min="0" name="memberOf"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="484e82d0-230e-4b67-8fb0-5fe6e2c46a76" />
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="transient" isNatif="false"
 			cst-name="GROUP_EXT_ITEM_lt_MEMBERS" intID="0"
@@ -3124,7 +3124,7 @@
 	<ext-item-type package-name="actions" name="ActionExtItemType"
 		qualified-name="actions.ActionExtItemType" cst-name="ACTION_EXT_ITEM_TYPE"
 		id="616d7bd7-7bee-46c0-8ef5-9513ef18cae6">
-		<outgoing-link flag="1" hidden="false" tw-coupled="false"
+		<outgoing-link flag="9" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ACTION_EXT_ITEM_TYPE_lt_ACTIONS_MODEL" intID="0"
@@ -3137,7 +3137,7 @@
 		qualified-name="dataModel.GenerateInformation" cst-name="GENERATE_INFORMATION"
 		id="237a7ae9-90c8-4f07-ad99-8455a10f9bdc">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="1"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="6fb40e51-92e8-486a-8abe-2e0b037be8b8" cst-name="GENERATE_INFORMATION_at_CSTNAME_"
 			min="0" type="string" value="" key="CSTName"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
