@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
 <!-- ATTRIBUTE_at_MUST_BE_INITIALIZED_ changed default value to false -->
+<!-- ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_ changed default value to true -->
+<!-- Removed attributes from creation page -->
+<!-- ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_ - flag de 11 à 9 -->
+<!-- ITEM_TYPE_lt_CONTENT_MODEL - flag de 3 à 1 -->
+
 <ns2:c-cadse display-name="CADSEg (Editor and generator of CADSEs)"
 	description="CADSEg specializes the IDE to provide functionalities to edit and create CADSEs"
 	cst-class="fr.imag.adele.cadse.core.CadseGCST" version="0"
 	id_cadse_definition="0dc9a0d0-73ff-4e82-a181-1b6792d49e75" id="2b50360d-d835-4e98-80a8-bc55fe5421e7"
 	name="Model.Workspace.CadseG" xmlns:ns2="http://fr.imag.adele/fede/workspace/model">
+	
 	<item-type hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -143,7 +150,7 @@
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="13eee9fe-aa0e-42dd-8655-a2e12cc453f8" cst-name="ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_"
-			min="0" type="boolean" value="false" key="hidden-in-computed-pages"
+			min="0" type="boolean" value="true" key="hidden-in-computed-pages"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="8"
@@ -1657,7 +1664,7 @@
 		super-type-name="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" name="ItemType"
 		qualified-name="CadseG.dataModel.ItemType" cst-name="ITEM_TYPE"
 		id="43808065-4f70-4290-adba-cca999431ba1">
-		<outgoing-link flag="3" hidden="true" tw-coupled="false"
+		<outgoing-link flag="1" hidden="true" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ITEM_TYPE_lt_CONTENT_MODEL" intID="0"
@@ -1703,7 +1710,7 @@
 			min="0" type="boolean" value="false" key="custom-manager"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="11"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="877296d9-d39c-471f-adb2-818712bf1a6e" cst-name="ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_"
 			min="0" type="string" value="" key="defaultInstanceName"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />

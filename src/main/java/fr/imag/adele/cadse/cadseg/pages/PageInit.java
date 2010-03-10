@@ -137,7 +137,7 @@ public class PageInit {
 
 		// Specific part 2 : check boxes
 		GroupOfAttributesDescriptor gSpecificPart2 = createGroup("Basic properties", 3, false,
-				CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_, CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_,
+				CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_,
 				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, CadseGCST.STRING_at_NOT_EMPTY_,
 				CadseGCST.ATTRIBUTE_at_IS_LIST_);
 		gBasicProperties.add(gSpecificPart2);
@@ -215,6 +215,8 @@ public class PageInit {
 		// Displayed attributes in creation pages and in modification pages //
 		// **************************************************************** //
 
+		// CadseGCST.CADSE_DEFINITION_lt_MAPPING.setFlag(Item.SHOW_IN_DEFAULT_CP, false);
+
 		CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.ATTRIBUTE_at_IS_LIST_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
@@ -253,13 +255,17 @@ public class PageInit {
 
 		CadseGCST.ATTRIBUTE_at_DEV_GENERATED_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ATTRIBUTE_at_FINAL_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
-		CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ATTRIBUTE_at_ID_RUNTIME_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ATTRIBUTE_at_REQUIRE_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ATTRIBUTE_lt_WC_LISTENS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.CADSE_at_EXECUTED_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.CADSE_at_ID_DEFINITION_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		CadseGCST.CADSE_DEFINITION_lt_BUILD.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		CadseGCST.CADSE_DEFINITION_lt_CONFIGURATION.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		CadseGCST.CADSE_DEFINITION_lt_MAPPING.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		CadseGCST.CADSE_DEFINITION_lt_VIEW_MODEL.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.CADSE_lt_ITEM_TYPES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ENUM_at_ENUM_CLAZZ_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ENUM_at_VALUES_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
