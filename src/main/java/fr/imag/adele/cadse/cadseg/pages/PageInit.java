@@ -215,8 +215,7 @@ public class PageInit {
 		// Displayed attributes in creation pages and in modification pages //
 		// **************************************************************** //
 
-		// CadseGCST.CADSE_DEFINITION_lt_MAPPING.setFlag(Item.SHOW_IN_DEFAULT_CP, false);
-
+		CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.ATTRIBUTE_at_IS_LIST_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
