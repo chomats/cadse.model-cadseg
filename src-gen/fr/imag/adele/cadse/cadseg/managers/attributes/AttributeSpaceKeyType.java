@@ -41,7 +41,7 @@ public final class AttributeSpaceKeyType extends DefaultKeyDefinitionImpl {
 	}
 	
 	@Override
-	protected String convertName(String name) {
+	public String convertName(String name) {
 		if (name == null) return null;
 		return name.toUpperCase();
 	}
