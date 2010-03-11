@@ -38,6 +38,7 @@ import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
@@ -540,7 +541,7 @@ public class PageInit {
 					CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_, "Conflict impact on update", EPosLabel.left, mc, ic);
 			CadseGCST.ATTRIBUTE.addField(field);
 		}
-
+		
 		// LINK_TYPE_at_TWCOUPLED_
 		{
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
@@ -637,10 +638,8 @@ public class PageInit {
 		{
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc, MC_BooleanTextField.class);
-			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
-			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_BooleanDefaultValue.class);
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-					CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "Default value", EPosLabel.left, mc, ic);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+					CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, "Default value", EPosLabel.none, mc, null);
 			CadseGCST.BOOLEAN.addField(field);
 		}
 
