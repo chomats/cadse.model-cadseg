@@ -26,24 +26,30 @@ import fr.imag.adele.cadse.core.ui.UIField;
 
 public final class MC_BooleanTextField extends MC_AttributesItem {
 
+	
+	@Override
+	public Object visualToModel(Object ret) {
+		return ret == null ? null : ret.toString();
+	}
+	
+	@Override
+	public Object getValue() {
+		Object v = super.getValue();
+		return v == null ? null : "".equals(v) ? null :  Boolean.parseBoolean(v.toString());
+	}
+	
 	@Override
 	public boolean validValueChanged(UIField field, Object value) {
 		if (value == null) {
-			if (field.getAttributeDefinition() != null) {
-				Object d = field.getAttributeDefinition().getDefaultValue();
-				if (d != null) {
-					return ((Boolean) d).booleanValue();
-				}
-			}
 			return false;
 		}
 		if (value.toString().length() == 0) {
 			return false;
 		}
-		if ("true".equals(value)) {
+		if (Boolean.TRUE.equals(value) || "true".equals(value)) {
 			return false;
 		}
-		if ("false".equals(value)) {
+		if (Boolean.FALSE.equals(value) || "false".equals(value)) {
 			return false;
 		}
 		_uiPlatform.setMessageError("The default value must be 'true' or 'false'");
