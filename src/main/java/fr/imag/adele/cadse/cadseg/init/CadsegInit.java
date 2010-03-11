@@ -131,7 +131,7 @@ public class CadsegInit implements InitAction {
 		CadseGCST.TYPE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.TYPE_DEFINITION,
 				CadseGCST.CADSE) {
 			@Override
-			protected String convertName(String name) {
+			public String convertName(String name) {
 				if (name == null) {
 					return null;
 				}
