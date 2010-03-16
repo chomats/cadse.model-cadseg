@@ -333,13 +333,6 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	/**
 	 * @generated
 	 */
-	public static final boolean isMustBeInitializedAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, true);
-	}
-
-	/**
-	 * @generated
-	 */
 	public static final boolean isShowInDefaultCPAttribute(Item attribute) {
 		// FIXME ATTRIBUTE_at_MUST_BE_INITIALIZED_
 		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, true);
@@ -356,7 +349,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	/**
 	 * @generated
 	 */
-	public static final void setMustBeInitializedAttribute(Item attribute, boolean value) {
+	private static final void setMustBeInitializedAttribute(Item attribute, boolean value) {
 		try {
 			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, value);
 		}
@@ -515,18 +508,11 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 
 		}
 	}
-
+	
 	/**
 	 * @generated
 	 */
-	public static final boolean isHiddenInComputedPagesAttribute(Item attribute) {
-		return attribute.getAttributeWithDefaultValue(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_, false);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static final void setHiddenInComputedPagesAttribute(Item attribute, boolean value) {
+	private static final void setHiddenInComputedPagesAttribute(Item attribute, boolean value) {
 		try {
 			attribute.setAttribute(CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_, value);
 		}
@@ -768,5 +754,9 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 
 	public static void setShowInDefaultCPAttribute(ItemDelta attDelta, boolean b) {
 		setMustBeInitializedAttribute(attDelta, b);
+	}
+	
+	public static void setShowInDefaultMPAttribute(ItemDelta attDelta, boolean b) {
+		setHiddenInComputedPagesAttribute(attDelta, b);
 	}
 }
