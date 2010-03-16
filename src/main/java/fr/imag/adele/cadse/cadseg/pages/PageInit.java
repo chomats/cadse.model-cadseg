@@ -301,7 +301,7 @@ public class PageInit {
 		CadseGCST.MANAGER_lt_EXPORTERS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.MANAGER_lt_ITEM_TYPE.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
-		CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		//CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_CADSE.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_FIELDS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
@@ -575,6 +575,18 @@ public class PageInit {
 					CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_, "Instances are hidden", EPosLabel.none, mc, null);
 			CadseGCST.ITEM_TYPE.addField(field);
 		}
+		
+		// TYPE_DEFINITION
+		{
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select a destination.");
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_LINK);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
+					CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, "Attributes ordered", EPosLabel.top, mc, ic,
+					CadseGCST.DLIST_at_EDITABLE_BUTTON_, Boolean.FALSE,
+					CadseGCST.DLIST_at_ORDER_BUTTON_, Boolean.TRUE);
+			CadseGCST.TYPE_DEFINITION.addField(field);
+		}
+		
 
 		// PROJECT_CONTENT_MODEL_at_PROJECT_NAME_
 		{
