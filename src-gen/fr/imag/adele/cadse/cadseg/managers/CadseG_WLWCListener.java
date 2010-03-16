@@ -308,7 +308,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		if (!isInCadseDefinition(item))
 			return;
 		if (item.isInstanceOf(CadseGCST.CONTENT_ITEM_TYPE)) {
-			Item linkType = item.getIncomingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION);
+			ItemDelta linkType = (ItemDelta) item.getIncomingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION);
 			if (linkType == null) {
 				Item itemType = item.getPartParent();
 				if (itemType.isInstanceOf(CadseGCST.MANAGER)) {
@@ -320,7 +320,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
 			LinkTypeManager.setMaxAttribute(linkType, 1);
 			LinkTypeManager.setMinAttribute(linkType, 0);
-			LinkTypeManager.setHiddenInComputedPagesAttribute(linkType, true);
+			LinkTypeManager.setShowInDefaultMPAttribute(linkType, false);
+			LinkTypeManager.setShowInDefaultCPAttribute(linkType, false);
 			linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, item);
 		}
 		
@@ -1629,7 +1630,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 		for (ItemDelta oper : loadedItems) {
 			if (oper.isInstanceOf(CadseGCST.CONTENT_ITEM_TYPE)) {
 				try {
-					Item linkType = oper.getIncomingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION);
+					ItemDelta linkType = (ItemDelta) oper.getIncomingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION);
 					if (linkType == null) {
 						Item itemType = oper.getPartParent();
 						if (itemType.isInstanceOf(CadseGCST.MANAGER)) {
@@ -1640,7 +1641,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 						LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
 						LinkTypeManager.setMaxAttribute(linkType, 1);
 						LinkTypeManager.setMinAttribute(linkType, 0);
-						AttributeManager.setHiddenInComputedPagesAttribute(linkType, true);
+						AttributeManager.setShowInDefaultCPAttribute(linkType, false);
+						AttributeManager.setShowInDefaultMPAttribute(linkType, false);
 						linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, oper);
 					}
 				} catch (Throwable e) {
