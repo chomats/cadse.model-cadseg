@@ -1633,6 +1633,7 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 					ItemDelta linkType = (ItemDelta) oper.getIncomingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION);
 					if (linkType == null) {
 						Item itemType = oper.getPartParent();
+						if (itemType == null) continue;
 						if (itemType.isInstanceOf(CadseGCST.MANAGER)) {
 							itemType = ManagerManager.getItemType(itemType);
 						}
