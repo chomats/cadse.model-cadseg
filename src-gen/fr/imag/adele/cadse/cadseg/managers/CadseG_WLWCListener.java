@@ -1636,6 +1636,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 						if (itemType.isInstanceOf(CadseGCST.MANAGER)) {
 							itemType = ManagerManager.getItemType(itemType);
 						}
+						if (!itemType.isInstanceOf(CadseGCST.ITEM_TYPE))
+							continue;
 						linkType = workspaceLogiqueWorkingCopy.createItem(CadseGCST.CONTENT_LINK_TYPE, itemType , CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES);
 						linkType.setName("contents");
 						LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
