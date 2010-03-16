@@ -195,7 +195,7 @@ public class ExporterManager extends DefaultItemManager implements
 				sb.decrementLength();
 				sb.append("),");
 
-				imports.add("fr.imag.adele.cadse.core.ContentItem");
+				imports.add("fr.imag.adele.cadse.core.content.ContentItem");
 				imports.add("fr.imag.adele.cadse.core.Item");
 				imports.add("fr.imag.adele.cadse.core.CadseException");
 				imports.add(defaultQualifiedClassName);
