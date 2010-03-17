@@ -23,13 +23,16 @@ public class MigrationInit {
 	 oldNameMap.put("message", CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_);
 	 oldNameMap.put("title", CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_);
 	 oldNameMap.put("package-name", CadseGCST.ITEM_TYPE_at_PACKAGE_NAME_);
+	 oldNameMap.put("ext-types", CadseGCST.DATA_MODEL_lt_TYPES);
+	 
 	 
 	 oldNameMap.put(CadseGCST.CADSE_DEFINITION.getId()+"::UUID_ATTRIBUTE",CadseGCST.CADSE_DEFINITION_at_ID_RUNTIME_);
 	 oldNameMap.put(CadseGCST.PAGE.getId()+"::UUID_ATTRIBUTE",CadseGCST.PAGE_at_ID_RUNTIME_);
 	 oldNameMap.put(CadseGCST.ATTRIBUTE.getId()+"::UUID_ATTRIBUTE",CadseGCST.ATTRIBUTE_at_ID_RUNTIME_);
 	 oldNameMap.put(CadseGCST.TYPE_DEFINITION.getId()+"::UUID_ATTRIBUTE",CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_);
 	 oldNameMap.put("695d9c75-d5bf-4c60-b541-67d54d1dbf50::select-messsage", CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_);
-	
+	 CadseCore.addOldNameRE(null, "#invert_part.*", CadseGCST.ITEM_lt_PARENT);
+	 
 	CadseCore.addIgnore("b1b807a6-835f-457c-9bf5-d8dd5b0f34c2::hspan");
 	CadseCore.addIgnore("a1922398-35c7-4711-90e9-8ec54331c003::display");
 	CadseCore.addIgnore("b1b807a6-835f-457c-9bf5-d8dd5b0f34c2::create-page-action");
@@ -43,7 +46,7 @@ public class MigrationInit {
 	CadseCore.addIgnore("36c8f1c2-3972-40e7-b687-b23f3e46f37b::has-content");
 	CadseCore.addIgnore("6c8f1c2-3972-40e7-b687-b23f3e46f37b::is-root-element");
 	CadseCore.addIgnore("6c8f1c2-3972-40e7-b687-b23f3e46f37b::is-root-element");
-	CadseCore.addIgnorePattern("#invert_part.*");
+	//CadseCore.addIgnorePattern("#invert_part.*");
 
 	CadseCore.addIgnore("a807eb31-575e-4fbb-822c-c0e4c6095339::max");
 	CadseCore.addIgnore("a807eb31-575e-4fbb-822c-c0e4c6095339::min");
