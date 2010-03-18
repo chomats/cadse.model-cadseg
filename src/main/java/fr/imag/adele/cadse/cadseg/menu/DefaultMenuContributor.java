@@ -68,10 +68,10 @@ import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.DeleteItemAction;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.actions.RenameAction;
 import fr.imag.adele.fede.workspace.si.view.View;
 
-public class ItemActionGroup  extends AbstractActionContributor {
+public class DefaultMenuContributor  extends AbstractActionContributor {
 	
 
-	public ItemActionGroup() {
+	public DefaultMenuContributor() {
 	}
 
 
@@ -303,7 +303,7 @@ public class ItemActionGroup  extends AbstractActionContributor {
 
 		int addsep = 0;
 		for (LinkType lt : parent.getLocalOutgoingLinkTypes()) {
-			if (lt.isDerived()) {
+			if (lt.isDerived() || parent.isDelegatedValue(lt)) {
 				continue;
 			}
 
