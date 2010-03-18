@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.cadseg.teamwork.ui.IC_ModifiedAttr_List;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ModifiedAttr_ModelController;
 import fr.imag.adele.cadse.cadseg.validators.ExtendsClassValidator;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
+import fr.imag.adele.cadse.cadseg.validators.LinkTypeIsGoupListener;
 import fr.imag.adele.cadse.cadseg.validators.NotEmptyValidator;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -813,6 +814,15 @@ public class PageInit {
 			v2.setListenAttributes(CadseGCST.LINK_TYPE_at_MIN_, CadseGCST.LINK_TYPE_at_MAX_);
 			CadseGCST.LINK_TYPE.addValidators(v2);
 		}
+		
+		// LINK_TYPE_at_MIN_ and LINK_TYPE_at_MAX_
+		{
+			JavaClassValidator v2 = new JavaClassValidator(null);
+			v2.setClazz(LinkTypeIsGoupListener.class);
+			v2.setListenAttributes(CadseGCST.LINK_TYPE_at_GROUP_);
+			CadseGCST.LINK_TYPE.addValidators(v2);
+		}
+		
 
 		// ENUM_TYPE_at_JAVA_CLASS_
 		{

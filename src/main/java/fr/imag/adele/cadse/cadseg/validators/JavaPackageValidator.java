@@ -21,22 +21,9 @@ package fr.imag.adele.cadse.cadseg.validators;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.JavaConventions;
 
-import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
-import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.AbstractUIRunningValidator;
-import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
-import fr.imag.adele.cadse.core.ui.UIRunningValidator;
-import fr.imag.adele.cadse.core.ui.UIValidator;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
-import org.eclipse.jdt.core.JavaConventions;
 
 /**
  * @generated
