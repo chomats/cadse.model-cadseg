@@ -331,6 +331,7 @@ public class IC_DataModelView extends IC_AbstractForChecked implements IC_TreeCh
 		super.init();
 		viewmodel = getItem();
 		viewmodel.getLogicalWorkspace().addListener(_listener, 0xFFFF);
+		checkedTreeUI = (DCheckedTreeUI) this._uirunningField;
 	}
 
 	/*

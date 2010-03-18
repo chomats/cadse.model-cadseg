@@ -13,6 +13,7 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageSpaceKeyType;
 import fr.imag.adele.cadse.cadseg.menu.ItemActionGroup;
 import fr.imag.adele.cadse.cadseg.menu.TeamWorkMenuActionContributor;
+import fr.imag.adele.cadse.cadseg.menu.ViewActionContributor;
 import fr.imag.adele.cadse.cadseg.migration.MigrationInit;
 import fr.imag.adele.cadse.cadseg.operation.WorkspaceActionContributor;
 import fr.imag.adele.cadse.cadseg.pages.PageInit;
@@ -181,6 +182,7 @@ public class CadsegInit implements InitAction {
 		try {
 			PageInit.init();
 			CadseGCST.ITEM.addActionContributeur(new ItemActionGroup());
+			CadseGCST.VIEW_ITEM_TYPE.addActionContributeur(new ViewActionContributor());
 		}
 		catch (CadseException e) {
 			// TODO Auto-generated catch block

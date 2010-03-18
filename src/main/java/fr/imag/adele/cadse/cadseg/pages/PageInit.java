@@ -281,6 +281,7 @@ public class PageInit {
 		CadseGCST.ITEM_TYPE_at_DISPLAY_NAME_TEMPLATE_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ITEM_TYPE_at_HAS_SHORT_NAME_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ITEM_TYPE_at_HAS_UNIQUE_NAME_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		CadseGCST.ITEM_TYPE_at_IS_META_ITEM_TYPE_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ITEM_TYPE_at_ITEM_MANAGER_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ITEM_TYPE_at_MANAGER_CLASS_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ITEM_TYPE_at_MESSAGE_ERROR_ID_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
