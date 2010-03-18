@@ -9,9 +9,9 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.CadseDomainImpl;
-import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Link;
 
-public class ModifiedAttr_ModelController extends LinkModelController {
+public class ModifiedAttr_ModelController extends MC_Link {
 
 	public ModifiedAttr_ModelController(boolean mandatory, String msg) {
 		super(mandatory, msg);

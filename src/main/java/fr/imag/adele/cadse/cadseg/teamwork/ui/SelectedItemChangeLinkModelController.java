@@ -26,13 +26,13 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Link;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
 
 
-public class SelectedItemChangeLinkModelController extends LinkModelController implements ItemSelectionListener {
+public class SelectedItemChangeLinkModelController extends MC_Link implements ItemSelectionListener {
 
 	protected MyListener	_Listener;
 
