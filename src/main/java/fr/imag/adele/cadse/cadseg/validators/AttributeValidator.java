@@ -94,85 +94,27 @@ public class AttributeValidator  extends AbstractUIRunningValidator {
 				enableField();
 			}
 		}
-//		if (field == defaultValueField) {
-//			if (AttributeManager.isClassAttributeAttribute(getItem())) {
-//				String df = (String) value;
-//				if (df == null || df.length() == 0) {
-//					pageObject.getPageController().setMessage("The default value must be set", IPageController.ERROR);
-//					return true;
-//				}
-//			}
-//
-//		}
 		return false;
 	}
 
-	protected void computeSuperAttribute(String shortName) {
+	private  void computeSuperAttribute(String shortName) {
 		this._superAttribute = ItemTypeManager.findSuperAttribute(_uiPlatform.getItem(), shortName);
 	}
 	
-	
-	
-
-	protected void setDefaultValues() {
-		AttributeManager.setIsListAttribute(_uiPlatform.getItem(), AttributeManager.isIsListAttribute(_superAttribute));
-		AttributeManager.setRequireAttribute(_uiPlatform.getItem(), AttributeManager.isRequireAttribute(_superAttribute));
-	}
-	
-	void setEnable(IAttributeType<?> att, boolean v) {
+	private void setEnable(IAttributeType<?> att, boolean v) {
 		UIField f = _uiPlatform.getField(att);
 		if (f != null)
 			_uiPlatform.setEnabled(f, v);
 	}
 
-	protected void enableField() {
+	private  void enableField() {
 		setEnable(CadseGCST.ATTRIBUTE_at_IS_LIST_, true);
 		setEnable(CadseGCST.ATTRIBUTE_at_REQUIRE_, true);
 	}
 
-	protected void disableField() {
+	private  void disableField() {
 		setEnable(CadseGCST.ATTRIBUTE_at_IS_LIST_, false);
 		setEnable(CadseGCST.ATTRIBUTE_at_REQUIRE_, false);		
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validSubValueAdded(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validSubValueAdded(UIField field, Object added) {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validSubValueRemoved(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validSubValueRemoved(UIField field, Object removed) {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validValue(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validValue(UIField field, Object value) {
-		return validValueChanged(field, value);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.imag.adele.cadse.core.ui.IValidateContributor#validValueDeleted(fr.imag.adele.cadse.core.ui.UIField,
-	 *      java.lang.Object)
-	 */
-	public boolean validValueDeleted(UIField field, Object removed) {
-		return false;
 	}
 
 }
