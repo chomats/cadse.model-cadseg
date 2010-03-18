@@ -43,20 +43,6 @@ import org.eclipse.jdt.core.JavaConventions;
  */
 public class JavaPackageValidator extends AbstractUIRunningValidator {
 
-	/**
-	 * @generated
-	 */
-	//protected UIField fieldPackagename;
-
-	
-//	@Override
-//	public void init(UIPlatform uiPlatform) {
-//		super.init(uiPlatform);
-//		//=//fieldPackagename = uiPlatform.getFields(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
-//	}
-	
-
-
 	@Override
 	public boolean validValue(UIField field, Object value) {
 		if (checkPackageName((String) value) == true)
@@ -67,11 +53,8 @@ public class JavaPackageValidator extends AbstractUIRunningValidator {
 
 	@Override
 	public boolean validValueChanged(UIField field, Object value) {
-		//if (field == fieldPackagename) {
-			String pack_name = (String) value;
-			return checkPackageName(pack_name);
-		//} 
-		//return false;
+		String pack_name = (String) value;
+		return checkPackageName(pack_name);
 	}
 
 	private boolean checkPackageName(String pack_name) {
