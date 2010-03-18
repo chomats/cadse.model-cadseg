@@ -26,8 +26,6 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
-import fr.imag.adele.cadse.core.IItemNode;
-import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -449,90 +447,5 @@ public class ViewItemTypeManager extends DefaultItemManager {
 	@Override
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
 		return "false";
-	}
-
-	/**
-	 * The Class LinkTypeViewAction.
-	 */
-	class LinkTypeViewAction extends IMenuAction {
-
-		/** The viewitemtype. */
-		Item	viewitemtype;
-
-		/** The linktype. */
-		Item	linktype;
-
-		/**
-		 * Instantiates a new link type view action.
-		 * 
-		 * @param viewitemtype
-		 *            the viewitemtype
-		 * @param linktype
-		 *            the linktype
-		 */
-		public LinkTypeViewAction(Item viewitemtype, Item linktype) {
-			this.linktype = linktype;
-			this.viewitemtype = viewitemtype;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IMenuAction#run(fr.imag.adele.cadse.core.IItemNode[])
-		 */
-		@Override
-		public void run(IItemNode[] selection) throws CadseException {
-			ViewManager.createViewLinkType2(viewitemtype, linktype);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IMenuAction#getImage()
-		 */
-		@Override
-		public String getImage() {
-			return linktype.getType().getImage();
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IMenuAction#getLabel()
-		 */
-		@Override
-		public String getLabel() {
-			return "Add link type " + linktype.getName();
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IMenuAction#getMenuPath()
-		 */
-		@Override
-		public String getMenuPath() {
-			return NEW_MENU;
-		}
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#contributeMenuNewAction(fr.imag.adele.cadse.core.IMenuAction.Menu,
-	 *      fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public void contributeMenuNewAction(Menu menu, Item view) {
-		if (view.isAccessible()) {
-			Item itemtype = ViewItemTypeManager.getItemType(view);
-			if (itemtype != null) {
-				Item[] categories = ItemTypeManager.getOugoingLinkTypes(itemtype);
-				for (Item acat : categories) {
-					menu.insert(null, new LinkTypeViewAction(view, acat), true);
-				}
-			}
-		}
 	}
 }
