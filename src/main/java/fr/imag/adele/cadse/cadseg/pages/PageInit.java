@@ -594,6 +594,18 @@ public class PageInit {
 			CadseGCST.ITEM_TYPE.addField(field);
 		}
 		
+		// ITEM_TYPE_at_ITEM_FACTORY_
+		{
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_STRING_TO_JAVA_ELEMENT);
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO,
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select an Factory class",
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Select an Factory class",
+					CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_, "CLASSES");
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DBROWSER, UUID.randomUUID(),
+					CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_, "Factory class", EPosLabel.left, mc, ic);
+			CadseGCST.ITEM_TYPE.addField(field);
+		}
+		
 		// TYPE_DEFINITION
 		{
 			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select a destination.");
