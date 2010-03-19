@@ -5,7 +5,6 @@ import java.util.UUID;
 import fede.workspace.tool.view.ItemInViewer;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.CadseViewModelController;
-import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -37,18 +36,8 @@ public class ItemInDBNode extends AbstractCadseViewNode {
 	}
 	
 	@Override
-	public boolean equals(Object arg0) {
-		return super.equals(arg0) && _itemId.equals(((ItemInDBNode) arg0).getItemId());
-	}
-
-	@Override
-	public int hashCode() {
-		return _itemId.hashCode();
-	}
-	
-	@Override
 	public Object getElementModel() {
-		return null;
+		return _itemId;
 	}
 	
 	@Override

@@ -27,24 +27,14 @@ public class ErrorNode extends AbstractCadseViewNode {
 		_errorMsg = errorMsg;
 		ctl = viewer;
 	}
-	
-	@Override
-	public boolean equals(Object arg0) {
-		return super.equals(arg0) && _errorMsg.equals(((ErrorNode) arg0).getErrorMsg());
-	}
 
 	public String getErrorMsg() {
 		return _errorMsg;
 	}
-
-	@Override
-	public int hashCode() {
-		return _errorMsg.hashCode();
-	}
 	
 	@Override
 	public Object getElementModel() {
-		return null;
+		return _errorMsg;
 	}
 	
 	@Override
