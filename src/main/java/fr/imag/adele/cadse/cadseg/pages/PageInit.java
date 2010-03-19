@@ -311,6 +311,22 @@ public class PageInit {
 		CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_VALIDATORS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 
+		
+		// ***************** //
+		//   Not editable    //
+		// ***************** //
+		
+		CadseGCST.ITEM_at_NAME_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_at_DISPLAY_NAME_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_at_QUALIFIED_NAME_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_at_REV_MODIFIED_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_at_REQUIRE_NEW_REV_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_at_COMMITTED_BY_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_at_COMMITTED_DATE_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_at_TW_VERSION_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.ITEM_at_TWLAST_COMMENT_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		
 		// ***************** //
 		// Fields definition //
 		// ***************** //
@@ -404,58 +420,58 @@ public class PageInit {
 			CadseGCST.ITEM.addField(field);
 		}
 
-		// ITEM_at_REV_MODIFIED_
-		{
-			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
-					CadseGCST.ITEM_at_REV_MODIFIED_, "Is modified", EPosLabel.none, mc, null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
-		}
-
-		// ITEM_at_REQUIRE_NEW_REV_
-		{
-			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
-					CadseGCST.ITEM_at_REQUIRE_NEW_REV_, "Next commit will create a new revision", EPosLabel.none, mc,
-					null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
-		}
-
-		// ITEM_at_TW_VERSION_
-		{
-			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_INTEGER);
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_TW_VERSION_,
-					"Revision number", EPosLabel.left, mc, null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
-		}
-
-		// ITEM_at_COMMITTED_DATE_
-		{
-			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_DATE);
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_COMMITTED_DATE_,
-					"Last commit date", EPosLabel.left, mc, null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
-		}
-
-		// CadseGCST.ITEM_at_COMMITTED_BY_
-		{
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_COMMITTED_BY_,
-					"Last committer", EPosLabel.left, null, null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
-		}
-
-		// ITEM_at_TWLAST_COMMENT_
-		{
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_TWLAST_COMMENT_,
-					"Last commit comment", EPosLabel.left, null, null);
-			field.setEditable(false);
-			CadseGCST.ITEM.addField(field);
-		}
+//		// ITEM_at_REV_MODIFIED_
+//		{
+//			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
+//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+//					CadseGCST.ITEM_at_REV_MODIFIED_, "Is modified", EPosLabel.none, mc, null);
+//			field.setEditable(false);
+//			CadseGCST.ITEM.addField(field);
+//		}
+//
+//		// ITEM_at_REQUIRE_NEW_REV_
+//		{
+//			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
+//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+//					CadseGCST.ITEM_at_REQUIRE_NEW_REV_, "Next commit will create a new revision", EPosLabel.none, mc,
+//					null);
+//			field.setEditable(false);
+//			CadseGCST.ITEM.addField(field);
+//		}
+//
+//		// ITEM_at_TW_VERSION_
+//		{
+//			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_INTEGER);
+//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_TW_VERSION_,
+//					"Revision number", EPosLabel.left, mc, null);
+//			field.setEditable(false);
+//			CadseGCST.ITEM.addField(field);
+//		}
+//
+//		// ITEM_at_COMMITTED_DATE_
+//		{
+//			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_DATE);
+//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_COMMITTED_DATE_,
+//					"Last commit date", EPosLabel.left, mc, null);
+//			field.setEditable(false);
+//			CadseGCST.ITEM.addField(field);
+//		}
+//
+//		// CadseGCST.ITEM_at_COMMITTED_BY_
+//		{
+//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_COMMITTED_BY_,
+//					"Last committer", EPosLabel.left, null, null);
+//			field.setEditable(false);
+//			CadseGCST.ITEM.addField(field);
+//		}
+//
+//		// ITEM_at_TWLAST_COMMENT_
+//		{
+//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_TWLAST_COMMENT_,
+//					"Last commit comment", EPosLabel.left, null, null);
+//			field.setEditable(false);
+//			CadseGCST.ITEM.addField(field);
+//		}
 
 		// MANAGER_at_QUALIFIED_NAME_TEMPLATE_
 		{
