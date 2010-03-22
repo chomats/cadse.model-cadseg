@@ -56,6 +56,7 @@ import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CAttType;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ValueTypeType;
 
 /**
  * The Class AttributeManager.
@@ -749,10 +750,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
 			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
 		cvt.setMin(cadsegManager.isCadseRootRequireAttribute(attribute) ? 1 : 0);
-		if (attribute.getType() != CadseGCST.LIST && isIsListAttribute(attribute))
-			cvt.setFlag(0);
-		else
-			cvt.setFlag(cadsegManager.getCadseRootFlag(attribute));
+		cvt.setFlag(cadsegManager.getCadseRootFlag(attribute));
 	}
 
 	public static void setShowInDefaultCPAttribute(ItemDelta attDelta, boolean b) {

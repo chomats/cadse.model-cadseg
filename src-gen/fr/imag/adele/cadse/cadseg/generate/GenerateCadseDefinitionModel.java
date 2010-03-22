@@ -62,6 +62,8 @@ import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWDestEvol;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
+import fr.imag.adele.cadse.core.impl.attribute.AttributeType;
+import fr.imag.adele.cadse.core.impl.attribute.ListAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
@@ -345,7 +347,8 @@ public class GenerateCadseDefinitionModel {
 						cvt.setTypeName(cadseRootList.getId().toString());
 						InitModelLoadAndWrite cadseListRootManager = (InitModelLoadAndWrite) cadseRootList
 								.getItemManager();
-						cadseListRootManager.writeAttributeDefinition(factory, cxt, manager, cvt, attribute);
+						ListAttributeType lAttribute = new ListAttributeType(UUID.randomUUID(), ((AttributeType) attribute).getFlag(), attribute.getName(), 0, -1, (IAttributeType) attribute);
+						cadseListRootManager.writeAttributeDefinition(factory, cxt, manager, cvt, lAttribute);
 
 						// creer une deuxième description pour dècrire le type
 						// du contenu de la liste
@@ -359,6 +362,7 @@ public class GenerateCadseDefinitionModel {
 					cvt.setTypeName(cadseRootItemType.getId().toString());
 
 					cadseRootManager.writeAttributeDefinition(factory, cxt, manager, cvt, attribute);
+					cvt.setFlag(0);
 					continue;
 
 				}
