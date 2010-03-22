@@ -631,21 +631,23 @@ public class ItemTypeManager extends TypeDefinitionManager {
 
 
 	public static String getIconURLFromCadse(String pStr, Item cadseDefinition) {
-		String ret = B_UNDLE_URL + cadseDefinition.getQualifiedName() + '/';
+		IPath p = null;
 		if (pStr.startsWith(MC_ResourceToURL.RESOURCE_URL_STRING)) {
-			URL iconURL;
 			try {
+				URL iconURL;
 				iconURL = new URL(pStr);
+				p = new Path(iconURL.getPath()).removeFirstSegments(1).makeRelative();
 			} catch (MalformedURLException e) {
-				IPath p = new Path(pStr);
-				return ret+p.removeFirstSegments(1).makeRelative().toPortableString();
+				p= new Path(pStr).makeRelative();
 			}
-			IPath p = new Path(iconURL.getPath());
-			return ret+p.removeFirstSegments(2).makeRelative().toPortableString();
-			
+		} 
+		else {
+			p= new Path(pStr).makeRelative();
 		}
-		IPath p = new Path(pStr);
-		return ret+p.removeFirstSegments(1).makeRelative().toPortableString();
+		if (p == null)
+			return null;
+		// Hypothese : Le nom du project doit etre le meme que le nom du plugin
+		return B_UNDLE_URL + p.toPortableString();
 	}
 
 	/**
