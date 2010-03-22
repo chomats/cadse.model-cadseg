@@ -39,6 +39,8 @@ public class CadsegInit implements InitAction {
 
 		CadseGCST.ITEM_lt_INSTANCE_OF.setIsNatif(true);
 		CadseGCST.ITEM_at_COMMITTED_DATE_.setFlag(Item.CAN_BE_UNDEFINED, true);
+		CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_.setFlag(Item.CAN_BE_UNDEFINED, true);
+		
 		CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM.setFlag(Item.TRANSIENT, true);
 		CadseGCST.ITEM_TYPE_lt_LINK_TYPE.setFlag(Item.TRANSIENT, true);
 		
