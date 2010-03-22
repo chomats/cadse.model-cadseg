@@ -362,7 +362,6 @@ public class GenerateCadseDefinitionModel {
 					cvt.setTypeName(cadseRootItemType.getId().toString());
 
 					cadseRootManager.writeAttributeDefinition(factory, cxt, manager, cvt, attribute);
-					cvt.setFlag(0);
 					continue;
 
 				}
