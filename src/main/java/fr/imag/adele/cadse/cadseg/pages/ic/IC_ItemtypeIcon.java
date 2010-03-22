@@ -12,8 +12,18 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_IconResourceForBrowser_Combo_List;
 
 public class IC_ItemtypeIcon extends IC_IconResourceForBrowser_Combo_List {
-
 	
+	private static final class MultiWorkbenchContentProvider extends
+			WorkbenchContentProvider {
+		
+		@Override
+		public Object[] getElements(Object element) {
+			if (element instanceof IResource[])
+				return (IResource[]) element;
+			return super.getElements(element);
+		}
+	}
+
 	@Override
 	protected IResource[] getRootSelect() {
 		Item item = _uiPlatform.getItem(getUIField());
@@ -34,14 +44,6 @@ public class IC_ItemtypeIcon extends IC_IconResourceForBrowser_Combo_List {
 	
 	@Override
 	protected ITreeContentProvider getTreeContentProvider() {
-		return new WorkbenchContentProvider() {
-			
-			@Override
-			public Object[] getElements(Object element) {
-				if (element instanceof IResource[])
-					return (IResource[]) element;
-				return super.getElements(element);
-			}
-		};
+		return new MultiWorkbenchContentProvider();
 	}
 }
