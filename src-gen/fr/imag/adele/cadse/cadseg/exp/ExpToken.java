@@ -28,6 +28,11 @@ import java.util.ArrayList;
  */
 public class ExpToken extends Token {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/** The attributes name. */
 	ArrayList<Token>	_tokens	= new ArrayList<Token>();
 
