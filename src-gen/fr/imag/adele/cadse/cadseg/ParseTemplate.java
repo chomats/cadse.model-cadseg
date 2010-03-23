@@ -482,13 +482,13 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 	/**
 	 * Instantiates a new parses the template.
 	 * 
-	 * @param itemtype
-	 *            the itemtype
+	 * @param item
+	 *            the item
 	 * @param exp
 	 *            the exp
 	 */
-	public ParseTemplate(Item itemtype, String exp) {
-		this(itemtype, exp, "name");
+	public ParseTemplate(Item item, String exp) {
+		this(item, exp, "name");
 	}
 
 	/**
@@ -728,7 +728,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 	 *            the msg
 	 */
 	protected void report(ProblemReporter reporter, Item itemforreporter, Token t, String msg) {
-		reporter.warning(itemforreporter, 1, "Error in \\'{0}\\' position {1}  : {2}", _exp, t.beginColumn, msg);
+		reporter.warning(itemforreporter, 1, "Error in \\'{0}\\' position {1}  : {2}", _expString, t.beginColumn, msg);
 	}
 
 	/**

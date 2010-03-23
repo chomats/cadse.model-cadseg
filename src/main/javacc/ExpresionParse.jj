@@ -90,17 +90,13 @@ ExpToken exp() : {
 	Token t;
 	ExpToken ret = new ExpToken();
 }
-{	{ parseBEGIN(); }
-	(
+{	(
 	   t=attributequalified() { ret.add(t); }
 	|  t=<CST_SEP> { t.image = removeAntiSlash(t.image.substring(1,t.image.length()-1)); ret.add(t); }
 	|  t=<CST> { t.image = removeAntiSlash(t.image);ret.add(t); }
 
     )+
-
-	{
-	parseEND(ret);
-	return ret; }
+	{ return ret; }
 }
 
 AttributeToken attributequalified() : {

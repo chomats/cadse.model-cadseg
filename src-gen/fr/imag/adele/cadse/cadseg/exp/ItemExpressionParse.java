@@ -40,7 +40,7 @@ public class ItemExpressionParse extends ExpressionParse {
 	protected Item		_currentAttr;
 
 	/** The exp. */
-	protected String	_exp;
+	protected String	_expString;
 
 	/**
 	 * Instantiates a new item expression parse.
@@ -52,7 +52,7 @@ public class ItemExpressionParse extends ExpressionParse {
 	 */
 	public ItemExpressionParse(Item currentItem, String exp) {
 		super(new StringReader(exp));
-		this._exp = exp;
+		this._expString = exp;
 		assert currentItem != null;
 		this._orignalItem = currentItem;
 		this._currentItem = currentItem;
