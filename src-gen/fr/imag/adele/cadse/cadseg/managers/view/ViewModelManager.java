@@ -101,66 +101,7 @@ public class ViewModelManager extends DefaultItemManager {
     static public Collection<Item> getViewsAll(Item viewModel) {
         return viewModel.getOutgoingItems(CadseGCST.VIEW_MODEL_lt_VIEWS, false);
     }
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				CadseDefinitionManager.VIEW_MODEL);
-//
-//		return FieldsCore.createWizard(action, createCreationPageCreationPage1());
-//	}
-
-	// /**
-	// * Creates the modification page modification page1.
-	// *
-	// * @return the i page
-	// *
-	// * @generated
-	// */
-	// protected IPage createModificationPageModificationPage1() {
-	// return FieldsCore.createPage("modification-page1","ViewModel","",3,
-	// createFieldViews()
-	// );
-	// }
-
-	// /* (non-Javadoc)
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	// */
-	// @Override
-	// public Pages createModificationPage(Item item) {
-	// AbstractActionPage action = new ModificationAction(item);
-	// return FieldsCore.createWizard(action,
-	// createModificationPageModificationPage1()
-	// );
-	// }
-	//
-	// /**
-	// * Creates the field views.
-	// *
-	// * @return the d list ui
-	// *
-	// * @generated
-	// */
-	// protected DListUI createFieldViews() {
-	// LinkModelController mc = new LinkModelController(false, null,
-	// CadseGCST.VIEW_MODEL_lt_VIEWS);
-	// return new DListUI("views",
-	// "views",
-	// EPosLabel.top,
-	// mc,
-	// new IC_LinkForBrowser_Combo_List("Select a value.","Select a
-	// value.",CadseGCST.VIEW_MODEL_lt_VIEWS),
-	// true,true
-	// );
-	// }
+    
 	/**
 	 * Gets the views.
 	 * 
