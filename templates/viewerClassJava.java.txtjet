@@ -26,6 +26,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	public <%=cim.className%>UI(IViewSite site) {
 		super(site);
 		setRecomputeChildren(true);
+		init();
 	}
 
 	/**
@@ -67,6 +68,11 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 		@generated
 	*/
 	private void init() {
+	<%for(ViewItemTypeModel citm : cim.getAllItems()) {%>
+		if (<%=citm.REF_cst%> != null) return;
+		<%
+		break;
+		}%>
 		allItemType = new HashSet<ItemType>();<%for(ViewItemTypeModel citm : cim.getAllItems()) {%>
 		if (<%=citm.REF_cst%> != null) {
 			allItemType.add(<%=citm.REF_cst%>);
@@ -107,9 +113,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 			refItemType.add(<%=vitm.REF_cst%>);
 			refItemType.addAll(Arrays.asList(<%=vitm.REF_cst%>.getSubTypes()));
 		}
-		<%}%>
-
-		<%
+		<%}
 		boolean createMap = true;
 		for(ViewItemTypeModel vitm: cim.getAllItems())  {
 			for(ViewLinkTypeModel vltm: vitm.links)  {
@@ -118,12 +122,10 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 						createMap = false;
 					%>
 		displayString = new HashMap<LinkType, String>();
-
 					<%}
 					%>
 		if (<%=vltm.REF_cst%> != null)
 			displayString.put(<%=vltm.REF_cst%>, "<%=Util.addEscapes(vltm.displayCreate)%>");
-
 <%}}%>
 	}
 
@@ -134,7 +136,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	@Override
 	public ItemType[] getFirstItemType(LogicalWorkspace model) {
 		if (firstItemType == null)
-			init();
+			return new ItemType[0];
 		return (ItemType[]) firstItemType.toArray(new ItemType[firstItemType.size()]);
 	}
 
@@ -143,8 +145,8 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	*/
 	@Override
 	public boolean isAggregationLink(Link link) {
-		if (firstItemType == null)
-			init();
+		if (agLinkType == null) 
+			return false;
 		return agLinkType.contains(link.getLinkType());
 	}
 
@@ -153,8 +155,8 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	*/
 	@Override
 	public boolean isCreateLink(LinkType link) {
-		if (firstItemType == null)
-			init();
+		if (createLinkType == null)
+			return false;
 		return createLinkType.contains(link);
 	}
 
@@ -183,7 +185,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	@Override
 	public boolean isFirstItemType(ItemType it, LogicalWorkspace cadseModel) {
 		if (firstItemType == null)
-			init();
+			return false;
 		return firstItemType.contains(it);
 	}
 
@@ -193,7 +195,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	@Override
 	public boolean isRefItemType(TypeDefinition it, LogicalWorkspace cadseModel) {
 		if (refItemType == null)
-			init();
+			return false;
 		return refItemType.contains(it);
 	}
 
@@ -204,7 +206,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	@Override
 	public boolean isItemType(TypeDefinition it, LogicalWorkspace cadseModel) {
 		if (allItemType == null)
-			init();
+			return false;
 		return allItemType.contains(it);
 	}
 
@@ -216,8 +218,13 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	@Override
 	protected boolean isLink(Link link) {
 		if (allLinkType == null)
-			init();
+			return false;
 		return allLinkType.contains(link.getLinkType());
+	}
+	
+	@Override
+	protected void loadView() {
+		init();
 	}
 
 }
