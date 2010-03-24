@@ -77,6 +77,9 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 
 		/** The parent var. */
 		final String			parentVar;
+		
+		/** The parent var. */
+		String			currentParentVar;
 
 		/** The current item var. */
 		private String			fCurrentItemVar;
@@ -118,7 +121,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 			this.stringbuilderVarName = varName;
 			this.returnInst = returnInst;
 			this.itemVar = itemVar;
-			this.parentVar = parentVar;
+			this.currentParentVar = this.parentVar = parentVar;
 			this.cxt = new ContextVariableImpl();
 			this.contextVariable = usecontext;
 
@@ -137,13 +140,26 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 		 * @param t
 		 *            the t
 		 */
-		protected void preexp(Token t) {
+		protected void preexp(Token t, int i) {
 			switch (t.kind) {
 				case ExpressionParseConstants.CST_SEP:
 					useif++;
 					sb.newline().append("if (").append(stringbuilderVarName).append(".length() != 0) {");
 					sb.begin();
 					break;
+					
+				case ExpressionParseConstants.ATTR_NAME:
+					if (i == 0 && shortNameVar != null)
+						break;
+				case ExpressionParseConstants.ATTR_TYPE_NAME:
+				case ExpressionParseConstants.ATTR_QUALIFIED_NAME:
+					if (!contextVariable) {
+						useif++;
+						sb.newline().append("if (").append(fCurrentItemVar).append(" != null) {");
+						sb.begin();
+					}
+					break;
+				
 				case ExpressionParseConstants.ATTR_LINK: {
 
 					ItemType linkItemType = (ItemType) fCurrentLink.getPartParent();
@@ -165,9 +181,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 					break;
 				}
 				case ExpressionParseConstants.ATTR: {
-					if (contextVariable) {
-
-					} else {
+					if (!contextVariable) {
 						ItemType attrItemType = (ItemType) _currentAttr.getPartParent();
 						
 						String qClassName = ItemTypeManager.getManagerClass(attrItemType, null, null);
@@ -191,8 +205,9 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 					break;
 				}
 				case ExpressionParseConstants.PARENT:
-					if (parentVar != null) {
-						fCurrentItemVar = parentVar;
+					if (currentParentVar != null) {
+						fCurrentItemVar = currentParentVar;
+						currentParentVar = null;
 					} else {
 						useif++;
 						sb.newline().append("if (").append(fCurrentItemVar).append(" != null) {");
@@ -352,7 +367,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 							Token[] attributesName = at.getAttributeNames();
 							for (int i = 0; i < attributesName.length; i++) {
 								if (isValid(attributesName[i])) {
-									preexp(attributesName[i]);
+									preexp(attributesName[i], attributesName.length - 1);
 									if (i == attributesName.length - 1) {
 										sb.newline().append("return ");
 										exp(attributesName[i], i);
@@ -373,7 +388,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 							}
 						} else {
 							if (isValid(t)) {
-								preexp(t);
+								preexp(t, 0);
 								sb.newline().append("return ");
 								exp(t, 0);
 								sb.append(";");
@@ -399,7 +414,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 							if (!isValid(attributesName[i])) {
 								continue TWO;
 							}
-							preexp(attributesName[i]);
+							preexp(attributesName[i], attributesName.length - 1);
 							if (i == attributesName.length - 1) {
 								sb.newline().append(stringbuilderVarName).append(".append(");
 								exp(attributesName[i], i);
@@ -415,7 +430,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 							continue TWO;
 						}
 
-						preexp(t);
+						preexp(t, 0);
 						sb.newline().append(stringbuilderVarName).append(".append(");
 						exp(t, 0);
 						sb.append(");");
@@ -427,6 +442,7 @@ public class ParseTemplate extends ItemExpressionParse implements ExpressionPars
 					// reset
 					_currentItem = _orignalItem;
 					fCurrentItemVar = itemVar;
+					currentParentVar = parentVar;
 					useif = 0;
 				}
 				if (returnInst) {
