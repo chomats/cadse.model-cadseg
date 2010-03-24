@@ -69,7 +69,7 @@ class <%=cim.className%>UI extends AbstractCadseTreeViewUI {
 	*/
 	private void init() {
 	<%for(ViewItemTypeModel citm : cim.getAllItems()) {%>
-		if (<%=citm.REF_cst%> != null) return;
+		if (<%=citm.REF_cst%> == null) return;
 		<%
 		break;
 		}%>
