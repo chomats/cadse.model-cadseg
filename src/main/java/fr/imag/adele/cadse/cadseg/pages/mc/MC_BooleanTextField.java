@@ -33,8 +33,7 @@ public final class MC_BooleanTextField extends MC_AttributesItem {
 	}
 	
 	@Override
-	public Object getValue() {
-		Object v = super.getValue();
+	protected Object modelToVisual(Object v) {
 		return v == null ? null : "".equals(v) ? null :  Boolean.parseBoolean(v.toString());
 	}
 	
