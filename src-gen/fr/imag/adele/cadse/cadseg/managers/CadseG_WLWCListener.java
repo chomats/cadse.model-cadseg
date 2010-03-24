@@ -1647,6 +1647,9 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 						AttributeManager.setShowInDefaultCPAttribute(linkType, false);
 						AttributeManager.setShowInDefaultMPAttribute(linkType, false);
 						linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, oper);
+					} else {
+						AttributeManager.setShowInDefaultCPAttribute(linkType, false);
+						AttributeManager.setShowInDefaultMPAttribute(linkType, false);
 					}
 				} catch (Throwable e) {
 					e.printStackTrace();
