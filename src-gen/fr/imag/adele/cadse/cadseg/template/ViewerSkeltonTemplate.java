@@ -25,7 +25,7 @@ public class ViewerSkeltonTemplate
   protected final String TEXT_6 = "UI extends AbstractCadseTreeViewUI {" + NL + "" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tpublic ";
   protected final String TEXT_7 = "UI(IViewSite site) {" + NL + "\t\tsuper(site);" + NL + "\t\tsetRecomputeChildren(true);" + NL + "\t\tinit();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tHashSet<ItemType> firstItemType = null;" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tHashSet<ItemType> refItemType = null;" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tHashSet<ItemType> allItemType = null;" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tHashSet<LinkType> agLinkType = null;" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tHashMap<LinkType, String> displayString = null;" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tHashSet<LinkType> createLinkType = null;" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tHashSet<LinkType> allLinkType = null;" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\tprivate void init() {" + NL + "\t";
   protected final String TEXT_8 = NL + "\t\tif (";
-  protected final String TEXT_9 = " != null) return;" + NL + "\t\t";
+  protected final String TEXT_9 = " == null) return;" + NL + "\t\t";
   protected final String TEXT_10 = NL + "\t\tallItemType = new HashSet<ItemType>();";
   protected final String TEXT_11 = NL + "\t\tif (";
   protected final String TEXT_12 = " != null) {" + NL + "\t\t\tallItemType.add(";
