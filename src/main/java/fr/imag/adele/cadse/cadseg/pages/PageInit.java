@@ -323,6 +323,8 @@ public class PageInit {
 		CadseGCST.ITEM_at_COMMITTED_DATE_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.ITEM_at_TW_VERSION_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.ITEM_at_TWLAST_COMMENT_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		CadseGCST.LINK_TYPE_lt_SOURCE.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
+		
 		
 		// ***************** //
 		// Fields definition //
