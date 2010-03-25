@@ -251,7 +251,7 @@ public class IC_ItemTypeTemplateForText extends ICRunningField implements Runing
 	 */
 	private void addAttributes(Item theCurrentItemType, HashSet<Item> visited, String parentstring) {
 		if (visited.add(theCurrentItemType)) {
-			Item[] attributes = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter() {
+			Item[] attributes = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter<Item>() {
 				public boolean accept(Item item) {
 					return item.getType() != CadseGCST.LINK_TYPE;
 				}
@@ -267,7 +267,7 @@ public class IC_ItemTypeTemplateForText extends ICRunningField implements Runing
 						+ (parentstring == null ? "" : (parentstring + ".")) + item.getName());
 			}
 
-			Item[] links = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter() {
+			Item[] links = ItemTypeManager.getAllAttributes(null, theCurrentItemType, new ItemFilter<Item>() {
 				public boolean accept(Item item) {
 					return item.getType() == CadseGCST.LINK_TYPE && LinkTypeManager.getMax(item) == 1;
 				}

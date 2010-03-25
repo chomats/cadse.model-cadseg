@@ -46,7 +46,7 @@ public final class IC_DestinationLinkForBrowser_Combo extends
 				.getPartParent(CadseGCST.CADSE_DEFINITION);
 
 		return ItemTypeManager.getAllAllItemType(cadsedef,
-				new ItemFilter() {
+				new ItemFilter<Item>() {
 					public boolean accept(Item item) {
 						if (item == theItemType) {
 							return false;
@@ -129,6 +129,9 @@ public final class IC_DestinationLinkForBrowser_Combo extends
 						}
 					}
 
+					return Status.OK_STATUS;
+				}
+				if (((Item) sel).getType() == CadseGCST.EXT_ITEM_TYPE) {
 					return Status.OK_STATUS;
 				}
 			}

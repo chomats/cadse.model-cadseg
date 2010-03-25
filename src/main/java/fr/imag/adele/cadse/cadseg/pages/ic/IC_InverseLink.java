@@ -18,16 +18,13 @@
  */
 package fr.imag.adele.cadse.cadseg.pages.ic;
 
-import java.util.HashSet;
+import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemFilter;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
 
 /**
@@ -39,7 +36,7 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 	/**
 	 * The Class InverseLinkFilter.
 	 */
-	private final class InverseLinkFilter implements ItemFilter {
+	private final class InverseLinkFilter implements ItemFilter<LinkType> {
 
 		/** The source. */
 		Item	source;
@@ -61,16 +58,13 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 		 * 
 		 * @see fr.imag.adele.cadse.core.ItemFilter#accept(fr.imag.adele.cadse.core.Item)
 		 */
-		public boolean accept(Item linkAttribute) {
-			if (linkAttribute.getType() == CadseGCST.LINK_TYPE) {
-				Item findDestination = LinkTypeManager.getDestination(linkAttribute);
-				Item invLink = LinkTypeManager.getInverseLink(linkAttribute);
-				if (invLink != null && invLink != this.linkCreated) {
-					return false;
-				}
-				return findDestination == source;
+		public boolean accept(LinkType linkAttribute) {
+			Item findDestination = LinkTypeManager.getDestination(linkAttribute);
+			Item invLink = LinkTypeManager.getInverseLink(linkAttribute);
+			if (invLink != null && invLink != this.linkCreated) {
+				return false;
 			}
-			return false;
+			return findDestination == source;
 		}
 
 		/*
@@ -83,6 +77,10 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 		}
 	}
 
+
+
+	
+
 	
 
 	/*
@@ -94,36 +92,45 @@ public final class IC_InverseLink extends IC_LinkForBrowser_Combo_List {
 	public Object[] getValues() {
 		Item theItemLinkType = _uiPlatform.getItem();
 
-		Item containerAttribute = theItemLinkType.getPartParent();
+		try {
+			Item containerAttribute = theItemLinkType.getPartParent();
 
-		// la source de la relation est le meme item que le container (l'item
-		// qui contient l'attribut link)
-		// sauf pour les extentions de type.
-		Item source = containerAttribute;
-		if (source.getType() == CadseGCST.EXT_ITEM_TYPE) {
-			// le type est un extension. La source de la relation
-			// est le type r�f�renc�.
-			source = ExtItemTypeManager.getRefType(source);
-		}
-		// la destination de la relation
-		Item destination = LinkTypeManager.getDestination(theItemLinkType);
-		if (destination == null) {
+			// la source de la relation est le meme item que le container (l'item
+			// qui contient l'attribut link)
+			// sauf pour les extentions de type.
+			TypeDefinition source = (TypeDefinition) containerAttribute;
+//		if (source.getType() == CadseGCST.EXT_ITEM_TYPE) {
+//			// le type est un extension. La source de la relation
+//			// est le type r�f�renc�.
+//			source = ExtItemTypeManager.getRefType(source);
+//		}
+			// la destination de la relation
+			TypeDefinition destination = (TypeDefinition) LinkTypeManager.getDestination(theItemLinkType);
+			if (destination == null) {
+				return new Object[0];
+			}
+			// calcule tout les cadses � partir du container et du cadse ou il est
+			// d�finie.
+			// NON cela doit etre dans le meme cadse
+//			Item cadse = ItemTypeManager.getCadseDefinition(containerAttribute);
+//			HashSet<Item> allCadse = new HashSet<Item>();
+//			allCadse.add(cadse);
+//			//allCadse.addAll(CadseDefinitionManager.getAllDependenciesCadse(cadse));
+//
+//			// / calcul tous les liens de destination vers source
+//			// / ces liens peuvent etre d�finit dans un sous type
+//			// / ou dans une extension
+//
+//			allLinks = ItemTypeManager.getAllAttributes(allCadse, destination, new InverseLinkFilter(source,
+//					theItemLinkType), true);
+
+			
+			List<LinkType> allLinks = destination.getOutgoingLinkTypes(Item.OWNER_ATTRIBUTES, new InverseLinkFilter(source,
+					theItemLinkType));
+			return (LinkType[]) allLinks.toArray(new LinkType[allLinks.size()]);
+		} catch (ClassCastException e) {
 			return new Object[0];
 		}
-		// calcule tout les cadses � partir du container et du cadse ou il est
-		// d�finie.
-		Item cadse = ItemTypeManager.getCadseDefinition(containerAttribute);
-		HashSet<Item> allCadse = new HashSet<Item>();
-		allCadse.add(cadse);
-		allCadse.addAll(CadseDefinitionManager.getAllDependenciesCadse(cadse));
 
-		// / calcul tous les liens de destination vers source
-		// / ces liens peuvent etre d�finit dans un sous type
-		// / ou dans une extension
-
-		Item[] allLinks = ItemTypeManager.getAllAttributes(allCadse, destination, new InverseLinkFilter(source,
-				theItemLinkType), true);
-
-		return allLinks;
 	}
 }
