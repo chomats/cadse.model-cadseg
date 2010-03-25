@@ -315,7 +315,6 @@ public class PageInit {
 		// ***************** //
 		
 		CadseGCST.ITEM_at_NAME_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
-		CadseGCST.ITEM_at_DISPLAY_NAME_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.ITEM_at_QUALIFIED_NAME_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.ITEM_at_REV_MODIFIED_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
