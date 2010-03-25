@@ -86,7 +86,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	 * 
 	 * @generated
 	 */
-	public class ExtItemTypeContent extends JavaFileContentManager {
+	public class ExtItemTypeContent extends JavaFileContentManager implements IGenerateContent {
 
 		/**
 			@generated
