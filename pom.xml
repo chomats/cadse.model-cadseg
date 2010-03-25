@@ -55,6 +55,7 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
 				<configuration>
+					<unpackBundle>true</unpackBundle>
 					<instructions>
 						<Export-Package>fr.imag.adele.cadse.cadseg*;version="${version.cadse}"</Export-Package>
 						<Include-Resource>
