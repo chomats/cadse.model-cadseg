@@ -962,12 +962,16 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 	 */
 	@Override
 	public void notifyDoubleClick(LogicalWorkspaceTransaction wc, ItemDelta item) {
-		if (item.isInstanceOf(CadseGCST.TYPE_DEFINITION)) {
+		if (item.isInstanceOf(CadseGCST.ITEM_TYPE)) {
 			Item manager = ManagerManager.getManagerFromItemType(item);
 			if (manager != null) {
 				IFile jf = manager.getContentItem().getMainMappingContent(IFile.class);
 				openFile(jf);
 			}
+		}
+		if (item.isInstanceOf(CadseGCST.EXT_ITEM_TYPE)) {
+			IFile jf = item.getContentItem().getMainMappingContent(IFile.class);
+			openFile(jf);			
 		}
 		if (item.isInstanceOf(CadseGCST.PAGE)) {
 			IFile jf = item.getContentItem().getMainMappingContent(IFile.class);
