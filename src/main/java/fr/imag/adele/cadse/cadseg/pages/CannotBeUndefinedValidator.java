@@ -1,5 +1,6 @@
 package fr.imag.adele.cadse.cadseg.pages;
 
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.attribute.CheckStatus;
@@ -10,6 +11,14 @@ import fr.imag.adele.cadse.core.ui.UIPlatform;
 
 public class CannotBeUndefinedValidator extends AbstractUIRunningValidator {
 
+	@Override
+	public void initAfterUI() {
+		if (_uiPlatform.isModification()) {
+			Item item = _uiPlatform.getItem();
+			if (!item.isInstanceOf(CadseGCST.TYPE_DEFINITION))
+				_uiPlatform.setEditable(CadseGCST.ITEM_at_DISPLAY_NAME_, false);
+		}
+	}
 	
 	@Override
 	public boolean validValue(UIField field, Object value) {
