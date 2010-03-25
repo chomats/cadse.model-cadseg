@@ -313,6 +313,8 @@ public class CompositeItemTypeManager extends DefaultItemManager {
 
 	@Override
 	public String canDeleteItem(Item item) {
+		if (item.getOutgoingItem(CadseGCST.COMPOSITE_ITEM_TYPE_lt_ITEM_TYPE, false) == null)
+			return null;
 		return "It's automatic item, cannot delete it";
 	}
 }
