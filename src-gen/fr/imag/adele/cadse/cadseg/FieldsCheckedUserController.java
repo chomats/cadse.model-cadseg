@@ -72,7 +72,7 @@ final public class FieldsCheckedUserController extends IC_AbstractForChecked imp
 	 */
 	public Object[] getSources() {
 		_itemtype = _page.getPartParent();
-		Item[] attributes = ItemTypeManager.getAllAttributes(null, _itemtype, new ItemFilter() {
+		Item[] attributes = ItemTypeManager.getAllAttributes(null, _itemtype, new ItemFilter<Item>() {
 
 			public boolean accept(Item item) {
 				return true; // !AttributeManager.isClassAttributeAttribute(item);

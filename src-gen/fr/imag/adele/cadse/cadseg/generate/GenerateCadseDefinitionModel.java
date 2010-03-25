@@ -57,6 +57,7 @@ import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWDestEvol;
@@ -724,7 +725,7 @@ public class GenerateCadseDefinitionModel {
 		clt.setName(linkType.getName());
 		clt.setMin(LinkTypeManager.getMin(linkType));
 		clt.setMax(LinkTypeManager.getMax(linkType));
-		clt.setDestination(ItemTypeManager.getIdRuntime((ItemType) itemTypeDest).toString());
+		clt.setDestination(ItemTypeManager.getIdRuntime((TypeDefinition) itemTypeDest).toString());
 		clt.setIsComposition(LinkTypeManager.isComposition(linkType));
 		clt.setIsAggregation(LinkTypeManager.isAggregation(linkType));
 		clt.setIsPart(LinkTypeManager.isPart(linkType));
