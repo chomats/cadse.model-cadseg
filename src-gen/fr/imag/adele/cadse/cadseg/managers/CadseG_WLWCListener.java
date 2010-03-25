@@ -1119,6 +1119,18 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			// the destination is deleted, the link must be delete
 			link.getSource().delete(link.getDeleteOperation(), 0);
 		}
+		
+		if (link.getLinkType() == CadseGCST.LINK_TYPE_lt_INVERSE_LINK) {
+			Item inverseLink = link.getResolvedDestination();
+			LinkDelta inverseLink_link = (LinkDelta) LinkTypeManager.getInverseLinkLink(inverseLink);
+			if (inverseLink_link != null) {
+				inverseLink_link.delete();
+			} else {
+				// if (inverseLink_link.getResolvedDestination() != null) {
+				// } else {
+				// }
+			}
+		}
 
 //		if (link.getLinkType() == CadseGCST.CREATION_DIALOG_lt_PAGES) {
 //			ItemDelta s;
