@@ -26,9 +26,8 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 			for (LinkType lt : source.getType().getOutgoingLinkTypes()) {
 				if (!view.canCreateDestination(lt))
 					continue;
-				if (!lt.isPart()||!lt.isAggregation()) continue;
-				
-				for (ItemType it : getAllDestType(lt.getDestination())) {
+				final List<ItemType> allDestType = getAllDestType(lt.getDestination());
+				for (ItemType it : allDestType) {
 					if (it.isAbstract()) {
 						continue;
 					}

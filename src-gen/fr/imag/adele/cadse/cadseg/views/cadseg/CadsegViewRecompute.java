@@ -51,7 +51,7 @@ class CadsegViewRecomputeUI extends AbstractCadseTreeViewUI {
 
 	@Override
 	public boolean isAggregationLink(Link arg0) {
-		return arg0.isAggregation();
+		return arg0.getLinkType().isAggregation();
 	}
 
 	@Override
