@@ -58,9 +58,7 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 		LogicalWorkspace logicalWorkspace = CadseCore.getLogicalWorkspace();
 		CadseRuntime[] cr;
 		AbstractCadseTreeViewUI	viewUIController = (AbstractCadseTreeViewUI) viewDescription;
-		IShellProvider			shellprovider;
 		IWorkbenchWindow			workbenchWindow;
-		shellprovider = viewUIController.getShellProvider();
 		workbenchWindow = viewUIController.getWorkbenchWindow();
 		
 		if (!init && ((cr = logicalWorkspace.getCadseRuntime()) != null) && cr.length > 0) {
@@ -278,7 +276,7 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 				e.printStackTrace();
 			}
 		}
-		return new Menu(IMenuAction.NEW_MENU_ID+2, "New group", null, new ArrayList(list));
+		return new Menu(IMenuAction.NEW_MENU_ID+2, "New group", null, new ArrayList<IMenuAction>(list));
 
 	}
 
@@ -300,16 +298,6 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 	protected Set<IItemNode> getItemsToRefresh(IItemNode[] selection) {
 		HashSet<IItemNode> items = new HashSet<IItemNode>(Arrays.asList(selection));
 		return items;
-
-	}
-
-	private Menu insertNewMenuIfNeed(Menu menu) {
-		Menu newmenu = (Menu) menu.find(IMenuAction.NEW_MENU_ID);
-		if (newmenu != null)
-			return newmenu;
-		newmenu = new Menu(IMenuAction.NEW_MENU_ID, "New", null);
-		menu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, true);
-		return newmenu;
 	}
 
 }

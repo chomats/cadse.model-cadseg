@@ -26,7 +26,7 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 			for (LinkType lt : source.getType().getOutgoingLinkTypes()) {
 				if (!view.canCreateDestination(lt))
 					continue;
-				if (!lt.isPart()) continue;
+				if (!lt.isPart()||!lt.isAggregation()) continue;
 				
 				for (ItemType it : getAllDestType(lt.getDestination())) {
 					if (it.isAbstract()) {
@@ -68,7 +68,10 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 							newContext.setDestinationType(it);
 							newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
 							newContext.setLabel("Head "+it.getDisplayName());
-							newContext.setPartParent(source, lt);
+							if (lt.isPart())
+								newContext.setPartParent(source, lt);
+							else if (lt.isAggregation())
+								newContext.setAggregation(source,lt);
 							if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
 							result.add(newContext);
 						}
