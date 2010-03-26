@@ -1126,7 +1126,7 @@
 			cst-name="EXT_ITEM_TYPE_lt_REF_TYPE" intID="0"
 			destination="43808065-4f70-4290-adba-cca999431ba1" isPart="false"
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
-			isAnnotation="false" isAggregation="false" max="1" min="0" name="ref-type"
+			isAnnotation="false" isAggregation="false" max="-1" min="0" name="ref-type"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="e1cedef0-9795-4ac5-9d79-42d6f88e875a" />
 	</item-type>
 	<item-type hidden="false"
