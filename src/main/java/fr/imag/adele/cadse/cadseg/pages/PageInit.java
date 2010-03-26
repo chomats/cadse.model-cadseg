@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.cadseg.teamwork.ui.ModifiedAttr_ModelController;
 import fr.imag.adele.cadse.cadseg.validators.ExtendsClassValidator;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.cadseg.validators.LinkTypeIsGoupListener;
+import fr.imag.adele.cadse.cadseg.validators.MenuValidator;
 import fr.imag.adele.cadse.cadseg.validators.NotEmptyValidator;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -251,6 +252,10 @@ public class PageInit {
 		CadseGCST.LINK_TYPE_lt_DESTINATION.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.RUNTIME_ITEM_at_EXTENDS_CLASS_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
+		CadseGCST.EXT_ITEM_TYPE_lt_CONTENTS.setFlag(Item.SHOW_IN_DEFAULT_CP, false);
+		CadseGCST.MENU_ACTION_lt_CONTENTS.setFlag(Item.SHOW_IN_DEFAULT_CP, false);
+		CadseGCST.MENU_ABSTRACT_at_LABEL_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
+		
 
 		CadseGCST.ATTRIBUTE_at_DEV_GENERATED_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ATTRIBUTE_at_FINAL_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
@@ -308,7 +313,8 @@ public class PageInit {
 		CadseGCST.TYPE_DEFINITION_lt_GOUPS_OF_ATTRIBUTES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_MODIFICATION_PAGES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_VALIDATORS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
-
+		CadseGCST.EXT_ITEM_TYPE_lt_CONTENTS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		CadseGCST.MENU_ACTION_lt_CONTENTS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		
 		// ***************** //
 		//   Not editable    //
@@ -913,6 +919,14 @@ public class PageInit {
 			v.setClazz(NotEmptyValidator.class);
 			v.setListenAttributes(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_);
 			CadseGCST.PROJECT_CONTENT_MODEL.addValidators(v);
+		}
+		
+		// MENU_ABSTRACT_at_LABEL_
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(MenuValidator.class);
+			v.setListenAttributes(CadseGCST.MENU_ABSTRACT_at_LABEL_, CadseGCST.ITEM_at_NAME_);
+			CadseGCST.MENU.addValidators(v);
 		}
 
 		// ************************************** //
