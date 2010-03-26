@@ -31,6 +31,7 @@ import org.eclipse.ui.ide.IDE;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionCIF;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.content.ContentItem;
@@ -110,6 +111,13 @@ public class MenuActionManager extends MenuAbstractManager {
 		owerItem.setExporters(
 		);
 		return cm;
+	}
+	
+	@Override
+	public ContentItem getParentContentItemWherePutMyContent(ContentItem cm) {
+		Item ownerItem = cm.getOwnerItem();
+		Item cadseDef = ownerItem.getPartParent(CadseGCST.CADSE_DEFINITION);
+		return cadseDef.getContentItem();
 	}
 
 	@Override
