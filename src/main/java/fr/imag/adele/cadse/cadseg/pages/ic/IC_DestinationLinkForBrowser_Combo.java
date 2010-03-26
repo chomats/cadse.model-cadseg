@@ -96,7 +96,8 @@ public final class IC_DestinationLinkForBrowser_Combo extends
 		return new ItemTreeContentProvider(new ItemShortNameComparator(),
 				CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,
 				CadseGCST.DATA_MODEL_lt_TYPES,
-				CadseGCST.DATA_MODEL_lt_CATEGORIES);
+				CadseGCST.DATA_MODEL_lt_CATEGORIES,
+				CadseGCST.CADSE_lt_ITEM_TYPES);
 	}
 
 	/*
