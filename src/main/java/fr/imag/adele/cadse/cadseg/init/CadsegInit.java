@@ -42,6 +42,11 @@ public class CadsegInit implements InitAction {
 		CadseGCST.ITEM_at_COMMITTED_DATE_.setFlag(Item.CAN_BE_UNDEFINED, true);
 		CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_.setFlag(Item.CAN_BE_UNDEFINED, true);
 		CadseGCST.ITEM_TYPE_at_ICON_.setFlag(Item.CAN_BE_UNDEFINED, true);
+		CadseGCST.MENU_ABSTRACT_at_ICON_.setFlag(Item.CAN_BE_UNDEFINED, true);
+		CadseGCST.MENU_ABSTRACT_at_ICON_.setFlag(Item.NOT_EMPTY, false);
+		CadseGCST.MENU_ABSTRACT_at_PATH_.setFlag(Item.CAN_BE_UNDEFINED, true);
+		CadseGCST.MENU_ABSTRACT_at_PATH_.setFlag(Item.NOT_EMPTY, false);
+		
 		
 		CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM.setFlag(Item.TRANSIENT, true);
 		CadseGCST.ITEM_TYPE_lt_LINK_TYPE.setFlag(Item.TRANSIENT, true);
