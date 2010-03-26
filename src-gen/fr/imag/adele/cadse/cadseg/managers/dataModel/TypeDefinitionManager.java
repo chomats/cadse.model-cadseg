@@ -26,6 +26,7 @@ import java.util.UUID;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 
@@ -415,7 +416,9 @@ public class TypeDefinitionManager extends ItemManager {
 	 * @return the uUID
 	 */
 	public static UUID getIdRuntime(Item itemtype) {
-		
+		if (itemtype instanceof ItemType && ((ItemType)itemtype).isRuntime()) {
+			return itemtype.getId();
+		}
 		String uuid_str = itemtype.getAttributeOwner(CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_);
 		if (uuid_str == null || uuid_str.length() == 0) {
 			UUID uuid = UUID.randomUUID();
