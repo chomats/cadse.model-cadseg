@@ -184,13 +184,10 @@ public class GenerateCadseDefinitionModel {
 			// TODO set the name and other information
 			// ceit.setMetaType(value)
 			// ceit.setSuperTypeName(value);
-			Item refItemType = ExtItemTypeManager.getRefType(extIt);
-			if (refItemType != null) {
-				if (!refItemType.isResolved()) {
-					
-				}
-				if (refItemType.isResolved()) {
-					UUID uuid = ItemTypeManager.getIdRuntime((ItemType) refItemType);
+			Collection<Item> refItemTypes = extIt.getOutgoingItems(CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE, true);
+			for (Item refIt : refItemTypes) {
+				if (refIt.isResolved()) {
+					UUID uuid = ItemTypeManager.getIdRuntime((ItemType) refIt);
 					CExtBiding binding = factory.createCExtBiding();
 					binding.setUuidExt(ext_idRuntime.toString());
 					binding.setUuidIt(uuid.toString());
