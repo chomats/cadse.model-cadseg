@@ -1,15 +1,20 @@
 package fr.imag.adele.cadse.cadseg.pages;
 
+
 import java.util.UUID;
+
+import org.eclipse.swt.SWT;
 
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
+import fede.workspace.model.manager.properties.impl.mc.StringToResourceSimpleModelController;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_EnumDefaultValue;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForTextFromManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_MenuAction_Path;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ViewManager_DataModelView;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ExtType_RefTypes;
@@ -38,16 +43,21 @@ import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_FileResourceForBrowser_Combo_List;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_IconResourceForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 
 public class PageInit {
 
@@ -362,7 +372,7 @@ public class PageInit {
 					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Select a icon");
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), icIcon, IC_ItemtypeIcon.class);
 
-			MC_Descriptor mc = new MC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 			CreatedObjectManager.register(null, mc, MC_ResourceToURL.class);
 			CadseGCST.ITEM_TYPE.addField(new UIFieldImpl(CadseGCST.DBROWSER, UUID.randomUUID(),
 					CadseGCST.ITEM_TYPE_at_ICON_, "icon", EPosLabel.left, mc, icIcon));
@@ -420,7 +430,7 @@ public class PageInit {
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ExtType_RefTypes.class);
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_LINK);
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
-					CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE, "Ref types", EPosLabel.top, mc, ic);
+					CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE, "Ref types", EPosLabel.top, mc, ic, CadseGCST.DLIST_at_EDITABLE_BUTTON_, true);
 			CadseGCST.EXT_ITEM_TYPE.addField(field);
 		}
 
@@ -434,6 +444,32 @@ public class PageInit {
 					CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES, "Modified attributes and content", EPosLabel.top, mc, ic);
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
+		}
+		
+		// MENU_ABSTRACT_at_PATH_
+		{
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_MenuAction_Path.class);
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.MENU_ABSTRACT_at_PATH_, "path in menu", EPosLabel.left, mc, ic,
+					CadseGCST.DTEXT_at_TOOL_TIP_, "La valeur peut être context1, context2 ... context6, context1/new");
+			CadseGCST.MENU_ABSTRACT.addField(field);
+		}
+		
+		// MENU_ABSTRACT_at_ICON_
+		{
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST,
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select an icon",
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, "Select a icon");
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ItemtypeIcon.class);
+
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+			CreatedObjectManager.register(null, mc, MC_ResourceToURL.class);
+			
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
+					CadseGCST.MENU_ABSTRACT_at_ICON_, "icon", EPosLabel.left, mc, ic);
+			CadseGCST.MENU_ABSTRACT.addField(field);
 		}
 
 //		// ITEM_at_REV_MODIFIED_
