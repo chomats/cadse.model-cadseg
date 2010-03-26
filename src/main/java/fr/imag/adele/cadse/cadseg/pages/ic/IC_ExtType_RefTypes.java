@@ -29,7 +29,8 @@ public class IC_ExtType_RefTypes extends IC_LinkForBrowser_Combo_List {
 		return new ItemTreeContentProvider(new ItemShortNameComparator(),
 				CadseGCST.CADSE_DEFINITION_lt_DATA_MODEL,
 				CadseGCST.DATA_MODEL_lt_TYPES,
-				CadseGCST.DATA_MODEL_lt_CATEGORIES);
+				CadseGCST.DATA_MODEL_lt_CATEGORIES,
+				CadseGCST.CADSE_lt_ITEM_TYPES);
 	}
 
 	/*
