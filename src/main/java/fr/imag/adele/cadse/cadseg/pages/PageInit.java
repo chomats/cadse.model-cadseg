@@ -12,6 +12,7 @@ import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForTextFromManager
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ViewManager_DataModelView;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_ExtType_RefTypes;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_BooleanTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DefaultEnum;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DoubleTextField;
@@ -411,6 +412,16 @@ public class PageInit {
 			CreatedObjectManager.register(null, mc, MaxModelController.class);
 			CadseGCST.LINK_TYPE.addField(new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.LINK_TYPE_at_MAX_, "max:", EPosLabel.left, mc, icMax));
+		}
+		
+		// EXT_ITEM_TYPE_lt_REF_TYPE
+		{
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ExtType_RefTypes.class);
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_LINK);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
+					CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE, "Ref types", EPosLabel.top, mc, ic);
+			CadseGCST.EXT_ITEM_TYPE.addField(field);
 		}
 
 		// ITEM_lt_MODIFIED_ATTRIBUTES
