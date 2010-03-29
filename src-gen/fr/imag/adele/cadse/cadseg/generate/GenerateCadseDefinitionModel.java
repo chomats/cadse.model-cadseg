@@ -39,6 +39,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.IAttributeGenerator;
 import fr.imag.adele.cadse.cadseg.ItemShortNameComparator;
 import fr.imag.adele.cadse.cadseg.ext.actions.ActionExtItemTypeExt;
@@ -50,8 +51,10 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ContentItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ContentLinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
+import fr.imag.adele.cadse.cadseg.managers.content.MappingModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.Item;
@@ -63,8 +66,10 @@ import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWDestEvol;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
+import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.attribute.AttributeType;
 import fr.imag.adele.cadse.core.impl.attribute.ListAttributeType;
+import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
@@ -158,8 +163,11 @@ public class GenerateCadseDefinitionModel {
 			if (itemType.getType() == CadseGCST.EXT_ITEM_TYPE) continue;
 			Item manager = ItemTypeManager.getManager(itemType);
 			if (manager == null) {
-				System.err.println("Generate cadse model : No manager found !! for " + itemType);
-				continue;
+				manager = tryToReconnectOrCreate(itemType);
+				if (manager == null) {
+					System.err.println("Generate cadse model : No manager found !! for " + itemType);
+					continue;
+				}
 			}
 
 			CItemType cit = factory.createCItemType();
@@ -221,6 +229,30 @@ public class GenerateCadseDefinitionModel {
 		}
 
 		return cadse;
+	}
+
+	private static Item tryToReconnectOrCreate(Item itemType) {
+		Item cadse = ItemTypeManager.getCadseDefinition(itemType);
+		if (cadse != null) {
+			Item mapping = CadseDefinitionManager.getMapping(cadse);
+			Collection<Item> managers = MappingModelManager.getManagers(mapping);
+			for (Item m : managers) {
+				if (m.getName().equals(itemType.getName()+"-manager")) {
+					Item it_m = ManagerManager.getItemType(m);
+					if (it_m == null)
+						try {
+							CadseCore.createLinkIfNeed(m, itemType, CadseGCST.MANAGER_lt_ITEM_TYPE);
+						} catch (CadseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					if (it_m != null && it_m != itemType) 
+						continue;
+					return m;
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -345,7 +377,7 @@ public class GenerateCadseDefinitionModel {
 						cvt.setTypeName(cadseRootList.getId().toString());
 						InitModelLoadAndWrite cadseListRootManager = (InitModelLoadAndWrite) cadseRootList
 								.getItemManager();
-						ListAttributeType lAttribute = new ListAttributeType(UUID.randomUUID(), ((AttributeType) attribute).getFlag(), attribute.getName(), 0, -1, (IAttributeType) attribute);
+						ListAttributeType lAttribute = new ListAttributeType(null, ((AttributeType) attribute).getFlag(), attribute.getName(), 0, -1, (IAttributeType) attribute);
 						cadseListRootManager.writeAttributeDefinition(factory, cxt, manager, cvt, lAttribute);
 
 						// creer une deuxième description pour dècrire le type
