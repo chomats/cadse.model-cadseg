@@ -673,8 +673,4 @@ public class GenerateJavaIdentifier {
 		return javaPackageMenuAction(cxt, menuaction) + "." + javaClassNameMenuAction(cxt, menuaction);
 	}
 
-	// public static String qualifiedPageListener(Item l) {
-	// return
-	// javaPackagePageFactoryFromPage(l.getPartParent())+"."+javaClassNamePageListener(l);
-	// }
 }
