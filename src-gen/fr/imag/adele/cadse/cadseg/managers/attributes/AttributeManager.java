@@ -750,8 +750,12 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
 			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
 		cvt.setMin(cadsegManager.isCadseRootRequireAttribute(attribute) ? 1 : 0);
-		if (attribute.getType() != CadseGCST.LIST && isIsListAttribute(attribute))
-			cvt.setFlag(0);
+		if (isIsListAttribute(attribute)) {
+			if (attribute.getType() == CadseGCST.LIST)
+				cvt.setFlag(cadsegManager.getCadseRootFlag(attribute) & (Item.SHOW_IN_DEFAULT_CP | Item.SHOW_IN_DEFAULT_MP));
+			else
+				cvt.setFlag(cadsegManager.getCadseRootFlag(attribute) & ~Item.CAN_BE_UNDEFINED);
+		}
 		else
 			cvt.setFlag(cadsegManager.getCadseRootFlag(attribute));
 
