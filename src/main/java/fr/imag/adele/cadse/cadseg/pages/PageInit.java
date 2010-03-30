@@ -30,6 +30,7 @@ import fr.imag.adele.cadse.cadseg.pages.mc.MC_ViewItemType;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.IC_ModifiedAttr_List;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ModifiedAttr_ModelController;
 import fr.imag.adele.cadse.cadseg.validators.ExtendsClassValidator;
+import fr.imag.adele.cadse.cadseg.validators.IsListValidator;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.cadseg.validators.LinkTypeIsGoupListener;
 import fr.imag.adele.cadse.cadseg.validators.MenuValidator;
@@ -885,6 +886,13 @@ public class PageInit {
 			v.setClazz(JavaPackageValidator.class);
 			v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
 			CadseGCST.CADSE_DEFINITION.addValidators(v);
+		}
+		// ATTRIBUTE_at_IS_LIST_
+		{
+			JavaClassValidator v = new JavaClassValidator(null);
+			v.setClazz(IsListValidator.class);
+			v.setListenAttributes(CadseGCST.ATTRIBUTE_at_IS_LIST_);
+			CadseGCST.ATTRIBUTE.addValidators(v);
 		}
 
 		// LINK_TYPE_at_MIN_ and LINK_TYPE_at_MAX_
