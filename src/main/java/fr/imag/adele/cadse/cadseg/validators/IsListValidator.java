@@ -18,6 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.validators;
 
+import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ui.AbstractUIRunningValidator;
@@ -28,6 +29,13 @@ import fr.imag.adele.cadse.core.util.Convert;
  * @generated
  */
 public class IsListValidator extends AbstractUIRunningValidator {
+	
+	@Override
+	public void initAfterUI() {
+		boolean b = AttributeManager.isIsListAttribute(_uiPlatform.getItem());
+		if (b)
+			_uiPlatform.setEnabled(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, false);
+	}
 
 	@Override
 	public void notifieValueChanged(UIField field, Object value) {
