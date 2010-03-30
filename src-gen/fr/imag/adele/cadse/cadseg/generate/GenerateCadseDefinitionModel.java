@@ -386,6 +386,7 @@ public class GenerateCadseDefinitionModel {
 						cvt.getElement().add(ncvt);
 
 						cvt = ncvt;
+						cvt.setKey("Element of "+attribute.getName());
 					}
 
 					// the id of the attribute type of attribute definition
