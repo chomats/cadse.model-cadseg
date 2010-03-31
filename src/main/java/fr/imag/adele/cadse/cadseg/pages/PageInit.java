@@ -887,6 +887,12 @@ public class PageInit {
 			v.setListenAttributes(CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_);
 			CadseGCST.CADSE_DEFINITION.addValidators(v);
 		}
+		// BOOLEAN
+		{
+			JavaClassValidator v = new JavaClassValidator(null);
+			v.setClazz(BooleanInitValidator.class);
+			CadseGCST.BOOLEAN.addValidators(v);
+		}
 		// ATTRIBUTE_at_IS_LIST_
 		{
 			JavaClassValidator v = new JavaClassValidator(null);

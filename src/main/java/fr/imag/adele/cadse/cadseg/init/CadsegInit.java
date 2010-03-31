@@ -45,6 +45,25 @@ public class CadsegInit implements InitAction {
 		CadseGCST.MENU_ABSTRACT_at_ICON_.setFlag(Item.CAN_BE_UNDEFINED, true);
 		CadseGCST.MENU_ABSTRACT_at_ICON_.setFlag(Item.NOT_EMPTY, false);
 		CadseGCST.MENU_ABSTRACT_at_PATH_.setFlag(Item.CAN_BE_UNDEFINED, true);
+		
+		CadseGCST.ITEM_at_REQUIRE_NEW_REV_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_IS_LIST_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_TRANSIENT_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_REQUIRE_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_AGGREGATION_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_ANNOTATION_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_COMPOSITION_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_GROUP_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_HIDDEN_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_PART_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_MAPPING_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_REQUIRE_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.LINK_TYPE_at_TWCOUPLED_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		
 		CadseGCST.MENU_ABSTRACT_at_PATH_.setFlag(Item.NOT_EMPTY, false);
 		
 		
