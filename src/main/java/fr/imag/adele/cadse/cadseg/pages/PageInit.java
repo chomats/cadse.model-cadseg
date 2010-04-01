@@ -1,23 +1,19 @@
 package fr.imag.adele.cadse.cadseg.pages;
 
-
 import java.util.UUID;
-
-import org.eclipse.swt.SWT;
 
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
-import fede.workspace.model.manager.properties.impl.mc.StringToResourceSimpleModelController;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_EnumDefaultValue;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_ExtType_RefTypes;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForText;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemTypeTemplateForTextFromManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ItemtypeIcon;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_MenuAction_Path;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ViewManager_DataModelView;
-import fr.imag.adele.cadse.cadseg.pages.ic.IC_ExtType_RefTypes;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_BooleanTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DefaultEnum;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DoubleTextField;
@@ -44,21 +40,16 @@ import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
 import fr.imag.adele.cadse.core.impl.ui.ic.IC_Descriptor;
-import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_FileResourceForBrowser_Combo_List;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_IconResourceForBrowser_Combo_List;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Min;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MaxModelController;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.mc.MinMaxValidator;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 
 public class PageInit {
 
@@ -156,6 +147,19 @@ public class PageInit {
 		gBasicProperties.add(gSpecificPart2);
 
 		return gBasicProperties;
+	}
+
+	/**
+	 * Helper method which creates the group properties.
+	 * 
+	 * @return the group properties.
+	 */
+	private static GroupOfAttributesDescriptor createGroupBasicPropertiesBoolean() {
+
+		return createGroup("Basic properties", 3, true, CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_,
+				CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_, CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_,
+				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, CadseGCST.STRING_at_NOT_EMPTY_,
+				CadseGCST.ATTRIBUTE_at_IS_LIST_);
 	}
 
 	/**
@@ -267,7 +271,6 @@ public class PageInit {
 		CadseGCST.EXT_ITEM_TYPE_lt_CONTENTS.setFlag(Item.SHOW_IN_DEFAULT_CP, false);
 		CadseGCST.MENU_ACTION_lt_CONTENTS.setFlag(Item.SHOW_IN_DEFAULT_CP, false);
 		CadseGCST.MENU_ABSTRACT_at_LABEL_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
-		
 
 		CadseGCST.ATTRIBUTE_at_DEV_GENERATED_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.ATTRIBUTE_at_FINAL_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
@@ -318,7 +321,7 @@ public class PageInit {
 		CadseGCST.MANAGER_lt_EXPORTERS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.MANAGER_lt_ITEM_TYPE.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_at_ID_RUNTIME_.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
-		//CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
+		// CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_CADSE.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_CREATION_PAGES.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.TYPE_DEFINITION_lt_FIELDS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
@@ -327,11 +330,11 @@ public class PageInit {
 		CadseGCST.TYPE_DEFINITION_lt_VALIDATORS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.EXT_ITEM_TYPE_lt_CONTENTS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
 		CadseGCST.MENU_ACTION_lt_CONTENTS.setFlag(Item.SHOW_IN_DEFAULT_MP, false);
-		
+
 		// ***************** //
-		//   Not editable    //
+		// Not editable //
 		// ***************** //
-		
+
 		CadseGCST.ITEM_at_NAME_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.ITEM_at_QUALIFIED_NAME_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.ITEM_lt_MODIFIED_ATTRIBUTES.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
@@ -342,8 +345,7 @@ public class PageInit {
 		CadseGCST.ITEM_at_TW_VERSION_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.ITEM_at_TWLAST_COMMENT_.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
 		CadseGCST.LINK_TYPE_lt_SOURCE.setFlag(Item.NOT_EDITABLE_IN_DEFAULT_MP, true);
-		
-		
+
 		// ***************** //
 		// Fields definition //
 		// ***************** //
@@ -424,14 +426,15 @@ public class PageInit {
 			CadseGCST.LINK_TYPE.addField(new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
 					CadseGCST.LINK_TYPE_at_MAX_, "max:", EPosLabel.left, mc, icMax));
 		}
-		
+
 		// EXT_ITEM_TYPE_lt_REF_TYPE
 		{
 			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST);
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_ExtType_RefTypes.class);
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_LINK);
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
-					CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE, "Ref types", EPosLabel.top, mc, ic, CadseGCST.DLIST_at_EDITABLE_BUTTON_, true);
+					CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE, "Ref types", EPosLabel.top, mc, ic,
+					CadseGCST.DLIST_at_EDITABLE_BUTTON_, true);
 			CadseGCST.EXT_ITEM_TYPE.addField(field);
 		}
 
@@ -446,18 +449,18 @@ public class PageInit {
 			field.setEditable(false);
 			CadseGCST.ITEM.addField(field);
 		}
-		
+
 		// MENU_ABSTRACT_at_PATH_
 		{
 			IC_Descriptor ic = new IC_Descriptor(CadseGCST.INTERACTION_CONTROLLER);
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_MenuAction_Path.class);
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-					CadseGCST.MENU_ABSTRACT_at_PATH_, "path in menu", EPosLabel.left, mc, ic,
-					CadseGCST.DTEXT_at_TOOL_TIP_, "La valeur peut être context1, context2 ... context6, context1/new");
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.MENU_ABSTRACT_at_PATH_,
+					"path in menu", EPosLabel.left, mc, ic, CadseGCST.DTEXT_at_TOOL_TIP_,
+					"La valeur peut être context1, context2 ... context6, context1/new");
 			CadseGCST.MENU_ABSTRACT.addField(field);
 		}
-		
+
 		// MENU_ABSTRACT_at_ICON_
 		{
 			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_FILE_RESOURCE_FOR_BROWSER_COMBO_LIST,
@@ -467,64 +470,64 @@ public class PageInit {
 
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 			CreatedObjectManager.register(null, mc, MC_ResourceToURL.class);
-			
-			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(),
-					CadseGCST.MENU_ABSTRACT_at_ICON_, "icon", EPosLabel.left, mc, ic);
+
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.MENU_ABSTRACT_at_ICON_,
+					"icon", EPosLabel.left, mc, ic);
 			CadseGCST.MENU_ABSTRACT.addField(field);
 		}
 
-//		// ITEM_at_REV_MODIFIED_
-//		{
-//			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
-//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
-//					CadseGCST.ITEM_at_REV_MODIFIED_, "Is modified", EPosLabel.none, mc, null);
-//			field.setEditable(false);
-//			CadseGCST.ITEM.addField(field);
-//		}
-//
-//		// ITEM_at_REQUIRE_NEW_REV_
-//		{
-//			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
-//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
-//					CadseGCST.ITEM_at_REQUIRE_NEW_REV_, "Next commit will create a new revision", EPosLabel.none, mc,
-//					null);
-//			field.setEditable(false);
-//			CadseGCST.ITEM.addField(field);
-//		}
-//
-//		// ITEM_at_TW_VERSION_
-//		{
-//			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_INTEGER);
-//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_TW_VERSION_,
-//					"Revision number", EPosLabel.left, mc, null);
-//			field.setEditable(false);
-//			CadseGCST.ITEM.addField(field);
-//		}
-//
-//		// ITEM_at_COMMITTED_DATE_
-//		{
-//			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_DATE);
-//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_COMMITTED_DATE_,
-//					"Last commit date", EPosLabel.left, mc, null);
-//			field.setEditable(false);
-//			CadseGCST.ITEM.addField(field);
-//		}
-//
-//		// CadseGCST.ITEM_at_COMMITTED_BY_
-//		{
-//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_COMMITTED_BY_,
-//					"Last committer", EPosLabel.left, null, null);
-//			field.setEditable(false);
-//			CadseGCST.ITEM.addField(field);
-//		}
-//
-//		// ITEM_at_TWLAST_COMMENT_
-//		{
-//			UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_TWLAST_COMMENT_,
-//					"Last commit comment", EPosLabel.left, null, null);
-//			field.setEditable(false);
-//			CadseGCST.ITEM.addField(field);
-//		}
+		// // ITEM_at_REV_MODIFIED_
+		// {
+		// MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
+		// UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+		// CadseGCST.ITEM_at_REV_MODIFIED_, "Is modified", EPosLabel.none, mc, null);
+		// field.setEditable(false);
+		// CadseGCST.ITEM.addField(field);
+		// }
+		//
+		// // ITEM_at_REQUIRE_NEW_REV_
+		// {
+		// MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
+		// UIFieldImpl field = new UIFieldImpl(CadseGCST.DCHECK_BOX, UUID.randomUUID(),
+		// CadseGCST.ITEM_at_REQUIRE_NEW_REV_, "Next commit will create a new revision", EPosLabel.none, mc,
+		// null);
+		// field.setEditable(false);
+		// CadseGCST.ITEM.addField(field);
+		// }
+		//
+		// // ITEM_at_TW_VERSION_
+		// {
+		// MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_INTEGER);
+		// UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_TW_VERSION_,
+		// "Revision number", EPosLabel.left, mc, null);
+		// field.setEditable(false);
+		// CadseGCST.ITEM.addField(field);
+		// }
+		//
+		// // ITEM_at_COMMITTED_DATE_
+		// {
+		// MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_DATE);
+		// UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_COMMITTED_DATE_,
+		// "Last commit date", EPosLabel.left, mc, null);
+		// field.setEditable(false);
+		// CadseGCST.ITEM.addField(field);
+		// }
+		//
+		// // CadseGCST.ITEM_at_COMMITTED_BY_
+		// {
+		// UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_COMMITTED_BY_,
+		// "Last committer", EPosLabel.left, null, null);
+		// field.setEditable(false);
+		// CadseGCST.ITEM.addField(field);
+		// }
+		//
+		// // ITEM_at_TWLAST_COMMENT_
+		// {
+		// UIFieldImpl field = new UIFieldImpl(CadseGCST.DTEXT, UUID.randomUUID(), CadseGCST.ITEM_at_TWLAST_COMMENT_,
+		// "Last commit comment", EPosLabel.left, null, null);
+		// field.setEditable(false);
+		// CadseGCST.ITEM.addField(field);
+		// }
 
 		// MANAGER_at_QUALIFIED_NAME_TEMPLATE_
 		{
@@ -612,7 +615,7 @@ public class PageInit {
 					CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_, "Conflict impact on update", EPosLabel.left, mc, ic);
 			CadseGCST.ATTRIBUTE.addField(field);
 		}
-		
+
 		// LINK_TYPE_at_TWCOUPLED_
 		{
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_BOOLEAN);
@@ -646,7 +649,7 @@ public class PageInit {
 					CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_, "Instances are hidden", EPosLabel.none, mc, null);
 			CadseGCST.ITEM_TYPE.addField(field);
 		}
-		
+
 		// ITEM_TYPE_at_ITEM_FACTORY_
 		{
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_STRING_TO_JAVA_ELEMENT);
@@ -658,18 +661,17 @@ public class PageInit {
 					CadseGCST.ITEM_TYPE_at_ITEM_FACTORY_, "Factory class", EPosLabel.left, mc, ic);
 			CadseGCST.ITEM_TYPE.addField(field);
 		}
-		
+
 		// TYPE_DEFINITION
 		{
-			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST, CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select a destination.");
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST,
+					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, "Select a destination.");
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MC_LINK);
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DLIST, UUID.randomUUID(),
 					CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, "Attributes ordered", EPosLabel.top, mc, ic,
-					CadseGCST.DLIST_at_EDITABLE_BUTTON_, Boolean.FALSE,
-					CadseGCST.DLIST_at_ORDER_BUTTON_, Boolean.TRUE);
+					CadseGCST.DLIST_at_EDITABLE_BUTTON_, Boolean.FALSE, CadseGCST.DLIST_at_ORDER_BUTTON_, Boolean.TRUE);
 			CadseGCST.TYPE_DEFINITION.addField(field);
 		}
-		
 
 		// PROJECT_CONTENT_MODEL_at_PROJECT_NAME_
 		{
@@ -908,7 +910,7 @@ public class PageInit {
 			v2.setListenAttributes(CadseGCST.LINK_TYPE_at_MIN_, CadseGCST.LINK_TYPE_at_MAX_);
 			CadseGCST.LINK_TYPE.addValidators(v2);
 		}
-		
+
 		// LINK_TYPE_at_MIN_ and LINK_TYPE_at_MAX_
 		{
 			JavaClassValidator v2 = new JavaClassValidator(null);
@@ -916,7 +918,6 @@ public class PageInit {
 			v2.setListenAttributes(CadseGCST.LINK_TYPE_at_GROUP_);
 			CadseGCST.LINK_TYPE.addValidators(v2);
 		}
-		
 
 		// ENUM_TYPE_at_JAVA_CLASS_
 		{
@@ -981,7 +982,7 @@ public class PageInit {
 			v.setListenAttributes(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_);
 			CadseGCST.PROJECT_CONTENT_MODEL.addValidators(v);
 		}
-		
+
 		// MENU_ABSTRACT_at_LABEL_
 		{
 			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
@@ -1019,6 +1020,13 @@ public class PageInit {
 				createGroupAdvancedPropertiesAttributes());
 		CadseGCST.ATTRIBUTE.addGroupOfAttributes(attributeGroup);
 		attributeGroup.setOverWriteGroup(ITEM_GROUP_NAME);
+
+		// Boolean pages
+		GroupOfAttributesDescriptor booleanGroup = createGroup("Boolean", 1, false, createGroupNameItem(),
+				createGroupBasicPropertiesBoolean(), createGroupEvolutionAttributes(),
+				createGroupAdvancedPropertiesAttributes());
+		CadseGCST.BOOLEAN.addGroupOfAttributes(booleanGroup);
+		booleanGroup.setOverWriteGroup(attributeGroup);
 
 		// Link pages
 		GroupOfAttributesDescriptor linkGroup = createGroup("Link", 1, false, createGroupNameItem(),
