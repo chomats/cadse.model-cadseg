@@ -63,6 +63,11 @@ public class CadsegInit implements InitAction {
 		CadseGCST.LINK_TYPE_at_MAPPING_.setFlag(Item.CAN_BE_UNDEFINED, false);
 		CadseGCST.LINK_TYPE_at_REQUIRE_.setFlag(Item.CAN_BE_UNDEFINED, false);
 		CadseGCST.LINK_TYPE_at_TWCOUPLED_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ITEM_TYPE_at_IS_INSTANCE_ABSTRACT_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ITEM_TYPE_at_IS_INSTANCE_HIDDEN_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ITEM_TYPE_at_HAS_CONTENT_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ITEM_TYPE_at_HAS_SHORT_NAME_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ITEM_TYPE_at_HAS_UNIQUE_NAME_.setFlag(Item.CAN_BE_UNDEFINED, false);
 		
 		CadseGCST.MENU_ABSTRACT_at_PATH_.setFlag(Item.NOT_EMPTY, false);
 		
