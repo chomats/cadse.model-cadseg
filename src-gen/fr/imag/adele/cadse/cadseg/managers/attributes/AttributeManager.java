@@ -761,11 +761,11 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 
 	}
 
-	public static void setShowInDefaultCPAttribute(ItemDelta attDelta, boolean b) {
+	public static void setShowInDefaultCPAttribute(Item attDelta, boolean b) {
 		setMustBeInitializedAttribute(attDelta, b);
 	}
 	
-	public static void setShowInDefaultMPAttribute(ItemDelta attDelta, boolean b) {
+	public static void setShowInDefaultMPAttribute(Item attDelta, boolean b) {
 		setHiddenInComputedPagesAttribute(attDelta, b);
 	}
 }
