@@ -320,8 +320,8 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 			LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
 			LinkTypeManager.setMaxAttribute(linkType, 1);
 			LinkTypeManager.setMinAttribute(linkType, 0);
-			LinkTypeManager.setShowInDefaultMPAttribute(linkType, false);
-			LinkTypeManager.setShowInDefaultCPAttribute(linkType, false);
+			LinkTypeManager.setShowInDefaultMpAttribute(linkType, false);
+			LinkTypeManager.setShowInDefaultCpAttribute(linkType, false);
 			linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, item);
 		}
 		
@@ -1660,12 +1660,12 @@ public final class CadseG_WLWCListener extends AbstractLogicalWorkspaceTransacti
 						LinkTypeManager.setDestination(linkType, CadseGCST.CONTENT_ITEM);
 						LinkTypeManager.setMaxAttribute(linkType, 1);
 						LinkTypeManager.setMinAttribute(linkType, 0);
-						AttributeManager.setShowInDefaultCPAttribute(linkType, false);
-						AttributeManager.setShowInDefaultMPAttribute(linkType, false);
+						AttributeManager.setShowInDefaultCpAttribute(linkType, false);
+						AttributeManager.setShowInDefaultMpAttribute(linkType, false);
 						linkType.createLink(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION, oper);
 					} else {
-						AttributeManager.setShowInDefaultCPAttribute(linkType, false);
-						AttributeManager.setShowInDefaultMPAttribute(linkType, false);
+						AttributeManager.setShowInDefaultCpAttribute(linkType, false);
+						AttributeManager.setShowInDefaultMpAttribute(linkType, false);
 					}
 				} catch (Throwable e) {
 					e.printStackTrace();

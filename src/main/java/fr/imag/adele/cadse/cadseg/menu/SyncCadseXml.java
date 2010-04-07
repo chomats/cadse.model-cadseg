@@ -87,7 +87,7 @@ public class SyncCadseXml extends IMenuAction {
 					//
 					AttributeManager.setCannotBeUndefinedAttribute(attDelta, (f & Item.CAN_BE_UNDEFINED) == 0);
 					AttributeManager.setTransientAttribute(attDelta, (f & Item.TRANSIENT) != 0);
-					AttributeManager.setShowInDefaultCPAttribute(attDelta, (f & Item.SHOW_IN_DEFAULT_CP) != 0);
+					AttributeManager.setShowInDefaultCpAttribute(attDelta, (f & Item.SHOW_IN_DEFAULT_CP) != 0);
 
 					if (att.isInstanceOf(CadseGCST.STRING)) {
 						StringManager.setNotEmptyAttribute(attDelta, (f & Item.NOT_EMPTY) != 0);
@@ -114,7 +114,7 @@ public class SyncCadseXml extends IMenuAction {
 					//
 					AttributeManager.setCannotBeUndefinedAttribute(attDelta, (f & Item.CAN_BE_UNDEFINED) == 0);
 					AttributeManager.setTransientAttribute(attDelta, (f & Item.TRANSIENT) != 0);
-					AttributeManager.setShowInDefaultCPAttribute(attDelta, (f & Item.SHOW_IN_DEFAULT_CP) != 0);
+					AttributeManager.setShowInDefaultCpAttribute(attDelta, (f & Item.SHOW_IN_DEFAULT_CP) != 0);
 
 					if (att.isInstanceOf(CadseGCST.STRING)) {
 						StringManager.setNotEmptyAttribute(attDelta, (f & Item.NOT_EMPTY) != 0);

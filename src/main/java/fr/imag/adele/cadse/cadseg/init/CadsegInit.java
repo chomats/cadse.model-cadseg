@@ -48,8 +48,8 @@ public class CadsegInit implements InitAction {
 		
 		CadseGCST.ITEM_at_REQUIRE_NEW_REV_.setFlag(Item.CAN_BE_UNDEFINED, false);
 		CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_.setFlag(Item.CAN_BE_UNDEFINED, false);
-		CadseGCST.ATTRIBUTE_at_HIDDEN_IN_COMPUTED_PAGES_.setFlag(Item.CAN_BE_UNDEFINED, false);
-		CadseGCST.ATTRIBUTE_at_MUST_BE_INITIALIZED_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_MP_.setFlag(Item.CAN_BE_UNDEFINED, false);
+		CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_CP_.setFlag(Item.CAN_BE_UNDEFINED, false);
 		CadseGCST.ATTRIBUTE_at_IS_LIST_.setFlag(Item.CAN_BE_UNDEFINED, false);
 		CadseGCST.ATTRIBUTE_at_TRANSIENT_.setFlag(Item.CAN_BE_UNDEFINED, false);
 		CadseGCST.ATTRIBUTE_at_REQUIRE_.setFlag(Item.CAN_BE_UNDEFINED, false);
