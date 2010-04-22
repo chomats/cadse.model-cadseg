@@ -388,7 +388,7 @@
 			id="e46dcaa2-7925-4ab7-bfe9-e97e2142b0e2" cst-name="CADSE_DEFINITION_at_IMPORTS_"
 			max="-1" min="0" type="list" value="" key="imports"
 			type-name="06b59d1d-b7a7-45df-b133-4b1099207a04">
-			<element tw-rev-specific="false" flag="9" min="0" type="string"
+			<element tw-rev-specific="false" flag="8" min="0" type="string"
 				key="Element of imports" type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
