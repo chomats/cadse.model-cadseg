@@ -1673,7 +1673,7 @@
 		super-type-name="b0a278a3-481c-47af-bbbb-6ec983e4a0c8" name="ItemType"
 		qualified-name="CadseG.dataModel.ItemType" cst-name="ITEM_TYPE"
 		id="43808065-4f70-4290-adba-cca999431ba1">
-		<outgoing-link flag="3" hidden="true" tw-coupled="false"
+		<outgoing-link flag="1" hidden="true" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
 			cst-name="ITEM_TYPE_lt_CONTENT_MODEL" intID="0"
@@ -1719,7 +1719,7 @@
 			min="0" type="boolean" value="false" key="custom-manager"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="11"
+			tw-update="merge" tw-evolution="immutable" flag="9"
 			id="877296d9-d39c-471f-adb2-818712bf1a6e" cst-name="ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_"
 			min="0" type="string" value="" key="defaultInstanceName"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
