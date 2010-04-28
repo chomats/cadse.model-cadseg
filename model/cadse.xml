@@ -604,7 +604,7 @@
 		qualified-name="CadseG.content.ContentItemType" cst-name="CONTENT_ITEM_TYPE"
 		id="7b68d97c-9665-458f-acf8-14d41665d25a">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="277a1cf2-ff5a-4835-a2b8-b13ec987e8de" cst-name="CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_"
 			min="0" type="boolean" value="false" key="extends-class"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
