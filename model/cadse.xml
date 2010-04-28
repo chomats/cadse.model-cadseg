@@ -129,7 +129,7 @@
 				value="fr.imag.adele.cadse.core.enumdef.TWUpdateKind" key="enum-clazz" />
 		</attribute-type>
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="d07e68e8-7b69-4eeb-90e4-c8816daf38cf" cst-name="ATTRIBUTE_at_CANNOT_BE_UNDEFINED_"
 			min="0" type="boolean" value="false" key="cannot-be-undefined"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -144,7 +144,7 @@
 			min="0" type="boolean" value="false" key="dev-generated"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="cbe2d1ec-d3cb-4bba-b424-55bf5c855334" cst-name="ATTRIBUTE_at_FINAL_"
 			min="0" type="boolean" value="false" key="final"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -154,32 +154,32 @@
 			min="0" type="string" value="" key="id-runtime"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="dcb673ab-3b2b-482e-ab81-9ce20a463bea" cst-name="ATTRIBUTE_at_IS_LIST_"
 			min="0" type="boolean" value="false" key="is-list"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="cfd391d3-e7d4-4555-b3d6-35d7651e4d5d" cst-name="ATTRIBUTE_at_NATIF_"
 			min="0" type="boolean" value="false" key="natif"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="2469d62d-f260-4359-8058-afdc65e0c893" cst-name="ATTRIBUTE_at_REQUIRE_"
 			min="0" type="boolean" value="false" key="require"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="a76dc735-0d84-463f-b6d7-0ba34e7649fc" cst-name="ATTRIBUTE_at_SHOW_IN_DEFAULT_CP_"
 			min="0" type="boolean" value="false" key="show-in-default-cp"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="13eee9fe-aa0e-42dd-8655-a2e12cc453f8" cst-name="ATTRIBUTE_at_SHOW_IN_DEFAULT_MP_"
 			min="0" type="boolean" value="true" key="show-in-default-mp"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="5bffb945-3636-4376-a40d-e7b9eaa1fda1" cst-name="ATTRIBUTE_at_TRANSIENT_"
 			min="0" type="boolean" value="false" key="transient"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
