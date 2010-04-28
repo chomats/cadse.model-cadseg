@@ -1764,7 +1764,7 @@
 			min="0" type="boolean" value="false" key="is-meta-item-type"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="195c6dd5-e410-4f12-92c1-23d16c81342d" cst-name="ITEM_TYPE_at_IS_ROOT_ELEMENT_"
 			min="0" type="boolean" value="true" key="is-root-element"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
