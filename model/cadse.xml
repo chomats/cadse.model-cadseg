@@ -1984,7 +1984,7 @@
 			min="0" type="boolean" value="true" key="aggregation"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="2e89f2e0-e8f9-4b1c-a989-d5a5bacc2059" cst-name="LINK_TYPE_at_ANNOTATION_"
 			min="0" type="boolean" value="false" key="annotation"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
