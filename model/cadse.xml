@@ -1051,7 +1051,7 @@
 			min="0" type="string" value="" key="java-class"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="40af65f6-f9e0-4fcc-8e67-9009fe32df41" cst-name="ENUM_TYPE_at_MUST_BE_GENERATED_"
 			min="0" type="boolean" value="true" key="must-be-generated"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
@@ -2681,7 +2681,7 @@
 		qualified-name="CadseG.attributes.String" cst-name="STRING"
 		id="b510d24e-a9d5-4a3a-b851-16c209276867">
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
-			tw-update="merge" tw-evolution="immutable" flag="9"
+			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="43cf0f90-0929-458d-8c00-5f01b0dafd5b" cst-name="STRING_at_NOT_EMPTY_"
 			min="0" type="boolean" value="false" key="not-empty"
 			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
