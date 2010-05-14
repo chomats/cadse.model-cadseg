@@ -27,8 +27,11 @@ import fede.workspace.eclipse.content.FolderContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
 import fr.imag.adele.cadse.core.attribute.StringAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 
@@ -82,7 +85,9 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 		try {
 			Object value;
 			Item currentItem;
-			sb.append(parent.getQualifiedName());
+			if (parent != null) {
+				sb.append(parent.getQualifiedName());
+			}
 			if (sb.length() != 0) {
 				sb.append(".");
 			}
@@ -108,7 +113,10 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	public String getDisplayName(Item item) {
 		try {
 			Object value;
-			return item.getName();
+			if (item != null) {
+				return item.getName();
+			}
+			return "";
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return "error";
@@ -205,6 +213,24 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	public static final void setFolderPathAttribute(Item folderContentModel, String value) {
 		try {
 			folderContentModel.setAttribute(CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_, value);
+		} catch (Throwable t) {
+
+		}
+	}
+
+	/**
+		@generated
+	*/
+	public static final boolean isRequireFolderAttribute(Item folderContentModel) {
+		return folderContentModel.getAttributeWithDefaultValue(CadseGCST.FOLDER_CONTENT_MODEL_at_REQUIRE_FOLDER_, true);
+	}
+
+	/**
+		@generated
+	*/
+	public static final void setRequireFolderAttribute(Item folderContentModel, boolean value) {
+		try {
+			folderContentModel.setAttribute(CadseGCST.FOLDER_CONTENT_MODEL_at_REQUIRE_FOLDER_, value);
 		} catch (Throwable t) {
 
 		}
