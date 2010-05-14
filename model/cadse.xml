@@ -1239,6 +1239,11 @@
 			id="c43be5c9-3bde-4bbd-9a43-af804b1fcac0" cst-name="FOLDER_CONTENT_MODEL_at_FOLDER_PATH_"
 			min="0" type="string" value="" key="folder-path"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
+		<attribute-type tw-rev-specific="true" tw-commit="conflict"
+			tw-update="merge" tw-evolution="immutable" flag="9"
+			id="7be75e2b-79a2-49a7-b2d9-95fdf9b1d8a6" cst-name="FOLDER_CONTENT_MODEL_at_REQUIRE_FOLDER_"
+			min="0" type="boolean" value="true" key="requireFolder"
+			type-name="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
 	</item-type>
 	<item-type hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
