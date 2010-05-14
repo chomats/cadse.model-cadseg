@@ -20,16 +20,20 @@
 package fr.imag.adele.cadse.cadseg.generate;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import org.eclipse.core.resources.IProject;
@@ -153,7 +157,29 @@ public class GenerateCadseDefinitionModel {
 			cadseref.setIdCadseDefinition(CadseDefinitionManager.getIdDef(item).toString());
 			cadse.getCadseRef().add(cadseref);
 		}
-		Properties labelproperties = new Properties();
+		// create a sorted properties.
+		Properties labelproperties = new Properties() {
+
+			  @Override
+			  public Set<Object> keySet()
+			  {
+			    return Collections.unmodifiableSet(new TreeSet<Object>(super.keySet()));
+			  }
+
+			};
+			
+		// load existing properties : keep this user changed in file.
+		Properties owlabelproperties = new Properties();
+		IProject p = cadseDefinition.getMainMappingContent(IProject.class);
+		try {
+			File labelPropertiesFile = p.getFile("model/labels.properties").getLocation().toFile();
+			if (labelPropertiesFile.exists()) {
+				owlabelproperties.load(	new FileReader(labelPropertiesFile));
+			}
+		} catch (IOException e) {
+		}
+		
+		
 		cadse.setCstClass(packageNameCST + "." + classNameCST);
 		// name="" bundle-id="" cst-class="" id=""
 		Item theDataModel = CadseDefinitionManager.getMainDataModel(cadseDefinition);
@@ -174,7 +200,7 @@ public class GenerateCadseDefinitionModel {
 			cit.setIntID(intID++);
 			cadse.getItemType().add(cit);
 			setItemType(cxt, (ItemType) itemType, manager, cit);
-			generateCommonInformation(cxt, factory, cadse, itemType, cit, labelproperties);
+			generateCommonInformation(cxt, factory, cadse, itemType, cit, labelproperties, owlabelproperties);
 		}
 
 		Item[] extItemTypes = ItemTypeManager.getAllExtItemType(theDataModel);
@@ -203,14 +229,12 @@ public class GenerateCadseDefinitionModel {
 				}
 			}
 
-			generateCommonInformation(cxt, factory, cadse, extIt, ceit, labelproperties);
+			generateCommonInformation(cxt, factory, cadse, extIt, ceit, labelproperties, owlabelproperties);
 		}
 
 		for (GenerateCadseDefinitionModelExt g : generatorsExt) {
 			g.generate(cadse);
 		}
-		IProject p = cadseDefinition.getMainMappingContent(IProject.class);
-		;
 		try {
 			File labelPropertiesFile = p.getFile("model/labels.properties").getLocation().toFile();
 			if (!labelPropertiesFile.exists()) {
@@ -268,11 +292,11 @@ public class GenerateCadseDefinitionModel {
 	 *            the cit
 	 */
 	private static void generateCommonInformation(ContextVariable cxt, ObjectFactory factory, CCadse cadse, Item abstractItemType,
-			CTypeDefinition cit, Properties labelproperties) {
+			CTypeDefinition cit, Properties labelproperties, Properties owlabelproperties) {
 		// creation page
 		//generateCreationDialog(cxt, factory, abstractItemType, cit);
 		//generateModificationDialog(cxt, factory, abstractItemType, cit);
-		generateAttributes(cxt, factory, cadse, abstractItemType, cit, labelproperties);
+		generateAttributes(cxt, factory, cadse, abstractItemType, cit, labelproperties, owlabelproperties);
 
 		Item menu = ActionExtItemTypeExt.getActionsModel(abstractItemType);
 		if (menu != null) {
@@ -294,7 +318,7 @@ public class GenerateCadseDefinitionModel {
 	 */
 	private static void generateAttributes(ContextVariable cxt, ObjectFactory factory, CCadse cadse, 
 			Item abstractItemType,
-			CTypeDefinition cit, Properties labelproperties) {
+			CTypeDefinition cit, Properties labelproperties, Properties owlabelproperties) {
 		Collection<Item> outgoingItem = abstractItemType.getOutgoingItems(
 				CadseGCST.TYPE_DEFINITION_lt_ATTRIBUTES, true);
 		Item[] attributeItems = outgoingItem.toArray(new Item[outgoingItem.size()]);
@@ -303,7 +327,11 @@ public class GenerateCadseDefinitionModel {
 			if (!attribute.isResolved()) {
 				continue;
 			}
-			labelproperties.setProperty("label."+abstractItemType.getName()+"."+attribute.getName(), attribute.getDisplayName());
+			final String labelKey = "label."+abstractItemType.getName()+"."+attribute.getName();
+			if (owlabelproperties.contains(labelKey))
+				labelproperties.setProperty(labelKey, owlabelproperties.getProperty(labelKey));
+			else
+				labelproperties.setProperty(labelKey, attribute.getDisplayName());
 
 			if (AttributeManager.isLinkAttribute(attribute)) {
 
