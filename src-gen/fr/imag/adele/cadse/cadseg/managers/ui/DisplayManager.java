@@ -19,23 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import java.util.Set;
-import java.util.UUID;
-
-import org.eclipse.pde.core.plugin.IPluginBase;
-import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
-
-import fede.workspace.eclipse.composition.java.IPDEContributor;
-import fede.workspace.eclipse.content.SubFileContentManager;
-import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
-import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -44,12 +30,10 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.ItemFactory;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
-import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class DisplayManager.
@@ -106,229 +90,6 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 			sb.appendStringValue_vir((String) value);
 		} else {
 			sb.append(value).append(",");
-		}
-	}
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	public class DisplayContent extends SubFileContentManager implements IPDEContributor {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		protected DisplayContent(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/**
-		 * Compute local manifest imports.
-		 * 
-		 * @param item
-		 *            the item
-		 * @param imports
-		 *            the imports
-		 */
-		public void computeLocalManifestImports(Item item, Set<String> imports) {
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage(java.util.Set)
-		 */
-		public void computeExportsPackage(Set<String> exports) {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage(java.util.Set)
-		 */
-		public void computeImportsPackage(Set<String> imports) {
-			imports.add("fr.imag.adele.cadse.core.ui");
-			String className = getClassName(getOwnerItem());
-			if (className == null) {
-				className = getDefaultClassName();
-				if (className != null) {
-					imports.add(JavaIdentifier.packageName(className));
-				}
-			}
-			imports.add("fr.imag.adele.cadse.core");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#generate(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.lang.String, java.lang.String, java.util.Set,
-		 *      fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
-			String defaultQualifiedClassName = getDefaultClassName();
-
-			String defaultClassName = JavaIdentifier.getlastclassName(defaultQualifiedClassName);
-			if ("inner-class".equals(kind)) {
-				generateParts(sb, type, kind, imports, null);
-				Item display = getOwnerItem();
-				boolean extendsUI = DisplayManager.isExtendsUIAttribute(display);
-				if (extendsUI) {
-					Item field = display.getPartParent();
-
-					String extendsClassName = defaultClassName;
-
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(field.getName(), true, false,
-							POSTFIXE_UI);
-					sb.newline();
-					sb.newline().append("/**");
-					sb.newline().append("	@generated");
-					sb.newline().append("*/");
-					sb.newline().append("static public class ").append(defaultClassName).append(" extends ").append(
-							extendsClassName).append(" {");
-					sb.begin();
-					sb.newline();
-					sb.newline().append("/**");
-					sb.newline().append("	@generated");
-					sb.newline().append("*/");
-					sb.newline().append("public ").append(defaultClassName).append("(");
-					generateConstructorParameter(sb);
-					sb.decrementLength();
-					sb.append(") {");
-					sb.newline().append("	super(");
-					generateConstrustorArguments(sb);
-					sb.decrementLength();
-					sb.append(");");
-					sb.newline().append("}");
-					sb.end();
-					sb.newline();
-					sb.newline().append("}");
-					sb.newline();
-				}
-			}
-			if (kind.equals("in-field")) {
-				generateParts(sb, type, kind, imports, context);
-
-				Item display = getOwnerItem();
-				Item field = display.getPartParent();
-				Item attribute = CadseG_WLWCListener.tryToRecreateAttributeLink(field);
-				if (attribute == null) {
-					// erreur
-					sb.append("/* ERROR not found attribut*/");
-					// TODO register error in workspace error manager( create)
-					return;
-				}
-
-				generateParts(sb, type, "field-init", imports, context);
-
-				boolean extendsClass = DisplayManager.isExtendsUIAttribute(display);
-				if (defaultQualifiedClassName != null) {
-					imports.add(defaultQualifiedClassName);
-				}
-				imports.add("fr.imag.adele.cadse.core.ui.EPosLabel");
-
-				if (extendsClass) {
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(field.getName(), true, false,
-							POSTFIXE_UI);
-				}
-
-				sb.newline().append("return ");
-				sb.append("new ").append(defaultClassName).append("(");
-				generateCallArguments(sb, imports);
-
-				sb.decrementLength();
-				sb.append(");");
-			}
-
-		}
-
-		/**
-		 * Generate call arguments.
-		 * 
-		 * @param sb
-		 *            the sb
-		 * @param imports
-		 *            the imports
-		 */
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
-
-			Item display = getOwnerItem();
-			Item field = display.getPartParent();
-			Item attribute = CadseG_WLWCListener.tryToRecreateAttributeLink(field);
-			if (attribute == null) {
-				// erreur
-				sb.append("/* ERROR not found attribut*/");
-				// TODO register error in workspace error manager( create)
-				return;
-			}
-			EPosLabel poslabel = FieldManager.getPositionAttribute(field);
-			if (poslabel == null || EPosLabel.defaultpos == poslabel) {
-				poslabel = getDefaultPosLabel();
-			}
-			String label = FieldManager.getLabelAttribute(field);
-			if (label == null) {
-				label = "???";
-			}
-			sb.append(GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, attribute, null, null,
-					imports));
-			if (AttributeManager.isLinkAttribute(attribute)) {
-				sb.append(".getName()");
-			}
-			sb.append(",");
-			sb.begin();
-			sb.newline().appendStringValue_vir(label);
-			sb.newline().append("EPosLabel.").append(poslabel.toString()).append(',');
-
-			Item ic = getItemIC(display);
-			Item mc = getItemMC(display);
-			if (mc != null) {
-				sb.append("mc, ");
-			} else {
-				sb.append("new MC_AttributesItem(), ");
-				imports.add("fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem");
-			}
-			if (ic != null) {
-				sb.append("ic,");
-			} else {
-				sb.append("null,");
-			}
-			sb.end();
-		}
-
-		/**
-		 * Generate construstor arguments.
-		 * 
-		 * @param sb
-		 *            the sb
-		 */
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("key, label, poslabel, mc, ic");
-		}
-
-		/**
-		 * Generate constructor parameter.
-		 * 
-		 * @param sb
-		 *            the sb
-		 */
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append("String key, String label, EPosLabel poslabel, "
-					+ "IModelController mc, IInteractionController ic,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion(org.eclipse.pde.core.plugin.IPluginBase,
-		 *      org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
-		 */
-		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
 		}
 	}
 
@@ -421,16 +182,6 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new DisplayContent(id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getClassName(fr.imag.adele.cadse.core.Item)
 	 */
 	public String getClassName(Item uc) {
@@ -454,15 +205,6 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	public boolean mustBeExtended() {
 		return true;
 	}
-
-	// /** The Constant EXTENDS_IC_ATTRIBUTE. */
-	// public static final String EXTENDS_IC_ATTRIBUTE = "extendsIC";
-
-	// /** The Constant EXTENDS_MC_ATTRIBUTE. */
-	// public static final String EXTENDS_MC_ATTRIBUTE = "extendsMC";
-
-	// /** The Constant EXTENDS_UI_ATTRIBUTE. */
-	// public static final String EXTENDS_UI_ATTRIBUTE = "extendsUI";
 
 	/**
 	 * Checks if is extends ic attribute.
@@ -581,62 +323,10 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 		} catch (Throwable t) {
 
 		}
-	}
-//
-//	/**
-//	 * Creates the field extends ic.
-//	 * 
-//	 * @return the d check box ui
-//	 * 
-//	 * @not generated
-//	 */
-//	static public DCheckBoxUI createFieldExtendsIC() {
-//		MC_StringToBoolean mc = new MC_StringToBoolean();
-//		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_IC, "extends Interaction Controller", EPosLabel.none,
-//				mc, null);
-//	}
-//
-//	/**
-//	 * Creates the field extends mc.
-//	 * 
-//	 * @return the d check box ui
-//	 * 
-//	 * @not generated
-//	 */
-//	static public DCheckBoxUI createFieldExtendsMC() {
-//		MC_StringToBoolean mc = new MC_StringToBoolean();
-//		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_MC, "extends Model Controller", EPosLabel.none, mc, null);
-//	}
-//
-//	/**
-//	 * Creates the field extends ui.
-//	 * 
-//	 * @return the d check box ui
-//	 * 
-//	 * @not generated
-//	 */
-//	static public DCheckBoxUI createFieldExtendsUI() {
-//		MC_StringToBoolean mc = new MC_StringToBoolean();
-//		return new DCheckBoxUI(CadseGCST.DISPLAY_at_EXTENDS_UI, "extends UI", EPosLabel.none, mc, null);
-//	}
-//
-//	/**
-//	 * Creates the field editable.
-//	 * 
-//	 * @return the d check box ui
-//	 * 
-//	 * @not generated
-//	 */
-//	static public DCheckBoxUI createFieldEditable() {
-//		MC_StringToBoolean mc = new MC_StringToBoolean();
-//		return new DCheckBoxUI(CadseGCST.FIELD_at_EDITABLE, "editable", EPosLabel.none, mc, null);
-//	}
-
-	
+	}	
 
 	@Override
 	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {
 		return ItemFactory.SINGLETON.newForCommitItem(wl, it, item);
 	}
-
 }

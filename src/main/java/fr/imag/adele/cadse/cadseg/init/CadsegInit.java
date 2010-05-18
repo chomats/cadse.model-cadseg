@@ -5,19 +5,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
-import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
-import fr.imag.adele.cadse.cadseg.managers.CadseG_WorkspaceListener;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeSpaceKeyType;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageSpaceKeyType;
-import fr.imag.adele.cadse.cadseg.menu.DefaultMenuContributor;
-import fr.imag.adele.cadse.cadseg.menu.TeamWorkMenuActionContributor;
-import fr.imag.adele.cadse.cadseg.menu.ViewActionContributor;
 import fr.imag.adele.cadse.cadseg.migration.MigrationInit;
-import fr.imag.adele.cadse.cadseg.operation.WorkspaceActionContributor;
-import fr.imag.adele.cadse.cadseg.pages.PageInit;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.InitAction;
@@ -75,11 +67,7 @@ public class CadsegInit implements InitAction {
 		CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM.setFlag(Item.TRANSIENT, true);
 		CadseGCST.ITEM_TYPE_lt_LINK_TYPE.setFlag(Item.TRANSIENT, true);
 		
-		// CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
-		new CadseG_WLWCListener();
-		new CadseG_WorkspaceListener();
-		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
-		CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
+		
 
 		CadseCore.theItem.setIsAbstract(true);
 		CadseGCST.CADSE.setIsAbstract(true);
@@ -211,16 +199,7 @@ public class CadsegInit implements InitAction {
 		});
 
 		CadseGCST.VIEW.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
-
-		try {
-			PageInit.init();
-			CadseGCST.ITEM.addActionContributeur(new DefaultMenuContributor());
-			CadseGCST.VIEW_ITEM_TYPE.addActionContributeur(new ViewActionContributor());
-		}
-		catch (CadseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		MigrationInit.init();
 
 		// *****/
@@ -248,5 +227,22 @@ public class CadsegInit implements InitAction {
 		};
 		CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
 	}
+	
+//	public static void initEclipsePart() {
+//		try {
+//			PageInit.init();
+//			CadseGCST.ITEM.addActionContributeur(new DefaultMenuContributor());
+//			
+	//CadseGCST.VIEW_ITEM_TYPE.addActionContributeur(new ViewActionContributor());
+//	new CadseG_WLWCListener();
+//	new CadseG_WorkspaceListener();
+//	CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
+//	CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
+//		}
+//		catch (CadseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 }

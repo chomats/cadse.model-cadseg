@@ -19,17 +19,11 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
-import java.util.Set;
-import java.util.UUID;
-
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class IC_StringListForListManager.
@@ -37,72 +31,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class IC_StringListForListManager extends IC_AbstractForListManager {
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends IC_AbstractForListManager.IC_AbstractForListContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			super.generateCallArguments(sb, imports, object);
-			Item uc = getOwnerItem();
-			sb.append_exp_vir(uc, CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, false);
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			super.generateConstructorParameter(sb);
-			sb.append(" boolean allowDuplicate,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			super.generateConstrustorArguments(sb);
-			sb.append(" allowDuplicate,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager.MyContentItem#computeImportsPackage(java.util.Set)
-		 */
-		@Override
-		public void computeImportsPackage(Set<String> imports) {
-			super.computeImportsPackage(imports);
-			imports.add("fede.workspace.model.manager.properties");
-		}
-	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME			= "fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList";
@@ -184,52 +112,6 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 	@Override
 	public boolean mustBeExtended() {
 		return false;
-	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.IC_DEFAULT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a text field",
-//				"Create a text field", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"),
-//				FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "select message"), FieldsCore.createCheckBox(
-//						ALLOW_DUPLICATE_ATTRIBUTE, "allow duplicate value")));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		RunningModelController getandsetcontroller = new MC_AttributesItem();
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a text field",
-//				"Create a text field", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE, "select title"),
-//				FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "select message"), FieldsCore.createCheckBox(
-//						ALLOW_DUPLICATE_ATTRIBUTE, "allow duplicate value")));
-//	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
 	}
 
 	/*

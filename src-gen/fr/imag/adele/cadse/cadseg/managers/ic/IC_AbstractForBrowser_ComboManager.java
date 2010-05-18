@@ -19,19 +19,12 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
-import java.util.Set;
-import java.util.UUID;
-
-import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 // TODO message
 /**
@@ -40,57 +33,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class IC_AbstractForBrowser_ComboManager extends InteractionControllerManager implements IItemManager {
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends InteractionControllerManager.InteractionControllerContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, true, "??", sb);
-			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, true, "??", sb);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append(" String title, String message,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append(" title, message,");
-		}
-	}
 
 	/** The Constant SELECT_TITLE_ATTRIBUTE. */
 	public static final String	SELECT_TITLE_ATTRIBUTE		= "select-title";
@@ -165,48 +107,6 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.IC_DEFAULT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "IC_AbstractForBrowser_ComboManager",
-//				"IC_AbstractForBrowser_ComboManager", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE,
-//						"dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "IC_AbstractForBrowser_ComboManager",
-//				"IC_AbstractForBrowser_ComboManager", 3, FieldsCore.createTextField(SELECT_TITLE_ATTRIBUTE,
-//						"dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE, "dialog message")));
-//	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
 	 *      fr.imag.adele.cadse.core.LinkType,
 	 *      fr.imag.adele.cadse.core.ItemType)
@@ -224,9 +124,5 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 			return "It's not a browser field or a combo field";
 		}
 		return null;
-
 	}
-
-	
-
 }

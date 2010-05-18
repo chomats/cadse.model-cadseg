@@ -19,15 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import java.util.Set;
-import java.util.UUID;
-
-import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class DTreeManager.
@@ -35,48 +29,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class DTreeManager extends DisplayManager implements IItemManager {
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	public final class MyContentItem extends DisplayManager.DisplayContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#computeImportsPackage(java.util.Set)
-		 */
-		@Override
-		public void computeImportsPackage(Set<String> imports) {
-			imports.add("fr.imag.adele.cadse.core");
-			imports.add("fede.workspace.model.manager.properties");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append("String key, String label, EPosLabel poslabel, "
-					+ "IModelController mc, InteractifTreeController ic");
-		}
-
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -86,16 +38,6 @@ public class DTreeManager extends DisplayManager implements IItemManager {
 	@Override
 	public boolean hasContent(Item item) {
 		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */

@@ -22,39 +22,25 @@ package fr.imag.adele.cadse.cadseg.managers.build;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
-import org.eclipse.pde.core.plugin.IPluginBase;
-import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
-
-import fede.workspace.eclipse.composition.java.IPDEContributor;
-import fede.workspace.eclipse.content.SubFileContentManager;
-import fede.workspace.eclipse.java.JavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Menu;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.util.Convert;
-import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
  * The Class ComposerManager.
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ComposerManager extends DefaultItemManager implements IExtendClassManager {
+public class ComposerManager extends DefaultItemManager {
 
 	
 	/**
@@ -171,234 +157,7 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	}
 
 
-	/**
-	 * The Class ContentManager.
-	 */
-	public class ComposerContent extends SubFileContentManager implements IGenerateContent, IPDEContributor {
-
 	
-		/**
-		 * Instantiates a new content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		public ComposerContent(UUID id) throws CadseException {
-			super(id);
-		}	
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.cadse.core.var.ContextVariable)
-		 */
-		public void generate(ContextVariable cxt) {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#getGenerateModel()
-		 */
-		public GenerateModel getGenerateModel() {
-			return null;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#generate(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.lang.String, java.lang.String, java.util.Set,
-		 *      fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
-			String defaultQualifiedClassName = getDefaultClassName();
-			String defaultClassName = JavaIdentifier.getlastclassName(defaultQualifiedClassName);
-
-			if ("inner-class".equals(kind)) {
-				imports.add("fr.imag.adele.cadse.core.Item");
-				imports.add("fr.imag.adele.cadse.core.CadseException");
-				imports.add("fr.imag.adele.cadse.core.build.IExporterTarget");
-				imports.add(defaultQualifiedClassName);
-
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
-				if (extendsClass) {
-
-					String extendsClassName = defaultClassName;
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(getOwnerItem().getName(), true, false,
-							"Composer");
-					sb.newline();
-					sb.newline().append("/**");
-					sb.newline().append("	@generated");
-					sb.newline().append("*/");
-					sb.newline().append("public class ").append(defaultClassName).append(" extends ").append(
-							extendsClassName).append(" {");
-					sb.begin();
-					sb.newline();
-					sb.newline().append("/**");
-					sb.newline().append("	@generated");
-					sb.newline().append("*/");
-					sb.newline().append("public ").append(defaultClassName).append(" (");
-					generateConstructorParameter(sb);
-					sb.decrementLength();
-					sb.append(") {");
-					sb.newline().append("	super(");
-					generateConstrustorArguments(sb);
-					sb.decrementLength();
-					sb.append(");");
-					sb.newline().append("}");
-					if (generateGetTargetMethod()) {
-
-						imports.add("fr.imag.adele.cadse.core.build.IExporterTarget");
-
-						sb.newline();
-						sb.newline().append("@Override");
-						sb.newline().append("protected IExporterTarget getTarget() {");
-						sb.newline().append("	// TODO Auto-generated method stub");
-						sb.newline().append("	return null;");
-						sb.newline().append("}");
-
-					}
-
-					sb.newline();
-					sb.newline().append("@Override");
-					sb
-							.newline()
-							.append(
-									"protected void postCompose("
-											+ "IBuildingContext context, List<IExportedContent> listExportedContent, IExporterTarget target) {");
-					if (callsuperPostCompose()) {
-						sb.newline().append("	super.postCompose(context, listExportedContent, target);");
-					}
-					sb.newline().append("	// TODO Auto-generated method stub");
-					sb.newline().append("}");
-
-					generateOtherMethods(sb, imports, context);
-
-					sb.end();
-
-					sb.newline().append("}");
-
-					imports.add("java.util.List");
-					imports.add("fr.imag.adele.cadse.core.build.Composer");
-					imports.add("fr.imag.adele.cadse.core.build.IBuildingContext");
-					imports.add("fr.imag.adele.cadse.core.build.IExportedContent");
-
-				}
-			}
-
-			if ("composers".equals(kind)) {
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
-
-				if (extendsClass) {
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(getOwnerItem().getName(), true, false,
-							"Composer");
-				}
-
-				sb.newline().append("new ").append(defaultClassName).append(" (cm,");
-				generateCallArguments(sb, imports, context);
-				sb.decrementLength();
-				sb.append("),");
-			}
-
-		}
-
-		/**
-		 * Generate other methods in the composer class when the composer
-		 * extends the super class.
-		 * 
-		 * @param sb
-		 *            A String builder to put generated code.
-		 * @param imports
-		 *            The list of the import package
-		 * @param context
-		 *            A context.
-		 */
-		protected void generateOtherMethods(GenStringBuilder sb, Set<String> imports, GenContext context) {
-
-		}
-
-		/**
-		 * Generate the arguments to call the extended constructor of the
-		 * composer when the composer class extends the super class.
-		 * 
-		 * @param sb
-		 *            A String builder to put generated code.
-		 * @param imports
-		 *            The list of the import package
-		 * @param context
-		 *            A context.
-		 */
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
-			List<String> types = getTypesAttribute(getOwnerItem());
-			if (types != null) {
-				for (String exporterType : types) {
-					sb.append(' ').appendStringValue(exporterType).append(',');
-				}
-			}
-		}
-
-		/**
-		 * Generate the arguments to call the super constructor of the composer
-		 * when the composer class extends the super class.
-		 * 
-		 * @param sb
-		 *            A String builder to put generated code.
-		 */
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.newline().append("contentItem, exporterTypes,");
-		}
-
-		/**
-		 * Generate the parameters of the extended constructor of the composer
-		 * when the composer class extends the super class.
-		 * 
-		 * @param sb
-		 *            A String builder to put generated code.
-		 */
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append("ContentItem contentItem, String... exporterTypes,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage(java.util.Set)
-		 */
-		public void computeExportsPackage(Set<String> exports) {
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage(java.util.Set)
-		 */
-		public void computeImportsPackage(Set<String> imports) {
-			String className = getDefaultClassName();
-			String packageName = JavaIdentifier.packageName(className);
-			imports.add(packageName);
-			imports.add("fr.imag.adele.cadse.core");
-			if (mustBeExtended()) {
-				imports.add("org.eclipse.core.resources");
-				imports.add("fede.workspace.eclipse.composition");
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion(org.eclipse.pde.core.plugin.IPluginBase,
-		 *      org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
-		 */
-		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
-		}
-
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -407,21 +166,6 @@ public class ComposerManager extends DefaultItemManager implements IExtendClassM
 	@Override
 	public String getDisplayName(Item item) {
 		return item.getName();
-	}
-
-	/**
-		@generated
-	*/
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem ) throws CadseException {
-		ComposerContent cm = new ComposerContent(
-			id
-			);
-		owerItem.setComposers(
-		);
-		owerItem.setExporters(
-		);
-		return cm;
 	}
 
 

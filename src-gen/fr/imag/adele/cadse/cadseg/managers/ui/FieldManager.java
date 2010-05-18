@@ -19,25 +19,15 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import java.util.Set;
-import java.util.UUID;
-
-import fede.workspace.eclipse.content.SubFileContentManager;
-import fede.workspace.eclipse.java.JavaIdentifier;
-import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
-import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
-import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
  * The Class FieldManager.
@@ -76,25 +66,6 @@ public class FieldManager extends DefaultItemManager {
 		}
 	}
 
-	/**
-	 * The Class FieldContentManager.
-	 */
-	private final class FieldContentManager extends SubFileContentManager {
-
-		/**
-		 * Instantiates a new field content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		private FieldContentManager(UUID id) {
-			super(id);
-		}
-
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -104,26 +75,6 @@ public class FieldManager extends DefaultItemManager {
 	public String canRenameItem(Item item) {
 		return "Cannot rename a build model";
 	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#computeRenameAnnotationChange(org.eclipse.ltk.core.refactoring.CompositeChange,
-	// * fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
-	// * fr.imag.adele.cadse.core.var.ContextVariable,
-	// * fr.imag.adele.cadse.core.var.ContextVariable)
-	// */
-	// @Override
-	// public RefactoringStatus computeRenameAnnotationChange(CompositeChange
-	// change, Item itemAnnotation,
-	// Item itemAnnoted, ContextVariable newCxt, ContextVariable oldCxt) {
-	// if (itemAnnoted.isInstanceOf(CadseGCST.ATTRIBUTE)) {
-	// return itemAnnotation.computeRenameChange(change,
-	// itemAnnoted.getName(), newCxt, oldCxt);
-	// }
-	// return null;
-	// }
 
 	/**
 	 * Gets the attribute.
@@ -377,16 +328,6 @@ public class FieldManager extends DefaultItemManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) {
-		return new FieldContentManager(id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see fede.workspace.model.manager.DefaultItemManager#getDisplayName(fr.imag.adele.cadse.core.Item)
 	 */
 	@Override
@@ -405,90 +346,4 @@ public class FieldManager extends DefaultItemManager {
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
 		return "Only by program";
 	}
-
-	/**
-	 * Gets the field generate info.
-	 * 
-	 * @param cxt
-	 *            the cxt
-	 * @param field
-	 *            the field
-	 * @param superField
-	 * @param imports
-	 *            the imports
-	 * 
-	 * @return the field generate info
-	 */
-	public static FieldGenerateInfo getFieldGenerateInfo(ContextVariable cxt, Item field, Item superField,
-			Set<String> imports) {
-		FieldGenerateInfo ret = new FieldGenerateInfo();
-		ret.field = field;
-//		ret.display = getDisplay(field);
-//		if (ret.display == null) {
-//			return null;
-//		}
-		ret.mc = ret.field != null ? DisplayManager.getItemMC(ret.field) : null;
-		ret.ic = ret.field != null ? DisplayManager.getItemIC(ret.field) : null;
-		computeUITypeName(cxt, ret, imports);
-		ret.methodName = "createField" + JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, null);
-		ret.fieldName = "field" + JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, null);
-		ret.superField = superField;
-		return ret;
-	}
-
-	/**
-	 * Compute ui type name.
-	 * 
-	 * @param cxt
-	 *            the cxt
-	 * @param info
-	 *            the info
-	 * @param imports
-	 *            the imports
-	 */
-	private static void computeUITypeName(ContextVariable cxt, FieldGenerateInfo info, Set<String> imports) {
-		info.extendsUI = DisplayManager.isExtendsUIAttribute(info.field);
-		if (info.extendsUI) {
-			Item page = info.field.getPartParent();
-			JavaFileContentManager contentManager = (JavaFileContentManager) page.getContentItem();
-
-			String cn = JavaIdentifier.javaIdentifierFromString(info.field.getName(), true, false,
-					DisplayManager.POSTFIXE_UI);
-			imports.add(contentManager.getPackageName(cxt) + "." + contentManager.getClassName(cxt) + "." + cn);
-			info.uiTypeName = cn;
-		} else {
-			DisplayManager m = (DisplayManager) info.field.getType().getItemManager();
-			String defaultQualifiedClassName = m.getDefaultClassName();
-			imports.add(defaultQualifiedClassName);
-			info.uiTypeName = JavaIdentifier.getlastclassName(defaultQualifiedClassName);
-		}
-	}
-
-	/**
-	 * Generate method.
-	 * 
-	 * @param info
-	 *            the info
-	 * @param sb
-	 *            the sb
-	 * @param imports
-	 *            the imports
-	 */
-	public static void generateMethod(FieldGenerateInfo info, GenStringBuilder sb, Set<String> imports) {
-		sb.newline();
-		sb.newline().appendGeneratedTag();
-		sb.newline().append("public ").append(info.uiTypeName).append(" ");
-		sb.append(info.methodName).append("() {");
-		sb.begin();
-
-		if (info.field == null) {
-			sb.newline().append("return null;");
-		} else {
-			ContentItemImpl.generate(info.field, sb, "field", "in-field", imports, null);
-		}
-		sb.end();
-		sb.newline().append("}");
-		imports.add("fr.imag.adele.cadse.core.ui.UIField");
-	}
-
 }

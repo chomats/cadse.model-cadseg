@@ -19,14 +19,12 @@
 
 package fr.imag.adele.cadse.cadseg.managers.actions;
 
-import org.eclipse.core.runtime.Platform;
-
-import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.CadseCore;
 
 /**
  * The Class MenuAbstractManager.
@@ -63,25 +61,7 @@ public class MenuAbstractManager extends DefaultItemManager {
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/**
-	 * Gets the icon path.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * 
-	 * @return the icon path
-	 */
-	public static String getIconPath(Item manager) {
-		String pStr = getIconAttribute(manager);
-		if (pStr == null || pStr.length() == 0)
-			return null;
-		Item cadseDefinition = manager.getPartParent(CadseGCST.CADSE_DEFINITION);
-		return ItemTypeManager.getIconURLFromCadse(pStr, cadseDefinition );
-	}
-	
-	
+	}	
 
 	/**
 	 * Gets the path attribute.
@@ -182,6 +162,6 @@ public class MenuAbstractManager extends DefaultItemManager {
 	@Override
 	public String canCreateMeItem(Item itemParent, LinkType lt,
 			ItemType destType) {
-		return Platform.inDevelopmentMode()? null: "in dev";
+		return CadseCore.inDevelopmentMode()? null: "in dev";
 	}
 }
