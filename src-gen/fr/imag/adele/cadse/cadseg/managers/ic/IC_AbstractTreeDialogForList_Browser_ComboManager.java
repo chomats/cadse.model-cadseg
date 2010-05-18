@@ -19,18 +19,11 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
-import java.util.Set;
-import java.util.UUID;
-
-import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class IC_AbstractTreeDialogForList_Browser_ComboManager.
@@ -39,72 +32,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  */
 public class IC_AbstractTreeDialogForList_Browser_ComboManager extends InteractionControllerManager implements
 		IItemManager {
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends InteractionControllerManager.InteractionControllerContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getOwnerItem(), 
-					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_, true, "???", sb);
-			DisplayManager.addAttributeInCall(getOwnerItem(), 
-					CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_, true, "???", sb);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append(" String title, String message,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append(" title, message,");
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#computeImportsPackage(java.util.Set)
-		 */
-		@Override
-		public void computeImportsPackage(Set<String> imports) {
-			super.computeImportsPackage(imports);
-			imports.add("fede.workspace.model.manager.properties");
-		}
-
-	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_AbstractTreeDialogForList_Browser_Combo";
@@ -170,20 +97,6 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	public boolean mustBeExtended() {
 		return true;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
-	
-	
-
 	
 	/*
 	 * (non-Javadoc)
@@ -206,7 +119,4 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 
 		return "use this controller for list or browser";
 	}
-
-	
-
 }

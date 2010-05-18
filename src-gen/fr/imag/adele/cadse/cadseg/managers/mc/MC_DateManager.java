@@ -18,10 +18,7 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import java.util.Set;
-
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
 
@@ -101,11 +98,6 @@ public class MC_DateManager extends ModelControllerManager {
 	@Override
 	public String getDefaultClassName() {
 		return DEFAUL_CLASS_NAME;
-	}
-
-	@Override
-	protected void generateCallArguments(Item item, GenStringBuilder sb, Set<String> imports, Object object) {
-		sb.append(getPatternAttribute(item)).append(", ");
 	}
 
 }

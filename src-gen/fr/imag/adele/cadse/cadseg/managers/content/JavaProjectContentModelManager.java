@@ -21,17 +21,12 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class JavaProjectContentModelManager.
@@ -39,84 +34,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class JavaProjectContentModelManager extends ProjectContentModelManager {
-
-	/**
-	 * The Class ContentManager.
-	 */
-	public class MyContentItem extends ProjectContentModelManager.MyContentItem {
-
-		/**
-		 * Instantiates a new content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		public MyContentItem(UUID id) {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			super.generateConstructorParameter(sb);
-			sb.append("Variable sourceFolder,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			super.generateConstrustorArguments(sb);
-			sb.append("sourceFolder,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, GenContext context) {
-			super.generateCallArguments(sb, imports, context);
-			if (getOwnerItem().getAttributeWithDefaultValue(CadseGCST.JAVA_PROJECT_CONTENT_MODEL_at_HAS_SOURCE_FOLDER_,
-					true)) {
-				// la classe dans lequels on ecrit ce code peut s'appeler
-				// JavaProjectManager.
-				// TODO: savoir si cela est le cas et ecrire ce code
-				// sinon ecrire l'ancien code (svn : 10839)
-				sb.append("fede.workspace.eclipse.java.JavaProjectManager.DEFAULT_SOURCES_FOLDER_NAME,");
-				// imports.add("fede.workspace.eclipse.java.JavaProjectManager");
-			} else {
-				sb.append("NullVariable.INSTANCE,");
-				imports.add("fr.imag.adele.cadse.core.impl.var.NullVariable");
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ProjectContentModelManager.ContentManager#computeImportsPackage(java.util.Set)
-		 */
-		@Override
-		public void computeImportsPackage(Set<String> imports) {
-			super.computeImportsPackage(imports);
-			imports.add("org.eclipse.ui.model");
-			imports.add("fede.workspace.eclipse.java");
-			imports.add("fr.imag.adele.cadse.core.var");
-
-		}
-
-	}
 
 	/**
 	 * Instantiates a new java project content model manager.
@@ -264,16 +181,6 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see model.workspace.workspace.managers.content.ProjectContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public MyContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see model.workspace.workspace.managers.content.ProjectContentModelManager#mustBeExtended()
 	 */
 	@Override
@@ -284,11 +191,6 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 	@Override
 	public boolean hasParentContent() {
 		return false;
-	}
-
-	@Override
-	public Class<? extends ContentItem> getRuntimeClassName() {
-		return fede.workspace.eclipse.java.manager.JavaProjectContentManager.class;
 	}
 
 }

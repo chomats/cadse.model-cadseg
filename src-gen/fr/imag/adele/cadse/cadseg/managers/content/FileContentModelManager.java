@@ -19,14 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.content;
 
-import java.util.UUID;
-
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.StringAttributeType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class FileContentModelManager.
@@ -34,35 +29,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class FileContentModelManager extends ResourceContentModelManager {
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		public MyContentItem(UUID id) {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
-		 */
-		@Override
-		protected StringAttributeType[] getResourceKindsName() {
-			return new StringAttributeType[] { CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_ };
-		}
-
-	}
 
 	/**
 	 * Instantiates a new file content model manager.
@@ -133,26 +99,11 @@ public class FileContentModelManager extends ResourceContentModelManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
 	 */
 	@Override
 	public boolean mustBeExtended() {
 		return false;
-	}
-
-	@Override
-	public Class<? extends ContentItem> getRuntimeClassName() {
-		return fede.workspace.eclipse.content.FileContentManager.class;
 	}
 
 	@Override

@@ -9,7 +9,6 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IItemFactory;
-import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -197,8 +196,7 @@ public class ContentItemManager extends DefaultItemManager implements IItemFacto
 		
 		ItemType it = ownerItem.getType();
 		
-		final IItemManager itemManager = it.getItemManager();
-		final IContentItemFactory contentItemFactory = itemManager.getContentItemFactory();
+		final IContentItemFactory contentItemFactory = it.getContentFactory();
 		if (contentItemFactory == null) {
 			return ContentItem.NO_CONTENT;
 		}

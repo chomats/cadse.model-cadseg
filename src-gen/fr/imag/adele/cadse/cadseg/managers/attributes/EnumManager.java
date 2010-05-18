@@ -20,19 +20,11 @@
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-
-import org.eclipse.jdt.core.IType;
 
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.contents.attributes.EnumCIF;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenStringBuilder;
-import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -40,11 +32,8 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.TypeDefinition;
-import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.attribute.ListAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
-import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
@@ -135,11 +124,6 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	 */
 	static public Item getEnumTypeAll(Item _enum) {
 		return _enum.getOutgoingItem(CadseGCST.ENUM_lt_ENUM_TYPE, false);
-	}
-
-	@Override
-	public IContentItemFactory getContentItemFactory() {
-		return new EnumCIF(this);
 	}
 
 	/**
@@ -259,86 +243,11 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
-	 */
-	@Override
-	public List<Item> validate(Item item, ProblemReporter reporter) {
-		super.validate(item, reporter);
-		Item itemenumtype = getEnumType(item);
-		if (itemenumtype == null || !itemenumtype.isResolved()) {
-			return Collections.emptyList();
-		}
-		List<Item> ret = new ArrayList<Item>();
-		ret.add(itemenumtype);
-		String defaultValue = getDefaultValueAttribute(item);
-		if (defaultValue != null && defaultValue.length() == 0) {
-			defaultValue = null;
-		}
-		if (defaultValue == null) {
-			reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Pas de valeur par defaut pour {0}", item.getName());
-			return ret;
-		}
-
-		IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, itemenumtype);
-		if (type != null && type.exists()) {
-			List<String> values = EnumTypeManager.getEnumTypeValues(itemenumtype);
-			if (values == null || !values.contains(defaultValue)) {
-				reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Mauvaise valeur {0} pour {0}", defaultValue, item
-						.getName());
-				return ret;
-			}
-		}
-		return ret;
-	}
-
 	@Override
 	public ItemType getCadseRootType() {
 		return CadseGCST.ENUM;
 	}
 
-	@Override
-	public Object getCadseRootAttributeValue(ContextVariable cxt, IAttributeType<?> attType, Item attribute) {
-		if (attType == CadseGCST.ENUM_at_ENUM_CLAZZ_) {
-			Item enumType = EnumManager.getEnumType(attribute);
-			IType enumQualifiedClass = null;
-			if (enumType != null) {
-				enumQualifiedClass = EnumTypeManager.getEnumQualifiedClass(cxt, enumType);
-			}
-			if (enumQualifiedClass != null) {
-				return enumQualifiedClass.getFullyQualifiedName();
-			}
-		}
-		return super.getCadseRootAttributeValue(cxt, attType, attribute);
-
-	}
-
-	@Override
-	public void generateAttributeRefCst(ContextVariable cxt, GenStringBuilder sb, Item absItemType, Item attribute,
-			Set<String> imports) {
-
-		Item enumType = EnumManager.getEnumType(attribute);
-		if (enumType != null) {
-			IType enumTypeClass = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumType);
-			if (enumTypeClass != null) {
-				if (AttributeManager.isIsListAttribute(attribute)) {
-					appendCST(cxt, sb, absItemType, attribute, imports, ListAttributeType.class, enumTypeClass);
-				} else {
-					appendCST(cxt, sb, absItemType, attribute, imports, EnumAttributeType.class, enumTypeClass);
-				}
-				return;
-			}
-		}
-		if (AttributeManager.isIsListAttribute(attribute)) {
-			appendCST(cxt, sb, absItemType, attribute, imports, ListAttributeType.class);
-		} else {
-			appendCST(cxt, sb, absItemType, attribute, imports, EnumAttributeType.class);
-		}
-
-	}
 
 	@Override
 	public Class<?> getAttributeDefinitionTypeJava() {
