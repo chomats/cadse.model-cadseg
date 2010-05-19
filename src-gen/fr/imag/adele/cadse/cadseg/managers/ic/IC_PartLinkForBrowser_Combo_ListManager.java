@@ -28,13 +28,14 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Validator;
 
 /**
  * The Class IC_PartLinkForBrowser_Combo_ListManager.
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_Combo_ListManager {
+public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_Combo_ListManager implements Validator {
 
 
 	/** The Constant DEFAUL_CLASS_NAME. */
@@ -173,8 +174,6 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 	 */
 	@Override
 	public List<Item> validate(Item item, ProblemReporter reporter) {
-		List<Item> ret = super.validate(item, reporter);
-
 		Item ic = item;
 
 		Item a = FieldManager.getAttribute(ic.getPartParent().getPartParent());
@@ -185,6 +184,11 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 		if (!(incomingLinkType.length == 1 && incomingLinkType[0] != a)) {
 			reporter.error(item, 0, "Cannot find incoming part from {0}.", a.getName());
 		}
-		return ret;
+		return null;
+	}
+	
+	@Override
+	public Class<Validator> getClassAdapt() {
+		return Validator.class;
 	}
 }
