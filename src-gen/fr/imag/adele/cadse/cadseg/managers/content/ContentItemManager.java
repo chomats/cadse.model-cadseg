@@ -7,7 +7,6 @@ import java.util.List;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
-import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IItemFactory;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -16,6 +15,7 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
+import fr.imag.adele.cadse.core.impl.internal.TransactionItemsProcess;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 
 
@@ -195,18 +195,9 @@ public class ContentItemManager extends DefaultItemManager implements IItemFacto
 		ItemDelta ownerItem = itemOp.getOutgoingItem(CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM, false);
 		
 		ItemType it = ownerItem.getType();
-		
-		final IContentItemFactory contentItemFactory = it.getContentFactory();
-		if (contentItemFactory == null) {
-			return ContentItem.NO_CONTENT;
-		}
+
 		ContentItem ret = null;
-		try {
-			ret = contentItemFactory.createContentItem(itemOp.getId(), null);
-		} catch (CadseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ret = TransactionItemsProcess.createContentItem(it, itemOp.getId(), ownerItem);
 		if (ret == null) {
 			ret = ContentItem.INVALID_CONTENT;
 		} else if (ret != ContentItem.NO_CONTENT && ret != ContentItem.INVALID_CONTENT) {
