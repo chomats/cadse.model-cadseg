@@ -406,10 +406,7 @@
 			id="6098d610-3df5-4de0-a741-a35483d29a82" cst-name="CADSE_DEFINITION_at_VERSION_CADSE_"
 			min="0" type="string" value="" key="version-cadse"
 			type-name="b510d24e-a9d5-4a3a-b851-16c209276867" />
-		<action label="Export plugin"
-			icon="platform:/plugin/Model.Workspace.CadseG/icons/bundle.gif" name="export bundle"
-			forNb="-1" class-action="fr.imag.adele.cadse.cadseg.menu.ExportBundleMenuAction"
-			path="CONTEXT2" />
+		
 	</item-type>
 	<item-type hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
@@ -3148,8 +3145,6 @@
 			isMapping="false" isRequire="false" isGroup="false" isComposition="false"
 			isAnnotation="false" isAggregation="false" max="-1" min="0" name="members"
 			type="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea" id="04a3372d-9010-43c4-adf6-81435f092efc" />
-		<action-contributor
-			class="fr.imag.adele.cadse.cadseg.menu.group.GroupActionActionContributor" />
 	</ext-item-type>
 	<ext-item-type package-name="actions" name="ActionExtItemType"
 		qualified-name="actions.ActionExtItemType" cst-name="ACTION_EXT_ITEM_TYPE"
