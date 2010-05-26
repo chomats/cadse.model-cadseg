@@ -195,7 +195,7 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	public static final String getDefaultValueAttribute(Item attribute) {
 		Object value = attribute.getAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 		if (value == null) {
-			return "";
+			return null;
 		}
 
 		try {
