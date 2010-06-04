@@ -40,10 +40,10 @@ public class CannotBeUndefinedValidator extends AbstractUIRunningValidator {
 						_uiPlatform.setMessageError("Hidden attribute "+att.getName()+": "+error.getFormatedMessage());
 						return true;
 					}
-					_uiPlatform.setMessage("Cached attribute "+att.getName()+": "+error.getFormatedMessage(), error.getType());
+					_uiPlatform.setMessage("Hidden attribute "+att.getName()+": "+error.getFormatedMessage(), error.getType());
 				}
 			}
 		}
-		return super.validValue(field, value);
+		return false;
 	}
 }
