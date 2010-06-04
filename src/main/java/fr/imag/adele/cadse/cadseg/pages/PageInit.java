@@ -31,6 +31,7 @@ import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
 import fr.imag.adele.cadse.cadseg.validators.LinkTypeIsGoupListener;
 import fr.imag.adele.cadse.cadseg.validators.MenuValidator;
 import fr.imag.adele.cadse.cadseg.validators.NotEmptyValidator;
+import fr.imag.adele.cadse.cadseg.validators.NotEmptyValidatorGeneric;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -879,6 +880,10 @@ public class PageInit {
 		{
 			JavaClassValidator v = new JavaClassValidator(null);
 			v.setClazz(CannotBeUndefinedValidator.class);
+			CadseGCST.ITEM.addValidators(v);
+			
+			v = new JavaClassValidator(null);
+			v.setClazz(NotEmptyValidatorGeneric.class);
 			CadseGCST.ITEM.addValidators(v);
 		}
 
