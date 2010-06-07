@@ -39,7 +39,7 @@ public class EnumListOfValueAttribute
   protected final String TEXT_13 = "> valueList) {" + NL + "\t\ttry {" + NL + "\t\t\t";
   protected final String TEXT_14 = ".setAttribute(";
   protected final String TEXT_15 = "_, new ArrayList<";
-  protected final String TEXT_16 = ">(valueList);" + NL + "\t\t} catch (Throwable t) {" + NL + "" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\t@SuppressWarnings(\"unchecked\")" + NL + "\tpublic static final void add";
+  protected final String TEXT_16 = ">(valueList));" + NL + "\t\t} catch (Throwable t) {" + NL + "" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t\t@generated" + NL + "\t*/" + NL + "\t@SuppressWarnings(\"unchecked\")" + NL + "\tpublic static final void add";
   protected final String TEXT_17 = "Attribute(Item ";
   protected final String TEXT_18 = ", ";
   protected final String TEXT_19 = " value) {" + NL + "\t\ttry {" + NL + "\t\t\tList<";
