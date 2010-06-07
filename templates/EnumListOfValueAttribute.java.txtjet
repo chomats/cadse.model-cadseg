@@ -40,7 +40,7 @@ fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager org.eclipse.jdt.co
 	@SuppressWarnings("unchecked")
 	public static final void <%=GenerateJavaIdentifier.cstSetAttribute(ContextVariableImpl.DEFAULT, attribute)%>(Item <%=min_short_name%>, List<<%=enumClass%>> valueList) {
 		try {
-			<%=min_short_name%>.setAttribute(<%=cstAttribute%>_, new ArrayList<<%=enumClass%>>(valueList);
+			<%=min_short_name%>.setAttribute(<%=cstAttribute%>_, new ArrayList<<%=enumClass%>>(valueList));
 		} catch (Throwable t) {
 
 		}
