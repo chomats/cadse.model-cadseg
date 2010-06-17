@@ -60,16 +60,16 @@ public class PageInit {
 	 * Helper method used to create a group of attributes.
 	 * 
 	 * @param name
-	 *            The name and label of this group
+	 *        The name and label of this group
 	 * @param column
-	 *            The number of columns
+	 *        The number of columns
 	 * @param border
-	 *            Visible border
+	 *        Visible border
 	 * @param attr
-	 *            The list of attributes displayed by this group
+	 *        The list of attributes displayed by this group
 	 * @return the group
 	 */
-	private static GroupOfAttributesDescriptor createGroup(String name, int column, boolean border,
+	public static GroupOfAttributesDescriptor createGroup(String name, int column, boolean border,
 			IAttributeType<?>... attr) {
 
 		GroupOfAttributesDescriptor goad = new GroupOfAttributesDescriptor(name, column);
@@ -87,7 +87,7 @@ public class PageInit {
 	 * 
 	 * @return the group name.
 	 */
-	private static GroupOfAttributesDescriptor createGroupNameItem() {
+	public static GroupOfAttributesDescriptor createGroupNameItem() {
 		return createGroup("Name", 1, false, CadseGCST.ITEM_at_NAME_, CadseGCST.ITEM_at_DISPLAY_NAME_,
 				CadseGCST.ITEM_at_QUALIFIED_NAME_, CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_,
 				CadseGCST.MANAGER_at_HUMAN_NAME_);
@@ -828,7 +828,7 @@ public class PageInit {
 			JavaClassValidator v = new JavaClassValidator(null);
 			v.setClazz(CannotBeUndefinedValidator.class);
 			CadseGCST.ITEM.addValidators(v);
-			
+
 			v = new JavaClassValidator(null);
 			v.setClazz(NotEmptyValidatorGeneric.class);
 			CadseGCST.ITEM.addValidators(v);
