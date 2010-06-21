@@ -46,7 +46,7 @@ public class BooleanValidator extends AbstractUIRunningValidator {
 		Boolean cbu = item.getAttribute(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
 		String defVal = item.getAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 
-		if (cbu == true && defVal == null)
+		if (cbu == true && (defVal == null || defVal.isEmpty()))
 			return false;
 		else
 			return true;
