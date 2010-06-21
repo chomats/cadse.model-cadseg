@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_ViewItemType;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.IC_ModifiedAttr_List;
 import fr.imag.adele.cadse.cadseg.teamwork.ui.ModifiedAttr_ModelController;
+import fr.imag.adele.cadse.cadseg.validators.BooleanValidator;
 import fr.imag.adele.cadse.cadseg.validators.ExtendsClassValidator;
 import fr.imag.adele.cadse.cadseg.validators.IsListValidator;
 import fr.imag.adele.cadse.cadseg.validators.JavaPackageValidator;
@@ -941,6 +942,14 @@ public class PageInit {
 			v.setClazz(MenuValidator.class);
 			v.setListenAttributes(CadseGCST.MENU_ABSTRACT_at_LABEL_, CadseGCST.ITEM_at_NAME_);
 			CadseGCST.MENU.addValidators(v);
+		}
+
+		// BOOLEAN
+		{
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(BooleanValidator.class);
+			v.setListenAttributes(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
+			CadseGCST.BOOLEAN.addValidators(v);
 		}
 
 		// ************************************** //
