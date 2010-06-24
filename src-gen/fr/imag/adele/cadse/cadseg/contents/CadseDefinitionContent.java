@@ -258,6 +258,13 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		}
 		return null;
 	}
+	
+	public void generateManifest(PDEGenerateModel info, IProgressMonitor monitor) throws CoreException {
+		IProject p = getProject();
+		if (p.getFile("pom.xml").exists())
+			return;
+		super.generateManifest(info, monitor);
+	};
 
 	/*
 	 * (non-Javadoc)
