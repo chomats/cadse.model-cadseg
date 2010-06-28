@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.CadseG_WorkspaceListener;
@@ -26,6 +28,8 @@ import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.impl.AbstractLinkTypeManager;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
+import fr.imag.adele.cadse.core.key.DefaultKeyImpl;
+import fr.imag.adele.cadse.core.key.Key;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
@@ -176,6 +180,16 @@ public class CadsegInit implements InitAction {
 			@Override
 			protected String getName(Item item) {
 				return convertName(super.getName(item));
+			}
+			
+			@Override
+			protected Key getParentSpaceKeyFromItem(Item item) {
+				Item partparent = item.getPartParent(_parentKeyDefinition.getItemType());
+				if (partparent == null) {
+					return null;
+				}
+				Key key = partparent.getKey();
+				return key;
 			}
 		});
 
