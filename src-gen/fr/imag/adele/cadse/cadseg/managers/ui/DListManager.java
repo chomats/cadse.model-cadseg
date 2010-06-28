@@ -19,15 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
-import java.util.Set;
-import java.util.UUID;
-
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
 
@@ -38,82 +32,6 @@ import fr.imag.adele.cadse.core.util.Convert;
  */
 public class DListManager extends DisplayManager {
 
-	/** The Constant SHOW_FILTER. */
-	// public static final String SHOW_FILTER = "show-filter";
-	/**
-	 * The Class MyContentItem.
-	 */
-	public final class MyContentItem extends DisplayManager.DisplayContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb
-					.append("String key, String label, EPosLabel poslabel, "
-							+ "IModelController mc, IInteractionControllerForList ic, boolean edit, boolean showFilter, boolean order, boolean update,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("key, label, poslabel, " + "mc, ic, edit, showFilter, order, update,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
-			super.generateCallArguments(sb, imports);
-			sb.append(" ").append(isEditableButtonAttribute(getOwnerItem())).append(',');
-			sb.append(" ").append(isShowFilterAttribute(getOwnerItem())).append(',');
-			sb.append(" ").append(isOrderButtonAttribute(getOwnerItem())).append(',');
-			sb.append(" ").append(isUpdateButtonAttribute(getOwnerItem())).append(',');
-
-			imports.add("fede.workspace.model.manager.properties.IInteractionControllerForList");
-			imports.add("fr.imag.adele.cadse.core.ui.IModelController");
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#computeImportsPackage(java.util.Set)
-		 */
-		@Override
-		public void computeImportsPackage(Set<String> imports) {
-			super.computeImportsPackage(imports);
-			imports.add("org.eclipse.jface.fieldassist");
-			imports.add("org.eclipse.ui.dialogs");
-
-		}
-
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -122,16 +40,6 @@ public class DListManager extends DisplayManager {
 	@Override
 	public boolean hasContent(Item item) {
 		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
@@ -232,64 +140,6 @@ public class DListManager extends DisplayManager {
 		}
 	}
 
-	// /* (non-Javadoc)
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	// fr.imag.adele.cadse.core.LinkType, fr.imag.adele.cadse.core.ItemType)
-	// */
-	// @Override
-	// public Pages createCreationPages(Item theItemParent, LinkType
-	// theLinkType, ItemType desType) {
-	// CreationAction action = new CreationAction(theItemParent, desType,
-	// theLinkType, DEFAULT_SHORT_NAME);
-	//
-	// return FieldsCore.createWizard(action,
-	// FieldsCore.createPage("page1", "Create a list", "Create a list", 3,
-	// createFieldExtendsIC(),
-	// createFieldExtendsMC(),
-	// createFieldExtendsUI(),
-	// createFieldEditable()/*,
-	// createFieldEnable()*/
-	// )
-	// );
-	// }
-
-	// /* (non-Javadoc)
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	// */
-	// @Override
-	// public Pages createModificationPage(Item item) {
-	// AbstractActionPage action = new ModificationAction(item);
-	//
-	// return FieldsCore.createWizard(action,
-	// FieldsCore.createPage("page1", "a list", "a list", 3,
-	// createFieldExtendsIC(),
-	// createFieldExtendsMC(),
-	// createFieldExtendsUI(),
-	// createFieldEditable(),
-	// createFieldShowFilter()
-	// )
-	// );
-	// }
-
-	// /**
-	// * Creates the field show filter.
-	// *
-	// * @return the d check box ui
-	// *
-	// * @not generated
-	// */
-	// static public DCheckBoxUI createFieldShowFilter() {
-	// StringToBooleanModelControler mc = new StringToBooleanModelControler();
-	// return new DCheckBoxUI(CadseGCST.DLIST_at_SHOW_FILTER,
-	// "show filter",
-	// EPosLabel.none,
-	// mc, null
-	// );
-	// }
-	//
-
 	/**
 	 * Checks if is show filter attribute.
 	 * 
@@ -351,24 +201,4 @@ public class DListManager extends DisplayManager {
 	public String getDefaultClassName() {
 		return DEFAUL_CLASS_NAME;
 	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
-//		Item attribute = FieldManager.getAttribute(field);
-//		if (attribute == null) {
-//			return "You must add a link to an attribute link";
-//		}
-//		if (!AttributeManager.isIsListAttribute(attribute)) {
-//			return "List is for a list";
-//		}
-//		return null;
-//	}
-
 }

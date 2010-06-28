@@ -24,16 +24,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.eclipse.jdt.core.IType;
-
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.contents.attributes.AttributeCIF;
-import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenStringBuilder;
-import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -42,14 +36,11 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.attribute.ListAttributeType;
 import fr.imag.adele.cadse.core.enumdef.TWCommitKind;
 import fr.imag.adele.cadse.core.enumdef.TWEvol;
 import fr.imag.adele.cadse.core.enumdef.TWUpdateKind;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
-import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.util.Convert;
-import java.lang.String;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
@@ -57,7 +48,6 @@ import fr.imag.adele.fede.workspace.as.initmodel.InitModelLoadAndWrite;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CAttType;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ValueTypeType;
 
 /**
  * The Class AttributeManager.
@@ -113,11 +103,6 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	@Override
 	public boolean hasContent(Item item) {
 		return true;
-	}
-
-	@Override
-	public IContentItemFactory getContentItemFactory() {
-		return new AttributeCIF(this);
 	}
 
 	/*
@@ -540,106 +525,8 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	public void addCompleteAttributeDefinition(CAttType attType) {
 	}
 
-	public void generateAttributeRefCst(ContextVariable cxt, GenStringBuilder sb, Item absItemType, Item attribute,
-			Set<String> imports) {
-		Class<?> cl = getAttributeDefinitionTypeJava();
-		if (cl != null) {
-			if (AttributeManager.isIsListAttribute(attribute)) {
-				appendCST2(cxt, sb, absItemType, attribute, imports, ListAttributeType.class, getTypeJava(false));
-			}
-			else {
-				appendCST(cxt, sb, absItemType, attribute, imports, cl);
-			}
-		}
-	}
+	
 
-	protected void appendCST(ContextVariable cxt, GenStringBuilder sb, Item absItemType, Item attribute,
-			Set<String> imports, Class<?> cl, IType... params) {
-		sb.appendGeneratedTag();
-		sb.newline().append("public static ");
-		sb.append(cl.getSimpleName());
-		if (cl.getTypeParameters().length != 0) {
-			sb.append("<");
-			if (params.length == 0) {
-				sb.append("?");
-			}
-			else {
-				for (int i = 0; i < params.length; i++) {
-					IType p = params[i];
-					if (i != 0) {
-						sb.append(",");
-					}
-					sb.append(p.getElementName());
-					imports.add(p.getFullyQualifiedName());
-				}
-			}
-			sb.append(">");
-		}
-
-		sb.append(" ").append(GenerateJavaIdentifier.cstAttribute(cxt, attribute, absItemType)).append("_;");
-		imports.add(cl.getName());
-	}
-
-	protected void appendCST(ContextVariable cxt, GenStringBuilder sb, Item absItemType, Item attribute,
-			Set<String> imports, Class<?> cl, Class<?> cl2, IType... params) {
-		sb.appendGeneratedTag();
-		sb.newline().append("public static ");
-		sb.append(cl.getSimpleName());
-		if (cl.getTypeParameters().length != 0) {
-			sb.append("<");
-			sb.append(cl2.getSimpleName());
-
-			if (cl2.getTypeParameters().length != 0) {
-				sb.append("<");
-				if (params.length == 0) {
-					sb.append("?");
-				}
-				else {
-					for (int i = 0; i < params.length; i++) {
-						IType p = params[i];
-						if (i != 0) {
-							sb.append(",");
-						}
-						sb.append(p.getElementName());
-						imports.add(p.getFullyQualifiedName());
-					}
-				}
-				sb.append(">");
-			}
-
-			sb.append(">");
-		}
-
-		sb.append(" ").append(GenerateJavaIdentifier.cstAttribute(cxt, attribute, absItemType)).append("_;");
-		imports.add(cl.getName());
-	}
-
-	protected void appendCST2(ContextVariable cxt, GenStringBuilder sb, Item absItemType, Item attribute,
-			Set<String> imports, Class<?> cl, Class<?>... params) {
-		sb.appendGeneratedTag();
-		sb.newline().append("public static ");
-		sb.append(cl.getSimpleName());
-		if (cl.getTypeParameters().length != 0) {
-			sb.append("<");
-			if (params.length == 0) {
-				sb.append("?");
-			}
-			else {
-				for (int i = 0; i < params.length; i++) {
-					Class<?> p = params[i];
-					if (i != 0) {
-						sb.append(",");
-					}
-					sb.append(p.getSimpleName());
-					imports.add(p.getName());
-				}
-			}
-			sb.append(">");
-		}
-
-		sb.append(" ").append(GenerateJavaIdentifier.cstAttribute(cxt, attribute, absItemType)).append("_;");
-		imports.add(cl.getName());
-	}
 
 	public Class<?> getTypeJava(boolean primitive) {
 		return Object.class;
