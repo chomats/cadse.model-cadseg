@@ -22,15 +22,9 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.JavaCore;
-
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.contents.attributes.LinkCIF;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -440,18 +434,6 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 		}
 	}
 
-	public static final IType getLinkTypeManagerType(Item link) {
-		String LinkTypeManager = getLinkManagerAttribute(link);
-		if (LinkTypeManager == null || LinkTypeManager.length() == 0) {
-			return null;
-		}
-		IJavaElement ret = JavaCore.create(LinkTypeManager);
-		if (ret instanceof IType) {
-			return (IType) ret;
-		}
-		return null;
-	}
-
 	/**
 	 * @generated
 	 */
@@ -592,11 +574,6 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 	 */
 	public static boolean isPart(Item linkType) {
 		return Convert.toBoolean(linkType.getAttribute(CadseGCST.LINK_TYPE_at_PART_), false);
-	}
-
-	@Override
-	public IContentItemFactory getContentItemFactory() {
-		return new LinkCIF(this);
 	}
 
 	/**

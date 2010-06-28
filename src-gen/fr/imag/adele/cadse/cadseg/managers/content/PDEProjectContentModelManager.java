@@ -27,7 +27,6 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class PDEProjectContentModelManager.
@@ -165,10 +164,4 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
 	public boolean hasParentContent() {
 		return false;
 	}
-
-	@Override
-	public Class<? extends ContentItem> getRuntimeClassName() {
-		return fede.workspace.eclipse.composition.java.EclipsePluginContentManger.class;
-	}
-
 }

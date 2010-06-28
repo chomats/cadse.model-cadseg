@@ -21,8 +21,6 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
-import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 
 /**
  * The Class ResourceContentModelManager.
@@ -84,11 +82,6 @@ public class ResourceContentModelManager extends ContentItemTypeManager {
 	@Override
 	public boolean hasParentContent() {
 		return true;
-	}
-
-	@Override
-	public Class<? extends ContentItem> getRuntimeClassName() {
-		return ContentItemImpl.class;
 	}
 
 }

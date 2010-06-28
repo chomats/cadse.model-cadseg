@@ -19,30 +19,17 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import java.util.Set;
-import java.util.UUID;
-
-import org.eclipse.pde.core.plugin.IPluginBase;
-import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
-
-import fede.workspace.eclipse.composition.java.IPDEContributor;
-import fede.workspace.eclipse.content.SubFileContentManager;
-import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.ItemFactory;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 
@@ -52,160 +39,6 @@ import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class ModelControllerManager extends DefaultWorkspaceManager implements IItemManager, IExtendClassManager , IItemFactory{
-	// public static final String EXTENDS_CLASS_ATTRIBUTE = "extends-class";
-
-
-	/**
-	 * The Class MyContentItem.
-	 */
-	public class ModelControllerContent extends SubFileContentManager implements IPDEContributor {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		public ModelControllerContent(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#generate(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.lang.String, java.lang.String, java.util.Set,
-		 *      fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
-			String defaultQualifiedClassName = getDefaultClassName();
-			String defaultClassName = JavaIdentifier.getlastclassName(defaultQualifiedClassName);
-
-			if ("inner-class".equals(kind)) {
-				generateParts(sb, type, kind, imports, null);
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
-				if (extendsClass) {
-					Item mc = getOwnerItem();
-					Item field = mc.getPartParent().getPartParent();
-
-					String extendsClassName = defaultClassName;
-
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, "MC");
-					sb.newline();
-					sb.newline().append("/**");
-					sb.newline().append("	@generated");
-					sb.newline().append("*/");
-					sb.newline().append("static public class ").append(defaultClassName).append(" extends ").append(
-							extendsClassName).append(" {");
-					sb.begin();
-					sb.newline();
-					sb.newline().append("/**");
-					sb.newline().append("	@generated");
-					sb.newline().append("*/");
-					sb.newline().append("public ").append(defaultClassName).append("(");
-					generateConstructorParameter(sb);
-					sb.decrementLength();
-					sb.append(") {");
-					sb.newline().append("	super(");
-					generateConstrustorArguments(sb);
-					sb.decrementLength();
-					sb.append(");");
-					sb.newline().append("}");
-					sb.end();
-					sb.newline();
-					sb.newline().append("}");
-					sb.newline();
-				}
-			}
-			if (kind.equals("field-init")) {
-				boolean extendsClass = mustBeExtended() || isExtendsClass(getOwnerItem());
-				if (extendsClass) {
-					Item mc = getOwnerItem();
-					Item field = mc.getPartParent().getPartParent();
-
-					defaultClassName = JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, "MC");
-				}
-
-				sb.newline().append(defaultClassName).append(" mc = ");
-
-				sb.append("new ").append(defaultClassName).append("(");
-				generateCallArguments(sb, imports, null);
-				sb.decrementLength();
-				sb.append(");");
-
-				imports.add(defaultQualifiedClassName);
-			}
-
-		}
-
-		/**
-		 * Generate call arguments.
-		 * 
-		 * @param sb
-		 *            the sb
-		 * @param imports
-		 *            the imports
-		 * @param object
-		 *            the object
-		 */
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			ModelControllerManager.this.generateCallArguments(getOwnerItem(), sb, imports, object);
-		}
-
-		/**
-		 * Generate construstor arguments.
-		 * 
-		 * @param sb
-		 *            the sb
-		 */
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			ModelControllerManager.this.generateConstrustorArguments(getOwnerItem(), sb);
-		}
-
-		/**
-		 * Generate constructor parameter.
-		 * 
-		 * @param sb
-		 *            the sb
-		 */
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			ModelControllerManager.this.generateConstructorParameter(getOwnerItem(), sb);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage(java.util.Set)
-		 */
-		public void computeExportsPackage(Set<String> exports) {
-			// TODO Auto-generated method stub
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion(org.eclipse.pde.core.plugin.IPluginBase,
-		 *      org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
-		 */
-		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage(java.util.Set)
-		 */
-		public void computeImportsPackage(Set<String> imports) {
-			String defaultQualifiedClassName = getDefaultClassName();
-			String packageName = JavaIdentifier.packageName(defaultQualifiedClassName);
-			imports.add(packageName);
-		}
-
-	}
 
 	/**
 	 * Instantiates a new model controller manager.
@@ -291,16 +124,6 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new ModelControllerContent(id);
-	}
-
 	/**
 	 * Checks if is extends class.
 	 * 
@@ -358,67 +181,6 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 			return null;
 		}
 		return FieldManager.getAttribute(field);
-	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.MC_DEFAULT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a default model controller",
-//				"Create a default model controller", 3));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a default model controller",
-//				"a default model controller", 3));
-//	}
-
-	/**
-	 * Generate call arguments.
-	 * 
-	 * @param sb
-	 *            the sb
-	 * @param imports
-	 *            the imports
-	 * @param object
-	 *            the object
-	 */
-	protected void generateCallArguments(Item item, GenStringBuilder sb, Set<String> imports, Object object) {
-	}
-
-	/**
-	 * Generate construstor arguments.
-	 * 
-	 * @param sb
-	 *            the sb
-	 */
-	protected void generateConstrustorArguments(Item item, GenStringBuilder sb) {
-	}
-
-	/**
-	 * Generate constructor parameter.
-	 * 
-	 * @param sb
-	 *            the sb
-	 */
-	protected void generateConstructorParameter(Item item, GenStringBuilder sb) {
 	}
 	
 	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {

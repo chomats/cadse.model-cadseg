@@ -29,13 +29,14 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Validator;
 
 /**
  * The Class ViewLinkTypeManager.
  * 
  * @generated
  */
-public class ViewLinkTypeManager extends DefaultItemManager {
+public class ViewLinkTypeManager extends DefaultItemManager implements Validator {
 
 	/** The Constant ID_ITEM_TYPE_VIEW_LINK_TYPE. */
 	@SuppressWarnings("hiding")
@@ -405,16 +406,16 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 	 */
 	@Override
 	public List<Item> validate(Item item, ProblemReporter reporter) {
-		List<Item> ret = super.validate(item, reporter);
+		
 		Item lt = getLinkType(item);
 		if (lt == null) {
 			reporter.report(item, 1, "Cannot find the link type from view link type {0}", item.getQualifiedName());
-			return ret;
+			return null;
 		}
 		Item itemtypedest = LinkTypeManager.getDestination(lt);
 		if (itemtypedest == null) {
 			reporter.report(item, 1, "Cannot find destination of link type {0}", lt.getQualifiedName());
-			return ret;
+			return null;
 		}
 
 		Item itemtypesource = LinkTypeManager.getSource(lt);
@@ -425,12 +426,16 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 			reporter.report(item, 1,
 					"Cannot find the item type {0} in the view {1}, it is needed for the link type {2}::{3}.",
 					itemtypedest.getName(), view.getName(), itemtypesource.getName(), lt.getName());
-			return ret;
+			return null;
 		}
 
-		return ret;
+		return null;
 	}
 
+	@Override
+	public Class<Validator> getClassAdapt() {
+		return Validator.class;
+	}
 	//
 	// /*
 	// * (non-Javadoc)
