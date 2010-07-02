@@ -21,14 +21,28 @@ package fr.imag.adele.cadse.cadseg.managers.dataModel;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import org.eclipse.pde.core.plugin.IPluginBase;
+import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
+
+import fede.workspace.eclipse.composition.java.IPDEContributor;
+import fede.workspace.eclipse.java.JavaIdentifier;
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
+import fr.imag.adele.cadse.core.GenContext;
+import fr.imag.adele.cadse.core.GenStringBuilder;
+import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.impl.var.VariableImpl;
+import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
  * The Class PageManager.
@@ -63,12 +77,246 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 
 	}
 
-	
+	/**
+	 * The Class PageContentManager.
+	 */
+	public final class PageContentManager extends JavaFileContentManager implements IPDEContributor, IGenerateContent {
+
+		/**
+		 * Instantiates a new page content manager.
+		 * 
+		 * @param parent
+		 *            the parent
+		 * @param item
+		 *            the item
+		 */
+		private PageContentManager(UUID id) {
+			super(id, new VariableImpl() {
+				public String compute(ContextVariable context, Item itemCurrent) {
+					return GenerateJavaIdentifier.javaPackagePageFactoryFromPage(context, itemCurrent);
+				}
+			}, new VariableImpl() {
+				public String compute(ContextVariable context, Item itemCurrent) {
+					return GenerateJavaIdentifier.javaClassNamePageFactoryFromPage(context, itemCurrent);
+				}
+			});
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
+		 * computeExportsPackage(java.util.Set)
+		 */
+		public void computeExportsPackage(Set<String> exports) {
+			//exports.add(getPackageName(ContextVariableImpl.DEFAULT));
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
+		 * computeImportsPackage(java.util.Set)
+		 */
+		public void computeImportsPackage(Set<String> imports) {
+			imports.add("fede.workspace.model.manager.properties");
+			imports.add("fr.imag.adele.cadse.core.ui");
+			imports.add("fr.imag.adele.cadse.core.impl.ui");
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fr.imag.adele.cadse.core.ContentManager#generate(fr.imag.adele.cadse
+		 * .core.GenStringBuilder, java.lang.String, java.lang.String,
+		 * java.util.Set, fr.imag.adele.cadse.core.GenContext)
+		 */
+		@Override
+		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
+
+			generate();
+		}
+
+		/**
+		 * Generate.
+		 */
+		public void generate() {
+			//GeneratePageClass2.generate(ContextVariableImpl.DEFAULT, this, getOwnerItem());
+			//if (hasPageAction(getOwnerItem())) {
+			//	GeneratePageActionClass.generate(ContextVariableImpl.DEFAULT, getOwnerItem());
+			//}
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion
+		 * (org.eclipse.pde.core.plugin.IPluginBase,
+		 * org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
+		 */
+		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
+		}
+
+		public void generate(ContextVariable cxt) {
+			generate();
+		}
+
+		public GenerateModel getGenerateModel() {
+			return null;
+		}
+	}
 
 	/**
 	 * Instantiates a new page manager.
 	 */
 	public PageManager() {
+	}
+
+//	public static boolean _addInternalShortName(Item page) {
+//		Item dialog = page.getPartParent();
+//		if (dialog == null) {
+//			return false;
+//		}
+//
+//		if (isModificationPage(page)) {
+//			return false;
+//		}
+//
+//		if (CreationDialogManager.isAutomaticShortNameAttribute(dialog)) {
+//			return false;
+//		}
+//		if (CreationDialogManager.getDefaultShortNameAttribute(dialog) != null) {
+//			return false;
+//		}
+//
+//		Item absItemType = dialog.getPartParent();
+//		if (absItemType == null) {
+//			return false;
+//		}
+//		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
+//			return false;
+//		}
+//		return true;
+//	}
+
+//	/**
+//	 * est-ce qu'il faut ajouter un le field short name dans la page.
+//	 * 
+//	 * @param page
+//	 *            the page
+//	 * 
+//	 * @return true, if adds the internal short name
+//	 */
+//	public static boolean addInternalShortName(Item page) {
+//		Item dialog = page.getPartParent();
+//		if (dialog == null) {
+//			return false;
+//		}
+//
+//		if (isModificationPage(page)) {
+//			return false;
+//		}
+//
+//		if (CreationDialogManager.isAutomaticShortNameAttribute(dialog)) {
+//			return false;
+//		}
+//		if (CreationDialogManager.getDefaultShortNameAttribute(dialog) != null) {
+//			return false;
+//		}
+//
+//		Item absItemType = dialog.getPartParent();
+//		if (absItemType == null) {
+//			return false;
+//		}
+//		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
+//			return false;
+//		}
+//
+//		//
+//		Item[] allSuperTypes = ItemTypeManager.getAllSuperTypes(absItemType);
+//		if (allSuperTypes.length != 0) {
+//			for (int i = 0; i < allSuperTypes.length; i++) {
+//				Item superTypeBase = allSuperTypes[i];
+//				Item creationDialog = ItemTypeManager.getCreationDialog(superTypeBase);
+//				if (creationDialog == null) {
+//					continue;
+//				}
+//				Collection<Item> pages = CreationDialogManager.getPages(creationDialog);
+//				// recherche le premier super type qui a une page de creation
+//				if (pages.size() != 0) {
+//					// la première page
+//					// est-ce qu'elle a un name
+//					Item p = pages.iterator().next();
+//					return _addInternalShortName(p) && p.getName().equals(page.getName());
+//				}
+//			}
+//		}
+//		List<? extends Link> links = dialog.getOutgoingLinks();
+//		for (Link l : links) {
+//			if (l.getResolvedDestination() == page) {
+//				return l.getIndex() == 0;
+//			}
+//		}
+//
+//		return false;
+//	}
+
+//	/**
+//	 * Adds the internal attribute.
+//	 * 
+//	 * @param item
+//	 *            the item
+//	 * 
+//	 * @return true, if successful
+//	 */
+//	public static boolean addInternalAttribute(Item item) {
+//		Item dialog = item.getPartParent();
+//		if (dialog == null) {
+//			return false;
+//		}
+//
+//		Item absItemType = dialog.getPartParent();
+//		if (absItemType == null) {
+//			return false;
+//		}
+//		if (absItemType.getType() == CadseGCST.EXT_ITEM_TYPE) {
+//			return false;
+//		}
+//
+//		if (dialog.getType() != CadseGCST.MODIFICATION_DIALOG) {
+//			return false;
+//		}
+//
+//		if (!ModificationDialogManager.isShowInternalAttribute(dialog)) {
+//			return false;
+//		}
+//
+//		List<? extends Link> links = dialog.getOutgoingLinks();
+//		for (Link l : links) {
+//			if (l.getResolvedDestination() == item) {
+//				return l.getIndex() == 0;
+//			}
+//		}
+//
+//		return false;
+//	}
+
+	
+
+	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#createContentManager(
+	 * fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) {
+		return new PageContentManager(id);
 	}
 	
 	@Override
@@ -76,6 +324,32 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		if (item.getPartParent(CadseGCST.CADSE_DEFINITION) == null) 
 			return false;
 		return super.hasContent(item);
+	}
+	
+	@Override
+	public ContentItem getParentContentItemWherePutMyContent(ContentItem cm) {
+		Item cadsedef = cm.getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION);
+		if (cadsedef == null) {
+			return null; // Cannot found the cadse definition
+		}
+		return cadsedef.getContentItem();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#validateShortName(fr.
+	 * imag.adele.cadse.core.Item, java.lang.String)
+	 */
+	@Override
+	public String validateShortName(Item futurItem, String shortName) {
+		try {
+			JavaIdentifier.javaIdentifierFromString(shortName, true, false, null);
+		} catch (Throwable e) {
+			return "must be to transform to java identifier : space and - acceppter";
+		}
+		return null;
 	}
 
 	/**

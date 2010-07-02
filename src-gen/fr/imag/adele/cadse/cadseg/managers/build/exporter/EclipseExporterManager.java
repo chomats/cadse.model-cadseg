@@ -19,8 +19,12 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
+import java.util.UUID;
+
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class EclipseExporterManager.
@@ -29,6 +33,19 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class EclipseExporterManager extends ExporterManager {
 
+	/**
+	 * @generated
+	 */
+	public class EclipseExporterContent extends ExporterManager.ExporterContent {
+
+		/**
+		 * @generated
+		 */
+		public EclipseExporterContent(UUID id) throws CadseException {
+			super(id);
+		}
+
+	}
 
 	/**
 	 * The Constructor.
@@ -82,6 +99,20 @@ public class EclipseExporterManager extends ExporterManager {
 		}
 	}
 
+	/**
+	 * @generated
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		EclipseExporterContent cm = new EclipseExporterContent(
+			id
+			);
+		owerItem.setComposers(
+		);
+		owerItem.setExporters(
+		);
+		return cm;
+	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")

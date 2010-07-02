@@ -19,13 +19,20 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
+import java.util.Set;
+import java.util.UUID;
+
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.util.Convert;
 
 /**
  * The Class IntModelControllerManager.
@@ -34,6 +41,72 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class MC_IntegerManager extends ModelControllerManager implements IItemManager {
 
+	/**
+	 * The Class MyContentItem.
+	 */
+	class MyContentItem extends ModelControllerManager.ModelControllerContent {
+
+		/**
+		 * Instantiates a new my content manager.
+		 * 
+		 * @param parent
+		 *            the parent
+		 * @param item
+		 *            the item
+		 * @throws CadseException
+		 */
+		public MyContentItem(UUID id) throws CadseException {
+			super(id);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
+		 *      java.util.Set, java.lang.Object)
+		 */
+		@Override
+		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
+			sb.append(getOwnerItem().getAttributeWithDefaultValue(CadseGCST.MC_INTEGER_at_MIN_, 0)).append(", ");
+			String maxAttribute = Convert.toString(getOwnerItem().getAttributeWithDefaultValue(CadseGCST.MC_INTEGER_at_MAX_, 0));
+			if (maxAttribute == null || maxAttribute.length() == 0)
+				maxAttribute = "0";
+			sb.append(maxAttribute).append(", ");
+			String minError = getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_ERROR_MSG_MIN_);
+			String maxError = getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_ERROR_MSG_MAX_);
+			if (minError == null || minError.length() == 0)
+				sb.append("null, ");
+			else
+				sb.appendStringValue(minError).append(", ");
+			if (maxError == null || maxError.length() == 0)
+				sb.append("null, ");
+			else
+				sb.appendStringValue(maxError).append(", ");
+			sb.append(Convert.toInteger(getOwnerItem().getAttribute(CadseGCST.MC_INTEGER_at_DEFAULT_VALUE_)))
+					.append(",");
+
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
+		 */
+		@Override
+		protected void generateConstrustorArguments(GenStringBuilder sb) {
+			sb.append("min, max, msg_min, msg_max, defaultValue");
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
+		 */
+		@Override
+		protected void generateConstructorParameter(GenStringBuilder sb) {
+			sb.append("int min, int max, String msg_min, String msg_max, Integer defaultValue");
+		}
+	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
@@ -200,6 +273,52 @@ public class MC_IntegerManager extends ModelControllerManager implements IItemMa
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		return new MyContentItem(id);
+	}
+
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
+//				DisplayManager.MC_DEFAULT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
+//				"a int model controller", 3, FieldsCore.createTextField("min", "min", new MC_Integer(1, -1,
+//						null, null, null)), FieldsCore.createTextField("min-error", "min error message"), FieldsCore
+//						.createTextField("max", "max", new MC_Integer(1, -1, null, null, null)), FieldsCore
+//						.createTextField("max-error", "max error message"), FieldsCore.createTextField("default-value",
+//						"default value")));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a int model controller",
+//				"a int model controller", 3, FieldsCore.createTextField("min", "min", new MC_Integer(1, -1,
+//						null, null, null)), FieldsCore.createTextField("min-error", "min error message"), FieldsCore
+//						.createTextField("max", "max", new MC_Integer(1, -1, null, null, null)), FieldsCore
+//						.createTextField("max-error", "max error message"), FieldsCore.createTextField("default-value",
+//						"default value")));
+//	}
 
 	/*
 	 * (non-Javadoc)

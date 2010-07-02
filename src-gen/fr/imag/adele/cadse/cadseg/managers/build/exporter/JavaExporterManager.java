@@ -19,8 +19,13 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
+import java.util.UUID;
+
+import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class JavaExporterManager.
@@ -84,6 +89,67 @@ public class JavaExporterManager extends EclipseExporterManager {
 		}
 	}
 
+	/**
+	 * The Class MyContentItem.
+	 */
+	public class MyContentItem extends ExporterManager.ExporterContent {
+
+		/**
+		 * Instantiates a new my content manager.
+		 * 
+		 * @param parent
+		 *            the parent
+		 * @param item
+		 *            the item
+		 * @throws CadseException
+		 */
+		public MyContentItem(UUID id) throws CadseException {
+			super(id);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * model.workspace.workspace.managers.build.exporter.ExporterManager
+		 * .ContentManager
+		 * #generateConstrustorArguments(fr.imag.adele.cadse.core.
+		 * GenStringBuilder)
+		 */
+		@Override
+		protected void generateConstrustorArguments(GenStringBuilder sb) {
+			sb.append("contentItem");
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * model.workspace.workspace.managers.build.exporter.ExporterManager
+		 * .ContentManager
+		 * #generateConstructorParameter(fr.imag.adele.cadse.core.
+		 * GenStringBuilder)
+		 */
+		@Override
+		protected void generateConstructorParameter(GenStringBuilder sb) {
+			sb.append("ContentItem contentItem");
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @seemodel.workspace.workspace.managers.build.exporter.ExporterManager#
+	 * createContentManager(fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		MyContentItem cm = new MyContentItem(id);
+		cm.setComposers();
+		cm.setExporters();
+		return cm;
+	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")

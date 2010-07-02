@@ -19,8 +19,13 @@
 
 package fr.imag.adele.cadse.cadseg.managers.content;
 
+import java.util.Set;
+import java.util.UUID;
+
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class JavaJarFileContentModelManager.
@@ -29,6 +34,34 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class JavaJarFileContentModelManager extends ContentItemTypeManager {
 
+	/**
+	 * The Class ContentManager.
+	 */
+	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
+
+		/**
+		 * Instantiates a new content manager.
+		 * 
+		 * @param parent
+		 *            the parent
+		 * @param item
+		 *            the item
+		 */
+		public MyContentItem(UUID id) {
+			super(id);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#computeImportsPackage(java.util.Set)
+		 */
+		@Override
+		public void computeImportsPackage(Set<String> imports) {
+			super.computeImportsPackage(imports);
+			imports.add("org.eclipse.ui.model");
+		}
+	}
 
 	/**
 	 * Instantiates a new java jar file content model manager.
@@ -81,6 +114,16 @@ public class JavaJarFileContentModelManager extends ContentItemTypeManager {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public MyContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		return new MyContentItem(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
 	 */
 	@Override
@@ -91,6 +134,11 @@ public class JavaJarFileContentModelManager extends ContentItemTypeManager {
 	@Override
 	public boolean hasParentContent() {
 		return true;
+	}
+
+	@Override
+	public Class<? extends ContentItem> getRuntimeClassName() {
+		return fede.workspace.eclipse.java.manager.JarContentManager.class;
 	}
 
 }

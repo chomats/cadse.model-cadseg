@@ -21,12 +21,19 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
+import fede.workspace.eclipse.content.FolderContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.util.Convert;
+import java.lang.String;
+import fr.imag.adele.cadse.core.attribute.StringAttributeType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class FolderContentModelManager.
@@ -35,7 +42,34 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class FolderContentModelManager extends ResourceContentModelManager {
 
-	
+	/**
+	 * The Class ContentManager.
+	 */
+	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
+
+		/**
+		 * Instantiates a new content manager.
+		 * 
+		 * @param parent
+		 *            the parent
+		 * @param item
+		 *            the item
+		 */
+		public MyContentItem(UUID id) {
+			super(id);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
+		 */
+		@Override
+		protected StringAttributeType[] getResourceKindsName() {
+			return new StringAttributeType[] { CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_ };
+		}
+	}
+
 	/**
 	 * Instantiates a new folder content model manager.
 	 */
@@ -205,6 +239,16 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		return new MyContentItem(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
 	 */
 	@Override
@@ -212,4 +256,8 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 		return false;
 	}
 
+	@Override
+	public Class<? extends ContentItem> getRuntimeClassName() {
+		return FolderContentManager.class;
+	}
 }

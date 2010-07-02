@@ -19,8 +19,12 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
+import java.util.UUID;
+
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class EclipseReExporterManager.
@@ -28,6 +32,26 @@ import fr.imag.adele.cadse.core.LinkType;
  * @generated
  */
 public class EclipseReExporterManager extends ExporterManager {
+
+	/**
+	 * The Class MyContentItem.
+	 */
+	public class MyContentItem extends ExporterManager.ExporterContent {
+
+		/**
+		 * Instantiates a new my content manager.
+		 * 
+		 * @param parent
+		 *            the parent
+		 * @param item
+		 *            the item
+		 * @throws CadseException
+		 */
+		public MyContentItem(UUID id) throws CadseException {
+			super(id);
+		}
+
+	}
 
 	/**
 	 * The Constructor.
@@ -60,6 +84,19 @@ public class EclipseReExporterManager extends ExporterManager {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @seemodel.workspace.workspace.managers.build.exporter.ExporterManager#
+	 * createContentManager(fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		MyContentItem cm = new MyContentItem(id);
+		cm.setComposers();
+		cm.setExporters();
+		return cm;
+	}
 
 	/**
 	 * Gets the display name.
