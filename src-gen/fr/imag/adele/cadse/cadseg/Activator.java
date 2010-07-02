@@ -19,7 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg;
 
-import org.osgi.framework.BundleActivator;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -27,7 +29,7 @@ import org.osgi.framework.BundleContext;
  * 
  * @generated
  */
-public class Activator implements BundleActivator {
+public class Activator extends AbstractUIPlugin {
 
 	/** The PLUGI n_ id. */
 	public static String		PLUGIN_ID	= "Model.Workspace.CadseG";
@@ -57,6 +59,7 @@ public class Activator implements BundleActivator {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
+		super.start(context);
 	}
 
 	/**
@@ -72,6 +75,7 @@ public class Activator implements BundleActivator {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		super.stop(context);
 	}
 
 	/**
@@ -85,4 +89,24 @@ public class Activator implements BundleActivator {
 		return _default;
 	}
 
+	/**
+	 * Log.
+	 * 
+	 * @param status
+	 *            the status
+	 * 
+	 * @generated
+	 */
+	public void log(IStatus status) {
+		this.getLog().log(status);
+	}
+	
+	
+	public static void logMessage(String message) {
+		Activator.getDefault().log(new Status(Status.ERROR, Activator.PLUGIN_ID, message));
+	}
+	
+	public static void logMessage(String message, Throwable e) {
+		Activator.getDefault().log(new Status(Status.ERROR, Activator.PLUGIN_ID, message, 
+				e ));	}
 }

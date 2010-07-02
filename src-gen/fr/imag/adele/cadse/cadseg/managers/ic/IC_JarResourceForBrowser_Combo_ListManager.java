@@ -19,9 +19,13 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
+import java.util.UUID;
+
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class IC_JarResourceForBrowser_Combo_ListManager.
@@ -31,6 +35,24 @@ import fr.imag.adele.cadse.core.LinkType;
 public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeDialogForBrowser_Combo_ListManager
 		implements IItemManager {
 
+	/**
+	 * The Class MyContentItem.
+	 */
+	class MyContentItem extends IC_ResourceTreeDialogForBrowser_Combo_ListManager.MyContentItem {
+
+		/**
+		 * Instantiates a new my content manager.
+		 * 
+		 * @param parent
+		 *            the parent
+		 * @param item
+		 *            the item
+		 * @throws CadseException
+		 */
+		protected MyContentItem(UUID id) throws CadseException {
+			super(id);
+		}
+	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
@@ -95,6 +117,18 @@ public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeD
 	@Override
 	public boolean mustBeExtended() {
 		return false;
+	}
+
+	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#createContentManager(fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		return new MyContentItem(id);
 	}
 
 }

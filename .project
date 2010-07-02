@@ -6,6 +6,11 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>org.eclipse.emf.codegen.JETBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
@@ -28,6 +33,7 @@
 	</buildSpec>
 	<natures>
 		<nature>org.maven.ide.eclipse.maven2Nature</nature>
+		<nature>org.eclipse.emf.codegen.jet.IJETNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>fede.tool.workspace.view.Melusine</nature>
 		<nature>org.eclipse.pde.PluginNature</nature>
