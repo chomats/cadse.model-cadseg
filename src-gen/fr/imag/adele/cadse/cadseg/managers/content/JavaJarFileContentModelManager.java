@@ -60,6 +60,7 @@ public class JavaJarFileContentModelManager extends ContentItemTypeManager {
 		public void computeImportsPackage(Set<String> imports) {
 			super.computeImportsPackage(imports);
 			imports.add("org.eclipse.ui.model");
+			imports.add("org.eclipse.jdt.core");
 		}
 	}
 
