@@ -74,6 +74,7 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 			super.computeImportsPackage(imports);
 			imports.add("fede.workspace.eclipse.composition");
 			imports.add("fede.workspace.eclipse.content");
+			imports.add("org.eclipse.jdt.core");
 		}
 
 	}
