@@ -5,6 +5,7 @@ import java.util.UUID;
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestTypeCombo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_EnumDefaultValue;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ExtType_RefTypes;
@@ -16,6 +17,7 @@ import fr.imag.adele.cadse.cadseg.pages.ic.IC_SuperTypeForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_ViewManager_DataModelView;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_BooleanTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DefaultEnum;
+import fr.imag.adele.cadse.cadseg.pages.mc.MC_DestTypeCombo;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_DoubleTextField;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_FILE_PATH;
 import fr.imag.adele.cadse.cadseg.pages.mc.MC_IntegerTextField;
@@ -240,6 +242,8 @@ public class PageInit {
 		CadseGCST.ATTRIBUTE_at_IS_LIST_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_CP_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
+		CadseGCST.LIST_lt_SUB_TYPE.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
+		
 		CadseGCST.CADSE_DEFINITION_at_PACKAGENAME_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.CADSE_lt_EXTENDS.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
 		CadseGCST.CONTENT_ITEM_TYPE_at_EXTENDS_CLASS_.setFlag(Item.SHOW_IN_DEFAULT_CP, true);
@@ -564,6 +568,19 @@ public class PageInit {
 					CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_, "Conflict impact on update", EPosLabel.left, mc, ic);
 			CadseGCST.ATTRIBUTE.addField(field);
 		}
+		
+		// LIST_lt_SUB_TYPE
+		{
+			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_DestTypeCombo.class);
+			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc, MC_DestTypeCombo.class);
+			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
+					CadseGCST.LIST_lt_SUB_TYPE, "Type of list", EPosLabel.left, mc, ic);
+			CadseGCST.LIST.addField(field);
+		}
+		
+		
 
 		// LINK_TYPE_at_TWCOUPLED_
 		{
@@ -1057,6 +1074,15 @@ public class PageInit {
 				CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_, CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_,
 				CadseGCST.LINK_TYPE_at_TWCOUPLED_, CadseGCST.LINK_TYPE_at_TWDEST_EVOL_);
 		CadseGCST.CONTENT_LINK_TYPE.addModificationPages(cltHiddenAttributes);
+		
+		
+		// Hidden attributes for ContentLT
+		IPage listHiddenAttributes = new PageImpl(UUID.randomUUID(), "Hidden attributes", "Hidden attributes",
+				"Hidden attributes", "Hidden attributes", false, null);
+		listHiddenAttributes.addHiddenAttributes(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, CadseGCST.ATTRIBUTE_at_IS_LIST_,
+				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+		CadseGCST.LIST.addModificationPages(listHiddenAttributes);
+		CadseGCST.LIST.addCreationPages(listHiddenAttributes);
 
 		// ***** //
 		// Pages //

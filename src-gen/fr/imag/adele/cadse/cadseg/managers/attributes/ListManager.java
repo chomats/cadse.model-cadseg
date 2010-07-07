@@ -1,11 +1,24 @@
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
 
+import java.util.List;
+
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.TypeDefinition;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
+import fr.imag.adele.cadse.core.attribute.ListAttributeType;
+import fr.imag.adele.cadse.core.attribute.LongAttributeType;
+import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
+import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
+import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
 
 
 
@@ -86,6 +99,46 @@ public class ListManager extends AttributeManager {
 	*/
 	static public void setSubType(Item list, Item value) throws CadseException {
 		list.setOutgoingItem(CadseGCST.LIST_lt_SUB_TYPE,value);
+	}
+	
+	@Override
+	public ItemType getCadseRootType() {
+		return CadseGCST.LIST;
+	}
+
+	@Override
+	public Class<?> getAttributeDefinitionTypeJava() {
+		return ListAttributeType.class;
+	}
+
+	@Override
+	public Class<?> getTypeJava(boolean primitive) {
+		return List.class;
+	}
+
+	@Override
+	public String getJavaTypeConvertToMethod() {
+		return "fr.imag.adele.cadse.core.util.Convert.toList";
+	}
+
+	
+	
+	@Override
+	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
+			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
+		ListAttributeType<?> ret = new fr.imag.adele.cadse.core.impl.attribute.ListAttributeType(
+			initModel.getUUID(type.getId()), 
+				initModel.getFlag(type),
+				type.getKey(), 
+				0, -1, null);
+		return ret;
+	}
+
+	@Override
+	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
+			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
+		// cvt.setType(ValueTypeType.UUID);
+		super.writeAttributeDefinition(factory, cxt, cadsegManager, cvt, attribute);
 	}
 
 }

@@ -14,11 +14,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.equinox.internal.p2.core.helpers.FileUtils;
 
-import fede.workspace.tool.eclipse.MappingManager;
-import fr.imag.adele.cadse.cadseg.generate.GenerateCadseDefinitionModel;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CExtensionItemType;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CItemType;
