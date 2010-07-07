@@ -9,10 +9,14 @@ public class IC_DestTypeCombo extends IC_AbstractForBrowser_Combo{
 	@Override
 	public Object[] getValues() {
 		LinkType lt = (LinkType) getUIField().getAttributeDefinition();
-		ItemType[] types =lt.getDestination().getAllConcreteType();
-		return types;
+		ItemType[] types = lt.getDestination().getAllConcreteType();
+		return filter(types);
 	}
 	
+	protected Object[] filter(ItemType[] types) {
+		return types;
+	}
+
 	@Override
 	public String toString(Object value) {
 		if (value == null) {

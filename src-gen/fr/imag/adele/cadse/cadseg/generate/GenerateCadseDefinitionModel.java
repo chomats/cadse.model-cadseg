@@ -391,38 +391,23 @@ public class GenerateCadseDefinitionModel {
 					cvt.setTwRevSpecific(AttributeManager.isTWRevSpecificAttribute(attribute));
 
 					// default value
-					cvt.setValue(AttributeManager.getDefaultValueAttribute(attribute));
 					// add in type
-					//cvt.setIntID(intID++);
 					cit.getAttributeType().add(cvt);
 
 					// cas de la list
 					if (AttributeManager.isIsListAttribute(attribute)) {
-						cvt.setType(ValueTypeType.LIST);
-						cvt.setMax(-1);
-						cvt.setMin(0);
 						ItemType cadseRootList = CadseGCST.LIST;
 						cvt.setTypeName(cadseRootList.getId().toString());
 						InitModelLoadAndWrite cadseListRootManager = (InitModelLoadAndWrite) cadseRootList
 								.getItemManager();
 						ListAttributeType lAttribute = new ListAttributeType(null, ((AttributeType) attribute).getFlag(), attribute.getName(), 0, -1, (IAttributeType) attribute);
 						cadseListRootManager.writeAttributeDefinition(factory, cxt, manager, cvt, lAttribute);
-
-						// creer une deuxième description pour dècrire le type
-						// du contenu de la liste
-						CValuesType ncvt = factory.createCValuesType();
-						cvt.getElement().add(ncvt);
-
-						cvt = ncvt;
-						cvt.setKey("Element of "+attribute.getName());
 					}
-
-					// the id of the attribute type of attribute definition
-					cvt.setTypeName(cadseRootItemType.getId().toString());
-
-					cadseRootManager.writeAttributeDefinition(factory, cxt, manager, cvt, attribute);
+					else {
+						cvt.setValue(AttributeManager.getDefaultValueAttribute(attribute));
+						cadseRootManager.writeAttributeDefinition(factory, cxt, manager, cvt, attribute);
+					}
 					continue;
-
 				}
 
 				IAttributeGenerator gen = generators.get(attribute.getType());
