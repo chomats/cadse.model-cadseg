@@ -5,6 +5,7 @@ import java.util.UUID;
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
+import fr.imag.adele.cadse.cadseg.pages.ic.IC_AttributeDestType;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestTypeCombo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_EnumDefaultValue;
@@ -93,7 +94,7 @@ public class PageInit {
 	public static GroupOfAttributesDescriptor createGroupNameItem() {
 		return createGroup("Name", 1, false, CadseGCST.ITEM_at_NAME_, CadseGCST.ITEM_at_DISPLAY_NAME_,
 				CadseGCST.ITEM_at_QUALIFIED_NAME_, CadseGCST.ITEM_TYPE_at_DEFAULT_INSTANCE_NAME_,
-				CadseGCST.MANAGER_at_HUMAN_NAME_);
+				CadseGCST.MANAGER_at_HUMAN_NAME_, CadseGCST.LIST_lt_SUB_TYPE);
 	}
 
 	/**
@@ -572,7 +573,7 @@ public class PageInit {
 		// LIST_lt_SUB_TYPE
 		{
 			IC_Descriptor ic = new IC_Descriptor(CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO);
-			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_DestTypeCombo.class);
+			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), ic, IC_AttributeDestType.class);
 			MC_Descriptor mc = new MC_Descriptor(CadseGCST.MODEL_CONTROLLER);
 			CreatedObjectManager.register(SWTUIPlatform.getPlatform(), mc, MC_DestTypeCombo.class);
 			UIFieldImpl field = new UIFieldImpl(CadseGCST.DCOMBO, UUID.randomUUID(),
@@ -1079,8 +1080,7 @@ public class PageInit {
 		// Hidden attributes for ContentLT
 		IPage listHiddenAttributes = new PageImpl(UUID.randomUUID(), "Hidden attributes", "Hidden attributes",
 				"Hidden attributes", "Hidden attributes", false, null);
-		listHiddenAttributes.addHiddenAttributes(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, CadseGCST.ATTRIBUTE_at_IS_LIST_,
-				CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+		listHiddenAttributes.addHiddenAttributes(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, CadseGCST.ATTRIBUTE_at_IS_LIST_);
 		CadseGCST.LIST.addModificationPages(listHiddenAttributes);
 		CadseGCST.LIST.addCreationPages(listHiddenAttributes);
 

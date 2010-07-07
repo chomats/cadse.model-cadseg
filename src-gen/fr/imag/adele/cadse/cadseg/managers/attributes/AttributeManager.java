@@ -733,6 +733,9 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 	@Override
 	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
 			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
+		
+		
+		cvt.setTypeName(attribute.getType().getId().toString());
 		cvt.setMin(cadsegManager.isCadseRootRequireAttribute(attribute) ? 1 : 0);
 		if (isIsListAttribute(attribute)) {
 			if (attribute.getType() == CadseGCST.LIST)

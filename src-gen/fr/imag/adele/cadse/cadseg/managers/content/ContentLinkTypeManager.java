@@ -6,6 +6,7 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 
@@ -92,6 +93,12 @@ public class ContentLinkTypeManager extends LinkTypeManager {
 	*/
 	static public void setContentDefinition(Item contentLinkType, Item value) throws CadseException {
 		contentLinkType.setOutgoingItem(CadseGCST.CONTENT_LINK_TYPE_lt_CONTENT_DEFINITION,value);
+	}
+	
+	@Override
+	public String canCreateMeItem(Item itemParent, LinkType lt,
+			ItemType destType) {
+		return CANNOT_CREATE;
 	}
 
 }
