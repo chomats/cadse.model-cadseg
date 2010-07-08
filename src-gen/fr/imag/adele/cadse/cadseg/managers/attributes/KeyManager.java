@@ -18,11 +18,8 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
-import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
 
 /**
  * @generated
@@ -71,14 +68,5 @@ public class KeyManager extends AttributeManager {
 		}
 	}
 
-	@Override
-	public ItemType getCadseRootType() {
-		return CadseGCST.KEY;
-	}
-
-	@Override
-	public Class<? extends IAttributeType<?>> getAttributeDefinitionTypeJava() {
-		return null;
-	}
 
 }

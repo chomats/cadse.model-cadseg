@@ -21,21 +21,15 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.ParseTemplate;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.cadseg.exp.TokenMgrError;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.StringAttributeType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class ProjectContentModelManager.
@@ -44,61 +38,7 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  */
 public class ProjectContentModelManager extends ContentItemTypeManager {
 
-	/**
-	 * The Class ContentManager.
-	 */
-	public class MyContentItem extends ContentItemTypeManager.MyContentItem {
-
-		/**
-		 * Instantiates a new content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		public MyContentItem(UUID id) {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
-		 */
-		@Override
-		protected StringAttributeType[] getResourceKindsName() {
-			return new StringAttributeType[] { CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_ };
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#generate(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.lang.String, java.lang.String, java.util.Set,
-		 *      fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
-			super.generate(sb, type, kind, imports, context);
-			imports.add("fede.workspace.eclipse.content.ProjectContentManager");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#computeImportsPackage(java.util.Set)
-		 */
-		@Override
-		public void computeImportsPackage(Set<String> imports) {
-			super.computeImportsPackage(imports);
-			imports.add("fede.workspace.eclipse.composition");
-			imports.add("org.eclipse.ui.model");
-			imports.add("fede.workspace.eclipse.content");
-
-		}
-
-	}
+	
 
 	/**
 	 * Instantiates a new project content model manager.
@@ -243,46 +183,8 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 		}
 	}
 
-//	/**
-//	 * Creates the project field.
-//	 * 
-//	 * @return the uI field
-//	 */
-//	protected UIField createProjectField() {
-//		return FieldsCore.createTextField(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME, "project name:", 1, "",
-//				new IC_ItemTypeTemplateForText() {
-//					@Override
-//					protected Item getItemFromContext() {
-//						Item manager = getContext().getPartParent();
-//						return ManagerManager.getItemType(manager);
-//					}
-//				}, new MC_AttributesItem() {
-//					@Override
-//					public Object defaultValue() {
-//						return "${#unique-name}";
-//					}
-//				});
-//	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public MyContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
-	 */
-	@Override
-	public boolean mustBeExtended() {
-		return false;
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -315,14 +217,6 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 		}
 		return super.validate(item, reporter);
 	}
-
-	@Override
-	public boolean hasParentContent() {
-		return false;
-	}
-
-	@Override
-	public Class<? extends ContentItem> getRuntimeClassName() {
-		return fede.workspace.eclipse.content.ProjectContentManager.class;
-	}
+	
+	
 }

@@ -79,16 +79,4 @@ public class ResourceContentModelManager extends ContentItemTypeManager {
 		}
 	}
 
-
-
-	@Override
-	public boolean hasParentContent() {
-		return true;
-	}
-
-	@Override
-	public Class<? extends ContentItem> getRuntimeClassName() {
-		return ContentItemImpl.class;
-	}
-
 }

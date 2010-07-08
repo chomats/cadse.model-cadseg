@@ -32,10 +32,8 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.enumdef.TWDestEvol;
 import fr.imag.adele.cadse.core.util.Convert;
 
@@ -727,14 +725,6 @@ public class LinkTypeManager extends AttributeManager implements IModelWorkspace
 		return null;
 	}
 
-	@Override
-	public ItemType getCadseRootType() {
-		return CadseGCST.LINK_TYPE;
-	}
 
-	@Override
-	public Class<? extends IAttributeType<?>> getAttributeDefinitionTypeJava() {
-		return null;
-	}
 
 }
