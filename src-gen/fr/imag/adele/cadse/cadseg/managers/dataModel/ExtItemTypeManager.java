@@ -30,7 +30,6 @@ import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 import fede.workspace.eclipse.MelusineProjectManager;
 import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.cadseg.generate.GenerateExtItemType;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -86,7 +85,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	 * 
 	 * @generated
 	 */
-	public class ExtItemTypeContent extends JavaFileContentManager implements IGenerateContent {
+	public class ExtItemTypeContent extends JavaFileContentManager  {
 
 		/**
 			@generated
@@ -95,40 +94,7 @@ public class ExtItemTypeManager extends ItemTypeManager {
 			super(id, packageNameVariable, classNameVariable);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.
-		 * cadse.core.var.ContextVariable)
-		 */
-		public void generate(ContextVariable cxt) {
-			Item extit = getOwnerItem();
 
-			GenerateExtItemType ge = new GenerateExtItemType(cxt, this);
-			Item cadseDefinition = extit.getPartParent(CadseGCST.CADSE_DEFINITION);
-
-			((IGenerateContent) cadseDefinition.getContentItem()).generate(cxt);
-
-			String path = getPath(cxt);
-			try {
-				EclipsePluginContentManger.generateJava(MelusineProjectManager.getProject(cadseDefinition).getFile(
-						new Path(path)), ge.getContent(), View.getDefaultMonitor());
-
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#getGenerateModel()
-		 */
-		public ManagerManager.GenerateModel getGenerateModel() {
-			return null;
-		}
 
 		/*
 		 * (non-Javadoc)

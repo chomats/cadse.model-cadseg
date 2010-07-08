@@ -81,14 +81,6 @@ public class SubContentModelManager extends ContentItemTypeManager {
 		}
 	}
 
-	@Override
-	public boolean hasParentContent() {
-		return true;
-	}
-
-	@Override
-	public Class<? extends ContentItem> getRuntimeClassName() {
-		return fede.workspace.eclipse.content.SubFileContentManager.class;
-	}
+	
 
 }

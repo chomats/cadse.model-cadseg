@@ -20,9 +20,7 @@ package fr.imag.adele.cadse.cadseg.managers.attributes;
 
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.TimeAttributeType;
 
 /**
  * @generated
@@ -87,16 +85,6 @@ public class TimeManager extends LongManager {
 		} catch (Throwable t) {
 
 		}
-	}
-
-	@Override
-	public ItemType getCadseRootType() {
-		return CadseGCST.TIME;
-	}
-
-	@Override
-	public Class<?> getAttributeDefinitionTypeJava() {
-		return TimeAttributeType.class;
 	}
 
 }

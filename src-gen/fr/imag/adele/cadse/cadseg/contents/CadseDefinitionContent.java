@@ -31,8 +31,6 @@ import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaProjectManager;
 import fede.workspace.eclipse.java.osgi.OsgiManifest;
 import fede.workspace.tool.eclipse.MappingManager;
-import fr.imag.adele.cadse.cadseg.generate.GenerateCadseDefinitionModel;
-import fr.imag.adele.cadse.cadseg.generate.GenerateJavaFileCST;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewCategoryModel;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModel;
@@ -140,58 +138,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		super.computeManifest(omf);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.eclipse.composition.java.EclipsePluginContentManger#generate
-	 * (fr.imag.adele.cadse.core.var.ContextVariable)
-	 */
-	@Override
-	synchronized public void generate(ContextVariable cxt) {
-		if (!getOwnerItem().exists())
-			return;
-		super.generate(cxt);
-
-		generateStrandardXML();
-
-		try {
-			GenerateJavaFileCST gCST = new GenerateJavaFileCST(cxt, getOwnerItem());
-			String content = gCST.getContent();
-
-			IFile cstFile = CadseDefinitionManager.getCSTCU(cxt, getOwnerItem());
-			MappingManager.generate(cstFile.getProject(), cstFile.getParent().getProjectRelativePath(), cstFile
-					.getName(), content, null);
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
-	 * Generate strandard xml.
-	 */
-	public void generateStrandardXML() {
-		IProject p = getProject();
-		IFile f = p.getFile(new Path("model/cadse.xml"));
-		CCadse cadse = GenerateCadseDefinitionModel.generateCADSE(getOwnerItem());
-		StringWriter writer = new StringWriter();
-
-		try {
-			JAXBContext jc = JAXBContext.newInstance("fr.imag.adele.fede.workspace.as.initmodel.jaxb", this.getClass()
-					.getClassLoader());
-			Marshaller m = jc.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m.marshal(cadse, writer);
-			MappingManager.generate(p, f.getParent().getProjectRelativePath(), f.getName(), writer.toString(), null);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 
 	/*
 	 * (non-Javadoc)

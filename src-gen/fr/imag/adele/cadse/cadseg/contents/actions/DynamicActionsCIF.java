@@ -13,7 +13,6 @@ import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.cadseg.generate.GenerateClass;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.GenContext;

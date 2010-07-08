@@ -35,44 +35,7 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  */
 public class SourceFolderContentModelManager extends FolderContentModelManager {
 
-	/**
-	 * The Class ContentManager.
-	 */
-	public class MyContentItem extends FolderContentModelManager.MyContentItem {
-
-		/**
-		 * Instantiates a new content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		public MyContentItem(UUID id) {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.content.ContentModelManager.MyContentItem#getResourceKindsName()
-		 */
-		@Override
-		protected StringAttributeType[] getResourceKindsName() {
-			return new StringAttributeType[] { CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_, CadseGCST.SOURCE_FOLDER_CONTENT_MODEL_at_OUTPUT_PATH_  };
-		}
-
-		@Override
-		protected String getDefaultValue(StringAttributeType strKinds, String value) {
-			if (strKinds == CadseGCST.SOURCE_FOLDER_CONTENT_MODEL_at_OUTPUT_PATH_) {
-				if (value != null && value.length() == 0) {
-					return null;
-				}
-				return value;
-			}
-			return super.getDefaultValue(strKinds, value);
-		}
-	}
+	
 
 	/**
 	 * Instantiates a new source folder content model manager.
@@ -131,25 +94,5 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
-	@Override
-	public boolean hasParentContent() {
-		return true;
-	}
-
-	@Override
-	public Class<? extends ContentItem> getRuntimeClassName() {
-		return fede.workspace.eclipse.java.manager.JavaSourceFolderContentManager.class;
 	}
 }
