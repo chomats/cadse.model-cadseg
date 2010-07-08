@@ -126,12 +126,15 @@ public class ExporterManager extends DefaultItemManager implements
 					if (superitemtype != null) {
 						Item superItemManager = ItemTypeManager
 								.getManager(superitemtype);
-						Item supercontentItem = ManagerManager
+						Item supercontentItem = null;
+						if (superItemManager != null)
+							supercontentItem = ManagerManager
 								.getContentModel(superItemManager);
 						if (supercontentItem != null) {
 							if (isExtendsClass(supercontentItem)) {
-								extendsClassName = ((JavaFileContentManager) superItemManager
-										.getContentItem())
+								JavaFileContentManager javaFileContentManager = (JavaFileContentManager) superItemManager
+										.getContentItem();
+								extendsClassName = javaFileContentManager
 										.getClassName(context)
 										+ ".MyContentItem";
 							}
@@ -162,8 +165,8 @@ public class ExporterManager extends DefaultItemManager implements
 					sb
 							.newline()
 							.append(
-									"public IExportedContent exportItem(IBuildingContext context, "
-											+ "IExporterTarget target, String exporterType) throws CadseException {");
+									"public IExportedContent exportItem(IBuildingContext context,"+
+				" IExporterTarget target, String exporterType, boolean fullExport) throws CadseException {");
 					sb.newline().append("	// TODO Auto-generated method stub");
 					sb.newline().append("	return null;");
 					sb.newline().append("}");
@@ -171,6 +174,8 @@ public class ExporterManager extends DefaultItemManager implements
 					sb.newline().append("}");
 					sb.newline();
 
+					
+					imports.add("fr.imag.adele.cadse.core.build.Exporter");
 					imports
 							.add("fr.imag.adele.cadse.core.build.IBuildingContext");
 					imports
@@ -178,6 +183,7 @@ public class ExporterManager extends DefaultItemManager implements
 					imports
 							.add("fr.imag.adele.cadse.core.build.IExporterTarget");
 
+					imports.add("fr.imag.adele.cadse.core.content.ContentItem");
 				}
 			}
 			if ("exporters".equals(kind)) {
@@ -266,6 +272,7 @@ public class ExporterManager extends DefaultItemManager implements
 			imports.add(packageName);
 			imports.add("fr.imag.adele.cadse.core");
 			imports.add("fr.imag.adele.cadse.core.build");
+			imports.add("fr.imag.adele.cadse.core.content");
 		}
 
 		/*

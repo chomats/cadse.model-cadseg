@@ -78,12 +78,7 @@ public class MC_DestTypeCombo extends MC_AttributesItem {
 			}
 		try {
 			secondItem = _uiPlatform.openInTransactionDialog("sub-element",
-					_uiPlatform.getItem(), (LinkType) getUIField().getAttributeDefinition(), (ItemType)value,
-					CadseGCST.ITEM_at_NAME_, CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, 
-					CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_CP_,
-					CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_MP_,
-					CadseGCST.ATTRIBUTE_at_IS_LIST_,
-					CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_);
+					_uiPlatform.getItem(), (LinkType) getUIField().getAttributeDefinition(), (ItemType)value);
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
