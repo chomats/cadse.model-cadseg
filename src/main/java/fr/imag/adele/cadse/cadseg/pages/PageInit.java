@@ -1,5 +1,9 @@
 package fr.imag.adele.cadse.cadseg.pages;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
@@ -49,6 +53,8 @@ import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_Descriptor;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IPage;
+import fr.imag.adele.cadse.core.ui.PageParticipator;
+import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.util.CreatedObjectManager;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.SWTUIPlatform;
 import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_Max;
@@ -1059,6 +1065,8 @@ public class PageInit {
 		jfHiddenAttributes.addHiddenAttributes(CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_);
 		CadseGCST.JAVA_FILE_CONTENT_MODEL.addCreationPages(jfHiddenAttributes);
 		CadseGCST.JAVA_FILE_CONTENT_MODEL.addModificationPages(jfHiddenAttributes);
+		
+		
 
 		// Hidden attributes for ContentLT
 		IPage cltHiddenAttributes = new PageImpl(UUID.randomUUID(), "Hidden attributes", "Hidden attributes",
@@ -1084,6 +1092,35 @@ public class PageInit {
 		CadseGCST.LIST.addModificationPages(listHiddenAttributes);
 		CadseGCST.LIST.addCreationPages(listHiddenAttributes);
 
+		
+		// Add a dynamic filter for attribute definiion inner in a list definition 
+		// ex : a list of long (long attr def : somme attribute must be hidden)
+		CadseGCST.ATTRIBUTE.addAdapter(new PageParticipator() {
+			@Override
+			public void filterPage(Item item, FilterContext context,
+					List<IPage> list, Set<IAttributeType<?>> ro,
+					HashSet<IAttributeType<?>> hiddenAttributeInComputedPages) {
+				
+				Item parentItem = item.getPartParent();
+				if (parentItem != null && parentItem.getType() == CadseGCST.LIST) {
+					
+					hiddenAttributeInComputedPages.addAll(Arrays.asList(
+							
+							CadseGCST.ITEM_at_NAME_, 
+							CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, 
+					CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_CP_,
+					CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_MP_,
+					CadseGCST.ATTRIBUTE_at_IS_LIST_,
+					CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
+					CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_,
+					CadseGCST.ATTRIBUTE_at_TWEVOL_,
+					CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_,
+					CadseGCST.ATTRIBUTE_at_NATIF_,
+					CadseGCST.ATTRIBUTE_at_TRANSIENT_
+					));
+				}
+			};
+		});
 		// ***** //
 		// Pages //
 		// ***** //
