@@ -45,7 +45,6 @@ import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModel;
-import fr.imag.adele.cadse.cadseg.template.ViewerSkeltonTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -126,8 +125,7 @@ public class ViewManager extends DefaultItemManager {
 	/**
 	 * The Class ViewJavaFileContentManager.
 	 */
-	private final static class ViewJavaFileContentManager extends JavaFileContentManager implements IGenerateContent,
-			IPDEContributor {
+	private final static class ViewJavaFileContentManager extends JavaFileContentManager {
 
 		/**
 		 * Instantiates a new view java file content manager.
@@ -153,90 +151,6 @@ public class ViewManager extends DefaultItemManager {
 			});
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#getGenerateModel()
-		 */
-		public GenerateModel getGenerateModel() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		/**
-		 * Generate.
-		 * 
-		 * @param cxt
-		 *            the cxt
-		 * 
-		 * @see ManagerManager#getContentModel(Item )
-		 */
-		public void generate(ContextVariable cxt) {
-			Item view = getOwnerItem();
-			ViewerSkeltonTemplate skeltonTemplate = new ViewerSkeltonTemplate();
-			ViewModel vm = new ViewModel(ContextVariableImpl.DEFAULT, getOwnerItem());
-			try {
-				IFile javaFile = getFile();
-				EclipsePluginContentManger.generateJava(javaFile, skeltonTemplate.generate(vm), View
-						.getDefaultMonitor());
-
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-
-			((IGenerateContent) getCadsegModel(view).getContentItem()).generate(ContextVariableImpl.DEFAULT);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.ContentManager#generate(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.lang.String, java.lang.String, java.util.Set,
-		 *      fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
-			if (kind.equals("all")) {
-				generateParts(sb, type, "inner-class", imports, context);
-				generateParts(sb, type, "cstes", imports, context);
-				generateParts(sb, type, "attributes", imports, context);
-				generateParts(sb, type, "constructors", imports, context);
-				generateParts(sb, type, "methods", imports, context);
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage(java.util.Set)
-		 */
-		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage(java.util.Set)
-		 */
-		public void computeImportsPackage(Set<String> imports) {
-			imports.add("org.eclipse.ui.part");
-			imports.add("org.eclipse.core.commands.common");
-			imports.add("org.eclipse.swt.widgets");
-			imports.add("fr.imag.adele.cadse.eclipse.view");
-			imports.add("fr.imag.adele.cadse.core");
-			imports.add("org.eclipse.ui");
-			imports.add("fede.plugin.workspace.filters");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion(org.eclipse.pde.core.plugin.IPluginBase,
-		 *      org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
-		 */
-		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
-		}
 
 	}
 

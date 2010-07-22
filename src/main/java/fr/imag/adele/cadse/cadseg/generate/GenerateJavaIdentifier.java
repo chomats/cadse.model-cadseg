@@ -341,6 +341,23 @@ public class GenerateJavaIdentifier {
 	}
 
 	/**
+	 * Adds the import cst.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param cadseDefinition
+	 *            the cadse definition
+	 * @param imports
+	 *            the imports
+	 * 
+	 * @return the string
+	 */
+	public static String getImportCST(ContextVariable cxt, Item cadseDefinition) {
+		String cn = javaClassNameFileCST_FromCadseDefinition(cxt, cadseDefinition);
+		return javaPackageNameFileCST_FromCadseDefinition(cxt, cadseDefinition) + "." + cn;
+	}
+	
+	/**
 	 * Cst get attribute.
 	 * 
 	 * @param cxt

@@ -38,7 +38,6 @@ import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.IBuildManager;
-import fr.imag.adele.cadse.cadseg.template.EnumSkeltonTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -53,7 +52,7 @@ import fr.imag.adele.fede.workspace.si.view.View;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  * @extends DefaultWorkspaceManager
  */
-public class EnumTypeManager extends DefaultWorkspaceManager implements IItemManager, IBuildManager {
+public class EnumTypeManager extends DefaultWorkspaceManager implements IItemManager {
 
 	/** The Constant VALUES_ATTRIBUTE. */
 	// public static final String VALUES_ATTRIBUTE = "values";
@@ -234,46 +233,9 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 
 	
 
-	/**
-	 * Generate file.
-	 * 
-	 * @param cxt
-	 *            the cxt
-	 * @param enumType
-	 *            the enum type
-	 * 
-	 * @throws CoreException
-	 *             the core exception
-	 */
-	public void generateFile(ContextVariable cxt, Item enumType) throws CoreException {
-		String packageName = getPackage(cxt, enumType);
-		String className = getClassname(cxt, enumType);
-		List<?> df;
-		List<String> values = enumType.getAttribute(CadseGCST.ENUM_TYPE_at_VALUES_);
-		if (values == null) {
-			values = new ArrayList<String>();
-		}
-		EnumSkeltonTemplate temp = new EnumSkeltonTemplate();
-		String content = temp.generate(packageName, className, values);
-		Item model = getWorkspaceModel(enumType);
+	
 
-		MappingManager.generate(model.getMainMappingContent(IProject.class), getPackagePath(cxt, enumType), className
-				+ ".java", content, View.getDefaultMonitor());
-	}
-
-	/**
-	 * Gets the classname.
-	 * 
-	 * @param cxt
-	 *            the cxt
-	 * @param enumType
-	 *            the enum type
-	 * 
-	 * @return the classname
-	 */
-	private String getClassname(ContextVariable cxt, Item enumType) {
-		return JavaIdentifier.javaIdentifierFromString(cxt.getName(enumType), true, false, null);
-	}
+	
 
 	/**
 	 * Gets the package.
@@ -325,6 +287,19 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 		return null;
 	}
 
+	/**
+	 * Gets the classname.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param enumType
+	 *            the enum type
+	 * 
+	 * @return the classname
+	 */
+	public String getClassname(ContextVariable cxt, Item enumType) {
+		return JavaIdentifier.javaIdentifierFromString(cxt.getName(enumType), true, false, null);
+	}
 	/**
 	 * Gets the enum file.
 	 * 
@@ -448,13 +423,6 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 		return values;
 	}
 
-	public void generate(ContextVariable cxt, Item enumType) {
-		try {
-			generateFile(cxt, enumType);
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 
 }

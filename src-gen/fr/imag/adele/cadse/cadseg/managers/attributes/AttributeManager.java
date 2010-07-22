@@ -26,7 +26,6 @@ import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.contents.attributes.AttributeCIF;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IContentItemFactory;
@@ -86,19 +85,6 @@ public class AttributeManager extends DefaultWorkspaceManager implements IItemMa
 		return Item.NO_VALUE_STRING;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see fede.workspace.model.manager.DefaultItemManager#hasContent(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public boolean hasContent(Item item) {
-		return true;
-	}
-
-	@Override
-	public IContentItemFactory getContentItemFactory() {
-		return new AttributeCIF(this);
-	}
 
 	/*
 	 * (non-Javadoc)

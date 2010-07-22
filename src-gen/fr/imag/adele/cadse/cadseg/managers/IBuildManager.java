@@ -5,5 +5,5 @@ import fr.imag.adele.cadse.core.var.ContextVariable;
 
 public interface IBuildManager {
 
-	public void generate(ContextVariable cxt, Item enumType);
+	public void generate(ContextVariable cxt, Item item);
 }

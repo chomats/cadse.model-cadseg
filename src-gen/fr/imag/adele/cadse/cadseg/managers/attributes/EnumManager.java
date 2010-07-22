@@ -26,7 +26,6 @@ import java.util.List;
 import org.eclipse.jdt.core.IType;
 
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.contents.attributes.EnumCIF;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -121,11 +120,6 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 	 */
 	static public Item getEnumTypeAll(Item _enum) {
 		return _enum.getOutgoingItem(CadseGCST.ENUM_lt_ENUM_TYPE, false);
-	}
-
-	@Override
-	public IContentItemFactory getContentItemFactory() {
-		return new EnumCIF(this);
 	}
 
 	/**
