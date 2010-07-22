@@ -4,40 +4,35 @@ import java.util.List;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.ChangeID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
-import fr.imag.adele.cadse.core.impl.ui.mc.ItemLinkTypeWorkspaceListener;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.oper.WSODeleteLink;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.ui.UIField;
-import fr.imag.adele.cadse.core.ui.UIPlatform;
 
 public class MC_DestTypeCombo extends MC_AttributesItem {
 
-	private boolean					mandatory	= false;
-	private String					msg			= null;
-	boolean							init;
+	private final boolean mandatory = false;
+	private final String msg = null;
+	boolean init;
 	private ItemDelta secondItem;
-//	Object defaultValue = null;
-	
-	
-	
-	
+	// Object defaultValue = null;
+
+	private boolean dialogRunning = false;
 
 	@Override
 	protected Object modelToVisual(Object ret) {
-		if (ret == null) return null;
+		if (ret == null)
+			return null;
 		IAttributeType<?> attRef = getUIField().getAttributeDefinition();
 		if (attRef.getType() == CadseGCST.LINK_TYPE) {
-			LinkType lt = (LinkType)attRef;
+			LinkType lt = (LinkType) attRef;
 			List<Link> ret2 = (List<Link>) ret;
 			if (lt.getMax() == 1) {
 				return ret2.size() >= 1 ? ret2.get(0) : null;
@@ -46,7 +41,6 @@ public class MC_DestTypeCombo extends MC_AttributesItem {
 		}
 		return ret;
 	}
-	
 
 	@Override
 	public Object getValue() {
@@ -56,32 +50,39 @@ public class MC_DestTypeCombo extends MC_AttributesItem {
 		}
 		IAttributeType<?> attRef = getUIField().getAttributeDefinition();
 		if (attRef.getType() == CadseGCST.LINK_TYPE) {
-			LinkType lt = (LinkType)attRef;
+			LinkType lt = (LinkType) attRef;
 			Link ret = item.getOutgoingLink(lt);
 			if (ret == null)
 				return null;
 			return ret.getDestinationType();
 		}
-			
+
 		return null;
 	}
 
-
 	@Override
 	public void notifieValueChanged(UIField field, Object value) {
-		if (secondItem != null)
-			try {
-				secondItem.delete(false);
-			} catch (CadseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+		if (dialogRunning == true)
+			return;
+		dialogRunning = true;
+
 		try {
-			secondItem = _uiPlatform.openInTransactionDialog("sub-element",
-					_uiPlatform.getItem(), (LinkType) getUIField().getAttributeDefinition(), (ItemType)value);
+			if (secondItem != null)
+				try {
+					secondItem.delete(false);
+				} catch (CadseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			secondItem = _uiPlatform.openInTransactionDialog("sub-element", _uiPlatform.getItem(),
+					(LinkType) getUIField().getAttributeDefinition(), (ItemType) value);
 		} catch (CadseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			dialogRunning = false;
 		}
 	}
 
@@ -96,7 +97,7 @@ public class MC_DestTypeCombo extends MC_AttributesItem {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean validValueChanged(UIField field, Object value) {
 		if (value instanceof ItemType) {
