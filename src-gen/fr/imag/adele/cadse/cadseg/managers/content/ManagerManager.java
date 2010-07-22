@@ -846,4 +846,9 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		return super.validate(item, reporter);
 	}
 
+	public static void getPackageName(Item ow) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

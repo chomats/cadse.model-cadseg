@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
-import fr.imag.adele.cadse.cadseg.managers.CadseG_WorkspaceListener;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeSpaceKeyType;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
@@ -81,7 +80,7 @@ public class CadsegInit implements InitAction {
 		
 		// CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
 		new CadseG_WLWCListener();
-		new CadseG_WorkspaceListener();
+		//new CadseG_WorkspaceListener();
 		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
 		CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
 

@@ -124,19 +124,19 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			imports.add("fr.imag.adele.cadse.core.impl.ui");
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fr.imag.adele.cadse.core.ContentManager#generate(fr.imag.adele.cadse
-		 * .core.GenStringBuilder, java.lang.String, java.lang.String,
-		 * java.util.Set, fr.imag.adele.cadse.core.GenContext)
-		 */
-		@Override
-		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
-
-			generate();
-		}
+//		/*
+//		 * (non-Javadoc)
+//		 * 
+//		 * @see
+//		 * fr.imag.adele.cadse.core.ContentManager#generate(fr.imag.adele.cadse
+//		 * .core.GenStringBuilder, java.lang.String, java.lang.String,
+//		 * java.util.Set, fr.imag.adele.cadse.core.GenContext)
+//		 */
+//		@Override
+//		public void generate(GenStringBuilder sb, String type, String kind, Set<String> imports, GenContext context) {
+//
+//			generate();
+//		}
 
 		/**
 		 * Generate.

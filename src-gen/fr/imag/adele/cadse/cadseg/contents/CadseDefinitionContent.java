@@ -35,7 +35,6 @@ import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewCategoryModel;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModel;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModels;
-import fr.imag.adele.cadse.cadseg.template.LaunchApplicationTemplate;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -151,6 +150,10 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	public void create() throws CadseException {
 		super.create();
 
+		createLauncher();
+	}
+
+	private void createLauncher() throws CadseException {
 		try {
 			IProgressMonitor monitor = View.getDefaultMonitor();
 			JavaProjectManager.createJavaSourceFolder(getOwnerItem(), getProject().getFolder("src"), null, monitor);
