@@ -29,7 +29,7 @@ public class MenuActionCIF implements IContentItemFactory {
 	/**
 	 * The Class MyContentItem.
 	 */
-	static public class MenuActionContent extends JavaFileContentManager implements IGenerateContent, IPDEContributor {
+	static public class MenuActionContent extends JavaFileContentManager implements IPDEContributor {
 
 		
 
@@ -56,68 +56,6 @@ public class MenuActionCIF implements IContentItemFactory {
 					return GenerateJavaIdentifier.javaClassNameMenuAction(context, item);
 				}
 			});
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.cadse.core.var.ContextVariable)
-		 */
-		public void generate(ContextVariable cxt) {
-			generate(cxt, getOwnerItem());
-		}
-
-		/**
-		 * Generate.
-		 * 
-		 * @param cxt
-		 *            the cxt
-		 * @param menuaction
-		 *            the menuaction
-		 */
-		public void generate(ContextVariable cxt, Item menuaction) {
-			GenerateClass ret;
-			String cn = getClassName(cxt);
-			String pn = getPackageName(cxt);
-
-			String super_pn = "fr.imag.adele.cadse.core.ui";
-			String super_cn = "MenuAction";
-
-			IFile f = getFile();
-			IType javatype = getJavaType(cxt);
-
-			ret = new GenerateClass(null, true, pn, cn, super_pn + "." + super_cn, (String) null, javatype, false) {
-				@Override
-				protected void generateMethods(GenStringBuilder sb, Set<String> imports, GenContext context) {
-					imports.add("fr.imag.adele.cadse.core.IItemNode");
-					imports.add("fr.imag.adele.cadse.core.ui.MenuAction");
-					imports.add("fr.imag.adele.cadse.core.CadseException");
-
-					sb.newline().append("@Override");
-					sb.newline().append("public void run(IItemNode[] selection) throws CadseException {");
-					sb.newline().append("	// TODO Auto-generated method stub");
-					sb.newline();
-					sb.newline().append("}");
-
-				}
-			};
-
-			String content = ret.getContent();
-			try {
-				EclipsePluginContentManger.generateJava(f, content, View.getDefaultMonitor());
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see fr.imag.adele.cadse.core.IGenerateContent#getGenerateModel()
-		 */
-		public GenerateModel getGenerateModel() {
-			return null;
 		}
 
 		/*

@@ -76,24 +76,6 @@ public class FieldManager extends DefaultItemManager {
 		}
 	}
 
-	/**
-	 * The Class FieldContentManager.
-	 */
-	private final class FieldContentManager extends SubFileContentManager {
-
-		/**
-		 * Instantiates a new field content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 */
-		private FieldContentManager(UUID id) {
-			super(id);
-		}
-
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -104,26 +86,6 @@ public class FieldManager extends DefaultItemManager {
 	public String canRenameItem(Item item) {
 		return "Cannot rename a build model";
 	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#computeRenameAnnotationChange(org.eclipse.ltk.core.refactoring.CompositeChange,
-	// * fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
-	// * fr.imag.adele.cadse.core.var.ContextVariable,
-	// * fr.imag.adele.cadse.core.var.ContextVariable)
-	// */
-	// @Override
-	// public RefactoringStatus computeRenameAnnotationChange(CompositeChange
-	// change, Item itemAnnotation,
-	// Item itemAnnoted, ContextVariable newCxt, ContextVariable oldCxt) {
-	// if (itemAnnoted.isInstanceOf(CadseGCST.ATTRIBUTE)) {
-	// return itemAnnotation.computeRenameChange(change,
-	// itemAnnoted.getName(), newCxt, oldCxt);
-	// }
-	// return null;
-	// }
 
 	/**
 	 * Gets the attribute.
@@ -374,15 +336,6 @@ public class FieldManager extends DefaultItemManager {
 		field.setOutgoingItem(CadseGCST.FIELD_lt_MC,value);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) {
-		return new FieldContentManager(id);
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -484,7 +437,7 @@ public class FieldManager extends DefaultItemManager {
 		if (info.field == null) {
 			sb.newline().append("return null;");
 		} else {
-			ContentItemImpl.generate(info.field, sb, "field", "in-field", imports, null);
+			//ContentItemImpl.generate(info.field, sb, "field", "in-field", imports, null);
 		}
 		sb.end();
 		sb.newline().append("}");

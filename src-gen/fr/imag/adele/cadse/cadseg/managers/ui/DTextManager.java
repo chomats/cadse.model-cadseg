@@ -38,79 +38,7 @@ import fr.imag.adele.cadse.core.util.Convert;
  */
 public class DTextManager extends DisplayManager implements IItemManager {
 
-	/**
-	 * The Class MyContentItem.
-	 */
-	public final class MyContentItem extends DisplayManager.DisplayContent {
-
-		/** The Constant STYLE_ATTRIBUTE. */
-		private static final String	STYLE_ATTRIBUTE	= "style_attribute";
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#computeImportsPackage(java.util.Set)
-		 */
-		@Override
-		public void computeImportsPackage(Set<String> imports) {
-			imports.add("fr.imag.adele.cadse.core");
-			imports.add("fede.workspace.model.manager.properties");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports) {
-			super.generateCallArguments(sb, imports);
-			Item display = getOwnerItem();
-			sb.append_exp_vir(display, CadseGCST.DTEXT_at_VERTICAL_SPAN_, 1);
-			sb.append_string_vir(display, CadseGCST.DTEXT_at_TOOL_TIP_);
-			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_MULTI_LINE_), false)).append(",");
-			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_NO_BORDER_), false)).append(",");
-			sb.append(Convert.toBoolean(display.getAttribute(CadseGCST.DTEXT_at_WRAP_LINE_), false)).append(",");
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb
-					.append("String key, String label, EPosLabel poslabel, "
-							+ "IModelController mc, IInteractionControllerForBrowserOrCombo ic, int vspan, String tooltip, boolean multiLine, boolean wrapLine, boolean noBorder,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("key, label, poslabel, " + "mc, ic, style, vspan, tooltip, multiLine, wrapLine, noBorder,");
-		}
-
-	}
+	
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI";
@@ -245,70 +173,6 @@ public class DTextManager extends DisplayManager implements IItemManager {
 
 		}
 	}
-
-	// /* (non-Javadoc)
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	// fr.imag.adele.cadse.core.LinkType, fr.imag.adele.cadse.core.ItemType)
-	// */
-	// @Override
-	// public Pages createCreationPages(Item theItemParent, LinkType
-	// theLinkType,
-	// ItemType desType) {
-	//
-	// CreationAction action = new CreationAction(theItemParent, desType,
-	// theLinkType, DEFAULT_SHORT_NAME);
-	//
-	// return FieldsCore.createWizard(action,
-	// FieldsCore.createPage("page1", "Create a text", "Create a text", 3,
-	// FieldsCore.createTextField(CadseGCST.DTEXT_at_TOOL_TIP, "tool tip",
-	// 5),
-	// FieldsCore.createTextField(CadseGCST.DTEXT_at_VERTICAL_SPAN, "vertical
-	// span",
-	// new IntModelController(1,-1,"The value must be bigger than 1",null,"1")),
-	// FieldsCore.createTextField("pattern", "pattern (not implemented)"),
-	// createFieldExtendsIC(),
-	// createFieldExtendsMC(),
-	// createFieldExtendsUI()
-	//
-	// )
-	// );
-	// }
-
-	// /* (non-Javadoc)
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	// */
-	// @Override
-	// public Pages createModificationPage(Item item) {
-	// AbstractActionPage action = new ModificationAction(item);
-	//
-	// return FieldsCore.createWizard(action,
-	// FieldsCore.createPage("page1", "a text", "a text", 3,
-	// FieldsCore.createTextField(CadseGCST.DTEXT_at_TOOL_TIP, "tool tip",
-	// 5),
-	// FieldsCore.createTextField(CadseGCST.DTEXT_at_VERTICAL_SPAN, "vertical
-	// span",
-	// new IntModelController(1,-1,"The value must be bigger than 1",null,"1")),
-	// FieldsCore.createTextField("pattern", "pattern (not implemented)"),
-	// createFieldExtendsIC(),
-	// createFieldExtendsMC(),
-	// createFieldExtendsUI()
-	//
-	// )
-	// );
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -328,31 +192,5 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	public String getDefaultClassName() {
 		return DEFAUL_CLASS_NAME;
 	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
-//		Item attribute = FieldManager.getAttribute(field);
-//		if (attribute == null) {
-//			return "You must add a link to an attribute link";
-//		}
-//		if (AttributeManager.isIsListAttribute(attribute)) {
-//			return "Text is not for a list";
-//		}
-//		ItemType it = attribute.getType();
-//
-//		if (CadseGCST.BOOLEAN != it && CadseGCST.DOUBLE != it && CadseGCST.INTEGER != it
-//				&& CadseGCST.STRING != it & CadseGCST.DATE != it) {
-//			return "Text is for Boolean, Double, Integer, String or Date";
-//		}
-//
-//		return null;
-//	}
 
 }

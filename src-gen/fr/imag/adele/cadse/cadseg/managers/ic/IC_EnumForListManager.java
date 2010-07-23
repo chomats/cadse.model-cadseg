@@ -44,72 +44,7 @@ import fr.imag.adele.cadse.core.var.ContextVariableImpl;
  */
 public class IC_EnumForListManager extends IC_AbstractForBrowser_ComboManager implements IItemManager {
 
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends IC_AbstractForBrowser_ComboManager.MyContentItem {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			super.generateCallArguments(sb, imports, object);
-			Item uc = getOwnerItem();
-
-			Item field = uc.getPartParent().getPartParent();
-
-			Item enumattribute = FieldManager.getAttribute(field);
-
-			Item enumtype = EnumManager.getEnumType(enumattribute);
-
-			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumtype);
-
-			sb.append(javaenumtype.getElementName()).append(".class");
-			sb.append(",");
-
-			imports.add(javaenumtype.getFullyQualifiedName());
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			super.generateConstructorParameter(sb);
-			sb.append(" Class values,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			super.generateConstrustorArguments(sb);
-			sb.append(" values,");
-		}
-
-	}
+	
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
@@ -156,42 +91,6 @@ public class IC_EnumForListManager extends IC_AbstractForBrowser_ComboManager im
 		}
 	}
 
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.IC_DEFAULT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"Create a interaction controler for list with an enum attribut",
-//				"Create a interaction controler for list with an enum attribut", 3, FieldsCore.createTextField(
-//						SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE,
-//						"dialog message")));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"Create a interaction controler for list with an enum attribut",
-//				"Create a interaction controler for list with an enum attribut", 3, FieldsCore.createTextField(
-//						SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE,
-//						"dialog message")));
-//	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -210,16 +109,6 @@ public class IC_EnumForListManager extends IC_AbstractForBrowser_ComboManager im
 	@Override
 	public boolean mustBeExtended() {
 		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
 	}
 
 	/*

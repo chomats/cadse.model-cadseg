@@ -149,26 +149,16 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 	@Override
 	public void create() throws CadseException {
 		super.create();
-
-		createLauncher();
-	}
-
-	private void createLauncher() throws CadseException {
+		IProgressMonitor monitor = View.getDefaultMonitor();
 		try {
-			IProgressMonitor monitor = View.getDefaultMonitor();
 			JavaProjectManager.createJavaSourceFolder(getOwnerItem(), getProject().getFolder("src"), null, monitor);
-
-			IFile launchAppli = getProject().getFile("run-cadse-" + getOwnerItem().getName() + ".launch");
-			if (!launchAppli.exists()) {
-				LaunchApplicationTemplate lat = new LaunchApplicationTemplate();
-				MappingManager.generate(getProject(), null, launchAppli.getName(), lat.generate(getOwnerItem()),
-						monitor);
-			}
 		} catch (CoreException e) {
-			throw new CadseException("Cannot create workspace project from cadse {0} : {1}", e, getOwnerItem()
-					.getName(), e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
+
+	
 
 	@Override
 	protected void computeModel(PDEGenerateModel model) {

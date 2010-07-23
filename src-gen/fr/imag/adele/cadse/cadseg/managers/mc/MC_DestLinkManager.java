@@ -31,20 +31,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
 public class MC_DestLinkManager extends MC_LinkManager {
 
 	/**
-		@generated
-	*/
-	public class MC_DestLinkContent extends MC_LinkManager.MC_LinkContent {
-
-		/**
-			@generated
-		*/
-		public MC_DestLinkContent(UUID id) throws CadseException {
-			super(id);
-		}
-
-	}
-
-	/**
 	 * @generated
 	 */
 	public MC_DestLinkManager() {
@@ -84,21 +70,6 @@ public class MC_DestLinkManager extends MC_LinkManager {
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/**
-		@generated
-	*/
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem ) throws CadseException {
-		MC_DestLinkContent cm = new MC_DestLinkContent(
-			id
-			);
-		owerItem.setComposers(
-		);
-		owerItem.setExporters(
-		);
-		return cm;
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */

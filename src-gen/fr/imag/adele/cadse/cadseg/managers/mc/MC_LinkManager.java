@@ -44,54 +44,7 @@ public class MC_LinkManager extends ModelControllerManager {
 
 	
 
-	/**
-		@generated
-	*/
-	public class MC_LinkContent extends ModelControllerManager.ModelControllerContent {
-
-		/**
-			@generated
-		*/
-		public MC_LinkContent(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-
-			Item a = ModelControllerManager.getAttribute(getOwnerItem());
-			sb.append(Boolean.toString(LinkTypeManager.getMin(a) != 0)).append(", null,");
-			sb.append(GenerateJavaIdentifier.cstQualifiedAttribute(ContextVariableImpl.DEFAULT, a, null, null, imports))
-					.append(",");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("mandatory, msg, lt,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append("boolean mandatory, String msg, LinkType lt,");
-		}
-	}
-
+	
 	/**
 	 * @generated
 	 */
@@ -168,43 +121,7 @@ public class MC_LinkManager extends ModelControllerManager {
 	public boolean mustBeExtended() {
 		return false;
 	}
-
-	// /* (non-Javadoc)
-	// * @see
-	// model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	// fr.imag.adele.cadse.core.LinkType, fr.imag.adele.cadse.core.ItemType)
-	// */
-	// @Override
-	// public Pages createCreationPages(Item theItemParent, LinkType
-	// theLinkType,
-	// ItemType desType) {
-	//
-	// CreationAction action = new CreationAction(theItemParent, desType,
-	// theLinkType, DisplayManager.MC_DEFAULT_SHORT_NAME);
-	//
-	// return FieldsCore.createWizard(action,
-	// FieldsCore.createPage("page1", "Add a link model controller",
-	// "Add a link model controller for the current field", 2
-	// )
-	// );
-	// }
-	//
-	// /* (non-Javadoc)
-	// * @see
-	// model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	// */
-	// @Override
-	// public Pages createModificationPage(Item item) {
-	// AbstractActionPage action = new ModificationAction(item);
-	//
-	// return FieldsCore.createWizard(action,
-	// FieldsCore.createPage("page1", "a link model controller", "a link model
-	// controller", 3
-	//
-	// )
-	// );
-	// }
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -224,16 +141,6 @@ public class MC_LinkManager extends ModelControllerManager {
 		}
 
 		return "The type of the attribut linked at the field must be Link";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MC_LinkContent(id);
 	}
 
 	/**

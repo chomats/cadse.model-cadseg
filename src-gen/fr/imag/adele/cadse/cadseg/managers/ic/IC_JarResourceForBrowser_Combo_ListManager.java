@@ -35,25 +35,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
 public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeDialogForBrowser_Combo_ListManager
 		implements IItemManager {
 
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends IC_ResourceTreeDialogForBrowser_Combo_ListManager.MyContentItem {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-	}
-
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.java.fields.IC_JarResourceForBrowser_Combo_List";
@@ -118,17 +99,4 @@ public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeD
 	public boolean mustBeExtended() {
 		return false;
 	}
-
-	
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
 }

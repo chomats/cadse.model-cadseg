@@ -42,71 +42,7 @@ import fr.imag.adele.cadse.core.content.ContentItem;
 public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractForBrowser_ComboManager implements
 		IItemManager {
 
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends IC_AbstractForBrowser_ComboManager.MyContentItem {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			super.generateCallArguments(sb, imports, object);
-			Item ic = getOwnerItem();
-
-			List<String> values = ic.getAttributeWithDefaultValue(CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO_at_VALUES_,
-					new ArrayList<String>());
-
-			sb.append(" new Object[] {");
-			sb.begin();
-			for (String s : values) {
-				sb.newline();
-				sb.appendStringValue_vir(s);
-			}
-			sb.decrementLength();
-			sb.append("}),");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			super.generateConstructorParameter(sb);
-			sb.append(" final Object[] values,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			super.generateConstrustorArguments(sb);
-			sb.append(" values,");
-		}
-	}
-
+	
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_StaticArrayOfObjectForBrowser_Combo";
 
@@ -220,46 +156,6 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		}
 	}
 
-	//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.IC_DEFAULT_NAME);
-//
-//		RunningModelController mc = new MC_AttributesItem();
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"String[] interaction controller for browser or combo",
-//				"String[] interaction controller for browser or combo", 3, FieldsCore.createTextField(
-//						SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE,
-//						"dialog message"), FieldsCore.createList_ListOfString(VALUES_ATTRIBUTE, "values", null, null,
-//						false, 1, -1)));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"String[] interaction controller for browser or combo",
-//				"String[] interaction controller for browser or combo", 3, FieldsCore.createTextField(
-//						SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(SELECT_MESSAGE_ATTRIBUTE,
-//						"dialog message"), FieldsCore.createList_ListOfString(VALUES_ATTRIBUTE, "values", null, null,
-//						false, 1, -1)));
-//	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -278,16 +174,6 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 	@Override
 	public boolean mustBeExtended() {
 		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
 	}
 
 	/*

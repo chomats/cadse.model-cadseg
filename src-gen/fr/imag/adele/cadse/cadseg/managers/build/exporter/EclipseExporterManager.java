@@ -33,19 +33,7 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  */
 public class EclipseExporterManager extends ExporterManager {
 
-	/**
-	 * @generated
-	 */
-	public class EclipseExporterContent extends ExporterManager.ExporterContent {
-
-		/**
-		 * @generated
-		 */
-		public EclipseExporterContent(UUID id) throws CadseException {
-			super(id);
-		}
-
-	}
+	
 
 	/**
 	 * The Constructor.
@@ -99,20 +87,6 @@ public class EclipseExporterManager extends ExporterManager {
 		}
 	}
 
-	/**
-	 * @generated
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		EclipseExporterContent cm = new EclipseExporterContent(
-			id
-			);
-		owerItem.setComposers(
-		);
-		owerItem.setExporters(
-		);
-		return cm;
-	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
