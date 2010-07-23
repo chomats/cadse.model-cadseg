@@ -41,17 +41,17 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  */
 public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerManager implements IItemManager {
 
-	/** The Constant SELECT_TITLE_ATTRIBUTE. */
-	public static final String		SELECT_TITLE_ATTRIBUTE		= "select-title";
-
-	/** The Constant SELECT_MESSAGE_ATTRIBUTE. */
-	public static final String		SELECT_MESSAGE_ATTRIBUTE	= "select-messsage";
-
-	/** The Constant STYLE_ATTRIBUTE. */
-	public static final String		STYLE_ATTRIBUTE				= "STYLE";
-
-	/** The Constant FILTER_ATTRIBUTE. */
-	public static final String		FILTER_ATTRIBUTE			= "FILTER";
+//	/** The Constant SELECT_TITLE_ATTRIBUTE. */
+//	public static final String		SELECT_TITLE_ATTRIBUTE		= "select-title";
+//
+//	/** The Constant SELECT_MESSAGE_ATTRIBUTE. */
+//	public static final String		SELECT_MESSAGE_ATTRIBUTE	= "select-messsage";
+//
+//	/** The Constant STYLE_ATTRIBUTE. */
+//	public static final String		STYLE_ATTRIBUTE				= "STYLE";
+//
+//	/** The Constant FILTER_ATTRIBUTE. */
+//	public static final String		FILTER_ATTRIBUTE			= "FILTER";
 
 	
 
@@ -60,85 +60,7 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 			"CONSIDER_ANNOTATION_TYPES", "CONSIDER_ENUMS", "CONSIDER_ALL_TYPES", "CONSIDER_CLASSES_AND_INTERFACES",
 			"CONSIDER_CLASSES_AND_ENUMS"						};
 
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends InteractionControllerManager.InteractionControllerContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_TITLE_,
-					true, "??", sb);
-			DisplayManager.addAttributeInCall(getOwnerItem(), CadseGCST.IC_WITH_TITLE_FOR_DIALOG_at_SELECT_MESSAGE_,
-					true, "??", sb);
-			sb.append(" IJavaElementSearchConstants.");
-			String style = getOwnerItem().getAttribute(CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_STYLE_);
-			String stylecst = style_values_cst[0];
-			if (style != null) {
-				for (int i = 0; i < IC_JavaClassForBrowser_Combo.style_values.length; i++) {
-					if (style.equals(IC_JavaClassForBrowser_Combo.style_values[i])) {
-						stylecst = style_values_cst[i];
-						break;
-					}
-				}
-			}
-			sb.append(stylecst).append(",");
-			DisplayManager.addAttributeInCall(getOwnerItem(), 
-					CadseGCST.IC_JAVA_CLASS_FOR_BROWSER_COMBO_at_FILTER_, true, "", sb);
-			imports.add("org.eclipse.jdt.ui.IJavaElementSearchConstants");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append(" String title, String message, int style, String filter,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append(" title, message, style, filter,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ic.InteractionControllerManager.MyContentItem#computeImportsPackage(java.util.Set)
-		 */
-		@Override
-		public void computeImportsPackage(Set<String> imports) {
-			super.computeImportsPackage(imports);
-			imports.add("org.eclipse.jdt.ui");
-		}
-
-	}
+	
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo";
@@ -220,60 +142,6 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		}
 	}
 
-	//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.IC_DEFAULT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"Create a interaction controler for browser or combo with a java class attribut",
-//				"Create a interaction controler for browser or combo with a java class attribut", 3, FieldsCore
-//						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-//						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createComboBox(STYLE_ATTRIBUTE,
-//						"style", EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", style_values),
-//						null, true), FieldsCore.createTextField(FILTER_ATTRIBUTE, "filter",
-//						"The initial pattern to filter the set of types.\n"
-//								+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
-//								+ "The meta character '?' representing any character and\n"
-//								+ "'*' representing any string are supported.\n"
-//								+ "You can pass an empty string if no filtering is required")
-//
-//		));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"Create a interaction controler for browser or combo with a java class attribut",
-//				"Create a interaction controler for browser or combo with a java class attribut", 3, FieldsCore
-//						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-//						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createComboBox(STYLE_ATTRIBUTE,
-//						"style", EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", style_values),
-//						null, true), FieldsCore.createTextField(FILTER_ATTRIBUTE, "filter",
-//						"The initial pattern to filter the set of types.\n"
-//								+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
-//								+ "The meta character '?' representing any character and\n"
-//								+ "'*' representing any string are supported.\n"
-//								+ "You can pass an empty string if no filtering is required")
-//
-//		));
-//	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -292,16 +160,6 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	@Override
 	public boolean mustBeExtended() {
 		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
 	}
 
 	/*

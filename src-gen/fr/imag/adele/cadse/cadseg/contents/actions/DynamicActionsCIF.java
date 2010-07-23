@@ -72,7 +72,7 @@ public class DynamicActionsCIF implements IContentItemFactory {
 	/**
 	 * @generated
 	 */
-	public class DynamicActionsContent extends JavaFileContentManager implements IGenerateContent, IPDEContributor {
+	public class DynamicActionsContent extends JavaFileContentManager implements IPDEContributor {
 
 		/**
 		 * @generated
@@ -82,65 +82,8 @@ public class DynamicActionsCIF implements IContentItemFactory {
 			super(id, packageNameVariable, classNameVariable);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fr.imag.adele.cadse.core.IGenerateContent#generate(fr.imag.adele.
-		 * cadse.core.var.ContextVariable)
-		 */
-		public void generate(ContextVariable cxt) {
-			generate(cxt, getOwnerItem());
-		}
 
-		/**
-		 * Generate.
-		 * 
-		 * @param cxt
-		 *            the cxt
-		 * @param menuaction
-		 *            the menuaction
-		 */
-		public void generate(ContextVariable cxt, Item menuaction) {
-			GenerateClass ret;
-			String cn = getClassName(cxt);
-			String pn = getPackageName(cxt);
-
-			String super_pn = "fr.imag.adele.cadse.core.ui";
-			String super_cn = "IActionContributor";
-
-			IFile f = getFile();
-			IType javatype = getJavaType(cxt);
-
-			ret = new GenerateClass(null, true, pn, cn, (String) null, super_pn + "." + super_cn, javatype, false) {
-				@Override
-				protected void generateMethods(GenStringBuilder sb, Set<String> imports, GenContext context) {
-					imports.add("fr.imag.adele.cadse.core.IItemNode");
-					imports.add("fr.imag.adele.cadse.core.Menu");
-					imports.add("fr.imag.adele.cadse.core.ui.IActionContributor");
-					imports.add("fr.imag.adele.cadse.core.ui.view.ViewDescription");
-
-					sb.newline().append("@Override");
-					sb
-							.newline()
-							.append(
-									"public void contributeMenuAction(ViewDescription viewDescription, Menu menu, IItemNode[] selection) {");
-					sb.newline().append("	// TODO Auto-generated method stub");
-					sb.newline();
-					sb.newline().append("}");
-
-				}
-			};
-
-			String content = ret.getContent();
-			try {
-				EclipsePluginContentManger.generateJava(f, content, View.getDefaultMonitor());
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-
-		}
-
+		
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -151,10 +94,6 @@ public class DynamicActionsCIF implements IContentItemFactory {
 			imports.add("fr.imag.adele.cadse.core");
 			imports.add("fr.imag.adele.cadse.core.ui");
 			imports.add("fr.imag.adele.cadse.core.ui.view");
-		}
-
-		public GenerateModel getGenerateModel() {
-			return null;
 		}
 
 		public void computeExportsPackage(Set<String> exports) {

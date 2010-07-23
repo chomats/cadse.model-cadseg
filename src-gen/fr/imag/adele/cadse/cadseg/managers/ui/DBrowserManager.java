@@ -35,56 +35,6 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  */
 public class DBrowserManager extends DisplayManager implements IItemManager {
 
-	/**
-	 * The Class MyContentItem.
-	 */
-	public final class MyContentItem extends DisplayManager.DisplayContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		protected MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append("String key, String label, EPosLabel poslabel, "
-					+ "IModelController mc, IInteractionControllerForBrowserOrCombo ic,");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.ui.DisplayManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("key, label, poslabel, " + "mc, ic,");
-		}
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI";

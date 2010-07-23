@@ -45,73 +45,7 @@ import fr.imag.adele.cadse.core.var.ContextVariableImpl;
  */
 public class MC_StringListToEnumListManager extends ModelControllerManager implements IItemManager {
 
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends ModelControllerManager.ModelControllerContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		public MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item field = getOwnerItem().getPartParent().getPartParent();
-
-			Item enumattribute = FieldManager.getAttribute(field);
-
-			Item enumtype = EnumManager.getEnumType(enumattribute);
-
-			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumtype);
-
-			sb.append(javaenumtype.getElementName()).append(".class").append(",");
-			imports.add(javaenumtype.getFullyQualifiedName());
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("enumclass");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			Item field = getOwnerItem().getPartParent().getPartParent();
-
-			Item enumattribute = FieldManager.getAttribute(field);
-
-			Item enumtype = EnumManager.getEnumType(enumattribute);
-
-			IType javaenumtype = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumtype);
-
-			sb.append("Class<").append(javaenumtype.getElementName()).append(")> enumclass,");
-		}
-	}
-
+	
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
 	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.MC_StringListToEnumList";
@@ -186,47 +120,6 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 	public boolean mustBeExtended() {
 		return false;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
-	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.MC_DEFAULT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"Create a list of string to list of enum model controlle",
-//				"a list of string to list of enum model controlle", 3));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"a list of string to list of enum model controller", "a string to enum model controller", 3));
-//	}
 
 	/*
 	 * (non-Javadoc)

@@ -40,57 +40,7 @@ import fr.imag.adele.cadse.core.content.ContentItem;
  */
 public class MC_ListOfStringManager extends ModelControllerManager implements IItemManager {
 
-	/**
-	 * The Class MyContentItem.
-	 */
-	class MyContentItem extends ModelControllerManager.ModelControllerContent {
-
-		/**
-		 * Instantiates a new my content manager.
-		 * 
-		 * @param parent
-		 *            the parent
-		 * @param item
-		 *            the item
-		 * @throws CadseException
-		 */
-		public MyContentItem(UUID id) throws CadseException {
-			super(id);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateCallArguments(fr.imag.adele.cadse.core.GenStringBuilder,
-		 *      java.util.Set, java.lang.Object)
-		 */
-		@Override
-		protected void generateCallArguments(GenStringBuilder sb, Set<String> imports, Object object) {
-			Item mc = getOwnerItem();
-			sb.append_exp_vir(mc, CadseGCST.MC_LIST_OF_STRING_at_MIN_, 0);
-			sb.append_exp_vir(mc, CadseGCST.MC_LIST_OF_STRING_at_MAX_, -1);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstrustorArguments(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstrustorArguments(GenStringBuilder sb) {
-			sb.append("min, max");
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see model.workspace.workspace.managers.mc.ModelControllerManager.MyContentItem#generateConstructorParameter(fr.imag.adele.cadse.core.GenStringBuilder)
-		 */
-		@Override
-		protected void generateConstructorParameter(GenStringBuilder sb) {
-			sb.append("int min, int max");
-		}
-	}
+	
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	@SuppressWarnings("hiding")
@@ -204,47 +154,6 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 		return false;
 	}
 
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.MC_DEFAULT_NAME);
-//
-//		RunningModelController mc = new MC_AttributesItem();
-//		MinModelController minVC = new MinModelController();
-//
-//		MaxModelController maxVC = new MaxModelController();
-//		return FieldsCore
-//				.createWizard(action, FieldsCore.createPage("page1", "Create a list of string model controller",
-//						"Create a list of string model controller", 3, FieldsCore.createIntField(MIN, "min", minVC,
-//								minVC), FieldsCore.createIntField(MAX, "max", maxVC, maxVC)));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		RunningModelController mc = new MC_AttributesItem();
-//		MinModelController minVC = new MinModelController();
-//
-//		MaxModelController maxVC = new MaxModelController();
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a list of string model controller",
-//				"a list of string model controller", 3, FieldsCore.createIntField(MIN, "min", minVC, minVC), FieldsCore
-//						.createIntField(MAX, "max", maxVC, maxVC)));
-//	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -269,15 +178,5 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 		}
 
 		return "The attribut must be a list of string";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new MyContentItem(id);
 	}
 }
