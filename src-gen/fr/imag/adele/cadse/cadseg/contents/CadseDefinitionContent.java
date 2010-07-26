@@ -1,22 +1,15 @@
 package fr.imag.adele.cadse.cadseg.contents;
 
-import java.io.StringWriter;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -30,7 +23,6 @@ import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaProjectManager;
 import fede.workspace.eclipse.java.osgi.OsgiManifest;
-import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewCategoryModel;
 import fr.imag.adele.cadse.cadseg.managers.view.model.ViewModel;
@@ -43,13 +35,12 @@ import fr.imag.adele.cadse.core.impl.var.StringVariable;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CCadse;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
  * The Class WorkspaceModelContentManager.
  */
-public class CadseDefinitionContent extends EclipsePluginContentManger implements IPDEContributor {
+public class CadseDefinitionContent extends EclipsePluginContentManger  {
 
 	/**
 	 * Instantiates a new workspace model content manager.
@@ -94,32 +85,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		return CadseDefinitionManager.getDefaultPackage(ContextVariableImpl.DEFAULT, getOwnerItem());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExportsPackage
-	 * (java.util.Set)
-	 */
-	public void computeExportsPackage(Set<String> exports) {
-		exports.add(getDefaultPackage());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.eclipse.composition.java.IPDEContributor#computeImportsPackage
-	 * (java.util.Set)
-	 */
-	public void computeImportsPackage(Set<String> imports) {
-		List<String> importsList = CadseDefinitionManager.getImports(getOwnerItem());
-		if (importsList != null) {
-			imports.addAll(importsList);
-		}
-		imports.add("fr.imag.adele.cadse.core");
-		imports.add("fr.imag.adele.cadse.core.attribute");
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -206,89 +172,8 @@ public class CadseDefinitionContent extends EclipsePluginContentManger implement
 		super.generateManifest(info, monitor);
 	};
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion
-	 * (org.eclipse.pde.core.plugin.IPluginBase,
-	 * org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
-	 */
-	public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
-		try {
-			IPluginExtension[] exts = pluginBase.getExtensions();
-
-			IPluginExtension findExt = findExtension(pluginBase, exts, "org.eclipse.ui.views");
-
-			if (findExt != null) {
-				pluginBase.remove(findExt);
-			}
-			PluginExtension pluginExtension = new PluginExtension();
-			pluginExtension.setModel(workspacePluginModel);
-			pluginBase.add(pluginExtension);
-			pluginExtension.setPoint("org.eclipse.ui.views");
-			findExt = pluginExtension;
-
-			ViewModels viewmodels = new ViewModels(CadseDefinitionManager.getViewModel(getOwnerItem()));
-			for (ViewCategoryModel vc : viewmodels.categories) {
-				PluginElement categoryElt = new PluginElement();
-				categoryElt.setModel(workspacePluginModel);
-				findExt.add(categoryElt);
-				categoryElt.setName("category");
-				categoryElt.setAttribute("name", vc.name);
-				categoryElt.setAttribute("id", vc.id);
-
-			}
-			for (ViewModel v : viewmodels.views) {
-				PluginElement categoryElt = new PluginElement();
-				categoryElt.setModel(workspacePluginModel);
-				findExt.add(categoryElt);
-				categoryElt.setName("view");
-				if (v.icon != null) {
-					categoryElt.setAttribute("icon", v.icon);
-				}
-				if (v.category != null) {
-					categoryElt.setAttribute("category", v.category);
-				}
-
-				categoryElt.setAttribute("class", v.qualifiedClassName);
-				categoryElt.setAttribute("id", v.id);
-				categoryElt.setAttribute("name", v.name);
-
-			}
-
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
-	 * Find extension.
-	 * 
-	 * @param pluginBase
-	 *            the plugin base
-	 * @param exts
-	 *            the exts
-	 * @param pt
-	 *            the pt
-	 * 
-	 * @return the i plugin extension
-	 * 
-	 * @throws CoreException
-	 *             the core exception
-	 */
-	private IPluginExtension findExtension(IPluginBase pluginBase, IPluginExtension[] exts, String pt)
-			throws CoreException {
-		for (IPluginExtension e : exts) {
-			if (e.getPoint().equals(pt)) {
-				return e;
-			}
-		}
-		return null;
-	}
-
+	
+	
 	/**
 	 * Gets the source folder.
 	 * 

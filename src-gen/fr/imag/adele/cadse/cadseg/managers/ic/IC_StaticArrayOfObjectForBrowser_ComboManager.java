@@ -21,18 +21,13 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class IC_StaticArrayOfObjectForBrowser_ComboManager.

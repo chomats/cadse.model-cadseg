@@ -91,6 +91,7 @@
 		super-type-name="148dcee3-8512-49eb-abe7-9f8d25502778" name="Attribute"
 		qualified-name="CadseG.attributes.Attribute" cst-name="ATTRIBUTE"
 		id="31db54ef-d925-4ac4-964c-0e10dbbd30bb">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Attribute</adapters>
 		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="none"
 			tw-update="none" tw-evolution="immutable" isNatif="false"
@@ -216,7 +217,9 @@
 		intID="0" has-content="true" package-name="attributes"
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Boolean"
 		qualified-name="CadseG.attributes.Boolean" cst-name="BOOLEAN"
-		id="c1a53869-ea0c-4c3c-a550-f14a08fecf8a" />
+		id="c1a53869-ea0c-4c3c-a550-f14a08fecf8a">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Boolean</adapters>
+	</item-type>
 	<item-type hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -870,7 +873,9 @@
 		display-name="Date" is-abstract="true" is-root-element="false" intID="0"
 		has-content="true" package-name="attributes" super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb"
 		name="Date" qualified-name="CadseG.attributes.Date" cst-name="DATE"
-		id="efe925b4-80cc-4190-b095-1bf0ad2ed5f8" />
+		id="efe925b4-80cc-4190-b095-1bf0ad2ed5f8">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Date</adapters>
+	</item-type>
 	<item-type default-short-name="ui" hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -921,7 +926,9 @@
 		intID="0" has-content="true" package-name="attributes"
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Double"
 		qualified-name="CadseG.attributes.Double" cst-name="DOUBLE"
-		id="9f4468ff-9d6d-4f40-905f-a2d8ea30d184" />
+		id="9f4468ff-9d6d-4f40-905f-a2d8ea30d184">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Double</adapters>	
+	</item-type>
 	<item-type hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id=""
@@ -1012,6 +1019,7 @@
 		has-content="true" package-name="attributes" super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb"
 		name="Enum" qualified-name="CadseG.attributes.Enum" cst-name="ENUM"
 		id="a807eb31-575e-4fbb-822c-c0e4c6095339">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Enum</adapters>	
 		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
@@ -1538,7 +1546,9 @@
 		intID="0" has-content="true" package-name="attributes"
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="Integer"
 		qualified-name="CadseG.attributes.Integer" cst-name="INTEGER"
-		id="96b56223-b777-4d43-a4fd-d44afc9d50aa" />
+		id="96b56223-b777-4d43-a4fd-d44afc9d50aa" >
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Integer</adapters>	
+	</item-type>
 	<item-type default-short-name="ic" hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -1946,6 +1956,7 @@
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="LinkType"
 		qualified-name="CadseG.attributes.LinkType" cst-name="LINK_TYPE"
 		id="ac03a3ca-23d6-4c8d-ba5c-c84cb42ff9ea">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_LinkType</adapters>
 		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false"
@@ -2098,6 +2109,8 @@
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="List"
 		qualified-name="CadseG.attributes.List" cst-name="LIST"
 		id="06b59d1d-b7a7-45df-b133-4b1099207a04">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_List</adapters>	
+		
 		<outgoing-link flag="8" hidden="false" tw-coupled="false"
 			tw-evol-destination="immutable" tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" isNatif="false" cst-name="LIST_lt_SUB_TYPE"
@@ -2116,7 +2129,9 @@
 		display-name="Long" is-abstract="false" is-root-element="false" intID="0"
 		has-content="true" package-name="attributes" super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb"
 		name="Long" qualified-name="CadseG.attributes.Long" cst-name="LONG"
-		id="d06fc1c0-450d-46c3-8168-1dd2ff99fd1b" />
+		id="d06fc1c0-450d-46c3-8168-1dd2ff99fd1b">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Long</adapters>	
+	</item-type>
 	<item-type default-short-name="mc" hidden="false"
 		pattern-valid-id="[a-zA-Z][a-zA-Z0-9_]*((-| )[a-z][a-zA-Z0-9_]*)*"
 		pattern-id="${#parent-unique-name}{.}${#short-name}"
@@ -2685,6 +2700,7 @@
 		super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb" name="String"
 		qualified-name="CadseG.attributes.String" cst-name="STRING"
 		id="b510d24e-a9d5-4a3a-b851-16c209276867">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_String</adapters>	
 		<attribute-type tw-rev-specific="true" tw-commit="conflict"
 			tw-update="merge" tw-evolution="immutable" flag="8"
 			id="43cf0f90-0929-458d-8c00-5f01b0dafd5b" cst-name="STRING_at_NOT_EMPTY_"
@@ -2943,7 +2959,9 @@
 		display-name="UUID" is-abstract="true" is-root-element="false" intID="0"
 		has-content="true" package-name="attributes" super-type-name="31db54ef-d925-4ac4-964c-0e10dbbd30bb"
 		name="UUID" qualified-name="CadseG.attributes.UUID" cst-name="UUID"
-		id="d7c0bc5e-61f5-4d2f-8b69-f8efbbe867a4" />
+		id="d7c0bc5e-61f5-4d2f-8b69-f8efbbe867a4">
+		<adapters>fr.imag.adele.cadse.cadseg.readwriteattribute.LW_UUID</adapters>	
+	</item-type>
 	<item-type hidden="false" pattern-id="${#parent-unique-name}{.}${#short-name}"
 		manager-class="fr.imag.adele.cadse.cadseg.managers.attributes.UnresolvedAttributeTypeManager"
 		display-name="UnresolvedAttributeType" is-abstract="true"

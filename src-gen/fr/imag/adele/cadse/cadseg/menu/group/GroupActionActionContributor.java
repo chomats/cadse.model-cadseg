@@ -23,7 +23,6 @@ import fede.workspace.tool.view.menu.MenuNewAction;
 import fede.workspace.tool.view.menu.RecreatePartLinkAction;
 import fede.workspace.tool.view.node.RootNode;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
@@ -171,22 +170,7 @@ public class GroupActionActionContributor  extends AbstractActionContributor {
 		return links;
 	}
 
-	protected List<Item> getGenerateObject(IItemNode[] selection) {
-		List<Item> ret = new ArrayList<Item>();
-		for (int i = 0; i < selection.length; i++) {
-			try {
-				IItemNode iiv = selection[i];
-				Item item = iiv.getItem();
-				if (item != null && item.isResolved() && item.itemHasContent()
-						&& item.getContentItem() instanceof IGenerateContent) {
-					ret.add(item);
-				}
-			} catch (Throwable e) {
-				WSPlugin.logException(e);
-			}
-		}
-		return ret;
-	}
+	
 
 	protected boolean canDeleteLink(Link l) {
 		return l != null && !l.isReadOnly() && l.getSource().getType().getItemManager().canDeleteLink(l) == null;

@@ -19,17 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class FolderExporterManager.

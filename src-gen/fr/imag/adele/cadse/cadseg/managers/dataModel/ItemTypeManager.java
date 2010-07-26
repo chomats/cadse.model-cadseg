@@ -1911,7 +1911,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 * 
 	 * @return la liste de tous les itemtypes
 	 */
-	public static Item[] getAllAllItemType(Item cadsedef, ItemFilter filter) {
+	public static Item[] getAllAllItemType(Item cadsedef, ItemFilter filter, boolean includeExtendedCadse) {
 		if (cadsedef == null) {
 			return new Item[0];
 		}
@@ -1921,7 +1921,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 			return new Item[0];
 		}
 
-		Item[] ret = getAllDataModel(datamodel);
+		Item[] ret = getAllDataModel(datamodel, includeExtendedCadse);
 		HashSet<Item> retitemtype = new HashSet<Item>();
 		for (Item dd : ret) {
 			if (filter == null || filter.accept(dd)) {
@@ -1944,7 +1944,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	 * 
 	 * @return the all data model
 	 */
-	public static Item[] getAllDataModel(Item datamodel) {
+	public static Item[] getAllDataModel(Item datamodel, boolean includeExtendedCadse) {
 		HashSet<Item> ret = new HashSet<Item>();
 		ret.add(datamodel);
 		Set<Item> pass = new HashSet<Item>();
@@ -1953,7 +1953,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 			Set<Item> nextpass = new HashSet<Item>();
 			for (Item aDataModel : pass) {
 				Item partParent = aDataModel.getPartParent();
-				if (partParent.getType() == CadseGCST.CADSE_DEFINITION) {
+				if (includeExtendedCadse && partParent.getType() == CadseGCST.CADSE_DEFINITION) {
 					Collection<Item> extendsCadse = CadseDefinitionManager.getExtends(partParent);
 					for (Item cadseDef : extendsCadse) {
 						Item extDataModel = CadseDefinitionManager.getMainDataModel(cadseDef);

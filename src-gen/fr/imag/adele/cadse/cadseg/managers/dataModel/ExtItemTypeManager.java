@@ -22,19 +22,13 @@ package fr.imag.adele.cadse.cadseg.managers.dataModel;
 import java.util.Set;
 import java.util.UUID;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
-import fede.workspace.eclipse.MelusineProjectManager;
-import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
-import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
@@ -43,7 +37,6 @@ import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.cadse.core.var.Variable;
-import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
  * The Class ExtItemTypeManager.
@@ -96,37 +89,10 @@ public class ExtItemTypeManager extends ItemTypeManager {
 
 
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
-		 * computeExportsPackage(java.util.Set)
-		 */
-		public void computeExportsPackage(Set<String> exports) {
-			exports.add(getPackageName(ContextVariableImpl.DEFAULT));
-		}
+		
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
-		 * computeImportsPackage(java.util.Set)
-		 */
-		public void computeImportsPackage(Set<String> imports) {
-
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion
-		 * (org.eclipse.pde.core.plugin.IPluginBase,
-		 * org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
-		 */
-		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
-		}
-
+		
+		
 	}
 
 	/**

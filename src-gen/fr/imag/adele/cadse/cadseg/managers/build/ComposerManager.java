@@ -22,32 +22,19 @@ package fr.imag.adele.cadse.cadseg.managers.build;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
-import org.eclipse.pde.core.plugin.IPluginBase;
-import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
-
-import fede.workspace.eclipse.composition.java.IPDEContributor;
-import fede.workspace.eclipse.content.SubFileContentManager;
-import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Menu;
-import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.util.Convert;
-import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
  * The Class ComposerManager.

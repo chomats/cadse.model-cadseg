@@ -60,7 +60,6 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.IContentItemFactory;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.InitAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -710,7 +709,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			String setvalue = value;
 			list.add(setvalue);
 			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_, list);
-			((IGenerateContent) cadseDefinition.getContentItem()).generate(ContextVariableImpl.DEFAULT);
+			//((IGenerateContent) cadseDefinition.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 		} catch (Throwable t) {
 
 		}
