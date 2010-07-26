@@ -19,12 +19,8 @@
 
 package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 
-import java.util.UUID;
-
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class EclipseReExporterManager.

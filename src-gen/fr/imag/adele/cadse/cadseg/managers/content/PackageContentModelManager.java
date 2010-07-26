@@ -19,15 +19,9 @@
 
 package fr.imag.adele.cadse.cadseg.managers.content;
 
-import java.util.Set;
-import java.util.UUID;
-
-import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.StringAttributeType;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class PackageContentModelManager.

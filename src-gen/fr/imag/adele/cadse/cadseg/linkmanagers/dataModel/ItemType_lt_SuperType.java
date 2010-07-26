@@ -61,7 +61,7 @@ public class ItemType_lt_SuperType extends DefaultLinkTypeManager {
 
 		Item cadsedef = ItemTypeManager.getCadseDefinition(theItemType);
 
-		ArrayList<Item> ret = new ArrayList<Item>(Arrays.asList(ItemTypeManager.getAllAllItemType(cadsedef, null)));
+		ArrayList<Item> ret = new ArrayList<Item>(Arrays.asList(ItemTypeManager.getAllAllItemType(cadsedef, null, true)));
 
 		ret.removeAll(CadseUtil.incomingClosure(theItemType, CadseGCST.ITEM_TYPE_lt_SUPER_TYPE));
 

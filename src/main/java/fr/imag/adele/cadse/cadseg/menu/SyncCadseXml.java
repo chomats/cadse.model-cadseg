@@ -51,7 +51,7 @@ public class SyncCadseXml extends IMenuAction {
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
 		Item cadse = selection[0].getItem();
-		Item[] its = ItemTypeManager.getAllAllItemType(cadse, null);
+		Item[] its = ItemTypeManager.getAllAllItemType(cadse, null, true);
 
 		LogicalWorkspace lw = cadse.getLogicalWorkspace();
 		File cadseFile = new File(cadse.getMainMappingContent(File.class), "model/cadse.xml");

@@ -34,9 +34,6 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -77,10 +74,26 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 
 	}
 
+	
+	public static class Page_MF extends IPDEContributor {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
+		 * computeImportsPackage(java.util.Set)
+		 */
+		public void computeImportsPackage(Item item, Set<String> imports) {
+			imports.add("fede.workspace.model.manager.properties");
+			imports.add("fr.imag.adele.cadse.core.ui");
+			imports.add("fr.imag.adele.cadse.core.impl.ui");
+		}
+	}
+	
+	
 	/**
 	 * The Class PageContentManager.
 	 */
-	public final class PageContentManager extends JavaFileContentManager implements IPDEContributor, IGenerateContent {
+	public final class PageContentManager extends JavaFileContentManager  {
 
 		/**
 		 * Instantiates a new page content manager.
@@ -112,17 +125,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			//exports.add(getPackageName(ContextVariableImpl.DEFAULT));
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @seefede.workspace.eclipse.composition.java.IPDEContributor#
-		 * computeImportsPackage(java.util.Set)
-		 */
-		public void computeImportsPackage(Set<String> imports) {
-			imports.add("fede.workspace.model.manager.properties");
-			imports.add("fr.imag.adele.cadse.core.ui");
-			imports.add("fr.imag.adele.cadse.core.impl.ui");
-		}
+		
 
 //		/*
 //		 * (non-Javadoc)
@@ -148,24 +151,12 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			//}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * fede.workspace.eclipse.composition.java.IPDEContributor#computeExtenstion
-		 * (org.eclipse.pde.core.plugin.IPluginBase,
-		 * org.eclipse.pde.internal.core.plugin.WorkspacePluginModel)
-		 */
-		public void computeExtenstion(IPluginBase pluginBase, WorkspacePluginModel workspacePluginModel) {
-		}
+		
 
 		public void generate(ContextVariable cxt) {
 			generate();
 		}
 
-		public GenerateModel getGenerateModel() {
-			return null;
-		}
 	}
 
 	/**

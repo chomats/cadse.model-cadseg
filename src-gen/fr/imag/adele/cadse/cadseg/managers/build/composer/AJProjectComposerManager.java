@@ -21,14 +21,9 @@ package fr.imag.adele.cadse.cadseg.managers.build.composer;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
-import fr.imag.adele.cadse.cadseg.managers.ic.InteractionControllerManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;

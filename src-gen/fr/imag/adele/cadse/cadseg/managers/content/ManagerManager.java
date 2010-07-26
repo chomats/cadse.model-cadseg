@@ -21,40 +21,24 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.pde.core.plugin.IPluginBase;
-import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
-import fede.workspace.eclipse.MelusineProjectManager;
-import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
-import fede.workspace.eclipse.composition.java.IPDEContributor;
-import fr.imag.adele.cadse.cadseg.Activator;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.ParseTemplate;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.GenContext;
-import fr.imag.adele.cadse.core.GenStringBuilder;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
-import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
  * The Class ManagerManager.
@@ -482,50 +466,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	@Deprecated
 	public static String getHumanTypeName(Item manager) {
 		return getHumanNameAttribute(manager);
-	}
-
-//	/** moved to ItemTypeManager
-//	 * Gets the icon path.
-//	 * 
-//	 * @param manager
-//	 *            the manager
-//	 * 
-//	 * @return the icon path
-//	 */
-//	public static String getIconPath(Item manager) {
-//		String pStr = getIconAttribute(manager);
-//		if (pStr == null) {
-//			return null;
-//		}
-//		IPath p = new Path(pStr);
-//		return p.removeFirstSegments(1).makeRelative().toPortableString();
-//	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#regenerate(fr.imag.adele.cadse.core.Item)
-	// */
-	// @Override
-	// public void regenerate(Item manager) {
-	// ((IGenerateContent)
-	// manager.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-	// Item model = getWorkspaceModel(manager);
-	// ((IGenerateContent)
-	// model.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-	// }
-
-	/**
-	 * _regenerate.
-	 * 
-	 * @param manager
-	 *            the manager
-	 */
-	public static void _regenerate(Item manager) {
-		((IGenerateContent) manager.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-		Item model = _getCadseDefinition(manager);
-		((IGenerateContent) model.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 	}
 
 	/**

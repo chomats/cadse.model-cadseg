@@ -18,9 +18,9 @@ import fr.imag.adele.cadse.cadseg.menu.ViewActionContributor;
 import fr.imag.adele.cadse.cadseg.migration.MigrationInit;
 import fr.imag.adele.cadse.cadseg.operation.WorkspaceActionContributor;
 import fr.imag.adele.cadse.cadseg.pages.PageInit;
+import fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Attribute;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.InitAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.WorkspaceListener;
@@ -236,30 +236,31 @@ public class CadsegInit implements InitAction {
 		}
 		MigrationInit.init();
 
-		// *****/
-		WorkspaceListener listener = new WorkspaceListener() {
-
-			@Override
-			public void workspaceChanged(ImmutableWorkspaceDelta wd) {
-				HashSet<Item> views = new HashSet<Item>();
-				for (ImmutableItemDelta itemDelta : wd.getItems()) {
-					if (itemDelta.isDeleted()) {
-						continue;
-					}
-					Item item = itemDelta.getItem();
-					Item view = item.getPartParent(CadseGCST.VIEW);
-					if (view != null) {
-						views.add(view);
-					}
-				}
-
-				for (Item item : views) {
-					((IGenerateContent) item.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-				}
-			}
-
-		};
-		CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
+//		// *****/
+//		WorkspaceListener listener = new WorkspaceListener() {
+//
+//			@Override
+//			public void workspaceChanged(ImmutableWorkspaceDelta wd) {
+//				HashSet<Item> views = new HashSet<Item>();
+//				for (ImmutableItemDelta itemDelta : wd.getItems()) {
+//					if (itemDelta.isDeleted()) {
+//						continue;
+//					}
+//					Item item = itemDelta.getItem();
+//					Item view = item.getPartParent(CadseGCST.VIEW);
+//					if (view != null) {
+//						views.add(view);
+//					}
+//				}
+//
+//				for (Item item : views) {
+//					((IGenerateContent) item.getContentItem()).generate(ContextVariableImpl.DEFAULT);
+//				}
+//			}
+//
+//		};
+		//CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
+		LW_Attribute.init();
 	}
 
 }

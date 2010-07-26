@@ -58,7 +58,7 @@ public final class IC_DestinationLinkForBrowser_Combo extends
 					public boolean stop() {
 						return false;
 					}
-				});
+				}, true);
 	}
 
 	private Item getSuperAttribute() {

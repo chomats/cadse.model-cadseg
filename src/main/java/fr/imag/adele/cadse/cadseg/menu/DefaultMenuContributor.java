@@ -38,16 +38,16 @@ import org.eclipse.ui.IWorkbenchWindow;
 import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.actions.CreateLinkAction;
 import fede.workspace.tool.view.actions.DeleteLinkAction;
-import fede.workspace.tool.view.actions.GenerateAction;
 import fede.workspace.tool.view.actions.RefreshAction;
 import fede.workspace.tool.view.addlink.LinkRootNode;
 import fede.workspace.tool.view.menu.MenuNewAction;
 import fede.workspace.tool.view.menu.RecreatePartLinkAction;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.RootNode;
+import fr.imag.adele.cadse.as.generator.GGenFile;
+import fr.imag.adele.cadse.as.generator.GenerateAction;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ExtendedType;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
@@ -136,22 +136,7 @@ public class DefaultMenuContributor  extends AbstractActionContributor {
 		return links;
 	}
 
-	protected List<Item> getGenerateObject(IItemNode[]  ssel) {
-		List<Item> ret = new ArrayList<Item>();
-		for (IItemNode iiv : ssel) {
-			try {
-				Item item = iiv.getItem();
-				if (item != null && item.isResolved() && item.itemHasContent()
-						&& item.getContentItem() instanceof IGenerateContent) {
-					ret.add(item);
-				}
-				
-			} catch (Throwable e) {
-				WSPlugin.logException(e);
-			}
-		}
-		return ret;
-	}
+	
 
 	protected boolean canDeleteLink(Link l) {
 		return l != null && !l.isReadOnly() && l.getSource().getType().getItemManager().canDeleteLink(l) == null;
@@ -509,10 +494,7 @@ public class DefaultMenuContributor  extends AbstractActionContributor {
 					true);
 		}
 
-		List<Item> generateContent = getGenerateObject(selection);
-		if (generateContent.size() != 0) {
-			menu.insert(IMenuAction.CONTEXT_2_MENU, new GenerateAction(generateContent), true);
-		}
+		
 
 		menu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(View.getInstance().getInitModel()), true);
 		
