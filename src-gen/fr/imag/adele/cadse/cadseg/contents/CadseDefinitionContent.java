@@ -15,6 +15,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 
 import fede.workspace.eclipse.composition.java.EclipsePluginContentManger;
+import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaProjectManager;
 import fede.workspace.eclipse.java.osgi.OsgiManifest;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
@@ -118,8 +119,8 @@ public class CadseDefinitionContent extends EclipsePluginContentManger  {
 	
 
 	@Override
-	protected void computeModel(PDEGenerateModel model) {
-		super.computeModel(model);
+	protected void computeModel(PDEGenerateModel model, List<IPDEContributor> pdeContributor) {
+		super.computeModel(model, pdeContributor);
 		model.sourceName = "src-gen";
 	}
 
