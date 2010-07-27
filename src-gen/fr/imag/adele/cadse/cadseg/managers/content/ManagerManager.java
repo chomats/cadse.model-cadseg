@@ -38,7 +38,6 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.content.ContentItem;
-import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class ManagerManager.

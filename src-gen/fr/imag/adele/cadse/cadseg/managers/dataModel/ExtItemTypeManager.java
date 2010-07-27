@@ -19,11 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.dataModel;
 
-import java.util.Set;
 import java.util.UUID;
-
-import org.eclipse.pde.core.plugin.IPluginBase;
-import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
 
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
@@ -35,7 +31,6 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
-import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.cadse.core.var.Variable;
 
 /**
