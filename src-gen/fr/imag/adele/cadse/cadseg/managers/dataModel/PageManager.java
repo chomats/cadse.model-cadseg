@@ -24,9 +24,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.eclipse.pde.core.plugin.IPluginBase;
-import org.eclipse.pde.internal.core.plugin.WorkspacePluginModel;
-
 import fede.workspace.eclipse.composition.java.IPDEContributor;
 import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;

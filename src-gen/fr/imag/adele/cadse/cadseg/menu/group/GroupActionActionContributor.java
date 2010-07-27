@@ -18,7 +18,6 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.ui.IWorkbenchWindow;
 
-import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.menu.MenuNewAction;
 import fede.workspace.tool.view.menu.RecreatePartLinkAction;
 import fede.workspace.tool.view.node.RootNode;
