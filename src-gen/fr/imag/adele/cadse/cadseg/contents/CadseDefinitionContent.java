@@ -23,6 +23,7 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.var.StringVariable;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -117,9 +118,9 @@ public class CadseDefinitionContent extends EclipsePluginContentManger  {
 	}
 
 	
-
 	@Override
-	protected void computeModel(PDEGenerateModel model, List<IPDEContributor> pdeContributor) {
+	protected void computeModel(PDEGenerateModel model,
+			List<CadseCore.AdapterEntry<IPDEContributor>> pdeContributor) {
 		super.computeModel(model, pdeContributor);
 		model.sourceName = "src-gen";
 	}
