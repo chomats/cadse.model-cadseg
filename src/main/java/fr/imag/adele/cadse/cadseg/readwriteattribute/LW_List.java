@@ -27,11 +27,23 @@ public class LW_List extends LW_Attribute {
 	@Override
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
 			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
+		
+		List<CValuesType> elements = type.getElement();
+		if (elements == null || elements.size() != 1) {
+			throw new CadseException(
+					"cannot create value from {0} : bad definition of list",
+					type.getKey());
+		}		
+		
 		ListAttributeType<?> ret = new fr.imag.adele.cadse.core.impl.attribute.ListAttributeType(
 			initModel.getUUID(type.getId()), 
 				initModel.getFlag(type),
 				type.getKey(), 
-				0, -1, null);
+				initModel.getMin(type), 
+				initModel.getMax(type), initModel.createAttrituteType(theWorkspaceLogique, null, elements
+						.get(0), cadseName));
+		
+		
 		return ret;
 	}
 
