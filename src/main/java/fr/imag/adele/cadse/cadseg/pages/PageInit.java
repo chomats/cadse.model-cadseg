@@ -1109,7 +1109,9 @@ public class PageInit {
 							CadseGCST.ATTRIBUTE_at_IS_LIST_, CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
 							CadseGCST.ATTRIBUTE_at_TWUPDATE_KIND_, CadseGCST.ATTRIBUTE_at_TWEVOL_,
 							CadseGCST.ATTRIBUTE_at_TWREV_SPECIFIC_, CadseGCST.ATTRIBUTE_at_NATIF_,
-							CadseGCST.ATTRIBUTE_at_TRANSIENT_));
+							CadseGCST.ATTRIBUTE_at_TRANSIENT_,
+							CadseGCST.ITEM_at_DISPLAY_NAME_,
+							CadseGCST.ITEM_at_QUALIFIED_NAME_));
 				}
 			};
 		});
