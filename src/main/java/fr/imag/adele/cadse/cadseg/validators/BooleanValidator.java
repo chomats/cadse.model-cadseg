@@ -9,16 +9,29 @@
  */
 package fr.imag.adele.cadse.cadseg.validators;
 
+import fr.imag.adele.cadse.cadseg.managers.attributes.BooleanManager;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ui.AbstractUIRunningValidator;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 
 /**
  * @generated
  */
 public class BooleanValidator extends AbstractUIRunningValidator {
-
+	
+	@Override
+	public void init(UIPlatform uiPlatform) {
+		super.init(uiPlatform);
+		if (_uiPlatform.isModification()) return;
+		
+		Item item = _uiPlatform.getItem();
+		BooleanManager.setDefaultValueAttribute(item, "false");
+		BooleanManager.setCannotBeUndefinedAttribute(item, true);
+	}
+	
 	@Override
 	public boolean validValue(UIField field, Object value) {
 
@@ -35,7 +48,14 @@ public class BooleanValidator extends AbstractUIRunningValidator {
 	public void notifieValueChanged(UIField field, Object value) {
 		if (_uiPlatform.isModification()) {
 			if (!isValidConfig()) {
-				_uiPlatform.setVisualValue(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, false, true);
+				_uiPlatform.setVisualValue(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, true, false);
+				Item item = _uiPlatform.getItem();
+				try {
+					item.setAttribute(CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_, true);
+				} catch (CadseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

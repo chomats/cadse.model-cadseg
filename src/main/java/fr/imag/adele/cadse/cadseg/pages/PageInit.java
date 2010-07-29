@@ -871,8 +871,9 @@ public class PageInit {
 		}
 		// BOOLEAN
 		{
-			JavaClassValidator v = new JavaClassValidator(null);
-			v.setClazz(BooleanInitValidator.class);
+			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
+			v.setClazz(BooleanValidator.class);
+			v.setListenAttributes(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
 			CadseGCST.BOOLEAN.addValidators(v);
 		}
 		// ATTRIBUTE_at_IS_LIST_
@@ -969,14 +970,6 @@ public class PageInit {
 			v.setClazz(MenuValidator.class);
 			v.setListenAttributes(CadseGCST.MENU_ABSTRACT_at_LABEL_, CadseGCST.ITEM_at_NAME_);
 			CadseGCST.MENU.addValidators(v);
-		}
-
-		// BOOLEAN
-		{
-			JavaClassValidator v = new JavaClassValidator(CadseGCST.UIVALIDATOR);
-			v.setClazz(BooleanValidator.class);
-			v.setListenAttributes(CadseGCST.ATTRIBUTE_at_CANNOT_BE_UNDEFINED_, CadseGCST.ATTRIBUTE_at_DEFAULT_VALUE_);
-			CadseGCST.BOOLEAN.addValidators(v);
 		}
 
 		// ************************************** //
