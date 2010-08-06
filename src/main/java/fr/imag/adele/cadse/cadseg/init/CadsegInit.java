@@ -3,15 +3,20 @@ package fr.imag.adele.cadse.cadseg.init;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
+import fr.imag.adele.cadse.cadseg.contents.actions.DynamicActionsContent;
+import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionContent;
 import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeSpaceKeyType;
+import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
+import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
+import fr.imag.adele.cadse.cadseg.managers.content.ProjectContentModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageSpaceKeyType;
+import fr.imag.adele.cadse.cadseg.managers.ic.IC_PartLinkForBrowser_Combo_ListManager;
+import fr.imag.adele.cadse.cadseg.managers.view.ViewLinkTypeManager;
 import fr.imag.adele.cadse.cadseg.menu.DefaultMenuContributor;
 import fr.imag.adele.cadse.cadseg.menu.TeamWorkMenuActionContributor;
 import fr.imag.adele.cadse.cadseg.menu.ViewActionContributor;
@@ -21,17 +26,13 @@ import fr.imag.adele.cadse.cadseg.pages.PageInit;
 import fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Attribute;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.DefaultValidator;
 import fr.imag.adele.cadse.core.InitAction;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.impl.AbstractLinkTypeManager;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
-import fr.imag.adele.cadse.core.key.DefaultKeyImpl;
 import fr.imag.adele.cadse.core.key.Key;
-import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
-import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
-import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 public class CadsegInit implements InitAction {
 
@@ -261,6 +262,17 @@ public class CadsegInit implements InitAction {
 //		};
 		//CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
 		LW_Attribute.init();
+		
+		CadseGCST.CADSE_DEFINITION.setContentItemClass(CadseDefinitionContent.class);
+		CadseGCST.DYNAMIC_ACTIONS.setContentItemClass(DynamicActionsContent.class);
+		CadseGCST.MENU_ACTION.setContentItemClass(MenuActionContent.class);
+		
+		CadseGCST.ITEM.addAdapter(new DefaultValidator());
+		CadseGCST.ENUM.addAdapter(new EnumManager.EnumValidator());
+		CadseGCST.MANAGER.addAdapter(new ManagerManager.ManagerValidator());
+		CadseGCST.PROJECT_CONTENT_MODEL.addAdapter(new ProjectContentModelManager.ProjectContentValidator());
+		CadseGCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST.addAdapter(new IC_PartLinkForBrowser_Combo_ListManager.IC_PartLinkForBrowser_Combo_ListValidator());
+		CadseGCST.VIEW_LINK_TYPE.addAdapter(new ViewLinkTypeManager.ViewLinkTypeValidator());
 	}
 
 }

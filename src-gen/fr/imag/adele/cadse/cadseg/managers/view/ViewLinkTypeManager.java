@@ -29,6 +29,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Validator;
 
 /**
  * The Class ViewLinkTypeManager.
@@ -397,38 +398,40 @@ public class ViewLinkTypeManager extends DefaultItemManager {
 		return "false";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
-	 */
-	@Override
-	public List<Item> validate(Item item, ProblemReporter reporter) {
-		List<Item> ret = super.validate(item, reporter);
-		Item lt = getLinkType(item);
-		if (lt == null) {
-			reporter.report(item, 1, "Cannot find the link type from view link type {0}", item.getQualifiedName());
-			return ret;
-		}
-		Item itemtypedest = LinkTypeManager.getDestination(lt);
-		if (itemtypedest == null) {
-			reporter.report(item, 1, "Cannot find destination of link type {0}", lt.getQualifiedName());
-			return ret;
-		}
+	public final static class ViewLinkTypeValidator extends Validator {
+		
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
+		 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			Item lt = getLinkType(item);
+			if (lt == null) {
+				reporter.report(item, 1, "Cannot find the link type from view link type {0}", item.getQualifiedName());
+				return null;
+			}
+			Item itemtypedest = LinkTypeManager.getDestination(lt);
+			if (itemtypedest == null) {
+				reporter.report(item, 1, "Cannot find destination of link type {0}", lt.getQualifiedName());
+				return null;
+			}
 
-		Item itemtypesource = LinkTypeManager.getSource(lt);
+			Item itemtypesource = LinkTypeManager.getSource(lt);
 
-		Item view = item.getPartParent().getPartParent();
-		Item viewItemtype = ViewManager.getViewItemType(view, itemtypedest);
-		if (viewItemtype == null) {
-			reporter.report(item, 1,
-					"Cannot find the item type {0} in the view {1}, it is needed for the link type {2}::{3}.",
-					itemtypedest.getName(), view.getName(), itemtypesource.getName(), lt.getName());
-			return ret;
+			Item view = item.getPartParent().getPartParent();
+			Item viewItemtype = ViewManager.getViewItemType(view, itemtypedest);
+			if (viewItemtype == null) {
+				reporter.report(item, 1,
+						"Cannot find the item type {0} in the view {1}, it is needed for the link type {2}::{3}.",
+						itemtypedest.getName(), view.getName(), itemtypesource.getName(), lt.getName());
+				return null;
+			}
+
+			return null;
 		}
-
-		return ret;
 	}
 
 	//

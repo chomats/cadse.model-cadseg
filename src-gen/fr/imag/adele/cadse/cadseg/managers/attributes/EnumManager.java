@@ -33,6 +33,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Validator;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
@@ -238,40 +239,40 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
-	 */
-	@Override
-	public List<Item> validate(Item item, ProblemReporter reporter) {
-		super.validate(item, reporter);
-		Item itemenumtype = getEnumType(item);
-		if (itemenumtype == null || !itemenumtype.isResolved()) {
-			return Collections.emptyList();
-		}
-		List<Item> ret = new ArrayList<Item>();
-		ret.add(itemenumtype);
-		String defaultValue = getDefaultValueAttribute(item);
-		if (defaultValue != null && defaultValue.length() == 0) {
-			defaultValue = null;
-		}
-		if (defaultValue == null) {
-			reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Pas de valeur par defaut pour {0}", item.getName());
-			return ret;
-		}
-
-		IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, itemenumtype);
-		if (type != null && type.exists()) {
-			List<String> values = EnumTypeManager.getEnumTypeValues(itemenumtype);
-			if (values == null || !values.contains(defaultValue)) {
-				reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Mauvaise valeur {0} pour {0}", defaultValue, item
-						.getName());
+	public static final class EnumValidator extends Validator {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
+		 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			Item itemenumtype = getEnumType(item);
+			if (itemenumtype == null || !itemenumtype.isResolved()) {
+				return Collections.emptyList();
+			}
+			List<Item> ret = new ArrayList<Item>();
+			ret.add(itemenumtype);
+			String defaultValue = getDefaultValueAttribute(item);
+			if (defaultValue != null && defaultValue.length() == 0) {
+				defaultValue = null;
+			}
+			if (defaultValue == null) {
+				reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Pas de valeur par defaut pour {0}", item.getName());
 				return ret;
 			}
+	
+			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, itemenumtype);
+			if (type != null && type.exists()) {
+				List<String> values = EnumTypeManager.getEnumTypeValues(itemenumtype);
+				if (values == null || !values.contains(defaultValue)) {
+					reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Mauvaise valeur {0} pour {0}", defaultValue, item
+							.getName());
+					return ret;
+				}
+			}
+			return ret;
 		}
-		return ret;
 	}
-
 }

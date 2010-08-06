@@ -28,6 +28,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Validator;
 
 /**
  * The Class IC_PartLinkForBrowser_Combo_ListManager.
@@ -125,26 +126,27 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 		return "no incoming part";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
-	 */
-	@Override
-	public List<Item> validate(Item item, ProblemReporter reporter) {
-		List<Item> ret = super.validate(item, reporter);
+	public final static class IC_PartLinkForBrowser_Combo_ListValidator extends Validator {
+		
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
+		 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			Item ic = item;
 
-		Item ic = item;
+			Item a = FieldManager.getAttribute(ic.getPartParent().getPartParent());
+			Item itemtypedest = LinkTypeManager.getDestination(a);
 
-		Item a = FieldManager.getAttribute(ic.getPartParent().getPartParent());
-		Item itemtypedest = LinkTypeManager.getDestination(a);
+			Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
 
-		Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
-
-		if (!(incomingLinkType.length == 1 && incomingLinkType[0] != a)) {
-			reporter.error(item, 0, "Cannot find incoming part from {0}.", a.getName());
+			if (!(incomingLinkType.length == 1 && incomingLinkType[0] != a)) {
+				reporter.error(item, 0, "Cannot find incoming part from {0}.", a.getName());
+			}
+			return null;
 		}
-		return ret;
 	}
 }

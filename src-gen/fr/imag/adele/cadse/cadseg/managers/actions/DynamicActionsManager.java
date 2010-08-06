@@ -28,10 +28,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
-import fr.imag.adele.cadse.cadseg.contents.actions.DynamicActionsCIF;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.IContentItemFactory;
+
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.var.NullVariable;
@@ -98,19 +97,7 @@ public class DynamicActionsManager extends MenuAbstractManager {
 		);
 		return cm;
 	}
-
-	@Override
-	public IContentItemFactory getContentItemFactory() {
-		return new DynamicActionsCIF();
-	}
 	
-	@Override
-	public ContentItem getParentContentItemWherePutMyContent(ContentItem cm) {
-		return cm.getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION).getContentItem();
-	}
-	
-	
-
 	@Override
 	public void doubleClick(Item item) {
 		if (item != null) {

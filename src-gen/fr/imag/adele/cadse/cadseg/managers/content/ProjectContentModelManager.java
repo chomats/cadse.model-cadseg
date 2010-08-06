@@ -30,6 +30,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Validator;
 
 /**
  * The Class ProjectContentModelManager.
@@ -184,39 +185,39 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 	}
 
 
+	public static final class ProjectContentValidator extends Validator {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
+		 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			String value = item.getAttribute(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_);
+			if (value == null || value.length() == 0) {
+				value = "${#unique-name}";
+			}
+			Item itemtype = ManagerManager.getItemType(item.getPartParent());
+			O: {
+				if (itemtype == null) {
+					reporter.error(item, 1, "Item type is null");
+					break O;
+				}
+				ParseTemplate pt = new ParseTemplate(itemtype, value, null);
+				try {
+					pt.main();
+					pt.validate(reporter, item);
+				} catch (ParseException e) {
+					reporter.error(item, 0, "Error when parse project name value : {0} ", e.getMessage());
+				} catch (TokenMgrError e) {
+					reporter.error(item, 0, "Error when parse project name value : {0} ", e.getMessage());
+				}
 	
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
-	 */
-	@Override
-	public List<Item> validate(Item item, ProblemReporter reporter) {
-		String value = item.getAttribute(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_);
-		if (value == null || value.length() == 0) {
-			value = "${#unique-name}";
-		}
-		Item itemtype = ManagerManager.getItemType(item.getPartParent());
-		O: {
-			if (itemtype == null) {
-				reporter.error(item, 1, "Item type is null");
-				break O;
 			}
-			ParseTemplate pt = new ParseTemplate(itemtype, value, null);
-			try {
-				pt.main();
-				pt.validate(reporter, item);
-			} catch (ParseException e) {
-				reporter.error(item, 0, "Error when parse project name value : {0} ", e.getMessage());
-			} catch (TokenMgrError e) {
-				reporter.error(item, 0, "Error when parse project name value : {0} ", e.getMessage());
-			}
-
+			return null;
 		}
-		return super.validate(item, reporter);
 	}
-	
 	
 }

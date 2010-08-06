@@ -30,9 +30,9 @@ import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.GenStringBuilder;
-import fr.imag.adele.cadse.core.IItemManager.ProblemReporter;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.Validator.ProblemReporter;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 

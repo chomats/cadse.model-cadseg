@@ -6,14 +6,14 @@ import fede.workspace.eclipse.java.JavaIdentifier;
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.IContentItemFactory;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
 
-public class DynamicActionsCIF implements IContentItemFactory {
+public class DynamicActionsContent extends JavaFileContentManager {
 
 	/**
 	 * @generated
@@ -56,27 +56,18 @@ public class DynamicActionsCIF implements IContentItemFactory {
 		}
 	}
 
+
 	/**
 	 * @generated
 	 */
-	public class DynamicActionsContent extends JavaFileContentManager  {
-
-		/**
-		 * @generated
-		 */
-		public DynamicActionsContent(UUID id, Variable packageNameVariable, Variable classNameVariable)
-				throws CadseException {
-			super(id, packageNameVariable, classNameVariable);
-		}
-
-	}
-
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		DynamicActionsContent cm = new DynamicActionsContent(id, PackageNameVariable.INSTANCE,
+	public DynamicActionsContent(UUID id)
+			throws CadseException {
+		super(id, PackageNameVariable.INSTANCE,
 				ClassNameVariable.INSTANCE);
-		cm.setComposers();
-		cm.setExporters();
-		return cm;
 	}
-
+	
+	@Override
+	public ContentItem getParentContentItemWherePutMyContent() {
+		return getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION).getContentItem();
+	}
 }
