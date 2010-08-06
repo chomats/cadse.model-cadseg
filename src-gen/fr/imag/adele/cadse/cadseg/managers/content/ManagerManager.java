@@ -37,6 +37,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Validator;
 import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
@@ -746,45 +747,47 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		return superItemManager;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele
-	 * .cadse.core.Item, fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
-	 */
-	@Override
-	public List<Item> validate(Item item, ProblemReporter reporter) {
-		Item itemtype = getItemType(item);
-		O: {
-			if (itemtype == null) {
-				reporter.error(item, 1, "Item type is null");
-				break O;
-			}
-			String uniqueNameTemplate = getUniqueNameTemplate(item);
-			if (uniqueNameTemplate != null && uniqueNameTemplate.length() != 0) {
-				ParseTemplate pt = new ParseTemplate(itemtype, uniqueNameTemplate);
-				try {
-					pt.main();
-					pt.validate(reporter, item);
-				} catch (ParseException e) {
-					reporter.error(item, 0, "Error when parse unique name value : {0} ", e.getMessage());
+	public final static class ManagerValidator extends Validator {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele
+		 * .cadse.core.Item, fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			Item itemtype = getItemType(item);
+			O: {
+				if (itemtype == null) {
+					reporter.error(item, 1, "Item type is null");
+					break O;
+				}
+				String uniqueNameTemplate = getUniqueNameTemplate(item);
+				if (uniqueNameTemplate != null && uniqueNameTemplate.length() != 0) {
+					ParseTemplate pt = new ParseTemplate(itemtype, uniqueNameTemplate);
+					try {
+						pt.main();
+						pt.validate(reporter, item);
+					} catch (ParseException e) {
+						reporter.error(item, 0, "Error when parse unique name value : {0} ", e.getMessage());
+					}
+				}
+				String displayTemplate = getDisplayTemplate(item);
+				if (displayTemplate != null && displayTemplate.length() != 0) {
+					ParseTemplate pt = new ParseTemplate(itemtype, displayTemplate, null);
+					try {
+						pt.main();
+						pt.validate(reporter, item);
+					} catch (ParseException e) {
+						reporter.error(item, 0, "Error when parse display name value : {0} ", e.getMessage());
+					}
 				}
 			}
-			String displayTemplate = getDisplayTemplate(item);
-			if (displayTemplate != null && displayTemplate.length() != 0) {
-				ParseTemplate pt = new ParseTemplate(itemtype, displayTemplate, null);
-				try {
-					pt.main();
-					pt.validate(reporter, item);
-				} catch (ParseException e) {
-					reporter.error(item, 0, "Error when parse display name value : {0} ", e.getMessage());
-				}
-			}
+			return null;
 		}
-		return super.validate(item, reporter);
 	}
-
+	
 	public static void getPackageName(Item ow) {
 		// TODO Auto-generated method stub
 		

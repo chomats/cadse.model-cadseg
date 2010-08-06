@@ -154,6 +154,14 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 			generate();
 		}
 
+		@Override
+		public ContentItem getParentContentItemWherePutMyContent() {
+			Item cadsedef = getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION);
+			if (cadsedef == null) {
+				return null; // Cannot found the cadse definition
+			}
+			return cadsedef.getContentItem();
+		}
 	}
 
 	/**
@@ -314,14 +322,7 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 		return super.hasContent(item);
 	}
 	
-	@Override
-	public ContentItem getParentContentItemWherePutMyContent(ContentItem cm) {
-		Item cadsedef = cm.getOwnerItem().getPartParent(CadseGCST.CADSE_DEFINITION);
-		if (cadsedef == null) {
-			return null; // Cannot found the cadse definition
-		}
-		return cadsedef.getContentItem();
-	}
+	
 
 	/*
 	 * (non-Javadoc)

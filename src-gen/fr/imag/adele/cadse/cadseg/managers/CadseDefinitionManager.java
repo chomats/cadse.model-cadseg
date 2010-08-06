@@ -48,7 +48,6 @@ import fede.workspace.dependencies.eclipse.java.fix.IFixManager;
 import fede.workspace.eclipse.java.osgi.OsgiManifest;
 import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionCIF;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
 import fr.imag.adele.cadse.cadseg.fields.RegExContentProposalProvider;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
@@ -59,7 +58,6 @@ import fr.imag.adele.cadse.cadseg.path.ParsePath;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.IContentItemFactory;
 import fr.imag.adele.cadse.core.InitAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -435,12 +433,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	public static List<String> getImports(Item wsModelItem) {
 		return wsModelItem.getAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_);
 	}
-
-	@Override
-	public IContentItemFactory getContentItemFactory() {
-		return new CadseDefinitionCIF();
-	}
-
+	
 	/**
 	 * Checks for package.
 	 * 
@@ -916,19 +909,6 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	public static Item getBuildModel(Item wsmodel) {
 		Item buildModel = wsmodel.getOutgoingItem(CadseGCST.CADSE_DEFINITION_lt_BUILD, true);
 		return buildModel;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele
-	 * .cadse.core.Item, fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
-	 */
-	@Override
-	public List<Item> validate(Item item, ProblemReporter reporter) {
-		// TODO Auto-generated method stub
-		return super.validate(item, reporter);
 	}
 
 	/**
