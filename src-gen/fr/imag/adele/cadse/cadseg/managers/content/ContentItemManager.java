@@ -1,3 +1,4 @@
+/** Licensed to the Apache Software Foundation (ASF) under one* or more contributor license agreements.  See the NOTICE file* distributed with this work for additional information* regarding copyright ownership.  The ASF licenses this file* to you under the Apache License, Version 2.0 (the* "License"); you may not use this file except in compliance* with the License.  You may obtain a copy of the License at**   http://www.apache.org/licenses/LICENSE-2.0** Unless required by applicable law or agreed to in writing,* software distributed under the License is distributed on an* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY* KIND, either express or implied.  See the License for the* specific language governing permissions and limitations* under the License.*/
 package fr.imag.adele.cadse.cadseg.managers.content;
 
 
@@ -16,6 +17,7 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
+import fr.imag.adele.cadse.core.impl.internal.TransactionItemsProcess;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 
 
@@ -196,26 +198,15 @@ public class ContentItemManager extends DefaultItemManager implements IItemFacto
 		
 		ItemType it = ownerItem.getType();
 		
-		final IItemManager itemManager = it.getItemManager();
-		final IContentItemFactory contentItemFactory = itemManager.getContentItemFactory();
-		if (contentItemFactory == null) {
-			return ContentItem.NO_CONTENT;
-		}
-		ContentItem ret = null;
-		try {
-			ret = contentItemFactory.createContentItem(itemOp.getId(), null);
-		} catch (CadseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ContentItem ret = TransactionItemsProcess.createContentItem(it, itemOp.getId(), ownerItem);
 		if (ret == null) {
 			ret = ContentItem.INVALID_CONTENT;
 		} else if (ret != ContentItem.NO_CONTENT && ret != ContentItem.INVALID_CONTENT) {
 			if (ownerItem.getBaseItem() == null)
 				((ContentItemImpl) ret).setOwnerItem(ownerItem.getBaseItem());
 		}
+		
 		return ret;		
 	}
 }
-/** Licensed to the Apache Software Foundation (ASF) under one* or more contributor license agreements.  See the NOTICE file* distributed with this work for additional information* regarding copyright ownership.  The ASF licenses this file* to you under the Apache License, Version 2.0 (the* "License"); you may not use this file except in compliance* with the License.  You may obtain a copy of the License at**   http://www.apache.org/licenses/LICENSE-2.0** Unless required by applicable law or agreed to in writing,* software distributed under the License is distributed on an* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY* KIND, either express or implied.  See the License for the* specific language governing permissions and limitations* under the License.*/
 
