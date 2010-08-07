@@ -36,6 +36,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
@@ -96,6 +97,32 @@ public class GenerateJavaIdentifier {
 	 */
 	public static String getContentClassName(ContextVariable cxt, Item itemType) {
 		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, "Content");
+	}
+
+	/**
+	 * Gets the manager class name.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param manager
+	 *            the manager
+	 * 
+	 * @return the manager class name
+	 */
+	public static String getContentPackageName(ContextVariable cxt, Item itemType) {
+		
+		while(true) {
+			if (itemType != null && itemType.isRuntime()) {
+				Class<? extends ContentItem> m = ((ItemType)itemType).getContentItemClass();
+				if (m != null)
+					return m.getPackage().getName();
+			}
+			else
+				return getItemTypePackage(cxt, itemType, null, ".contents");
+			itemType =  ((ItemType)itemType).getSuperType();
+			if (itemType == null)
+				return null;
+		}
 	}
 
 	/**
