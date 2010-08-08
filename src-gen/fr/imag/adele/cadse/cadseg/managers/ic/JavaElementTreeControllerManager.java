@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
+import fede.workspace.eclipse.java.fields.JavaElementTreeController;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -32,16 +33,6 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class JavaElementTreeControllerManager extends InteractionControllerManager implements
 		IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.java.fields.JavaElementTreeController";
-
-	/**
-	 * Instantiates a new java element tree controller manager.
-	 */
-	public JavaElementTreeControllerManager() {
-	}
 
 	/**
 		@generated
@@ -84,8 +75,8 @@ public class JavaElementTreeControllerManager extends InteractionControllerManag
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return JavaElementTreeController.class;
 	}
 
 	/*

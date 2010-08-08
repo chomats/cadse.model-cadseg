@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_StringToBoolean;
 
 /**
  * The Class StringToBooleanModelControllerManager.
@@ -95,8 +96,8 @@ public class MC_BooleanManager extends ModelControllerManager implements IItemMa
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return MC_StringToBoolean.class;
 	}
 
 	/*

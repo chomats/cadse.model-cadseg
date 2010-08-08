@@ -94,8 +94,8 @@ public class EclipseReExporterManager extends ExporterManager {
 	 * getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return fede.workspace.eclipse.exporter.CompositeReExporter.class;
 	}
 
 	/*

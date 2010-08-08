@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
+import fede.workspace.eclipse.java.fields.IC_JarResourceForBrowser_Combo_List;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
@@ -30,16 +31,6 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeDialogForBrowser_Combo_ListManager
 		implements IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.java.fields.IC_JarResourceForBrowser_Combo_List";
-
-	/**
-	 * Instantiates a new i c_ jar resource for browser_ combo_ list manager.
-	 */
-	public IC_JarResourceForBrowser_Combo_ListManager() {
-	}
 
 	/**
 		@generated
@@ -82,8 +73,8 @@ public class IC_JarResourceForBrowser_Combo_ListManager extends IC_ResourceTreeD
 	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_JarResourceForBrowser_Combo_List.class;
 	}
 
 	/*

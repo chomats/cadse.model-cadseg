@@ -22,6 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_FolderResource_ForBrowser_Combo_List;
 
 /**
  * The Class IC_FolderResource_ForBrowser_Combo_ListManager.
@@ -30,17 +31,6 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_FolderResource_ForBrowser_Combo_ListManager extends InteractionControllerManager
 		implements IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_FolderResource_ForBrowser_Combo_List";
-
-	/**
-	 * Instantiates a new i c_ folder resource_ for browser_ combo_ list
-	 * manager.
-	 */
-	public IC_FolderResource_ForBrowser_Combo_ListManager() {
-	}
 
 	/**
 		@generated
@@ -83,8 +73,8 @@ public class IC_FolderResource_ForBrowser_Combo_ListManager extends InteractionC
 	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_FolderResource_ForBrowser_Combo_List.class;
 	}
 
 	/*

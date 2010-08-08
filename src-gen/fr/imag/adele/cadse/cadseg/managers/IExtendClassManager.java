@@ -43,7 +43,7 @@ public interface IExtendClassManager extends IModelWorkspaceManager {
 	 * 
 	 * @return the default class name
 	 */
-	public abstract String getDefaultClassName();
+	public abstract Class<?> getDefaultClassName();
 
 	/**
 	 * Must be extended.

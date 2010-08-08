@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
+import fede.workspace.eclipse.java.fields.PackageListController;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -32,16 +33,6 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class PackageListControllerManager extends InteractionControllerManager implements
 		IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.java.fields.PackageListController";
-
-	/**
-	 * Instantiates a new package list controller manager.
-	 */
-	public PackageListControllerManager() {
-	}
 
 	/**
 		@generated
@@ -91,8 +82,8 @@ public class PackageListControllerManager extends InteractionControllerManager i
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return PackageListController.class;
 	}
 
 	/*

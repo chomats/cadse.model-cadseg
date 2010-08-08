@@ -407,9 +407,9 @@ public class FieldManager extends DefaultItemManager {
 			info.uiTypeName = cn;
 		} else {
 			DisplayManager m = (DisplayManager) info.field.getType().getItemManager();
-			String defaultQualifiedClassName = m.getDefaultClassName();
-			imports.add(defaultQualifiedClassName);
-			info.uiTypeName = JavaIdentifier.getlastclassName(defaultQualifiedClassName);
+			Class<?> defaultQualifiedClassName = m.getDefaultClassName();
+			imports.add(defaultQualifiedClassName.getName());
+			info.uiTypeName = defaultQualifiedClassName.getSimpleName();
 		}
 	}
 

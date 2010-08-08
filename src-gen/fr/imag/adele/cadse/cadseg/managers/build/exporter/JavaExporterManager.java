@@ -83,10 +83,6 @@ public class JavaExporterManager extends EclipseExporterManager {
 			return "error";
 		}
 	}
-	
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String DEFAUL_CLASS_NAME = "fede.workspace.eclipse.composition.java.JavaProjectExporter";
 
 	/*
 	 * (non-Javadoc)
@@ -96,8 +92,8 @@ public class JavaExporterManager extends EclipseExporterManager {
 	 * #getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return fede.workspace.eclipse.composition.java.JavaProjectExporter.class;
 	}
 
 	/*

@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForList;
 
 /**
  * The Class IC_AbstractForListManager.
@@ -33,21 +34,11 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_AbstractForListManager extends InteractionControllerManager implements IItemManager {
 
-	//
-	/** The Constant DEFAUL_CLASS_NAME. */
-	private static final String	DEFAUL_CLASS_NAME			= "fede.workspace.model.manager.properties.impl.ic.IC_AbstractForList";
-
 	/** The Constant SELECT_TITLE_ATTRIBUTE. */
 	public static final String	SELECT_TITLE_ATTRIBUTE		= "SELECT-TITLE";
 
 	/** The Constant SELECT_MESSAGE_ATTRIBUTE. */
 	public static final String	SELECT_MESSAGE_ATTRIBUTE	= "SELECT-MESSAGE";
-
-	/**
-	 * Instantiates a new i c_ abstract for list manager.
-	 */
-	public IC_AbstractForListManager() {
-	}
 
 	/**
 		@generated
@@ -90,8 +81,8 @@ public class IC_AbstractForListManager extends InteractionControllerManager impl
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_AbstractForList.class;
 	}
 
 	/*

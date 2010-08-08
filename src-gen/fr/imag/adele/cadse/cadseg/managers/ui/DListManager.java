@@ -24,6 +24,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 
 /**
  * The Class DListManager.
@@ -43,10 +44,7 @@ public class DListManager extends DisplayManager {
 	public boolean hasContent(Item item) {
 		return true;
 	}
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ui.DListUI";
-
+	
 	/**
 	 * Instantiates a new d list manager.
 	 */
@@ -258,8 +256,8 @@ public class DListManager extends DisplayManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return DListUI.class;
 	}
 
 //	/*

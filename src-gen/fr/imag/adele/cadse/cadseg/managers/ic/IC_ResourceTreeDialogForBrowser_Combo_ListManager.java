@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_ResourceTreeDialogForBrowser_Combo_List;
 
 /**
  * The Class IC_ResourceTreeDialogForBrowser_Combo_ListManager.
@@ -33,22 +34,6 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 		IC_AbstractTreeDialogForList_Browser_ComboManager implements IItemManager {
-
-	///** The Constant SELECT_ROOT_ATTRIBUTE. */
-	//public static final String	SELECT_ROOT_ATTRIBUTE	= "select-type-root";
-
-	
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_ResourceTreeDialogForBrowser_Combo_List";
-
-	/**
-	 * Instantiates a new i c_ resource tree dialog for browser_ combo_ list
-	 * manager.
-	 */
-	public IC_ResourceTreeDialogForBrowser_Combo_ListManager() {
-	}
 
 	/**
 		@generated
@@ -109,8 +94,8 @@ public class IC_ResourceTreeDialogForBrowser_Combo_ListManager extends
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_ResourceTreeDialogForBrowser_Combo_List.class;
 	}
 
 	/*

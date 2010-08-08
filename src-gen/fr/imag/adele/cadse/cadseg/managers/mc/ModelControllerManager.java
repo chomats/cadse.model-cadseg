@@ -34,6 +34,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.ItemFactory;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 
 /**
@@ -101,21 +102,18 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	public String getClassName(Item mc) {
 		String className = mc.getAttribute(CadseGCST.RUNTIME_ITEM_at_CLASS_NAME_);
 		if (className == null) {
-			className = getDefaultClassName();
+			className = getDefaultClassName() == null ? null : getDefaultClassName().getSimpleName();
 		}
 		return className;
 	}
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem";
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getDefaultClassName()
 	 */
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return MC_AttributesItem.class;
 	}
 
 	/*
