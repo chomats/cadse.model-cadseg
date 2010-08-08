@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
+import fede.workspace.model.manager.properties.impl.mc.MC_StringListToEnumList;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -33,11 +34,6 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class MC_StringListToEnumListManager extends ModelControllerManager implements IItemManager {
-
-	
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.MC_StringListToEnumList";
 
 	/**
 	 * Instantiates a new m c_ string list to enum list manager.
@@ -83,21 +79,11 @@ public class MC_StringListToEnumListManager extends ModelControllerManager imple
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getClassName(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public String getClassName(Item uc) {
-		return DEFAUL_CLASS_NAME;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return MC_StringListToEnumList.class;
 	}
 
 	/*

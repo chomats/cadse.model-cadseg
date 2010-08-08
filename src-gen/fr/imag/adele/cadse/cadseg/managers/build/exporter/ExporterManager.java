@@ -28,6 +28,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.build.Exporter;
 import fr.imag.adele.cadse.core.util.Convert;
 
 /**
@@ -221,7 +222,7 @@ public class ExporterManager extends DefaultItemManager implements
 	public String getClassName(Item uc) {
 		return (mustBeExtended() || isExtendsClass(uc)) ? JavaIdentifier
 				.javaIdentifierFromString(uc.getName(), true, false, "Exporter")
-				: getDefaultClassName();
+				: getDefaultClassName().getSimpleName();
 	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
@@ -234,8 +235,8 @@ public class ExporterManager extends DefaultItemManager implements
 	 * model.workspace.workspace.managers.IExtendClassManager#getDefaultClassName
 	 * ()
 	 */
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return Exporter.class;
 	}
 
 	/*

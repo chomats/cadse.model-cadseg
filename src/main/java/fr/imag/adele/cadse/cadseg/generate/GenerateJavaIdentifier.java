@@ -34,6 +34,7 @@ import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
+import fr.imag.adele.cadse.core.GenContext;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.content.ContentItem;
@@ -84,16 +85,71 @@ public class GenerateJavaIdentifier {
 	public static String getCIFClassName(ContextVariable cxt, Item itemType) {
 		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, "CIF");
 	}
-
 	/**
-	 * Gets the manager class name.
+	 * Gets the exporter class name.
 	 * 
 	 * @param cxt
 	 *            the cxt
-	 * @param manager
-	 *            the manager
+	 * @param itemType
+	 *            the itemtype
 	 * 
-	 * @return the manager class name
+	 * @return the exporter class name
+	 */
+	public static String getExporterClassName(ContextVariable cxt, Item itemType) {
+		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, "Exporter");
+	}
+	
+	/**
+	 * Gets the exporter package name.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param itemType
+	 *            the itemtype
+	 * 
+	 * @return the exporter package name
+	 */
+	public static String getExporterPackageName(ContextVariable cxt, Item itemType) {
+		return getItemTypePackage(cxt, itemType, null, ".exporter");
+	}
+
+	/**
+	 * Gets the composer class name.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param itemType
+	 *            the itemtype
+	 * 
+	 * @return the composer class name
+	 */
+	public static String getComposerClassName(ContextVariable cxt, Item itemType) {
+		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, "Composer");
+	}
+	
+	/**
+	 * Gets the composer package name.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param itemType
+	 *            the itemtype
+	 * 
+	 * @return the composer package name
+	 */
+	public static String getComposerPackageName(ContextVariable cxt, Item itemType) {
+		return getItemTypePackage(cxt, itemType, null, ".composer");
+	}
+
+	/**
+	 * Gets the contentitem class name.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param itemType
+	 *            the type
+	 * 
+	 * @return the contentitem class name
 	 */
 	public static String getContentClassName(ContextVariable cxt, Item itemType) {
 		return JavaIdentifier.javaIdentifierFromString(cxt.getName(itemType), true, false, "Content");
@@ -124,6 +180,9 @@ public class GenerateJavaIdentifier {
 				return null;
 		}
 	}
+	
+	
+	
 
 	/**
 	 * Gets the ext class name.
@@ -230,6 +289,18 @@ public class GenerateJavaIdentifier {
 		if (cadseDefinition == null) {
 			cadseDefinition = ItemTypeManager.getCadseDefinition(itemtype);
 		}
+		String packageName = getPrefixPackageName(cxt, cadseDefinition, prefix);
+
+		String subpackage = ItemTypeManager.getSubPackageFromCategory(itemtype);
+		// subpackage = manager.getAttribute(SUB_PACKAGE_ATTRIBUTE);
+		if (subpackage != null && subpackage.length() != 0) {
+			packageName += "." + subpackage;
+		}
+		return packageName;
+	}
+
+	protected static String getPrefixPackageName(ContextVariable cxt,
+			Item cadseDefinition, String prefix) {
 		if (cadseDefinition == null) {
 			
 			return "<>";
@@ -237,12 +308,6 @@ public class GenerateJavaIdentifier {
 		String packageName = CadseDefinitionManager.getDefaultPackage(cxt, cadseDefinition);
 		if (prefix != null) {
 			packageName += prefix;
-		}
-
-		String subpackage = ItemTypeManager.getSubPackageFromCategory(itemtype);
-		// subpackage = manager.getAttribute(SUB_PACKAGE_ATTRIBUTE);
-		if (subpackage != null && subpackage.length() != 0) {
-			packageName += "." + subpackage;
 		}
 		return packageName;
 	}
@@ -717,4 +782,11 @@ public class GenerateJavaIdentifier {
 		return javaPackageMenuAction(cxt, menuaction) + "." + javaClassNameMenuAction(cxt, menuaction);
 	}
 
+	public static String getInitPackageName(GenContext cxt, Item cadseDef) {
+		return getPrefixPackageName(cxt, cadseDef, ".init");
+	}
+
+	public static String getInitClassName(GenContext cxt, Item cadseDef) {
+		return "CadseInit";
+	}
 }

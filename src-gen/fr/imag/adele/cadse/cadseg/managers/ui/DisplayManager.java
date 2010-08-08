@@ -195,7 +195,7 @@ public class DisplayManager extends DefaultWorkspaceManager implements IItemMana
 	 * 
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getDefaultClassName()
 	 */
-	public String getDefaultClassName() {
+	public Class<?> getDefaultClassName() {
 		return null;
 	}
 

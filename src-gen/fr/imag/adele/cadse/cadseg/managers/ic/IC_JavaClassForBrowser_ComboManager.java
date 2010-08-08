@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
+import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -33,35 +34,10 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerManager implements IItemManager {
 
-//	/** The Constant SELECT_TITLE_ATTRIBUTE. */
-//	public static final String		SELECT_TITLE_ATTRIBUTE		= "select-title";
-//
-//	/** The Constant SELECT_MESSAGE_ATTRIBUTE. */
-//	public static final String		SELECT_MESSAGE_ATTRIBUTE	= "select-messsage";
-//
-//	/** The Constant STYLE_ATTRIBUTE. */
-//	public static final String		STYLE_ATTRIBUTE				= "STYLE";
-//
-//	/** The Constant FILTER_ATTRIBUTE. */
-//	public static final String		FILTER_ATTRIBUTE			= "FILTER";
-
-	
-
 	/** The Constant style_values_cst. */
 	public static final String[]	style_values_cst			= { "CONSIDER_CLASSES", "CONSIDER_INTERFACES",
 			"CONSIDER_ANNOTATION_TYPES", "CONSIDER_ENUMS", "CONSIDER_ALL_TYPES", "CONSIDER_CLASSES_AND_INTERFACES",
 			"CONSIDER_CLASSES_AND_ENUMS"						};
-
-	
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo";
-
-	/**
-	 * Instantiates a new i c_ java class for browser_ combo manager.
-	 */
-	public IC_JavaClassForBrowser_ComboManager() {
-	}
 
 	/**
 		@generated
@@ -140,8 +116,8 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_JavaClassForBrowser_Combo.class;
 	}
 
 	/*

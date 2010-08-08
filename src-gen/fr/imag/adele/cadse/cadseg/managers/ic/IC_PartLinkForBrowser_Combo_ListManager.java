@@ -29,6 +29,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Validator;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_PartLinkForBrowser_Combo_List;
 
 /**
  * The Class IC_PartLinkForBrowser_Combo_ListManager.
@@ -36,22 +37,6 @@ import fr.imag.adele.cadse.core.Validator;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_Combo_ListManager {
-
-	
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_PartLinkForBrowser_Combo_List";
-
-	/**
-	 * The Constructor.
-	 * 
-	 * @generated
-	 */
-	public IC_PartLinkForBrowser_Combo_ListManager() {
-		super();
-	}
 
 	/**
 		@generated
@@ -94,8 +79,8 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 	 * @see model.workspace.workspace.managers.ic.IC_LinkForBrowser_Combo_ListManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_PartLinkForBrowser_Combo_List.class;
 	}
 
 	/*
