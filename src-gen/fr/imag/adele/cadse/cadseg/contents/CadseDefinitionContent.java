@@ -41,7 +41,7 @@ public class CadseDefinitionContent extends EclipsePluginContentManger  {
 	 * @param item
 	 *            the item
 	 */
-	CadseDefinitionContent(final UUID id) {
+	public CadseDefinitionContent(final UUID id) {
 		super(id, new VariableImpl() {
 
 			public String compute(ContextVariable context, Item item) {
