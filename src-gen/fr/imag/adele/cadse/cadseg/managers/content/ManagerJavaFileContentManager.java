@@ -25,7 +25,7 @@ public final class ManagerJavaFileContentManager extends JavaFileContentManager 
 	 * @throws CadseException
 	 *             the melusine exception
 	 */
-	ManagerJavaFileContentManager(UUID id) throws CadseException {
+	public ManagerJavaFileContentManager(UUID id) throws CadseException {
 		super(id, new VariableImpl() {
 
 			public String compute(ContextVariable context, Item item) {
