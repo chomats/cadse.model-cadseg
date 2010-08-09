@@ -323,7 +323,21 @@ public class GenerateJavaIdentifier {
 	 * @return the string
 	 */
 	public static String cstItemType(ContextVariable cxt, Item itemType) {
-		return JavaIdentifier.javaIdentifierFromStringUPPER(cxt.getName(itemType), null);
+		return cstExtaCstName(cxt, itemType, null);
+	}
+	
+	/**
+	 * Cst item type.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param itemType
+	 *            the item type
+	 * 
+	 * @return the string
+	 */
+	public static String cstExtaCstName(ContextVariable cxt, Item itemType, String postfix) {
+		return JavaIdentifier.javaIdentifierFromStringUPPER(cxt.getName(itemType), postfix);
 	}
 
 	/**
