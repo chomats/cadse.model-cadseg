@@ -10,6 +10,7 @@ import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionContent;
 import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeSpaceKeyType;
 import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
+import fr.imag.adele.cadse.cadseg.managers.content.ManagerJavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ProjectContentModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
@@ -236,37 +237,12 @@ public class CadsegInit implements InitAction {
 			e.printStackTrace();
 		}
 		MigrationInit.init();
-
-//		// *****/
-//		WorkspaceListener listener = new WorkspaceListener() {
-//
-//			@Override
-//			public void workspaceChanged(ImmutableWorkspaceDelta wd) {
-//				HashSet<Item> views = new HashSet<Item>();
-//				for (ImmutableItemDelta itemDelta : wd.getItems()) {
-//					if (itemDelta.isDeleted()) {
-//						continue;
-//					}
-//					Item item = itemDelta.getItem();
-//					Item view = item.getPartParent(CadseGCST.VIEW);
-//					if (view != null) {
-//						views.add(view);
-//					}
-//				}
-//
-//				for (Item item : views) {
-//					((IGenerateContent) item.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-//				}
-//			}
-//
-//		};
-		//CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
 		LW_Attribute.init();
 		
 		CadseGCST.CADSE_DEFINITION.setContentItemClass(CadseDefinitionContent.class);
 		CadseGCST.DYNAMIC_ACTIONS.setContentItemClass(DynamicActionsContent.class);
 		CadseGCST.MENU_ACTION.setContentItemClass(MenuActionContent.class);
-		
+		CadseGCST.MANAGER.setContentItemClass(ManagerJavaFileContentManager.class);
 		CadseGCST.ITEM.addAdapter(new DefaultValidator());
 		CadseGCST.ENUM.addAdapter(new EnumManager.EnumValidator());
 		CadseGCST.MANAGER.addAdapter(new ManagerManager.ManagerValidator());
