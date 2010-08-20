@@ -32,7 +32,7 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class ExtItemTypeManager extends ItemTypeManager {
 
-
+	
 	/**
 	 * The Constructor.
 	 * 
@@ -137,7 +137,4 @@ public class ExtItemTypeManager extends ItemTypeManager {
 	static public void setRefType(Item extItemType, Item value) throws CadseException {
 		extItemType.setOutgoingItem(CadseGCST.EXT_ITEM_TYPE_lt_REF_TYPE,value);
 	}
-
-	
-
 }

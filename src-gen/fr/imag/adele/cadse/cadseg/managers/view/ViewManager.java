@@ -165,7 +165,6 @@ public class ViewManager extends DefaultItemManager {
         return view.getOutgoingItems(CadseGCST.VIEW_lt_VIEW_ITEM_TYPES, false);
     }
 
-	
 
 	/**
 	 * Gets the view item type.
@@ -329,5 +328,4 @@ public class ViewManager extends DefaultItemManager {
 
 		}
 	}
-
 }
