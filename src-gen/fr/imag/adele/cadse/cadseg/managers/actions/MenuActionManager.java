@@ -28,8 +28,6 @@ import fr.imag.adele.cadse.core.Item;
  */
 public class MenuActionManager extends MenuAbstractManager {
 
-
-
 	/**
 	 * The Constructor.
 	 * 
@@ -59,9 +57,5 @@ public class MenuActionManager extends MenuAbstractManager {
 			return "error";
 		}
 	}
-
-	
-
-	
 
 }

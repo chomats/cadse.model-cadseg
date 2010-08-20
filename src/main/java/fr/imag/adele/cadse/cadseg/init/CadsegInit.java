@@ -231,6 +231,8 @@ public class CadsegInit implements InitAction {
 		//CadseGCST.DYNAMIC_ACTIONS.setContentItemClass(DynamicActionsContent.class);
 		//CadseGCST.MENU_ACTION.setContentItemClass(MenuActionContent.class);
 		//CadseGCST.MANAGER.setContentItemClass(ManagerJavaFileContentManager.class);
+		//CadseGCST.EXT_ITEM_TYPE.setContentItemClass(ExtItemTypeContent.class);
+
 		CadseGCST.ITEM.addAdapter(new DefaultValidator());
 		CadseGCST.ENUM.addAdapter(new EnumManager.EnumValidator());
 		CadseGCST.MANAGER.addAdapter(new ManagerManager.ManagerValidator());

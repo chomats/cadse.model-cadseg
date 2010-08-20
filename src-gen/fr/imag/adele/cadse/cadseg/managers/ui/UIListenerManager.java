@@ -33,7 +33,7 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class UIListenerManager extends DefaultItemManager {
 
-	
+
 	/**
 	 * @generated
 	 */
