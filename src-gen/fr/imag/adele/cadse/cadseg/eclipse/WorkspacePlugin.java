@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package fr.imag.adele.cadse.cadseg;
+package fr.imag.adele.cadse.cadseg.eclipse;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

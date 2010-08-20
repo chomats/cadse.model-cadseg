@@ -28,7 +28,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.ParseTemplate;
+import fr.imag.adele.cadse.cadseg.eclipse.ParseTemplate;
 import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -130,18 +130,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	static public Item getItemTypeAll(Item manager) {
 		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE, false);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#createContentManager(
-	 * fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new ManagerJavaFileContentManager(id);
 	}
 
 	// TODO :rename to getCadseDefinition

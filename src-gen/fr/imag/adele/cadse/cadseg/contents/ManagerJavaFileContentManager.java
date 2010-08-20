@@ -1,4 +1,4 @@
-package fr.imag.adele.cadse.cadseg.managers.content;
+package fr.imag.adele.cadse.cadseg.contents;
 
 import java.util.UUID;
 

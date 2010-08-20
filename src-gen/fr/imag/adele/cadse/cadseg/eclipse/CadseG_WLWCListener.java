@@ -1,7 +1,7 @@
 /**
  *
  */
-package fr.imag.adele.cadse.cadseg.managers;
+package fr.imag.adele.cadse.cadseg.eclipse;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
@@ -37,6 +37,7 @@ import fede.workspace.eclipse.java.manager.JavaProjectContentManager;
 import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
 import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
+import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.actions.MenuAbstractManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;

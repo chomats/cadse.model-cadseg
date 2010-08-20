@@ -13,9 +13,7 @@ public abstract class ExpressionParse implements ExpressionParseConstants {
 
     protected void setExp(ExpToken t) { exp = t; }
 
-public ExpToken getExp() {
-	return exp;
-}
+
     protected String removeAntiSlash(String v) {
         v = v.replaceAll("\u005c\u005c\u005c\u005c(.)", "$1");
         return v;

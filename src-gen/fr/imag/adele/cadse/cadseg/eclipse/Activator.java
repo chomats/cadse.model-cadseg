@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package fr.imag.adele.cadse.cadseg;
+package fr.imag.adele.cadse.cadseg.eclipse;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;

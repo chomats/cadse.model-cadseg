@@ -17,13 +17,14 @@
  * under the License.
  */
 
-package fr.imag.adele.cadse.cadseg;
+package fr.imag.adele.cadse.cadseg.eclipse;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 import fede.workspace.tool.view.WSPlugin;
+import fr.imag.adele.cadse.cadseg.Messages;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 
