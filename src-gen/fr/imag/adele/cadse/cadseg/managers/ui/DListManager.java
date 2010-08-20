@@ -24,6 +24,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 
 /**
  * The Class DListManager.
@@ -31,6 +32,8 @@ import fr.imag.adele.cadse.core.util.Convert;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class DListManager extends DisplayManager {
+
+	
 
 	/*
 	 * (non-Javadoc)
@@ -41,10 +44,7 @@ public class DListManager extends DisplayManager {
 	public boolean hasContent(Item item) {
 		return true;
 	}
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ui.DListUI";
-
+	
 	/**
 	 * Instantiates a new d list manager.
 	 */
@@ -140,6 +140,64 @@ public class DListManager extends DisplayManager {
 		}
 	}
 
+	// /* (non-Javadoc)
+	// * @see
+	// fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+	// fr.imag.adele.cadse.core.LinkType, fr.imag.adele.cadse.core.ItemType)
+	// */
+	// @Override
+	// public Pages createCreationPages(Item theItemParent, LinkType
+	// theLinkType, ItemType desType) {
+	// CreationAction action = new CreationAction(theItemParent, desType,
+	// theLinkType, DEFAULT_SHORT_NAME);
+	//
+	// return FieldsCore.createWizard(action,
+	// FieldsCore.createPage("page1", "Create a list", "Create a list", 3,
+	// createFieldExtendsIC(),
+	// createFieldExtendsMC(),
+	// createFieldExtendsUI(),
+	// createFieldEditable()/*,
+	// createFieldEnable()*/
+	// )
+	// );
+	// }
+
+	// /* (non-Javadoc)
+	// * @see
+	// fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+	// */
+	// @Override
+	// public Pages createModificationPage(Item item) {
+	// AbstractActionPage action = new ModificationAction(item);
+	//
+	// return FieldsCore.createWizard(action,
+	// FieldsCore.createPage("page1", "a list", "a list", 3,
+	// createFieldExtendsIC(),
+	// createFieldExtendsMC(),
+	// createFieldExtendsUI(),
+	// createFieldEditable(),
+	// createFieldShowFilter()
+	// )
+	// );
+	// }
+
+	// /**
+	// * Creates the field show filter.
+	// *
+	// * @return the d check box ui
+	// *
+	// * @not generated
+	// */
+	// static public DCheckBoxUI createFieldShowFilter() {
+	// StringToBooleanModelControler mc = new StringToBooleanModelControler();
+	// return new DCheckBoxUI(CadseGCST.DLIST_at_SHOW_FILTER,
+	// "show filter",
+	// EPosLabel.none,
+	// mc, null
+	// );
+	// }
+	//
+
 	/**
 	 * Checks if is show filter attribute.
 	 * 
@@ -198,7 +256,27 @@ public class DListManager extends DisplayManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return DListUI.class;
 	}
+
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
+//		Item attribute = FieldManager.getAttribute(field);
+//		if (attribute == null) {
+//			return "You must add a link to an attribute link";
+//		}
+//		if (!AttributeManager.isIsListAttribute(attribute)) {
+//			return "List is for a list";
+//		}
+//		return null;
+//	}
+
 }

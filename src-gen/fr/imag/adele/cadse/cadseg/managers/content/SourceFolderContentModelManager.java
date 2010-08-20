@@ -30,6 +30,8 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class SourceFolderContentModelManager extends FolderContentModelManager {
 
+	
+
 	/**
 	 * Instantiates a new source folder content model manager.
 	 */
@@ -87,10 +89,5 @@ public class SourceFolderContentModelManager extends FolderContentModelManager {
 		} catch (Throwable t) {
 
 		}
-	}
-
-	@Override
-	public boolean hasParentContent() {
-		return true;
 	}
 }

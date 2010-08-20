@@ -21,17 +21,24 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
+import fr.imag.adele.cadse.cadseg.ParseTemplate;
+import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.var.ContextVariableImpl;
+import fr.imag.adele.cadse.core.Validator;
+import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class ManagerManager.
@@ -43,6 +50,8 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 
 	/** The Constant DEFAULT_HSPAN_FIRST_PAGE. */
 	public static final int	DEFAULT_HSPAN_FIRST_PAGE	= 3;
+
+	
 
 	/**
 	 * The Constructor.
@@ -121,6 +130,18 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 	 */
 	static public Item getItemTypeAll(Item manager) {
 		return manager.getOutgoingItem(CadseGCST.MANAGER_lt_ITEM_TYPE, false);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fede.workspace.model.manager.DefaultItemManager#createContentManager(
+	 * fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		return new ManagerJavaFileContentManager(id);
 	}
 
 	// TODO :rename to getCadseDefinition
@@ -447,50 +468,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		return getHumanNameAttribute(manager);
 	}
 
-//	/** moved to ItemTypeManager
-//	 * Gets the icon path.
-//	 * 
-//	 * @param manager
-//	 *            the manager
-//	 * 
-//	 * @return the icon path
-//	 */
-//	public static String getIconPath(Item manager) {
-//		String pStr = getIconAttribute(manager);
-//		if (pStr == null) {
-//			return null;
-//		}
-//		IPath p = new Path(pStr);
-//		return p.removeFirstSegments(1).makeRelative().toPortableString();
-//	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#regenerate(fr.imag.adele.cadse.core.Item)
-	// */
-	// @Override
-	// public void regenerate(Item manager) {
-	// ((IGenerateContent)
-	// manager.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-	// Item model = getWorkspaceModel(manager);
-	// ((IGenerateContent)
-	// model.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-	// }
-
-	/**
-	 * _regenerate.
-	 * 
-	 * @param manager
-	 *            the manager
-	 */
-	public static void _regenerate(Item manager) {
-		((IGenerateContent) manager.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-		Item model = _getCadseDefinition(manager);
-		((IGenerateContent) model.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-	}
-
 	/**
 	 * get links 'exporters' from 'Manager' to 'Exporter'.
 	 * 
@@ -632,10 +609,10 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		if (iconPath == null || iconPath.length() == 0) {
 			return null;
 		}
-//		IFile f = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(iconPath));
-//		if (f != null && f.exists()) {
-//			return "platform:/resource/"+f.getFullPath().toPortableString();
-//		}
+		IFile f = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(iconPath));
+		if (f != null && f.exists()) {
+			return "platform:/resource/"+f.getFullPath().toPortableString();
+		}
 
 		return iconPath;
 	}
@@ -768,6 +745,52 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		}
 		Item superItemManager = ItemTypeManager.getManager(superItem);
 		return superItemManager;
+	}
+
+	public final static class ManagerValidator extends Validator {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele
+		 * .cadse.core.Item, fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			Item itemtype = getItemType(item);
+			O: {
+				if (itemtype == null) {
+					reporter.error(item, 1, "Item type is null");
+					break O;
+				}
+				String uniqueNameTemplate = getUniqueNameTemplate(item);
+				if (uniqueNameTemplate != null && uniqueNameTemplate.length() != 0) {
+					ParseTemplate pt = new ParseTemplate(itemtype, uniqueNameTemplate);
+					try {
+						pt.main();
+						pt.validate(reporter, item);
+					} catch (ParseException e) {
+						reporter.error(item, 0, "Error when parse unique name value : {0} ", e.getMessage());
+					}
+				}
+				String displayTemplate = getDisplayTemplate(item);
+				if (displayTemplate != null && displayTemplate.length() != 0) {
+					ParseTemplate pt = new ParseTemplate(itemtype, displayTemplate, null);
+					try {
+						pt.main();
+						pt.validate(reporter, item);
+					} catch (ParseException e) {
+						reporter.error(item, 0, "Error when parse display name value : {0} ", e.getMessage());
+					}
+				}
+			}
+			return null;
+		}
+	}
+	
+	public static void getPackageName(Item ow) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

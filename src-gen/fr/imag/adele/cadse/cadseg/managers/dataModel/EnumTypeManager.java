@@ -22,8 +22,20 @@ package fr.imag.adele.cadse.cadseg.managers.dataModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
+
+import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -215,6 +227,12 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 		}
 	}
 
+	
+
+	
+
+	
+
 	/**
 	 * Gets the package.
 	 * 
@@ -230,7 +248,22 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 		String packageName = CadseDefinitionManager.getDefaultPackage(cxt, model) + ".type";
 		return packageName;
 	}
-	
+
+	/**
+	 * Gets the package path.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param enumType
+	 *            the enum type
+	 * 
+	 * @return the package path
+	 */
+	public IPath getPackagePath(ContextVariable cxt, Item enumType) {
+		Item model = getWorkspaceModel(enumType);
+		return CadseDefinitionManager.getDefaultPackagePath(cxt, model).append("type");
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -249,4 +282,143 @@ public class EnumTypeManager extends DefaultWorkspaceManager implements IItemMan
 		}
 		return null;
 	}
+
+	/**
+	 * Gets the classname.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param enumType
+	 *            the enum type
+	 * 
+	 * @return the classname
+	 */
+	public String getClassname(ContextVariable cxt, Item enumType) {
+		return JavaIdentifier.javaIdentifierFromString(cxt.getName(enumType), true, false, null);
+	}
+	/**
+	 * Gets the enum file.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param enumType
+	 *            the enum type
+	 * 
+	 * @return the enum file
+	 */
+	public IFile getEnumFile(ContextVariable cxt, Item enumType) {
+		String className = getClassname(cxt, enumType);
+		Item model = getWorkspaceModel(enumType);
+
+		IProject p = model.getMainMappingContent(IProject.class);
+		return p.getFolder(getPackagePath(cxt, enumType)).getFile(className + ".java");
+	}
+
+	/**
+	 * Gets the enum qualified class.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param enumType
+	 *            the enum type
+	 * 
+	 * @return the enum qualified class
+	 */
+	public static IType getEnumQualifiedClass(ContextVariable cxt, Item enumType) {
+		IType ret = getSelectedEnumQualifiedClass(enumType, true);
+		if (ret != null) {
+			return ret;
+		}
+		if (isMustBeGeneratedAttribute(enumType)) {
+			ICompilationUnit cu = (ICompilationUnit) JavaCore.create(_THIS_.getEnumFile(cxt, enumType));
+
+			return cu.getType(_THIS_.getClassname(cxt, enumType));
+		}
+		return null;
+	}
+
+	public static IType getSelectedEnumQualifiedClass(Item enumType, boolean attemptToResolve) {
+		String typeStr = enumType.getAttribute(CadseGCST.ENUM_TYPE_at_JAVA_CLASS_);
+		IType ret = null;
+		if (typeStr != null && typeStr.length() != 0) {
+			ret = (IType) JavaCore.create(typeStr);
+		}
+		if (ret != null && attemptToResolve) {
+			IJavaProject jp = ret.getJavaProject();
+			try {
+				// bug le type peut etre dans un type et avoir ete mis � jour et
+				// donc pointer sur un ancien jar...
+				// il faut le rechercher
+				IType ret2 = jp.findType(ret.getFullyQualifiedName());
+				if (ret2 != null) {
+					ret = ret2;
+				}
+			} catch (JavaModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (ret == null && typeStr != null && typeStr.length() > 0) {
+			Item cadseDef = enumType.getPartParent(CadseGCST.CADSE_DEFINITION);
+			IJavaProject jp = cadseDef.getMainMappingContent(IJavaProject.class);
+			try {
+				final IType findType = jp.findType(typeStr);
+				if (findType != null) {
+					enumType.setAttribute(CadseGCST.ENUM_TYPE_at_JAVA_CLASS_, findType.getHandleIdentifier());
+				}
+				return findType;
+			} catch (JavaModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CadseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return ret;
+	}
+
+	/**
+	 * Gets the enum type values.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param enumType
+	 *            the enum type
+	 * 
+	 * @return the enum type values
+	 */
+	public static List<String> getEnumTypeValues(Item enumType) {
+		List<String> values = new ArrayList<String>();
+		if (enumType != null && enumType.isResolved()) {
+			if (!isMustBeGeneratedAttribute(enumType)) {
+				IType type = getSelectedEnumQualifiedClass(enumType, true);
+				if (type != null) {
+					try {
+						IField[] fields = type.getFields();
+						for (IField field : fields) {
+							if (field.getElementName().equals("ENUM$VALUES") || field.getElementName().equals("$VALUES")) {
+								continue;
+							}
+							values.add(field.getElementName());
+						}
+						return values;
+					} catch (JavaModelException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			} else {
+				values = getValuesAttribute(enumType);
+			}
+		}
+		if (values == null) {
+			return new ArrayList<String>();
+		}
+		return values;
+	}
+
+	
+
 }

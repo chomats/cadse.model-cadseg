@@ -192,8 +192,8 @@ public class EclipseComposerManager extends ComposerManager {
 	 * ()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return fede.workspace.eclipse.composer.EclipseComposer.class;
 	}
 
 	/*

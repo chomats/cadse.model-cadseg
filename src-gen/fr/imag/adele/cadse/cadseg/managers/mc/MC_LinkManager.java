@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Link;
 
 /**
  * The Class LinkModelControllerManager.
@@ -33,6 +34,9 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class MC_LinkManager extends ModelControllerManager {
 
+	
+
+	
 	/**
 	 * @generated
 	 */
@@ -75,29 +79,14 @@ public class MC_LinkManager extends ModelControllerManager {
 		}
 	}
 
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.LinkModelController";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getClassName(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public String getClassName(Item uc) {
-		return DEFAUL_CLASS_NAME;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return MC_Link.class;
 	}
 
 	/*
@@ -109,43 +98,7 @@ public class MC_LinkManager extends ModelControllerManager {
 	public boolean mustBeExtended() {
 		return false;
 	}
-
-	// /* (non-Javadoc)
-	// * @see
-	// model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-	// fr.imag.adele.cadse.core.LinkType, fr.imag.adele.cadse.core.ItemType)
-	// */
-	// @Override
-	// public Pages createCreationPages(Item theItemParent, LinkType
-	// theLinkType,
-	// ItemType desType) {
-	//
-	// CreationAction action = new CreationAction(theItemParent, desType,
-	// theLinkType, DisplayManager.MC_DEFAULT_SHORT_NAME);
-	//
-	// return FieldsCore.createWizard(action,
-	// FieldsCore.createPage("page1", "Add a link model controller",
-	// "Add a link model controller for the current field", 2
-	// )
-	// );
-	// }
-	//
-	// /* (non-Javadoc)
-	// * @see
-	// model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-	// */
-	// @Override
-	// public Pages createModificationPage(Item item) {
-	// AbstractActionPage action = new ModificationAction(item);
-	//
-	// return FieldsCore.createWizard(action,
-	// FieldsCore.createPage("page1", "a link model controller", "a link model
-	// controller", 3
-	//
-	// )
-	// );
-	// }
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

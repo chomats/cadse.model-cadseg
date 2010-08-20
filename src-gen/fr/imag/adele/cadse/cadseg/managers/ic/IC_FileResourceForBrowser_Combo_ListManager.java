@@ -23,6 +23,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_FileResourceForBrowser_Combo_List;
 
 /**
  * The Class IC_FileResourceForBrowser_Combo_ListManager.
@@ -31,22 +32,6 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTreeDialogForBrowser_Combo_ListManager
 		implements IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME				= "fede.workspace.model.manager.properties.impl.ic.IC_FileResourceForBrowser_Combo_List";
-
-	///** The Constant PATTERN_SELECT_FILE_ATTRIBUTE. */
-	//public static final String	PATTERN_SELECT_FILE_ATTRIBUTE	= "pattern-select-file";
-
-	///** The Constant SELECT_FOLDER_ATTRIBUTE. */
-	//public static final String	SELECT_FOLDER_ATTRIBUTE			= "select-folder";
-
-	/**
-	 * Instantiates a new i c_ file resource for browser_ combo_ list manager.
-	 */
-	public IC_FileResourceForBrowser_Combo_ListManager() {
-	}
 
 	/**
 		@generated
@@ -125,8 +110,8 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_FileResourceForBrowser_Combo_List.class;
 	}
 
 	/*
@@ -138,4 +123,5 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 	public boolean mustBeExtended() {
 		return false;
 	}
+
 }

@@ -35,6 +35,9 @@ import fr.imag.adele.cadse.core.util.Convert;
  */
 public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 
+	/** The Constant EXPORTERS_LINK. */
+	@Deprecated
+	public static final String	EXPORTERS_LINK	= "exporters";
 
 	/**
 	 * Instantiates a new content model manager.
@@ -63,9 +66,7 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		}
 	}
 
-	public boolean hasParentContent() {
-		return false;
-	}
+	
 
 	/**
 	 * Gets the workspace model.
@@ -145,15 +146,6 @@ public class ContentItemTypeManager extends DefaultWorkspaceManager  {
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/**
-	 * Must be extended.
-	 * 
-	 * @return true, if successful
-	 */
-	public boolean mustBeExtended() {
-		return true;
 	}
 
 	/**

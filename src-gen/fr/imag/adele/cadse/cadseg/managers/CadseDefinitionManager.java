@@ -18,31 +18,66 @@
  */
 package fr.imag.adele.cadse.cadseg.managers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
+import org.eclipse.jface.fieldassist.ContentProposalAdapter;
+import org.eclipse.jface.fieldassist.IContentProposalProvider;
+import org.eclipse.ltk.core.refactoring.Change;
+import org.eclipse.ltk.core.refactoring.RefactoringStatus;
+import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
+import org.osgi.framework.BundleException;
+
+import fede.workspace.dependencies.eclipse.java.fix.IFixManager;
+import fede.workspace.eclipse.java.osgi.OsgiManifest;
+import fede.workspace.tool.eclipse.MappingManager;
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
+import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
+import fr.imag.adele.cadse.cadseg.fields.RegExContentProposalProvider;
+import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.init.CadsegInit;
+import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
+import fr.imag.adele.cadse.cadseg.path.ParsePath;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.InitAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.util.Convert;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.ContextVariableImpl;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.IFieldContenProposalProvider;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.Proposal;
 
 /**
  * The Class CadseDefinitionManager.
  */
-public class CadseDefinitionManager extends CadseManager implements IModelWorkspaceManager, InitAction {
+public class CadseDefinitionManager extends CadseManager implements IModelWorkspaceManager, IFixManager, InitAction {
 	public static final String	MAPPING				= "mapping";
 
 	public static final String	BUILD_MODEL			= "build-model";
@@ -103,7 +138,233 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 		}
 		return cadseDefinition.getId();
 	}
-		
+
+	/**
+	 * The Class CorrectManifestAfterRenameChange.
+	 */
+	final class CorrectManifestAfterRenameChange extends Change {
+
+		/** The manager. */
+		CadseDefinitionContent	manager;
+
+		/** The old default package. */
+		String							oldDefaultPackage;
+
+		/** The new default package. */
+		String							newDefaultPackage;
+
+		/** The old unique name. */
+		String							oldUniqueName;
+
+		/**
+		 * Instantiates a new correct manifest after rename change.
+		 * 
+		 * @param manager
+		 *            the manager
+		 * @param oldDefaultPackage
+		 *            the old default package
+		 * @param newDefaultPackage
+		 *            the new default package
+		 * @param oldUniqueName
+		 *            the old unique name
+		 */
+		public CorrectManifestAfterRenameChange(CadseDefinitionContent manager, String oldDefaultPackage,
+				String newDefaultPackage, String oldUniqueName) {
+			super();
+			this.manager = manager;
+			this.oldDefaultPackage = oldDefaultPackage;
+			this.newDefaultPackage = newDefaultPackage;
+			this.oldUniqueName = oldUniqueName;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.eclipse.ltk.core.refactoring.Change#getModifiedElement()
+		 */
+		@Override
+		public Object getModifiedElement() {
+			return manager;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.eclipse.ltk.core.refactoring.Change#getName()
+		 */
+		@Override
+		public String getName() {
+			return "Correct Manifest for item " + manager.getOwnerItem().getQualifiedName();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.eclipse.ltk.core.refactoring.Change#initializeValidationData(
+		 * org.eclipse.core.runtime.IProgressMonitor)
+		 */
+		@Override
+		public void initializeValidationData(IProgressMonitor pm) {
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.eclipse.ltk.core.refactoring.Change#isValid(org.eclipse.core.
+		 * runtime.IProgressMonitor)
+		 */
+		@Override
+		public RefactoringStatus isValid(IProgressMonitor pm) throws CoreException, OperationCanceledException {
+			IFile manifestFile = manager.getManifestFile();
+			if (!manifestFile.exists()) {
+				System.out.println("refactoring error !!! " + manifestFile.getFullPath().toPortableString());
+			}
+			return new RefactoringStatus();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.eclipse.ltk.core.refactoring.Change#perform(org.eclipse.core.
+		 * runtime.IProgressMonitor)
+		 */
+		@Override
+		public Change perform(IProgressMonitor pm) throws CoreException {
+			try {
+				OsgiManifest omf = new OsgiManifest(manager.getProject());
+				omf.removeEntry(OsgiManifest.EXPORT_PACKAGE, oldDefaultPackage);
+				omf.putArray(OsgiManifest.EXPORT_PACKAGE, true, false, newDefaultPackage);
+				omf.put(OsgiManifest.BUNDLE_SYMBOLICNAME, manager.getOwnerItem().getQualifiedName());
+				omf.put(OsgiManifest.BUNDLE_NAME, manager.getOwnerItem().getQualifiedName());
+				omf.put(OsgiManifest.BUNDLE_SYMBOLICNAME, manager.getOwnerItem().getQualifiedName() + ";singleton:=true");
+				omf.put(OsgiManifest.BUNDLE_ACTIVATOR, newDefaultPackage + ".Activator");
+				manager.computeManifest(omf);
+				StringBuilder sb = new StringBuilder();
+				omf.write(sb);
+				MappingManager.generate(manager.getProject(), new Path("META-INF"), "MANIFEST.MF", sb.toString(), pm);
+			} catch (BundleException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return null;
+		}
+
+	}
+
+	/**
+	 * The Class SelectionMC.
+	 */
+	public static class SelectionMC extends MC_AttributesItem {
+
+		/**
+		 * Instantiates a new selection mc.
+		 */
+		public SelectionMC() {
+			super();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fr.imag.adele.cadse.core.ui.AbstractModelController#validValueChanged
+		 * (fr.imag.adele.cadse.core.ui.UIField, java.lang.Object)
+		 */
+		@Override
+		public boolean validValueChanged(UIField field, Object value) {
+			Item currentItem = getItem();
+			Item source = LinkTypeManager.getSource(currentItem);
+			Item dest = LinkTypeManager.getDestination(currentItem);
+			ParsePath pp = new ParsePath(source, dest, (String) value);
+			String error = pp.getError();
+			if (error != null) {
+				_uiPlatform.setMessageError(error);
+				return true;
+			}
+			return false;
+
+		}
+
+	}
+
+	/**
+	 * The Class ValidFieldUC.
+	 */
+	public static class ValidFieldIC extends ICRunningField implements RuningInteractionController,
+			IFieldContenProposalProvider {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fede.workspace.model.manager.properties.IFieldContenProposalProvider
+		 * #getAutoActivationCharacters()
+		 */
+		public char[] getAutoActivationCharacters() {
+			return new char[] { '\\', '[', '(' };
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fede.workspace.model.manager.properties.IFieldContenProposalProvider
+		 * #getCommandId()
+		 */
+		public String getCommandId() {
+			return ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fede.workspace.model.manager.properties.IFieldContenProposalProvider
+		 * #getContentProposalProvider()
+		 */
+		public IContentProposalProvider getContentProposalProvider() {
+			return new RegExContentProposalProvider(true);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * fede.workspace.model.manager.properties.IFieldContenProposalProvider
+		 * #getProposalAcceptanceStyle()
+		 */
+		public int getProposalAcceptanceStyle() {
+			return ContentProposalAdapter.PROPOSAL_INSERT;
+		}
+
+		public Object setControlContents(String newValue) {
+			return null;
+		}
+
+		public Object getValueFromProposal(Proposal proposal) {
+			return proposal.getContent();
+		}
+
+
+	}
+
+	// /** The Constant IMPORTS_ATTRIBUTE. */
+	// public static final String IMPORTS_ATTRIBUTE = "imports";
+
+	/** The Constant SOURCES. */
+	private static final String	SOURCES	= "src-gen";
+
+
+
+
+	
 	/** The Constant DEFAULT_PACKAGE. */
 	public final static String	DEFAULT_PACKAGE	= "model.workspace.";
 
@@ -172,7 +433,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 	public static List<String> getImports(Item wsModelItem) {
 		return wsModelItem.getAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_);
 	}
-
+	
 	/**
 	 * Checks for package.
 	 * 
@@ -202,6 +463,20 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			return p;
 		}
 		return DEFAULT_PACKAGE + cxt.getAttribute(item, CadseGCST.ITEM_at_NAME_).toLowerCase();
+	}
+
+	/**
+	 * Gets the default package path.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param item
+	 *            the item
+	 * 
+	 * @return the default package path
+	 */
+	public static IPath getDefaultPackagePath(ContextVariable cxt, Item item) {
+		return new Path(SOURCES).append(new Path(getDefaultPackage(cxt, item).replace('.', '/')));
 	}
 
 	/**
@@ -345,7 +620,7 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 			String setvalue = value;
 			list.add(setvalue);
 			cadseDefinition.setAttribute(CadseGCST.CADSE_DEFINITION_at_IMPORTS_, list);
-			((IGenerateContent) cadseDefinition.getContentItem()).generate(ContextVariableImpl.DEFAULT);
+			//((IGenerateContent) cadseDefinition.getContentItem()).generate(ContextVariableImpl.DEFAULT);
 		} catch (Throwable t) {
 
 		}
@@ -582,8 +857,78 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 		return source;
 	}
 
-	
+	/**
+	 * Gets the source folder.
+	 * 
+	 * @param cadseDefinition
+	 *            the cadse definition
+	 * 
+	 * @return the source folder
+	 */
+	public static IContainer getSourceFolder(Item cadseDefinition) {
+		CadseDefinitionContent cm = (CadseDefinitionContent) cadseDefinition.getContentItem();
+		if (cm != null) {
+			return cm.getSourceFolder(ContextVariableImpl.DEFAULT);
+		}
+		return null;
+	}
 
+	public static IFile getCSTCU(ContextVariable cxt, Item cadseDefinition) {
+		return CadseDefinitionManager.getJavaFile(cadseDefinition, "cst", GenerateJavaIdentifier
+				.javaPackageNameFileCST_FromCadseDefinition(cxt, cadseDefinition), GenerateJavaIdentifier
+				.javaClassNameFileCST_FromCadseDefinition(cxt, cadseDefinition));
+	}
+
+	/**
+	 * Gets the java file.
+	 * 
+	 * @param cadseDefinition
+	 *            the cadse definition
+	 * @param pn
+	 *            the pn
+	 * @param cn
+	 *            the cn
+	 * 
+	 * @return the java file
+	 */
+	public static IFile getJavaFile(Item cadseDefinition, String key, String pn, String cn) {
+
+		String projectName = GenerateJavaIdentifier.ow(cadseDefinition, "project." + key, cadseDefinition
+				.getQualifiedName());
+		IContainer sourceFolder = CadseDefinitionManager.getSourceFolder(cadseDefinition);
+		String srcName = GenerateJavaIdentifier.ow(cadseDefinition, "src." + key, sourceFolder.getProjectRelativePath()
+				.toPortableString());
+
+		IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+		sourceFolder = p.getFolder(srcName);
+		IPath javapath = new Path(pn.replace('.', '/')).append(cn + ".java");
+		return sourceFolder.getFile(javapath);
+
+	}
+
+	/**
+	 * Gets the java type.
+	 * 
+	 * @param cadseDefinition
+	 *            the cadse definition
+	 * @param f
+	 *            the f
+	 * @param cn
+	 *            the cn
+	 * 
+	 * @return the java type
+	 */
+	public static IType getJavaType(Item cadseDefinition, IFile f, String cn) {
+		ICompilationUnit cu = null;
+		IType javatype = null;
+		if (f.exists()) {
+			cu = (ICompilationUnit) JavaCore.create(f);
+			if (cu != null) {
+				javatype = cu.getType(cn);
+			}
+		}
+		return javatype;
+	}
 
 	/**
 	 * Gets the version.
@@ -895,6 +1240,25 @@ public class CadseDefinitionManager extends CadseManager implements IModelWorksp
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fede.workspace.dependencies.eclipse.java.fix.IFixManager#resolve(org.
+	 * eclipse.jdt.core.IJavaProject, fr.imag.adele.cadse.core.Item,
+	 * java.lang.String, java.lang.String, boolean, java.util.List)
+	 */
+	public void resolve(IJavaProject sourceProject, Item itemSource, String qualifiedPackageName, String typeName,
+			boolean addImport, List<IJavaCompletionProposal> ret) {
+		List<String> imports = getImports(itemSource);
+		if (imports != null && imports.contains(qualifiedPackageName)) {
+			return; // allready
+		}
+		ret.add(new CadseDefinitionJavaCompletionProposal(itemSource, qualifiedPackageName, addImport));
+
+	}
+
 	
 	
 	@Override

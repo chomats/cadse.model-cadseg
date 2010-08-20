@@ -29,6 +29,8 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class EclipseReExporterManager extends ExporterManager {
 
+
+
 	/**
 	 * The Constructor.
 	 * 
@@ -59,7 +61,6 @@ public class EclipseReExporterManager extends ExporterManager {
 			return "error";
 		}
 	}
-
 
 	/**
 	 * Gets the display name.
@@ -93,8 +94,8 @@ public class EclipseReExporterManager extends ExporterManager {
 	 * getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return fede.workspace.eclipse.exporter.CompositeReExporter.class;
 	}
 
 	/*

@@ -98,20 +98,4 @@ public class PackageContentModelManager extends FolderContentModelManager {
 
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
-	 */
-	@Override
-	public boolean mustBeExtended() {
-		return false;
-	}
-
-	@Override
-	public boolean hasParentContent() {
-		return true;
-	}
-
 }

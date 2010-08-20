@@ -1,10 +1,13 @@
 package fr.imag.adele.cadse.cadseg.migration;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
 
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.transaction.delta.SetAttributeOperation;
 
 public class MigrationInit {
  public static  void init() {

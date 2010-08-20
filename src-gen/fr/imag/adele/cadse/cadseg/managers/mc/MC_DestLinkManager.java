@@ -20,12 +20,12 @@ package fr.imag.adele.cadse.cadseg.managers.mc;
 
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_DestLink;
 
 /**
  * @generated
  */
 public class MC_DestLinkManager extends MC_LinkManager {
-
 
 	/**
 	 * @generated
@@ -68,20 +68,6 @@ public class MC_DestLinkManager extends MC_LinkManager {
 			return "error";
 		}
 	}
-	
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.MC_DestLink";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getClassName(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public String getClassName(Item uc) {
-		return DEFAUL_CLASS_NAME;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -89,8 +75,8 @@ public class MC_DestLinkManager extends MC_LinkManager {
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return MC_DestLink.class;
 	}
 
 }

@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
+import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -33,34 +34,10 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerManager implements IItemManager {
 
-	/** The Constant SELECT_TITLE_ATTRIBUTE. */
-	public static final String		SELECT_TITLE_ATTRIBUTE		= "select-title";
-
-	/** The Constant SELECT_MESSAGE_ATTRIBUTE. */
-	public static final String		SELECT_MESSAGE_ATTRIBUTE	= "select-messsage";
-
-	/** The Constant STYLE_ATTRIBUTE. */
-	public static final String		STYLE_ATTRIBUTE				= "STYLE";
-
-	/** The Constant FILTER_ATTRIBUTE. */
-	public static final String		FILTER_ATTRIBUTE			= "FILTER";
-
-	
-
 	/** The Constant style_values_cst. */
 	public static final String[]	style_values_cst			= { "CONSIDER_CLASSES", "CONSIDER_INTERFACES",
 			"CONSIDER_ANNOTATION_TYPES", "CONSIDER_ENUMS", "CONSIDER_ALL_TYPES", "CONSIDER_CLASSES_AND_INTERFACES",
 			"CONSIDER_CLASSES_AND_ENUMS"						};
-
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo";
-
-	/**
-	 * Instantiates a new i c_ java class for browser_ combo manager.
-	 */
-	public IC_JavaClassForBrowser_ComboManager() {
-	}
 
 	/**
 		@generated
@@ -133,68 +110,14 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		}
 	}
 
-	//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.IC_DEFAULT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"Create a interaction controler for browser or combo with a java class attribut",
-//				"Create a interaction controler for browser or combo with a java class attribut", 3, FieldsCore
-//						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-//						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createComboBox(STYLE_ATTRIBUTE,
-//						"style", EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", style_values),
-//						null, true), FieldsCore.createTextField(FILTER_ATTRIBUTE, "filter",
-//						"The initial pattern to filter the set of types.\n"
-//								+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
-//								+ "The meta character '?' representing any character and\n"
-//								+ "'*' representing any string are supported.\n"
-//								+ "You can pass an empty string if no filtering is required")
-//
-//		));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"Create a interaction controler for browser or combo with a java class attribut",
-//				"Create a interaction controler for browser or combo with a java class attribut", 3, FieldsCore
-//						.createTextField(SELECT_TITLE_ATTRIBUTE, "dialog title"), FieldsCore.createTextField(
-//						SELECT_MESSAGE_ATTRIBUTE, "dialog message"), FieldsCore.createComboBox(STYLE_ATTRIBUTE,
-//						"style", EPosLabel.left, new IC_StaticArrayOfObjectForBrowser_Combo("", "", style_values),
-//						null, true), FieldsCore.createTextField(FILTER_ATTRIBUTE, "filter",
-//						"The initial pattern to filter the set of types.\n"
-//								+ "For example \"Abstract\" shows  all types starting with \"Abstract\".\n"
-//								+ "The meta character '?' representing any character and\n"
-//								+ "'*' representing any string are supported.\n"
-//								+ "You can pass an empty string if no filtering is required")
-//
-//		));
-//	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_JavaClassForBrowser_Combo.class;
 	}
 
 	/*

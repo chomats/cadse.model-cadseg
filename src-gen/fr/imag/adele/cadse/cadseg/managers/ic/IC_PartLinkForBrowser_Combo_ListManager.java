@@ -29,6 +29,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Validator;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_PartLinkForBrowser_Combo_List;
 
 /**
  * The Class IC_PartLinkForBrowser_Combo_ListManager.
@@ -36,21 +37,6 @@ import fr.imag.adele.cadse.core.Validator;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_Combo_ListManager implements Validator {
-
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_PartLinkForBrowser_Combo_List";
-
-	/**
-	 * The Constructor.
-	 * 
-	 * @generated
-	 */
-	public IC_PartLinkForBrowser_Combo_ListManager() {
-		super();
-	}
 
 	/**
 		@generated
@@ -87,55 +73,14 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 		}
 	}
 
-	///** The Constant ERROR_MESSAGE_ATTRIBUTE. */
-//	public static final String	ERROR_MESSAGE_ATTRIBUTE	= "select-messsage";
-
-
-
-	// /**
-	// * @generated
-	// */
-	// static public Item getSelectLink(Item linkDialogUserControllerForBrowser)
-	// {
-	// return linkDialogUserControllerForBrowser.getOutgoingItem(
-	// SELECT_LINK_LINK, true);
-	// }
-	//
-	// /**
-	// * @generated
-	// */
-	// static public void setSelectLink(Item linkDialogUserControllerForBrowser,
-	// Item value) throws CadseException {
-	// linkDialogUserControllerForBrowser.setOutgoingItem(SELECT_LINK_LINK,
-	// value);
-	// }
-	//
-	// /**
-	// * @generated
-	// */
-	// static public Item getSelectType(Item linkDialogUserControllerForBrowser)
-	// {
-	// return linkDialogUserControllerForBrowser.getOutgoingItem(
-	// SELECT_TYPE_LINK, true);
-	// }
-	//
-	// /**
-	// * @generated
-	// */
-	// static public void setSelectType(Item linkDialogUserControllerForBrowser,
-	// Item value) throws CadseException {
-	// linkDialogUserControllerForBrowser.setOutgoingItem(SELECT_TYPE_LINK,
-	// value);
-	// }
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see model.workspace.workspace.managers.ic.IC_LinkForBrowser_Combo_ListManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_PartLinkForBrowser_Combo_List.class;
 	}
 
 	/*
@@ -166,29 +111,27 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 		return "no incoming part";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
-	 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
-	 */
-	@Override
-	public List<Item> validate(Item item, ProblemReporter reporter) {
-		Item ic = item;
+	public final static class IC_PartLinkForBrowser_Combo_ListValidator extends Validator {
+		
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
+		 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			Item ic = item;
 
-		Item a = FieldManager.getAttribute(ic.getPartParent().getPartParent());
-		Item itemtypedest = LinkTypeManager.getDestination(a);
+			Item a = FieldManager.getAttribute(ic.getPartParent().getPartParent());
+			Item itemtypedest = LinkTypeManager.getDestination(a);
 
-		Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
+			Item[] incomingLinkType = ItemTypeManager.getIncomingLinkTypesOfPart(itemtypedest);
 
-		if (!(incomingLinkType.length == 1 && incomingLinkType[0] != a)) {
-			reporter.error(item, 0, "Cannot find incoming part from {0}.", a.getName());
+			if (!(incomingLinkType.length == 1 && incomingLinkType[0] != a)) {
+				reporter.error(item, 0, "Cannot find incoming part from {0}.", a.getName());
+			}
+			return null;
 		}
-		return null;
-	}
-	
-	@Override
-	public Class<Validator> getClassAdapt() {
-		return Validator.class;
 	}
 }

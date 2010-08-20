@@ -22,6 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DComboUI;
 
 /**
  * The Class DComboManager.
@@ -29,11 +30,6 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class DComboManager extends DisplayManager implements IItemManager {
-
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DComboUI";
 
 	/**
 	 * Instantiates a new d combo manager.
@@ -76,6 +72,35 @@ public class DComboManager extends DisplayManager implements IItemManager {
 		}
 	}
 
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
+//
+//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, DEFAULT_SHORT_NAME);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a combo", "Create a combo", 3,
+//				createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI(), createFieldEditable()));
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
+//	 */
+//	@Override
+//	public Pages createModificationPage(Item item) {
+//		AbstractActionPage action = new ModificationAction(item);
+//
+//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a combo", "a combo", 3,
+//				createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI(), createFieldEditable()));
+//	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -92,8 +117,27 @@ public class DComboManager extends DisplayManager implements IItemManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return DComboUI.class;
 	}
+
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
+//	 *      fr.imag.adele.cadse.core.LinkType,
+//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 */
+//	@Override
+//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
+//		Item attribute = FieldManager.getAttribute(field);
+//		if (attribute == null) {
+//			return "You must add a link to an attribute link";
+//		}
+//		if (AttributeManager.isIsListAttribute(attribute)) {
+//			return "Combo is not for a list";
+//		}
+//		return null;
+//	}
 
 }

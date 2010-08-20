@@ -19,11 +19,14 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
+import java.util.Set;
+
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.DisplayManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.IItemFactory;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -31,6 +34,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.ItemFactory;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 
 /**
@@ -39,7 +43,7 @@ import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class ModelControllerManager extends DefaultWorkspaceManager implements IItemManager, IExtendClassManager , IItemFactory{
-
+	
 	/**
 	 * Instantiates a new model controller manager.
 	 */
@@ -98,21 +102,18 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 	public String getClassName(Item mc) {
 		String className = mc.getAttribute(CadseGCST.RUNTIME_ITEM_at_CLASS_NAME_);
 		if (className == null) {
-			className = getDefaultClassName();
+			className = getDefaultClassName() == null ? null : getDefaultClassName().getSimpleName();
 		}
 		return className;
 	}
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem";
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getDefaultClassName()
 	 */
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return MC_AttributesItem.class;
 	}
 
 	/*
@@ -181,6 +182,37 @@ public class ModelControllerManager extends DefaultWorkspaceManager implements I
 			return null;
 		}
 		return FieldManager.getAttribute(field);
+	}
+
+	/**
+	 * Generate call arguments.
+	 * 
+	 * @param sb
+	 *            the sb
+	 * @param imports
+	 *            the imports
+	 * @param object
+	 *            the object
+	 */
+	protected void generateCallArguments(Item item, GenStringBuilder sb, Set<String> imports, Object object) {
+	}
+
+	/**
+	 * Generate construstor arguments.
+	 * 
+	 * @param sb
+	 *            the sb
+	 */
+	protected void generateConstrustorArguments(Item item, GenStringBuilder sb) {
+	}
+
+	/**
+	 * Generate constructor parameter.
+	 * 
+	 * @param sb
+	 *            the sb
+	 */
+	protected void generateConstructorParameter(Item item, GenStringBuilder sb) {
 	}
 	
 	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {

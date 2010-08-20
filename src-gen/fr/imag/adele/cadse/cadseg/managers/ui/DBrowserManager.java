@@ -22,6 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI;
 
 /**
  * The Class DBrowserManager.
@@ -29,9 +30,6 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class DBrowserManager extends DisplayManager implements IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DBrowserUI";
 
 	/**
 	 * Instantiates a new d browser manager.
@@ -91,38 +89,10 @@ public class DBrowserManager extends DisplayManager implements IItemManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return DBrowserUI.class;
 	}
 
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, DEFAULT_SHORT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a browser", "Create a browser",
-//				3, createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI()));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a browser", "a browser", 3,
-//				createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI()));
-//	}
 
 //	/*
 //	 * (non-Javadoc)

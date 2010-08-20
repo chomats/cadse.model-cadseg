@@ -23,6 +23,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI;
 
 /**
  * The Class DCheckBoxManager.
@@ -30,9 +31,6 @@ import fr.imag.adele.cadse.core.ui.EPosLabel;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class DCheckBoxManager extends DisplayManager implements IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckBoxUI";
 
 	/**
 	 * Instantiates a new d check box manager.
@@ -131,8 +129,8 @@ public class DCheckBoxManager extends DisplayManager implements IItemManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return DCheckBoxUI.class;
 	}
 
 //	/*
