@@ -20,7 +20,6 @@ package fr.imag.adele.cadse.cadseg.managers.ic;
 
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForChecked;
 
 /**
  * @generated
@@ -67,11 +66,6 @@ public class IC_AbstractForCheckedManager extends InteractionControllerManager {
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_AbstractForChecked.class;
 	}
 
 }

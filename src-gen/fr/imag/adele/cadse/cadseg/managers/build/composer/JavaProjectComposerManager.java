@@ -171,22 +171,6 @@ public class JavaProjectComposerManager extends EclipseComposerManager {
 		return false;
 	}
 
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.composition.java.JavaProjectComposer";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * model.workspace.workspace.managers.build.composer.EclipseComposerManager
-	 * #getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return fede.workspace.eclipse.composition.java.JavaProjectComposer.class;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

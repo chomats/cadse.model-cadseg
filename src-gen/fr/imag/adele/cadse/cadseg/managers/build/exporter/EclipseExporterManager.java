@@ -83,15 +83,4 @@ public class EclipseExporterManager extends ExporterManager {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.build.exporter.ExporterManager#
-	 * getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return fede.workspace.eclipse.exporter.EclipseExporter.class;
-	}
-
 }

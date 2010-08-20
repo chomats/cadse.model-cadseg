@@ -19,7 +19,6 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import fede.workspace.model.manager.properties.impl.mc.StringToEnumModelController;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -68,16 +67,6 @@ public class MC_EnumManager extends ModelControllerManager implements IItemManag
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return StringToEnumModelController.class;
 	}
 
 	/*

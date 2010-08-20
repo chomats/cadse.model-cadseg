@@ -24,7 +24,6 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_DefaultForList;
 
 /**
  * The Class IC_StringListForListManager.
@@ -84,16 +83,6 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_DefaultForList.class;
 	}
 
 	/*

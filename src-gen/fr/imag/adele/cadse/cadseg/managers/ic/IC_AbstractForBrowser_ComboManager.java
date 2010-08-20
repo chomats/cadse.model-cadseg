@@ -25,7 +25,6 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForBrowser_Combo;
 
 // TODO message
 /**
@@ -76,16 +75,6 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_AbstractForBrowser_Combo.class;
 	}
 
 	/*

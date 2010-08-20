@@ -36,7 +36,7 @@ import fr.imag.adele.cadse.core.Validator;
  * 
  * @generated
  */
-public class ViewLinkTypeManager extends DefaultItemManager implements Validator {
+public class ViewLinkTypeManager extends DefaultItemManager {
 
 	/** The Constant ID_ITEM_TYPE_VIEW_LINK_TYPE. */
 	@SuppressWarnings("hiding")
@@ -433,31 +433,6 @@ public class ViewLinkTypeManager extends DefaultItemManager implements Validator
 			return null;
 		}
 	}
-
-	@Override
-	public Class<Validator> getClassAdapt() {
-		return Validator.class;
-	}
-	//
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fede.workspace.model.manager.DefaultItemManager#computeRenameAnnotationChange(org.eclipse.ltk.core.refactoring.CompositeChange,
-	// * fr.imag.adele.cadse.core.Item, fr.imag.adele.cadse.core.Item,
-	// * fr.imag.adele.cadse.core.var.ContextVariable,
-	// * fr.imag.adele.cadse.core.var.ContextVariable)
-	// */
-	// @Override
-	// public RefactoringStatus computeRenameAnnotationChange(CompositeChange
-	// change, Item itemAnnotation,
-	// Item itemAnnoted, ContextVariable newCxt, ContextVariable oldCxt) {
-	// if (itemAnnoted.isInstanceOf(CadseGCST.LINK)) {
-	// itemAnnotation.computeRenameChange(change, itemAnnoted.getName(),
-	// newCxt, oldCxt);
-	// }
-	// return null;
-	// }
 
 	/*
 	 * (non-Javadoc)
