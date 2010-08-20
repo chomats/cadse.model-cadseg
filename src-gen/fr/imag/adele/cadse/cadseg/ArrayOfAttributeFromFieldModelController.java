@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
+import fr.imag.adele.cadse.cadseg.eclipse.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;

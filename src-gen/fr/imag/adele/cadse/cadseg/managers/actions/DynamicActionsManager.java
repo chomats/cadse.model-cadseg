@@ -27,14 +27,12 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
-import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.var.NullVariable;
-import fr.imag.adele.cadse.core.var.Variable;
 
 /**
  * @generated
@@ -42,22 +40,6 @@ import fr.imag.adele.cadse.core.var.Variable;
 public class DynamicActionsManager extends MenuAbstractManager {
 
 	
-
-
-	/**
-		@generated
-	*/
-	public class DynamicActionsContent extends JavaFileContentManager {
-
-		/**
-			@generated
-		*/
-		public DynamicActionsContent(UUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
-			super(id, packageNameVariable, classNameVariable);
-		}
-
-	}
-
 
 
 	/**
@@ -82,36 +64,5 @@ public class DynamicActionsManager extends MenuAbstractManager {
 	}
 
 	
-
-	/**
-		@generated
-	*/
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem ) throws CadseException {
-		DynamicActionsContent cm = new DynamicActionsContent(
-			id, NullVariable.INSTANCE, NullVariable.INSTANCE
-			);
-		cm.setComposers(
-		);
-		cm.setExporters(
-		);
-		return cm;
-	}
 	
-	@Override
-	public void doubleClick(Item item) {
-		if (item != null) {
-			IFile jf = item.getMainMappingContent(IFile.class);
-			if (jf != null) {
-				try {
-					IWorkbench workbench = PlatformUI.getWorkbench();
-					IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
-					IDE.openEditor(activePage, jf, true);
-				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 }

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package fr.imag.adele.cadse.cadseg.linkmanagers.dataModel;
+package fr.imag.adele.cadse.cadseg.eclipse.linkmanagers.dataModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;

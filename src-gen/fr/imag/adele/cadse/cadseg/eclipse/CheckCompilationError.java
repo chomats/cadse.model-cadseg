@@ -1,4 +1,4 @@
-package fr.imag.adele.cadse.cadseg;
+package fr.imag.adele.cadse.cadseg.eclipse;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;

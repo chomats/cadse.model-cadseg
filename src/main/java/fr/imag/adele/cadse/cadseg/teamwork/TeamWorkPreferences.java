@@ -2,7 +2,7 @@ package fr.imag.adele.cadse.cadseg.teamwork;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import fr.imag.adele.cadse.cadseg.Activator;
+import fr.imag.adele.cadse.cadseg.eclipse.Activator;
 
 /**
  * Used to get and set values of TeamWork preferences.

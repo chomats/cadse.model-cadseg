@@ -247,34 +247,6 @@ public class ViewManager extends DefaultItemManager {
         return view.getOutgoingItems(CadseGCST.VIEW_lt_VIEW_ITEM_TYPES, false);
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
-		return new ViewJavaFileContentManager(id);
-	}
-
-	
-
-//	/**
-//	 * Creates the field data model.
-//	 * 
-//	 * @param view
-//	 *            the view
-//	 * 
-//	 * @return the uI field
-//	 */
-//	protected DCheckedTreeUI createFieldDataModel(Item view) {
-//		Item cadsedef = getCadsegModel(view);
-//		IC_ViewManager_DataModelView ic_mc = new IC_ViewManager_DataModelView(CadseDefinitionManager
-//				.getDependenciesCadsesAndMe(cadsedef), view);
-//		DCheckedTreeUI checkedTreeUI = new DCheckedTreeUI("sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
-//		ic_mc.setCheckedTreeUI(checkedTreeUI);
-//		return checkedTreeUI;
-//	}
 
 	/**
 	 * Gets the icon path.
@@ -293,37 +265,6 @@ public class ViewManager extends DefaultItemManager {
 		IPath p = new Path(pStr);
 		return p.removeFirstSegments(1).makeRelative().toPortableString();
 	}
-
-	// class ItemTypeViewAction implements IItemTypeDynamic {
-	// Item itemtype;
-	// Item view;
-	//
-	// public ItemTypeViewAction(Item view, Item itemtype) {
-	// this.itemtype = itemtype;
-	// this.view = view;
-	// }
-	//
-	// public void create() {
-	// createViewItemType(view, itemtype);
-	// }
-	//
-	// public URL getImage() {
-	// return itemtype.getType().getItemManager().getImage();
-	// }
-	//
-	// public String getLabel() {
-	// return "Add item type "+itemtype.getName();
-	// }
-	//
-	// public IItemManager getManager() {
-	// return ViewManager.this;
-	// }
-	//
-	// public boolean isSeparator() {
-	// return false;
-	// }
-	//
-	// }
 
 	/*
 	 * (non-Javadoc)
@@ -513,22 +454,4 @@ public class ViewManager extends DefaultItemManager {
 
 		}
 	}
-
-	@Override
-	public void doubleClick(Item item) {
-		if (item != null) {
-			IFile jf = item.getMainMappingContent(IFile.class);
-			if (jf != null) {
-				try {
-					IWorkbench workbench = PlatformUI.getWorkbench();
-					IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
-					IDE.openEditor(activePage, jf, true);
-				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
 }

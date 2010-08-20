@@ -21,7 +21,7 @@ package fr.imag.adele.cadse.cadseg.operation;
 
 import java.util.Arrays;
 
-import fr.imag.adele.cadse.cadseg.WorkspacePlugin;
+import fr.imag.adele.cadse.cadseg.eclipse.WorkspacePlugin;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package fr.imag.adele.cadse.cadseg.fields;
+package fr.imag.adele.cadse.cadseg.eclipse.fields;
 
 import java.util.ArrayList;
 

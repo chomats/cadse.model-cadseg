@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import fr.imag.adele.cadse.cadseg.Activator;
+import fr.imag.adele.cadse.cadseg.eclipse.Activator;
 
 
 /**

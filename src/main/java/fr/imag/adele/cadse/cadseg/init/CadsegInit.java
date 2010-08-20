@@ -5,12 +5,13 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
+import fr.imag.adele.cadse.cadseg.contents.ExtItemTypeContent;
+import fr.imag.adele.cadse.cadseg.contents.ManagerJavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.contents.actions.DynamicActionsContent;
 import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionContent;
-import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
+import fr.imag.adele.cadse.cadseg.eclipse.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeSpaceKeyType;
 import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
-import fr.imag.adele.cadse.cadseg.managers.content.ManagerJavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ProjectContentModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
@@ -243,6 +244,8 @@ public class CadsegInit implements InitAction {
 		CadseGCST.DYNAMIC_ACTIONS.setContentItemClass(DynamicActionsContent.class);
 		CadseGCST.MENU_ACTION.setContentItemClass(MenuActionContent.class);
 		CadseGCST.MANAGER.setContentItemClass(ManagerJavaFileContentManager.class);
+		CadseGCST.EXT_ITEM_TYPE.setContentItemClass(ExtItemTypeContent.class);
+		
 		CadseGCST.ITEM.addAdapter(new DefaultValidator());
 		CadseGCST.ENUM.addAdapter(new EnumManager.EnumValidator());
 		CadseGCST.MANAGER.addAdapter(new ManagerManager.ManagerValidator());
