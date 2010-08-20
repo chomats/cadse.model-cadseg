@@ -25,7 +25,6 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_EnumForBrowser_Combo;
 
 /**
  * The Class IC_EnumForBrowser_ComboManager.
@@ -67,16 +66,6 @@ public class IC_EnumForBrowser_ComboManager extends IC_AbstractForBrowser_ComboM
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_EnumForBrowser_Combo.class;
 	}
 
 	/*

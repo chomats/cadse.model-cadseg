@@ -19,7 +19,8 @@
 
 package fr.imag.adele.cadse.cadseg;
 
-import org.eclipse.osgi.util.NLS;
+import fr.imag.adele.cadse.util.NLS;
+
 
 /**
  * The Class Messages.

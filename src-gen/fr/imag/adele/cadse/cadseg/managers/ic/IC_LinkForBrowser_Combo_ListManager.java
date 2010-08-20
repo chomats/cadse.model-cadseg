@@ -24,7 +24,6 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_LinkForBrowser_Combo_List;
 
 /**
  * The Class IC_LinkForBrowser_Combo_ListManager.
@@ -68,17 +67,6 @@ public class IC_LinkForBrowser_Combo_ListManager extends IC_AbstractTreeDialogFo
 		}
 	}
 	
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_LinkForBrowser_Combo_List.class;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

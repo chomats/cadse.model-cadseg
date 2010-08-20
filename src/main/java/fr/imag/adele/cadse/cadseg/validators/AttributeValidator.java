@@ -21,7 +21,6 @@ package fr.imag.adele.cadse.cadseg.validators;
 import java.text.MessageFormat;
 
 import fr.imag.adele.cadse.cadseg.Messages;
-import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;

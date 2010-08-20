@@ -22,7 +22,6 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeUI;
 
 /**
  * The Class DTreeManager.
@@ -91,16 +90,6 @@ public class DTreeManager extends DisplayManager implements IItemManager {
 	@Override
 	public boolean mustBeExtended() {
 		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return DTreeUI.class;
 	}
 
 }

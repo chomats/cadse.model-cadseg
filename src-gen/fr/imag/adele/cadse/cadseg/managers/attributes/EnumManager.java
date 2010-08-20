@@ -23,10 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jdt.core.IType;
-
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -34,7 +31,6 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Validator;
-import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class EnumManager.
@@ -263,15 +259,15 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 				return ret;
 			}
 	
-			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, itemenumtype);
-			if (type != null && type.exists()) {
-				List<String> values = EnumTypeManager.getEnumTypeValues(itemenumtype);
-				if (values == null || !values.contains(defaultValue)) {
-					reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Mauvaise valeur {0} pour {0}", defaultValue, item
-							.getName());
-					return ret;
-				}
-			}
+//			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, itemenumtype);
+//			if (type != null && type.exists()) {
+//				List<String> values = EnumTypeManager.getEnumTypeValues(itemenumtype);
+//				if (values == null || !values.contains(defaultValue)) {
+//					reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Mauvaise valeur {0} pour {0}", defaultValue, item
+//							.getName());
+//					return ret;
+//				}
+//			}
 			return ret;
 		}
 	}

@@ -28,7 +28,6 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_StaticArrayOfObjectForBrowser_Combo;
 
 /**
  * The Class IC_StaticArrayOfObjectForBrowser_ComboManager.
@@ -139,16 +138,6 @@ public class IC_StaticArrayOfObjectForBrowser_ComboManager extends IC_AbstractFo
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractForBrowser_ComboManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_StaticArrayOfObjectForBrowser_Combo.class;
 	}
 
 	/*

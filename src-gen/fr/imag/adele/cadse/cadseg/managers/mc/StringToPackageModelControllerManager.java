@@ -19,7 +19,6 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
-import fede.workspace.eclipse.java.fields.StringToPackageValueController;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -68,17 +67,7 @@ public class StringToPackageModelControllerManager extends ModelControllerManage
 			return "error";
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return StringToPackageValueController.class;
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -88,39 +77,6 @@ public class StringToPackageModelControllerManager extends ModelControllerManage
 	public boolean mustBeExtended() {
 		return false;
 	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.MC_DEFAULT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1",
-//				"Create a string to package model controller", "Create a string to package model controller", 3
-//
-//		));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		RunningModelController mc = new MC_AttributesItem();
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a string to package model controller",
-//				"a string to package model controller", 3));
-//	}
 
 	/*
 	 * (non-Javadoc)
