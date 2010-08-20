@@ -160,8 +160,6 @@ public class PDEProjectContentModelManager extends JavaProjectContentModelManage
         pDEProjectContentModel.removeOutgoingItem(CadseGCST.PDEPROJECT_CONTENT_MODEL_lt_CONTENT_MODEL,value);
     }
 
-	@Override
-	public boolean hasParentContent() {
-		return false;
-	}
+	
+
 }

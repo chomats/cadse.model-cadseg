@@ -27,10 +27,8 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
 
 /**
  * The Class StructManager.
@@ -163,14 +161,6 @@ public class StructManager extends AttributeManager implements IItemManager, IMo
         struct.removeOutgoingItem(CadseGCST.STRUCT_lt_ATTRIBUTES,value);
     }
 
-	@Override
-	public ItemType getCadseRootType() {
-		return CadseGCST.STRUCT;
-	}
-
-	@Override
-	public Class<? extends IAttributeType<?>> getAttributeDefinitionTypeJava() {
-		return null;
-	}
+	
 
 }

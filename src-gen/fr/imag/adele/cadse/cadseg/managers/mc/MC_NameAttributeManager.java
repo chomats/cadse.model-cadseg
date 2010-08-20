@@ -14,13 +14,6 @@ import fr.imag.adele.cadse.core.impl.ui.mc.MC_Name;
 public class MC_NameAttributeManager extends ModelControllerManager {
 
 	/**
-	    @generated
-	*/
-	public MC_NameAttributeManager() {
-		super();
-	}
-
-	/**
 		@generated
 	*/
 	@Override
@@ -65,8 +58,8 @@ public class MC_NameAttributeManager extends ModelControllerManager {
 	}
 	
 	@Override
-	public String getDefaultClassName() {
-		return MC_Name.class.getName();
+	public Class<?> getDefaultClassName() {
+		return MC_Name.class;
 	}
 
 }

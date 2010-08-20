@@ -36,6 +36,7 @@ import fr.imag.adele.cadse.core.LinkType;
 public class FolderContentModelManager extends ResourceContentModelManager {
 
 	
+
 	/**
 	 * Instantiates a new folder content model manager.
 	 */
@@ -202,14 +203,5 @@ public class FolderContentModelManager extends ResourceContentModelManager {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
-	 */
-	@Override
-	public boolean mustBeExtended() {
-		return false;
-	}
-
+	
 }

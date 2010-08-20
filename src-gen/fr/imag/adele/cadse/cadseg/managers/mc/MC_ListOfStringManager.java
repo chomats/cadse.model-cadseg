@@ -26,6 +26,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_DefaultForList;
 
 /**
  * The Class ListOfStringModelControllerManager.
@@ -33,11 +34,6 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class MC_ListOfStringManager extends ModelControllerManager implements IItemManager {
-	
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.MC_DefaultForList";
-
 
 	/**
 	 * Instantiates a new list of string model controller manager.
@@ -119,21 +115,11 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getClassName(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public String getClassName(Item uc) {
-		return DEFAUL_CLASS_NAME;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return MC_DefaultForList.class;
 	}
 
 	/*
@@ -145,47 +131,6 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 	public boolean mustBeExtended() {
 		return false;
 	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType,
-//				DisplayManager.MC_DEFAULT_NAME);
-//
-//		RunningModelController mc = new MC_AttributesItem();
-//		MinModelController minVC = new MinModelController();
-//
-//		MaxModelController maxVC = new MaxModelController();
-//		return FieldsCore
-//				.createWizard(action, FieldsCore.createPage("page1", "Create a list of string model controller",
-//						"Create a list of string model controller", 3, FieldsCore.createIntField(MIN, "min", minVC,
-//								minVC), FieldsCore.createIntField(MAX, "max", maxVC, maxVC)));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		RunningModelController mc = new MC_AttributesItem();
-//		MinModelController minVC = new MinModelController();
-//
-//		MaxModelController maxVC = new MaxModelController();
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a list of string model controller",
-//				"a list of string model controller", 3, FieldsCore.createIntField(MIN, "min", minVC, minVC), FieldsCore
-//						.createIntField(MAX, "max", maxVC, maxVC)));
-//	}
 
 	/*
 	 * (non-Javadoc)
@@ -212,5 +157,4 @@ public class MC_ListOfStringManager extends ModelControllerManager implements II
 
 		return "The attribut must be a list of string";
 	}
-
 }

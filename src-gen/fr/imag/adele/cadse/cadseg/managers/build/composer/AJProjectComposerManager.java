@@ -35,16 +35,6 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class AJProjectComposerManager extends EclipseComposerManager {
 
-
-	/** The Constant SKIP_WEAVING_ATTRIBUTE. */
-	public static final String	SKIP_WEAVING_ATTRIBUTE	= "SKIP_WEAVING";
-
-	/**
-	 * Instantiates a new aJ project composer manager.
-	 */
-	public AJProjectComposerManager() {
-	}
-
 	/**
 		@generated
 	*/
@@ -148,21 +138,17 @@ public class AJProjectComposerManager extends EclipseComposerManager {
 		return false;
 	}
 
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.composition.java.AspectJProjectComposer";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * model.workspace.workspace.managers.build.composer.EclipseComposerManager
-	 * #getDefaultClassName()
-	 */
-	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see
+//	 * model.workspace.workspace.managers.build.composer.EclipseComposerManager
+//	 * #getDefaultClassName()
+//	 */
+//	@Override
+//	public Class<?> getDefaultClassName() {
+//		return AspectJProjectComposer.class;
+//	}
 
 	/*
 	 * (non-Javadoc)

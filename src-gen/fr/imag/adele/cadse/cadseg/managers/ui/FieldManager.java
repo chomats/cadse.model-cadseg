@@ -19,15 +19,21 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ui;
 
+import java.util.Set;
+
+import fede.workspace.eclipse.java.JavaIdentifier;
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
+import fr.imag.adele.cadse.core.GenStringBuilder;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
+import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
  * The Class FieldManager.
@@ -65,6 +71,7 @@ public class FieldManager extends DefaultItemManager {
 			return "error";
 		}
 	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -325,6 +332,7 @@ public class FieldManager extends DefaultItemManager {
 		field.setOutgoingItem(CadseGCST.FIELD_lt_MC,value);
 	}
 
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -346,4 +354,90 @@ public class FieldManager extends DefaultItemManager {
 	public String canCreateMeItem(Item itemParent, LinkType lt, ItemType destType) {
 		return "Only by program";
 	}
+
+	/**
+	 * Gets the field generate info.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param field
+	 *            the field
+	 * @param superField
+	 * @param imports
+	 *            the imports
+	 * 
+	 * @return the field generate info
+	 */
+	public static FieldGenerateInfo getFieldGenerateInfo(ContextVariable cxt, Item field, Item superField,
+			Set<String> imports) {
+		FieldGenerateInfo ret = new FieldGenerateInfo();
+		ret.field = field;
+//		ret.display = getDisplay(field);
+//		if (ret.display == null) {
+//			return null;
+//		}
+		ret.mc = ret.field != null ? DisplayManager.getItemMC(ret.field) : null;
+		ret.ic = ret.field != null ? DisplayManager.getItemIC(ret.field) : null;
+		computeUITypeName(cxt, ret, imports);
+		ret.methodName = "createField" + JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, null);
+		ret.fieldName = "field" + JavaIdentifier.javaIdentifierFromString(field.getName(), true, false, null);
+		ret.superField = superField;
+		return ret;
+	}
+
+	/**
+	 * Compute ui type name.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param info
+	 *            the info
+	 * @param imports
+	 *            the imports
+	 */
+	private static void computeUITypeName(ContextVariable cxt, FieldGenerateInfo info, Set<String> imports) {
+		info.extendsUI = DisplayManager.isExtendsUIAttribute(info.field);
+		if (info.extendsUI) {
+			Item page = info.field.getPartParent();
+			JavaFileContentManager contentManager = (JavaFileContentManager) page.getContentItem();
+
+			String cn = JavaIdentifier.javaIdentifierFromString(info.field.getName(), true, false,
+					DisplayManager.POSTFIXE_UI);
+			imports.add(contentManager.getPackageName(cxt) + "." + contentManager.getClassName(cxt) + "." + cn);
+			info.uiTypeName = cn;
+		} else {
+			DisplayManager m = (DisplayManager) info.field.getType().getItemManager();
+			Class<?> defaultQualifiedClassName = m.getDefaultClassName();
+			imports.add(defaultQualifiedClassName.getName());
+			info.uiTypeName = defaultQualifiedClassName.getSimpleName();
+		}
+	}
+
+	/**
+	 * Generate method.
+	 * 
+	 * @param info
+	 *            the info
+	 * @param sb
+	 *            the sb
+	 * @param imports
+	 *            the imports
+	 */
+	public static void generateMethod(FieldGenerateInfo info, GenStringBuilder sb, Set<String> imports) {
+		sb.newline();
+		sb.newline().appendGeneratedTag();
+		sb.newline().append("public ").append(info.uiTypeName).append(" ");
+		sb.append(info.methodName).append("() {");
+		sb.begin();
+
+		if (info.field == null) {
+			sb.newline().append("return null;");
+		} else {
+			//ContentItemImpl.generate(info.field, sb, "field", "in-field", imports, null);
+		}
+		sb.end();
+		sb.newline().append("}");
+		imports.add("fr.imag.adele.cadse.core.ui.UIField");
+	}
+
 }

@@ -22,11 +22,15 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 import java.util.Collection;
 import java.util.List;
 
+import fr.imag.adele.cadse.cadseg.ParseTemplate;
+import fr.imag.adele.cadse.cadseg.exp.ParseException;
+import fr.imag.adele.cadse.cadseg.exp.TokenMgrError;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Validator;
 
 /**
  * The Class ProjectContentModelManager.
@@ -34,6 +38,8 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class ProjectContentModelManager extends ContentItemTypeManager {
+
+	
 
 	/**
 	 * Instantiates a new project content model manager.
@@ -178,20 +184,40 @@ public class ProjectContentModelManager extends ContentItemTypeManager {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
-	 */
-	@Override
-	public boolean mustBeExtended() {
-		return false;
-	}
 
+	public static final class ProjectContentValidator extends Validator {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
+		 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			String value = item.getAttribute(CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_);
+			if (value == null || value.length() == 0) {
+				value = "${#unique-name}";
+			}
+			Item itemtype = ManagerManager.getItemType(item.getPartParent());
+			O: {
+				if (itemtype == null) {
+					reporter.error(item, 1, "Item type is null");
+					break O;
+				}
+				ParseTemplate pt = new ParseTemplate(itemtype, value, null);
+				try {
+					pt.main();
+					pt.validate(reporter, item);
+				} catch (ParseException e) {
+					reporter.error(item, 0, "Error when parse project name value : {0} ", e.getMessage());
+				} catch (TokenMgrError e) {
+					reporter.error(item, 0, "Error when parse project name value : {0} ", e.getMessage());
+				}
 	
-
-	@Override
-	public boolean hasParentContent() {
-		return false;
+			}
+			return null;
+		}
 	}
+	
 }

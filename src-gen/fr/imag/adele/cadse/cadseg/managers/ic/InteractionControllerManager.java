@@ -31,6 +31,8 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.ItemFactory;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForList;
 
 /**
  * The Class InteractionControllerManager.
@@ -38,18 +40,6 @@ import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class InteractionControllerManager extends DefaultWorkspaceManager implements IItemManager, IExtendClassManager, IItemFactory {
-
-	
-	
-	// public static final String EXTENDS_CLASS_ATTRIBUTE = "extends-class";
-	/** The Constant DEFAUL_CLASS_NAME. */
-	private static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_Abstract";
-
-	/**
-	 * Instantiates a new interaction controller manager.
-	 */
-	public InteractionControllerManager() {
-	}
 
 	/**
 		@generated
@@ -91,8 +81,12 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 	 * 
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getClassName(fr.imag.adele.cadse.core.Item)
 	 */
-	public String getClassName(Item action) {
-		return action.getAttributeWithDefaultValue(CadseGCST.RUNTIME_ITEM_at_CLASS_NAME_, getDefaultClassName());
+	public String getClassName(Item ic) {
+		String className = ic.getAttribute(CadseGCST.RUNTIME_ITEM_at_CLASS_NAME_);
+		if (className == null) {
+			className = getDefaultClassName() == null ? null : getDefaultClassName().getSimpleName();
+		}
+		return className;
 	}
 
 	/*
@@ -100,8 +94,8 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 	 * 
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getDefaultClassName()
 	 */
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return ICRunningField.class;
 	}
 
 	/*

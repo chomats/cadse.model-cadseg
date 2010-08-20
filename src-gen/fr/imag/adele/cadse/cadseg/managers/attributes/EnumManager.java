@@ -20,25 +20,21 @@
 package fr.imag.adele.cadse.cadseg.managers.attributes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.jdt.core.IType;
+
 import fr.imag.adele.cadse.cadseg.IModelWorkspaceManager;
+import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.LogicalWorkspace;
-import fr.imag.adele.cadse.core.TypeDefinition;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.var.ContextVariable;
-import fr.imag.adele.fede.workspace.as.initmodel.IAttributeCadsegForGenerate;
-import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
-import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ValueTypeType;
+import fr.imag.adele.cadse.core.Validator;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 
 /**
  * The Class EnumManager.
@@ -243,48 +239,40 @@ public class EnumManager extends AttributeManager implements IItemManager, IMode
 		}
 	}
 
-	@Override
-	public ItemType getCadseRootType() {
-		return CadseGCST.ENUM;
-	}
-
-
-	@Override
-	public Class<?> getAttributeDefinitionTypeJava() {
-		return fr.imag.adele.cadse.core.attribute.EnumAttributeType.class;
-	}
+	public static final class EnumValidator extends Validator {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see fede.workspace.model.manager.DefaultItemManager#validate(fr.imag.adele.cadse.core.Item,
+		 *      fr.imag.adele.cadse.core.IItemManager.ProblemReporter)
+		 */
+		@Override
+		public List<Item> validate(Item item, ProblemReporter reporter) {
+			Item itemenumtype = getEnumType(item);
+			if (itemenumtype == null || !itemenumtype.isResolved()) {
+				return Collections.emptyList();
+			}
+			List<Item> ret = new ArrayList<Item>();
+			ret.add(itemenumtype);
+			String defaultValue = getDefaultValueAttribute(item);
+			if (defaultValue != null && defaultValue.length() == 0) {
+				defaultValue = null;
+			}
+			if (defaultValue == null) {
+				reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Pas de valeur par defaut pour {0}", item.getName());
+				return ret;
+			}
 	
-	@Override
-	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
-			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
-		String enumTypeName = type.getTypeName();
-		if (type.getElement().size() == 1) {
-			CValuesType clazzElement = type.getElement().get(0);
-			enumTypeName = clazzElement.getValue();
+			IType type = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, itemenumtype);
+			if (type != null && type.exists()) {
+				List<String> values = EnumTypeManager.getEnumTypeValues(itemenumtype);
+				if (values == null || !values.contains(defaultValue)) {
+					reporter.error(item, ENUM_BAD_DEFAULT_VALUE, "Mauvaise valeur {0} pour {0}", defaultValue, item
+							.getName());
+					return ret;
+				}
+			}
+			return ret;
 		}
-
-		// Probleme de compilation avec javac
-		Class<? extends Enum> clazz = (Class<? extends Enum>) (Class<?>) initModel.loadClass(cadseName, enumTypeName);
-		if (clazz == null) {
-			throw new CadseException("cannot create type from {0}", type.getKey());
-		}
-		return new fr.imag.adele.cadse.core.impl.attribute.EnumAttributeType(initModel.getUUID(type.getId()), initModel.getFlag(type), type.getKey(), clazz,
-				type.getValue());
 	}
-
-	@Override
-	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
-			IAttributeCadsegForGenerate cadsegManager, CValuesType cvt, Item attribute) {
-		cvt.setType(ValueTypeType.ENUMERATION);
-		String enumQualifiedClass = (String) cadsegManager.getCadseRootAttributeValue(cxt,
-				CadseGCST.ENUM_at_ENUM_CLAZZ_, attribute);
-		if (enumQualifiedClass != null) {
-			CValuesType ncvt = factory.createCValuesType();
-			cvt.getElement().add(ncvt);
-			ncvt.setValue(enumQualifiedClass);
-			ncvt.setKey(CadseGCST.ENUM_at_ENUM_CLAZZ);
-		}
-		super.writeAttributeDefinition(factory, cxt, cadsegManager, cvt, attribute);
-	}
-
 }

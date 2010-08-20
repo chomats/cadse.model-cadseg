@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -32,6 +33,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Menu;
+import fr.imag.adele.cadse.core.build.Composer;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.util.Convert;
 
@@ -40,7 +42,7 @@ import fr.imag.adele.cadse.core.util.Convert;
  * 
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
-public class ComposerManager extends DefaultItemManager {
+public class ComposerManager extends DefaultItemManager implements IExtendClassManager {
 
 	
 	/**
@@ -158,6 +160,7 @@ public class ComposerManager extends DefaultItemManager {
 
 
 	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -167,8 +170,6 @@ public class ComposerManager extends DefaultItemManager {
 	public String getDisplayName(Item item) {
 		return item.getName();
 	}
-
-
 	
 	/**
 	 * get links 'composer-links' from 'Composer' to 'ComposerLink'.
@@ -246,16 +247,13 @@ public class ComposerManager extends DefaultItemManager {
 		return null;
 	}
 
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.core.build.Composer";
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see model.workspace.workspace.managers.IExtendClassManager#getDefaultClassName()
 	 */
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return Composer.class;
 	}
 
 	/*
@@ -273,8 +271,7 @@ public class ComposerManager extends DefaultItemManager {
 	 * @see model.workspace.workspace.IModelWorkspaceManager#getWorkspaceModel(fr.imag.adele.cadse.core.Item)
 	 */
 	public Item getWorkspaceModel(Item source) {
-		// TODO Auto-generated method stub
-		return null;
+		return source.getPartParent(CadseGCST.CADSE_DEFINITION);
 	}
 
 	/**

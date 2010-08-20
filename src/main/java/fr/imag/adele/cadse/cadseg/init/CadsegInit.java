@@ -7,16 +7,32 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
+import fr.imag.adele.cadse.cadseg.contents.actions.DynamicActionsContent;
+import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionContent;
+import fr.imag.adele.cadse.cadseg.managers.CadseG_WLWCListener;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeSpaceKeyType;
+import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
+import fr.imag.adele.cadse.cadseg.managers.content.ManagerJavaFileContentManager;
+import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
+import fr.imag.adele.cadse.cadseg.managers.content.ProjectContentModelManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ExtItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.PageSpaceKeyType;
+import fr.imag.adele.cadse.cadseg.managers.ic.IC_PartLinkForBrowser_Combo_ListManager;
+import fr.imag.adele.cadse.cadseg.managers.view.ViewLinkTypeManager;
+import fr.imag.adele.cadse.cadseg.menu.DefaultMenuContributor;
+import fr.imag.adele.cadse.cadseg.menu.TeamWorkMenuActionContributor;
+import fr.imag.adele.cadse.cadseg.menu.ViewActionContributor;
 import fr.imag.adele.cadse.cadseg.migration.MigrationInit;
+import fr.imag.adele.cadse.cadseg.operation.WorkspaceActionContributor;
+import fr.imag.adele.cadse.cadseg.pages.PageInit;
+import fr.imag.adele.cadse.cadseg.readwriteattribute.LW_Attribute;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.IGenerateContent;
+import fr.imag.adele.cadse.core.DefaultValidator;
 import fr.imag.adele.cadse.core.InitAction;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.impl.AbstractLinkTypeManager;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.key.DefaultKeyDefinitionImpl;
@@ -71,7 +87,11 @@ public class CadsegInit implements InitAction {
 		CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM.setFlag(Item.TRANSIENT, true);
 		CadseGCST.ITEM_TYPE_lt_LINK_TYPE.setFlag(Item.TRANSIENT, true);
 		
-		
+		// CadseGCST.CADSE_DEFINITION.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.CADSE_DEFINITION, null));
+		new CadseG_WLWCListener();
+		//new CadseG_WorkspaceListener();
+		CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
+		CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
 
 		CadseCore.theItem.setIsAbstract(true);
 		CadseGCST.CADSE.setIsAbstract(true);
@@ -213,50 +233,29 @@ public class CadsegInit implements InitAction {
 		});
 
 		CadseGCST.VIEW.setKeyDefinition(new DefaultKeyDefinitionImpl(CadseGCST.VIEW, CadseGCST.CADSE_DEFINITION));
-		
+
+		try {
+			PageInit.init();
+			CadseGCST.ITEM.addActionContributeur(new DefaultMenuContributor());
+			CadseGCST.VIEW_ITEM_TYPE.addActionContributeur(new ViewActionContributor());
+		}
+		catch (CadseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		MigrationInit.init();
-
-		// *****/
-		WorkspaceListener listener = new WorkspaceListener() {
-
-			@Override
-			public void workspaceChanged(ImmutableWorkspaceDelta wd) {
-				HashSet<Item> views = new HashSet<Item>();
-				for (ImmutableItemDelta itemDelta : wd.getItems()) {
-					if (itemDelta.isDeleted()) {
-						continue;
-					}
-					Item item = itemDelta.getItem();
-					Item view = item.getPartParent(CadseGCST.VIEW);
-					if (view != null) {
-						views.add(view);
-					}
-				}
-
-				for (Item item : views) {
-					((IGenerateContent) item.getContentItem()).generate(ContextVariableImpl.DEFAULT);
-				}
-			}
-
-		};
-		CadseCore.getLogicalWorkspace().addListener(listener, 0xFFFF);
+		LW_Attribute.init();
+		
+		CadseGCST.CADSE_DEFINITION.setContentItemClass(CadseDefinitionContent.class);
+		CadseGCST.DYNAMIC_ACTIONS.setContentItemClass(DynamicActionsContent.class);
+		CadseGCST.MENU_ACTION.setContentItemClass(MenuActionContent.class);
+		CadseGCST.MANAGER.setContentItemClass(ManagerJavaFileContentManager.class);
+		CadseGCST.ITEM.addAdapter(new DefaultValidator());
+		CadseGCST.ENUM.addAdapter(new EnumManager.EnumValidator());
+		CadseGCST.MANAGER.addAdapter(new ManagerManager.ManagerValidator());
+		CadseGCST.PROJECT_CONTENT_MODEL.addAdapter(new ProjectContentModelManager.ProjectContentValidator());
+		CadseGCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST.addAdapter(new IC_PartLinkForBrowser_Combo_ListManager.IC_PartLinkForBrowser_Combo_ListValidator());
+		CadseGCST.VIEW_LINK_TYPE.addAdapter(new ViewLinkTypeManager.ViewLinkTypeValidator());
 	}
-	
-//	public static void initEclipsePart() {
-//		try {
-//			PageInit.init();
-//			CadseGCST.ITEM.addActionContributeur(new DefaultMenuContributor());
-//			
-	//CadseGCST.VIEW_ITEM_TYPE.addActionContributeur(new ViewActionContributor());
-//	new CadseG_WLWCListener();
-//	new CadseG_WorkspaceListener();
-//	CadseCore.theItem.addActionContributeur(new WorkspaceActionContributor());
-//	CadseCore.theItem.addActionContributeur(new TeamWorkMenuActionContributor());
-//		}
-//		catch (CadseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
 }

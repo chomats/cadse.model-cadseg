@@ -30,6 +30,8 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class FileContentModelManager extends ResourceContentModelManager {
 
+	
+
 	/**
 	 * Instantiates a new file content model manager.
 	 */
@@ -94,21 +96,6 @@ public class FileContentModelManager extends ResourceContentModelManager {
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
-	 */
-	@Override
-	public boolean mustBeExtended() {
-		return false;
-	}
-
-	@Override
-	public boolean hasParentContent() {
-		return true;
 	}
 
 }

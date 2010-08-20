@@ -19,11 +19,19 @@
 
 package fr.imag.adele.cadse.cadseg.managers.dataModel;
 
+import java.util.UUID;
+
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.impl.var.VariableImpl;
+import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.Variable;
 
 /**
  * The Class ExtItemTypeManager.
@@ -31,6 +39,56 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class ExtItemTypeManager extends ItemTypeManager {
+
+	static final class PackageNameVariable extends VariableImpl {
+
+		public final static Variable	INSTANCE	= new PackageNameVariable();
+
+		public String compute(ContextVariable context, Item itemCurrent) {
+			try {
+				return GenerateJavaIdentifier.getExtPackage(context, itemCurrent);
+			} catch (Throwable e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}
+	}
+
+	static final class ClassNameVariable extends VariableImpl {
+
+		public final static Variable	INSTANCE	= new ClassNameVariable();
+
+		public String compute(ContextVariable context, Item itemCurrent) {
+			try {
+				return GenerateJavaIdentifier.getExtClassName(context, itemCurrent);
+			} catch (Throwable e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}
+	}
+
+	/**
+	 * The Class ExtItemTypeContent. implements IGenerateContent
+	 * 
+	 * @generated
+	 */
+	public class ExtItemTypeContent extends JavaFileContentManager  {
+
+		/**
+			@generated
+		*/
+		public ExtItemTypeContent(UUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+			super(id, packageNameVariable, classNameVariable);
+		}
+
+
+
+		
+
+		
+		
+	}
 
 	/**
 	 * The Constructor.
@@ -82,6 +140,20 @@ public class ExtItemTypeManager extends ItemTypeManager {
 			e.printStackTrace();
 			return "error";
 		}
+	}
+
+	/**
+	*/
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem ) throws CadseException {
+		ExtItemTypeContent cm = new ExtItemTypeContent(
+			id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE
+			);
+		cm.setComposers(
+		);
+		cm.setExporters(
+		);
+		return cm;
 	}
 
 	/**

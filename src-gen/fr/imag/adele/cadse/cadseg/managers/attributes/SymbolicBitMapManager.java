@@ -23,9 +23,7 @@ import java.util.List;
 
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
 
 /**
  * @generated
@@ -142,19 +140,5 @@ public class SymbolicBitMapManager extends AttributeManager {
 		}
 	}
 
-	@Override
-	public ItemType getCadseRootType() {
-		return CadseGCST.SYMBOLIC_BIT_MAP;
-	}
-
-	@Override
-	public Class<?> getTypeJava(boolean primitive) {
-		return Integer.class;
-	}
-
-	@Override
-	public Class<? extends IAttributeType<?>> getAttributeDefinitionTypeJava() {
-		return fr.imag.adele.cadse.core.attribute.SymbolicBitMapAttributeType.class;
-	}
 
 }

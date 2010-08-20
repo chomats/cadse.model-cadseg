@@ -22,10 +22,13 @@ package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 import java.util.ArrayList;
 import java.util.List;
 
+import fede.workspace.eclipse.java.JavaIdentifier;
+import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.build.Exporter;
 import fr.imag.adele.cadse.core.util.Convert;
 
 /**
@@ -33,7 +36,8 @@ import fr.imag.adele.cadse.core.util.Convert;
  * 
  * @generated
  */
-public class ExporterManager extends DefaultItemManager {
+public class ExporterManager extends DefaultItemManager implements
+		IExtendClassManager {
 
 	
 
@@ -208,7 +212,18 @@ public class ExporterManager extends DefaultItemManager {
 		return item.getName();
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * model.workspace.workspace.managers.IExtendClassManager#getClassName(fr
+	 * .imag.adele.cadse.core.Item)
+	 */
+	public String getClassName(Item uc) {
+		return (mustBeExtended() || isExtendsClass(uc)) ? JavaIdentifier
+				.javaIdentifierFromString(uc.getName(), true, false, "Exporter")
+				: getDefaultClassName().getSimpleName();
+	}
 
 	/** The Constant DEFAUL_CLASS_NAME. */
 	public static final String DEFAUL_CLASS_NAME = "fr.imag.adele.cadse.core.build.Exporter";
@@ -220,8 +235,8 @@ public class ExporterManager extends DefaultItemManager {
 	 * model.workspace.workspace.managers.IExtendClassManager#getDefaultClassName
 	 * ()
 	 */
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return Exporter.class;
 	}
 
 	/*

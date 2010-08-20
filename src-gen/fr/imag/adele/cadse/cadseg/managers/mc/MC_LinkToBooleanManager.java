@@ -21,6 +21,7 @@ package fr.imag.adele.cadse.cadseg.managers.mc;
 
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_LinkToBoolean;
 
 /**
  * The Class MC_LinkToBooleanManager.
@@ -72,28 +73,14 @@ public class MC_LinkToBooleanManager extends MC_LinkManager {
 		}
 	}
 
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.MC_LinkToBoolean";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.mc.LinkModelControllerManager#getClassName(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public String getClassName(Item uc) {
-		return DEFAUL_CLASS_NAME;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see model.workspace.workspace.managers.mc.LinkModelControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return MC_LinkToBoolean.class;
 	}
 
 	/*

@@ -29,7 +29,6 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class JavaJarFileContentModelManager extends ContentItemTypeManager {
 
-
 	/**
 	 * Instantiates a new java jar file content model manager.
 	 */
@@ -77,20 +76,4 @@ public class JavaJarFileContentModelManager extends ContentItemTypeManager {
 			return "error";
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
-	 */
-	@Override
-	public boolean mustBeExtended() {
-		return false;
-	}
-
-	@Override
-	public boolean hasParentContent() {
-		return true;
-	}
-
 }

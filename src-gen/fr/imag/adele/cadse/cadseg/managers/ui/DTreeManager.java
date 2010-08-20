@@ -22,6 +22,7 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeUI;
 
 /**
  * The Class DTreeManager.
@@ -30,6 +31,7 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class DTreeManager extends DisplayManager implements IItemManager {
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -39,10 +41,7 @@ public class DTreeManager extends DisplayManager implements IItemManager {
 	public boolean hasContent(Item item) {
 		return true;
 	}
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTreeUI";
-
+	
 	/**
 	 * Instantiates a new d tree manager.
 	 */
@@ -100,8 +99,8 @@ public class DTreeManager extends DisplayManager implements IItemManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return DTreeUI.class;
 	}
 
 }

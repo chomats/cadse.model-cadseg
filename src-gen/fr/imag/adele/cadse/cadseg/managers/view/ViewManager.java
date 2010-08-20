@@ -21,7 +21,20 @@ package fr.imag.adele.cadse.cadseg.managers.view;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
+
+import fede.workspace.eclipse.java.JavaIdentifier;
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
@@ -30,7 +43,12 @@ import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.Menu;
+import fr.imag.adele.cadse.core.Separator;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.impl.var.VariableImpl;
+import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
  * The Class ViewManager.
@@ -39,7 +57,25 @@ import fr.imag.adele.cadse.core.impl.CadseCore;
  */
 public class ViewManager extends DefaultItemManager {
 
-	
+	/**
+	 * Gets the package.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param view
+	 *            the view
+	 * 
+	 * @return the package
+	 */
+	public static String getPackage(ContextVariable cxt, Item view) {
+		Item cadsegModel = getCadsegModel(view);
+		String packageName = CadseDefinitionManager.getDefaultPackage(cxt, cadsegModel) + ".views";
+
+		packageName += "." + JavaIdentifier.javaIdentifierFromString(cxt.getName(view), false, true, null);
+
+		return packageName;
+	}
+
 	/**
 	 * Gets the cadseg model.
 	 * 
@@ -59,6 +95,51 @@ public class ViewManager extends DefaultItemManager {
 		return parent1.getPartParent();
 	}
 
+	/**
+	 * Gets the class name.
+	 * 
+	 * @param cxt
+	 *            the cxt
+	 * @param view
+	 *            the view
+	 * 
+	 * @return the class name
+	 */
+	public static String getClassName(ContextVariable cxt, Item view) {
+		return JavaIdentifier.javaIdentifierFromString(cxt.getName(view), true, false, "View");
+	}
+
+	/**
+	 * The Class ViewJavaFileContentManager.
+	 */
+	private final static class ViewJavaFileContentManager extends JavaFileContentManager {
+
+		/**
+		 * Instantiates a new view java file content manager.
+		 * 
+		 * @param workspaceModel
+		 *            the workspace model
+		 * @param view
+		 *            the view
+		 * 
+		 * @throws CadseException
+		 *             the melusine exception
+		 */
+		private ViewJavaFileContentManager(UUID id) throws CadseException {
+			super(id, new VariableImpl() {
+				public String compute(ContextVariable context, Item itemCurrent) {
+					return ViewManager.getPackage(context, itemCurrent);
+				}
+			}, new VariableImpl() {
+				public String compute(ContextVariable context, Item itemCurrent) {
+					// TODO Auto-generated method stub
+					return ViewManager.getClassName(context, itemCurrent);
+				}
+			});
+		}
+
+
+	}
 
 
 	/**
@@ -112,6 +193,45 @@ public class ViewManager extends DefaultItemManager {
 		}
 	}
 
+	// /**
+	// * Creates the creation page creation page1.
+	// *
+	// * @return the i page
+	// *
+	// * @generated
+	// */
+	// protected IPage createCreationPageCreationPage1() {
+	// return FieldsCore.createPage("creation-page1","Create View","",3,
+	// FieldsCore.createShortNameField()
+	// );
+	// }
+	//
+	// /**
+	// * Creates the creation pages.
+	// *
+	// * @param theItemParent
+	// * the the item parent
+	// * @param theLinkType
+	// * the the link type
+	// * @param desType
+	// * the des type
+	// *
+	// * @return the pages
+	// *
+	// * @generated
+	// */
+	// @Override
+	// public Pages createCreationPages(Item theItemParent, LinkType
+	// theLinkType, ItemType desType) {
+	//
+	// CreationAction action = new CreationAction(theItemParent, desType,
+	// theLinkType);
+	//
+	// return FieldsCore.createWizard(action,
+	// createCreationPageCreationPage1()
+	// );
+	// }
+
 	/**
 		get  links 'view-item-types' from 'View' to 'ViewItemType'.
         @generated
@@ -126,6 +246,110 @@ public class ViewManager extends DefaultItemManager {
     static public Collection<Item> getViewItemTypesAll(Item view) {
         return view.getOutgoingItems(CadseGCST.VIEW_lt_VIEW_ITEM_TYPES, false);
     }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fede.workspace.model.manager.DefaultItemManager#createContentManager(fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public ContentItem createContentItem(UUID id, Item owerItem) throws CadseException {
+		return new ViewJavaFileContentManager(id);
+	}
+
+	
+
+//	/**
+//	 * Creates the field data model.
+//	 * 
+//	 * @param view
+//	 *            the view
+//	 * 
+//	 * @return the uI field
+//	 */
+//	protected DCheckedTreeUI createFieldDataModel(Item view) {
+//		Item cadsedef = getCadsegModel(view);
+//		IC_ViewManager_DataModelView ic_mc = new IC_ViewManager_DataModelView(CadseDefinitionManager
+//				.getDependenciesCadsesAndMe(cadsedef), view);
+//		DCheckedTreeUI checkedTreeUI = new DCheckedTreeUI("sel", "", EPosLabel.none, ic_mc, ic_mc, true, false);
+//		ic_mc.setCheckedTreeUI(checkedTreeUI);
+//		return checkedTreeUI;
+//	}
+
+	/**
+	 * Gets the icon path.
+	 * 
+	 * @param item
+	 *            the item
+	 * 
+	 * @return the icon path
+	 */
+	public static String getIconPath(Item item) {
+		String pStr = (String) item.getAttribute(CadseGCST.VIEW_at_ICON_);
+		if (pStr == null || pStr.length() == 0) {
+			return null;
+		}
+
+		IPath p = new Path(pStr);
+		return p.removeFirstSegments(1).makeRelative().toPortableString();
+	}
+
+	// class ItemTypeViewAction implements IItemTypeDynamic {
+	// Item itemtype;
+	// Item view;
+	//
+	// public ItemTypeViewAction(Item view, Item itemtype) {
+	// this.itemtype = itemtype;
+	// this.view = view;
+	// }
+	//
+	// public void create() {
+	// createViewItemType(view, itemtype);
+	// }
+	//
+	// public URL getImage() {
+	// return itemtype.getType().getItemManager().getImage();
+	// }
+	//
+	// public String getLabel() {
+	// return "Add item type "+itemtype.getName();
+	// }
+	//
+	// public IItemManager getManager() {
+	// return ViewManager.this;
+	// }
+	//
+	// public boolean isSeparator() {
+	// return false;
+	// }
+	//
+	// }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fede.workspace.model.manager.DefaultItemManager#contributeMenuNewAction(fr.imag.adele.cadse.core.IMenuAction.Menu,
+	 *      fr.imag.adele.cadse.core.Item)
+	 */
+	@Override
+	public void contributeMenuNewAction(Menu menu, Item view) {
+		Item cadsegModel = getCadsegModel(view);
+		Item dataModel = CadseDefinitionManager.getMainDataModel(cadsegModel);
+		Item[] alldataModel = ItemTypeManager.getAllDataModel(dataModel, true);
+		for (Item acat : alldataModel) {
+			menu.insert(null, new DataModelViewAction(this, view, acat), true);
+		}
+		menu.insert(null, new Separator(), true);
+		Item[] itemtypes = ItemTypeManager.getAllItemType(dataModel);
+
+		for (Item itype : itemtypes) {
+			Item viewitemtype = getViewItemType(view, itype);
+			if (viewitemtype == null) {
+				menu.insert(null, new ItemTypeViewAction(this, view, itype), true);
+			}
+		}
+
+	}
 
 	/**
 	 * Gets the view item type.
@@ -287,6 +511,23 @@ public class ViewManager extends DefaultItemManager {
 			view.setAttribute(CadseGCST.VIEW_at_ICON_, value);
 		} catch (Throwable t) {
 
+		}
+	}
+
+	@Override
+	public void doubleClick(Item item) {
+		if (item != null) {
+			IFile jf = item.getMainMappingContent(IFile.class);
+			if (jf != null) {
+				try {
+					IWorkbench workbench = PlatformUI.getWorkbench();
+					IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
+					IDE.openEditor(activePage, jf, true);
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

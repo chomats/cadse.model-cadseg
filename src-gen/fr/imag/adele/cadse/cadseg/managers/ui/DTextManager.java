@@ -23,6 +23,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 
 /**
  * The Class DTextManager.
@@ -30,9 +31,6 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class DTextManager extends DisplayManager implements IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI";
 
 	/**
 	 * Instantiates a new d text manager.
@@ -164,7 +162,6 @@ public class DTextManager extends DisplayManager implements IItemManager {
 
 		}
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -181,8 +178,8 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return DTextUI.class;
 	}
 
 }

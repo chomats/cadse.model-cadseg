@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForBrowser_Combo;
 
 // TODO message
 /**
@@ -34,20 +35,13 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_AbstractForBrowser_ComboManager extends InteractionControllerManager implements IItemManager {
 
+	
+
 	/** The Constant SELECT_TITLE_ATTRIBUTE. */
 	public static final String	SELECT_TITLE_ATTRIBUTE		= "select-title";
 
 	/** The Constant SELECT_MESSAGE_ATTRIBUTE. */
 	public static final String	SELECT_MESSAGE_ATTRIBUTE	= "select-messsage";
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	private static final String	DEFAUL_CLASS_NAME			= "fede.workspace.model.manager.properties.impl.ic.IC_AbstractForBrowser_Combo";
-
-	/**
-	 * Instantiates a new i c_ abstract for browser_ combo manager.
-	 */
-	public IC_AbstractForBrowser_ComboManager() {
-	}
 
 	/**
 		@generated
@@ -90,8 +84,8 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_AbstractForBrowser_Combo.class;
 	}
 
 	/*
@@ -124,5 +118,9 @@ public class IC_AbstractForBrowser_ComboManager extends InteractionControllerMan
 			return "It's not a browser field or a combo field";
 		}
 		return null;
+
 	}
+
+	
+
 }

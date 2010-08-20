@@ -24,6 +24,7 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_DefaultForList;
 
 /**
  * The Class IC_StringListForListManager.
@@ -31,15 +32,6 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class IC_StringListForListManager extends IC_AbstractForListManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME			= "fede.workspace.model.manager.properties.impl.ic.IC_DefaultForList";
-
-	/**
-	 * Instantiates a new i c_ string list for list manager.
-	 */
-	public IC_StringListForListManager() {
-	}
 
 	/**
 		@generated
@@ -100,8 +92,8 @@ public class IC_StringListForListManager extends IC_AbstractForListManager {
 	 * @see model.workspace.workspace.managers.ic.IC_AbstractForListManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_DefaultForList.class;
 	}
 
 	/*

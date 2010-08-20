@@ -177,20 +177,4 @@ public class JavaProjectContentModelManager extends ProjectContentModelManager {
 
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ProjectContentModelManager#mustBeExtended()
-	 */
-	@Override
-	public boolean mustBeExtended() {
-		return false;
-	}
-
-	@Override
-	public boolean hasParentContent() {
-		return false;
-	}
-
 }

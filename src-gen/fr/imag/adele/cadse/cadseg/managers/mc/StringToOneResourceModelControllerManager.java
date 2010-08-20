@@ -19,6 +19,7 @@
 
 package fr.imag.adele.cadse.cadseg.managers.mc;
 
+import fede.workspace.model.manager.properties.impl.mc.StringToOneResourceModelController;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -32,16 +33,6 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class StringToOneResourceModelControllerManager extends ModelControllerManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.mc.StringToOneResourceModelController";
-
-	/**
-	 * Instantiates a new string to one resource model controller manager.
-	 */
-	public StringToOneResourceModelControllerManager() {
-	}
 
 	/**
 		@generated
@@ -81,21 +72,11 @@ public class StringToOneResourceModelControllerManager extends ModelControllerMa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getClassName(fr.imag.adele.cadse.core.Item)
-	 */
-	@Override
-	public String getClassName(Item uc) {
-		return DEFAUL_CLASS_NAME;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see model.workspace.workspace.managers.mc.ModelControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return StringToOneResourceModelController.class;
 	}
 
 	/*

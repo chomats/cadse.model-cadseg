@@ -80,8 +80,6 @@ public class SubContentModelManager extends ContentItemTypeManager {
 		}
 	}
 
-	@Override
-	public boolean hasParentContent() {
-		return true;
-	}
+	
+
 }

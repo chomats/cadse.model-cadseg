@@ -24,6 +24,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractTreeDialogForList_Browser_Combo;
 
 /**
  * The Class IC_AbstractTreeDialogForList_Browser_ComboManager.
@@ -32,17 +33,7 @@ import fr.imag.adele.cadse.core.LinkType;
  */
 public class IC_AbstractTreeDialogForList_Browser_ComboManager extends InteractionControllerManager implements
 		IItemManager {
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.model.manager.properties.impl.ic.IC_AbstractTreeDialogForList_Browser_Combo";
-
-	/**
-	 * Instantiates a new i c_ abstract tree dialog for list_ browser_ combo
-	 * manager.
-	 */
-	public IC_AbstractTreeDialogForList_Browser_ComboManager() {
-	}
-
+	
 	/**
 		@generated
 	*/
@@ -84,8 +75,8 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#getDefaultClassName()
 	 */
 	@Override
-	public String getDefaultClassName() {
-		return DEFAUL_CLASS_NAME;
+	public Class<?> getDefaultClassName() {
+		return IC_AbstractTreeDialogForList_Browser_Combo.class;
 	}
 
 	/*
@@ -97,7 +88,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 	public boolean mustBeExtended() {
 		return true;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -119,4 +110,7 @@ public class IC_AbstractTreeDialogForList_Browser_ComboManager extends Interacti
 
 		return "use this controller for list or browser";
 	}
+
+	
+
 }

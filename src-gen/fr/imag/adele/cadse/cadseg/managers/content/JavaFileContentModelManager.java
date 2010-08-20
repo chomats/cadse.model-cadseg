@@ -29,7 +29,7 @@ import fr.imag.adele.cadse.core.LinkType;
  * @author <a href="mailto:stephane.chomat@imag.fr">Stephane Chomat</a>
  */
 public class JavaFileContentModelManager extends FileContentModelManager {
-
+	
 	/**
 	 * Instantiates a new java file content model manager.
 	 */
@@ -112,20 +112,5 @@ public class JavaFileContentModelManager extends FileContentModelManager {
 		} catch (Throwable t) {
 
 		}
-	}	
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.content.ContentModelManager#mustBeExtended()
-	 */
-	@Override
-	public boolean mustBeExtended() {
-		return false;
-	}
-
-	@Override
-	public boolean hasParentContent() {
-		return true;
 	}
 }
