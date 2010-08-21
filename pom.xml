@@ -66,7 +66,7 @@
 							model=model,
 							schema=schema
 			            </Include-Resource>
-						<Bundle-Activator>fr.imag.adele.cadse.cadseg.Activator</Bundle-Activator>
+						<Bundle-Activator>fr.imag.adele.cadse.cadseg.eclipse.Activator</Bundle-Activator>
 						<Import-Package>org.eclipse.core.runtime;registry=!,javax.xml.bind*;version=!,
 							*</Import-Package>
 					</instructions>
