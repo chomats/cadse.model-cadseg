@@ -64,7 +64,6 @@
 							model=model,
 							schema=schema
 			            </Include-Resource>
-						<Bundle-Activator>fr.imag.adele.cadse.cadseg.Activator</Bundle-Activator>
 						<Import-Package>*</Import-Package>
 					</instructions>
 				</configuration>
