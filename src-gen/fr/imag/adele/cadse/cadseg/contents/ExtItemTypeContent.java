@@ -47,7 +47,7 @@ public class ExtItemTypeContent extends JavaFileContentManager  {
 	/**
 		@generated
 	*/
-	public ExtItemTypeContent(UUID id, Variable packageNameVariable, Variable classNameVariable) throws CadseException {
+	public ExtItemTypeContent(UUID id) throws CadseException {
 		super(id, PackageNameVariable.INSTANCE, ClassNameVariable.INSTANCE);
 	}
 	
