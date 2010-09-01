@@ -83,21 +83,6 @@ public class EclipseReExporterManager extends ExporterManager {
 		}
 	}
 
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String DEFAUL_CLASS_NAME = "fede.workspace.eclipse.exporter.CompositeReExporter";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seemodel.workspace.workspace.managers.build.exporter.ExporterManager#
-	 * getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return fede.workspace.eclipse.exporter.CompositeReExporter.class;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

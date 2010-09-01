@@ -19,7 +19,6 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
-import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.managers.ui.FieldManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -108,16 +107,6 @@ public class IC_JavaClassForBrowser_ComboManager extends InteractionControllerMa
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.InteractionControllerManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_JavaClassForBrowser_Combo.class;
 	}
 
 	/*

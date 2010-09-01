@@ -9,7 +9,6 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.IItemFactory;
-import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
@@ -197,7 +196,7 @@ public class ContentItemManager extends DefaultItemManager implements IItemFacto
 		ItemDelta ownerItem = itemOp.getOutgoingItem(CadseGCST.CONTENT_ITEM_lt_OWNER_ITEM, false);
 		
 		ItemType it = ownerItem.getType();
-		
+
 		ContentItem ret = TransactionItemsProcess.createContentItem(it, itemOp.getId(), ownerItem);
 		if (ret == null) {
 			ret = ContentItem.INVALID_CONTENT;

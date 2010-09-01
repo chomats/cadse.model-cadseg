@@ -23,7 +23,6 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DTextUI;
 
 /**
  * The Class DTextManager.
@@ -171,15 +170,4 @@ public class DTextManager extends DisplayManager implements IItemManager {
 	public boolean mustBeExtended() {
 		return false;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return DTextUI.class;
-	}
-
 }

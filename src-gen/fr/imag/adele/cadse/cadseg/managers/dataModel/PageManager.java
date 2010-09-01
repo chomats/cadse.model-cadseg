@@ -23,15 +23,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-import fede.workspace.eclipse.java.JavaIdentifier;
-import fr.imag.adele.cadse.cadseg.contents.PageContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class PageManager.
@@ -81,23 +78,6 @@ public class PageManager extends DefaultItemManager implements IItemManager {
 	}
 	
 	
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fede.workspace.model.manager.DefaultItemManager#validateShortName(fr.
-	 * imag.adele.cadse.core.Item, java.lang.String)
-	 */
-	@Override
-	public String validateShortName(Item futurItem, String shortName) {
-		try {
-			JavaIdentifier.javaIdentifierFromString(shortName, true, false, null);
-		} catch (Throwable e) {
-			return "must be to transform to java identifier : space and - acceppter";
-		}
-		return null;
-	}
 
 	/**
 	 * Return the itemtype or ExtendsItemType from a page.

@@ -24,7 +24,6 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.util.Convert;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DListUI;
 
 /**
  * The Class DListManager.
@@ -249,34 +248,4 @@ public class DListManager extends DisplayManager {
 	public boolean mustBeExtended() {
 		return false;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return DListUI.class;
-	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
-//		Item attribute = FieldManager.getAttribute(field);
-//		if (attribute == null) {
-//			return "You must add a link to an attribute link";
-//		}
-//		if (!AttributeManager.isIsListAttribute(attribute)) {
-//			return "List is for a list";
-//		}
-//		return null;
-//	}
-
 }

@@ -21,15 +21,8 @@ package fr.imag.adele.cadse.cadseg.managers.content;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 
 import fr.imag.adele.cadse.cadseg.DefaultWorkspaceManager;
-import fr.imag.adele.cadse.cadseg.eclipse.ParseTemplate;
-import fr.imag.adele.cadse.cadseg.exp.ParseException;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
@@ -38,7 +31,6 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Validator;
-import fr.imag.adele.cadse.core.content.ContentItem;
 
 /**
  * The Class ManagerManager.
@@ -597,10 +589,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 		if (iconPath == null || iconPath.length() == 0) {
 			return null;
 		}
-		IFile f = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(iconPath));
-		if (f != null && f.exists()) {
-			return "platform:/resource/"+f.getFullPath().toPortableString();
-		}
 
 		return iconPath;
 	}
@@ -750,26 +738,6 @@ public class ManagerManager extends DefaultWorkspaceManager implements
 				if (itemtype == null) {
 					reporter.error(item, 1, "Item type is null");
 					break O;
-				}
-				String uniqueNameTemplate = getUniqueNameTemplate(item);
-				if (uniqueNameTemplate != null && uniqueNameTemplate.length() != 0) {
-					ParseTemplate pt = new ParseTemplate(itemtype, uniqueNameTemplate);
-					try {
-						pt.main();
-						pt.validate(reporter, item);
-					} catch (ParseException e) {
-						reporter.error(item, 0, "Error when parse unique name value : {0} ", e.getMessage());
-					}
-				}
-				String displayTemplate = getDisplayTemplate(item);
-				if (displayTemplate != null && displayTemplate.length() != 0) {
-					ParseTemplate pt = new ParseTemplate(itemtype, displayTemplate, null);
-					try {
-						pt.main();
-						pt.validate(reporter, item);
-					} catch (ParseException e) {
-						reporter.error(item, 0, "Error when parse display name value : {0} ", e.getMessage());
-					}
 				}
 			}
 			return null;

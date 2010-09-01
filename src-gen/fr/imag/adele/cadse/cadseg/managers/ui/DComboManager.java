@@ -22,7 +22,6 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DComboUI;
 
 /**
  * The Class DComboManager.
@@ -111,33 +110,13 @@ public class DComboManager extends DisplayManager implements IItemManager {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return DComboUI.class;
-	}
-
 //	/*
 //	 * (non-Javadoc)
 //	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
+//	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
 //	 */
 //	@Override
-//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
-//		Item attribute = FieldManager.getAttribute(field);
-//		if (attribute == null) {
-//			return "You must add a link to an attribute link";
-//		}
-//		if (AttributeManager.isIsListAttribute(attribute)) {
-//			return "Combo is not for a list";
-//		}
-//		return null;
+//	public Class<?> getDefaultClassName() {
+//		return DComboUI.class;
 //	}
-
 }

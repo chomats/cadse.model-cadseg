@@ -23,7 +23,6 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ui.DCheckedListUI;
 
 /**
  * The Class DCheckedListManager.
@@ -83,15 +82,15 @@ public class DCheckedListManager extends DisplayManager implements IItemManager 
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return DCheckedListUI.class;
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see model.workspace.workspace.managers.ui.DisplayManager#getDefaultClassName()
+//	 */
+//	@Override
+//	public Class<?> getDefaultClassName() {
+//		return DCheckedListUI.class;
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -102,54 +101,4 @@ public class DCheckedListManager extends DisplayManager implements IItemManager 
 	protected fr.imag.adele.cadse.core.ui.EPosLabel getDefaultPosLabel() {
 		return EPosLabel.top;
 	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createCreationPages(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public Pages createCreationPages(Item theItemParent, LinkType theLinkType, ItemType desType) {
-//
-//		CreationAction action = new CreationAction(theItemParent, desType, theLinkType, DEFAULT_SHORT_NAME);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "Create a checked list",
-//				"Create a checked list", 3, createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI()));
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#createModificationPage(fr.imag.adele.cadse.core.Item)
-//	 */
-//	@Override
-//	public Pages createModificationPage(Item item) {
-//		AbstractActionPage action = new ModificationAction(item);
-//
-//		return FieldsCore.createWizard(action, FieldsCore.createPage("page1", "a checked list", "a checked list", 3,
-//				createFieldExtendsIC(), createFieldExtendsMC(), createFieldExtendsUI()));
-//	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see fede.workspace.model.manager.DefaultItemManager#canCreateMeItem(fr.imag.adele.cadse.core.Item,
-//	 *      fr.imag.adele.cadse.core.LinkType,
-//	 *      fr.imag.adele.cadse.core.ItemType)
-//	 */
-//	@Override
-//	public String canCreateMeItem(Item field, LinkType lt, ItemType destType) {
-//		Item attribute = FieldManager.getAttribute(field);
-//		if (attribute == null) {
-//			return "You must add a link to an attribute link";
-//		}
-//		if (!AttributeManager.isIsListAttribute(attribute)) {
-//			return "CheckedList is for a list";
-//		}
-//
-//		return null;
-//	}
-
 }

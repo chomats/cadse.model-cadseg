@@ -19,8 +19,6 @@
 
 package fr.imag.adele.cadse.cadseg.managers.dataModel;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,16 +28,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.internal.boot.PlatformURLHandler;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-
-import fr.imag.adele.cadse.cadseg.generate.GenerateJavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.content.ManagerManager;
-import fr.imag.adele.cadse.cadseg.pages.mc.MC_ResourceToURL;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -603,52 +595,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 		return itemType.getAttributeWithDefaultValue(CadseGCST.ITEM_TYPE_at_ICON_, null);
 	}
 	
-	/**
-	 * Gets the icon path.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * 
-	 * @return the icon path
-	 * {@link MC_ResourceToURL}
-	 */
-	public static String getIconPath(Item itemType) {
-		String pStr = getIconAttribute(itemType);
-		if (pStr == null || pStr.length() == 0) {
-			Item manager = ManagerManager.getManagerFromItemType(itemType);
-			if (manager == null)
-				return null;
-			pStr = manager.getAttribute(CadseGCST.MANAGER_at_ICON_);
-			if (pStr == null || pStr.length() == 0)
-				return null;
-			IPath p = new Path(pStr);
-			pStr = MC_ResourceToURL.RESOURCE_URL_STRING+p.makeRelative().toPortableString();
-			setIconAttribute(itemType, pStr);
-		}
-		Item cadseDefinition = ItemTypeManager.getCadseDefinition(itemType);
-		return getIconURLFromCadse(pStr, cadseDefinition);
-	}
-
-
-	public static String getIconURLFromCadse(String pStr, Item cadseDefinition) {
-		IPath p = null;
-		if (pStr.startsWith(MC_ResourceToURL.RESOURCE_URL_STRING)) {
-			try {
-				URL iconURL;
-				iconURL = new URL(pStr);
-				p = new Path(iconURL.getPath()).removeFirstSegments(1).makeRelative();
-			} catch (MalformedURLException e) {
-				p= new Path(pStr).makeRelative();
-			}
-		} 
-		else {
-			p= new Path(pStr).makeRelative();
-		}
-		if (p == null)
-			return null;
-		// Hypothese : Le nom du project doit etre le meme que le nom du plugin
-		return B_UNDLE_URL + p.toPortableString();
-	}
+	
 
 	/**
 		@generated
@@ -782,8 +729,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 
 	/** The _default. */
 	private static ItemTypeManager	_default;
-	public static final String B_UNDLE_URL = PlatformURLHandler.PROTOCOL + PlatformURLHandler.PROTOCOL_SEPARATOR + '/' + "plugin" + '/';
-
+	
 	
 
 	/*
@@ -2112,9 +2058,7 @@ public class ItemTypeManager extends TypeDefinitionManager {
 	public static String getManagerClass(ItemType itemType, ContextVariable cxt, Item manager) {
 		if (itemType.isRuntime())
 			return itemType.getItemManagerClass();
-		if (cxt == null)
-			cxt = itemType.getLogicalWorkspace().getContext();
-		return GenerateJavaIdentifier.getQualifiedManager(cxt, itemType, manager, isCustomManagerAttribute(itemType));
+		return null;
 	}
 	
 	public static Item findSuperAttribute(Item attribute, String name) {

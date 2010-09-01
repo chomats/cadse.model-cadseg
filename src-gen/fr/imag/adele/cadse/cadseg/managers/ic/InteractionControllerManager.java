@@ -31,8 +31,6 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.ItemFactory;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.ICRunningField;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_AbstractForList;
 
 /**
  * The Class InteractionControllerManager.
@@ -87,15 +85,6 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 			className = getDefaultClassName() == null ? null : getDefaultClassName().getSimpleName();
 		}
 		return className;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.IExtendClassManager#getDefaultClassName()
-	 */
-	public Class<?> getDefaultClassName() {
-		return ICRunningField.class;
 	}
 
 	/*
@@ -156,5 +145,11 @@ public class InteractionControllerManager extends DefaultWorkspaceManager implem
 	
 	public Item newForCommitItem(LogicalWorkspace wl, ItemType it, ItemDelta item) {
 		return ItemFactory.SINGLETON.newForCommitItem(wl, it, item);
+	}
+
+	@Override
+	public Class<?> getDefaultClassName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

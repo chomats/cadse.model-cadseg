@@ -3,11 +3,7 @@ package fr.imag.adele.cadse.cadseg.validators;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.impl.ui.JavaClassValidator;
-import fr.imag.adele.cadse.core.impl.ui.mc.UIValidator_Descriptor;
 import fr.imag.adele.cadse.core.ui.AbstractUIRunningValidator;
-import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.ui.UIPlatform;
 
 public class MenuValidator extends AbstractUIRunningValidator {

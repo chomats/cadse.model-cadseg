@@ -2,7 +2,6 @@ package fr.imag.adele.cadse.cadseg.validators;
 
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.attribute.CheckStatus;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.StringAttributeType;

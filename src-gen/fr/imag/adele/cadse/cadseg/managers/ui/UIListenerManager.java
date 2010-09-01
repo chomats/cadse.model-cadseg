@@ -20,18 +20,13 @@ package fr.imag.adele.cadse.cadseg.managers.ui;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
-import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.content.ContentItem;
-import fr.imag.adele.cadse.core.impl.var.NullVariable;
-import fr.imag.adele.cadse.core.var.Variable;
 
 /**
  * @generated
@@ -80,7 +75,6 @@ public class UIListenerManager extends DefaultItemManager {
 			return "error";
 		}
 	}
-
 
 	/**
 	 * get links 'fields' from 'UIListener' to 'Field'.
