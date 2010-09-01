@@ -172,31 +172,6 @@ public class EclipseComposerManager extends ComposerManager {
 	}
 
 	/*
-	 * <meta-attribute key="title-create"> <value type="string" value="a eclipse
-	 * composer"/> </meta-attribute> <meta-attribute key="must-be-extended">
-	 * <value type="boolean" value="true"/> </meta-attribute> <meta-attribute
-	 * key="class-name"> <value type="string"
-	 * value="fede.workspace.eclipse.composer.EclipseComposer"/>
-	 * </meta-attribute>
-	 */
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	@SuppressWarnings("hiding")
-	public static final String	DEFAUL_CLASS_NAME	= "fede.workspace.eclipse.composer.EclipseComposer";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * model.workspace.workspace.managers.build.ComposerManager#getDefaultClassName
-	 * ()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return fede.workspace.eclipse.composer.EclipseComposer.class;
-	}
-
-	/*
 	 * (non-Javadoc)
 	 * 
 	 * @seemodel.workspace.workspace.managers.build.ComposerManager#

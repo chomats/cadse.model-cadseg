@@ -19,7 +19,6 @@
 
 package fr.imag.adele.cadse.cadseg.managers.ic;
 
-import fede.workspace.eclipse.java.fields.JavaElementTreeController;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -67,16 +66,6 @@ public class JavaElementTreeControllerManager extends InteractionControllerManag
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_AbstractTreeDialogForList_Browser_ComboManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return JavaElementTreeController.class;
 	}
 
 	/*

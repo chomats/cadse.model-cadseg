@@ -22,7 +22,6 @@ package fr.imag.adele.cadse.cadseg.managers.build.exporter;
 import java.util.ArrayList;
 import java.util.List;
 
-import fede.workspace.eclipse.java.JavaIdentifier;
 import fr.imag.adele.cadse.cadseg.managers.IExtendClassManager;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -220,13 +219,8 @@ public class ExporterManager extends DefaultItemManager implements
 	 * .imag.adele.cadse.core.Item)
 	 */
 	public String getClassName(Item uc) {
-		return (mustBeExtended() || isExtendsClass(uc)) ? JavaIdentifier
-				.javaIdentifierFromString(uc.getName(), true, false, "Exporter")
-				: getDefaultClassName().getSimpleName();
+		return "";
 	}
-
-	/** The Constant DEFAUL_CLASS_NAME. */
-	public static final String DEFAUL_CLASS_NAME = "fr.imag.adele.cadse.core.build.Exporter";
 
 	/*
 	 * (non-Javadoc)

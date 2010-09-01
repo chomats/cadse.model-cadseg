@@ -29,7 +29,6 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.Validator;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_PartLinkForBrowser_Combo_List;
 
 /**
  * The Class IC_PartLinkForBrowser_Combo_ListManager.
@@ -71,16 +70,6 @@ public class IC_PartLinkForBrowser_Combo_ListManager extends IC_LinkForBrowser_C
 			e.printStackTrace();
 			return "error";
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_LinkForBrowser_Combo_ListManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_PartLinkForBrowser_Combo_List.class;
 	}
 
 	/*

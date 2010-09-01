@@ -23,7 +23,6 @@ import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.si.workspace.uiplatform.swt.ic.IC_FileResourceForBrowser_Combo_List;
 
 /**
  * The Class IC_FileResourceForBrowser_Combo_ListManager.
@@ -102,16 +101,6 @@ public class IC_FileResourceForBrowser_Combo_ListManager extends IC_ResourceTree
 		} catch (Throwable t) {
 
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.workspace.workspace.managers.ic.IC_ResourceTreeDialogForBrowser_Combo_ListManager#getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return IC_FileResourceForBrowser_Combo_List.class;
 	}
 
 	/*

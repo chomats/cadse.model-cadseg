@@ -113,19 +113,7 @@ public class FolderExporterManager extends EclipseExporterManager {
 
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * model.workspace.workspace.managers.build.exporter.EclipseExporterManager
-	 * #getDefaultClassName()
-	 */
-	@Override
-	public Class<?> getDefaultClassName() {
-		return fede.workspace.eclipse.exporter.FolderExporter.class;
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

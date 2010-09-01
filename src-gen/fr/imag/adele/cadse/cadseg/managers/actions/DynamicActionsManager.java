@@ -18,29 +18,12 @@
  */
 package fr.imag.adele.cadse.cadseg.managers.actions;
 
-import java.util.UUID;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
-
-import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseGCST;
-
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.content.ContentItem;
-import fr.imag.adele.cadse.core.impl.var.NullVariable;
 
 /**
  * @generated
  */
 public class DynamicActionsManager extends MenuAbstractManager {
-
-	
-
 
 	/**
 	 * @generated
