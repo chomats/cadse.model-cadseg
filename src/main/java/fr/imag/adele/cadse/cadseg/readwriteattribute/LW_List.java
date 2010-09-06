@@ -64,19 +64,12 @@ public class LW_List extends LW_Attribute {
 
 			cvt = ncvt;
 			cvt.setKey("Element of "+attribute.getName());
-			cvt.setTypeName(eltAttr.getId().toString());
+			cvt.setTypeName(eltAttr.getType().getId().toString());
 			InitModelLoadAndWrite manager = eltAttr.getType().adapt(InitModelLoadAndWrite.class);
-			ItemType cadseRootItemType = manager.getCadseRootType();
-			if (cadseRootItemType != null) {
-				if (cadseRootItemType.isAbstract()) {
-					return;
-				}
-
-				InitModelLoadAndWrite cadseRootManager = cadseRootItemType.adapt(InitModelLoadAndWrite.class);
-				cadseRootManager.writeAttributeDefinition(factory, cxt, ncvt, eltAttr);
+			if (manager != null) {
+				manager.writeAttributeDefinition(factory, cxt, ncvt, eltAttr);
 			}
 		}
-		
 	}
 	
 	@Override
