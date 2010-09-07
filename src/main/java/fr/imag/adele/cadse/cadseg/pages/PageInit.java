@@ -1,3 +1,23 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ * 
+ * Copyright (C) 2006-2010 Adele Team/LIG/Grenoble University, France
+ */
 package fr.imag.adele.cadse.cadseg.pages;
 
 import java.util.Arrays;
@@ -9,6 +29,7 @@ import java.util.UUID;
 import fede.workspace.eclipse.java.fields.IC_JavaClassForBrowser_Combo;
 import fede.workspace.eclipse.java.fields.MC_StringToJavaElement;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_AttributeDestType;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_DestinationLinkForBrowser_Combo;
 import fr.imag.adele.cadse.cadseg.pages.ic.IC_EnumDefaultValue;
@@ -1094,9 +1115,12 @@ public class PageInit {
 			public void filterPage(Item item, FilterContext context, List<IPage> list, Set<IAttributeType<?>> ro,
 					HashSet<IAttributeType<?>> hiddenAttributeInComputedPages) {
 
+				
 				Item parentItem = item.getPartParent();
 				if (parentItem != null && parentItem.getType() == CadseGCST.LIST) {
-
+					if (!context.isModificationPages()) {
+						AttributeManager.setCannotBeUndefinedAttribute(item, true);
+					}
 					hiddenAttributeInComputedPages.addAll(Arrays.asList(CadseGCST.ITEM_at_NAME_,
 							CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_CP_, CadseGCST.ATTRIBUTE_at_SHOW_IN_DEFAULT_MP_,
 							CadseGCST.ATTRIBUTE_at_IS_LIST_, CadseGCST.ATTRIBUTE_at_TWCOMMIT_KIND_,
