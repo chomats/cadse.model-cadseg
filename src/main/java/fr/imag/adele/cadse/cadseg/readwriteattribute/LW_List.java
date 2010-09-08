@@ -85,6 +85,8 @@ public class LW_List extends LW_Attribute {
 			cvt = ncvt;
 			cvt.setKey("Element of "+attribute.getName());
 			cvt.setTypeName(eltAttr.getType().getId().toString());
+			Object defaultValue = eltAttr.getDefaultValue();
+			cvt.setValue(defaultValue == null ? null : defaultValue.toString());
 			InitModelLoadAndWrite manager = eltAttr.getType().adapt(InitModelLoadAndWrite.class);
 			if (manager != null) {
 				manager.writeAttributeDefinition(factory, cxt, ncvt, eltAttr);
