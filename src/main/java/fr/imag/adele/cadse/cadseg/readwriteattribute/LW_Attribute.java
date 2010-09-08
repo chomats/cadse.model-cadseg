@@ -256,9 +256,4 @@ public class LW_Attribute extends InitModelLoadAndWrite {
 			cvt.setFlag(getCadseRootFlag(attribute));
 	}
 
-
-
-	
-	
-	
 }
