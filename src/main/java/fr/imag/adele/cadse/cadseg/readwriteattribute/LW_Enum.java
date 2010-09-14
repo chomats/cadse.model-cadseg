@@ -71,16 +71,16 @@ public class LW_Enum extends LW_Attribute {
 	@Override
 	public void writeAttributeDefinition(ObjectFactory factory, ContextVariable cxt,
 			CValuesType cvt, Item attribute) {
+		super.writeAttributeDefinition(factory, cxt, cvt, attribute);
 		cvt.setType(ValueTypeType.ENUMERATION);
-		String enumQualifiedClass = (String) getCadseRootAttributeValue(cxt,
-				CadseGCST.ENUM_at_ENUM_CLAZZ_, attribute);
+		String enumQualifiedClass = attribute.getAttribute(
+				CadseGCST.ENUM_at_ENUM_CLAZZ_);
 		if (enumQualifiedClass != null) {
 			CValuesType ncvt = factory.createCValuesType();
 			cvt.getElement().add(ncvt);
 			ncvt.setValue(enumQualifiedClass);
 			ncvt.setKey(CadseGCST.ENUM_at_ENUM_CLAZZ);
 		}
-		super.writeAttributeDefinition(factory, cxt, cvt, attribute);
 	}
 	
 	@Override

@@ -179,11 +179,6 @@ public class LW_Attribute extends InitModelLoadAndWrite {
 				| (fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager.isShowInDefaultMpAttribute(attribute) ? Item.SHOW_IN_DEFAULT_MP : 0);
 	}
 
-	public Object getCadseRootAttributeValue(ContextVariable cxt, IAttributeType<?> attType, Item attribute) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public boolean isCadseRootRequireAttribute(Item attribute) {
 		return fr.imag.adele.cadse.cadseg.managers.attributes.AttributeManager.isRequireAttribute(attribute);
 	}

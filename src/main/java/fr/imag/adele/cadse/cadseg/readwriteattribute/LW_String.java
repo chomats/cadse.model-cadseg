@@ -20,6 +20,7 @@
  */
 package fr.imag.adele.cadse.cadseg.readwriteattribute;
 
+import fr.imag.adele.cadse.cadseg.managers.attributes.StringManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
@@ -62,6 +63,12 @@ public class LW_String extends LW_Attribute {
 	@Override
 	public Class<?> getTypeJava(boolean primitive) {
 		return String.class;
+	}
+	
+	@Override
+	public int getCadseRootFlag(Item attribute) {
+		return super.getCadseRootFlag(attribute) | 
+		 (StringManager.isNotEmptyAttribute(attribute) ? Item.NOT_EMPTY : 0);
 	}
 
 
