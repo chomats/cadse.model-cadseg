@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+    http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  
+  Copyright (C) 2006-2010 Adele Team/LIG/Grenoble University, France 
+-->
+
+<p:c-item-types 
+xmlns:p="htt//fr.imag.adele/fede/workspace/model" 
+xmlns:xsi="htt//www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="htt//fr.imag.adele/fede/workspace/model ../../Tool.Workspace.InitModel/schema/WorkspaceModel.xsd ">
+  <!-- migration
+  <action>
+  	java -cp *.jar fede.workspace.tool.migration.MigrationConsole
+  	load-type /home/chomats/ws-cadseg1/Model.Workspace.Workspace
+	load /home/chomats/ws-cadseg3-new/
+	change-type IC_LinksForList IC_LinkForBrowser_Combo_List
+	change-type IC_LinkForBrowser_Combo IC_LinkForBrowser_Combo_List
+  </action>
+  		<migration date="1/10/2007">
+  			<context>
+  				<var name "X" type="IC_LinksForList"/>
+  			</context>
+  			<inst>
+  				<change-type var="X" type="IC_LinkForBrowser_Combo_List"/>
+  			</inst>
+  		</migration>
+  		
+  		<migration date="1/10/2007">
+  			<context>
+  				<var name "X" type="IC_LinkForBrowser_Combo"/>
+  			</context>
+  			<inst>
+  				<change-type var="X" type="IC_LinkForBrowser_Combo_List"/>
+  			</inst>
+  		</migration>
+   -->
+  
+  <item-type intID="0" name="MappingModel" has-content="false" >
+    <outgoing-link intID="0" name="managers" min="1" max="-1"
+      destination="Manager" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="WorkspaceModel" is-root-element="true" has-content="true">
+    <outgoing-link intID="0" name="data-model" min="1" max="1"
+      destination="DataModel" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="merge-extends" min="0" max="-1"
+      destination="WorkspaceModel" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+    <outgoing-link intID="0" name="extends" min="0" max="-1"
+      destination="WorkspaceModel" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+    <outgoing-link intID="0" name="evolution" min="1" max="1"
+      destination="EvolutionModel" isComposition="false"
+      isAggregation="true" isPart="true" isRequire="false" />
+    <outgoing-link intID="0" name="configuration" min="1" max="1"
+      destination="ConfigurationModel" isComposition="false"
+      isAggregation="true" isPart="true" isRequire="false" />
+    <outgoing-link intID="0" name="build" min="1" max="1"
+      destination="BuildModel" isComposition="false"
+      isAggregation="true" isPart="true" isRequire="false" />
+    <outgoing-link intID="0" name="mapping" min="1" max="1"
+      destination="MappingModel" isComposition="false"
+      isAggregation="true" isPart="true" isRequire="false" />
+    <outgoing-link intID="0" name="view-model" min="1" max="1"
+      destination="ViewModel" isComposition="false"
+      isAggregation="true" isPart="true" isRequire="false" />
+  </item-type>
+  
+ 
+  
+	<item-type intID="12" name="EvolutionModel" is-root-element="false"
+		has-content="true">
+		<outgoing-link intID="1" name="item-types" min="0" max="-1"
+			destination="EvolutionItemType" isComposition="false"
+			isAggregation="true" isPart="true" isRequire="false" 
+			isAssociation="false" inverse-link="" selection-expression="" />
+	</item-type>
+	
+  	<item-type intID="6" name="EvolutionItemType"
+		is-root-element="false" has-content="false">
+		<outgoing-link intID="1" name="item-type" min="1" max="1" isAnnotation="true"
+			destination="ItemType" isComposition="false" isAggregation="false"
+			isPart="false" isRequire="true" isAssociation="false" inverse-link=""
+			selection-expression="" />
+		<outgoing-link intID="2" name="attributes" min="0" max="-1"
+			destination="EvolutionAttribute" isComposition="false"
+			isAggregation="true" isPart="true" isRequire="false"
+			isAssociation="false" inverse-link="" selection-expression="" />
+	</item-type>
+	
+	<item-type intID="8" name="EvolutionAttribute"
+		is-root-element="false" has-content="false">
+		<outgoing-link intID="1" name="attribute" min="1" max="1" isAnnotation="true"
+			destination="Attribute" isComposition="false" isAggregation="false"
+			isPart="false" isRequire="true" isAssociation="false" inverse-link=""
+			selection-expression="" />
+	</item-type>
+	
+  	<item-type intID="13" name="EvolutionLink" is-root-element="false"
+		has-content="false" super-type-name="EvolutionAttribute">
+		<outgoing-link intID="1" name="attribute" min="1" max="1" isAnnotation="true"
+			destination="Link" isComposition="false" isAggregation="false"
+			isPart="false" isRequire="true" isAssociation="false" inverse-link=""
+			selection-expression="" />
+	</item-type>
+  
+  
+  <item-type intID="0" name="BuildModel" has-content="false" >
+    <outgoing-link intID="0" name="composite-types" min="0" max="-1"
+      destination="CompositeItemType" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="CompositeItemType" has-content="false" >
+    <outgoing-link intID="0" name="composers" min="0" max="-1"
+      destination="Composer" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="builders" min="0" max="-1"
+      destination="Builder" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="item-type" min="1" max="1"
+      destination="ItemType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="Bean" has-content="false" >
+    <outgoing-link intID="0" name="attributes" min="0" max="-1"
+      destination="Attribute" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="super-type" min="0" max="1"
+      destination="ItemType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+<attribute-type key="ItemType" max="1" min="1" type="string"></attribute-type>
+     </item-type>
+  
+  <item-type intID="0" name="BeanExporter" super-type-name="Bean">
+    <outgoing-link intID="0" name="attributes" min="0" max="-1"
+      destination="Attribute" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="super-type" min="0" max="1"
+      destination="ItemType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+<attribute-type key="ItemType" max="1" min="1" type="string"></attribute-type>
+     </item-type>
+  
+  <item-type intID="0" name="BeanComposer" super-type-name="Bean">
+    <outgoing-link intID="0" name="attributes" min="0" max="-1"
+      destination="Attribute" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="super-type" min="0" max="1"
+      destination="ItemType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  <attribute-type key="ItemType" max="1" min="1" type="string"></attribute-type>
+    </item-type>
+  
+  <item-type intID="0" name="BeanFieldController" super-type-name="Bean">
+    <attribute-type key="ItemType" max="1" min="1" type="string"></attribute-type>
+    <outgoing-link intID="0" name="attributes" min="0" max="-1"
+      destination="Attribute" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="super-type" min="0" max="1"
+      destination="ItemType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="Builder" has-content="false" >
+    <outgoing-link intID="0" name="requires" min="" max="-1"
+      destination="Builder" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="Composer" has-content="true" >
+    <outgoing-link intID="0" name="composer-links" min="" max="-1"
+      destination="ComposerLink" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="ComposerLink" has-content="false" >
+    <outgoing-link intID="0" name="exporters" min="" max="-1"
+      destination="Exporter" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+    <outgoing-link intID="0" name="link" min="1" max="1"
+      destination="Link" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="Exporter" has-content="true" >
+  </item-type>
+  <item-type intID="0" name="EclipseExporter" has-content="true" super-type-name="Exporter" >
+  </item-type>	
+  <item-type intID="0" name="FolderExporter" has-content="true" super-type-name="EclipseExporter" >
+  </item-type>  
+  <item-type intID="0" name="EclipseReExporter" has-content="true" super-type-name="Exporter" >
+  </item-type>  
+  	<item-type intID="0" name="AspectJReExporter" has-content="true" super-type-name="JavaReExporter" >
+	</item-type>	
+	<item-type intID="0" name="JavaReExporter" has-content="true" super-type-name="EclipseReExporter" >
+	</item-type>	
+  
+  <item-type intID="0" name="JavaExporter" has-content="true" super-type-name="EclipseExporter" >
+  </item-type>
+  <item-type intID="0" name="AspectJExporter" has-content="true" super-type-name="EclipseExporter" >
+  </item-type>
+
+  <item-type intID="0" name="DataModel" has-content="false" >
+    <outgoing-link intID="0" 
+				name="categories" 
+				min="0" 
+				max="-1"
+				destination="DataModel"
+				isComposition="false"
+				isAggregation="true"
+				isPart="true" 
+				isRequire="true"
+				isAssociation="false"
+				inverse-link=""
+				selection-expression=""
+				 />
+    <outgoing-link intID="0" name="types" min="0" max="-1"
+      destination="ItemType" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="enums" min="0" max="-1"
+      destination="EnumType" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />  
+  </item-type>
+  
+  
+  
+  <item-type intID="0" name="EClass" has-content="false">
+  
+    <outgoing-link intID="0" name="attributes" min="0" max="-1"
+      destination="Attribute" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="super-type" min="0" max="1"
+      destination="EClass" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="ItemType" has-content="false" super-type-name="EClass">
+  
+    <outgoing-link intID="0" name="attributes" min="0" max="-1"
+      destination="Attribute" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="super-type" min="0" max="1"
+      destination="ItemType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="ContentType" has-content="false" super-type-name="EClass">
+  
+    <outgoing-link intID="0" name="attributes" min="0" max="-1"
+      destination="Attribute" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="super-type" min="0" max="1"
+      destination="ContentType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="EnumType" has-content="true">
+  </item-type>
+  
+  
+  <item-type intID="0" name="ViewModel" has-content="false">
+  		<outgoing-link intID="0" name="views" min="0" max="-1"
+     		 destination="View" isComposition="false" isAggregation="true"
+      		isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="View" has-content="true">
+  	<outgoing-link intID="0" name="view-item-types" min="0" max="-1"
+     		 destination="ViewItemType" isComposition="false" isAggregation="true"
+      		isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="ViewItemType" has-content="true">
+  	<outgoing-link intID="1" name="item-type" min="1" max="1" isAnnotation="true"
+    	  destination="ItemType" isComposition="false" isAggregation="false"
+     	 isPart="false" isRequire="true" />
+     <outgoing-link intID="2"
+				name="view-link-types" 
+				min="0" max="-1"
+				destination="ViewLinkType"
+				isComposition="false"
+				isAggregation="true"
+				isPart="true" 
+				isRequire="true"
+				isAnnotation="false"
+				inverse-link=""
+				selection-expression="" />
+  </item-type>
+  
+  <item-type intID="3" name="ViewLinkType" has-content="true" >
+  		<outgoing-link intID="0" name="link-type" min="1" max="1" isAnnotation="true"
+    		  destination="Link" isComposition="false" isAggregation="false"
+     	 	isPart="false" isRequire="true" />
+  </item-type>
+	
+  <item-type intID="0" name="Manager" has-content="true">
+    <outgoing-link intID="0" name="fields" min="0" max="-1"
+      destination="Field" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    
+    <outgoing-link intID="0" name="creation-dialog" min="0" max="1"
+      destination="CreationDialog" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="modification-dialog" min="0" max="1"
+      destination="ModificationDialog" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+      
+    <outgoing-link intID="0" name="item-type" min="1" max="1" isAnnotation="true"
+      destination="ItemType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+    <outgoing-link intID="0" name="events" min="0" max="-1"
+      destination="Event" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="content-model" min="0" max="1"
+      destination="ContentModel" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="exporters" min="0" max="-1"
+      destination="Exporter" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="Field" has-content="true">
+  	<outgoing-link intID="0" name="display" min="1" max="1"
+      destination="Display" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="attribute" min="1" max="1" isAnnotation="true"
+      destination="Attribute" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" selection-expression="self.&lt;-parent:Manager.item-type.super-type*.attributes"/>
+  </item-type>
+  
+  <item-type intID="0" name="Page" has-content="true">
+	<outgoing-link intID="0" name="fields" min="0" max="-1"
+      destination="Field" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+       
+  <item-type intID="0" name="EclipseComposer" has-content="true" super-type-name="Composer">
+    <outgoing-link intID="0" name="composer-links" min="0" max="-1"
+      destination="ComposerLink" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <meta-attribute key="title-create"><value type="string" value="a eclipse composer">
+      </value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="true">
+      </value></meta-attribute>
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.composer.EclipseComposer">
+      </value></meta-attribute>
+ 
+  </item-type>
+  
+  <item-type intID="0" name="JavaProjectComposer" has-content="true" super-type-name="EclipseComposer">
+    <outgoing-link intID="0" name="composer-links" min="0" max="-1"
+      destination="ComposerLink" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <meta-attribute key="title-create">
+      <value type="string" value="a java project composer"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false">
+      </value></meta-attribute>
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.composition.java.JavaProjectComposer">
+      </value></meta-attribute>
+
+  </item-type>
+  
+  <item-type intID="0" name="AJProjectComposer" has-content="true" super-type-name="EclipseComposer">
+    <outgoing-link intID="0" name="composer-links" min="0" max="-1"
+      destination="ComposerLink" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <meta-attribute key="title-create">
+      <value type="string" value="a aspectj project composer"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.composition.java.AspectJProjectComposer">
+      </value></meta-attribute>
+
+  </item-type>
+  
+  <item-type intID="0" name="ContentModel" has-content="true" super-type-name="">
+    <meta-attribute key="title-create">
+      <value type="string" value="Extended Content manager"></value></meta-attribute>
+    <meta-attribute key="must-be-extended">
+      <value type="boolean" value="true"></value></meta-attribute>
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.domain.ContentManager"></value></meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="ResourceContentModel" has-content="true" super-type-name="ContentModel">
+    <meta-attribute key="title-create">
+      <value type="string" value="Extended Content manager"></value></meta-attribute>
+    <meta-attribute key="must-be-extended">
+      <value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.domain.ContentManager"></value></meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="SubContentModel" has-content="true" super-type-name="ContentModel">
+    <meta-attribute key="has-parent">
+      <value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create">
+      <value type="string" value="a part of file"></value></meta-attribute>
+    <meta-attribute key="must-be-extended">
+      <value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.content.SubFileContentManager"/>
+    </meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="FileContentModel" has-content="true" super-type-name="ResourceContentModel">
+    <meta-attribute key="has-parent"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a file"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.content.FileContentManager"/>
+    </meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="JavaFileContentModel" has-content="true" super-type-name="FileContentModel">
+    <meta-attribute key="has-parent"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a java file"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.java.manager.JavaFileContentManager"/>
+    </meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="JavaJarFileContentModel" has-content="true" super-type-name="ContentModel">
+    <meta-attribute key="has-parent"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a jar file"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.java.manager.JarContentManager"/>
+    </meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="FolderContentModel" has-content="true" super-type-name="ResourceContentModel">
+    <outgoing-link intID="0" name="content-model" min="0" max="-1"
+      destination="ResourceContentModel" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <meta-attribute key="has-parent"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a folder"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.content.FolderContentManager"/>
+    </meta-attribute>
+   </item-type>
+  <item-type intID="0" name="SourceFolderContentModel" has-content="true" super-type-name="FolderContentModel">
+    <meta-attribute key="has-parent"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a source folder"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.java.manager.JavaSourceFolderContentManager"/>
+    </meta-attribute>
+  </item-type>
+  <item-type intID="0" name="PackageContentModel" has-content="true" super-type-name="FolderContentModel">
+    <meta-attribute key="has-parent"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a package"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.java.manager.JavaPackageFolderContentManager"/>
+    </meta-attribute>
+  </item-type>
+  <item-type intID="0" name="ProjectContentModel" has-content="true" super-type-name="ContentModel">
+    <meta-attribute key="has-parent"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="has-composer"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a project"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.content.ProjectContentManager"/>
+    </meta-attribute>
+    <outgoing-link intID="0" name="content-model" min="0" max="-1"
+      destination="ResourceContentModel" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  <item-type intID="0" name="JavaProjectContentModel" has-content="true" super-type-name="ProjectContentModel">
+    <meta-attribute key="has-parent"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="has-composer"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a java project"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.java.manager.JavaProjectContentManager"/>
+    </meta-attribute>
+    <outgoing-link intID="0" name="content-model" min="0" max="-1"
+      destination="ResourceContentModel" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  <item-type intID="0" name="AspectJProjectContentModel" has-content="true" super-type-name="JavaProjectContentModel">
+    <outgoing-link intID="0" name="content-model" min="0" max="-1"
+      destination="ResourceContentModel" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />  
+    <meta-attribute key="has-parent"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="has-composer"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a aspectj project"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.java.manager.AJProjectContentManager"/>
+    </meta-attribute>
+  </item-type>
+  <item-type intID="0" name="PDEProjectContentModel" has-content="true" super-type-name="JavaProjectContentModel">
+    <outgoing-link intID="0" name="content-model" min="0" max="-1"
+      destination="ResourceContentModel" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />        
+    <meta-attribute key="has-parent"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="has-composer"><value type="boolean" value="true"></value></meta-attribute>  
+    <meta-attribute key="title-create"><value type="string" value="a pde project"></value></meta-attribute>
+    <meta-attribute key="must-be-extended"><value type="boolean" value="false"></value></meta-attribute>  
+    <meta-attribute key="class-name">
+      <value type="string" value="fede.workspace.eclipse.composition.java.EclipsePluginContentManger"></value>
+    </meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="Event" has-content="false" super-type-name="">
+  </item-type>
+  
+  <item-type intID="0" name="Link" has-content="true" super-type-name="Attribute">
+    <outgoing-link intID="0" name="destination" min="1" max="1"
+      destination="ItemType" isComposition="false" isAggregation="false" isAnnotation="true"
+      isPart="false" isRequire="true" selection-expression="self.&lt;-parent:WorkspaceModel*.data-model.categories*.types"/>
+    <outgoing-link intID="0" name="inverse-link" min="0" max="1"
+      destination="Link" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="Enum" has-content="true" super-type-name="Attribute">
+    <outgoing-link intID="0" name="enum-type" min="1" max="1" isAnnotation="true"
+      destination="EnumType" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" 
+      selection-expression="self.&lt;-parent:WorkspaceModel*.data-model.categories*.enums" />
+  </item-type>
+  
+  <item-type intID="0" name="String" has-content="true" super-type-name="Attribute">
+    <meta-attribute key="defaultValue">
+            <value type="string" value="&quot;&quot;"></value>
+        </meta-attribute>
+    <meta-attribute key="exp_from_string"> 
+      <value type="string" value="(String) value"></value>
+    </meta-attribute>
+    <meta-attribute key="exp_to_string"> 
+      <value type="string" value="value"></value>
+    </meta-attribute>
+    <meta-attribute key="isPrimitive"> 
+      <value type="boolean" value="true"></value>
+    </meta-attribute>
+    <meta-attribute key="is-list"> 
+      <value type="boolean" value="false"></value>
+    </meta-attribute>
+    <meta-attribute key="typeJava"> 
+      <value type="string" value="String"></value>
+    </meta-attribute>
+    <meta-attribute key="import-java"> 
+      <value type="list" value="String">
+        <element type="string" value="fede.workspace.domain.Item"/>
+      </value>
+    </meta-attribute>
+    <meta-attribute key="import-manifest"> 
+      <value type="list" value="String">
+        <element type="string" value="fede.workspace.domain.Item"/>
+      </value>
+    </meta-attribute>
+    <meta-attribute key="type"> 
+      <value type="string" value="string">
+      </value>
+    </meta-attribute>
+  </item-type>
+  
+  <!-- item-type name="Id" has-content="false" super-type-name="Attribute">
+    <meta-attribute key="defaultValue">
+            <value type="string" value="&quot;&quot;"></value>
+        </meta-attribute>
+    <meta-attribute key="exp_from_string"> 
+      <value type="string" value="(String) value"></value>
+    </meta-attribute>
+    <meta-attribute key="exp_to_string"> 
+      <value type="string" value="value"></value>
+    </meta-attribute>
+    <meta-attribute key="isPrimitive"> 
+      <value type="boolean" value="true"></value>
+    </meta-attribute>
+    <meta-attribute key="is-list"> 
+      <value type="boolean" value="false"></value>
+    </meta-attribute>
+    <meta-attribute key="typeJava"> 
+      <value type="string" value="String"></value>
+    </meta-attribute>
+    <meta-attribute key="import-java"> 
+      <value type="list" value="String">
+        <element type="string" value="fede.workspace.domain.Item"/>
+      </value>
+    </meta-attribute>
+    <meta-attribute key="import-manifest"> 
+      <value type="list" value="String">
+        <element type="string" value="fede.workspace.domain.Item"/>
+      </value>
+    </meta-attribute>
+  </item-type -->    
+     
+      
+<!--       <type
+            defaultValue="null"
+            exp_from_string="(IPackageFragment) JavaCore.create((String)value)"
+            exp_to_string="value.getHandleIdentifier()"
+            is-list="false"
+            isPrimitive="false"
+            name="package"
+            typeJava="IPackageFragment">
+         <import-java classname="fede.workspace.domain.Item"/>
+         <import-manifest package="fede.workspace.domain"/>
+         <import-java classname="org.eclipse.jdt.core.IPackageFragment"/>
+         <import-java classname="org.eclipse.jdt.core.JavaCore"/>
+         <import-manifest package="org.eclipse.jdt.core"/>
+      </type>
+    -->
+  
+  <item-type intID="0" name="Integer" has-content="true" super-type-name="Attribute">
+    <meta-attribute key="defaultValue"> 
+      <value type="string" value="-1"></value>
+    </meta-attribute>
+    <meta-attribute key="exp_from_string"> 
+      <value type="string" value="Integer.parseInt((String)value)"></value>
+    </meta-attribute>
+    <meta-attribute key="exp_to_string"> 
+      <value type="string" value="Integer.toString(value)"></value>
+    </meta-attribute>
+    <meta-attribute key="isPrimitive"> 
+      <value type="boolean" value="true"></value>
+    </meta-attribute>
+    <meta-attribute key="typeJava"> 
+      <value type="string" value="int"></value>
+    </meta-attribute>
+  </item-type>
+  
+  
+      
+  <item-type intID="0" name="Boolean" has-content="true" super-type-name="Attribute">
+    <meta-attribute key="defaultValue"> 
+      <value type="string" value="false"></value>
+    </meta-attribute>
+    <meta-attribute key="exp_from_string"> 
+      <value type="string" value="Boolean.parseBoolean((String) value)"></value>
+    </meta-attribute>
+    <meta-attribute key="exp_to_string"> 
+      <value type="string" value="Boolean.toString(value)"></value>
+    </meta-attribute>
+    <meta-attribute key="isPrimitive"> 
+      <value type="boolean" value="true"></value>
+    </meta-attribute>
+    <meta-attribute key="typeJava"> 
+      <value type="string" value="boolean"></value>
+    </meta-attribute>
+    <meta-attribute key="import-java"> 
+      <value type="list" value="String">
+        <element type="string" value="fede.workspace.domain.Item"/>
+      </value>
+    </meta-attribute>
+    <meta-attribute key="import-manifest"> 
+      <value type="list" value="String">
+        <element type="string" value="fede.workspace.domain"/>
+      </value>
+    </meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="Double" has-content="true" super-type-name="Attribute">
+    <meta-attribute key="defaultValue"> 
+      <value type="string" value="-1"></value>
+    </meta-attribute>
+    <meta-attribute key="exp_from_string"> 
+      <value type="string" value="Double.parseDouble((String)value)"></value>
+    </meta-attribute>
+    <meta-attribute key="exp_to_string"> 
+      <value type="string" value="Double.toString(value)"></value>
+    </meta-attribute>
+    <meta-attribute key="isPrimitive"> 
+      <value type="boolean" value="true"></value>
+    </meta-attribute>
+    <meta-attribute key="typeJava"> 
+      <value type="string" value="double"></value>
+    </meta-attribute>
+    <meta-attribute key="import-java"> 
+      <value type="list" value="String">
+        <element type="string" value="fede.workspace.domain.Item"/>
+      </value>
+    </meta-attribute>
+    <meta-attribute key="import-manifest"> 
+      <value type="list" value="String">
+        <element type="string" value="fede.workspace.domain"/>
+      </value>
+    </meta-attribute>
+  </item-type>
+      
+  <item-type intID="0" name="Struct" has-content="true" super-type-name="Attribute">
+    <outgoing-link intID="0" name="attributes" min="0" max="-1"
+      destination="Attribute" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  
+  
+  <item-type intID="0" name="ConfigurationModel" has-content="false">
+    <outgoing-link intID="0" name="build" min="0" max="-1"
+      destination="BuildModel" isComposition="false" isAggregation="true"
+      isPart="false" isRequire="true" />
+  </item-type>
+  
+  
+  
+  <item-type intID="0" name="ModificationDialog" has-content="true" >
+  	<outgoing-link intID="0" name="pages" min="0" max="-1"
+      destination="Page" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="CreationDialog" has-content="true" >
+    <outgoing-link intID="0" name="pages" min="1" max="-1"
+      destination="Page" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+
+  
+  <item-type intID="0" name="Attribute" has-content="true" >
+  </item-type>
+
+  
+  <!-- field -->
+  
+  <item-type intID="0" name="Display" has-content="true" >
+  </item-type>
+  
+  <!-- item-type name="FolderField" has-content="true" super-type-name="Display">
+    <outgoing-link intID="0" name="fields" min="1" max="-1"
+      destination="Field" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type -->
+  
+  <!-- item-type name="IdNameField" has-content="true" super-type-name="Display">
+    <outgoing-link intID="0" name="item-attribute" min="1" max="1"
+      destination="Id" isComposition="false" isAggregation="false"
+      isPart="false" isRequire="true" />
+  </item-type -->
+  
+  <item-type intID="0" name="DText" has-content="true" super-type-name="Display">
+    <outgoing-link intID="0" name="ic" min="0" max="1"
+      destination="InteractionController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="mc" min="0" max="1"
+      destination="ModelController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="DCheckBox" has-content="true" super-type-name="Display">
+     <outgoing-link intID="0" name="ic" min="0" max="1"
+      destination="InteractionController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="mc" min="1" max="1"
+      destination="ModelController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="DBrowser" has-content="true" super-type-name="Display">
+    <outgoing-link intID="0" name="ic" min="1" max="1"
+      destination="InteractionController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="mc" min="0" max="1"
+      destination="ModelController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="DCheckedList" has-content="true" super-type-name="Display">
+     <outgoing-link intID="0" name="ic" min="1" max="1"
+      destination="InteractionController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="mc" min="0" max="1"
+      destination="ModelController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+
+  <item-type intID="0" name="DTree" has-content="true" super-type-name="Display">
+    <outgoing-link intID="0" name="ic" min="1" max="1"
+      destination="InteractionController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="mc" min="0" max="1"
+      destination="ModelController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+
+  <item-type intID="0" name="DCombo" has-content="true" super-type-name="Display">
+    <outgoing-link intID="0" name="ic" min="1" max="1"
+      destination="InteractionController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="mc" min="0" max="1"
+      destination="ModelController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <item-type intID="0" name="DList" has-content="true" super-type-name="Display">
+    <outgoing-link intID="0" name="ic" min="1" max="1"
+      destination="InteractionController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+    <outgoing-link intID="0" name="mc" min="0" max="1"
+      destination="ModelController" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+  <!--  interaction controller -->
+  <item-type intID="0" name="InteractionController" 						has-content="true" />
+ 
+  <item-type intID="0" name="IC_JavaClassForBrowser_Combo" 					has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_AbstractForBrowser_Combo" 					has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_EnumForBrowser_Combo" 						has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_AbstractForList" 							has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_AbstractTreeDialogForList_Browser_Combo" 	has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_EnumForList" 	 							has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_FileResourceForBrowser_Combo_List"			has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_FolderResource_ForBrowser_Combo_List"		has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_LinkForBrowser_Combo_List" 						has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_PartLinkForBrowser_Combo_List" 					has-content="true" super-type-name="IC_LinkForBrowser_Combo_List"/>
+  
+  <item-type intID="0" name="IC_ResourceTreeDialogForBrowser_Combo_List" 	has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_JarResourceForBrowser_Combo_List" 			has-content="true" super-type-name="IC_ResourceTreeDialogForBrowser_Combo_List"/>
+  <item-type intID="0" name="IC_StaticArrayOfObjectForBrowser_Combo" 		has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="IC_StringListForList" 							has-content="true" super-type-name="InteractionController"/>
+  
+  <item-type intID="0" name="JavaElementTreeController" 					has-content="true" super-type-name="InteractionController"/>
+  <item-type intID="0" name="PackageListController" 						has-content="true" super-type-name="InteractionController"/>
+  
+  
+  
+  <!--  model controller -->
+  <item-type intID="0" name="ModelController" has-content="true" />
+  
+  <item-type intID="0" name="MC_StringListToEnumList" has-content="true" super-type-name="ModelController"/>
+  
+  <item-type intID="0" name="MC_StringToJavaElement" has-content="true" super-type-name="ModelController"/>
+  <item-type intID="0" name="StringToBooleanModelController" has-content="true" super-type-name="ModelController"/>
+  <item-type intID="0" name="StringToEnumModelController" has-content="true" super-type-name="ModelController"/>
+  <item-type intID="0" name="StringToPackageModelController" has-content="true" super-type-name="ModelController"/>
+  
+  <item-type intID="0" name="StringToResourceSimpleModelController" has-content="true" super-type-name="ModelController"/>
+  <item-type intID="0" name="StringToResourceListModelController" has-content="true" super-type-name="ModelController"/>
+  <item-type intID="0" name="StringToOneResourceModelController" has-content="true" super-type-name="ModelController"/>
+  
+  <item-type intID="0" name="ListOfStringModelController" has-content="true" super-type-name="ModelController">
+    <meta-attribute key="list"> 
+      <value type="boolean" value="true"></value>
+    </meta-attribute>
+    <meta-attribute key="type"> 
+      <value type="string" value="string"></value>
+    </meta-attribute>
+  </item-type>
+  
+  <item-type intID="0" name="IntModelController"  has-content="true" super-type-name="ModelController"/>
+  <item-type intID="0" name="LinkModelController" has-content="true" super-type-name="ModelController"></item-type>
+  <item-type intID="0" name="MC_LinkToBoolean"    has-content="true" super-type-name="LinkModelController"/>
+  <!--  autre controller -->
+ 
+  <item-type intID="0" name="standard" has-content="false">
+    <outgoing-link intID="0" name="workspace-model" min="0" max="-1"
+      destination="WorkspaceModel" isComposition="false"
+      isAggregation="true" isPart="false" isRequire="false" />
+    <outgoing-link intID="0" name="product-model" min="0" max="-1"
+      destination="ProductModel" isComposition="false"
+      isAggregation="true" isPart="false" isRequire="false" />
+  </item-type>
+  
+  <item-type intID="0" name="ProductModel" has-content="true" >
+    <outgoing-link intID="0" name="types" min="1" max="-1"
+      destination="ItemType" isComposition="false" isAggregation="true"
+      isPart="true" isRequire="true" />
+  </item-type>
+  
+</p:c-item-types>
