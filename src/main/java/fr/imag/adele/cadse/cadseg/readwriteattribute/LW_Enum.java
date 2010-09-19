@@ -20,12 +20,16 @@
  */
 package fr.imag.adele.cadse.cadseg.readwriteattribute;
 
+import org.eclipse.jdt.core.ICompilationUnit;
+
+import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
@@ -75,6 +79,12 @@ public class LW_Enum extends LW_Attribute {
 		cvt.setType(ValueTypeType.ENUMERATION);
 		String enumQualifiedClass = attribute.getAttribute(
 				CadseGCST.ENUM_at_ENUM_CLAZZ_);
+		if (enumQualifiedClass == null) {
+			ContentItem ci = attribute.getContentItem();
+			if (ci != null && ci instanceof JavaFileContentManager) {
+				enumQualifiedClass = ((JavaFileContentManager)ci).getQualifiedClassName(cxt);
+			}
+		}
 		if (enumQualifiedClass != null) {
 			CValuesType ncvt = factory.createCValuesType();
 			cvt.getElement().add(ncvt);
