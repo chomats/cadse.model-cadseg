@@ -21,8 +21,11 @@
 package fr.imag.adele.cadse.cadseg.readwriteattribute;
 
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IType;
 
 import fede.workspace.eclipse.java.manager.JavaFileContentManager;
+import fr.imag.adele.cadse.cadseg.managers.attributes.EnumManager;
+import fr.imag.adele.cadse.cadseg.managers.dataModel.EnumTypeManager;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
@@ -31,6 +34,7 @@ import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.CValuesType;
 import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ObjectFactory;
@@ -43,17 +47,7 @@ import fr.imag.adele.fede.workspace.as.initmodel.jaxb.ValueTypeType;
  */
 public class LW_Enum extends LW_Attribute {
 
-	/** The Constant ENUM_BAD_DEFAULT_VALUE. */
-	private static final int	ENUM_BAD_DEFAULT_VALUE	= 1;
-
-	/**
-	 * Instantiates a new enum manager.
-	 */
-	public LW_Enum() {
-	}
-
 	
-
 	@Override
 	public IAttributeType<?> loadAttributeDefinition(IInitModel initModel, LogicalWorkspace theWorkspaceLogique,
 			TypeDefinition parent, CValuesType type, String cadseName) throws CadseException {
@@ -77,13 +71,11 @@ public class LW_Enum extends LW_Attribute {
 			CValuesType cvt, Item attribute) {
 		super.writeAttributeDefinition(factory, cxt, cvt, attribute);
 		cvt.setType(ValueTypeType.ENUMERATION);
-		String enumQualifiedClass = attribute.getAttribute(
-				CadseGCST.ENUM_at_ENUM_CLAZZ_);
-		if (enumQualifiedClass == null) {
-			ContentItem ci = attribute.getContentItem();
-			if (ci != null && ci instanceof JavaFileContentManager) {
-				enumQualifiedClass = ((JavaFileContentManager)ci).getQualifiedClassName(cxt);
-			}
+		String enumQualifiedClass = null;
+		Item enumType = EnumManager.getEnumType(attribute);
+		if (enumType != null) {
+			IType enumTypeClass = EnumTypeManager.getEnumQualifiedClass(ContextVariableImpl.DEFAULT, enumType);
+			enumQualifiedClass = enumTypeClass == null ? null : enumTypeClass.getFullyQualifiedName();
 		}
 		if (enumQualifiedClass != null) {
 			CValuesType ncvt = factory.createCValuesType();
@@ -97,7 +89,5 @@ public class LW_Enum extends LW_Attribute {
 	public Class<?> getAttributeDefinitionTypeJava() {
 		return fr.imag.adele.cadse.core.attribute.EnumAttributeType.class;
 	}
-	
-	
 
 }
