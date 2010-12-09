@@ -22,7 +22,6 @@ package fr.imag.adele.cadse.cadseg.managers.view;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
@@ -34,7 +33,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
 import fede.workspace.eclipse.java.JavaIdentifier;
-import fede.workspace.eclipse.java.manager.JavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.managers.CadseDefinitionManager;
 import fr.imag.adele.cadse.cadseg.managers.attributes.LinkTypeManager;
 import fr.imag.adele.cadse.cadseg.managers.dataModel.ItemTypeManager;
@@ -48,7 +46,6 @@ import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.Separator;
 import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.impl.var.VariableImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 
 /**
@@ -109,39 +106,6 @@ public class ViewManager extends DefaultItemManager {
 	public static String getClassName(ContextVariable cxt, Item view) {
 		return JavaIdentifier.javaIdentifierFromString(cxt.getName(view), true, false, "View");
 	}
-
-	/**
-	 * The Class ViewJavaFileContentManager.
-	 */
-	private final static class ViewJavaFileContentManager extends JavaFileContentManager {
-
-		/**
-		 * Instantiates a new view java file content manager.
-		 * 
-		 * @param workspaceModel
-		 *            the workspace model
-		 * @param view
-		 *            the view
-		 * 
-		 * @throws CadseException
-		 *             the melusine exception
-		 */
-		private ViewJavaFileContentManager(UUID id) throws CadseException {
-			super(id, new VariableImpl() {
-				public String compute(ContextVariable context, Item itemCurrent) {
-					return ViewManager.getPackage(context, itemCurrent);
-				}
-			}, new VariableImpl() {
-				public String compute(ContextVariable context, Item itemCurrent) {
-					// TODO Auto-generated method stub
-					return ViewManager.getClassName(context, itemCurrent);
-				}
-			});
-		}
-
-
-	}
-
 
 	/**
 	 * The Constructor.

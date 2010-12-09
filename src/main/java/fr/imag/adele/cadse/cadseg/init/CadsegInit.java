@@ -27,6 +27,7 @@ import java.util.Collection;
 import fr.imag.adele.cadse.cadseg.contents.CadseDefinitionContent;
 import fr.imag.adele.cadse.cadseg.contents.ExtItemTypeContent;
 import fr.imag.adele.cadse.cadseg.contents.ManagerJavaFileContentManager;
+import fr.imag.adele.cadse.cadseg.contents.ViewJavaFileContentManager;
 import fr.imag.adele.cadse.cadseg.contents.actions.DynamicActionsContent;
 import fr.imag.adele.cadse.cadseg.contents.actions.MenuActionContent;
 import fr.imag.adele.cadse.cadseg.eclipse.CadseG_WLWCListener;
@@ -265,6 +266,7 @@ public class CadsegInit implements InitAction {
 		CadseGCST.MENU_ACTION.setContentItemClass(MenuActionContent.class);
 		CadseGCST.MANAGER.setContentItemClass(ManagerJavaFileContentManager.class);
 		CadseGCST.EXT_ITEM_TYPE.setContentItemClass(ExtItemTypeContent.class);
+		CadseGCST.VIEW.setContentItemClass(ViewJavaFileContentManager.class);
 		
 		CadseGCST.ITEM.addAdapter(new DefaultValidator());
 		CadseGCST.ENUM.addAdapter(new EnumManager.EnumValidator());
