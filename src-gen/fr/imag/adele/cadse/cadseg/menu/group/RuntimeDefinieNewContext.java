@@ -58,6 +58,9 @@ public class RuntimeDefinieNewContext implements DefineNewContext {
 						newContext.setDestinationType(it);
 						newContext.setPartParent(source, lt);
 						newContext.setGroupHead((ItemType) source, lt);
+						if (it.isGroupType()) {
+							newContext.addOutgoingLink(CadseGCST.ITEM_TYPE_lt_SUPER_TYPE, it);
+						}
 						newContext.setGroupType(groupType);
 						newContext.setLabel("Member "+source.getDisplayName()+" "+it.getDisplayName());
 						if (view.filterNew(newContext) || !it.canCreateItem(newContext)) continue;
